@@ -1,0 +1,39 @@
+<level>
+<description>The Robot Priority-Targeting System is malfunctioning.
+It calculates the closest of two objects using coordinates.
+Use Code Tracing to see how the Closer calculation works.
+Use the BUGCATCHER to identify the bug.</description>
+<nextlevel>level4b.xml</nextlevel>
+<introtext>The Closeness Calculator has a bug inside.
+Use CODE TRACING to find the bug, but pay attention!
+You will see this code again in the future!</introtext>
+<endtext>You've found the first bug!
+Don't forget how that function worked.</endtext>
+<time>180</time>
+<tools>
+<enabled count="1">0</enabled>
+</tools>
+<code>//Robot Targeting Systems Closeness Calculator
+//Identifies Closer of two targets based on coordinates
+//Uses (X,Y) 2 dimensional coordinates and calculates the difference
+//NOTE: Robot is located at (0,0)
+//E.g. (50,25) is closer to Robot than (25,75)
+
+struct target{
+    string name[30];
+    int x, y;
+};
+
+target Closer(target t1, target t2){
+
+    int xdif = t1.x - t2.x;
+    int ydif = t1.y - t2.y;
+    if (xdif + ydif &lt; 0){
+        return t1;
+    }
+    <bug size="1" col="15">else if (xdif + ydif = 0){</bug>
+        return t2;
+    }
+}
+</code>
+</level>

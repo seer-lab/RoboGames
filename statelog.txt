@@ -1,0 +1,7 @@
+NewState,PreviousState#,Time,CurrentLevel
+MenuAccessed,10,0,level0
+LevelBegin,2,5.052234,tut1.xml
+LevelFailed,1,31.07113,tut1.xml
+LevelBegin,2,35.58963,tut1.xml
+GameFinished,1,56.37204,level5
+MenuAccessed,12,56.53803,level5

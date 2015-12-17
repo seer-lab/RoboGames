@@ -1,0 +1,21 @@
+<level>
+<description>You must use the BUGCATCHER Tool to catch bugs.
+Look at the code. Which line is incorrect? Go to that line.
+Press CTRL to throw the BUGCATCHER at the bug!</description>
+<nextlevel>level1a.xml</nextlevel>
+<introtext>Finding bugs requires CODE TRACING.
+This requires you to manually read the code
+and try to understand it to find the bug.</introtext>
+<endtext>You got it!
+You can now use BUGCATCHERS!</endtext>
+<time>1000</time>
+<tools>
+<enabled count="999">0</enabled>
+</tools>
+<code>int Square(int x){
+    //calculate the square of x
+    <bug size="1" col="13">x = x + 598439;</bug>
+    return x * x;
+}
+</code>
+</level>

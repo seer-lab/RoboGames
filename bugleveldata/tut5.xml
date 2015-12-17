@@ -1,0 +1,29 @@
+<level>
+<description>You now have access to the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
+It can enable &lt;color=#ff0000ff&gt;breakpoints&lt;/color&gt; that can check the program state.
+Set a &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; where you notice the faded "B", then &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; it.
+Use a BUGCATCHER once you know where the bug is.</description>
+<nextlevel>level4a.xml</nextlevel>
+<introtext>One last tool to learn: 
+the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
+It can give more detailed feedback about variables.
+Combine it with the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool!</introtext>
+<endtext>Now you have all the tools you need.
+Time to find the final bugs!</endtext>
+<time>1000</time>
+<tools>
+<enabled count="999">1</enabled>
+<enabled count="999">4</enabled>
+</tools>
+<code>void main(){
+    checkforBugs();
+//sum() returns the sum of two numbers (e.g. sum(1,1) == 1+1 == 2)
+    <breakpoint text="Variables not defined yet!"></breakpoint>int x = sum(2,2);
+//multiply() returns the product of two numbers (e.g. multiply(2,3) == 2x3 == 6)
+    <breakpoint text="x = 4"></breakpoint><bug size="1" col="13">int y = multiply(3,4);
+	</bug>
+    <breakpoint tool="999,0,0,0,0,0" text="x = 4
+y = 9"></breakpoint>return;
+}
+</code>
+</level>

@@ -1,0 +1,34 @@
+<level>
+<description>The Robot Priority Assigner is not working correctly.
+First, check out the Swap function to figure out what is wrong.
+Use the new &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool for clues.
+After using the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt;, use the BUGCATCHER to catch the bug.</description>
+<nextlevel>level2b.xml</nextlevel>
+<introtext>The first bug is in the SWAP function.
+Can you find it with the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool?</introtext>
+<endtext>The SWAP function is fixed!
+Time to look at the Priority Assigner.</endtext>
+<time>150</time>
+<tools>
+<enabled count="5">1</enabled>
+</tools>
+<code>//Robot Priority Swap Function
+//This function swaps two numbers. For example, 
+//if a=5 and b=6, swap(a,b) changes them
+//to a=6 and b=5 
+void Swap(int num1, int num2){
+    <print text="10
+5" col="4">cout &lt;&lt; num1, "\n", num2;
+</print>
+    //temp variable stores num1 so it can be transferred later
+    int temp = 0;
+    temp = num1;
+    num1 = num2;
+    <bug size="1" col="8">temp = num2;
+	</bug>
+    <print text="5
+5" col="4" tool="1,0,0,0,0,0">cout &lt;&lt; num1, "\n", num2;
+</print>
+}
+</code>
+</level>

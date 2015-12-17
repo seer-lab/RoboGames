@@ -1,0 +1,35 @@
+<level>
+<description>The Robot Priority Assigner is not working correctly.
+The SetPriority function has a bug that is affecting the Assigner.
+Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; to learn about the bug.
+Figure out where the bug is, then use the BUGCATCHER to catch it.</description>
+<nextlevel>level2.xml</nextlevel>
+<introtext>The Priority Assigner isn't working.
+Can you figure out what it's doing wrong?</introtext>
+<endtext>The boundary bug has been caught!
+Only one bug remains in the completed function.</endtext>
+<time>150</time>
+<tools>
+<enabled count="6">1</enabled>
+</tools>
+<code>//Robot Priority Assigner
+//SetPriority sorts a priority element value in a list
+//Priorities is a list where all elements except the first are sorted
+//SetPriority returns the list where all elements are sorted
+//The list is sorted from biggest to smallest
+int[] SetPriority(int priorities[], int numOfTargets){
+    <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; priorities;
+	</print>
+    <print text="5" col="4">cout &lt;&lt; numOfTargets;
+	</print>
+    <bug size="1" col="16">for(int i = 0; i &lt;= numOfTargets; i++){</bug>
+        if (priorities[i]&gt;priorities[i+1]){
+            Swap(priorities[i],priorities[i+1]);
+        }
+    }
+    <print text="&lt;color=#ff0000ff&gt;Out of Bounds Error&lt;/color&gt;" col="4" tool="1,0,0,0,0,0">cout &lt;&lt; priorities;
+	</print>
+    return priorities; 
+}
+</code>
+</level>
