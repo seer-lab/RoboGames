@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{7EDF0372-AE65-4A10-55AB-C6F97A0AC21C}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_5_0_2;UNITY_5_0;UNITY_5;ENABLE_LICENSE_RENAME;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_NEW_HIERARCHY;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_NONPRO;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Breakpoint.cs" />
+     <Compile Include="Assets\Scripts\Camera2.cs" />
+     <Compile Include="Assets\Scripts\Checklist.cs" />
+     <Compile Include="Assets\Scripts\Cinematic.cs" />
+     <Compile Include="Assets\Scripts\Comic.cs" />
+     <Compile Include="Assets\Scripts\GenericBug.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator.cs" />
+     <Compile Include="Assets\Scripts\Logger.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\Answer.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\AvgTest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\Badbreakpoint.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\CColorTest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\ColorGetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\FColorTest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\HUDText.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L0Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L0IntroK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L0IntroOriginal.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L1CommentSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L1Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L1KeywordSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L1TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L2Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L2TextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L2TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L2TextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L2TextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3Output.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3ReportTextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3TextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3TextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L3TextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L4Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L4TextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L4TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L4TextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L4TextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5Intro.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5ReportTextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5ReportTextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5ReportTextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5ReportTextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5TextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5TextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L5TextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L7TextSetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L7TextSetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L7TextSetterC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\L7TextSetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\OColorTest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\Points.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\Return.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\SidebarDescriptionPanel.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterblack.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterblue.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterbrown.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSettercyan.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSettergreen.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSettergrey.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSettermagenta.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetternamed.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterorange.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterred.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetterwhite.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\TextSetteryellow.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\Timer.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\ValueGetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\ValuesGetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\breakpoint.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\breakpointHandler.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\breakpointReset.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\camera.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\falsepositive.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\heroControllerScript.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\iPrinter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\jPrinter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l1bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l2bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l2sidebarvalues.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l2valuelabels.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l3bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l3mintextsetter (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l3mintextsetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l3mintextsetterK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l4Return.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l4bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l4error.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l4sidebarerror.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l5bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l5variables.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6breakpointhandler.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6bug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6codetest (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6codetest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6codetestC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6codetestK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6dblack.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6dtextsetter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6errortext.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6lastbug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l6variables.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l7code (3rd copy).cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l7code.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l7codeC.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\l7codeK.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\midTest.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\prioritiesPrinter.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\projectile.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebaractivator.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarbreakpointer.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarbug.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarbug3.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarbug5.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarbugcatcher.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebardescription.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarhelppanel.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarrobot.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarselected.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebartester.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebartools.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sidebarwarper.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\starttime.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\success.cs" />
+     <Compile Include="Assets\Scripts\Oldscripts\sumTest.cs" />
+     <Compile Include="Assets\Scripts\Output.cs" />
+     <Compile Include="Assets\Scripts\PrizeBug.cs" />
+     <Compile Include="Assets\Scripts\SelectedTool.cs" />
+     <Compile Include="Assets\Scripts\badcomment.cs" />
+     <Compile Include="Assets\Scripts\baduncom.cs" />
+     <Compile Include="Assets\Scripts\beacon.cs" />
+     <Compile Include="Assets\Scripts\checker.cs" />
+     <Compile Include="Assets\Scripts\commentBlock.cs" />
+     <Compile Include="Assets\Scripts\hero2Controller.cs" />
+     <Compile Include="Assets\Scripts\oncomment.cs" />
+     <Compile Include="Assets\Scripts\printer.cs" />
+     <Compile Include="Assets\Scripts\projectile2.cs" />
+     <Compile Include="Assets\Scripts\rename.cs" />
+     <Compile Include="Assets\Scripts\uncom.cs" />
+     <Compile Include="Assets\Scripts\warper.cs" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>C:/Users/Michael/Documents/RoboGame/roboGame/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{FBBE6F1B-2E15-006C-B42B-74BBCC5A6A7A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

@@ -1,0 +1,382 @@
+fileFormatVersion: 2
+guid: 4307db5b6e84aaf43abf777ce4e15c35
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: ninja_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 308
+        width: 50
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_1
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 311
+        width: 51
+        height: 67
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_2
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 313
+        width: 49
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_3
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 312
+        width: 48
+        height: 67
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_4
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 313
+        width: 50
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_5
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 231
+        width: 34
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_6
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 231
+        width: 34
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_7
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 231
+        width: 34
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_8
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 232
+        width: 36
+        height: 69
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_9
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 231
+        width: 39
+        height: 69
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_10
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 231
+        width: 34
+        height: 70
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_11
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 231
+        width: 34
+        height: 71
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_12
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 231
+        width: 36
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_13
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 154
+        width: 34
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_14
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 154
+        width: 34
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_15
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 154
+        width: 34
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_16
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 156
+        width: 36
+        height: 69
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_17
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 154
+        width: 39
+        height: 69
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 154
+        width: 34
+        height: 71
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_19
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 154
+        width: 34
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_20
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 155
+        width: 36
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 77
+        width: 50
+        height: 67
+      alignment: 9
+      pivot: {x: .5, y: .550000012}
+    - name: ninja_22
+      rect:
+        serializedVersion: 2
+        x: 50.2000008
+        y: 77
+        width: 50
+        height: 67
+      alignment: 9
+      pivot: {x: .499999911, y: .550000012}
+    - name: ninja_23
+      rect:
+        serializedVersion: 2
+        x: 100.199997
+        y: 77.1999969
+        width: 50
+        height: 67
+      alignment: 9
+      pivot: {x: .500000179, y: .550000012}
+    - name: ninja_24
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 77
+        width: 49.75
+        height: 67
+      alignment: 9
+      pivot: {x: .5, y: .550000012}
+    - name: ninja_25
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 77
+        width: 49.75
+        height: 67
+      alignment: 9
+      pivot: {x: .5, y: .550000012}
+    - name: ninja_26
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 77
+        width: 49.7999992
+        height: 67
+      alignment: 9
+      pivot: {x: .499999881, y: .550000012}
+    - name: ninja_27
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 77
+        width: 50
+        height: 67
+      alignment: 9
+      pivot: {x: .5, y: .550000012}
+    - name: ninja_28
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_29
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 0
+        width: 41
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_30
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 0
+        width: 44
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_31
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 0
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_32
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 41
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_33
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 0
+        width: 44
+        height: 73
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_34
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 5
+        width: 52
+        height: 71
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ninja_35
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 77
+        width: 50
+        height: 67
+      alignment: 9
+      pivot: {x: .5, y: .550000012}
+    - name: ninja_36
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 5
+        width: 55
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

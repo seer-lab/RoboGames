@@ -1,2 +1,2 @@
 Tool,Location,Time
-projectileDebug(Clone)Wasted,12,28.06
+projectileBug(Clone)Wasted,64,344

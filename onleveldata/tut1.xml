@@ -32,7 +32,8 @@ Type your answer:
 	" correct="2" names="mystr,myint,mybool">varname</rename>;
 	<uncom size="1">mybool = true;</uncom>&#xD;
 	<baduncom size="1" righttext="mybool = true;">mybool is true;</baduncom>
-	
+	//test
+	#test
 }
 </code>
 </level>

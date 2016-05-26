@@ -1,0 +1,337 @@
+fileFormatVersion: 2
+guid: 6144dc96d9814874dbd86dd60711e422
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: Gui-Set_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 959
+        width: 461
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_1
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 548
+        width: 39
+        height: 461
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_2
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 649
+        width: 376
+        height: 346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 662
+        width: 313
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_4
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 827
+        width: 116
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_5
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 777
+        width: 94
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_6
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 734
+        width: 94
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_7
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 690
+        width: 169
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_8
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 362
+        width: 314
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_9
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 646
+        width: 169
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_10
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 602
+        width: 169
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_11
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 554
+        width: 74
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_12
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 319
+        width: 323
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_13
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 551
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_14
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 550
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_15
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 506
+        width: 72
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_16
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 437
+        width: 103
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_17
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 449
+        width: 62
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_18
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 233
+        width: 106
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_19
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 285
+        width: 54
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_20
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 284
+        width: 54
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_21
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 284
+        width: 54
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_22
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 284
+        width: 54
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_23
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 79
+        width: 37
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_24
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 60
+        width: 305
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_25
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 217
+        width: 196
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_26
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 229
+        width: 214
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_27
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 168
+        width: 169
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_28
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 164
+        width: 80
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_29
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 14
+        width: 234
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_30
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 4
+        width: 244
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Gui-Set_31
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 115
+        width: 81
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

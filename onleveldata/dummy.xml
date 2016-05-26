@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<code>
+<badcomment size="1" righttext = "This program counts from 1 to 10!">    This program counts from 10 to 1.
+</badcomment>
+<oncomment size="1">    "This program counts from 1 to 10!"
+</oncomment>void main(){
+    for(int i = 1;i &lt;=10; i++){
+	    cout &lt;&lt; i &lt;&lt; endl;
+		if (i % 5 == 0){
+		    cout &lt;&lt; "div by 5!" &lt;&lt; endl;
+			<beacon actnums="0,1"></beacon>    
+		}
+    }
+}
+</code>
