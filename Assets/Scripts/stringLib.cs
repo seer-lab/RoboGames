@@ -25,25 +25,25 @@ public static class stringLib
 	public const string PROJECTILE_COMMENT	 = "projectileComment(Clone)";
 	public const string PROJECTILE_DEBUG	 = "projectileDebug(Clone)";
 
-	public const string BAD_COMMENT_TEXT_COLOR_TAG 						= "<color=#00000000>";
-	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_1 					= "<color=#ff0000ff>/*";
-	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_2 					= "<color=#00000000>/*";
-	public const string CHECKER_TEXT_COLOR_TAG 							= "<color=#ffff00ff>";
+	public const string BAD_COMMENT_TEXT_COLOR_TAG 					= "<color=#00000000>";
+	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_1 				= "<color=#ff0000ff>/*";
+	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_2 				= "<color=#00000000>/*";
+	public const string CHECKER_TEXT_COLOR_TAG 						= "<color=#ffff00ff>";
 
-	public const string CHECKLIST_COMPLETE_COLOR_TAG    	            = "<color=#00ff00ff>";
-	public const string CHECKLIST_INCOMPLETE_ACTIVATE_COLOR_TAG  		= "<color=#cccccccc>";
-	public const string CHECKLIST_INCOMPLETE_CHECK_COLOR_TAG         	= "<color=#ffff00ff>";
-	public const string CHECKLIST_INCOMPLETE_NAME_COLOR_TAG         	= "<color=#ff00ffff>";
-	public const string CHECKLIST_INCOMPLETE_COMMENT_COLOR_TAG         	= "<color=#00ff00ff>";
-	public const string CHECKLIST_INCOMPLETE_UNCOMMENT_COLOR_TAG        = "<color=#ff0000ff>";
+	public const string CHECKLIST_COMPLETE_COLOR_TAG    	        = "<color=#00ff00ff>";
+	public const string CHECKLIST_INCOMPLETE_ACTIVATE_COLOR_TAG  	= "<color=#cccccccc>";
+	public const string CHECKLIST_INCOMPLETE_CHECK_COLOR_TAG        = "<color=#ffff00ff>";
+	public const string CHECKLIST_INCOMPLETE_NAME_COLOR_TAG         = "<color=#ff00ffff>";
+	public const string CHECKLIST_INCOMPLETE_COMMENT_COLOR_TAG      = "<color=#00ff00ff>";
+	public const string CHECKLIST_INCOMPLETE_UNCOMMENT_COLOR_TAG    = "<color=#ff0000ff>";
 
-	public const string COMMENT_BLOCK_COLOR_TAG 						= "<color=#00ff00ff>/*";
+	public const string COMMENT_BLOCK_COLOR_TAG 					= "<color=#00ff00ff>/*";
 
-	public const string MENU_SOUND_ON_COLOR_TAG							= "<color=#000000ff>";
-	public const string MENU_SOUND_OFF_COLOR_TAG						= "<color=#ff0000ff>";
+	public const string MENU_SOUND_ON_COLOR_TAG						= "<color=#000000ff>";
+	public const string MENU_SOUND_OFF_COLOR_TAG					= "<color=#ff0000ff>";
 
-	public const string RENAME_COLOR_TAG								= "<color=#ff00ffff>";
-	public const string UNCOMMENT_COLOR_TAG								= "<color=#ff0000ff>/*";
+	public const string RENAME_COLOR_TAG							= "<color=#ff00ffff>";
+	public const string UNCOMMENT_COLOR_TAG							= "<color=#ff0000ff>/*";
 
 	public const string CLOSE_COLOR_TAG = "</color>";
 	public const string COMMENT_CLOSE_COLOR_TAG = "*/</color>";

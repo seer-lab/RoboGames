@@ -2,17 +2,17 @@
 // Class Name: LevelGenerator
 // Class Description:
 // Methods:
-// 		void Start()
-//		void Update()
+// 		private void Start()
+//		private void Update()
 //		public void GUISwitch(bool gui_on)
 //		public void BuildLevel(string filename, bool warp, string linenum = "")
-//		void WriteCode(XmlNode levelnode)
-//		void PlaceObjects(XmlNode levelnode)
+//		private void WriteCode(XmlNode levelnode)
+//		private void PlaceObjects(XmlNode levelnode)
 //		public void SetTools(XmlNode levelnode)
 //		public void ResetLevel(bool warp)
 //		public void GameOver()
 //		public void Victory()
-//		void OnTriggerEnter2D(Collider2D c)
+//		private void OnTriggerEnter2D(Collider2D c)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //****************************************************************************//
@@ -103,7 +103,7 @@ public class LevelGenerator : MonoBehaviour
 
 	//.................................>8.......................................
 	// Use this for initialization
-	void Start() {
+	private void Start() {
 		gamemode 	= stringLib.GAME_MODE_BUG;
 		losstime 	= 0;
 		lines 		= new List<GameObject>();
@@ -134,7 +134,7 @@ public class LevelGenerator : MonoBehaviour
 
 	//.................................>8.......................................
 	// Update is called once per frame
-	void Update() {
+	private void Update() {
 		if (gamestate == stateLib.GAMESTATE_IN_GAME) {
 			if (endTime - Time.time < 30) {
 				sidebartimer.GetComponent<GUIText>().text = "Time remaining: <size=50><color=red>" +((int)(endTime - Time.time)).ToString() + "</color></size> seconds";
@@ -223,6 +223,10 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public void GUISwitch(bool gui_on)
+	// Description: Toggle the GUI on or off
+	//************************************************************************//
 	public void GUISwitch(bool gui_on)	{
 		if (gui_on) {
 			sidebarpanel.GetComponent<GUITexture>().enabled = true;
@@ -238,6 +242,10 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public void BuildLevel(string filename, bool warp, string linenum = "")
+	// Description: Driver for level creation
+	//************************************************************************//
 	public void BuildLevel(string filename, bool warp, string linenum = "")	{
 		ResetLevel(warp);
 		XmlDocument doc = new XmlDocument();
@@ -250,7 +258,6 @@ public class LevelGenerator : MonoBehaviour
 			currentlevel = filename.Substring(filename.IndexOf("\\") + 1);
 			startTime = Time.time;
 			foreach (XmlNode node in levelnode.ChildNodes) {
-				//@TODO: Track these node names
 				if (node.Name == stringLib.NODE_NAME_TIME) {
 					endTime =(float)int.Parse(node.InnerText) + startTime;
 					remainingtime =(float)int.Parse(node.InnerText);
@@ -280,9 +287,14 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
-	void WriteCode(XmlNode levelnode) {
+	//************************************************************************//
+	// Method: private void WriteCode(XmlNode levelnode)
+	// Description: Read through levelnode XML and write the lines
+	//************************************************************************//
+	private void WriteCode(XmlNode levelnode) {
 		destext.GetComponent<TextMesh>().text = "";
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
+			// Create lines of code for the level
 			if (codenode.Name == stringLib.CODENODE_NAME_CODE) {
 				foreach (XmlNode printnode in codenode.ChildNodes) {
 					if (printnode.Name == stringLib.NODE_NAME_PRINT) {
@@ -326,8 +338,6 @@ public class LevelGenerator : MonoBehaviour
 											  	printnode.InnerText;
 					}
 					if (printnode.Name == stringLib.NODE_NAME_COMMENT) {
-						// @TODO: Solve this issue with InnerXML
-						// printnode.InnerXml = "&lt;color=#00ff00ff&gt;/**/&lt;/color&gt;" + printnode.InnerXml + "&lt;color=#00ff00ff&gt;/**/&lt;/color&gt;\n\n";
 						printnode.InnerText = stringLib.NODE_COLOR_COMMENT +
 											  stringLib.COMMENT_CLOSE_COLOR_TAG +
 											  printnode.InnerText +
@@ -335,11 +345,15 @@ public class LevelGenerator : MonoBehaviour
 											  stringLib.COMMENT_CLOSE_COLOR_TAG;
 					}
 				}
+
+				// Count the number of lines in this level, store it in linecount
 				codetext = codenode.InnerText;
 				foreach (char c in codetext) {
 					if (c == '\n')
 					linecount++;
 				}
+
+				// Syntax highlighting
 				Regex rgx = new Regex("(//|\\s#|\n#)(.*)");
 
 				codetext = rgx.Replace(codetext, stringLib.SYNTAX_COLOR + "$1$2" + stringLib.CLOSE_COLOR_TAG);
@@ -349,10 +363,12 @@ public class LevelGenerator : MonoBehaviour
 				rgx = new Regex("(//)(.*)(<color=#00ffffff>)(.*)(</color>)(.*)(</color>)");
 				codetext = rgx.Replace(codetext, "$1$2$4$6$7");
 			}
+			// Create the level description
 			else if (codenode.Name == stringLib.CODENODE_NAME_DESCRIPTION) {
 				destext.GetComponent<TextMesh>().text = codenode.InnerText;
 			}
 		}
+		// Create the grey line objects for each line.
 		for (int i = 0; i < linecount; i++) {
 			GameObject newline =(GameObject)Instantiate(lineobject, new Vector3(initialLineX, initialLineY - i * linespacing, 1), transform.rotation);
 			lines.Add(newline);
@@ -361,7 +377,11 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
-	void PlaceObjects(XmlNode levelnode) {
+	//************************************************************************//
+	// Method: private void PlaceObjects(XmlNode levelnode)
+	// Description: Read through levelnode XML and create the necessary game objects
+	//************************************************************************//
+	private void PlaceObjects(XmlNode levelnode) {
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
 			if (codenode.Name == stringLib.CODENODE_NAME_CODE) {
 				// Create the XmlNamespaceManager.
@@ -375,7 +395,6 @@ public class LevelGenerator : MonoBehaviour
 
 				IXmlLineInfo lineInfo =((IXmlLineInfo)reader);
 				while(reader.Read()) {
-
 					if (reader.NodeType == XmlNodeType.Element && reader.Name == stringLib.NODE_NAME_PRINT) {
 						GameObject newoutput =(GameObject)Instantiate(printobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
 						outputs.Add(newoutput);
@@ -610,6 +629,10 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public void SetTools(XmlNode levelnode)
+	// Description: Read through levelnode XML and provision the tools for this level
+	//************************************************************************//
 	public void SetTools(XmlNode levelnode)	{
 
 		for (int i = 0; i < numOfTools; i++) {
@@ -714,14 +737,21 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public void GameOver()
+	// Description: Switch to the LEVEL_LOSE state.
+	//************************************************************************//
 	public void GameOver() {
-
 		GUISwitch(false);
 		menu.GetComponent<Menu>().gameon = false;
 		gamestate = stateLib.GAMESTATE_LEVEL_LOSE;
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public void Victory()
+	// Description: Switch to the GAME_END state.
+	//************************************************************************//
 	public void Victory() {
 
 		GUISwitch(false);
@@ -731,7 +761,11 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c)	{
+	//************************************************************************//
+	// Method: private void OnTriggerEnter2D(Collider2D c)
+	// Description: Switch to the LEVEL_LOSE state.
+	//************************************************************************//
+	private void OnTriggerEnter2D(Collider2D c)	{
 
 		if (c.name.StartsWith("projectile")) {
 			// RoboBUG will trigger a game loss (or hint)

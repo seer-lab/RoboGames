@@ -21,7 +21,7 @@ public class Breakpoint : MonoBehaviour {
 	public GameObject sidebaroutput;
 	public AudioClip[] sound = new AudioClip[2];
 	public GameObject selectTools;
-	
+
 	private bool activated = false;
 	private bool toolgiven = false;
 
@@ -69,7 +69,8 @@ public class Breakpoint : MonoBehaviour {
 	{
 		int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - this.transform.position.y) / stateLib.GAMESETTING_LINE_SPACING);
 		StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
-		sw.WriteLine(sMessage + position.ToString() + ", " + Time.time.ToString());
+		sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
+		sw.WriteLine(sMessage);
 		sw.Close();
 	}
 

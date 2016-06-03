@@ -5,7 +5,6 @@
 // 		void Start()
 //		void FixedUpdate()
 //		void Update()
-//	    void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//

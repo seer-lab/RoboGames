@@ -45,10 +45,12 @@ public class SelectedTool : MonoBehaviour
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
+		// Start of the game, so we are not losing the game and have not failed.
 		if (lg.gamestate >= stateLib.GAMESTATE_LEVEL_START) {
 			losing = false;
 			failed = false;
 		}
+		// In game
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME) {
 			toolLabel.GetComponent<GUIText>().text = "Available Tools:";
 
@@ -57,6 +59,7 @@ public class SelectedTool : MonoBehaviour
 				anim.Play("hide");
 				toolget = false;
 			}
+			// If we are losing or failed, trigger the losing sequence on LevelGenerator
 			if (losing || failed) {
 				if (Time.time > losstime) {
 					failed = false;
@@ -64,6 +67,7 @@ public class SelectedTool : MonoBehaviour
 					lg.losing = true;
 				}
 			}
+			// Tools are enabled if we have a count greater than 0 for each tool.
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 				if (toolCounts[i] + bonusTools[i] > 0) {
 					toolIcons[i].GetComponent<GUITexture>().enabled = true;
@@ -173,9 +177,11 @@ public class SelectedTool : MonoBehaviour
 	//.................................>8.......................................
 	public void NextTool() {
 		int notoolcount = 0;
+		// Turn this tool's color to the toolOff color.
 		toolIcons[projectilecode].GetComponent<GUITexture>().color = toolOff;
+		// Cycle to the next tool.
 		projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
-		// Cycle to next available tool
+		// Count the number of empty tools from the set of tools.
 		while(!toolIcons[projectilecode].GetComponent<GUITexture>().enabled) {
 			notoolcount++;
 			projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
@@ -185,11 +191,10 @@ public class SelectedTool : MonoBehaviour
 				break;
 			}
 		}
-		// Lose the game
+		// If we have no remaining tools, lose the game.
 		if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
 			losing = true;
 			losstime = Time.time + lossDelay;
-			//codescreen.GetComponent<LevelGenerator>().endTime = Time.time + lossDelay;
 		}
 	}
 

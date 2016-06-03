@@ -183,8 +183,10 @@
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\checker.cs" />
      <Compile Include="Assets\Scripts\commentBlock.cs" />
+     <Compile Include="Assets\Scripts\databasehelper.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\oncomment.cs" />
+     <Compile Include="Assets\Scripts\postToDatabase.cs" />
      <Compile Include="Assets\Scripts\printer.cs" />
      <Compile Include="Assets\Scripts\projectile2.cs" />
      <Compile Include="Assets\Scripts\rename.cs" />

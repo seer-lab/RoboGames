@@ -48,8 +48,6 @@ public class Menu : MonoBehaviour
 		buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
 		buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";
 		buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
-		//@TODO: Resume should not show at main menu.
-		//@TODO: Additional game states declared here incl. submenu selections for "option" that have not been indexed.
 		buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
 		buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
 		lg = codescreen.GetComponent<LevelGenerator>();
@@ -111,6 +109,7 @@ public class Menu : MonoBehaviour
 						m2buttontext[1].GetComponent<TextMesh>().text = "Back";
 						break;
 					case stateLib.GAMEMENU_EXIT_GAME:
+						postToDatabase.Start();
 						Application.Quit();
 						break;
 					case stateLib.GAMEMENU_RESUME_GAME:
