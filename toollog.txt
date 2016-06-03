@@ -1,2 +1,22 @@
-Tool,Location,Time
-projectileBug(Clone)Wasted,64,344
+Tool, Location, Time
+projectileActivator(Clone)Wasted, 0, 4.1
+projectileComment(Clone)Wasted, 1, 7.2
+projectileBug(Clone)Wasted, 1, 9.059999
+projectileBug(Clone)Wasted, 1, 11.08
+projectileBug(Clone)Wasted, 0, 14.16
+projectileBug(Clone)Wasted, 0, 15.22
+projectileBug(Clone)Wasted, 0, 16.3
+projectileBug(Clone)Wasted, 0, 16.92
+projectileBug(Clone)Wasted, 6, 21.18
+projectileBug(Clone)Wasted, 10, 22.78
+projectileBug(Clone)Wasted, 18, 25.74
+projectileActivator(Clone)Wasted, 18, 27.24
+projectileWarp(Clone)Wasted, 18, 27.78
+projectileComment(Clone)Wasted, 18, 28.34
+projectileDebug(Clone)Wasted, 18, 28.88
+projectileBug(Clone)Wasted, 18, 29.4
+projectileBug(Clone)Wasted, 20, 34.04
+projectileBug(Clone)Wasted, 26, 36.68
+projectileBug(Clone)Wasted, 25, 38.08
+projectileBug(Clone)Wasted, 24, 40.02
+projectileBug(Clone)Wasted, 22, 41.38

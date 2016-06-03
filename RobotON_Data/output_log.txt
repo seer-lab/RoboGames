@@ -1,28 +1,365 @@
 Initialize engine version: 5.0.2f1 (0b02744d4013)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [aticfx32.dll 8.17.10.1247]
-    Renderer: AMD Radeon HD 5570
-    Vendor:   ATI
-    VRAM:     1015 MB (via DXGI)
-    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 NULL=1 RESZ=1 SlowINTZ=1
+    Version:  Direct3D 9.0c [igdumdim32.dll 10.18.10.3977]
+    Renderer: Intel(R) HD Graphics 5500
+    Vendor:   Intel
+    VRAM:     3839 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 NULL=1 RESZ=1 SlowINTZ=0
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
-Loading C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.049 seconds
-desktop: 1680x1050 60Hz; virtual: 3360x1050 at 0,0
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.121 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
-XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\System.Xml.dll (this message is harmless)
-Platform assembly: C:\Users\Michael\Documents\RoboGame\roboGame\RobotON_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\System.Xml.dll (this message is harmless)
+Platform assembly: C:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\RobotON_Data\Managed\System.dll (this message is harmless)
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\bugleveldata\tut1.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\bugleveldata\tut1.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\bugleveldata\tut1.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\bugleveldata\tut1.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IsolatedStorageException: Could not find a part of the path "C:\Windows\system32\onleveldata\demo.xml".
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlUrlResolver.GetEntity (System.Uri absoluteUri, System.String role, System.Type ofObjectToReturn) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader.GetStreamFromUrl (System.String url, System.String& absoluteUriString) [0x00000] in <filename unknown>:0 
+  at Mono.Xml2.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.String url, System.Xml.XmlNameTable nt) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlDocument.Load (System.String filename) [0x00000] in <filename unknown>:0 
+  at LevelGenerator.BuildLevel (System.String filename, Boolean warp, System.String linenum) [0x00000] in <filename unknown>:0 
+  at Menu.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
