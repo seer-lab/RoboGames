@@ -1,43 +1,62 @@
-﻿using UnityEngine;
+//**************************************************//
+// Class Name: badcomment
+// Class Description:
+// Methods:
+// 		void Start()
+//		void Update()
+//		void OnTriggerEnter2D(Collider2D c)
+// Author: Michael Miljanovic
+// Date Last Modified: 6/1/2016
+//**************************************************//
+
+using UnityEngine;
 using System.Collections;
 using System.IO;
 
 public class badcomment : MonoBehaviour {
-	
-	public string oldtext="";
-	public string blocktext="";
-	public string righttext="";
+
+	public string oldtext	= "";
+	public string blocktext	= "";
+	public string righttext	= "";
 	public GameObject code;
 	public GameObject rightcomment;
 	public GameObject codescreen;
-	bool done;
-	//float initialLineY = 3.5f;
-	//float linespacing = 0.825f;
-	
-	LevelGenerator lg;
-	
-	// Use this for initialization
-	void Start () {
-		done = false;
-		lg = codescreen.GetComponent<LevelGenerator> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (rightcomment) {
-			if (rightcomment.GetComponent<oncomment> ().commented && !done) {
-				done = true;
-				code.GetComponent<TextMesh> ().text = code.GetComponent<TextMesh> ().text.Replace (blocktext, "<color=#00000000>" + blocktext + "</color>");
-			}
-		}
-	}
-	
-	void OnTriggerEnter2D(Collider2D c){
-		if (c.name == "projectileComment(Clone)") {
 
-				Destroy (c.gameObject);
-				GetComponent<AudioSource> ().Play ();
-				lg.losing = true;
+	private bool done = false;
+	private LevelGenerator lg;
+
+	//.................................>8.......................................
+	// Initializes this object
+	void Start() {
+		lg = codescreen.GetComponent<LevelGenerator>();
+	}
+
+	//.................................>8.......................................
+	// Update is called once per frame
+	void Update() {
+		// GameObject must exist
+		if (rightcomment) {
+			// Commented and badcomment is not done?
+			if (rightcomment.GetComponent<oncomment>().commented && !done) {
+				// Colorize the TextMesh's text with this blocktext
+				done = true;
+				code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>()
+														 .text
+														 .Replace(blocktext, stringLib.BAD_COMMENT_TEXT_COLOR_TAG +
+														 					 blocktext +
+														 				     stringLib.CLOSE_COLOR_TAG);
 			}
 		}
+	}
+
+	//.................................>8.......................................
+	void OnTriggerEnter2D(Collider2D c) {
+		if (c.name == stringLib.PROJECTILE_COMMENT) {
+			Destroy(c.gameObject);
+			GetComponent<AudioSource>().Play();
+			lg.losing = true;
+		}
+	}
+
+	//.................................>8.......................................
 }

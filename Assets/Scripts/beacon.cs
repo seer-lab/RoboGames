@@ -1,43 +1,63 @@
-﻿using UnityEngine;
+//**************************************************//
+// Class Name: beacon
+// Class Description:
+// Methods:
+// 		void Start()
+//		void Update()
+//		void OnTriggerEnter2D(Collider2D p)
+// Author: Michael Miljanovic
+// Date Last Modified: 6/1/2016
+//**************************************************//
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class beacon : MonoBehaviour {
 
-	public List<int> actnumbers;
 	public int actcounter = 0;
+	public List<int> actnumbers;
 	public GameObject codescreen;
 	public Sprite activebeacon;
-	LevelGenerator lg;
 
+	private LevelGenerator lg;
+
+	//.................................>8.......................................
 	// Use this for initialization
-	void Start () {
-		lg = codescreen.GetComponent<LevelGenerator> ();
+	void Start() {
+		lg = codescreen.GetComponent<LevelGenerator>();
 	}
-	
+
+	//.................................>8.......................................
 	// Update is called once per frame
-	void Update () {
-		if (lg.taskscompleted [0] == lg.tasklist[0]) {
+	void Update() {
+		//@TODO: Needs to be explained.
+		// If beacon is done change it to green.
+		if (lg.taskscompleted[0] == lg.tasklist[0]) {
 			GetComponent<SpriteRenderer>().sprite = activebeacon;
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D p){
-		if (p.name == "projectileBug(Clone)") {
+	//.................................>8.......................................
+	void OnTriggerEnter2D(Collider2D p) {
+		if (p.name == stringLib.PROJECTILE_DEBUG) {
 			Destroy(p.gameObject);
-			if (GetComponent<SpriteRenderer>().sprite == activebeacon || actnumbers.Count == 0){
+			if (GetComponent<SpriteRenderer>().sprite == activebeacon || actnumbers.Count == 0) {
 				lg.losing = true;
 			}
-			else if (lg.taskscompleted[0] != actnumbers[actcounter]){
+			else if (lg.taskscompleted[0] != actnumbers[actcounter]) {
 				lg.losing = true;
-			}else{
+			}
+			else {
 				GetComponent<AudioSource>().Play();
 				lg.taskscompleted[0]++;
 				actcounter++;
-				if (actcounter == actnumbers.Count){
+				if (actcounter == actnumbers.Count) {
 					GetComponent<SpriteRenderer>().sprite = activebeacon;
 				}
 			}
 		}
 	}
+
+	//.................................>8.......................................
 }
