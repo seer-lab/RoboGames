@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 //		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -27,8 +27,8 @@ public class projectile2 : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.GetType() == typeof(EdgeCollider2D)) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.GetType() == typeof(EdgeCollider2D)) {
 			string sMessage = this.name + stringLib.LOG_TOOL_WASTED;
 			printLogFile(sMessage);
 			Destroy(gameObject);

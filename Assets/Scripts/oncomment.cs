@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -35,9 +35,9 @@ public class oncomment : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_COMMENT && !commented) {
-			Destroy(c.gameObject);
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !commented) {
+			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
 			lg.taskscompleted[3]++;
 			code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>()

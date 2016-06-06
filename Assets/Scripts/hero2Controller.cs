@@ -24,7 +24,6 @@ public class hero2Controller : MonoBehaviour
 	public float dropDelay = 0.0f;
 	public float fMoveVelocityVertical = 0.0f;
 	public int projectilecode = 0;
-	public GameObject[] toolIcons = new GameObject[6];
 	public GameObject codescreen;
 	public Rigidbody2D[] projectiles = new Rigidbody2D[6];
 
@@ -51,7 +50,7 @@ public class hero2Controller : MonoBehaviour
 
 	//.................................>8.......................................
 	void FixedUpdate() {
-		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.losing) {
+		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.isLosing) {
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
@@ -122,7 +121,7 @@ public class hero2Controller : MonoBehaviour
 				}
 			}
 		}
-		else if (lg.losing) {
+		else if (lg.isLosing) {
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 		}
 	}

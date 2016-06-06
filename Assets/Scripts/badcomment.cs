@@ -1,10 +1,10 @@
 //**************************************************//
 // Class Name: badcomment
-// Class Description:
+// Class Description: Handles "bad" comment blocks; blocks which should be avoided by the player.
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -50,11 +50,11 @@ public class badcomment : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_COMMENT) {
-			Destroy(c.gameObject);
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT) {
+			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
-			lg.losing = true;
+			lg.isLosing = true;
 		}
 	}
 

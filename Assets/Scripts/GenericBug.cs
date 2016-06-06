@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D p)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // 		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -16,8 +16,8 @@ using System.IO;
 
 public class GenericBug : MonoBehaviour {
 
-	public bool dead 	 = false;
-	public bool finished = false;
+	public bool isDead	 	 = false;
+	public bool finished 	 = false;
 	public Animator anim;
 	public GameObject codescreen;
 
@@ -34,15 +34,15 @@ public class GenericBug : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D p) {
-		if (p.name == stringLib.PROJECTILE_BUG) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			printLogFile(stringLib.LOG_BUG_FOUND);
 			this.GetComponent<Renderer>().enabled = true;
-			Destroy(p.gameObject);
+			Destroy(collidingObj.gameObject);
 			anim.SetBool("Dying", true);
 			GetComponent<AudioSource>().Play();
-			dead = true;
-			codescreen.GetComponent<LevelGenerator>().num_of_bugs--;
+			isDead = true;
+			codescreen.GetComponent<LevelGenerator>().numberOfBugsRemaining--;
 		}
 	}
 

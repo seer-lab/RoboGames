@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -43,7 +43,7 @@ public class checker : MonoBehaviour {
 				answered = true;
 				answering = false;
 				if (expected != input) {
-					lg.losing = true;
+					lg.isLosing = true;
 				}
 				else {
 					lg.taskscompleted[1]++;
@@ -72,9 +72,9 @@ public class checker : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
-			Destroy(c.gameObject);
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
+			Destroy(collidingObj.gameObject);
 			sidebar.GetComponent<GUIText>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			answering = true;

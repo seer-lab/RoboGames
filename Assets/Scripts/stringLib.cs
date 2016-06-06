@@ -37,12 +37,14 @@ public static class stringLib
 	public const string CHECKLIST_INCOMPLETE_COMMENT_COLOR_TAG      = "<color=#00ff00ff>";
 	public const string CHECKLIST_INCOMPLETE_UNCOMMENT_COLOR_TAG    = "<color=#ff0000ff>";
 
+	// This one is used when the player successfully comments a block.
 	public const string COMMENT_BLOCK_COLOR_TAG 					= "<color=#00ff00ff>/*";
 
 	public const string MENU_SOUND_ON_COLOR_TAG						= "<color=#000000ff>";
 	public const string MENU_SOUND_OFF_COLOR_TAG					= "<color=#ff0000ff>";
 
 	public const string RENAME_COLOR_TAG							= "<color=#ff00ffff>";
+	// This one is for the uncomment line after the player hits it with the uncomment tool.
 	public const string UNCOMMENT_COLOR_TAG							= "<color=#ff0000ff>/*";
 
 	public const string CLOSE_COLOR_TAG = "</color>";
@@ -68,8 +70,9 @@ public static class stringLib
 	public const string NODE_NAME_TIME					= "time";
 	public const string NODE_NAME_NEXT_LEVEL			= "nextlevel";
 	public const string NODE_NAME_INTRO_TEXT			= "introtext";
-	public const string NAME_NAME_END_TEXT				= "endtext";
+	public const string NODE_NAME_END_TEXT				= "endtext";
 
+	// Keywords used in XML tags
 	public const string NODE_NAME_PRINT 				= "print";
 	public const string NODE_NAME_WARP 					= "warp";
 	public const string NODE_NAME_RENAME 				= "rename";
@@ -83,13 +86,19 @@ public static class stringLib
 	public const string NODE_NAME_BEACON				= "becon";
 	public const string NODE_NAME_BREAKPOINT			= "breakpoint";
 	public const string NODE_NAME_PRIZE					= "prize";
+
+
 	public const string NODE_COLOR_PRINT 				= "<color=#ffff00ff>";
 	public const string NODE_COLOR_WARP 				= "<color=#ff00ffff>";
 	public const string NODE_COLOR_RENAME 				= "<color=#ff00ffff>";
 	public const string NODE_COLOR_ON_CHECK 			= "<color=#ffff00ff>";
+	// When the level is generated, the correct uncomment choice is labelled with this one.
 	public const string NODE_COLOR_UNCOMMENT 			= "<color=#ff0000ff>/*";
+	// When the level is generated, the incorrect uncomment choice is labelled with this one.
 	public const string NODE_COLOR_BAD_UNCOMMENT 		= "<color=#ff0000ff>/*";
+	// When the level is generated, correct comment choice is labelled with this one.
 	public const string NODE_COLOR_ON_COMMENT 			= "<color=#00ff00ff>/*";
+	// When the level is generated, the incorrect/bad comment choice is labelled with this one.
 	public const string NODE_COLOR_BAD_COMMENT		 	= "<color=#00ff00ff>/*";
 	public const string NODE_COLOR_COMMENT				= "<color=#00ff00ff>/*";
 

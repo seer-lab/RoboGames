@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 //		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -37,8 +37,8 @@ public class Breakpoint : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_DEBUG) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_DEBUG) {
 			if (!activated) {
 				GetComponent<AudioSource>().clip = sound[0];
 				GetComponent<AudioSource>().Play();
@@ -47,7 +47,7 @@ public class Breakpoint : MonoBehaviour {
 			activated = true;
 			this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
 		}
-		else if (activated && c.name == stringLib.PROJECTILE_ACTIVATOR) {
+		else if (activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();
@@ -56,7 +56,7 @@ public class Breakpoint : MonoBehaviour {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-						selectTools.GetComponent<SelectedTool>().toolget = true;
+						selectTools.GetComponent<SelectedTool>().notifyToolAcquisition();
 					}
 					selectTools.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
 				}

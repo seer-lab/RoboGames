@@ -21,23 +21,23 @@ class Triangle:
         self.s1 = s1
 	    self.s2 = s2
 	    self.s3 = s3
-		
-<badcomment size="1" righttext = "isTriangle uses the Triangle Inequality.">    isTriangle uses the Pythagorean theorem.
+
+<badcomment size="1" righttext = "isTriangle uses the Triangle Inequality.">isTriangle uses the Pythagorean theorem.
 </badcomment>
-<oncomment size="1">    isTriangle uses the Triangle Inequality.
+<oncomment size="1">isTriangle uses the Triangle Inequality.
 </oncomment>	def isTriangle(self):
 	    largest_side = max(self.s1,self.s2,self.s3)
 		other_sides = sum(self.s1,self.s2,self.s3)-largest_side
 		return other_sides > largest_side
-			
-	def <uncom size="1">isEquilateral(self):</uncom>&#xD;
-	<baduncom size="1" righttext="isEquilateral(self):">isEquilateral(self.s1,self.s2,self.s3):</baduncom>
+
+	<uncom size="1">def isEquilateral(self):</uncom>&#xD;
+	<baduncom size="1" righttext="isEquilateral(self):">def isEquilateral(self.s1,self.s2,self.s3):</baduncom>
 	    return self.s1 == self.s2 and self.s2 == self.s3
-	
-<badcomment size="1" righttext = "isRight uses the Pythagorean theorem.">    isRight uses the Triangle Inequality.
+
+<badcomment size="1" righttext = "isRight uses the Pythagorean theorem.">isRight uses the Triangle Inequality.
 </badcomment>
-<oncomment size="1">    isRight uses the Pythagorean theorem.
-</oncomment>	def isRight(self):
+<oncomment size="1">isRight uses the Pythagorean theorem.
+</oncomment>def isRight(self):
 	    if self.s1 > self.s2:
 		    if self.s1 > self.s3:
 			    return self.s1**2 == self.s2**2 + self.s3**2
@@ -45,10 +45,10 @@ class Triangle:
 		if self.s2 > self.s3:
 		    return self.s2 **2 == self.s1**2 + self.s3**2
 		return self.s3**2 == self.s1**2 + self.s2**2
-	
+
 	def isIsosceles(self):
 	    return self.s1 == self.s2 or self.s1 == self.s2 or self.s1 == self.s3
-	
+
 	def getType(self):
 	    if self.isTriangle():
 		    return "Not a triangle"
@@ -57,10 +57,10 @@ class Triangle:
 		if self.isRight():
 		    return "Right"
 		if self.isIsosceles():
-		    return "Isosceles" 
+		    return "Isosceles"
 		return "Scalene"
-		
-	
+
+
 #define triangle instances
 tri_0 = Triangle(2,2,7)
 tri_1 = Triangle(3,4,5)
@@ -92,7 +92,7 @@ for tri in variableX:
 			largest_triangle = tri
 	variableY++
 
-print <oncheck text="What is the largest triangle 
+print <oncheck text="What is the largest triangle
 (e.g. tri_1)?
 Type your answer:" answer="tri_4">largest_triangle</oncheck>
 print <oncheck text="What is the perimeter?

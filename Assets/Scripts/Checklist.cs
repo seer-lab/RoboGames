@@ -28,7 +28,8 @@ public class Checklist : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && lg.gamemode == stringLib.GAME_MODE_ON) {
-			GetComponent<GUIText>().text = "Tasks:";
+			GetComponent<GUIText>().text = lg.destext.GetComponent<TextMesh>().text;
+			GetComponent<GUIText>().text += "\n\nTasks:";
 			// Activate
 			if (lg.tasklist[0] > 0) {
 				if (lg.tasklist[0] == lg.taskscompleted[0]) {
@@ -83,7 +84,7 @@ public class Checklist : MonoBehaviour {
 					GetComponent<GUIText>().text += "\n" +
 													stringLib.CHECKLIST_COMPLETE_COLOR_TAG +
 													"COMMENT the lines that describe the code.✓" +
-													stringLib.CLOSE_COLOR_TAG;
+													stringLib.CLOSE_COLOR_TAG; 
 				}
 				else {
 					GetComponent<GUIText>().text += "\n" +

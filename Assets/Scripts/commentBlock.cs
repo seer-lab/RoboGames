@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 //		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -52,10 +52,10 @@ public class commentBlock : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_COMMENT) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT) {
 			printLogFile(stringLib.LOG_COMMENT_ON);
-			Destroy(c.gameObject);
+			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
 			code.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
 																			blocktext.Replace("/**/","") +
@@ -68,7 +68,7 @@ public class commentBlock : MonoBehaviour {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-						selectTools.GetComponent<SelectedTool>().toolget = true;
+						selectTools.GetComponent<SelectedTool>().notifyToolAcquisition();
 					}
 					selectTools.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
 				}
@@ -87,5 +87,4 @@ public class commentBlock : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-
 }

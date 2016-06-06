@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 //		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -36,18 +36,18 @@ public class printer : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_ACTIVATOR) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			// "Printed,"
 			printLogFile(stringLib.LOG_PRINTED);
-			Destroy(c.gameObject);
+			Destroy(collidingObj.gameObject);
 			sidebar.GetComponent<GUIText>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-						selectTools.GetComponent<SelectedTool>().toolget = true;
+						selectTools.GetComponent<SelectedTool>().notifyToolAcquisition();
 					}
 					selectTools.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
 				}

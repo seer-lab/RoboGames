@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D c)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -75,9 +75,9 @@ public class rename : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D c) {
-		if (c.name == stringLib.PROJECTILE_WARP && !answered) {
-			Destroy(c.gameObject);
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered) {
+			Destroy(collidingObj.gameObject);
 			sidebar.GetComponent<GUIText>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			answering = true;

@@ -4,7 +4,7 @@
 // Methods:
 // 		void Start()
 //		void Update()
-//		void OnTriggerEnter2D(Collider2D p)
+//		void OnTriggerEnter2D(Collider2D collidingObj)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -32,10 +32,10 @@ public class PrizeBug : MonoBehaviour {
 	}
 
 	//.................................>8.......................................
-	void OnTriggerEnter2D(Collider2D p) {
-		if (p.name == stringLib.PROJECTILE_BUG && this.GetComponent<Renderer>().enabled == false) {
+	void OnTriggerEnter2D(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_BUG && this.GetComponent<Renderer>().enabled == false) {
 			this.GetComponent<Renderer>().enabled = true;
-			Destroy(p.gameObject);
+			Destroy(collidingObj.gameObject);
 			anim.SetBool("Dying", true);
 			GetComponent<AudioSource>().Play();
 			dead = true;

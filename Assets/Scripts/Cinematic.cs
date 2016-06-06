@@ -15,9 +15,12 @@ using System.Collections;
 public class Cinematic : MonoBehaviour
 {
 
+	// This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
 	public string introtext = "Level Start Placeholder!";
-	public string endtext = "Winner!\nLevel End Placeholder!";
+	// This text basically says "Press Enter to Continue" and is displayed at the bottom of the "Loading Screen" prior to playing the level.
 	public string continuetext = stringLib.CONTINUE_TEXT;
+	// This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
+	public string endtext = "Winner!\nLevel End Placeholder!";
 	public GameObject codescreen;
 	public GameObject prompt2;
 	public GameObject menu;
