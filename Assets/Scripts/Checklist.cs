@@ -20,8 +20,8 @@ public class Checklist : MonoBehaviour {
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		GetComponent<GUIText>().text = "";
 		lg = codescreen.GetComponent<LevelGenerator>();
+		GetComponent<GUIText>().text = "";
 	}
 
 	//.................................>8.......................................
@@ -84,7 +84,7 @@ public class Checklist : MonoBehaviour {
 					GetComponent<GUIText>().text += "\n" +
 													stringLib.CHECKLIST_COMPLETE_COLOR_TAG +
 													"COMMENT the lines that describe the code.✓" +
-													stringLib.CLOSE_COLOR_TAG; 
+													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
 					GetComponent<GUIText>().text += "\n" +

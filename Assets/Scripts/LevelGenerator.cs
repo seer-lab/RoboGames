@@ -246,6 +246,7 @@ public class LevelGenerator : MonoBehaviour
 			}
 			if (Input.GetKeyDown(KeyCode.Escape)) {
 				gamestate = stateLib.GAMESTATE_MENU;
+        menu.GetComponent<Menu>().flushButtonColor();
 				GUISwitch(false);
 			}
 		}
@@ -814,13 +815,13 @@ public class LevelGenerator : MonoBehaviour
 	//************************************************************************//
 	private void OnTriggerEnter2D(Collider2D collidingObj)	{
 
-		if (collidingObj.name.StartsWith("projectile")) {
+		// if (collidingObj.name.StartsWith("projectile")) {
 			// RoboBUG will trigger a game loss (or hint)
-			if (gamemode == stringLib.GAME_MODE_BUG) {
-				isLosing = true;
-			}
+			// if (gamemode == stringLib.GAME_MODE_BUG) {
+			//	isLosing = true;
+			//}
 			// Otherwise, it's RobotON, so keep playing.
-		}
+		// }
 	}
 
 	//.................................>8.......................................
