@@ -19,8 +19,8 @@ public class warper : MonoBehaviour
 	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string filename = "";
 	public string linenum = "";
-	public GameObject CodeScreen;
-	public GameObject selectTools;
+	public GameObject CodescreenObject;
+	public GameObject SelectToolsObject;
 
 	private bool toolgiven = false;
 
@@ -40,18 +40,18 @@ public class warper : MonoBehaviour
 			string sMessage = stringLib.LOG_WARPED + filename;
 			printLogFile(sMessage);
 			Destroy(collidingObj.gameObject);
-			LevelGenerator lg = CodeScreen.GetComponent<LevelGenerator>();
+			LevelGenerator lg = CodescreenObject.GetComponent<LevelGenerator>();
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-						selectTools.GetComponent<SelectedTool>().notifyToolAcquisition();
+						SelectToolsObject.GetComponent<SelectedTool>().notifyToolAcquisition();
 					}
-					selectTools.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
-					if (selectTools.GetComponent<SelectedTool>().toolCounts[i] == 0 && selectTools.GetComponent<SelectedTool>().bonusTools[i] == 0) {
-						selectTools.GetComponent<SelectedTool>().toolIcons[i].GetComponent<GUITexture>().enabled = false;
-						if (selectTools.GetComponent<SelectedTool>().projectilecode == i) {
-							selectTools.GetComponent<SelectedTool>().NextTool();
+					SelectToolsObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
+					if (SelectToolsObject.GetComponent<SelectedTool>().toolCounts[i] == 0 && SelectToolsObject.GetComponent<SelectedTool>().bonusTools[i] == 0) {
+						SelectToolsObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<GUITexture>().enabled = false;
+						if (SelectToolsObject.GetComponent<SelectedTool>().projectilecode == i) {
+							SelectToolsObject.GetComponent<SelectedTool>().NextTool();
 							}
 						}
 					}

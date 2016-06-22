@@ -19,7 +19,7 @@ public class GenericBug : MonoBehaviour {
 	public bool isDead	 	 = false;
 	public bool finished 	 = false;
 	public Animator anim;
-	public GameObject codescreen;
+	public GameObject CodescreenObject;
 
 	//.................................>8.......................................
 	// Use this for initialization
@@ -42,7 +42,7 @@ public class GenericBug : MonoBehaviour {
 			anim.SetBool("Dying", true);
 			GetComponent<AudioSource>().Play();
 			isDead = true;
-			codescreen.GetComponent<LevelGenerator>().numberOfBugsRemaining--;
+			CodescreenObject.GetComponent<LevelGenerator>().numberOfBugsRemaining--;
 		}
 	}
 

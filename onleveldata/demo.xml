@@ -1,31 +1,31 @@
 <level>
+<next-level></next-level>
 <description>Analyze the Triangle Systems
 and make appropriate corrections</description>
-<nextlevel></nextlevel>
+
 <introtext>Can you decipher the
 Triangle Systems?</introtext>
 <endtext>You've deciphered the Triangle
 Systems!</endtext>
-<time>9001</time>
+<timelimit>unlimited</timelimit>
 <tools>
-<enabled count="999">0</enabled>
-<enabled count="999">1</enabled>
-<enabled count="999">2</enabled>
-<enabled count="999">3</enabled>
-<enabled count="999">4</enabled>
+<tool name="checker" enabled="true" count="unlimited"/>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 </tools>
 <code>
-#Triangle Class definition
+#Triangle Class definition def def def def def def
 class Triangle:
     def __init__(self,s1,s2,s3):
         self.s1 = s1
 	    self.s2 = s2
 	    self.s3 = s3
 
-<badcomment size="1" righttext = "isTriangle uses the Triangle Inequality.">isTriangle uses the Pythagorean theorem.
-</badcomment>
-<oncomment size="1">isTriangle uses the Triangle Inequality.
-</oncomment>	def isTriangle(self):
+<badcomment size="1" righttext = "def isTriangle uses the Triangle Inequality.">def isTriangle uses the Pythagorean theorem.</badcomment>
+<oncomment size="1">def isTriangle uses the Triangle Inequality.</oncomment>
+	def isTriangle(self):
 	    largest_side = max(self.s1,self.s2,self.s3)
 		other_sides = sum(self.s1,self.s2,self.s3)-largest_side
 		return other_sides > largest_side
@@ -34,10 +34,9 @@ class Triangle:
 	<baduncom size="1" righttext="isEquilateral(self):">def isEquilateral(self.s1,self.s2,self.s3):</baduncom>
 	    return self.s1 == self.s2 and self.s2 == self.s3
 
-<badcomment size="1" righttext = "isRight uses the Pythagorean theorem.">isRight uses the Triangle Inequality.
-</badcomment>
-<oncomment size="1">isRight uses the Pythagorean theorem.
-</oncomment>def isRight(self):
+<badcomment size="1" righttext = "isRight uses the Pythagorean theorem.">isRight uses the Triangle Inequality.</badcomment>
+<oncomment size="1">isRight uses the Pythagorean theorem.</oncomment>
+def isRight(self):
 	    if self.s1 > self.s2:
 		    if self.s1 > self.s3:
 			    return self.s1**2 == self.s2**2 + self.s3**2
@@ -46,10 +45,10 @@ class Triangle:
 		    return self.s2 **2 == self.s1**2 + self.s3**2
 		return self.s3**2 == self.s1**2 + self.s2**2
 
-	def isIsosceles(self):
+def isIsosceles(self):
 	    return self.s1 == self.s2 or self.s1 == self.s2 or self.s1 == self.s3
 
-	def getType(self):
+def getType(self):
 	    if self.isTriangle():
 		    return "Not a triangle"
 	    if self.isEquilateral():
@@ -60,32 +59,31 @@ class Triangle:
 		    return "Isosceles"
 		return "Scalene"
 
-
 #define triangle instances
 tri_0 = Triangle(2,2,7)
 tri_1 = Triangle(3,4,5)
 tri_2 = Triangle(2,2,2)
 tri_3 = Triangle(10,20,10)
 tri_4 = Triangle(5,12,13)
-<rename text="Choose a name for this variable:
-	" correct="1" names="angles,triangles,squares,cubes">variableX</rename> = [tri_0, tri_1, tri_2, tri_3, tri_4]
+<variable-rename text="Choose a name for this variable:
+	" correct="triangles" options="angles,triangles,squares,cubes">variableX</variable-rename> = [tri_0, tri_1, tri_2, tri_3, tri_4]
 
-<rename text="Choose a name for this variable:
-	" correct="3" names="angle,size,type,counter">variableY</rename> = 0
+<variable-rename text="Choose a name for this variable:
+	" correct="counter" options="angle,size,type,counter">variableY</variable-rename> = 0
 largest_triangle = Triangle(0,0,0)
 perimeter = 0
 for tri in variableX:
     if not tri.isTriangle():
-<beacon actnums="0,3"></beacon>	    print "triangle" + variableY + " isn't a triangle"
+<beacon flow-order="0,3"></beacon>	    print "triangle" + variableY + " isn't a triangle"
 	else:
         if (tri.getType == "Right"):
-<beacon actnums="1,4"></beacon>    	    print "triangle" + variableY + "is a right triangle"
+<beacon flow-order="1,4"></beacon>    	    print "triangle" + variableY + "is a right triangle"
 	    else if (tri.getType == "Equilateral"):
-<beacon actnums="2"></beacon>    	    print "triangle" + variableY + "is an equilateral triangle"
+<beacon flow-order="2"></beacon>    	    print "triangle" + variableY + "is an equilateral triangle"
     	else if (tri.getType == "Isosceles"):
-<beacon actnums=""></beacon>	        print "triangle" + variableY + "is an isosceles triangle"
+<beacon flow-order=""></beacon>	        print "triangle" + variableY + "is an isosceles triangle"
 	    else:
-<beacon actnums=""></beacon>	        print "triangle" + variableY + "is an scalene triangle"
+<beacon flow-order=""></beacon>	        print "triangle" + variableY + "is an scalene triangle"
 		trisum = sum(tri.s1,tri.s2,tri.s3)
 		if trisum >= perimeter:
 		    perimeter = trisum

@@ -1,11 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Camera2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\Camera2.cs" Line="79" Column="34" />
+      <File FileName="Assets\Scripts\LevelGenerator.cs" Line="862" Column="1" />
+      <File FileName="Assets\Scripts\Camera2.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Breakpoint.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\badcomment.cs" Line="1" Column="1" />
-      <File FileName="c:\Users\100379538\Desktop\UnityProject\RobotON\RobotON\Assets\Scripts\LevelGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\beacon.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\checker.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\baduncom.cs" Line="1" Column="1" />

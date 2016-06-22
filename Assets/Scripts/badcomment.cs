@@ -18,40 +18,40 @@ public class badcomment : MonoBehaviour {
 	public string oldtext	= "";
 	public string blocktext	= "";
 	public string righttext	= "";
-	public GameObject code;
-	public GameObject rightcomment;
-	public GameObject codescreen;
+	public GameObject CodeObject;
+	public GameObject CorrectCommentObject;
+	public GameObject CodescreenObject;
 
-	private bool done = false;
+	private bool doneUpdating = false;
 	private LevelGenerator lg;
 
 	//.................................>8.......................................
 	// Initializes this object
 	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
 		// GameObject must exist
-		if (rightcomment) {
+		if (CorrectCommentObject) {
 			// Commented and badcomment is not done?
-			if (rightcomment.GetComponent<oncomment>().commented && !done) {
+			if (CorrectCommentObject.GetComponent<oncomment>().isCommented && !doneUpdating) {
 				// Colorize the TextMesh's text with this blocktext
-				done = true;
-				code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>()
-														 .text
-														 .Replace(blocktext, stringLib.BAD_COMMENT_TEXT_COLOR_TAG +
-														 					 blocktext +
-														 				     stringLib.CLOSE_COLOR_TAG);
+				doneUpdating = true;
+				CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
+														   .text
+														   .Replace(blocktext, stringLib.BAD_COMMENT_TEXT_COLOR_TAG +
+														 					   blocktext +
+														 				       stringLib.CLOSE_COLOR_TAG);
 			}
 		}
 	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-		if (collidingObj.name == stringLib.PROJECTILE_COMMENT) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating) {
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
 			lg.isLosing = true;

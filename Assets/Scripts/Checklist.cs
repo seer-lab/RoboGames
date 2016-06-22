@@ -67,13 +67,13 @@ public class Checklist : MonoBehaviour {
 				if (lg.tasklist[2]==lg.taskscompleted[2]) {
 					GetComponent<GUIText>().text += "\n" +
 													stringLib.CHECKLIST_COMPLETE_COLOR_TAG +
-													"NAME the variables with appropriate names.✓" +
+													"RENAME the variables with appropriate names.✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
 					GetComponent<GUIText>().text += "\n" +
 													stringLib.CHECKLIST_INCOMPLETE_NAME_COLOR_TAG +
-													"NAME" +
+													"RENAME" +
 													stringLib.CLOSE_COLOR_TAG +
 													" the variables with appropriate names.";
 				}

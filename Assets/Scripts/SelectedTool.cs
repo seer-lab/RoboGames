@@ -57,7 +57,6 @@ public class SelectedTool : MonoBehaviour
 		// In game
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME) {
 			toolLabel.GetComponent<GUIText>().text = "Available Tools:";
-
 			if (notifyNewToolsAcquired) {
 				Animator anim = toolprompt.GetComponent<Animator>();
 				anim.Play("hide");
@@ -109,17 +108,17 @@ public class SelectedTool : MonoBehaviour
 				}
 			}
 			switch(projectilecode) {
-				case 0:
+				case stringLib.TOOL_CATCHER_OR_ACTIVATOR:
 					tm.color = Color.white;
 					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
 						tm.text = "Bug Catcher: " + ReplaceTextInfinite(toolCounts[0]);
 					}
 					else {
-						tm.text = "Activator: " + ReplaceTextInfinite(toolCounts[0]);
+						tm.text = "Beacon Activator: " + ReplaceTextInfinite(toolCounts[0]);
 					}
 					toolIcons[0].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case 1:
+				case stringLib.TOOL_PRINTER_OR_CHECKER:
 					tm.color = Color.white;
 					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
 						tm.text = "Printer: " + ReplaceTextInfinite(toolCounts[1]);
@@ -129,22 +128,22 @@ public class SelectedTool : MonoBehaviour
 					}
 					toolIcons[1].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case 2:
+				case stringLib.TOOL_WARPER_OR_RENAMER:
 					tm.color = Color.white;
 					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
 						tm.text = "Warper: " + ReplaceTextInfinite(toolCounts[2]);
 					}
 					else {
-						tm.text = "Namer: " + ReplaceTextInfinite(toolCounts[2]);
+						tm.text = "Renamer: " + ReplaceTextInfinite(toolCounts[2]);
 					}
 					toolIcons[2].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case 3:
+				case stringLib.TOOL_COMMENTER:
 					tm.color = Color.white;
 					tm.text = "Commenter: " + ReplaceTextInfinite(toolCounts[3]);
 					toolIcons[3].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case 4:
+				case stringLib.TOOL_CONTROL_FLOW:
 					tm.color = Color.white;
 					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
 						tm.text = "Breakpointer: " + ReplaceTextInfinite(toolCounts[4]);
@@ -154,12 +153,12 @@ public class SelectedTool : MonoBehaviour
 					}
 					toolIcons[4].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case 5:
+				case stringLib.TOOL_HELPER:
 					tm.color = Color.white;
 					tm.text = "Helper: " + ReplaceTextInfinite(toolCounts[5]);
 					toolIcons[5].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case -1:
+				case stateLib.PROJECTILE_CODE_NO_TOOLS:
 					tm.color = Color.red;
 					tm.text = "Out of Tools!!";
 					break;
@@ -208,7 +207,7 @@ public class SelectedTool : MonoBehaviour
 
 	//.................................>8.......................................
 	private string ReplaceTextInfinite(int nToolCount) {
-		if (nToolCount == 999) {
+		if (nToolCount >= 999) {
 			return "Infinite";
 		}
 		else {

@@ -15,18 +15,18 @@ using System.IO;
 
 public class oncomment : MonoBehaviour {
 
-	public bool commented;
+	public bool isCommented;
 	public string oldtext = "";
 	public string blocktext = "";
-	public GameObject code;
-	public GameObject codescreen;
+	public GameObject CodeObject;
+	public GameObject CodescreenObject;
 
 	private LevelGenerator lg;
 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
@@ -36,16 +36,16 @@ public class oncomment : MonoBehaviour {
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !commented) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented) {
+			isCommented = true;
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
 			lg.taskscompleted[3]++;
-			code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>()
-													 .text
-													 .Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
-													 					 blocktext +
-																		 stringLib.COMMENT_CLOSE_COLOR_TAG);
-			commented = true;
+			CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
+													   .text
+													   .Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
+													 					   blocktext +
+																		   stringLib.COMMENT_CLOSE_COLOR_TAG);
 		}
 	}
 

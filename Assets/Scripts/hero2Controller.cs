@@ -83,8 +83,6 @@ public class hero2Controller : MonoBehaviour
 			anim.SetBool("facingRight", facingRight);
 
 			//code for falling down through platforms
-			//	if (Input.GetAxisRaw("Vertical") == -1 && Input.GetButton("Jump")) {
-			//	if (Input.GetButton("Jump")) {
 			if (fMoveVelocityVertical < 0 && !onWall && !dropping) {
 				dropDelay = Time.time + dropTime;
 				dropping = true;

@@ -18,13 +18,14 @@ using System.Text.RegularExpressions;
 
 public class rename : MonoBehaviour {
 
-	public int correct;
+	public string correct;
 	public string displaytext = "";
 	public string innertext;
-	public List<string> names;
-	public GameObject sidebar;
-	public GameObject code;
-	public GameObject codescreen;
+	public List<string> options;
+	public GameObject SidebarObject;
+	public GameObject CodeObject;
+	public GameObject CodescreenObject;
+
 
 	private bool answering = false;
 	private bool answered = false;
@@ -34,43 +35,50 @@ public class rename : MonoBehaviour {
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
 		if (answering) {
+			// Handle left and right arrows --[
 			if (selection == 0) {
-				sidebar.GetComponent<GUIText>().text = displaytext + "   " + names[selection]+" →";
+				SidebarObject.GetComponent<GUIText>().text = displaytext + "   " + options[selection]+" →";
 			}
-			else if (selection == names.Count-1) {
-				sidebar.GetComponent<GUIText>().text = displaytext + "← " + names[selection];
+			else if (selection == options.Count-1) {
+				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection];
 			}
-			else{
-				sidebar.GetComponent<GUIText>().text = displaytext + "← " + names[selection]+" →";
+			else {
+				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection]+" →";
 			}
+			// ]-- End of handling arrows
+			// Handle input --[
 			if (Input.GetKeyDown(KeyCode.Return)) {
 				answered = true;
 				answering = false;
-				if (selection != correct) {
+				if (selection != options.IndexOf(correct)) {
 					lg.GameOver();
 				}
-				else{
+				else {
 					lg.taskscompleted[2]++;
 					GetComponent<AudioSource>().Play();
-
 					innertext = innertext.Substring(23,innertext.Length-37);
-					code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>().text.Replace(stringLib.RENAME_COLOR_TAG + innertext + stringLib.CLOSE_COLOR_TAG, innertext);
-					sidebar.GetComponent<GUIText>().text= "";
+					CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
+															   .text
+															   .Replace(stringLib.RENAME_COLOR_TAG +
+															   			innertext +
+																		stringLib.CLOSE_COLOR_TAG, options[selection]);
+					SidebarObject.GetComponent<GUIText>().text= "";
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-				selection = (selection + 1 <= names.Count - 1) ? selection + 1 : names.Count - 1;
+				selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
 			}
 			else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-				selection = (selection-1>=0) ? selection - 1 : 0;
+				selection = (selection - 1 >= 0) ? selection - 1 : 0;
 			}
+			// ]-- End of input handling
 		}
 	}
 
@@ -78,7 +86,7 @@ public class rename : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered) {
 			Destroy(collidingObj.gameObject);
-			sidebar.GetComponent<GUIText>().text = displaytext;
+			SidebarObject.GetComponent<GUIText>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			answering = true;
 		}

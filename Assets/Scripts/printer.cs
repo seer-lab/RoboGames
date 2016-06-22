@@ -42,6 +42,7 @@ public class printer : MonoBehaviour {
 			printLogFile(stringLib.LOG_PRINTED);
 			Destroy(collidingObj.gameObject);
 			sidebar.GetComponent<GUIText>().text = displaytext;
+			// Possibly rename this component to display its display Text
 			GetComponent<AudioSource>().Play();
 			if (!toolgiven) {
 				toolgiven = true;

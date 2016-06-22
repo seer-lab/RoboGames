@@ -20,9 +20,9 @@ public class checker : MonoBehaviour {
 	public string innertext;
 	public string displaytext = "";
 	public string expected;
-	public GameObject sidebar;
-	public GameObject code;
-	public GameObject codescreen;
+	public GameObject SidebarObject;
+	public GameObject CodeObject;
+	public GameObject CodescreenObject;
 
 	private bool answering = false;
 	private bool answered = false;
@@ -32,7 +32,7 @@ public class checker : MonoBehaviour {
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
@@ -48,24 +48,30 @@ public class checker : MonoBehaviour {
 				else {
 					lg.taskscompleted[1]++;
 					GetComponent<AudioSource>().Play();
-					//@TODO: Need this substring explained
-					// Chomping color tag
-					innertext = innertext.Substring(23,innertext.Length-37);
-					code.GetComponent<TextMesh>().text = code.GetComponent<TextMesh>()
-															 .text
-															 .Replace(stringLib.CHECKER_TEXT_COLOR_TAG + innertext +stringLib.CLOSE_COLOR_TAG, innertext);
+					innertext = innertext.Substring(23,innertext.Length-38);
+					CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
+															   .text
+															   .Replace(stringLib.NODE_COLOR_ON_CHECK + innertext + stringLib.CLOSE_COLOR_TAG, innertext +
+															 					   "     " +
+																				   stringLib.NODE_COLOR_COMMENT +
+																				   " " +
+																				   expected +
+																				   " " +
+																				   stringLib.COMMENT_CLOSE_COLOR_TAG);
+				//Regex rgx = new Regex("(" + stringLib.CHECKER_TEXT_COLOR_TAG + ")" + "(" + innertext + ")" + "(" + stringLib.CLOSE_COLOR_TAG + ")");
+				//lg.codetext = rgx.Replace(innertext, "$2" + stringLib.NODE_COLOR_COMMENT + "   // " + expected + stringLib.COMMENT_CLOSE_COLOR_TAG);
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Backspace)) {
 				input = input.Substring(0,input.Length-1);
-				sidebar.GetComponent<GUIText>().text = displaytext + input;
+				SidebarObject.GetComponent<GUIText>().text = displaytext + input;
 			}
 			else {
 				string inputString = Input.inputString;
 				//	Regex rgx = new Regex("[A-Za-z0-9]");
 				//if (rgx.Equals(inputString)) {
 				input += inputString;
-				sidebar.GetComponent<GUIText>().text = displaytext + input;
+				SidebarObject.GetComponent<GUIText>().text = displaytext + input;
 				//}
 			}
 		}
@@ -75,7 +81,7 @@ public class checker : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
-			sidebar.GetComponent<GUIText>().text = displaytext;
+			SidebarObject.GetComponent<GUIText>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			answering = true;
 		}
