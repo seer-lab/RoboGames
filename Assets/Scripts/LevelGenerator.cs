@@ -44,14 +44,14 @@ public class LevelGenerator : MonoBehaviour
 	public int[] taskscompleted = new int[5];
 	// The number of lines in the XML file. Computed by counting the number of newline characters the XML contains.
 	public int linecount = 0;
-	// The filename of the next XML file to load in.
+	// The filename of the next XML file to read from.
 	public string nextlevel = "";
 	// The current level, contains the filename of the XML loaded.
 	public string currentlevel = "level0.xml";
 	// Game Mode is either "on" or "bug", for RobotON or RoboBUG respectively. This is defined in stringLib.
 	public string gamemode;
-	// Stores the beacons used in this level.
-	public List<GameObject> beacons;
+	// Stores the robotONbeacons used in this level.
+	public List<GameObject> robotONbeacons;
 	// Stores the audio clips used in the game.
 	public AudioClip[] sounds = new AudioClip[10];
 	// Stores the icons for each tool.
@@ -89,59 +89,59 @@ public class LevelGenerator : MonoBehaviour
 	private bool isTimerAlarmTriggered;
 	private bool winning;
 	// This 3f is not a typo, it's different from the initialLineY in stateLib
-	private float initialLineY = 3f;
-	private float initialLineX = -4.5f;
-	private float linespacing = 0.825f;
-	private float levelLineRatio = 0.55f;
-	private float bugXshift = -9.5f;
-	private float fontwidth = 0.15f;
-	private float bugsize = 1f;
-	private float bugscale = 1.5f;
-	private float textscale = 1.75f;
+	private float initialLineY 				= 3f;
+	private float initialLineX 				= -4.5f;
+	private float linespacing 				= 0.825f;
+	private float levelLineRatio 			= 0.55f;
+	private float bugXshift 				= -9.5f;
+	private float fontwidth 				= 0.15f;
+	private float bugsize 					= 1f;
+	private float bugscale 					= 1.5f;
+	private float textscale 				= 1.75f;
 	private float losstime;
-	private float lossdelay = 3f;
-	private float leveldelay = 2f;
-	private float startNextLevelTimeDelay = 0f;
-	private float startTime = 0f;
-	private int totalNumberOfTools = stateLib.NUMBER_OF_TOOLS;
+	private float lossdelay 				= 3f;
+	private float leveldelay 				= 2f;
+	private float startNextLevelTimeDelay 	= 0f;
+	private float startTime 				= 0f;
+	private int totalNumberOfTools 			= stateLib.NUMBER_OF_TOOLS;
 	private string codetext;
 	private GameObject levelbug;
 	private List<GameObject> lines;
 	private List<GameObject> outputs;
-	private List<GameObject> warps;
+	private List<GameObject> roboBUGwarps;
 	private List<GameObject> bugs;
-	private List<GameObject> comments;
-	private List<GameObject> renamers;
-	private List<GameObject> oncomments;
-	private List<GameObject> badcomments;
-	private List<GameObject> uncoms;
-	private List<GameObject> baduncoms;
-	private List<GameObject> onchecks;
-	private List<GameObject> breakpoints;
-	private List<GameObject> prizes;
+	private List<GameObject> roboBUGcomments;
+	private List<GameObject> robotONrenamers;
+	private List<GameObject> robotONcorrectComments;
+	private List<GameObject> robotONincorrectComments;
+	private List<GameObject> robotONcorrectUncomments;
+	private List<GameObject> robotONincorrectUncomments;
+	private List<GameObject> robotONcheckers;
+	private List<GameObject> roboBUGbreakpoints;
+	private List<GameObject> roboBUGprizes;
 
 
 	//.................................>8.......................................
 	// Use this for initialization
 	private void Start() {
-		gamemode 	= stringLib.GAME_MODE_BUG;
-		losstime 	= 0;
-		lines 		= new List<GameObject>();
-		outputs 	= new List<GameObject>();
-		warps 		= new List<GameObject>();
-		bugs 		= new List<GameObject>();
-		comments 	= new List<GameObject>();
-		breakpoints = new List<GameObject>();
-		beacons 	= new List<GameObject>();
-		badcomments = new List<GameObject>();
-		uncoms 		= new List<GameObject>();
-		baduncoms 	= new List<GameObject>();
-		renamers 	= new List<GameObject>();
-		oncomments 	= new List<GameObject>();
-		onchecks 	= new List<GameObject>();
-		prizes 		= new List<GameObject>();
-		isLosing 	= false;
-		gamestate 	= stateLib.GAMESTATE_MENU;
+		gamemode 					= stringLib.GAME_MODE_BUG;
+		losstime 					= 0;
+		lines 						= new List<GameObject>();
+		outputs 					= new List<GameObject>();
+		bugs 						= new List<GameObject>();
+		roboBUGwarps 				= new List<GameObject>();
+		roboBUGcomments 			= new List<GameObject>();
+		roboBUGbreakpoints	 		= new List<GameObject>();
+		roboBUGprizes 				= new List<GameObject>();
+		robotONbeacons 				= new List<GameObject>();
+		robotONincorrectComments 	= new List<GameObject>();
+		robotONcorrectUncomments 	= new List<GameObject>();
+		robotONincorrectUncomments 	= new List<GameObject>();
+		robotONrenamers 			= new List<GameObject>();
+		robotONcorrectComments 		= new List<GameObject>();
+		robotONcheckers 			= new List<GameObject>();
+		isLosing 					= false;
+		gamestate 					= stateLib.GAMESTATE_MENU;
 		for (int i = 0; i < 5; i++) {
 			tasklist[i] = 0;
 			taskscompleted[i] = 0;
@@ -152,6 +152,10 @@ public class LevelGenerator : MonoBehaviour
 	}
 
 	//.................................>8.......................................
+	//************************************************************************//
+	// Method: private void Update()
+	// Description: Update the remaining time, check for remaining tasks, handle win and loss transitions, handle menu toggle event
+	//************************************************************************//
 	// Update is called once per frame
 	private void Update() {
 		if (gamestate == stateLib.GAMESTATE_IN_GAME) {
@@ -224,7 +228,7 @@ public class LevelGenerator : MonoBehaviour
 				}
 			}
 			// ]-- End of Losing blocktext
-			// For either RobotON or RoboBUG,
+			// Handle win conditions --[
 			if (numberOfBugsRemaining <= 0 && bugs.Count > 0 || winning) {
 				if (startNextLevelTimeDelay == 0f) {
 					startNextLevelTimeDelay = Time.time + leveldelay;
@@ -233,6 +237,7 @@ public class LevelGenerator : MonoBehaviour
 					winning = false;
 					startNextLevelTimeDelay = 0f;
 					if (nextlevel != gamemode + @"leveldata\") {
+						// Destroy the bugs in this level and go to win screen.
 						foreach (GameObject bug in bugs) {
 							Destroy(bug);
 						}
@@ -241,11 +246,13 @@ public class LevelGenerator : MonoBehaviour
 						gamestate = stateLib.GAMESTATE_LEVEL_WIN;
 					}
 					else {
+						// Credits
 						Victory();
 					}
 				}
 
 			}
+			// ]-- End of Win Conditions
 			// Handle out of time --[
 			if (endTime < Time.time && (numberOfBugsRemaining > 0 || bugs.Count == 0) && endTime - startTime < 9000) {
 				GameOver();
@@ -291,10 +298,12 @@ public class LevelGenerator : MonoBehaviour
 		XmlDocument doc = new XmlDocument();
 		doc.Load(filename);
 		XmlNode levelnode = doc.FirstChild;
+		// Generate the codetext on the screen
 		PrintCode(levelnode);
+		// Instantiate game objects
 		PlaceObjects(levelnode);
-		// Warping to this level.
-		if(warp) {
+		// If we are warping in, move the player's position to linenum if applicable.
+		if (warp) {
 			if (linenum != "") {
 				hero.transform.position = new Vector3(-7, initialLineY -(int.Parse(linenum) - 1) * linespacing, 1);
 			}
@@ -302,36 +311,39 @@ public class LevelGenerator : MonoBehaviour
 			GetComponent<AudioSource>().Play();
 		}
 		else {
+			// Not warping to this level
 			// Provision tools.
 			SetTools(levelnode);
-			// Store this filename as current level
 			currentlevel = filename.Substring(filename.IndexOf("\\") + 1);
-			// Level's starting time is set to Now.
 			startTime = Time.time;
+			// Go through XML and pull out the time, next level, intro text, end of level text
 			foreach (XmlNode node in levelnode.ChildNodes) {
 				// Time
 				if (node.Name == stringLib.NODE_NAME_TIME) {
 					if (node.InnerText == "unlimited") {
+						// Internal magic number. If we're over 9000, time limit is set to Unlimited.
 						node.InnerText = "9001";
 					}
 					endTime = (float)int.Parse(node.InnerText) + startTime;
 					remainingTime =(float)int.Parse(node.InnerText);
 				}
-				// Next level
+				// Set the next level to load
 				else if (node.Name == stringLib.NODE_NAME_NEXT_LEVEL) {
 					nextlevel = gamemode + @"leveldata\" + node.InnerText;
 				}
-				// Intro Text
+				// set the intro text
 				else if (node.Name == stringLib.NODE_NAME_INTRO_TEXT) {
 					cinematic.GetComponent<Cinematic>().introtext = node.InnerText;
 				}
-				// End Text
+				// set the end text
 				else if (node.Name == stringLib.NODE_NAME_END_TEXT) {
 					cinematic.GetComponent<Cinematic>().endtext = node.InnerText;
 				}
 			}
+			// set the current tool for the level to the next available tool
 			selectedtool.GetComponent<SelectedTool>().NextTool();
 		}
+		// Resize the boundaries of the level to correspond with how many lines we have.
 		this.transform.position -= new Vector3(0,(linecount / 2) * linespacing, 0);
 		this.transform.localScale += new Vector3(0, levelLineRatio * linecount, 0);
 	}
@@ -339,7 +351,7 @@ public class LevelGenerator : MonoBehaviour
 	//.................................>8.......................................
 	//************************************************************************//
 	// Method: private void PrintCode(XmlNode levelnode)
-	// Description: Read through levelnode XML and print the lines
+	// Description: Read through levelnode XML and print the codetext to the screen (code the player sees)
 	//************************************************************************//
 	private void PrintCode(XmlNode levelnode) {
 		destext.GetComponent<TextMesh>().text = "";
@@ -432,28 +444,27 @@ public class LevelGenerator : MonoBehaviour
 			GameObject newline =(GameObject)Instantiate(lineobject, new Vector3(initialLineX, initialLineY - i * linespacing, 1), transform.rotation);
 			lines.Add(newline);
 		}
+		// Store the entire codetext (The code displayed in the game's level)
 		leveltext.GetComponent<TextMesh>().text = codetext;
 	}
 
 	//.................................>8.......................................
 	//************************************************************************//
 	// Method: private void PlaceObjects(XmlNode levelnode)
-	// Description: Read through levelnode XML and create the necessary game objects
+	// Description: Read through levelnode XML and create the necessary game objects. PrintCode() just pulls
+	// out the codetext for the player to see, but this one will allow us to create the interactive game objects.
 	//************************************************************************//
 	private void PlaceObjects(XmlNode levelnode) {
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
+			// Parse the XML code tags
 			if (codenode.Name == stringLib.CODENODE_NAME_CODE) {
-				// Create the XmlNamespaceManager.
 				XmlNamespaceManager nsmgr = new XmlNamespaceManager(new NameTable());
-
-				// Create the XmlParserContext.
 				XmlParserContext context = new XmlParserContext(null, nsmgr, null, XmlSpace.None);
-
-				// Create the reader.
 				XmlValidatingReader xmlReader = new XmlValidatingReader(codenode.InnerXml, XmlNodeType.Element, context);
-
 				IXmlLineInfo lineInfo = ((IXmlLineInfo)xmlReader);
+				// Parse XML --[
 				while(xmlReader.Read()) {
+					// Read in the printer nodes and instantiate necessary game objects.
 					if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_PRINT) {
 						GameObject newoutput =(GameObject)Instantiate(printobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
 						outputs.Add(newoutput);
@@ -469,9 +480,10 @@ public class LevelGenerator : MonoBehaviour
 							}
 						}
 					}
+					// Read in the warp nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_WARP) {
 						GameObject newwarp = (GameObject)Instantiate(warpobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-						warps.Add(newwarp);
+						roboBUGwarps.Add(newwarp);
 						warper warpcode = newwarp.GetComponent<warper>();
 						warpcode.CodescreenObject = this.gameObject;
 						warpcode.filename = xmlReader.GetAttribute("file");
@@ -487,6 +499,7 @@ public class LevelGenerator : MonoBehaviour
 							warpcode.linenum = xmlReader.GetAttribute("line");
 						}
 					}
+					// Read in the bug nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_BUG) {
 						bugsize = int.Parse(xmlReader.GetAttribute("size"));
 						int row = 0;
@@ -504,10 +517,11 @@ public class LevelGenerator : MonoBehaviour
 						numberOfBugsRemaining++;
 
 					}
+					// Read in the Comment nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_COMMENT) {
 						int commentsize = int.Parse(xmlReader.GetAttribute("size"));
 						GameObject newcomment =(GameObject)Instantiate(commentobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
-						comments.Add(newcomment);
+						roboBUGcomments.Add(newcomment);
 						commentBlock commentcode = newcomment.GetComponent<commentBlock>();
 						commentcode.code = leveltext;
 						commentcode.errmsg = xmlReader.GetAttribute("text");
@@ -523,9 +537,10 @@ public class LevelGenerator : MonoBehaviour
 							}
 						}
 					}
+					// Read in the RobotON Checker nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_ON_CHECK) {
 						GameObject newcheck =(GameObject)Instantiate(oncheckobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-						oncomments.Add(newcheck);
+						robotONcorrectComments.Add(newcheck);
 						checker oncheckcode = newcheck.GetComponent<checker>();
 						oncheckcode.displaytext = xmlReader.GetAttribute("text");
 						oncheckcode.expected = xmlReader.GetAttribute("answer");
@@ -535,9 +550,10 @@ public class LevelGenerator : MonoBehaviour
 						oncheckcode.innertext = xmlReader.ReadInnerXml(); //danger will robinson
 						tasklist[1]++;
 					}
+					// Read in the RobotON variable-renamer nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_RENAME) {
 						GameObject newrename =(GameObject)Instantiate(renameobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-						renamers.Add(newrename);
+						robotONrenamers.Add(newrename);
 						rename renamecode = newrename.GetComponent<rename>();
 						renamecode.displaytext = xmlReader.GetAttribute("text");
 						renamecode.correct = xmlReader.GetAttribute("correct");
@@ -554,10 +570,11 @@ public class LevelGenerator : MonoBehaviour
 
 						tasklist[2]++;
 					}
+					// Read in the RobotON correctComment nodes and instantiate necessary game objects @TODO: Merge this one
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_ON_COMMENT) {
 						int commentsize = int.Parse(xmlReader.GetAttribute("size"));
 						GameObject newcomment =(GameObject)Instantiate(oncommentobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
-						oncomments.Add(newcomment);
+						robotONcorrectComments.Add(newcomment);
 						oncomment oncommentcode = newcomment.GetComponent<oncomment>();
 						oncommentcode.CodeObject = leveltext;
 						oncommentcode.oldtext = codetext;
@@ -565,10 +582,11 @@ public class LevelGenerator : MonoBehaviour
 						newcomment.transform.localScale += new Vector3(0, textscale *(commentsize - 1), 0);
 						tasklist[3]++;
 					}
+					// Read in the RobotON incorrectComment nodes and instantiate necessary game objects @TODO: Merge this one
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_BAD_COMMENT) {
 						int commentsize = int.Parse(xmlReader.GetAttribute("size"));
-						GameObject newbadcom =(GameObject)Instantiate(badcommentobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
-						badcomments.Add(newbadcom);
+						GameObject newbadcom = (GameObject)Instantiate(badcommentobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
+						robotONincorrectComments.Add(newbadcom);
 						badcomment badcomcode = newbadcom.GetComponent<badcomment>();
 						badcomcode.CodeObject = leveltext;
 						badcomcode.righttext = xmlReader.GetAttribute("righttext");
@@ -576,10 +594,11 @@ public class LevelGenerator : MonoBehaviour
 						badcomcode.CodescreenObject = this.gameObject;
 						newbadcom.transform.localScale += new Vector3(0, textscale *(commentsize - 1), 0);
 					}
+					// Read in the RobotON correctUncomment nodes and instantiate necessary game objects @TODO: Merge this one
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_UNCOMMENT) {
 						int commentsize = int.Parse(xmlReader.GetAttribute("size"));
 						GameObject newuncom =(GameObject)Instantiate(uncomobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
-						uncoms.Add(newuncom);
+						robotONcorrectUncomments.Add(newuncom);
 						uncom uncomcode = newuncom.GetComponent<uncom>();
 						uncomcode.CodeObject = leveltext;
 						uncomcode.oldtext = codetext;
@@ -587,10 +606,11 @@ public class LevelGenerator : MonoBehaviour
 						newuncom.transform.localScale += new Vector3(0, textscale *(commentsize - 1), 0);
 						tasklist[4]++;
 					}
+					// Read in the RobotON incorrectUncomment nodes and instantiate necessary game objects @TODO: Merge this one
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_BAD_UNCOMMENT) {
 						int commentsize = int.Parse(xmlReader.GetAttribute("size"));
 						GameObject newbaduncom =(GameObject)Instantiate(baduncomobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f), transform.rotation);
-						baduncoms.Add(newbaduncom);
+						robotONincorrectUncomments.Add(newbaduncom);
 						baduncom baduncomcode = newbaduncom.GetComponent<baduncom>();
 						baduncomcode.CodeObject = leveltext;
 						baduncomcode.righttext = xmlReader.GetAttribute("righttext");
@@ -598,9 +618,10 @@ public class LevelGenerator : MonoBehaviour
 						baduncomcode.CodescreenObject = this.gameObject;
 						newbaduncom.transform.localScale += new Vector3(0, textscale *(commentsize - 1), 0);
 					}
+					// Read in the RoboBUG breakpoint nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_BREAKPOINT) {
 						GameObject newbreakpoint =(GameObject)Instantiate(breakpointobject, new Vector3(-10, initialLineY -(lineInfo.LineNumber - 1) * linespacing + 0.4f, 1), transform.rotation);
-						breakpoints.Add(newbreakpoint);
+						roboBUGbreakpoints.Add(newbreakpoint);
 						Breakpoint breakcode = newbreakpoint.GetComponent<Breakpoint>();
 						breakcode.sidebaroutput = sidebaroutput;
 						breakcode.values = xmlReader.GetAttribute("text");
@@ -613,6 +634,7 @@ public class LevelGenerator : MonoBehaviour
 							}
 						}
 					}
+					// Read in the RoboBUG prize nodes and instantiate necessary game objects.
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_PRIZE) {
 						bugsize = int.Parse(xmlReader.GetAttribute("size"));
 						GameObject prizebug =(GameObject)Instantiate(prizeobject, new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineInfo.LineNumber - 1 + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
@@ -622,8 +644,9 @@ public class LevelGenerator : MonoBehaviour
 						for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 							prizebug.GetComponent<PrizeBug>().bonus[i] += int.Parse(bonuses[i]);
 						}
-						prizes.Add(prizebug);
+						roboBUGprizes.Add(prizebug);
 					}
+					// Read in the RobotON Beacon nodes and instantiate necessary game objects
 					else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == stringLib.NODE_NAME_BEACON) {
 						GameObject newbeacon =(GameObject)Instantiate(beaconobject, new Vector3(-10, initialLineY -(lineInfo.LineNumber - 1) * linespacing + 0.4f, 1), transform.rotation);
 						newbeacon.GetComponent<beacon>().CodescreenObject = this.gameObject;
@@ -636,45 +659,52 @@ public class LevelGenerator : MonoBehaviour
 								tasklist[0]++;
 							}
 						}
-						beacons.Add(newbeacon);
+						robotONbeacons.Add(newbeacon);
 					}
 				}
 				xmlReader.Close();
+				// ]-- End of XML parsing
 
-				int numberOfComments = 0;
-				int numberOfOnComments = 0;
-				int numberOfBadComments = 0;
-				int numberOfUncomments = 0;
-				int numberOfBadUncomments = 0;
+				// These are counters to update the blocktext of each object
+				int numberOfroboBUGcomments = 0;
+				int numberOfrobotONcorrectComments = 0;
+				int numberOfrobotONincorrectComments = 0;
+				int numberOfrobotONcorrectUncomments = 0;
+				int numberOfrobotONincorrectUncomments = 0;
+
+				// Set the blocktext for each object  @TODO: Must be updated for new comment objects --[
 				for (int i = 0; i < codenode.ChildNodes.Count; i++) {
 					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_COMMENT) {
-						comments[numberOfComments].GetComponent<commentBlock>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
-						numberOfComments++;
+						roboBUGcomments[numberOfroboBUGcomments].GetComponent<commentBlock>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+						numberOfroboBUGcomments++;
 					}
 					// @TODO: Handle substring inside of the .cs file respectively.
 					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_ON_COMMENT) {
 						// Substring <color=#cccccccc>/* (19 characters) + */</color> 10 = 29.
-						oncomments[numberOfOnComments].GetComponent<oncomment>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
-						numberOfOnComments++;
+						robotONcorrectComments[numberOfrobotONcorrectComments].GetComponent<oncomment>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
+						numberOfrobotONcorrectComments++;
 					}
 					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_BAD_COMMENT) {
 						// Substring <color=#cccccccc>/* (19 characters) + */</color> 10 = 29.
-						badcomments[numberOfBadComments].GetComponent<badcomment>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
-						numberOfBadComments++;
+						robotONincorrectComments[numberOfrobotONincorrectComments].GetComponent<badcomment>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
+						numberOfrobotONincorrectComments++;
 					}
 					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_UNCOMMENT) {
 						// Substring <color=#cccccccc>/* (19 characters) + */</color> 10 = 29.
-						uncoms[numberOfUncomments].GetComponent<uncom>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
-						numberOfUncomments++;
+						robotONcorrectUncomments[numberOfrobotONcorrectUncomments].GetComponent<uncom>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
+						numberOfrobotONcorrectUncomments++;
 					}
 					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_BAD_UNCOMMENT) {
 						// Substring <color=#cccccccc>/* (19 characters) + */</color> 10 = 29.
-						baduncoms[numberOfBadUncomments].GetComponent<baduncom>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
-						numberOfBadUncomments++;
+						robotONincorrectUncomments[numberOfrobotONincorrectUncomments].GetComponent<baduncom>().blocktext = codenode.ChildNodes[i].InnerText.Substring(29).Trim();
+						numberOfrobotONincorrectUncomments++;
 					}
 				}
-				foreach (GameObject badcom in badcomments) {
-					foreach (GameObject oncom in oncomments) {
+				// ]-- End of blocktext setting
+
+				// Pair incorrectComments to their corresponding correctComment. @TODO: This needs to be refactored, instead cycle by groupid
+				foreach (GameObject badcom in robotONincorrectComments) {
+					foreach (GameObject oncom in robotONcorrectComments) {
 						if (badcom.GetComponent<badcomment>().righttext == oncom.GetComponent<oncomment>().blocktext) {
 							badcom.GetComponent<badcomment>().CorrectCommentObject = oncom;
 							break;
@@ -682,14 +712,16 @@ public class LevelGenerator : MonoBehaviour
 					}
 				}
 
-				foreach (GameObject baduncom in baduncoms) {
-					foreach (GameObject uncom in uncoms) {
+				// Pair incorrectUncomments to their corresponding correctUncomment. @TODO: This needs to be refactored, instead cycle through groupid
+				foreach (GameObject baduncom in robotONincorrectUncomments) {
+					foreach (GameObject uncom in robotONcorrectUncomments) {
 						if (uncom.GetComponent<uncom>().blocktext.Contains(baduncom.GetComponent<baduncom>().righttext)) {
 							baduncom.GetComponent<baduncom>().CorrectCommentObject = uncom;
 							break;
 						}
 					}
 				}
+
 			}
 		}
 	}
@@ -701,29 +733,38 @@ public class LevelGenerator : MonoBehaviour
 	//************************************************************************//
 	public void SetTools(XmlNode levelnode)	{
 
+		// Grey out all tools
 		for (int i = 0; i < totalNumberOfTools; i++) {
 			toolIcons[i].GetComponent<GUITexture>().enabled = false;
 		}
+		// For each XML node
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			// For each <tools> tag
+			// For each <tools> tag in XML nodes
 			if (codenode.Name == stringLib.CODENODE_NAME_TOOLS) {
-				// For each XML node contained within <tools>
+				// For each XML node in <tools> nodes
 				foreach (XmlNode toolnode in codenode.ChildNodes) {
+					// Set the tool count for each tool node --[
 					int toolnum = 0;
 					switch(toolnode.Attributes["name"].Value)
 					{
 						case "catcher":
 						case "activator":
-							toolnum = stringLib.TOOL_CATCHER_OR_ACTIVATOR; break;
+							toolnum = stringLib.TOOL_CATCHER_OR_ACTIVATOR;
+							break;
 						case "printer":
 						case "checker":
-							toolnum = stringLib.TOOL_PRINTER_OR_CHECKER; break;
+							toolnum = stringLib.TOOL_PRINTER_OR_CHECKER;
+							break;
 						case "warper":
 						case "namer":
-							toolnum = stringLib.TOOL_WARPER_OR_RENAMER; break;
-						case "commenter": toolnum = stringLib.TOOL_COMMENTER; break;
-						case "controlflow": toolnum = stringLib.TOOL_CONTROL_FLOW; break;
-						default: break;
+							toolnum = stringLib.TOOL_WARPER_OR_RENAMER;
+							break;
+						case "commenter": toolnum = stringLib.TOOL_COMMENTER;
+							break;
+						case "controlflow": toolnum = stringLib.TOOL_CONTROL_FLOW;
+							break;
+						default:
+							break;
 					}
 					toolIcons[toolnum].GetComponent<GUITexture>().enabled = bool.Parse(toolnode.Attributes["enabled"].Value);
 					if (toolnode.Attributes["count"].Value == "unlimited") {
@@ -732,6 +773,7 @@ public class LevelGenerator : MonoBehaviour
 					else {
 						selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = int.Parse(toolnode.Attributes["count"].Value);
 					}
+					// ]-- End of tool count for each tool node
 				}
 			}
 		}
@@ -742,73 +784,79 @@ public class LevelGenerator : MonoBehaviour
 	// Method: public void ResetLevel(bool warp)
 	// Description: Completely resets the level. Will destroy all game objects,
 	// 				and reset task list and bug values to their default state.
-	//				If warp is TRUE, then retain current tools. If FALSE, reset
+	//				If isWarping is TRUE, then retain current tools. If FALSE, reset
 	//				the tool count.
 	//************************************************************************//
-	public void ResetLevel(bool warp) {
+	public void ResetLevel(bool warping) {
 
-		foreach (GameObject ln in lines) {
-			Destroy(ln);
+		// Destroy objects
+		foreach (GameObject line in lines) {
+			Destroy(line);
 		}
-		foreach (GameObject bc in beacons) {
-			Destroy(bc);
+		foreach (GameObject beacon in robotONbeacons) {
+			Destroy(beacon);
 		}
-		foreach (GameObject oc in oncomments) {
-			Destroy(oc);
+		foreach (GameObject correctComment in robotONcorrectComments) {
+			Destroy(correctComment);
 		}
-		foreach (GameObject oc in onchecks) {
-			Destroy(oc);
+		foreach (GameObject checker in robotONcheckers) {
+			Destroy(checker);
 		}
-		foreach (GameObject oc in renamers) {
-			Destroy(oc);
+		foreach (GameObject renamer in robotONrenamers) {
+			Destroy(renamer);
 		}
-		foreach (GameObject op in outputs) {
-			Destroy(op);
+		foreach (GameObject output in outputs) {
+			Destroy(output);
 		}
-		foreach (GameObject op in badcomments) {
-			Destroy(op);
+		foreach (GameObject incorrectComment in robotONincorrectComments) {
+			Destroy(incorrectComment);
 		}
-		foreach (GameObject wp in warps) {
-			Destroy(wp);
+		foreach (GameObject warp in roboBUGwarps) {
+			Destroy(warp);
 		}
-		foreach (GameObject cm in comments) {
-			Destroy(cm);
+		foreach (GameObject noninteractableComment in roboBUGcomments) {
+			Destroy(noninteractableComment);
 		}
-		foreach (GameObject wp in uncoms) {
-			Destroy(wp);
+		foreach (GameObject correctUncomment in robotONcorrectUncomments) {
+			Destroy(correctUncomment);
 		}
-		foreach (GameObject cm in baduncoms) {
-			Destroy(cm);
+		foreach (GameObject incorrectUncomment in robotONincorrectUncomments) {
+			Destroy(incorrectUncomment);
 		}
-		foreach (GameObject bp in breakpoints) {
-			Destroy(bp);
+		foreach (GameObject breakpoint in roboBUGbreakpoints) {
+			Destroy(breakpoint);
 		}
-		foreach (GameObject pb in prizes) {
-			Destroy(pb);
+		foreach (GameObject prize in roboBUGprizes) {
+			Destroy(prize);
 		}
 		if (levelbug) {
 			Destroy(levelbug);
 		}
+
+		// Reset task list
 		for (int i = 0; i < 5; i++) {
 			taskscompleted[i] = 0;
 			tasklist[i] = 0;
 		}
-		sidebaroutput.GetComponent<GUIText>().text = "";
-		lines = new List<GameObject>();
-		outputs = new List<GameObject>();
-		warps = new List<GameObject>();
-		oncomments = new List<GameObject>();
-		renamers = new List<GameObject>();
-		badcomments = new List<GameObject>();
-		onchecks = new List<GameObject>();
-		uncoms = new List<GameObject>();
-		baduncoms = new List<GameObject>();
-		bugs = new List<GameObject>();
-		comments = new List<GameObject>();
-		breakpoints = new List<GameObject>();
-		prizes = new List<GameObject>();
 
-		if (!warp) {
+		// Reset local variables
+		sidebaroutput.GetComponent<GUIText>().text = "";
+		lines 									   = new List<GameObject>();
+		outputs 								   = new List<GameObject>();
+		roboBUGwarps 							   = new List<GameObject>();
+		robotONcorrectComments 					   = new List<GameObject>();
+		robotONrenamers 						   = new List<GameObject>();
+		robotONincorrectComments 				   = new List<GameObject>();
+		robotONcheckers 						   = new List<GameObject>();
+		robotONcorrectUncomments 				   = new List<GameObject>();
+		robotONincorrectUncomments 				   = new List<GameObject>();
+		bugs 									   = new List<GameObject>();
+		roboBUGcomments 						   = new List<GameObject>();
+		roboBUGbreakpoints 						   = new List<GameObject>();
+		roboBUGprizes 							   = new List<GameObject>();
+
+		// Reset tool counts
+		if (!warping) {
 			for (int i = 0; i < totalNumberOfTools; i++) {
 				toolIcons[i].GetComponent<GUITexture>().enabled = false;
 				toolIcons[i].GetComponent<GUITexture>().color = new Color(0.3f, 0.3f, 0.3f);
@@ -816,11 +864,17 @@ public class LevelGenerator : MonoBehaviour
 				selectedtool.GetComponent<SelectedTool>().projectilecode = 0;
 			}
 		}
-
+		// Reset bug count
 		numberOfBugsRemaining = 0;
+
+		// Reset play area size
 		this.transform.position += new Vector3(0,(linecount / 2) * linespacing, 0);
 		this.transform.localScale -= new Vector3(0, levelLineRatio * linecount, 0);
+
+		// Reset line count
 		linecount = 0;
+
+		// Move player to default position
 		hero.transform.position = leveltext.transform.position;
 	}
 

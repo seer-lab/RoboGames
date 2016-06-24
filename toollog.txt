@@ -1,2 +1,1 @@
 Tool, Location, Time
-projectileBug(Clone)Wasted, 53, 38.72

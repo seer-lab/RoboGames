@@ -1,14 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\badcomment.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelGenerator.cs" Line="862" Column="1" />
+      <File FileName="Assets\Scripts\badcomment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\comment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\baduncom.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Camera2.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Breakpoint.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\badcomment.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\beacon.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\checker.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\baduncom.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Checklist.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Cinematic.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Comic.cs" Line="1" Column="1" />

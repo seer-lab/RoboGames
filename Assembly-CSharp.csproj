@@ -182,6 +182,7 @@
      <Compile Include="Assets\Scripts\baduncom.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\checker.cs" />
+     <Compile Include="Assets\Scripts\comment.cs" />
      <Compile Include="Assets\Scripts\commentBlock.cs" />
      <Compile Include="Assets\Scripts\databasehelper.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
