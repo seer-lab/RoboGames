@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: PrizeBug
-// Class Description:
+// Class Description: Instantiable object in the RoboBUG game
 // Methods:
 // 		void Start()
 //		void Update()
@@ -13,17 +13,26 @@ using UnityEngine;
 using System.Collections;
 
 public class PrizeBug : MonoBehaviour {
+
+	public int index = -1;
 	public Animator anim;
 	public bool dead = false;
 	public bool finished = false;
 	public GameObject tools;
 	public int[] bonus = new int[stateLib.NUMBER_OF_TOOLS];
+	public string language;
+	public GameObject CodescreenObject;
+	public GameObject ToolSelectorObject;
+
+
+	private LevelGenerator lg;
 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
 		this.GetComponent<Renderer>().enabled = false;
 		anim = GetComponent<Animator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
@@ -42,6 +51,7 @@ public class PrizeBug : MonoBehaviour {
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 				tools.GetComponent<SelectedTool>().bonusTools[i] += bonus[i];
 			}
+			lg.toolsAirborne--;
 		}
 	}
 

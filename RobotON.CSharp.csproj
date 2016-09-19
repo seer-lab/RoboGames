@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -211,21 +205,18 @@
     <Compile Include="Assets\Scripts\Output.cs" />
     <Compile Include="Assets\Scripts\PrizeBug.cs" />
     <Compile Include="Assets\Scripts\SelectedTool.cs" />
-    <Compile Include="Assets\Scripts\badcomment.cs" />
-    <Compile Include="Assets\Scripts\baduncom.cs" />
+    <Compile Include="Assets\Scripts\VariableColor.cs" />
     <Compile Include="Assets\Scripts\beacon.cs" />
-    <Compile Include="Assets\Scripts\checker.cs" />
-    <Compile Include="Assets\Scripts\commentBlock.cs" />
+    <Compile Include="Assets\Scripts\comment.cs" />
     <Compile Include="Assets\Scripts\databasehelper.cs" />
     <Compile Include="Assets\Scripts\hero2Controller.cs" />
-    <Compile Include="Assets\Scripts\oncomment.cs" />
     <Compile Include="Assets\Scripts\postToDatabase.cs" />
     <Compile Include="Assets\Scripts\printer.cs" />
     <Compile Include="Assets\Scripts\projectile2.cs" />
+    <Compile Include="Assets\Scripts\question.cs" />
     <Compile Include="Assets\Scripts\rename.cs" />
     <Compile Include="Assets\Scripts\stateLib.cs" />
     <Compile Include="Assets\Scripts\stringLib.cs" />
-    <Compile Include="Assets\Scripts\uncom.cs" />
     <Compile Include="Assets\Scripts\warper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

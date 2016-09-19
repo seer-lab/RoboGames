@@ -1,11 +1,11 @@
 //**************************************************//
 // Class Name: Breakpoint
-// Class Description:
+// Class Description: Instantiable object for the RoboBUG game. This class controls the Breakpoints and corresponds
+//                    with the breakpointer tool.
 // Methods:
 // 		void Start()
 //		void Update()
 //		void OnTriggerEnter2D(Collider2D collidingObj)
-//		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -16,11 +16,13 @@ using System.IO;
 
 public class Breakpoint : MonoBehaviour {
 
+	public int index = -1;
 	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string values;
-	public GameObject sidebaroutput;
+	public string language;
+	public GameObject SidebarObject;
 	public AudioClip[] sound = new AudioClip[2];
-	public GameObject selectTools;
+	public GameObject ToolSelectorObject;
 
 	private bool activated = false;
 	private bool toolgiven = false;
@@ -42,36 +44,27 @@ public class Breakpoint : MonoBehaviour {
 			if (!activated) {
 				GetComponent<AudioSource>().clip = sound[0];
 				GetComponent<AudioSource>().Play();
-				printLogFile(stringLib.LOG_BREAKPOINT_ON);
+				Logger.printLogFile(stringLib.LOG_BREAKPOINT_ON, this.transform.position);
 			}
 			activated = true;
 			this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
 		}
 		else if (activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
-			printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED);
+			Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();
-			sidebaroutput.GetComponent<GUIText>().text = values;
+			SidebarObject.GetComponent<GUIText>().text = values;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-						selectTools.GetComponent<SelectedTool>().notifyToolAcquisition();
+                        // Must be called from level generator, not ToolSelectorObject
+						// lg.floatingTextOnPlayer("New Tools!");
 					}
-					selectTools.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
+					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
 				}
 			}
 		}
-	}
-
-	//.................................>8.......................................
-	void printLogFile(string sMessage)
-	{
-		int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - this.transform.position.y) / stateLib.GAMESETTING_LINE_SPACING);
-		StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
-		sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
-		sw.WriteLine(sMessage);
-		sw.Close();
 	}
 
 	//.................................>8.......................................

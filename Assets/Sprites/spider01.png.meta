@@ -1,6 +1,51 @@
 fileFormatVersion: 2
 guid: fb268268d34b6b4409417cf7e9e5b0b1
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: spider01_0
+    21300002: spider01_1
+    21300004: spider01_2
+    21300006: spider01_3
+    21300008: spider01_4
+    21300010: spider01_5
+    21300012: spider01_6
+    21300014: spider01_7
+    21300016: spider01_8
+    21300018: spider01_9
+    21300020: spider01_10
+    21300022: spider01_11
+    21300024: spider01_12
+    21300026: spider01_13
+    21300028: spider01_14
+    21300030: spider01_15
+    21300032: spider01_16
+    21300034: spider01_17
+    21300036: spider01_18
+    21300038: spider01_19
+    21300040: spider01_20
+    21300042: spider01_21
+    21300044: spider01_22
+    21300046: spider01_23
+    21300048: spider01_24
+    21300050: spider01_25
+    21300052: spider01_26
+    21300054: spider01_27
+    21300056: spider01_28
+    21300058: spider01_29
+    21300060: spider01_30
+    21300062: spider01_31
+    21300064: spider01_32
+    21300066: spider01_33
+    21300068: spider01_34
+    21300070: spider01_35
+    21300072: spider01_36
+    21300074: spider01_37
+    21300076: spider01_38
+    21300078: spider01_39
+    21300080: spider01_40
+    21300082: spider01_41
+    21300084: spider01_42
+    21300086: spider01_43
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +59,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -29,12 +77,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -43,6 +94,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: spider01_0
@@ -54,6 +106,28 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11, y: -13}
+        - {x: 14, y: -15}
+        - {x: 21, y: -9}
+        - {x: 21, y: 7}
+        - {x: 18, y: 16}
+        - {x: -17, y: 16}
+        - {x: -17, y: 15}
+        - {x: -21, y: 6}
+        - {x: -21, y: -8}
+        - {x: -14, y: -14}
+        - {x: -13, y: -14}
+        - {x: -11, y: -12}
+        - {x: -11, y: -10}
+        - {x: -12, y: -8}
+        - {x: -10, y: -13}
+        - {x: -6, y: -16}
+        - {x: 6, y: -16}
+        - {x: 10, y: -13}
+        - {x: 12, y: -8}
+        - {x: 11, y: -10}
     - name: spider01_1
       rect:
         serializedVersion: 2
@@ -63,6 +137,13 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 17.5}
+        - {x: -21, y: 16.5}
+        - {x: -21, y: -17.5}
+        - {x: 21, y: -17.5}
+        - {x: 21, y: 17.5}
     - name: spider01_2
       rect:
         serializedVersion: 2
@@ -72,6 +153,16 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 18}
+        - {x: -21, y: 9}
+        - {x: -21, y: -17}
+        - {x: -20, y: -18}
+        - {x: 18, y: -18}
+        - {x: 21, y: -14}
+        - {x: 21, y: 9}
+        - {x: 18, y: 18}
     - name: spider01_3
       rect:
         serializedVersion: 2
@@ -81,6 +172,8 @@ TextureImporter:
         height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: spider01_4
       rect:
         serializedVersion: 2
@@ -90,6 +183,17 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 14, y: 15}
+        - {x: 5, y: 17}
+        - {x: -18, y: 17}
+        - {x: -21, y: 12}
+        - {x: -21, y: -13}
+        - {x: -19, y: -17}
+        - {x: 8, y: -17}
+        - {x: 21, y: -12}
+        - {x: 21, y: 8}
     - name: spider01_5
       rect:
         serializedVersion: 2
@@ -99,6 +203,16 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2.5, y: 20}
+        - {x: -20.5, y: 20}
+        - {x: -20.5, y: -16}
+        - {x: -18.5, y: -20}
+        - {x: 15.5, y: -20}
+        - {x: 20.5, y: -17}
+        - {x: 20.5, y: 9}
+        - {x: 16.5, y: 16}
     - name: spider01_6
       rect:
         serializedVersion: 2
@@ -108,6 +222,17 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 14, y: 15}
+        - {x: 5, y: 17}
+        - {x: -18, y: 17}
+        - {x: -21, y: 12}
+        - {x: -21, y: -13}
+        - {x: -19, y: -17}
+        - {x: 8, y: -17}
+        - {x: 21, y: -12}
+        - {x: 21, y: 8}
     - name: spider01_7
       rect:
         serializedVersion: 2
@@ -117,6 +242,15 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 17}
+        - {x: -21, y: 9}
+        - {x: -21, y: -17}
+        - {x: 18, y: -17}
+        - {x: 21, y: -16}
+        - {x: 21, y: 14}
+        - {x: 19, y: 17}
     - name: spider01_8
       rect:
         serializedVersion: 2
@@ -126,6 +260,14 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.5, y: 20}
+        - {x: -20.5, y: 14}
+        - {x: -20.5, y: -20}
+        - {x: 20.5, y: -20}
+        - {x: 20.5, y: 13}
+        - {x: 16.5, y: 20}
     - name: spider01_9
       rect:
         serializedVersion: 2
@@ -135,6 +277,15 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 17}
+        - {x: -21, y: 9}
+        - {x: -21, y: -17}
+        - {x: 18, y: -17}
+        - {x: 21, y: -16}
+        - {x: 21, y: 14}
+        - {x: 19, y: 17}
     - name: spider01_10
       rect:
         serializedVersion: 2
@@ -144,6 +295,8 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: spider01_11
       rect:
         serializedVersion: 2
@@ -153,6 +306,15 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7.5, y: 18}
+        - {x: -19.5, y: 9}
+        - {x: -19.5, y: -14}
+        - {x: -17.5, y: -16}
+        - {x: -9.5, y: -18}
+        - {x: 19.5, y: -18}
+        - {x: 19.5, y: 18}
     - name: spider01_12
       rect:
         serializedVersion: 2
@@ -162,6 +324,15 @@ TextureImporter:
         height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16.5, y: 16.5}
+        - {x: -20.5, y: 11.5}
+        - {x: -20.5, y: -7.5}
+        - {x: -18.5, y: -14.5}
+        - {x: -16.5, y: -16.5}
+        - {x: 20.5, y: -16.5}
+        - {x: 20.5, y: 16.5}
     - name: spider01_13
       rect:
         serializedVersion: 2
@@ -171,6 +342,19 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: -16}
+        - {x: 17, y: -14}
+        - {x: 17, y: 17}
+        - {x: 15, y: 18}
+        - {x: -14, y: 18}
+        - {x: -17, y: 12}
+        - {x: -17, y: -15}
+        - {x: -14, y: -18}
+        - {x: 12, y: -18}
+        - {x: 12, y: -9}
+        - {x: 12, y: -13}
     - name: spider01_14
       rect:
         serializedVersion: 2
@@ -180,6 +364,16 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6.5, y: 18}
+        - {x: -16.5, y: 13}
+        - {x: -16.5, y: -17}
+        - {x: -10.5, y: -17}
+        - {x: -7.5, y: -16}
+        - {x: -7.5, y: -18}
+        - {x: 16.5, y: -18}
+        - {x: 16.5, y: 18}
     - name: spider01_15
       rect:
         serializedVersion: 2
@@ -189,6 +383,15 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: -12.5}
+        - {x: -13, y: -17.5}
+        - {x: 18, y: -17.5}
+        - {x: 19, y: -14.5}
+        - {x: 19, y: 17.5}
+        - {x: -13, y: 17.5}
+        - {x: -19, y: 16.5}
     - name: spider01_16
       rect:
         serializedVersion: 2
@@ -198,6 +401,16 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5.5, y: 18}
+        - {x: -16.5, y: 10}
+        - {x: -16.5, y: -10}
+        - {x: -15.5, y: -15}
+        - {x: -10.5, y: -18}
+        - {x: 12.5, y: -18}
+        - {x: 16.5, y: -15}
+        - {x: 16.5, y: 18}
     - name: spider01_17
       rect:
         serializedVersion: 2
@@ -207,6 +420,16 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16.5, y: -16}
+        - {x: 16.5, y: 18}
+        - {x: -11.5, y: 18}
+        - {x: -16.5, y: 6}
+        - {x: -16.5, y: -18}
+        - {x: 7.5, y: -18}
+        - {x: 9.5, y: -15}
+        - {x: 12.5, y: -18}
     - name: spider01_18
       rect:
         serializedVersion: 2
@@ -216,6 +439,14 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6.5, y: 17}
+        - {x: -19.5, y: 12}
+        - {x: -19.5, y: -17}
+        - {x: 19.5, y: -17}
+        - {x: 19.5, y: 13}
+        - {x: 18.5, y: 17}
     - name: spider01_19
       rect:
         serializedVersion: 2
@@ -225,6 +456,17 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -3, y: 18}
+        - {x: -7, y: 16}
+        - {x: -17, y: 5}
+        - {x: -17, y: -15}
+        - {x: -14, y: -14}
+        - {x: -8, y: -18}
+        - {x: 12, y: -18}
+        - {x: 17, y: -17}
+        - {x: 17, y: 18}
     - name: spider01_20
       rect:
         serializedVersion: 2
@@ -234,6 +476,16 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: 17.5}
+        - {x: -15, y: 17.5}
+        - {x: -21, y: 11.5}
+        - {x: -21, y: -12.5}
+        - {x: -14, y: -17.5}
+        - {x: 19, y: -17.5}
+        - {x: 21, y: -14.5}
+        - {x: 21, y: 16.5}
     - name: spider01_21
       rect:
         serializedVersion: 2
@@ -243,6 +495,14 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 19}
+        - {x: -21, y: 13}
+        - {x: -21, y: -12}
+        - {x: -19, y: -19}
+        - {x: 21, y: -19}
+        - {x: 21, y: 19}
     - name: spider01_22
       rect:
         serializedVersion: 2
@@ -252,6 +512,15 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 17}
+        - {x: -23, y: 12}
+        - {x: -23, y: -17}
+        - {x: 22, y: -17}
+        - {x: 23, y: -16}
+        - {x: 23, y: 15}
+        - {x: 22, y: 17}
     - name: spider01_23
       rect:
         serializedVersion: 2
@@ -261,6 +530,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 16}
+        - {x: -21, y: 9}
+        - {x: -21, y: -11}
+        - {x: -14, y: -16}
+        - {x: 19, y: -16}
+        - {x: 21, y: -10}
+        - {x: 21, y: 13}
+        - {x: 17, y: 16}
     - name: spider01_24
       rect:
         serializedVersion: 2
@@ -270,6 +549,15 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 19}
+        - {x: -20.5, y: -18}
+        - {x: -16.5, y: -19}
+        - {x: 18.5, y: -19}
+        - {x: 20.5, y: -15}
+        - {x: 20.5, y: 17}
+        - {x: 17.5, y: 19}
     - name: spider01_25
       rect:
         serializedVersion: 2
@@ -279,6 +567,16 @@ TextureImporter:
         height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 21}
+        - {x: -20.5, y: -16}
+        - {x: -19.5, y: -17}
+        - {x: -8.5, y: -21}
+        - {x: 18.5, y: -21}
+        - {x: 20.5, y: -17}
+        - {x: 20.5, y: 17}
+        - {x: 18.5, y: 21}
     - name: spider01_26
       rect:
         serializedVersion: 2
@@ -288,6 +586,15 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 19}
+        - {x: -20.5, y: -18}
+        - {x: -16.5, y: -19}
+        - {x: 18.5, y: -19}
+        - {x: 20.5, y: -15}
+        - {x: 20.5, y: 17}
+        - {x: 17.5, y: 19}
     - name: spider01_27
       rect:
         serializedVersion: 2
@@ -297,6 +604,14 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 19}
+        - {x: -20.5, y: -19}
+        - {x: 17.5, y: -19}
+        - {x: 20.5, y: -13}
+        - {x: 20.5, y: 10}
+        - {x: 10.5, y: 19}
     - name: spider01_28
       rect:
         serializedVersion: 2
@@ -306,6 +621,14 @@ TextureImporter:
         height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 21}
+        - {x: -20.5, y: -17}
+        - {x: -19.5, y: -21}
+        - {x: 20.5, y: -21}
+        - {x: 20.5, y: 15}
+        - {x: 14.5, y: 21}
     - name: spider01_29
       rect:
         serializedVersion: 2
@@ -315,6 +638,14 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 19}
+        - {x: -20.5, y: -19}
+        - {x: 17.5, y: -19}
+        - {x: 20.5, y: -13}
+        - {x: 20.5, y: 10}
+        - {x: 10.5, y: 19}
     - name: spider01_30
       rect:
         serializedVersion: 2
@@ -324,6 +655,8 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: spider01_31
       rect:
         serializedVersion: 2
@@ -333,6 +666,14 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19.5, y: 18}
+        - {x: -19.5, y: -16}
+        - {x: -18.5, y: -18}
+        - {x: 19.5, y: -18}
+        - {x: 19.5, y: 16}
+        - {x: 15.5, y: 18}
     - name: spider01_32
       rect:
         serializedVersion: 2
@@ -342,6 +683,13 @@ TextureImporter:
         height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 16.5}
+        - {x: -20.5, y: -16.5}
+        - {x: 20.5, y: -16.5}
+        - {x: 20.5, y: 9.5}
+        - {x: 16.5, y: 16.5}
     - name: spider01_33
       rect:
         serializedVersion: 2
@@ -351,6 +699,18 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 18}
+        - {x: -17, y: -16}
+        - {x: -16, y: -17}
+        - {x: -12, y: -13}
+        - {x: -12, y: -14}
+        - {x: -10, y: -18}
+        - {x: 13, y: -18}
+        - {x: 17, y: -8}
+        - {x: 17, y: 12}
+        - {x: 12, y: 18}
     - name: spider01_34
       rect:
         serializedVersion: 2
@@ -360,6 +720,14 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 18}
+        - {x: -17, y: -18}
+        - {x: 15, y: -18}
+        - {x: 17, y: -17}
+        - {x: 17, y: 7}
+        - {x: 8, y: 18}
     - name: spider01_35
       rect:
         serializedVersion: 2
@@ -369,6 +737,16 @@ TextureImporter:
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14.5, y: 17}
+        - {x: -18.5, y: 12}
+        - {x: -19.5, y: 10}
+        - {x: -19.5, y: -17}
+        - {x: 19.5, y: -17}
+        - {x: 19.5, y: 3}
+        - {x: 18.5, y: 10}
+        - {x: 7.5, y: 17}
     - name: spider01_36
       rect:
         serializedVersion: 2
@@ -378,6 +756,14 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4.5, y: 18}
+        - {x: -15.5, y: 18}
+        - {x: -16.5, y: 16}
+        - {x: -16.5, y: -18}
+        - {x: 16.5, y: -18}
+        - {x: 16.5, y: 5}
     - name: spider01_37
       rect:
         serializedVersion: 2
@@ -387,6 +773,15 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11.5, y: 18}
+        - {x: -16.5, y: 18}
+        - {x: -16.5, y: -13}
+        - {x: -11.5, y: -18}
+        - {x: 14.5, y: -18}
+        - {x: 16.5, y: -16}
+        - {x: 16.5, y: 11}
     - name: spider01_38
       rect:
         serializedVersion: 2
@@ -396,6 +791,14 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 17.5}
+        - {x: -19, y: -17.5}
+        - {x: 15, y: -17.5}
+        - {x: 19, y: -13.5}
+        - {x: 19, y: 9.5}
+        - {x: 16, y: 17.5}
     - name: spider01_39
       rect:
         serializedVersion: 2
@@ -405,6 +808,16 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16.5, y: -15}
+        - {x: 16.5, y: 13}
+        - {x: 15.5, y: 17}
+        - {x: 13.5, y: 18}
+        - {x: -16.5, y: 18}
+        - {x: -16.5, y: -13}
+        - {x: -11.5, y: -18}
+        - {x: 13.5, y: -18}
     - name: spider01_40
       rect:
         serializedVersion: 2
@@ -414,6 +827,16 @@ TextureImporter:
         height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: 17.5}
+        - {x: -15, y: 17.5}
+        - {x: -21, y: 11.5}
+        - {x: -21, y: -12.5}
+        - {x: -14, y: -17.5}
+        - {x: 19, y: -17.5}
+        - {x: 21, y: -14.5}
+        - {x: 21, y: 16.5}
     - name: spider01_41
       rect:
         serializedVersion: 2
@@ -423,6 +846,8 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: spider01_42
       rect:
         serializedVersion: 2
@@ -432,6 +857,8 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: spider01_43
       rect:
         serializedVersion: 2
@@ -441,5 +868,10 @@ TextureImporter:
         height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

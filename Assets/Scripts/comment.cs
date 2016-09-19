@@ -1,6 +1,7 @@
 //**************************************************//
 // Class Name: comment
-// Class Description: Handler for uncom, baduncom, oncom, badcomment
+// Class Description: Instantiable object in the Robot ON! game. This class is the controller for
+//                    the comment tasks, and is paired with the Commenter and Un-commenter tool.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -16,29 +17,27 @@ using System.Text.RegularExpressions;
 
 public class comment : MonoBehaviour {
 
+	public int index = -1;
 	public bool isCommented;
-    public int entityType = -1;
-    public int groupid    = -1;
-    public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
+	public string commentStyle;
+	public int entityType = -1;
+	public int groupid    = -1;
+	public int size = -1;
+	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string oldtext   = "";
 	public string blocktext = "";
-    public string righttext	= "";
-    public string errmsg    = "";
+	public string errmsg    = "";
+	public string language;
 	public GameObject CodeObject;
 	public GameObject CodescreenObject;
-    public GameObject CorrectCommentObject;
-    public GameObject SidebarObject;
-    public GameObject ToolSelectorObject;
+	public GameObject CorrectCommentObject;
+	public GameObject SidebarObject;
+	public GameObject ToolSelectorObject;
 
 	private LevelGenerator lg;
 	private bool doneUpdating = false;
-    private const int ENTITY_TYPE_CORRECT_COMMENT       = 1;
-    private const int ENTITY_TYPE_CORRECT_UNCOMMENT     = 2;
-    private const int ENTITY_TYPE_INCORRECT_COMMENT     = 3;
-    private const int ENTITY_TYPE_INCORRECT_UNCOMMENT   = 4;
-    private const int ENTITY_TYPE_ROBOBUG_COMMENT       = 5;
 
-    private bool resetting  = false;
+	private bool resetting  = false;
 	private bool toolgiven = false;
 	private float resetTime = 0f;
 	private float timeDelay = 30f;
@@ -52,176 +51,279 @@ public class comment : MonoBehaviour {
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-        if (entityType == ENTITY_TYPE_INCORRECT_COMMENT) {
-            UpdateIncorrectComment();
-        }
-        else if (entityType == ENTITY_TYPE_INCORRECT_UNCOMMENT) {
-            UpdateIncorrectUncomment();
-        }
-        else if (entityType == ENTITY_TYPE_ROBOBUG_COMMENT) {
-            UpdateRoboBUGComment();
-        }
+		switch(entityType) {
+			case stateLib.ENTITY_TYPE_INCORRECT_COMMENT:
+			case stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT: UpdateIncorrect(); break;
+			case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT: UpdateRoboBUGComment(); break;
+			default: break;
+		}
 	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-        if (entityType == ENTITY_TYPE_CORRECT_COMMENT) {
-            TriggerCorrectComment(collidingObj);
-        }
-        else if (entityType == ENTITY_TYPE_CORRECT_UNCOMMENT) {
-            TriggerCorrectUncomment(collidingObj);
-        }
-        else if (entityType == ENTITY_TYPE_INCORRECT_COMMENT) {
-            TriggerIncorrectComment(collidingObj);
-        }
-        else if (entityType == ENTITY_TYPE_INCORRECT_UNCOMMENT) {
-            TriggerIncorrectUncomment(collidingObj);
-        }
-        else if (entityType == ENTITY_TYPE_ROBOBUG_COMMENT) {
-            TriggerRoboBUGComment(collidingObj);
-        }
+		switch(entityType) {
+			case stateLib.ENTITY_TYPE_CORRECT_COMMENT: TriggerCorrectComment(collidingObj); break;
+			case stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT: TriggerCorrectUncomment(collidingObj); break;
+			case stateLib.ENTITY_TYPE_INCORRECT_COMMENT: TriggerIncorrectComment(collidingObj); break;
+			case stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT: TriggerIncorrectUncomment(collidingObj); break;
+			case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT: TriggerRoboBUGComment(collidingObj); break;
+			default: break;
+		}
 	}
 
-    //.................................>8.......................................
-    void TriggerCorrectComment(Collider2D collidingObj) {
-        if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented) {
-            isCommented = true;
-            Destroy(collidingObj.gameObject);
-            GetComponent<AudioSource>().Play();
-            lg.taskscompleted[3]++;
-            CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
-                                                                 .text
-                                                                 .Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
-                                                                                     blocktext +
-                                                                                     stringLib.COMMENT_CLOSE_COLOR_TAG);
-        }
-    }
+	//.................................>8.......................................
+	void TriggerCorrectComment(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented) {
+			isCommented = true;
+			Destroy(collidingObj.gameObject);
+			GetComponent<AudioSource>().Play();
+			lg.taskscompleted[3]++;
+			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_COMMENTER]++;
+			string sNewText = blocktext;
+			string[] sNewParts = sNewText.Split('\n');
+			string multilineCommentOpenSymbolPython = @"'''";
+			string multilineCommentCloseSymbolPython = @"'''";
+			string multilineCommentOpenSymbolCpp = @"/* ";
+			string multilineCommentCloseSymbolCpp = @" */";
+			string singlelineCommentOpenSymbolPython = @"# ";
+			string singlelineCommentOpenSymbolCpp = @"// ";
+			string commentOpenSymbol = multilineCommentOpenSymbolPython;
+			string commentCloseSymbol = multilineCommentCloseSymbolPython;
+			switch(language) {
+				case "python": {
+					commentOpenSymbol = (commentStyle == "multi") ? multilineCommentOpenSymbolPython : singlelineCommentOpenSymbolPython;
+					commentCloseSymbol = (commentStyle == "multi") ? multilineCommentCloseSymbolPython : "";
+					break;
+				}
+				case "c++":
+				case "c":
+				case "c#": {
+					commentOpenSymbol = (commentStyle == "multi") ? multilineCommentOpenSymbolCpp : singlelineCommentOpenSymbolCpp;
+					commentCloseSymbol = (commentStyle == "multi") ? multilineCommentCloseSymbolCpp : "";
+					break;
+				}
+				default: {
+					commentOpenSymbol = (commentStyle == "multi") ? multilineCommentOpenSymbolPython : singlelineCommentOpenSymbolPython;
+					commentCloseSymbol = (commentStyle == "multi") ? multilineCommentCloseSymbolPython : "";
+					break;
+				}
+			}
+			if (sNewParts.Length == 1) {
+				// Single line
+				// Add comment style around the text
+				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG);
+			}
+			else {
+				// Multi line
+				sNewParts[0] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[0] + stringLib.CLOSE_COLOR_TAG;
+				for (int i = 1 ; i < sNewParts.Length - 1 ; i++) {
+					sNewParts[i] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
+															   lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+				}
+				sNewParts[sNewParts.Length-1] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[sNewParts.Length-1] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG :
+																			lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[sNewParts.Length-1] + stringLib.CLOSE_COLOR_TAG;
+
+				for (int i = 0 ; i < sNewParts.Length ; i++) {
+					lg.innerXmlLines[index+i] = sNewParts[i];
+				}
+			}
+
+			lg.DrawInnerXmlLinesToScreen();
+			lg.toolsAirborne--;
+		}
+	}
 
 	//.................................>8.......................................
-    void TriggerCorrectUncomment(Collider2D collidingObj) {
-        if (collidingObj.name == stringLib.PROJECTILE_DEBUG) {
-            if (isCommented) {
-                // lg.GameOver();
-            }
-            else {
-                Destroy(collidingObj.gameObject);
-                GetComponent<AudioSource>().Play();
-                lg.taskscompleted[4]++;
-                blocktext = blocktext.Substring(19, blocktext.Length - 29);
-                print(blocktext);
-                CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
-                                                                     .text
-                                                                     .Replace(stringLib.UNCOMMENT_COLOR_TAG +
-                                                                              blocktext +
-                                                                              stringLib.COMMENT_CLOSE_COLOR_TAG, lg.ColorizeKeywords(blocktext, true));
-                // update the text
-                // code.GetComponent<TextMesh>().text = lg.ColorizeKeywords(blocktext);
-                isCommented = true;
-            }
-        }
-    }
-
-    //.................................>8.......................................
-    void TriggerIncorrectComment(Collider2D collidingObj) {
-        if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating) {
+	void TriggerCorrectUncomment(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented) {
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
-			lg.isLosing = true;
-		}
-    }
+			lg.taskscompleted[4]++;
+			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
+			string sNewText = lg.DecolorizeText(blocktext);
+			string[] sNewParts = sNewText.Split('\n');
+			if (sNewParts.Length == 1) {
+				// Single line
+				// Look for /* something */
+				string multilinePatternCommentCpp = @"(\/\*)(.*)(\*\/)";
+				// Look for ''' something '''
+				string multilinePatternCommentPython = @"(\'\'\')(.*)(\'\'\')";
+				// Look for //something
+				string singlelinePatternCommentCpp = (@"(\/\/)(.*)");
+				// Look for #something
+				string singlelinePatternCommentPython = @"(#)(.*)";
 
-    //.................................>8.......................................
-    void TriggerIncorrectUncomment(Collider2D collidingObj) {
-        if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !doneUpdating) {
+				string patternComment = singlelinePatternCommentPython;
+				switch(language) {
+					case "python": {
+						patternComment = (commentStyle == "multi") ? multilinePatternCommentPython : singlelinePatternCommentPython;
+						break;
+					}
+					case "c++":
+					case "c":
+					case "c#": {
+						patternComment = (commentStyle == "multi") ? multilinePatternCommentCpp : singlelinePatternCommentCpp;
+						break;
+					}
+					default: {
+						patternComment = (commentStyle == "multi") ? multilinePatternCommentPython : singlelinePatternCommentPython;
+						break;
+					}
+				}
+				Regex rgx = new Regex(patternComment);
+				sNewText = rgx.Replace(sNewText, "$2");
+				sNewText = lg.ColorizeText(sNewText, language, false);
+				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, sNewText);
+			}
+			else {
+				// Multi line
+				// Look for /* something
+				string multilinePatternOpenCommentCpp = @"(\/\*)(.*)";
+				// Look for something */
+				string multilinePatternCloseCommentCpp = @"(.*)(\*\/)";
+				// Look for ''' something
+				string multilinePatternOpenCommentPython = @"(\'\'\')(.*)";
+				// Look for something '''
+				string multilinePatternCloseCommentPython =  @"(.*)(\'\'\')";
+				// Look for #something
+				string singlelinePatternOpenCommentPython = @"(\s#|\n#|#)(.*)";
+				string singlelinePatternCloseCommentPython = singlelinePatternOpenCommentPython;
+				// Look for //something
+				string singlelinePatternOpenCommentCpp = @"(//)(.*)";
+				string singlelinePatternCloseCommentCpp = singlelinePatternOpenCommentCpp;
+				string patternOpenComment = singlelinePatternOpenCommentPython;
+				string patternCloseComment = "";
+				switch(language) {
+					case "python": {
+						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentPython : singlelinePatternOpenCommentPython;
+						patternCloseComment = (commentStyle == "multi") ? multilinePatternCloseCommentPython : singlelinePatternCloseCommentPython;
+						break;
+					}
+					case "c++":
+					case "c":
+					case "c#": {
+						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentCpp : singlelinePatternOpenCommentCpp;
+						patternCloseComment =  (commentStyle == "multi") ? multilinePatternCloseCommentCpp : singlelinePatternCloseCommentCpp;
+						break;
+					}
+					default: {
+						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentPython : singlelinePatternOpenCommentPython;
+						patternCloseComment = (commentStyle == "multi") ? multilinePatternCloseCommentPython : singlelinePatternCloseCommentPython;
+						break;
+					}
+				}
+				// Search for open pattern, strip that, then colorize all the text, then get rid of the close pattern
+				//@TODO: Left off here, check this next block for correctness
+				Regex rgx = new Regex(patternOpenComment);
+				sNewParts[0] = rgx.Replace(lg.DecolorizeText(sNewParts[0]), "$2");
+				rgx = new Regex(patternCloseComment);
+				if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
+				}
+				else {
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
+				}
+				for (int i = 0 ; i < sNewParts.Length ; i++) {
+					if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
+						sNewParts[i] = rgx.Replace(lg.DecolorizeText(sNewParts[i]), "$2");
+						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
+					}
+					else {
+						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
+					}
+					lg.innerXmlLines[index+i] = sNewParts[i];
+				}
+			}
+
+			lg.DrawInnerXmlLinesToScreen();
+			isCommented = true;
+			lg.toolsAirborne--;
+		}
+	}
+
+	//.................................>8.......................................
+	void TriggerIncorrectComment(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating) {
+			Destroy(collidingObj.gameObject);
+			lg.toolsAirborne--;
+			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
+		}
+	}
+
+	//.................................>8.......................................
+	void TriggerIncorrectUncomment(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !doneUpdating) {
+			Destroy(collidingObj.gameObject);
+			lg.toolsAirborne--;
+			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "There are errors with the selected code; \nfigure out what the mistake is, then \nuncomment the correct solution.";
+		}
+	}
+
+	//.................................>8.......................................
+	void TriggerRoboBUGComment(Collider2D collidingObj) {
+		if (collidingObj.name == stringLib.PROJECTILE_COMMENT) {
+			Logger.printLogFile(stringLib.LOG_COMMENT_ON, this.transform.position);
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
-			lg.isLosing = true;
+			// Substring is startingPos, length. We want to start after the first color tag, and the length is the whole string - length of color tag - length of close color tag.
+			blocktext = blocktext.Substring(lg.stringLibrary.node_color_question.Length,(blocktext.Length)-(lg.stringLibrary.node_color_question.Length)-(stringLib.CLOSE_COLOR_TAG.Length));
+			lg.DrawInnerXmlLinesToScreen();
+
+			// CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
+			// 																	  blocktext.Replace("/**/","") +
+			// 																	  " */" + stringLib.CLOSE_COLOR_TAG);
+			SidebarObject.GetComponent<GUIText>().text = errmsg;
+			resetTime = Time.time + timeDelay;
+			resetting = true;
+
+			// Award bonus tools if applicable
+			if (!toolgiven) {
+				toolgiven = true;
+				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
+					if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
+					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
+				}
+			}
+			lg.toolsAirborne--;
 		}
-    }
+	}
 
-    //.................................>8.......................................
-    void TriggerRoboBUGComment(Collider2D collidingObj) {
-        if (collidingObj.name == stringLib.PROJECTILE_COMMENT) {
-            printLogFile(stringLib.LOG_COMMENT_ON);
-            Destroy(collidingObj.gameObject);
-            GetComponent<AudioSource>().Play();
-            CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
-                                                                                  blocktext.Replace("/**/","") +
-                                                                                  stringLib.COMMENT_CLOSE_COLOR_TAG);
-            SidebarObject.GetComponent<GUIText>().text = errmsg;
-            resetTime = Time.time + timeDelay;
-            resetting = true;
-
-            if (!toolgiven) {
-                toolgiven = true;
-                for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-                    if (tools[i] > 0) {
-                        ToolSelectorObject.GetComponent<SelectedTool>().notifyToolAcquisition();
-                    }
-                    ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
-                }
-            }
-        }
-    }
-
-    //.................................>8.......................................
-    void UpdateIncorrectComment() {
-        // GameObject must exist
-        if (CorrectCommentObject) {
-            // Commented and badcomment is not done?
-            if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating) {
-                // Colorize the TextMesh's text with this blocktext
-                doneUpdating = true;
-                CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
-                                                           .text
-                                                           .Replace(blocktext, stringLib.BAD_COMMENT_TEXT_COLOR_TAG +
-                                                                               blocktext +
-                                                                               stringLib.CLOSE_COLOR_TAG);
-            }
-        }
-    }
-
-    //.................................>8.......................................
-    void UpdateIncorrectUncomment() {
-        // GameObject must exist
+	//.................................>8.......................................
+	void UpdateIncorrect() {
 		if (CorrectCommentObject) {
-			// Commented and badcomment is not done?
 			if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating) {
 				doneUpdating = true;
-				// Find this object's text in the code and remove it.
-				CodeObject.GetComponent<TextMesh>().text = CodeObject.GetComponent<TextMesh>()
-														             .text
-														             .Replace(blocktext, "");
+				string sNewText = blocktext;
+				string[] sNewParts = sNewText.Split('\n');
+				if (sNewParts.Length == 1) {
+					// Single line
+					lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
+				}
+				else {
+					// Multi line
+					for (int i = 0 ; i < sNewParts.Length ; i++) {
+						lg.innerXmlLines[index+i] = "";
+					}
+				}
+				lg.DrawInnerXmlLinesToScreen();
 			}
 		}
-    }
+	}
+	//.................................>8.......................................
+	void UpdateRoboBUGComment() {
+		// if (resetting) {
+		// 	if (CodeObject.GetComponent<TextMesh>().text != oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
+		// 																			   blocktext.Replace("/**/","") +
+		//     																		   " */" + stringLib.CLOSE_COLOR_TAG)) {
+		// 		resetting = false;
+		// 	}
+		// 	else if (Time.time > resetTime || (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+		// 		resetting = false;
+		// 		SidebarObject.GetComponent<GUIText>().text = "";
+		// 		CodeObject.GetComponent<TextMesh>().text = oldtext;
+		// 	}
+		// }
+	}
 
-    //.................................>8.......................................
-    void UpdateRoboBUGComment() {
-        if (resetting) {
-			if (CodeObject.GetComponent<TextMesh>().text != oldtext.Replace(blocktext, stringLib.COMMENT_BLOCK_COLOR_TAG +
-																				       blocktext.Replace("/**/","") +
-																				       stringLib.COMMENT_CLOSE_COLOR_TAG)) {
-				resetting = false;
-			}
-			else if (Time.time > resetTime || Input.GetKeyDown(KeyCode.Return)) {
-				resetting = false;
-				SidebarObject.GetComponent<GUIText>().text = "";
-				CodeObject.GetComponent<TextMesh>().text = oldtext;
-			}
-		}
-    }
-
-    //.................................>8.......................................
-    void printLogFile(string sMessage)
-    {
-        int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - this.transform.position.y) / stateLib.GAMESETTING_LINE_SPACING);
-        StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
-        sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
-        sw.WriteLine(sMessage);
-        sw.Close();
-    }
-
-    //.................................>8.......................................
-
+	//.................................>8.......................................
 }

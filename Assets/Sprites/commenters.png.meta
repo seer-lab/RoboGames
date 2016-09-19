@@ -1,0 +1,291 @@
+fileFormatVersion: 2
+guid: 3b8db29b313e5be49ba36b75b2f9d794
+timeCreated: 1472487563
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: commenters_0
+    21300002: commenters_1
+    21300004: commenters_2
+    21300006: commenters_3
+    21300008: commenters_4
+    21300010: commenters_5
+    21300012: commenters_6
+    21300014: commenters_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: commenters_0
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 796
+        width: 308
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 47, y: 42.5}
+        - {x: 19, y: 107.5}
+        - {x: -16, y: 142.5}
+        - {x: -39, y: 153.5}
+        - {x: -100, y: 153.5}
+        - {x: -106, y: 151.5}
+        - {x: -110, y: 140.5}
+        - {x: -110, y: 93.5}
+        - {x: -154, y: 112.5}
+        - {x: -154, y: 9.5}
+        - {x: -149, y: -6.5}
+        - {x: -45, y: -41.5}
+        - {x: 64, y: -150.5}
+        - {x: 76, y: -153.5}
+        - {x: 138, y: -153.5}
+        - {x: 154, y: -135.5}
+        - {x: 154, y: -76.5}
+        - {x: 151, y: -63.5}
+    - name: commenters_1
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 775
+        width: 169
+        height: 377
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 84.5, y: 148.5}
+        - {x: 48.5, y: 188.5}
+        - {x: 13.5, y: 188.5}
+        - {x: 18.5, y: 130.5}
+        - {x: -29.5, y: 188.5}
+        - {x: -38.5, y: 188.5}
+        - {x: -49.5, y: 183.5}
+        - {x: -72.5, y: 159.5}
+        - {x: -79.5, y: 150.5}
+        - {x: -84.5, y: 135.5}
+        - {x: -84.5, y: 59.5}
+        - {x: -67.5, y: 14.5}
+        - {x: -62.5, y: -151.5}
+        - {x: -29.5, y: -188.5}
+        - {x: 28.5, y: -188.5}
+        - {x: 45.5, y: -180.5}
+        - {x: 60.5, y: -148.5}
+        - {x: 72.5, y: 21.5}
+        - {x: 84.5, y: 71.5}
+    - name: commenters_2
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 795
+        width: 307
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 153.5, y: 110}
+        - {x: 128.5, y: 109}
+        - {x: 65.5, y: 100}
+        - {x: 111.5, y: 142}
+        - {x: 101.5, y: 154}
+        - {x: 24.5, y: 154}
+        - {x: -21.5, y: 106}
+        - {x: -36.5, y: 42}
+        - {x: -150.5, y: -64}
+        - {x: -153.5, y: -78}
+        - {x: -153.5, y: -132}
+        - {x: -140.5, y: -152}
+        - {x: -133.5, y: -154}
+        - {x: -73.5, y: -154}
+        - {x: 53.5, y: -51}
+        - {x: 146.5, y: 14}
+        - {x: 153.5, y: 37}
+    - name: commenters_3
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 509
+        width: 377
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 188.5, y: 28.5}
+        - {x: 184.5, y: 33.5}
+        - {x: 149.5, y: 61.5}
+        - {x: -15.5, y: 60.5}
+        - {x: -70.5, y: 83.5}
+        - {x: -74.5, y: 84.5}
+        - {x: -153.5, y: 84.5}
+        - {x: -188.5, y: 52.5}
+        - {x: -188.5, y: 25.5}
+        - {x: -183.5, y: 22.5}
+        - {x: -164.5, y: 19.5}
+        - {x: -148.5, y: 20.5}
+        - {x: -188.5, y: -22.5}
+        - {x: -188.5, y: -48.5}
+        - {x: -154.5, y: -84.5}
+        - {x: -66.5, y: -84.5}
+        - {x: -13.5, y: -60.5}
+        - {x: 176.5, y: -63.5}
+        - {x: 188.5, y: -25.5}
+    - name: commenters_4
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 509
+        width: 377
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 179.5, y: 19.5}
+        - {x: 188.5, y: 29.5}
+        - {x: 188.5, y: 54.5}
+        - {x: 145.5, y: 84.5}
+        - {x: 70.5, y: 84.5}
+        - {x: 15.5, y: 54.5}
+        - {x: -157.5, y: 56.5}
+        - {x: -188.5, y: 34.5}
+        - {x: -188.5, y: -30.5}
+        - {x: -175.5, y: -64.5}
+        - {x: -148.5, y: -60.5}
+        - {x: 15.5, y: -61.5}
+        - {x: 70.5, y: -84.5}
+        - {x: 146.5, y: -84.5}
+        - {x: 188.5, y: -45.5}
+        - {x: 188.5, y: -17.5}
+        - {x: 133.5, y: -14.5}
+    - name: commenters_5
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 50
+        width: 307
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 153.5, y: 134}
+        - {x: 132.5, y: 154}
+        - {x: 64.5, y: 154}
+        - {x: -129.5, y: 7}
+        - {x: -153.5, y: -24}
+        - {x: -153.5, y: -111}
+        - {x: -140.5, y: -110}
+        - {x: -117.5, y: -88}
+        - {x: -65.5, y: -100}
+        - {x: -108.5, y: -143}
+        - {x: -101.5, y: -154}
+        - {x: -27.5, y: -154}
+        - {x: 16.5, y: -116}
+        - {x: 37.5, y: -43}
+        - {x: 153.5, y: 70}
+    - name: commenters_6
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 29
+        width: 169
+        height: 377
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28.5, y: -188.5}
+        - {x: 45.5, y: -188.5}
+        - {x: 84.5, y: -155.5}
+        - {x: 84.5, y: -79.5}
+        - {x: 60.5, y: -14.5}
+        - {x: 53.5, y: 170.5}
+        - {x: 20.5, y: 188.5}
+        - {x: -28.5, y: 188.5}
+        - {x: -70.5, y: 152.5}
+        - {x: -60.5, y: -15.5}
+        - {x: -83.5, y: -70.5}
+        - {x: -84.5, y: -80.5}
+        - {x: -84.5, y: -165.5}
+        - {x: -43.5, y: -188.5}
+        - {x: -18.5, y: -188.5}
+        - {x: -20.5, y: -128.5}
+        - {x: 23.5, y: -129.5}
+        - {x: 25.5, y: -185.5}
+    - name: commenters_7
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 64
+        width: 308
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 154, y: -101.5}
+        - {x: 154, y: -31.5}
+        - {x: 136, y: 20.5}
+        - {x: 45, y: 40.5}
+        - {x: -76, y: 153.5}
+        - {x: -133, y: 153.5}
+        - {x: -140, y: 151.5}
+        - {x: -154, y: 133.5}
+        - {x: -154, y: 67.5}
+        - {x: -38, y: -42.5}
+        - {x: -17, y: -105.5}
+        - {x: 24, y: -153.5}
+        - {x: 111, y: -153.5}
+        - {x: 100, y: -65.5}
+        - {x: 143, y: -107.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

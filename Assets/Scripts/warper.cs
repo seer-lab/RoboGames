@@ -1,11 +1,11 @@
 //**************************************************//
 // Class Name: warper
-// Class Description:
+// Class Description: Instantiable object in the RoboBUG game. This controls the warp objects and
+//                    corresponds with the warper tool in that game.
 // Methods:
 // 		void Start()
 //		void Update()
 //		void OnTriggerEnter2D(Collider2D collidingObj)
-//		void printLogFile(string sMessage)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
 //**************************************************//
@@ -16,17 +16,23 @@ using System.IO;
 
 public class warper : MonoBehaviour
 {
+	public int index = -1;
 	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string filename = "";
 	public string linenum = "";
+	public string language;
 	public GameObject CodescreenObject;
-	public GameObject SelectToolsObject;
+	public GameObject ToolSelectorObject;
+	public GameObject Menu;
+
 
 	private bool toolgiven = false;
+	private LevelGenerator lg;
 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 	}
 
 	//.................................>8.......................................
@@ -38,37 +44,22 @@ public class warper : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
 			string sMessage = stringLib.LOG_WARPED + filename;
-			printLogFile(sMessage);
+			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			LevelGenerator lg = CodescreenObject.GetComponent<LevelGenerator>();
+			lg.toolsAirborne--;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-					if (tools[i] > 0) {
-						SelectToolsObject.GetComponent<SelectedTool>().notifyToolAcquisition();
-					}
-					SelectToolsObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
-					if (SelectToolsObject.GetComponent<SelectedTool>().toolCounts[i] == 0 && SelectToolsObject.GetComponent<SelectedTool>().bonusTools[i] == 0) {
-						SelectToolsObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<GUITexture>().enabled = false;
-						if (SelectToolsObject.GetComponent<SelectedTool>().projectilecode == i) {
-							SelectToolsObject.GetComponent<SelectedTool>().NextTool();
-							}
+					if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
+					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] += tools[i];
+					if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] == 0 && ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] == 0) {
+						ToolSelectorObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<GUITexture>().enabled = false;
+						if (ToolSelectorObject.GetComponent<SelectedTool>().projectilecode == i) ToolSelectorObject.GetComponent<SelectedTool>().NextTool();
 						}
 					}
 				}
-
-		lg.BuildLevel(lg.gamemode + @"leveldata\" + filename, true, linenum);
+		lg.BuildLevel(lg.gamemode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, linenum);
 		}
 	}
-
-	//.................................>8.......................................
-	void printLogFile(string sMessage)
-	{
-		int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - this.transform.position.y) / stateLib.GAMESETTING_LINE_SPACING);
-		StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
-		sw.WriteLine(sMessage + position.ToString() + ", " + Time.time.ToString());
-		sw.Close();
-	}
-
 	//.................................>8.......................................
 }

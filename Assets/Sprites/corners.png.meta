@@ -1,6 +1,11 @@
 fileFormatVersion: 2
 guid: f0af6806a9d52bf4ea25426b5e7cc934
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: corners_0
+    21300002: corners_1
+    21300004: corners_2
+    21300006: corners_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +19,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -29,12 +37,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -43,6 +54,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: corners_0
@@ -54,6 +66,17 @@ TextureImporter:
         height: 147
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 48, y: 73.5}
+        - {x: -57, y: 73.5}
+        - {x: -60, y: 68.5}
+        - {x: -60, y: -62.5}
+        - {x: -41, y: -73.5}
+        - {x: 25, y: -73.5}
+        - {x: 60, y: -1.5}
+        - {x: 60, y: 68.5}
+        - {x: 54, y: 72.5}
     - name: corners_1
       rect:
         serializedVersion: 2
@@ -63,6 +86,17 @@ TextureImporter:
         height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -61.5, y: 59}
+        - {x: -77.5, y: 41}
+        - {x: -77.5, y: 0}
+        - {x: -1.5, y: -59}
+        - {x: 54.5, y: -59}
+        - {x: 73.5, y: -58}
+        - {x: 77.5, y: -36}
+        - {x: 77.5, y: 57}
+        - {x: 74.5, y: 59}
     - name: corners_2
       rect:
         serializedVersion: 2
@@ -72,6 +106,16 @@ TextureImporter:
         height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -50.5, y: 61}
+        - {x: -77.5, y: 54}
+        - {x: -77.5, y: -52}
+        - {x: -66.5, y: -61}
+        - {x: 71.5, y: -61}
+        - {x: 77.5, y: -38}
+        - {x: 77.5, y: 19}
+        - {x: 12.5, y: 61}
     - name: corners_3
       rect:
         serializedVersion: 2
@@ -81,5 +125,18 @@ TextureImporter:
         height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25.5, y: 75}
+        - {x: -62.5, y: 0}
+        - {x: -62.5, y: -69}
+        - {x: -56.5, y: -75}
+        - {x: 53.5, y: -75}
+        - {x: 62.5, y: -73}
+        - {x: 62.5, y: 67}
+        - {x: 46.5, y: 75}
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: Menu
-// Class Description: Menu logic used in the game
+// Class Description: This is the class for the menu, used for both games. This class gets called first.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -10,7 +10,6 @@
 // Date Last Modified: 6/1/2016
 //**************************************************//
 
-// @TODO: Bug: New Game > RoboBUG > Menu > Sound. Back and Sound buttons both green.
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +18,7 @@ using System.IO;
 public class Menu : MonoBehaviour
 {
 	public bool gameon = false;
+    public string filepath;
 	public List<string> levels;
 	public List<string> passed;
 	public GameObject codescreen;
@@ -32,6 +32,7 @@ public class Menu : MonoBehaviour
 	public Sprite bluebutton;
 	public Sprite greenbutton;
 
+
 	private bool soundon = true;
 	private float delaytime = 0f;
 	private float delay = 0.1f;
@@ -40,6 +41,8 @@ public class Menu : MonoBehaviour
 	private string lfile;
 	private LevelGenerator lg;
 	private StreamReader sr;
+    private string windowsFilepath = @"\";
+    private string unixFilepath = @"/";
 
 	//.................................>8.......................................
 	// Use this for initialization
@@ -52,6 +55,7 @@ public class Menu : MonoBehaviour
 		buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
 		lg = codescreen.GetComponent<LevelGenerator>();
 		m2switch(false);
+        filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 	}
 
 	//.................................>8.......................................
@@ -65,7 +69,6 @@ public class Menu : MonoBehaviour
 			buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
 		}
 		// ]-- End of "Resume Game" button behavior.
-
 		// If we are in the menu, handle up and down arrows --[
 		if (lg.gamestate == stateLib.GAMESTATE_MENU) {
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
@@ -85,6 +88,9 @@ public class Menu : MonoBehaviour
 					option = (option == stateLib.GAMEMENU_EXIT_GAME) ? stateLib.GAMEMENU_EXIT_GAME : option + 1;
 				}
 			}
+			if (Input.GetKeyDown(KeyCode.Z)) {
+				lg.ToggleLightDark();
+			}
 			// ]-- End of Arrow controller.
 
 			// Make the current button appear green. The previous buttons change to blue
@@ -92,7 +98,7 @@ public class Menu : MonoBehaviour
 			buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
 
 			// When we press Return (Enter Key), take us to the sub-menus
-			if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				switch(option) {
 					case stateLib.GAMEMENU_NEW_GAME:
 					// Select between RobotON or RoboBUG.
@@ -117,7 +123,7 @@ public class Menu : MonoBehaviour
 					buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
 					option = 0;
 					m2switch(true);
-					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " +(soundon ? stringLib.MENU_SOUND_ON_COLOR_TAG + "ON" + stringLib.CLOSE_COLOR_TAG : stringLib.MENU_SOUND_OFF_COLOR_TAG + "OFF" + stringLib.CLOSE_COLOR_TAG);
+					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " +(soundon ? lg.stringLibrary.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : lg.stringLibrary.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
 					m2buttontext[1].GetComponent<TextMesh>().text = "Back";
 					break;
 					case stateLib.GAMEMENU_EXIT_GAME:
@@ -134,12 +140,12 @@ public class Menu : MonoBehaviour
 				}
 			}
 		}
-		else if (Input.GetKeyDown(KeyCode.Escape) && lg.gamestate < 0) {
+		else if (Input.GetKeyDown(KeyCode.Escape) && lg.gamestate < 0 && !lg.isAnswering) {
 			m2switch(false);
 			flushButtonColor();
 			lg.gamestate = stateLib.GAMESTATE_MENU;
 		}
-		else if (lg.gamestate == -1) {
+		else if (lg.gamestate == stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU) {
 			if (levoption < levels.Count - 1 && passed[levoption] == "1") {
 				m2arrows[1].GetComponent<SpriteRenderer>().enabled = true;
 			}
@@ -168,13 +174,13 @@ public class Menu : MonoBehaviour
 				m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
 			}
 			if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-				levoption = 0 == levoption ? 0 : levoption - 1;
+				levoption = (levoption == 0) ? 0 : levoption - 1;
 				m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
 			}
-			if (Input.GetKeyDown(KeyCode.Return)) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
-					lg.BuildLevel(lg.gamemode + @"leveldata\" + levels[levoption], false);
+					lg.BuildLevel(lg.gamemode + "leveldata" + filepath + levels[levoption], false);
 					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 					levoption = 0;
 					gameon = true;
@@ -194,7 +200,7 @@ public class Menu : MonoBehaviour
 
 		}
 		//
-		else if (lg.gamestate == -2) {
+		else if (lg.gamestate == stateLib.GAMESTATE_MENU_SOUNDOPTIONS) {
 			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
 				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
@@ -204,11 +210,11 @@ public class Menu : MonoBehaviour
 				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
 				option = 1;
 			}
-			if (Input.GetKeyDown(KeyCode.Return)) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
 					soundon = !soundon;
-					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? stringLib.MENU_SOUND_ON_COLOR_TAG + "ON" + stringLib.CLOSE_COLOR_TAG : stringLib.MENU_SOUND_OFF_COLOR_TAG + "OFF" + stringLib.CLOSE_COLOR_TAG);
+					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + ((soundon) ? lg.stringLibrary.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : lg.stringLibrary.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
 					AudioListener.volume = (soundon) ? 1 : 0;
 					break;
 					case 1:
@@ -220,7 +226,7 @@ public class Menu : MonoBehaviour
 				}
 			}
 		}
-		else if (lg.gamestate == -3) {
+		else if (lg.gamestate == stateLib.GAMESTATE_MENU_NEWGAME) {
 			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
 				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
@@ -230,17 +236,22 @@ public class Menu : MonoBehaviour
 				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
 				option = 1;
 			}
-			if (Input.GetKeyDown(KeyCode.Return)) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
 					lg.gamemode = stringLib.GAME_MODE_ON;
-					lg.BuildLevel(@"onleveldata\demo.xml", false);
+					lg.BuildLevel("onleveldata" + filepath + "level0.xml", false);
 					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 					break;
 					case 1:
+					lg.gamemode = stringLib.GAME_MODE_ON;
+					lg.BuildLevel("onleveldata" + filepath + "level0.xml", false);
+					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
+					/*
 					lg.gamemode = stringLib.GAME_MODE_BUG;
-					lg.BuildLevel(@"bugleveldata\tut1.xml", false);
+					lg.BuildLevel("bugleveldata" + filepath + "tut1.xml", false);
 					lg.gamestate = stateLib.GAMESTATE_INITIAL_COMIC;
+					*/
 					break;
 				}
 				m2switch(false);
@@ -249,7 +260,7 @@ public class Menu : MonoBehaviour
 
 			}
 		}
-		else if (lg.gamestate == -4) {
+		else if (lg.gamestate == stateLib.GAMESTATE_MENU_LOADGAME) {
 			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
 				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
@@ -259,9 +270,8 @@ public class Menu : MonoBehaviour
 				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
 				option = 1;
 			}
-			if (Input.GetKeyDown(KeyCode.Return)) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
-					//@TODO: Switches between RobotON and RoboBUG. Should not be magic number!
 					case 0:
 					lg.gamemode = stringLib.GAME_MODE_ON;
 					break;
@@ -272,7 +282,7 @@ public class Menu : MonoBehaviour
 
 				levels.Clear();
 				passed.Clear();
-				lfile = lg.gamemode + @"leveldata\levels.txt";
+				lfile = lg.gamemode + "leveldata" + filepath + "levels.txt";
 				sr = File.OpenText(lfile);
 				string line;
 				while((line = sr.ReadLine()) != null) {
@@ -298,7 +308,8 @@ public class Menu : MonoBehaviour
 	public void saveGame(string currentlevel) {
 		levels.Clear();
 		passed.Clear();
-		lfile = lg.gamemode + @"leveldata\levels.txt";
+		lfile = lg.gamemode + "leveldata" + filepath + "levels.txt";
+
 		sr = File.OpenText(lfile);
 		string line;
 		while((line = sr.ReadLine()) != null) {
@@ -307,10 +318,8 @@ public class Menu : MonoBehaviour
 			passed.Add(data[1]);
 		}
 		sr.Close();
-
-		//@TODO: Remove hardcode here
 		passed[levels.IndexOf(currentlevel)] = "1";
-		StreamWriter sw = File.CreateText(lg.gamemode + @"leveldata\levels.txt");
+		StreamWriter sw = File.CreateText(lg.gamemode + "leveldata" + filepath + "levels.txt");
 		for (int i = 0; i < levels.Count; i++) {
 			sw.WriteLine(levels[i] + " " + passed[i]);
 		}

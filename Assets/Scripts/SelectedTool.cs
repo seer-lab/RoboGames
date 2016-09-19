@@ -1,11 +1,10 @@
 //**************************************************//
 // Class Name: SelectedTool
-// Class Description: Tool bar on right side of interface.
+// Class Description: Controller for the sidebar tools
 // Methods:
 // 		void Start()
 //		void Update()
 //		public void NextTool()
-// 		public void notifyToolAcquisition()
 //		private string ReplaceTextInfinite(int nToolCount)
 // Author: Michael Miljanovic
 // Date Last Modified: 6/1/2016
@@ -19,31 +18,31 @@ public class SelectedTool : MonoBehaviour
 	public int projectilecode = 0;
 	public int[] toolCounts = new int[stateLib.NUMBER_OF_TOOLS];
 	public int[] bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
+	public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
 	public GameObject codescreen;
 	public GameObject hero;
 	public GameObject toolprompt;
-	public GameObject toolLabel;
+	public GameObject toolAvailableTools;
+	public GameObject levelDescription;
+    public GameObject outputtext;
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
 
 	// Determine if the player has lost the game.
 	private bool isLosing = false;
 	// Determine the player has any remaining activavator tools (RoboBUG)
 	private bool noRemainingActivators = false;
-	// This is controlled in the projectile scripts, if a player should receive a new tool, notify them.
-	private bool notifyNewToolsAcquired = false;
 	private float lossDelay = 4f;
 	private float losstime;
 	private Color toolOnColor = new Color(.7f, .7f, .7f);
 	private Color toolOffColor = new Color(.3f, .3f, .3f);
-	private GUIText tm;
 	private LevelGenerator lg;
+	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		tm = this.GetComponent<GUIText>();
-		tm.text = "Bug Catcher";
 		lg = codescreen.GetComponent<LevelGenerator>();
+		this.GetComponent<GUIText>().text = "";
 	}
 
 	//.................................>8.......................................
@@ -56,12 +55,8 @@ public class SelectedTool : MonoBehaviour
 		}
 		// In game
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME) {
-			toolLabel.GetComponent<GUIText>().text = "Available Tools:";
-			if (notifyNewToolsAcquired) {
-				Animator anim = toolprompt.GetComponent<Animator>();
-				anim.Play("hide");
-				notifyNewToolsAcquired = false;
-			}
+			toolAvailableTools.GetComponent<GUIText>().text = "Available Tools:";
+			levelDescription.GetComponent<GUIText>().text = lg.destext.GetComponent<TextMesh>().text;
 			// If we are losing or failed, trigger the losing sequence on LevelGenerator
 			if (isLosing || noRemainingActivators) {
 				if (Time.time > losstime) {
@@ -73,7 +68,9 @@ public class SelectedTool : MonoBehaviour
 			// Tools are enabled if we have a count greater than 0 for each tool.
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 				if (toolCounts[i] + bonusTools[i] > 0) {
-					toolIcons[i].GetComponent<GUITexture>().enabled = true;
+					if (lg.tasklist[i] != lg.taskscompleted[i]) {
+						toolIcons[i].GetComponent<GUITexture>().enabled = true;
+					}
 					isLosing = false;
 					if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
 						projectilecode = i;
@@ -85,11 +82,14 @@ public class SelectedTool : MonoBehaviour
 			if (Input.GetKeyDown("tab") && projectilecode >= 0) {
 				NextTool();
 			}
+
+			// A projectile has been thrown by the player in hero2Controller
 			if (hero.GetComponent<hero2Controller>().throwing) {
+				lg.toolsAirborne++;
 				hero.GetComponent<hero2Controller>().throwing = false;
 				// Decrease the remaining number of tools if tools are not infinite (999)
 				if (toolCounts[projectilecode] < 999) {
-					if (toolCounts[projectilecode] == 0) {
+					if (bonusTools[projectilecode] > 0) {
 						bonusTools[projectilecode] -= 1;
 					}
 					else {
@@ -97,83 +97,69 @@ public class SelectedTool : MonoBehaviour
 					}
 				}
 				// RoboBUG: If we are out of activators, we've failed the game.
-				if (projectilecode == 0 && toolCounts[0] == 0 && lg.gamemode == stringLib.GAME_MODE_BUG) {
+				if (projectilecode == 0 && toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] == 0 && lg.gamemode == stringLib.GAME_MODE_BUG) {
 					noRemainingActivators = true;
 					losstime = Time.time + lossDelay;
 				}
-				// Out of tools, switch to the next one
-				if (toolCounts[projectilecode] == 0 && bonusTools[projectilecode] == 0) {
-					toolIcons[projectilecode].GetComponent<GUITexture>().enabled = false;
-					NextTool();
-				}
 			}
 			switch(projectilecode) {
-				case stringLib.TOOL_CATCHER_OR_ACTIVATOR:
-					tm.color = Color.white;
-					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
-						tm.text = "Bug Catcher: " + ReplaceTextInfinite(toolCounts[0]);
-					}
-					else {
-						tm.text = "Beacon Activator: " + ReplaceTextInfinite(toolCounts[0]);
-					}
-					toolIcons[0].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_CATCHER_OR_ACTIVATOR:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stringLib.TOOL_PRINTER_OR_CHECKER:
-					tm.color = Color.white;
-					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
-						tm.text = "Printer: " + ReplaceTextInfinite(toolCounts[1]);
-					}
-					else {
-						tm.text = "Checker: " + ReplaceTextInfinite(toolCounts[1]);
-					}
-					toolIcons[1].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_PRINTER_OR_QUESTION:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stringLib.TOOL_WARPER_OR_RENAMER:
-					tm.color = Color.white;
-					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
-						tm.text = "Warper: " + ReplaceTextInfinite(toolCounts[2]);
-					}
-					else {
-						tm.text = "Renamer: " + ReplaceTextInfinite(toolCounts[2]);
-					}
-					toolIcons[2].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_WARPER_OR_RENAMER:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stringLib.TOOL_COMMENTER:
-					tm.color = Color.white;
-					tm.text = "Commenter: " + ReplaceTextInfinite(toolCounts[3]);
-					toolIcons[3].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_COMMENTER:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_COMMENTER].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stringLib.TOOL_CONTROL_FLOW:
-					tm.color = Color.white;
-					if (lg.gamemode == stringLib.GAME_MODE_BUG) {
-						tm.text = "Breakpointer: " + ReplaceTextInfinite(toolCounts[4]);
-					}
-					else {
-						tm.text = "Un-Commenter: " + ReplaceTextInfinite(toolCounts[4]);
-					}
-					toolIcons[4].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_CONTROL_FLOW:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stringLib.TOOL_HELPER:
-					tm.color = Color.white;
-					tm.text = "Helper: " + ReplaceTextInfinite(toolCounts[5]);
-					toolIcons[5].GetComponent<GUITexture>().color = toolOnColor;
+				case stateLib.TOOL_HELPER:
+					refreshToolList();
+					toolIcons[stateLib.TOOL_HELPER].GetComponent<GUITexture>().color = toolOnColor;
 					break;
-				case stateLib.PROJECTILE_CODE_NO_TOOLS:
-					tm.color = Color.red;
-					tm.text = "Out of Tools!!";
+				default:
 					break;
 			}
-			if (projectilecode >= 0 && bonusTools[projectilecode] > 0) {
-				tm.text += " <color=#ff8800ff>+ " + bonusTools[projectilecode].ToString() + "</color>";
+			if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
+				isLosing = true;
+				losstime = Time.time + lossDelay;
+				return;
+			}
+			if (toolCounts[projectilecode] <= 0 && bonusTools[projectilecode] <= 0 && !lg.isAnswering && lg.toolsAirborne <= 0) {
+				NextTool();
 			}
 		}
 		else {
+            // Menu is up
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-				toolIcons[i].GetComponent<GUITexture>().enabled = false;
+			    toolIcons[i].GetComponent<GUITexture>().enabled = false;
 			}
-			tm.text = "";
 			isLosing = false;
-			toolLabel.GetComponent<GUIText>().text = "";
+			toolAvailableTools.GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text = "";
+			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().enabled = true;
+			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().enabled = true;
+			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().enabled = true;
+			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().enabled = true;
+			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().enabled = true;
+			toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().enabled = true;
+			levelDescription.GetComponent<GUIText>().text = "";
+			taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
 		}
 	}
 
@@ -182,10 +168,23 @@ public class SelectedTool : MonoBehaviour
 		int notoolcount = 0;
 		// Turn this tool's color to the toolOff color.
 		toolIcons[projectilecode].GetComponent<GUITexture>().color = toolOffColor;
+		// If the checklist entry was is completed, then disable this current tool before switching to the next
+		if (lg.tasklist[projectilecode] == lg.taskscompleted[projectilecode]) {
+			taskComplete[projectilecode] = true;
+			toolIcons[projectilecode].GetComponent<GUITexture>().enabled = false;
+			toolLabels[projectilecode].GetComponent<GUIText>().enabled = false;
+			toolCounts[projectilecode] = 0;
+			bonusTools[projectilecode] = 0;
+		}
+		else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0) {
+			toolLabels[projectilecode].GetComponent<GUIText>().color = Color.red;
+			toolLabels[projectilecode].GetComponent<GUIText>().text = "Out of Tools!";
+			lg.isLosing = true;
+		}
 		// Cycle to the next tool.
 		projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
 		// Count the number of empty tools from the set of tools.
-		while(!toolIcons[projectilecode].GetComponent<GUITexture>().enabled) {
+		while(toolCounts[projectilecode] <= 0) {
 			notoolcount++;
 			projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
 			// Player has no useable tools
@@ -200,20 +199,184 @@ public class SelectedTool : MonoBehaviour
 			losstime = Time.time + lossDelay;
 		}
 	}
+
 	//.................................>8.......................................
-	public void notifyToolAcquisition() {
-		notifyNewToolsAcquired = true;
+	public void refreshToolList() {
+		if (toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] + bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR] > 0) {
+			CheckTaskComplete(stateLib.TOOL_CATCHER_OR_ACTIVATOR);
+			if (lg.gamemode == stringLib.GAME_MODE_BUG) {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "Bug Catcher [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
+                }
+
+			}
+			else {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "Beacon Activator [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
+                }
+			}
+		}
+		if (toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] + bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION] > 0) {
+			CheckTaskComplete(stateLib.TOOL_PRINTER_OR_QUESTION);
+			if (lg.gamemode == stringLib.GAME_MODE_BUG) {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "Printer [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
+                }
+			}
+			else {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "Checker [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
+                }
+
+			}
+		}
+		if (toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] + bonusTools[stateLib.TOOL_WARPER_OR_RENAMER] > 0) {
+			CheckTaskComplete(stateLib.TOOL_WARPER_OR_RENAMER);
+			if (lg.gamemode == stringLib.GAME_MODE_BUG) {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "Warper [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
+                }
+
+			}
+			else {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "Renamer [" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "[" +
+                                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) +
+                                                                                                    ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
+                }
+
+			}
+		}
+		if (toolCounts[stateLib.TOOL_COMMENTER] + bonusTools[stateLib.TOOL_COMMENTER] > 0) {
+			CheckTaskComplete(stateLib.TOOL_COMMENTER);
+            if (lg.sidebarToggle) {
+                toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text = "Commenter [" +
+                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) +
+                                                                                    ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
+            }
+            else {
+                toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text = "[" +
+                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) +
+                                                                                    ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
+            }
+
+		}
+		if (toolCounts[stateLib.TOOL_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CONTROL_FLOW] > 0) {
+			CheckTaskComplete(stateLib.TOOL_CONTROL_FLOW);
+			if (lg.gamemode == stringLib.GAME_MODE_BUG) {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "Breakpointer [" +
+                                                                                            ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) +
+                                                                                            ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "[" +
+                                                                                            ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) +
+                                                                                            ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+                }
+
+			}
+			else {
+                if (lg.sidebarToggle) {
+                    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "Un-Commenter [" +
+                                                                                            ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) +
+                                                                                            ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+                }
+                else {
+                    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "[" +
+                                                                                            ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) +
+                                                                                            ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+                }
+
+			}
+		}
+		if (toolCounts[stateLib.TOOL_HELPER] + bonusTools[stateLib.TOOL_HELPER] > 0) {
+			CheckTaskComplete(stateLib.TOOL_HELPER);
+            if (lg.sidebarToggle) {
+                toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text = "Helper [" +
+                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) +
+                                                                                    ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
+            }
+            else {
+                toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text = "[" +
+                                                                                    ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) +
+                                                                                    ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
+            }
+		}
+	}
+
+	//.................................>8.......................................
+	private void CheckTaskComplete(int nToolCode) {
+		if (lg.tasklist[nToolCode] == lg.taskscompleted[nToolCode] && !taskComplete[nToolCode] && lg.tasklist[nToolCode] == 0) {
+			taskComplete[nToolCode] = true;
+			for (int i = 0 ; i < 5 ; i++) {
+				NextTool();
+			}
+			toolIcons[nToolCode].GetComponent<GUITexture>().enabled = false;
+			toolLabels[nToolCode].GetComponent<GUIText>().enabled = false;
+		}
+		if (lg.tasklist[nToolCode] == lg.taskscompleted[nToolCode] && !taskComplete[nToolCode]) {
+            taskComplete[nToolCode] = true;
+            toolLabels[nToolCode].GetComponent<GUIText>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
+            NextTool();
+            outputtext.GetComponent<GUIText>().text = "Task Complete!";
+            outputtext.GetComponent<AudioSource>().Play();
+		}
+		else if (lg.tasklist[nToolCode] != lg.taskscompleted[nToolCode]) {
+            toolLabels[nToolCode].GetComponent<GUIText>().color = lg.backgroundLightDark == false ? Color.white : Color.black;
+		}
 	}
 
 	//.................................>8.......................................
 	private string ReplaceTextInfinite(int nToolCount) {
-		if (nToolCount >= 999) {
-			return "Infinite";
-		}
-		else {
-			return nToolCount.ToString();
-		}
+        return nToolCount >= 999 ? "--" : nToolCount.ToString();
 	}
 
 	//.................................>8.......................................
+	private string ReplaceBonusText(int nToolIndex) {
+		return bonusTools[nToolIndex] > 0 ? lg.stringLibrary.checklist_complete_color_tag + " +" + ReplaceTextInfinite(bonusTools[nToolIndex]) + stringLib.CLOSE_COLOR_TAG : "";
+	}
+
+	//.................................>8.......................................
+
 }

@@ -1,6 +1,39 @@
 fileFormatVersion: 2
 guid: 6144dc96d9814874dbd86dd60711e422
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Gui-Set_0
+    21300002: Gui-Set_1
+    21300004: Gui-Set_2
+    21300006: Gui-Set_3
+    21300008: Gui-Set_4
+    21300010: Gui-Set_5
+    21300012: Gui-Set_6
+    21300014: Gui-Set_7
+    21300016: Gui-Set_8
+    21300018: Gui-Set_9
+    21300020: Gui-Set_10
+    21300022: Gui-Set_11
+    21300024: Gui-Set_12
+    21300026: Gui-Set_13
+    21300028: Gui-Set_14
+    21300030: Gui-Set_15
+    21300032: Gui-Set_16
+    21300034: Gui-Set_17
+    21300036: Gui-Set_18
+    21300038: Gui-Set_19
+    21300040: Gui-Set_20
+    21300042: Gui-Set_21
+    21300044: Gui-Set_22
+    21300046: Gui-Set_23
+    21300048: Gui-Set_24
+    21300050: Gui-Set_25
+    21300052: Gui-Set_26
+    21300054: Gui-Set_27
+    21300056: Gui-Set_28
+    21300058: Gui-Set_29
+    21300060: Gui-Set_30
+    21300062: Gui-Set_31
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +47,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -29,12 +65,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -43,6 +82,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: Gui-Set_0
@@ -54,6 +94,16 @@ TextureImporter:
         height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -229.5, y: 20.5}
+        - {x: -230.5, y: 17.5}
+        - {x: -230.5, y: -18.5}
+        - {x: -227.5, y: -20.5}
+        - {x: 225.5, y: -20.5}
+        - {x: 230.5, y: -16.5}
+        - {x: 230.5, y: 13.5}
+        - {x: 223.5, y: 20.5}
     - name: Gui-Set_1
       rect:
         serializedVersion: 2
@@ -63,6 +113,14 @@ TextureImporter:
         height: 461
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.5, y: 230.5}
+        - {x: -19.5, y: 226.5}
+        - {x: -19.5, y: -225.5}
+        - {x: -16.5, y: -230.5}
+        - {x: 19.5, y: -230.5}
+        - {x: 19.5, y: 230.5}
     - name: Gui-Set_2
       rect:
         serializedVersion: 2
@@ -72,6 +130,16 @@ TextureImporter:
         height: 346
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 188, y: 168}
+        - {x: 183, y: 173}
+        - {x: -183, y: 173}
+        - {x: -188, y: 168}
+        - {x: -188, y: -167}
+        - {x: -183, y: -173}
+        - {x: 183, y: -173}
+        - {x: 188, y: -168}
     - name: Gui-Set_3
       rect:
         serializedVersion: 2
@@ -81,6 +149,16 @@ TextureImporter:
         height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 152.5, y: 143.5}
+        - {x: -152.5, y: 143.5}
+        - {x: -156.5, y: 139.5}
+        - {x: -156.5, y: -139.5}
+        - {x: -152.5, y: -143.5}
+        - {x: 151.5, y: -143.5}
+        - {x: 156.5, y: -139.5}
+        - {x: 156.5, y: 140.5}
     - name: Gui-Set_4
       rect:
         serializedVersion: 2
@@ -90,6 +168,16 @@ TextureImporter:
         height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -42, y: 56.5}
+        - {x: -58, y: 31.5}
+        - {x: -58, y: -49.5}
+        - {x: -35, y: -56.5}
+        - {x: 38, y: -56.5}
+        - {x: 58, y: -24.5}
+        - {x: 58, y: 48.5}
+        - {x: 33, y: 56.5}
     - name: Gui-Set_5
       rect:
         serializedVersion: 2
@@ -99,6 +187,14 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47, y: 16}
+        - {x: -47, y: -16}
+        - {x: 45, y: -16}
+        - {x: 47, y: -11}
+        - {x: 47, y: 15}
+        - {x: 45, y: 16}
     - name: Gui-Set_6
       rect:
         serializedVersion: 2
@@ -108,6 +204,14 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47, y: 16}
+        - {x: -47, y: -16}
+        - {x: 45, y: -16}
+        - {x: 47, y: -11}
+        - {x: 47, y: 15}
+        - {x: 45, y: 16}
     - name: Gui-Set_7
       rect:
         serializedVersion: 2
@@ -117,6 +221,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80.5, y: 16}
+        - {x: -84.5, y: 10}
+        - {x: -84.5, y: -12}
+        - {x: -79.5, y: -16}
+        - {x: 79.5, y: -16}
+        - {x: 84.5, y: -14}
+        - {x: 84.5, y: 11}
+        - {x: 83.5, y: 16}
     - name: Gui-Set_8
       rect:
         serializedVersion: 2
@@ -126,6 +240,18 @@ TextureImporter:
         height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -151, y: 143.5}
+        - {x: -156, y: 139.5}
+        - {x: -157, y: 136.5}
+        - {x: -157, y: -136.5}
+        - {x: -156, y: -139.5}
+        - {x: -151, y: -143.5}
+        - {x: 153, y: -143.5}
+        - {x: 157, y: -139.5}
+        - {x: 157, y: 140.5}
+        - {x: 153, y: 143.5}
     - name: Gui-Set_9
       rect:
         serializedVersion: 2
@@ -135,6 +261,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80.5, y: 16}
+        - {x: -84.5, y: 10}
+        - {x: -84.5, y: -12}
+        - {x: -79.5, y: -16}
+        - {x: 79.5, y: -16}
+        - {x: 84.5, y: -14}
+        - {x: 84.5, y: 11}
+        - {x: 83.5, y: 16}
     - name: Gui-Set_10
       rect:
         serializedVersion: 2
@@ -144,6 +280,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80.5, y: 16}
+        - {x: -84.5, y: 10}
+        - {x: -84.5, y: -12}
+        - {x: -79.5, y: -16}
+        - {x: 79.5, y: -16}
+        - {x: 84.5, y: -14}
+        - {x: 84.5, y: 11}
+        - {x: 83.5, y: 16}
     - name: Gui-Set_11
       rect:
         serializedVersion: 2
@@ -153,6 +299,16 @@ TextureImporter:
         height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 33}
+        - {x: -37, y: 17}
+        - {x: -37, y: -13}
+        - {x: -27, y: -33}
+        - {x: 24, y: -33}
+        - {x: 37, y: -15}
+        - {x: 37, y: 10}
+        - {x: 27, y: 33}
     - name: Gui-Set_12
       rect:
         serializedVersion: 2
@@ -162,6 +318,19 @@ TextureImporter:
         height: 297
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 161.5, y: 142.5}
+        - {x: 160.5, y: 143.5}
+        - {x: 156.5, y: 148.5}
+        - {x: -155.5, y: 148.5}
+        - {x: -160.5, y: 142.5}
+        - {x: -161.5, y: 138.5}
+        - {x: -161.5, y: -138.5}
+        - {x: -160.5, y: -142.5}
+        - {x: -155.5, y: -148.5}
+        - {x: 156.5, y: -148.5}
+        - {x: 161.5, y: -143.5}
     - name: Gui-Set_13
       rect:
         serializedVersion: 2
@@ -171,6 +340,16 @@ TextureImporter:
         height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 18.5}
+        - {x: -18, y: 16.5}
+        - {x: -18, y: -16.5}
+        - {x: -15, y: -18.5}
+        - {x: 17, y: -18.5}
+        - {x: 18, y: -15.5}
+        - {x: 18, y: 16.5}
+        - {x: 15, y: 18.5}
     - name: Gui-Set_14
       rect:
         serializedVersion: 2
@@ -180,6 +359,14 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.5, y: 18}
+        - {x: -18.5, y: 11}
+        - {x: -18.5, y: -18}
+        - {x: 18.5, y: -18}
+        - {x: 18.5, y: 17}
+        - {x: 15.5, y: 18}
     - name: Gui-Set_15
       rect:
         serializedVersion: 2
@@ -189,6 +376,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -33, y: 16}
+        - {x: -36, y: 12}
+        - {x: -36, y: -11}
+        - {x: -32, y: -16}
+        - {x: 35, y: -16}
+        - {x: 36, y: -12}
+        - {x: 36, y: 15}
+        - {x: 35, y: 16}
     - name: Gui-Set_16
       rect:
         serializedVersion: 2
@@ -198,6 +395,21 @@ TextureImporter:
         height: 103
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51.5, y: -18.5}
+        - {x: -51.5, y: -41.5}
+        - {x: -41.5, y: -51.5}
+        - {x: -19.5, y: -51.5}
+        - {x: -19.5, y: -50.5}
+        - {x: -24.5, y: -43.5}
+        - {x: -49.5, y: -18.5}
+      - - {x: -51.5, y: 51.5}
+        - {x: -51.5, y: 21.5}
+        - {x: 23.5, y: -51.5}
+        - {x: 51.5, y: -51.5}
+        - {x: 51.5, y: 5.5}
+        - {x: -11.5, y: 51.5}
     - name: Gui-Set_17
       rect:
         serializedVersion: 2
@@ -207,6 +419,8 @@ TextureImporter:
         height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: Gui-Set_18
       rect:
         serializedVersion: 2
@@ -216,6 +430,14 @@ TextureImporter:
         height: 106
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53, y: 53}
+        - {x: -53, y: -53}
+        - {x: 51, y: -53}
+        - {x: 53, y: -49}
+        - {x: 53, y: 34}
+        - {x: 47, y: 53}
     - name: Gui-Set_19
       rect:
         serializedVersion: 2
@@ -225,6 +447,19 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 27}
+        - {x: -25, y: 17}
+        - {x: -27, y: 12}
+        - {x: -27, y: -12}
+        - {x: -25, y: -17}
+        - {x: -18, y: -26}
+        - {x: -14, y: -27}
+        - {x: 18, y: -27}
+        - {x: 27, y: -17}
+        - {x: 27, y: 24}
+        - {x: 16, y: 27}
     - name: Gui-Set_20
       rect:
         serializedVersion: 2
@@ -234,6 +469,19 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 27}
+        - {x: -25, y: 17}
+        - {x: -27, y: 12}
+        - {x: -27, y: -12}
+        - {x: -25, y: -17}
+        - {x: -18, y: -26}
+        - {x: -14, y: -27}
+        - {x: 18, y: -27}
+        - {x: 27, y: -17}
+        - {x: 27, y: 24}
+        - {x: 16, y: 27}
     - name: Gui-Set_21
       rect:
         serializedVersion: 2
@@ -243,6 +491,19 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 27}
+        - {x: -25, y: 17}
+        - {x: -27, y: 12}
+        - {x: -27, y: -12}
+        - {x: -25, y: -17}
+        - {x: -18, y: -26}
+        - {x: -14, y: -27}
+        - {x: 18, y: -27}
+        - {x: 27, y: -17}
+        - {x: 27, y: 24}
+        - {x: 16, y: 27}
     - name: Gui-Set_22
       rect:
         serializedVersion: 2
@@ -252,6 +513,19 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 27}
+        - {x: -25, y: 17}
+        - {x: -27, y: 12}
+        - {x: -27, y: -12}
+        - {x: -25, y: -17}
+        - {x: -18, y: -26}
+        - {x: -14, y: -27}
+        - {x: 18, y: -27}
+        - {x: 27, y: -17}
+        - {x: 27, y: 24}
+        - {x: 16, y: 27}
     - name: Gui-Set_23
       rect:
         serializedVersion: 2
@@ -261,6 +535,18 @@ TextureImporter:
         height: 216
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18.5, y: 35}
+        - {x: 13.5, y: 101}
+        - {x: 8.5, y: 108}
+        - {x: -15.5, y: 108}
+        - {x: -18.5, y: 105}
+        - {x: -18.5, y: -108}
+        - {x: 8.5, y: -108}
+        - {x: 10.5, y: -106}
+        - {x: 12.5, y: -100}
+        - {x: 18.5, y: -27}
     - name: Gui-Set_24
       rect:
         serializedVersion: 2
@@ -270,6 +556,20 @@ TextureImporter:
         height: 245
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -152.5, y: 122.5}
+        - {x: -152.5, y: -120.5}
+        - {x: -147.5, y: -122.5}
+        - {x: 147.5, y: -122.5}
+        - {x: 152.5, y: -118.5}
+        - {x: 152.5, y: 122.5}
+      - - {x: -138.5, y: -101.5}
+        - {x: -139.5, y: 80.5}
+        - {x: 139.5, y: 80.5}
+        - {x: 139.5, y: -100.5}
+        - {x: 131.5, y: -108.5}
+        - {x: -130.5, y: -108.5}
     - name: Gui-Set_25
       rect:
         serializedVersion: 2
@@ -279,6 +579,16 @@ TextureImporter:
         height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -88, y: 25}
+        - {x: -98, y: 18}
+        - {x: -98, y: -15}
+        - {x: -90, y: -25}
+        - {x: 88, y: -25}
+        - {x: 98, y: -18}
+        - {x: 98, y: 15}
+        - {x: 90, y: 25}
     - name: Gui-Set_26
       rect:
         serializedVersion: 2
@@ -288,6 +598,12 @@ TextureImporter:
         height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -107, y: 19}
+        - {x: -107, y: -19}
+        - {x: 107, y: -19}
+        - {x: 107, y: 19}
     - name: Gui-Set_27
       rect:
         serializedVersion: 2
@@ -297,6 +613,16 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80.5, y: 16}
+        - {x: -84.5, y: 10}
+        - {x: -84.5, y: -12}
+        - {x: -79.5, y: -16}
+        - {x: 79.5, y: -16}
+        - {x: 84.5, y: -14}
+        - {x: 84.5, y: 11}
+        - {x: 83.5, y: 16}
     - name: Gui-Set_28
       rect:
         serializedVersion: 2
@@ -306,6 +632,15 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -40, y: 20}
+        - {x: -40, y: -12}
+        - {x: -33, y: -20}
+        - {x: 36, y: -20}
+        - {x: 40, y: -13}
+        - {x: 40, y: 14}
+        - {x: 36, y: 20}
     - name: Gui-Set_29
       rect:
         serializedVersion: 2
@@ -315,6 +650,17 @@ TextureImporter:
         height: 187
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 113, y: 93.5}
+        - {x: -113, y: 93.5}
+        - {x: -116, y: 90.5}
+        - {x: -117, y: 87.5}
+        - {x: -117, y: -88.5}
+        - {x: -111, y: -93.5}
+        - {x: 114, y: -93.5}
+        - {x: 117, y: -89.5}
+        - {x: 117, y: 89.5}
     - name: Gui-Set_30
       rect:
         serializedVersion: 2
@@ -324,6 +670,23 @@ TextureImporter:
         height: 154
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 51, y: 77}
+        - {x: 41, y: 63}
+        - {x: -66, y: 77}
+        - {x: -119, y: 77}
+        - {x: -122, y: 75}
+        - {x: -122, y: -69}
+        - {x: -115, y: -77}
+        - {x: -90, y: -77}
+        - {x: -51, y: -75}
+        - {x: 53, y: -61}
+        - {x: 61, y: -77}
+        - {x: 115, y: -77}
+        - {x: 122, y: -75}
+        - {x: 122, y: 71}
+        - {x: 117, y: 77}
     - name: Gui-Set_31
       rect:
         serializedVersion: 2
@@ -333,5 +696,17 @@ TextureImporter:
         height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -39.5, y: 20.5}
+        - {x: -40.5, y: 7.5}
+        - {x: -40.5, y: -8.5}
+        - {x: -35.5, y: -20.5}
+        - {x: 34.5, y: -20.5}
+        - {x: 40.5, y: -15.5}
+        - {x: 40.5, y: 20.5}
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

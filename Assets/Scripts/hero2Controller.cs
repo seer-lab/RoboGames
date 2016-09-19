@@ -1,6 +1,7 @@
 //**************************************************//
 // Class Name: hero2Controller
-// Class Description:
+// Class Description: This class is the controller for the hero. It controls movement, throwing wrenches
+//                    and horizontal/vertical translation of the game avatar.
 // Methods:
 // 		void Start()
 //		void FixedUpdate()
@@ -25,6 +26,7 @@ public class hero2Controller : MonoBehaviour
 	public float fMoveVelocityVertical = 0.0f;
 	public int projectilecode = 0;
 	public GameObject codescreen;
+	public GameObject selectedTool;
 	public Rigidbody2D[] projectiles = new Rigidbody2D[6];
 
 	private bool walkloop = false;
@@ -50,7 +52,7 @@ public class hero2Controller : MonoBehaviour
 
 	//.................................>8.......................................
 	void FixedUpdate() {
-		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.isLosing) {
+		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.isLosing && !lg.isAnswering) {
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
@@ -119,14 +121,14 @@ public class hero2Controller : MonoBehaviour
 				}
 			}
 		}
-		else if (lg.isLosing) {
+		else if (lg.isLosing || lg.isAnswering) {
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 		}
 	}
 
 	//.................................>8.......................................
 	void Update() {
-		if (codescreen.GetComponent<LevelGenerator>().gamestate == 1) {
+		if (codescreen.GetComponent<LevelGenerator>().gamestate == stateLib.GAMESTATE_IN_GAME) {
 			AudioSource ad = GetComponent<AudioSource>();
 			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
 			GetComponent<Rigidbody2D>().velocity.y == 0 &&
@@ -144,21 +146,24 @@ public class hero2Controller : MonoBehaviour
 
 			//firing
 			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl")) &&
-			Time.time > nextFire &&
-			!onWall &&
-			GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
-			projectilecode >= 0) {
+			   Time.time > nextFire &&
+			   !onWall &&
+			   !lg.isAnswering &&
+			   lg.toolsAirborne == 0 &&
+			   GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
+			   projectilecode >= 0 &&
+			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {
 				throwing = true;
-				anim.SetBool("throw", true);
-				nextFire = Time.time + fireRate;
-				animDelay = Time.time + animTime;
-				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], transform.position, transform.rotation);
-				if (facingRight) {
-					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
-				}
-				else {
-					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * -300);
-				}
+   				anim.SetBool("throw", true);
+   				nextFire = Time.time + fireRate;
+   				animDelay = Time.time + animTime;
+   				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], transform.position, transform.rotation);
+   				if (facingRight) {
+   					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
+   				}
+   				else {
+   					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * -300);
+   				}
 			}
 			if (Time.time > animDelay) {
 				anim.SetBool("throw", false);

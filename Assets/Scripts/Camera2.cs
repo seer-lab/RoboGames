@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: Camera2
-// Class Description:
+// Class Description: Moves the camera between scenes and controls the music that plays.
 // Methods:
 // 		void Start()
 //		void Update()

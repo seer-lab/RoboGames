@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: comic
-// Class Description:
+// Class Description: This is the controller for the comic strips used in both games.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -42,11 +42,10 @@ public class Comic : MonoBehaviour
 		if (lg.gamestate >= stateLib.GAMESTATE_INITIAL_COMIC) {
 			if (!playing) {
 				playing = true;
-				//@TODO: Remove this hardcode
 				// comic/level generator, there is a list of all images that is associated with each panel.
 				// All of it is hardcoded.
 				// Remove comics for now and add it back in later.
-				if (lg.currentlevel == stringLib.GAME_LEVEL_ZERO) {
+				if (lg.currentlevel == lg.stringLibrary.game_level_zero) {
 					level = 0;
 				}
 				else {
@@ -82,7 +81,6 @@ public class Comic : MonoBehaviour
 		}
 		else if (lg.gamestate == stateLib.GAMESTATE_GAME_END) {
 			if (credtext == "") {
-				//@TODO: Remove hardcode reference here
 				FileInfo fi = new FileInfo(lg.gamemode + @"leveldata/credits.txt");
 				StreamReader sr = fi.OpenText();
 				string text;

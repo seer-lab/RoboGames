@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: Cinematic
-// Class Description:
+// Class Description: This class controls the transition scenes between levels.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -18,10 +18,10 @@ public class Cinematic : MonoBehaviour
 	// This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
 	public string introtext = "Level Start Placeholder!";
 	// This text basically says "Press Enter to Continue" and is displayed at the bottom of the "Loading Screen" prior to playing the level.
-	public string continuetext = stringLib.CONTINUE_TEXT;
+	public string continuetext = "Continue Text Placeholder";
 	// This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
 	public string endtext = "Winner!\nLevel End Placeholder!";
-	public GameObject codescreen;
+	public GameObject CodescreenObject;
 	public GameObject prompt2;
 	public GameObject menu;
 	public GameObject[] cinebugs = new GameObject[6];
@@ -35,8 +35,9 @@ public class Cinematic : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
+		lg = CodescreenObject.GetComponent<LevelGenerator>();
 		objs = new List<GameObject>();
+		continuetext = stringLib.CONTINUE_TEXT;
 	}
 
 	//.................................>8.......................................
@@ -56,7 +57,7 @@ public class Cinematic : MonoBehaviour
 				}
 			}
 			GetComponent<TextMesh>().text = introtext;
-			if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				lg.gamestate = stateLib.GAMESTATE_IN_GAME;
 				Destroy(objs[0]);
 				cinerun = false;
@@ -75,8 +76,7 @@ public class Cinematic : MonoBehaviour
 
 			GetComponent<TextMesh>().text = endtext;
 
-			if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time) {
-				//@TODO: Figure out what this is saying, it's hardcode
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				// RobotON 2, don't always want tutorials to run comics.
 				// Read in the levels.txt and grab the top one.
 				if (lg.currentlevel.StartsWith("tut") && lg.gamemode == stringLib.GAME_MODE_BUG) {
@@ -109,17 +109,16 @@ public class Cinematic : MonoBehaviour
 				objs = new List<GameObject>();
 				lg.gamestate = stateLib.GAMESTATE_MENU;
 			}
-			if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				Destroy(objs[0]);
 				prompt2.GetComponent<TextMesh>().text = stringLib.CONTINUE_TEXT;
 
 				cinerun = false;
 				objs = new List<GameObject>();
 				menu.GetComponent<Menu>().gameon = true;
-				//@TODO: More hardcode to check
 				// One is called Bugleveldata and another OnLevel data.
 				// Levels.txt, coding in menu.cs
-				lg.BuildLevel(lg.gamemode + @"leveldata\" + lg.currentlevel, false);
+				lg.BuildLevel(lg.gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + lg.currentlevel, false);
 				lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 			}
 		}

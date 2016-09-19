@@ -1,124 +1,163 @@
 //****************************************************************************//
 // Class Name: stringLib
-// Class Description: Contains all string literals used by the game.
+// Class Description: Library of string literals used across scripts. This allows
+//                    the code to be more modular.
 // Author: Scott McLean
 // Date Last Modified: 6/1/2016
 //****************************************************************************//
 
 using UnityEngine;
 
-public static class stringLib
+public class stringLib
 {
-	public const string TOOL_LOGFILE		 	 					= "toollog.txt";
-	public const string TOOL_STATELOGFILE							= "statelog.txt";
-	public const string LOG_BREAKPOINT_ON	 	 					= "BreakpointOn, ";
-	public const string LOG_BREAKPOINT_ACTIVATED 					= "BreakpointActivated, ";
-	public const string LOG_COMMENT_ON 			 					= "Commented, ";
-	public const string LOG_BUG_FOUND 			 					= "BugCaught, ";
-	public const string LOG_PRINTED				 					= "Printed, ";
-	public const string LOG_TOOL_WASTED			 					= "Wasted, ";
-	public const string LOG_WARPED				 					= "Warped, ";
+	public const string TOOL_LOGFILE		 	 			= "toollog.txt";
+	public const string TOOL_STATELOGFILE					= "statelog.txt";
+	public const string LOG_BREAKPOINT_ON	 	 			= "BreakpointOn, ";
+	public const string LOG_BREAKPOINT_ACTIVATED 			= "BreakpointActivated, ";
+	public const string LOG_COMMENT_ON 			 			= "Commented, ";
+	public const string LOG_BUG_FOUND 			 			= "BugCaught, ";
+	public const string LOG_PRINTED				 			= "Printed, ";
+	public const string LOG_TOOL_WASTED			 			= "Wasted, ";
+	public const string LOG_WARPED				 			= "Warped, ";
 
-	public const string PROJECTILE_BUG 		 						= "projectileBug(Clone)";
-	public const string PROJECTILE_ACTIVATOR 						= "projectileActivator(Clone)";
-	public const string PROJECTILE_WARP		 						= "projectileWarp(Clone)";
-	public const string PROJECTILE_COMMENT	 						= "projectileComment(Clone)";
-	public const string PROJECTILE_DEBUG	 						= "projectileDebug(Clone)";
+	public const string PROJECTILE_BUG 		 				= "projectileBug(Clone)";
+	public const string PROJECTILE_ACTIVATOR 				= "projectileActivator(Clone)";
+	public const string PROJECTILE_WARP		 				= "projectileWarp(Clone)";
+	public const string PROJECTILE_COMMENT	 				= "projectileComment(Clone)";
+	public const string PROJECTILE_DEBUG	 				= "projectileDebug(Clone)";
 
-	public const string BAD_COMMENT_TEXT_COLOR_TAG 					= "<color=#00000000>";
-	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_1 				= "<color=#ff0000ff>/*";
-	public const string BAD_UNCOMMENT_TEXT_COLOR_TAG_2 				= "<color=#00000000>/*";
-	public const string CHECKER_TEXT_COLOR_TAG 						= "<color=#ffff00ff>";
+	public const string LOSE_TEXT     						= "Try Again!\n";
+	public const string RETRY_TEXT    						= "Press Enter to try again\nor ESC to quit";
+	public const string CONTINUE_TEXT 						= "Press Enter to continue.";
 
-	public const string CHECKLIST_COMPLETE_COLOR_TAG    	        = "<color=#00ff00ff>";
-	public const string CHECKLIST_INCOMPLETE_ACTIVATE_COLOR_TAG  	= "<color=#cccccccc>";
-	public const string CHECKLIST_INCOMPLETE_CHECK_COLOR_TAG        = "<color=#ffff00ff>";
-	public const string CHECKLIST_INCOMPLETE_NAME_COLOR_TAG         = "<color=#ff00ffff>";
-	public const string CHECKLIST_INCOMPLETE_COMMENT_COLOR_TAG      = "<color=#00ff00ff>";
-	public const string CHECKLIST_INCOMPLETE_UNCOMMENT_COLOR_TAG    = "<color=#ff0000ff>";
+	public const string GAME_MODE_ON 						= "on";
+	public const string GAME_MODE_BUG 						= "bug";
+	public const string GAME_ROBOT_ON 						= "Robot ON!";
+	public const string GAME_ROBOT_BUG 						= "RoboBUG!";
 
-	// This one is used when the player successfully comments a block.
-	public const string COMMENT_BLOCK_COLOR_TAG 					= "<color=#00ff00ff>/*";
+	public const string TOOL_NAME_0_ROBOBUG					= "catcher";
+	public const string TOOL_NAME_0_ROBOTON					= "activator";
+	public const string TOOL_NAME_1_ROBOBUG					= "printer";
+	public const string TOOL_NAME_1_ROBOTON					= "question";
+	public const string TOOL_NAME_2_ROBOBUG					= "warper";
+	public const string TOOL_NAME_2_ROBOTON					= "namer";
+	public const string TOOL_NAME_3							= "commenter";
+	public const string TOOL_NAME_4							= "controlflow";
+	public const string TOOL_NAME_5							= "helper";
 
-	public const string MENU_SOUND_ON_COLOR_TAG						= "<color=#000000ff>";
-	public const string MENU_SOUND_OFF_COLOR_TAG					= "<color=#ff0000ff>";
+	public const string CLOSE_COLOR_TAG 					= "</color>";
 
-	public const string RENAME_COLOR_TAG							= "<color=#ff00ffff>";
-	// This one is for the uncomment line after the player hits it with the uncomment tool.
-	public const string UNCOMMENT_COLOR_TAG							= "<color=#ff0000ff>/*";
+	public const string NODE_NAME_CODE 						= "code";
+	public const string NODE_NAME_DESCRIPTION				= "description";
+	public const string NODE_NAME_TOOLS						= "tools";
+	public const string NODE_NAME_TIME						= "timelimit";
+	public const string NODE_NAME_NEXT_LEVEL				= "next-level";
+	public const string NODE_NAME_INTRO_TEXT				= "introtext";
+	public const string NODE_NAME_END_TEXT					= "endtext";
+	public const string NODE_NAME_PRINT 					= "print";
+	public const string NODE_NAME_WARP 						= "warp";
+	public const string NODE_NAME_RENAME 					= "variable-rename";
+	public const string NODE_NAME_QUESTION					= "question";
+	public const string NODE_NAME_COMMENT 					= "comment";
+	public const string NODE_NAME_BUG						= "bug";
+	public const string NODE_NAME_BEACON					= "beacon";
+	public const string NODE_NAME_BREAKPOINT				= "breakpoint";
+	public const string NODE_NAME_PRIZE						= "prize";
+	public const string NODE_NAME_VARIABLE_COLOR			= "variable-color";
+	public const string NODE_NAME_NEWLINE					= "newline";
 
-	public const string CLOSE_COLOR_TAG 							= "</color>";
-	public const string COMMENT_CLOSE_COLOR_TAG 					= "*/</color>";
+    public const string XML_ATTRIBUTE_LANGUAGE              = "language";
+	public const string XML_ATTRIBUTE_TEXT					= "text";
+	public const string XML_ATTRIBUTE_TOOL					= "tool";
+	public const string XML_ATTRIBUTE_FILE					= "file";
+	public const string XML_ATTRIBUTE_LINE					= "line";
+	public const string XML_ATTRIBUTE_SIZE					= "size";
+	public const string XML_ATTRIBUTE_ROW					= "row";
+	public const string XML_ATTRIBUTE_COL					= "col";
+	public const string XML_ATTRIBUTE_GROUPID				= "groupid";
+	public const string XML_ATTRIBUTE_TYPE					= "type";
+	public const string XML_ATTRIBUTE_CORRECT				= "correct";
+	public const string XML_ATTRIBUTE_ANSWER				= "answer";
+	public const string XML_ATTRIBUTE_OPTIONS				= "options";
+	public const string XML_ATTRIBUTE_BONUSES				= "bonuses";
+	public const string XML_ATTRIBUTE_FLOWORDER				= "flow-order";
+	public const string XML_ATTRIBUTE_NAME					= "name";
+	public const string XML_ATTRIBUTE_COUNT					= "count";
+	public const string XML_ATTRIBUTE_ENABLED				= "enabled";
+	public const string XML_ATTRIBUTE_COMMENT_STYLE			= "style";
 
-	public const string LOSE_TEXT     								= "Try Again!\n";
-	public const string RETRY_TEXT    								= "Press Enter to try again\nor ESC to quit";
-	public const string CONTINUE_TEXT 								= "Press Enter to continue.";
+	public string comic_level_zero							= "tut1.xml";
+	public string game_level_zero 							= "tut1.xml";
 
-	public const string COMIC_LEVEL_ZERO							= "tut1.xml";
+	public string question_text_color_tag 					= "<color=#ffff00ff>";
 
-	public const string GAME_MODE_ON 								= "on";
-	public const string GAME_MODE_BUG 								= "bug";
-	public const string GAME_ROBOT_ON 								= "Robot ON!";
-	public const string GAME_ROBOT_BUG 								= "RoboBUG!";
+	public string checklist_complete_color_tag    	      	= "<color=#00ff00ff>";
+	public string checklist_incomplete_activate_color_tag  	= "<color=#cccccccc>";
+	public string checklist_incomplete_question_color_tag   = "<color=#ffff00ff>";
+	public string checklist_incomplete_name_color_tag       = "<color=#ff00ffff>";
+	public string checklist_incomplete_comment_color_tag    = "<color=#00ff00ff>";
+	public string checklist_incomplete_uncomment_color_tag  = "<color=#ff0000ff>";
 
-	public const string GAME_LEVEL_ZERO 							= "tut1.xml";
+	public string checklist_complete_color_tag_light      			= "<color=#00ff00ff>";
+	public string checklist_incomplete_activate_color_tag_light  	= "<color=#cccccccc>";
+	public string checklist_incomplete_question_color_tag_light		= "<color=#ffff00ff>";
+	public string checklist_incomplete_name_color_tag_light    		= "<color=#ff00ffff>";
+	public string checklist_incomplete_comment_color_tag_light 		= "<color=#00ff00ff>";
+	public string checklist_incomplete_uncomment_color_tag_light	= "<color=#ff0000ff>";
 
-	public const string CODENODE_NAME_CODE 							= "code";
-	public const string CODENODE_NAME_DESCRIPTION					= "description";
-	public const string CODENODE_NAME_TOOLS							= "tools";
+	public string checklist_complete_color_tag_dark		 	      	= "<color=#009933ff>";
+	public string checklist_incomplete_activate_color_tag_dark  	= "<color=#737373ff>";
+	public string checklist_incomplete_question_color_tag_dark	    = "<color=#996633ff>";
+	public string checklist_incomplete_name_color_tag_dark	        = "<color=#cc00ccff>";
+	public string checklist_incomplete_comment_color_tag_dark	    = "<color=#009933ff>";
+	public string checklist_incomplete_uncomment_color_tag_dark		= "<color=#ff0000ff>";
 
-	public const string NODE_NAME_TIME								= "timelimit";
-	public const string NODE_NAME_NEXT_LEVEL						= "next-level";
-	public const string NODE_NAME_INTRO_TEXT						= "introtext";
-	public const string NODE_NAME_END_TEXT							= "endtext";
+	public string comment_block_color_tag					= "<color=#00ff00ff>";
+	public string menu_sound_on_color_tag					= "<color=#000000ff>";
+	public string menu_sound_off_color_tag					= "<color=#ff0000ff>";
 
-	// Keywords used in XML tags
-	public const string NODE_NAME_PRINT 							= "print";
-	public const string NODE_NAME_WARP 								= "warp";
-	public const string NODE_NAME_RENAME 							= "variable-rename";
-	public const string NODE_NAME_ON_CHECK 							= "oncheck";
-	public const string NODE_NAME_UNCOMMENT 						= "uncom";
-	public const string NODE_NAME_BAD_UNCOMMENT 					= "baduncom";
-	public const string NODE_NAME_ON_COMMENT 						= "oncomment";
-	public const string NODE_NAME_BAD_COMMENT 						= "badcomment";
-	public const string NODE_NAME_COMMENT 							= "comment";
-	public const string NODE_NAME_BUG								= "bug";
-	public const string NODE_NAME_BEACON							= "beacon";
-	public const string NODE_NAME_BREAKPOINT						= "breakpoint";
-	public const string NODE_NAME_PRIZE								= "prize";
+	public string node_color_print 							= "<color=#ffff00ff>";
+	public string node_color_question 						= "<color=#ffff00ff>";
+	public string node_color_warp 							= "<color=#ff00ffff>";
+	public string node_color_rename 						= "<color=#ff00ffff>";
+	public string node_color_uncomment						= "<color=#ff0000ff>";
+	public string node_color_incorrect_uncomment 			= "<color=#ff0000ff>";
+	public string node_color_correct_comment				= "<color=#00ff00ff>";
+	public string node_color_incorrect_comment		 		= "<color=#00ff00ff>";
+	public string node_color_comment						= "<color=#00ff00ff>";
+	public string node_color_print_light					= "<color=#ffff00ff>";
+	public string node_color_question_light 				= "<color=#ffff00ff>";
+	public string node_color_warp_light 					= "<color=#ff00ffff>";
+	public string node_color_rename_light 					= "<color=#ff00ffff>";
+	public string node_color_uncomment_light 				= "<color=#ff0000ff>";
+	public string node_color_incorrect_uncomment_light 		= "<color=#ff0000ff>";
+	public string node_color_correct_comment_light 			= "<color=#00ff00ff>";
+	public string node_color_incorrect_comment_light		= "<color=#00ff00ff>";
+	public string node_color_comment_light					= "<color=#00ff00ff>";
+	public string node_color_print_dark						= "<color=#996633ff>";
+	public string node_color_question_dark					= "<color=#996633ff>";
+	public string node_color_warp_dark						= "<color=#cc00ccff>";
+	public string node_color_rename_dark					= "<color=#cc00ccff>";
+	public string node_color_uncomment_dark					= "<color=#ff0000ff>";
+	public string node_color_incorrect_uncomment_dark		= "<color=#ff0000ff>";
+	public string node_color_correct_comment_dark			= "<color=#009933ff>";
+	public string node_color_incorrect_comment_dark	 		= "<color=#009933ff>";
+	public string node_color_comment_dark					= "<color=#009933ff>";
 
+	public string syntax_color_comment						= "<color=#00ff00ff>";
+	public string syntax_color_keyword						= "<color=#00ffffff>";
+	public string syntax_color_badcomment					= "<color=#00ff00ff>";
+	public string syntax_color_string						= "<color=#ffa500ff>";
 
-	public const string NODE_COLOR_PRINT 							= "<color=#ffff00ff>";
-	public const string NODE_COLOR_WARP 							= "<color=#ff00ffff>";
-	public const string NODE_COLOR_RENAME 							= "<color=#ff00ffff>";
-	public const string NODE_COLOR_ON_CHECK 						= "<color=#ffff00ff>";
-	// When the level is generated, the correct uncomment choice is labelled with this one.
-	public const string NODE_COLOR_UNCOMMENT 						= "<color=#ff0000ff>/*";
-	// When the level is generated, the incorrect uncomment choice is labelled with this one.
-	public const string NODE_COLOR_BAD_UNCOMMENT 					= "<color=#ff0000ff>/*";
-	// When the level is generated, correct comment choice is labelled with this one.
-	public const string NODE_COLOR_ON_COMMENT 						= "<color=#00ff00ff>/*";
-	// When the level is generated, the incorrect/bad comment choice is labelled with this one.
-	public const string NODE_COLOR_BAD_COMMENT		 				= "<color=#00ff00ff>/*";
-	public const string NODE_COLOR_COMMENT							= "<color=#00ff00ff>/*";
+	public string syntax_color_comment_light				= "<color=#00ff00ff>";
+	public string syntax_color_keyword_light				= "<color=#00ffffff>";
+	public string syntax_color_badcomment_light				= "<color=#00ff00ff>";
+	public string syntax_color_string_light					= "<color=#ffa500ff>";
 
-	public const string SYNTAX_COLOR_COMMENT						= "<color=#00ff00ff>";
-	public const string SYNTAX_COLOR_KEYWORD						= "<color=#00ffffff>";
-	public const string SYNTAX_COLOR_BADCOMMENT						= "<color=#00ff00ff>";
+	public string syntax_color_comment_dark					= "<color=#009933ff>";
+	public string syntax_color_keyword_dark					= "<color=#0000ffff>";
+	public string syntax_color_badcomment_dark				= "<color=#006600ff>";
+	public string syntax_color_string_dark					= "<color=#ff3300ff>";
 
-	public const int    TOOL_CATCHER_OR_ACTIVATOR					= 0;
-	public const int    TOOL_PRINTER_OR_CHECKER						= 1;
-	public const int    TOOL_WARPER_OR_RENAMER						= 2;
-	public const int    TOOL_COMMENTER								= 3;
-	public const int    TOOL_CONTROL_FLOW							= 4;
-	public const int    TOOL_HELPER									= 5;
-	public const string TOOL_NAME_0_ROBOBUG							= "catcher";
-	public const string TOOL_NAME_0_ROBOTON							= "activator";
-	public const string TOOL_NAME_1_ROBOBUG							= "printer";
-	public const string TOOL_NAME_1_ROBOTON							= "checker";
-	public const string TOOL_NAME_2_ROBOBUG							= "warper";
-	public const string TOOL_NAME_2_ROBOTON							= "namer";
-	public const string TOOL_NAME_3									= "commenter";
-	public const string TOOL_NAME_4									= "controlflow";
-	public const string TOOL_NAME_5									= "helper";
+	public string syntax_color_include					    = "<color=#e6005cff>";
 }

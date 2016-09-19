@@ -1,6 +1,7 @@
 //**************************************************//
 // Class Name: Logger
-// Class Description:
+// Class Description: Class which stores log data on the filesystem. Anonymous collection of this data
+//                    is handled in a different class.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -65,4 +66,14 @@ public class Logger : MonoBehaviour {
 }
 
 //.................................>8.......................................
+public static void printLogFile(string sMessage, Vector3 objectPosition) {
+	int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - objectPosition.y) / stateLib.GAMESETTING_LINE_SPACING);
+	StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
+	sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
+	sw.WriteLine(sMessage);
+	sw.Close();
+}
+//.................................>8.......................................
+
+
 }

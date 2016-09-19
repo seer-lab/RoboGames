@@ -1,6 +1,6 @@
 //**************************************************//
 // Class Name: Output
-// Class Description:
+// Class Description: This script is a controller for the pop-up interface in both games.
 // Methods:
 // 		void Start()
 //		void Update()
@@ -40,7 +40,7 @@ public class Output : MonoBehaviour
 			anim.SetBool("Appearing", false);
 			anim.SetBool("Hiding", true);
 		}
-		if (Input.GetKeyDown(KeyCode.Return) || lg.gamestate != stateLib.GAMESTATE_IN_GAME) {
+		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || lg.gamestate != stateLib.GAMESTATE_IN_GAME) {
 			outputtext.GetComponent<GUIText>().text = "";
 		}
 	}
