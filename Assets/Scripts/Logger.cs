@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+//**************************************************//
+// Class Name: Logger
+// Class Description: Class which stores log data on the filesystem. Anonymous collection of this data
+//                    is handled in a different class.
+// Methods:
+// 		void Start()
+//		void Update()
+// Author: Michael Miljanovic
+// Date Last Modified: 6/1/2016
+//**************************************************//
+
+using UnityEngine;
 using System.Collections;
 using System.IO;
 
@@ -6,65 +17,63 @@ public class Logger : MonoBehaviour {
 
 	public GameObject hero;
 	public GameObject codescreen;
-	hero2Controller hc;
-	LevelGenerator lg;
-	int currentstate;
-	StreamWriter output;
-	/*float refreshTime = 5f;
-	float lastTime;*/
 
-	//float initialLineY = 3.5f;
-	//float linespacing = 0.825f;
+	private int currentstate;
+	private hero2Controller hc;
+	private LevelGenerator lg;
+	private StreamWriter output;
 
+	//.................................>8.......................................
 	// Use this for initialization
-	void Start () {
-		//hc = hero.GetComponent<hero2Controller> ();
-		lg = codescreen.GetComponent<LevelGenerator> ();
-		currentstate = 10;
-		output = new StreamWriter ("statelog.txt",false);
-		output.WriteLine("NewState,PreviousState#,Time,CurrentLevel");
-		output.Close ();
-		output = new StreamWriter("toollog.txt",false);
-		output.WriteLine ("Tool,Location,Time");
-		output.Close ();
-		/*output = new StreamWriter("movelog.txt",false);
-		output.WriteLine ("X,Y,Line#,Time");
-		output.Close ();*/
+	void Start() {
+		lg = codescreen.GetComponent<LevelGenerator>();
+		currentstate = stateLib.GAMESTATE_INITIAL_COMIC;
+		output = new StreamWriter(stringLib.TOOL_STATELOGFILE, false);
+		output.WriteLine("NewState, PreviousState#, Time, CurrentLevel");
+		output.Close();
+		output = new StreamWriter(stringLib.TOOL_LOGFILE, false);
+		output.WriteLine("Tool, Location, Time");
+		output.Close();
 	}
-	
+
+	//.................................>8.......................................
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (currentstate != lg.gamestate) {
-			output = new StreamWriter ("statelog.txt",true);
-			switch(lg.gamestate){
-			case 0:
-				output.WriteLine("MenuAccessed,"+currentstate+","+Time.time+","+lg.currentlevel);
-				break;
-			case 1:
-				output.WriteLine("LevelBegin,"+currentstate+","+Time.time+","+lg.currentlevel);
-				//lastTime = Time.time;
-				break;
-			case 3:
-				output.WriteLine("LevelComplete,"+currentstate+","+Time.time+","+lg.currentlevel);
-				break;
-			case 4:
-				output.WriteLine("LevelFailed,"+currentstate+","+Time.time+","+lg.currentlevel);
-				break;
-			case 12:
-				output.WriteLine("GameFinished,"+currentstate+","+Time.time+","+lg.currentlevel);
-				break;
+			output = new StreamWriter(stringLib.TOOL_STATELOGFILE, true);
+			switch(lg.gamestate) {
+				case stateLib.GAMESTATE_MENU:
+					output.WriteLine("MenuAccessed, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					break;
+				case stateLib.GAMESTATE_IN_GAME:
+					output.WriteLine("LevelBegin, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					break;
+				case stateLib.GAMESTATE_LEVEL_WIN:
+					output.WriteLine("LevelComplete, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					break;
+				case stateLib.GAMESTATE_LEVEL_LOSE:
+					output.WriteLine("LevelFailed, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					break;
+				case stateLib.GAMESTATE_GAME_END:
+					output.WriteLine("GameFinished, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					break;
+				default:
+					break;
 			}
 			output.Close();
 			currentstate = lg.gamestate;
 		}
-		/*
-		if (lg.gamestate == 1) {
-			if(lastTime+refreshTime<Time.time){
-				output = new StreamWriter("movelog.txt",true);
-				output.WriteLine(hero.transform.position.x+","+hero.transform.position.y+","+((int)((initialLineY-hero.transform.position.y)/linespacing)).ToString()+","+Time.time);
-				output.Close();
-				lastTime=Time.time;
-			}
-				}*/
-	}
+}
+
+//.................................>8.......................................
+public static void printLogFile(string sMessage, Vector3 objectPosition) {
+	int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - objectPosition.y) / stateLib.GAMESETTING_LINE_SPACING);
+	StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
+	sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
+	sw.WriteLine(sMessage);
+	sw.Close();
+}
+//.................................>8.......................................
+
+
 }

@@ -128,7 +128,7 @@ public class camera : MonoBehaviour {
 		L2O2 = false;
 		L2O3 = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -179,7 +179,7 @@ public class camera : MonoBehaviour {
 					level = 23;
 				}
 				else{
-					level = 21;				
+					level = 21;
 				}
 			}
 			else if (target.transform.position.x < level2LeftBoundary){
@@ -190,7 +190,7 @@ public class camera : MonoBehaviour {
 					level = 24;
 				}
 				else{
-					level = 22;				
+					level = 22;
 				}
 			}
 		}*/
@@ -278,7 +278,7 @@ public class camera : MonoBehaviour {
 			else if (target.transform.position.y < level4botVBoundary){
 				if (target.transform.position.x > level4lefHBoundary){level=4;}
 			}
-		
+
 		}
 
 		if (level == 5){
@@ -344,7 +344,7 @@ public class camera : MonoBehaviour {
 			else if (Time.time > delaytime){
 				delaytime = 0f;
 				level = 999;
-				tm.text = "999";
+				tm.text = "Unlimited";
 				ad.Pause();
 				ad.clip = texttheme;
 				ad.Play();
@@ -354,7 +354,7 @@ public class camera : MonoBehaviour {
 
 
 		//camera positions
-		switch (level){ 
+		switch (level){
 		case -1:
 			tm.text = "0";
 			//camera.transform.position = startScreen;

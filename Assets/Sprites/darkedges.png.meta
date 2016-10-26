@@ -1,6 +1,11 @@
 fileFormatVersion: 2
 guid: f0a10fb84068aa743877d5e39316ff40
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: darkedges_0
+    21300002: darkedges_1
+    21300004: darkedges_2
+    21300006: darkedges_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +19,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -29,12 +37,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -43,6 +54,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: darkedges_0
@@ -54,6 +66,8 @@ TextureImporter:
         height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: darkedges_1
       rect:
         serializedVersion: 2
@@ -63,6 +77,16 @@ TextureImporter:
         height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -4, y: 4}
+        - {x: -4, y: -25}
+        - {x: 21, y: -25}
+        - {x: 21, y: 4}
+      - - {x: -18, y: 18}
+        - {x: -18, y: 25}
+        - {x: -21, y: 25}
+        - {x: -21, y: 17}
     - name: darkedges_2
       rect:
         serializedVersion: 2
@@ -72,6 +96,8 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: darkedges_3
       rect:
         serializedVersion: 2
@@ -81,5 +107,10 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

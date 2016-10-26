@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotON.CSharp.Plugins", "RobotON.CSharp.Plugins.csproj", "{09DD175E-10C3-5C16-0D7A-5869FD3F5E7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotON.CSharp", "RobotON.CSharp.csproj", "{DA76D060-C94B-4357-752B-B1F06075FDFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09DD175E-10C3-5C16-0D7A-5869FD3F5E7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09DD175E-10C3-5C16-0D7A-5869FD3F5E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09DD175E-10C3-5C16-0D7A-5869FD3F5E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09DD175E-10C3-5C16-0D7A-5869FD3F5E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA76D060-C94B-4357-752B-B1F06075FDFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA76D060-C94B-4357-752B-B1F06075FDFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA76D060-C94B-4357-752B-B1F06075FDFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA76D060-C94B-4357-752B-B1F06075FDFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,35 @@
 fileFormatVersion: 2
 guid: 2e16fdaeabf282e43baad1aa5d20c8fb
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: newhero_0
+    21300002: newhero_1
+    21300004: newhero_2
+    21300006: newhero_3
+    21300008: newhero_4
+    21300010: newhero_5
+    21300012: newhero_6
+    21300014: newhero_7
+    21300016: newhero_8
+    21300018: newhero_9
+    21300020: newhero_10
+    21300022: newhero_11
+    21300024: newhero_12
+    21300026: newhero_13
+    21300028: newhero_14
+    21300030: newhero_15
+    21300032: newhero_16
+    21300034: newhero_17
+    21300036: newhero_18
+    21300038: newhero_19
+    21300040: newhero_20
+    21300042: newhero_21
+    21300044: newhero_22
+    21300046: newhero_23
+    21300048: newhero_24
+    21300050: newhero_25
+    21300052: newhero_26
+    21300054: newhero_27
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +43,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -29,12 +61,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -43,6 +78,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: newhero_0
@@ -54,6 +90,15 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.5, y: 28}
+        - {x: -14.5, y: 21}
+        - {x: -17.5, y: -1}
+        - {x: -17.5, y: -28}
+        - {x: 17.5, y: -28}
+        - {x: 17.5, y: 23}
+        - {x: 9.5, y: 28}
     - name: newhero_1
       rect:
         serializedVersion: 2
@@ -63,6 +108,8 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_2
       rect:
         serializedVersion: 2
@@ -72,6 +119,22 @@ TextureImporter:
         height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 14, y: 21.5}
+        - {x: 8, y: 28.5}
+        - {x: -14, y: 28.5}
+        - {x: -20, y: 13.5}
+        - {x: -20, y: -18.5}
+        - {x: -19, y: -19.5}
+        - {x: -14, y: -17.5}
+        - {x: -10, y: -14.5}
+        - {x: -20, y: -24.5}
+        - {x: -20, y: -28.5}
+        - {x: 18, y: -28.5}
+        - {x: 19, y: -27.5}
+        - {x: 20, y: -22.5}
+        - {x: 20, y: 3.5}
     - name: newhero_3
       rect:
         serializedVersion: 2
@@ -81,6 +144,8 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_4
       rect:
         serializedVersion: 2
@@ -90,6 +155,8 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_5
       rect:
         serializedVersion: 2
@@ -99,6 +166,28 @@ TextureImporter:
         height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: -28.5}
+        - {x: 20, y: -28.5}
+        - {x: 20, y: -22.5}
+        - {x: 16, y: -20.5}
+        - {x: 9, y: -13.5}
+        - {x: 14, y: -17.5}
+        - {x: 19, y: -19.5}
+        - {x: 20, y: -18.5}
+        - {x: 20, y: 8.5}
+        - {x: 16, y: 21.5}
+        - {x: 11, y: 28.5}
+        - {x: -9, y: 28.5}
+        - {x: -18, y: 16.5}
+        - {x: -20, y: 7.5}
+        - {x: -20, y: -24.5}
+        - {x: -15, y: -28.5}
+        - {x: 0, y: -28.5}
+        - {x: 1, y: -27.5}
+        - {x: 1, y: -24.5}
+        - {x: 1, y: -26.5}
     - name: newhero_6
       rect:
         serializedVersion: 2
@@ -108,6 +197,8 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_7
       rect:
         serializedVersion: 2
@@ -117,6 +208,19 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17.5, y: -28}
+        - {x: 17.5, y: -3}
+        - {x: 14.5, y: 28}
+        - {x: -11.5, y: 28}
+        - {x: -17.5, y: 16}
+        - {x: -17.5, y: -26}
+        - {x: -15.5, y: -28}
+        - {x: -1.5, y: -28}
+        - {x: -0.5, y: -27}
+        - {x: -0.5, y: -25}
+        - {x: 3.5, y: -28}
     - name: newhero_8
       rect:
         serializedVersion: 2
@@ -126,6 +230,15 @@ TextureImporter:
         height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.5, y: 28.5}
+        - {x: -19.5, y: 14.5}
+        - {x: -19.5, y: -26.5}
+        - {x: -18.5, y: -28.5}
+        - {x: 19.5, y: -28.5}
+        - {x: 19.5, y: 27.5}
+        - {x: 16.5, y: 28.5}
     - name: newhero_9
       rect:
         serializedVersion: 2
@@ -135,6 +248,8 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_10
       rect:
         serializedVersion: 2
@@ -144,6 +259,14 @@ TextureImporter:
         height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 27.5}
+        - {x: -23, y: -23.5}
+        - {x: -19, y: -27.5}
+        - {x: 23, y: -27.5}
+        - {x: 23, y: 22.5}
+        - {x: 17, y: 27.5}
     - name: newhero_11
       rect:
         serializedVersion: 2
@@ -153,6 +276,14 @@ TextureImporter:
         height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 27.5}
+        - {x: -23, y: 4.5}
+        - {x: -23, y: -27.5}
+        - {x: 23, y: -27.5}
+        - {x: 23, y: 18.5}
+        - {x: 14, y: 27.5}
     - name: newhero_12
       rect:
         serializedVersion: 2
@@ -162,6 +293,8 @@ TextureImporter:
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: newhero_13
       rect:
         serializedVersion: 2
@@ -171,6 +304,15 @@ TextureImporter:
         height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14.5, y: 28.5}
+        - {x: -19.5, y: 26.5}
+        - {x: -19.5, y: -22.5}
+        - {x: -17.5, y: -28.5}
+        - {x: 19.5, y: -28.5}
+        - {x: 19.5, y: 13.5}
+        - {x: 13.5, y: 28.5}
     - name: newhero_14
       rect:
         serializedVersion: 2
@@ -180,6 +322,17 @@ TextureImporter:
         height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12.5, y: 30.5}
+        - {x: -11.5, y: 30.5}
+        - {x: -24.5, y: 18.5}
+        - {x: -24.5, y: -4.5}
+        - {x: -16.5, y: -30.5}
+        - {x: 13.5, y: -30.5}
+        - {x: 17.5, y: -29.5}
+        - {x: 24.5, y: -5.5}
+        - {x: 24.5, y: 26.5}
     - name: newhero_15
       rect:
         serializedVersion: 2
@@ -189,6 +342,15 @@ TextureImporter:
         height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21.5, y: 11.5}
+        - {x: -21.5, y: -12.5}
+        - {x: -15.5, y: -30.5}
+        - {x: 21.5, y: -30.5}
+        - {x: 21.5, y: 30.5}
+        - {x: -9.5, y: 30.5}
+        - {x: -14.5, y: 23.5}
     - name: newhero_16
       rect:
         serializedVersion: 2
@@ -198,6 +360,16 @@ TextureImporter:
         height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10.5, y: 26}
+        - {x: -14.5, y: 26}
+        - {x: -17.5, y: 17}
+        - {x: -17.5, y: -26}
+        - {x: 16.5, y: -26}
+        - {x: 17.5, y: -23}
+        - {x: 17.5, y: 16}
+        - {x: 16.5, y: 19}
     - name: newhero_17
       rect:
         serializedVersion: 2
@@ -207,6 +379,13 @@ TextureImporter:
         height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.5, y: 26}
+        - {x: -17.5, y: -23}
+        - {x: -15.5, y: -26}
+        - {x: 17.5, y: -26}
+        - {x: 17.5, y: 26}
     - name: newhero_18
       rect:
         serializedVersion: 2
@@ -216,6 +395,17 @@ TextureImporter:
         height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 9.5, y: 30.5}
+        - {x: -11.5, y: 30.5}
+        - {x: -21.5, y: 15.5}
+        - {x: -21.5, y: -18.5}
+        - {x: -15.5, y: -30.5}
+        - {x: 17.5, y: -30.5}
+        - {x: 21.5, y: -22.5}
+        - {x: 21.5, y: 8.5}
+        - {x: 14.5, y: 23.5}
     - name: newhero_19
       rect:
         serializedVersion: 2
@@ -225,6 +415,17 @@ TextureImporter:
         height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.5, y: 30.5}
+        - {x: -24.5, y: 19.5}
+        - {x: -24.5, y: -11.5}
+        - {x: -16.5, y: -28.5}
+        - {x: -12.5, y: -30.5}
+        - {x: 22.5, y: -30.5}
+        - {x: 24.5, y: -24.5}
+        - {x: 24.5, y: 25.5}
+        - {x: 18.5, y: 30.5}
     - name: newhero_20
       rect:
         serializedVersion: 2
@@ -234,6 +435,15 @@ TextureImporter:
         height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.5, y: 31.5}
+        - {x: -20.5, y: 26.5}
+        - {x: -20.5, y: -25.5}
+        - {x: -8.5, y: -31.5}
+        - {x: 17.5, y: -31.5}
+        - {x: 20.5, y: -13.5}
+        - {x: 20.5, y: 31.5}
     - name: newhero_21
       rect:
         serializedVersion: 2
@@ -243,6 +453,16 @@ TextureImporter:
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: 30}
+        - {x: -18, y: 26}
+        - {x: -18, y: -24}
+        - {x: -15, y: -30}
+        - {x: 17, y: -30}
+        - {x: 18, y: -28}
+        - {x: 18, y: 28}
+        - {x: 11, y: 30}
     - name: newhero_22
       rect:
         serializedVersion: 2
@@ -252,6 +472,13 @@ TextureImporter:
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 30}
+        - {x: -18, y: -30}
+        - {x: 18, y: -30}
+        - {x: 18, y: 25}
+        - {x: 11, y: 30}
     - name: newhero_23
       rect:
         serializedVersion: 2
@@ -261,6 +488,16 @@ TextureImporter:
         height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.5, y: 31.5}
+        - {x: -20.5, y: 30.5}
+        - {x: -20.5, y: -26.5}
+        - {x: -17.5, y: -31.5}
+        - {x: 2.5, y: -31.5}
+        - {x: 20.5, y: -21.5}
+        - {x: 20.5, y: 19.5}
+        - {x: 9.5, y: 31.5}
     - name: newhero_24
       rect:
         serializedVersion: 2
@@ -270,6 +507,15 @@ TextureImporter:
         height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.5, y: 31.5}
+        - {x: -20.5, y: 26.5}
+        - {x: -20.5, y: -25.5}
+        - {x: -8.5, y: -31.5}
+        - {x: 17.5, y: -31.5}
+        - {x: 20.5, y: -13.5}
+        - {x: 20.5, y: 31.5}
     - name: newhero_25
       rect:
         serializedVersion: 2
@@ -279,6 +525,16 @@ TextureImporter:
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: 30}
+        - {x: -18, y: 26}
+        - {x: -18, y: -24}
+        - {x: -15, y: -30}
+        - {x: 17, y: -30}
+        - {x: 18, y: -28}
+        - {x: 18, y: 28}
+        - {x: 11, y: 30}
     - name: newhero_26
       rect:
         serializedVersion: 2
@@ -288,6 +544,13 @@ TextureImporter:
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18, y: 30}
+        - {x: -18, y: -30}
+        - {x: 18, y: -30}
+        - {x: 18, y: 25}
+        - {x: 11, y: 30}
     - name: newhero_27
       rect:
         serializedVersion: 2
@@ -297,5 +560,18 @@ TextureImporter:
         height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.5, y: 31.5}
+        - {x: -20.5, y: 30.5}
+        - {x: -20.5, y: -26.5}
+        - {x: -17.5, y: -31.5}
+        - {x: 2.5, y: -31.5}
+        - {x: 20.5, y: -21.5}
+        - {x: 20.5, y: 19.5}
+        - {x: 9.5, y: 31.5}
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
