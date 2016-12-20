@@ -1,0 +1,20 @@
+<level>
+<next-level>level1-2.xml</next-level>
+<description>Hello World!</description>
+<introtext>A programmer's first program is Hello World!
+Let's find out how to speak in C++!</introtext>
+<endtext>Hello World! You're a programmer now!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++"><comment type="description" correct="true" size="1" groupid="0">Code begins to run in the MAIN function.</comment>
+int main {
+	<comment type="description" correct="true" size="1" groupid="1">COUT will make a program print text to the screen.</comment>
+	cout &lt;&lt; <question text="What will get printed?
+	Type your answer: " answer="hello world">"hello world";</question>
+	
+}
+</code>
+</level>
