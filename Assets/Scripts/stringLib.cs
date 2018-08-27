@@ -10,60 +10,76 @@ using UnityEngine;
 
 public class stringLib
 {
-	public const string TOOL_LOGFILE		 	 			= "toollog.txt";
+
+	public const string INTERFACE_SIDEBAR_AVAILABLE_TOOLS 	= "Available Tools:";
+	public const string INTERFACE_SIDEBAR_OUT_OF_TOOLS			= "Out of Tools!";
+	public const string INTERFACE_TASK_COMPLETE							= "Task Complete!";
+
+	public const string INTERFACE_TOOL_NAME_0_ROBOBUG				= "Bug Catcher";
+	public const string INTERFACE_TOOL_NAME_0_ROBOTON				= "Beacon Activator";
+	public const string INTERFACE_TOOL_NAME_1_ROBOBUG				= "Printer";
+	public const string INTERFACE_TOOL_NAME_1_ROBOTON				= "Checker";
+	public const string INTERFACE_TOOL_NAME_2_ROBOBUG				= "Warper";
+	public const string INTERFACE_TOOL_NAME_2_ROBOTON				= "Renamer";
+	public const string INTERFACE_TOOL_NAME_3								= "Commenter";
+	public const string INTERFACE_TOOL_NAME_4_ROBOBUG				= "Breakpointer";
+	public const string INTERFACE_TOOL_NAME_4_ROBOTON				= "Un-Commenter";
+	public const string INTERFACE_TOOL_NAME_5								= "Helper";
+
+	public const string TOOL_LOGFILE		 	 				= "toollog.txt";
 	public const string TOOL_STATELOGFILE					= "statelog.txt";
 	public const string LOG_BREAKPOINT_ON	 	 			= "BreakpointOn, ";
-	public const string LOG_BREAKPOINT_ACTIVATED 			= "BreakpointActivated, ";
+	public const string LOG_BREAKPOINT_ACTIVATED 	= "BreakpointActivated, ";
 	public const string LOG_COMMENT_ON 			 			= "Commented, ";
 	public const string LOG_BUG_FOUND 			 			= "BugCaught, ";
-	public const string LOG_PRINTED				 			= "Printed, ";
+	public const string LOG_PRINTED				 				= "Printed, ";
 	public const string LOG_TOOL_WASTED			 			= "Wasted, ";
-	public const string LOG_WARPED				 			= "Warped, ";
+	public const string LOG_WARPED				 				= "Warped, ";
 
 	public const string PROJECTILE_BUG 		 				= "projectileBug(Clone)";
-	public const string PROJECTILE_ACTIVATOR 				= "projectileActivator(Clone)";
+	public const string PROJECTILE_ACTIVATOR 			= "projectileActivator(Clone)";
 	public const string PROJECTILE_WARP		 				= "projectileWarp(Clone)";
-	public const string PROJECTILE_COMMENT	 				= "projectileComment(Clone)";
+	public const string PROJECTILE_COMMENT	 			= "projectileComment(Clone)";
 	public const string PROJECTILE_DEBUG	 				= "projectileDebug(Clone)";
 
 	public const string LOSE_TEXT     						= "Try Again!\n";
 	public const string RETRY_TEXT    						= "Press Enter to try again\nor ESC to quit";
 	public const string CONTINUE_TEXT 						= "Press Enter to continue.";
 
-	public const string GAME_MODE_ON 						= "on";
+	public const string GAME_MODE_ON 							= "on";
 	public const string GAME_MODE_BUG 						= "bug";
 	public const string GAME_ROBOT_ON 						= "Robot ON!";
 	public const string GAME_ROBOT_BUG 						= "RoboBUG!";
 
-	public const string TOOL_NAME_0_ROBOBUG					= "catcher";
-	public const string TOOL_NAME_0_ROBOTON					= "activator";
-	public const string TOOL_NAME_1_ROBOBUG					= "printer";
-	public const string TOOL_NAME_1_ROBOTON					= "question";
-	public const string TOOL_NAME_2_ROBOBUG					= "warper";
-	public const string TOOL_NAME_2_ROBOTON					= "namer";
-	public const string TOOL_NAME_3							= "commenter";
-	public const string TOOL_NAME_4							= "controlflow";
-	public const string TOOL_NAME_5							= "helper";
+	public const string TOOL_NAME_0_ROBOBUG				= "catcher";
+	public const string TOOL_NAME_0_ROBOTON				= "activator";
+	public const string TOOL_NAME_1_ROBOBUG				= "printer";
+	public const string TOOL_NAME_1_ROBOTON				= "question";
+	public const string TOOL_NAME_2_ROBOBUG				= "warper";
+	public const string TOOL_NAME_2_ROBOTON				= "namer";
+	public const string TOOL_NAME_3								= "commenter";
+	public const string TOOL_NAME_4								= "controlflow";
+	public const string TOOL_NAME_5								= "helper";
 
 	public const string CLOSE_COLOR_TAG 					= "</color>";
 
 	public const string NODE_NAME_CODE 						= "code";
-	public const string NODE_NAME_DESCRIPTION				= "description";
+	public const string NODE_NAME_DESCRIPTION			= "description";
 	public const string NODE_NAME_TOOLS						= "tools";
 	public const string NODE_NAME_TIME						= "timelimit";
-	public const string NODE_NAME_NEXT_LEVEL				= "next-level";
-	public const string NODE_NAME_INTRO_TEXT				= "introtext";
-	public const string NODE_NAME_END_TEXT					= "endtext";
+	public const string NODE_NAME_NEXT_LEVEL			= "next-level";
+	public const string NODE_NAME_INTRO_TEXT			= "introtext";
+	public const string NODE_NAME_END_TEXT				= "endtext";
 	public const string NODE_NAME_PRINT 					= "print";
 	public const string NODE_NAME_WARP 						= "warp";
 	public const string NODE_NAME_RENAME 					= "variable-rename";
-	public const string NODE_NAME_QUESTION					= "question";
-	public const string NODE_NAME_COMMENT 					= "comment";
-	public const string NODE_NAME_BUG						= "bug";
+	public const string NODE_NAME_QUESTION				= "question";
+	public const string NODE_NAME_COMMENT 				= "comment";
+	public const string NODE_NAME_BUG							= "bug";
 	public const string NODE_NAME_BEACON					= "beacon";
-	public const string NODE_NAME_BREAKPOINT				= "breakpoint";
+	public const string NODE_NAME_BREAKPOINT			= "breakpoint";
 	public const string NODE_NAME_PRIZE						= "prize";
-	public const string NODE_NAME_VARIABLE_COLOR			= "variable-color";
+	public const string NODE_NAME_VARIABLE_COLOR	= "variable-color";
 	public const string NODE_NAME_NEWLINE					= "newline";
 
     public const string XML_ATTRIBUTE_LANGUAGE              = "language";
