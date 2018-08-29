@@ -28,8 +28,8 @@ public class question : MonoBehaviour {
 	public GameObject SidebarObject;
 	public GameObject CodescreenObject;
 	public GameObject ToolSelectorObject;
-    public AudioSource audioPrompt;
-    public AudioSource audioCorrect;
+  public AudioSource audioPrompt;
+  public AudioSource audioCorrect;
 
 	private bool answering = false;
 	private bool answered = false;
@@ -51,25 +51,48 @@ public class question : MonoBehaviour {
 				answered = true;
 				answering = false;
 				lg.isAnswering = false;
+
+				// There's an odd case where if a user enters "3." instead of "3.0" for an expected of "3.0", it will be marked wrong
+				// So we try casting the input as a decimal.
+				decimal inputCastDecimal;
+				string inputDecimalAsString;
+				bool inputIsDecimal = decimal.TryParse(input, out inputCastDecimal);
+				inputDecimalAsString = inputCastDecimal.ToString();
+				if (inputIsDecimal && !inputDecimalAsString.Contains(".")) {
+					input = inputDecimalAsString + ".0";
+				}
+
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
+					// Incorrect Answer
 					answered = false;
 					string lastInput = input;
 					input = "";
 					// Check to see if the expected answer could be a decimal
 					decimal expectedValue = -999;
 					decimal inputValue = -999;
-					bool parsedExpected = decimal.TryParse(expected, out expectedValue);
-					bool parsedInput = decimal.TryParse(lastInput, out inputValue);
+					// "out expectedValue" writes the result of the TryParse function to expectedValue.
+					bool correctAnswerIsDecimal = decimal.TryParse(expected, out expectedValue);
+					bool lastAnswerIsDecimal = decimal.TryParse(lastInput, out inputValue);
 					bool expectedBool = false;
-					bool parsedBool = bool.TryParse(expected, out expectedBool);
+					bool correctAnswerIsBoolean = bool.TryParse(expected, out expectedBool);
 					int inputInteger = -999;
 					int expectedInteger = -999;
-					bool parsedInputInt = Int32.TryParse(lastInput, out inputInteger);
-					bool parsedExpectedInt = Int32.TryParse(expected, out expectedInteger);
-					if (parsedBool) {
+					bool lastAnswerIsIntegerValue = Int32.TryParse(lastInput, out inputInteger);
+					bool correctAnswerIsIntegerValue = Int32.TryParse(expected, out expectedInteger);
+
+
+					print("Debug - correctAnswerIsDecimal " + correctAnswerIsDecimal);
+					print("Debug - lastAnswerIsDecimal " + lastAnswerIsDecimal);
+					print("Debug - expectedValue " + expectedValue);
+					print("Debug - inputValue " + inputValue);
+					print("Debug - lastAnswerIsIntegerValue " + correctAnswerIsIntegerValue);
+					print("Debug - correctAnswerIsIntegerValue " + lastAnswerIsIntegerValue);
+
+
+					if (correctAnswerIsBoolean) {
 						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "You should double check to make \nsure you have the right result; \nit is either 'true' or 'false', \nnothing else is possible.";
 					}
-					else if (parsedExpected && parsedInput) {
+					else if (correctAnswerIsDecimal && lastAnswerIsDecimal) {
 						// Working with numbers
 						if (expectedValue < inputValue) {
 							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Looks like your answer is too high; \ndid you forget to subtract a value?";
@@ -77,14 +100,14 @@ public class question : MonoBehaviour {
 						else if (expectedValue > inputValue) {
 							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Your answer is too low; \nperhaps you missed an addition somewhere?";
 						}
-						else if (parsedExpectedInt && !parsedInputInt) {
+						else if (!lastAnswerIsIntegerValue && correctAnswerIsIntegerValue) {
 							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Remember that integer variables do \nnot have decimal points; \nthey are whole numbers.";
 						}
-						else if (parsedInputInt && ! parsedExpectedInt) {
+						else if (lastAnswerIsIntegerValue && !correctAnswerIsIntegerValue) {
 							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Remember that double variables have \ndecimal points; the number 5 would \nbe written as 5.0";
 						}
 					}
-					else if (parsedExpected) {
+					else if (correctAnswerIsDecimal) {
 						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "The answer should be a number value. \nTry again.";
 					}
 					else {
@@ -92,6 +115,7 @@ public class question : MonoBehaviour {
 					}
 				}
 				else {
+					// Correct Answer
 					lg.taskscompleted[1]++;
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				    audioCorrect.Play();

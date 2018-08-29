@@ -23,14 +23,14 @@ public static class stateLib
 
 	public const int GAMESTATE_SUBMENU                         = 0;
 	public const int GAMESTATE_MENU                            = 0;
-    public const int GAMESTATE_IN_GAME                         = 1;
+  public const int GAMESTATE_IN_GAME                         = 1;
 	public const int GAMESTATE_LEVEL_START                     = 2;
 	public const int GAMESTATE_LEVEL_WIN                       = 3;
 	public const int GAMESTATE_LEVEL_LOSE                      = 4;
-    public const int GAMESTATE_MENU_NEWGAME                    = -3;
-    public const int GAMESTATE_MENU_LOADGAME                   = -4;
-    public const int GAMESTATE_MENU_SOUNDOPTIONS               = -2;
-    public const int GAMESTATE_MENU_LOADGAME_SUBMENU           = -1;
+  public const int GAMESTATE_MENU_NEWGAME                    = -3;
+  public const int GAMESTATE_MENU_LOADGAME                   = -4;
+  public const int GAMESTATE_MENU_SOUNDOPTIONS               = -2;
+  public const int GAMESTATE_MENU_LOADGAME_SUBMENU           = -1;
 	// 5 through 9 are not used.
 	public const int GAMESTATE_INITIAL_COMIC                   = 10;
 	public const int GAMESTATE_STAGE_COMIC                     = 11;
@@ -50,8 +50,8 @@ public static class stateLib
 	public const int ENTITY_TYPE_INCORRECT_UNCOMMENT           = 4;
 	public const int ENTITY_TYPE_ROBOBUG_COMMENT               = 5;
 
-	public const int TEXT_SIZE_VERY_LARGE		= 40;
-	public const int TEXT_SIZE_LARGE			= 30;
-	public const int TEXT_SIZE_NORMAL			= 25;
-	public const int TEXT_SIZE_SMALL			= 20;
+	public const int TEXT_SIZE_VERY_LARGE			    						 = 40;
+	public const int TEXT_SIZE_LARGE													 = 30;
+	public const int TEXT_SIZE_NORMAL													 = 25;
+	public const int TEXT_SIZE_SMALL													 = 20;
 }

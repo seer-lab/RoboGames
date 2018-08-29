@@ -57,7 +57,7 @@ public class SelectedTool : MonoBehaviour
 		}
 		// In game
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME) {
-			toolAvailableTools.GetComponent<GUIText>().text = "Available Tools:";
+			toolAvailableTools.GetComponent<GUIText>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
 			levelDescription.GetComponent<GUIText>().text = lg.destext.GetComponent<TextMesh>().text;
 			// If we are losing or failed, trigger the losing sequence on LevelGenerator
 			if (isLosing || noRemainingActivators) {
@@ -180,7 +180,7 @@ public class SelectedTool : MonoBehaviour
 		}
 		else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0) {
 			toolLabels[projectilecode].GetComponent<GUIText>().color = Color.red;
-			toolLabels[projectilecode].GetComponent<GUIText>().text = "Out of Tools!";
+			toolLabels[projectilecode].GetComponent<GUIText>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
 			lg.isLosing = true;
 		}
 		// Cycle to the next tool.
@@ -254,7 +254,7 @@ public class SelectedTool : MonoBehaviour
             taskComplete[nToolCode] = true;
             toolLabels[nToolCode].GetComponent<GUIText>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
             NextTool();
-            outputtext.GetComponent<GUIText>().text = "Task Complete!";
+            outputtext.GetComponent<GUIText>().text = stringLib.INTERFACE_TASK_COMPLETE;
             outputtext.GetComponent<AudioSource>().Play();
 		}
 		else if (lg.tasklist[nToolCode] != lg.taskscompleted[nToolCode]) {

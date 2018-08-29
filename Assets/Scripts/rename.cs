@@ -28,8 +28,8 @@ public class rename : MonoBehaviour {
 	public GameObject SidebarObject;
 	public GameObject CodescreenObject;
 	public GameObject ToolSelectorObject;
-    public AudioSource audioPrompt;
-    public AudioSource audioCorrect;
+  public AudioSource audioPrompt;
+  public AudioSource audioCorrect;
 	public bool answered = false;
 
 	private bool answering = false;
@@ -50,13 +50,13 @@ public class rename : MonoBehaviour {
 		if (answering) {
 			// Handle left and right arrows --[
 			if (selection == 0) {
-				SidebarObject.GetComponent<GUIText>().text = displaytext + "   " + options[selection]+" →";
+				SidebarObject.GetComponent<GUIText>().text = displaytext + "   " + options[selection] + " →";
 			}
 			else if (selection == options.Count-1) {
 				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection];
 			}
 			else {
-				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection]+" →";
+				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection] + " →";
 			}
 			// ]-- End of handling arrows
 
