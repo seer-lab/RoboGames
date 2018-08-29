@@ -14,6 +14,7 @@ public class stringLib
 	public const string INTERFACE_SIDEBAR_AVAILABLE_TOOLS 	= "Available Tools:";
 	public const string INTERFACE_SIDEBAR_OUT_OF_TOOLS			= "Out of Tools!";
 	public const string INTERFACE_TASK_COMPLETE							= "Task Complete!";
+	public const string INTERFACE_NEW_TOOLS									= "New Tools!";
 
 	public const string INTERFACE_TOOL_NAME_0_ROBOBUG				= "Bug Catcher";
 	public const string INTERFACE_TOOL_NAME_0_ROBOTON				= "Beacon Activator";

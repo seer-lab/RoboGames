@@ -47,11 +47,25 @@ public class question : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		if (answering) {
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+
+			// Added escape option to return to game
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				// Increment number of tool uses
+				if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] != 999)
+				{
+					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]++;
+				}
+				answered = false;
+				answering = false;
+				lg.isAnswering = false;
+				input = "";
+				// Hide the pop-up window (Output.cs)
+				SidebarObject.GetComponent<GUIText>().text = "";
+			}
+			else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
 				lg.isAnswering = false;
-
 				// There's an odd case where if a user enters "3." instead of "3.0" for an expected of "3.0", it will be marked wrong
 				// So we try casting the input as a decimal.
 				decimal inputCastDecimal;
@@ -79,15 +93,6 @@ public class question : MonoBehaviour {
 					int expectedInteger = -999;
 					bool lastAnswerIsIntegerValue = Int32.TryParse(lastInput, out inputInteger);
 					bool correctAnswerIsIntegerValue = Int32.TryParse(expected, out expectedInteger);
-
-
-					print("Debug - correctAnswerIsDecimal " + correctAnswerIsDecimal);
-					print("Debug - lastAnswerIsDecimal " + lastAnswerIsDecimal);
-					print("Debug - expectedValue " + expectedValue);
-					print("Debug - inputValue " + inputValue);
-					print("Debug - lastAnswerIsIntegerValue " + correctAnswerIsIntegerValue);
-					print("Debug - correctAnswerIsIntegerValue " + lastAnswerIsIntegerValue);
-
 
 					if (correctAnswerIsBoolean) {
 						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "You should double check to make \nsure you have the right result; \nit is either 'true' or 'false', \nnothing else is possible.";
@@ -118,7 +123,7 @@ public class question : MonoBehaviour {
 					// Correct Answer
 					lg.taskscompleted[1]++;
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION]++;
-				    audioCorrect.Play();
+				  audioCorrect.Play();
 					// Substring is startingPos, length. We want to start after the first color tag, and the length is the whole string - length of color tag - length of close color tag.
 					string newtext = innertext.Substring(lg.stringLibrary.node_color_question.Length,(innertext.Length)-(lg.stringLibrary.node_color_question.Length)-(stringLib.CLOSE_COLOR_TAG.Length));
 					string sOpenCommentSymbol = "# ";

@@ -16,7 +16,7 @@ using System.IO;
 public class printer : MonoBehaviour {
 
 	public int index = -1;
-    public string language = "";
+	public string language = "";
 	public string displaytext = "";
 	public GameObject SidebarObject;
 	public GameObject ToolSelectorObject;
@@ -34,7 +34,7 @@ public class printer : MonoBehaviour {
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-    }
+	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -47,7 +47,7 @@ public class printer : MonoBehaviour {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
-                        lg.floatingTextOnPlayer("New Tools!");
+						lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
 					}
 					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
 				}

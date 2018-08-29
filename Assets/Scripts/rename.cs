@@ -61,6 +61,18 @@ public class rename : MonoBehaviour {
 			// ]-- End of handling arrows
 
 			// Handle input --[
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				// Increment number of tool uses
+				if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] != 999)
+				{
+					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]++;
+				}
+				answered = false;
+				answering = false;
+				lg.isAnswering = false;
+				SidebarObject.GetComponent<GUIText>().text = "";
+			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
