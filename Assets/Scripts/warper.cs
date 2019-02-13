@@ -19,7 +19,7 @@ public class warper : MonoBehaviour
 	public int index = -1;
 	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string filename = "";
-	public string warpToLine = "";
+	public string linenum = "";
 	public string language;
 	public GameObject CodescreenObject;
 	public GameObject ToolSelectorObject;
@@ -58,7 +58,7 @@ public class warper : MonoBehaviour
 						}
 					}
 				}
-		lg.BuildLevel(lg.gamemode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, warpToLine);
+		lg.BuildLevel(lg.gamemode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, linenum);
 		}
 	}
 	//.................................>8.......................................

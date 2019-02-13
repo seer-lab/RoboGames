@@ -86,7 +86,7 @@ public class Cinematic : MonoBehaviour
 					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 				}
 
-				lg.BuildLevel(lg.nextlevel, false);
+				lg.BuildLevel(lg.nextlevel, false, "");
 				Destroy(objs[1]);
 				Destroy(objs[0]);
 				cinerun = false;

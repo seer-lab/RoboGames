@@ -169,7 +169,6 @@ public class SelectedTool : MonoBehaviour
 	public void NextTool() {
 		int notoolcount = 0;
 		// Turn this tool's color to the toolOff color.
-		print("projectilecode is " + projectilecode.ToString());
 		toolIcons[projectilecode].GetComponent<GUITexture>().color = toolOffColor;
 		// If the checklist entry was is completed, then disable this current tool before switching to the next
 		if (lg.tasklist[projectilecode] == lg.taskscompleted[projectilecode]) {

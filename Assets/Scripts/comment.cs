@@ -140,7 +140,7 @@ public class comment : MonoBehaviour {
 			GetComponent<AudioSource>().Play();
 			lg.taskscompleted[4]++;
 			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
-			string sNewText = lg.textColoration.DecolorizeText(blocktext);
+			string sNewText = lg.DecolorizeText(blocktext);
 			string[] sNewParts = sNewText.Split('\n');
 			if (sNewParts.Length == 1) {
 				// Single line
@@ -172,7 +172,7 @@ public class comment : MonoBehaviour {
 				}
 				Regex rgx = new Regex(patternComment);
 				sNewText = rgx.Replace(sNewText, "$2");
-				sNewText = lg.textColoration.ColorizeText(sNewText, language);
+				sNewText = lg.ColorizeText(sNewText, language, false);
 				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, sNewText);
 			}
 			else {
@@ -215,21 +215,21 @@ public class comment : MonoBehaviour {
 				// Search for open pattern, strip that, then colorize all the text, then get rid of the close pattern
 				//@TODO: Left off here, check this next block for correctness
 				Regex rgx = new Regex(patternOpenComment);
-				sNewParts[0] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[0]), "$2");
+				sNewParts[0] = rgx.Replace(lg.DecolorizeText(sNewParts[0]), "$2");
 				rgx = new Regex(patternCloseComment);
 				if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
 				}
 				else {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
 				}
 				for (int i = 0 ; i < sNewParts.Length ; i++) {
 					if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-						sNewParts[i] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[i]), "$2");
-						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
+						sNewParts[i] = rgx.Replace(lg.DecolorizeText(sNewParts[i]), "$2");
+						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
 					}
 					else {
-						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
+						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
 					}
 					lg.innerXmlLines[index+i] = sNewParts[i];
 				}

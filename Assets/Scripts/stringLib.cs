@@ -67,7 +67,6 @@ public class stringLib
 	public const string NODE_NAME_CODE 						= "code";
 	public const string NODE_NAME_DESCRIPTION			= "description";
 	public const string NODE_NAME_TOOLS						= "tools";
-	public const string NODE_NAME_TOOL						= "tool";
 	public const string NODE_NAME_TIME						= "timelimit";
 	public const string NODE_NAME_NEXT_LEVEL			= "next-level";
 	public const string NODE_NAME_INTRO_TEXT			= "introtext";
@@ -84,7 +83,7 @@ public class stringLib
 	public const string NODE_NAME_VARIABLE_COLOR	= "variable-color";
 	public const string NODE_NAME_NEWLINE					= "newline";
 
-  public const string XML_ATTRIBUTE_LANGUAGE              = "language";
+    public const string XML_ATTRIBUTE_LANGUAGE              = "language";
 	public const string XML_ATTRIBUTE_TEXT					= "text";
 	public const string XML_ATTRIBUTE_TOOL					= "tool";
 	public const string XML_ATTRIBUTE_FILE					= "file";
