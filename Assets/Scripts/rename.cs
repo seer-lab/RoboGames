@@ -96,7 +96,7 @@ public class rename : MonoBehaviour {
 						if (renames.GetComponent<rename>().groupid == (groupid+1)) {
 							int lineNum = renames.GetComponent<rename>().index;
 							string sReplace = lg.outerXmlLines[lineNum];
-							sReplace = lg.OuterToInnerXml(sReplace, language);
+							//sReplace = lg.OuterToInnerXml(sReplace, language);
 							lg.innerXmlLines[lineNum] = sReplace;
 							lg.DrawInnerXmlLinesToScreen();
 						}
@@ -115,7 +115,7 @@ public class rename : MonoBehaviour {
 		else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
 			// Change the next groupid objects to the new colors
 			decolorOnce = true;
-			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.DecolorizeText(innertext));
+			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
 			lg.DrawInnerXmlLinesToScreen();
 		}
 

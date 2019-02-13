@@ -249,7 +249,7 @@ public class Menu : MonoBehaviour
 					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 					/*
 					lg.gamemode = stringLib.GAME_MODE_BUG;
-					lg.BuildLevel("bugleveldata" + filepath + "tut1.xml", false);
+					lg.BuildLevel("bugleveldata" + filepath + "tut1.xml");
 					lg.gamestate = stateLib.GAMESTATE_INITIAL_COMIC;
 					*/
 					break;
