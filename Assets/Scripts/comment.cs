@@ -33,6 +33,11 @@ public class comment : MonoBehaviour {
 	public GameObject CorrectCommentObject;
 	public GameObject SidebarObject;
 	public GameObject ToolSelectorObject;
+	
+	public Sprite descSpriteOff;
+	public Sprite descSpriteOn;
+	public Sprite codeSpriteOff;
+	public Sprite codeSpriteOn;
 
 	private LevelGenerator lg;
 	private bool doneUpdating = false;
@@ -46,6 +51,12 @@ public class comment : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		lg = CodescreenObject.GetComponent<LevelGenerator>();
+		if (entityType == stateLib.ENTITY_TYPE_CORRECT_COMMENT || entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT){
+			GetComponent<SpriteRenderer>().sprite = descSpriteOff;
+		}
+		else {
+			GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
+		}
 	}
 
 	//.................................>8.......................................
@@ -74,10 +85,10 @@ public class comment : MonoBehaviour {
 	//.................................>8.......................................
 	void TriggerCorrectComment(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented) {
+			GetComponent<SpriteRenderer>().sprite = descSpriteOn;
 			isCommented = true;
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
-			lg.taskscompleted[3]++;
 			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_COMMENTER]++;
 			string sNewText = blocktext;
 			string[] sNewParts = sNewText.Split('\n');
@@ -111,7 +122,8 @@ public class comment : MonoBehaviour {
 			if (sNewParts.Length == 1) {
 				// Single line
 				// Add comment style around the text
-				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG);
+				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG);
+				lg.innerXmlLines[index] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 			}
 			else {
 				// Multi line
@@ -130,17 +142,21 @@ public class comment : MonoBehaviour {
 
 			lg.DrawInnerXmlLinesToScreen();
 			lg.toolsAirborne--;
+			lg.taskscompleted[3]++;
+
 		}
 	}
 
 	//.................................>8.......................................
 	void TriggerCorrectUncomment(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented) {
+			GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
 			lg.taskscompleted[4]++;
 			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
-			string sNewText = lg.DecolorizeText(blocktext);
+			string sNewText = lg.textColoration.DecolorizeText(blocktext);
+			string tempDecolText = sNewText;
 			string[] sNewParts = sNewText.Split('\n');
 			if (sNewParts.Length == 1) {
 				// Single line
@@ -172,8 +188,12 @@ public class comment : MonoBehaviour {
 				}
 				Regex rgx = new Regex(patternComment);
 				sNewText = rgx.Replace(sNewText, "$2");
-				sNewText = lg.ColorizeText(sNewText, language, false);
-				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, sNewText);
+				
+				//verify comment color is removed
+				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);
+				
+				sNewText = lg.textColoration.ColorizeText(sNewText, language);
+				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(tempDecolText, sNewText);
 			}
 			else {
 				// Multi line
@@ -215,21 +235,21 @@ public class comment : MonoBehaviour {
 				// Search for open pattern, strip that, then colorize all the text, then get rid of the close pattern
 				//@TODO: Left off here, check this next block for correctness
 				Regex rgx = new Regex(patternOpenComment);
-				sNewParts[0] = rgx.Replace(lg.DecolorizeText(sNewParts[0]), "$2");
+				sNewParts[0] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[0]), "$2");
 				rgx = new Regex(patternCloseComment);
 				if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
 				}
 				else {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
+					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
 				}
 				for (int i = 0 ; i < sNewParts.Length ; i++) {
 					if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-						sNewParts[i] = rgx.Replace(lg.DecolorizeText(sNewParts[i]), "$2");
-						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
+						sNewParts[i] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[i]), "$2");
+						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
 					}
 					else {
-						sNewParts[i] = lg.ColorizeText(sNewParts[i], language, false);
+						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
 					}
 					lg.innerXmlLines[index+i] = sNewParts[i];
 				}
@@ -293,10 +313,15 @@ public class comment : MonoBehaviour {
 		if (CorrectCommentObject) {
 			if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating) {
 				doneUpdating = true;
+				GetComponent<SpriteRenderer>().sprite = descSpriteOn;
 				string sNewText = blocktext;
 				string[] sNewParts = sNewText.Split('\n');
 				if (sNewParts.Length == 1) {
 					// Single line
+					
+				//verify comment color is removed
+				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);					
+					
 					lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
 				}
 				else {

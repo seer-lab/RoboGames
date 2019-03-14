@@ -1,26 +1,3 @@
-//****************************************************************************//
-// @TODO: Ensure this is up to date when finished.
-// Class Name: LevelGenerator
-// Class Description: Master class for most of the game's functionality, this runs when a new level
-//                    is to be generatd. This class behaves like a factory for game objects, displays the lines
-//                    of code, controls light/dark scheme, text size, and level win/loss.
-// Methods:
-// 		private void Start()
-//		private void Update()
-//		public void GUISwitch(bool gui_on)
-//		public void BuildLevel(string filename, bool warp, string linenum = "")
-//		private void StoreInnerXml(XmlNode levelnode)
-//		public string NodeToColorString(XmlNode thisNode, bool newline = true)
-//		private void PlaceObjects(XmlNode levelnode)
-//		public void ProvisionToolsFromXml(XmlNode levelnode)
-//		public void ResetLevel(bool warp)
-//		public void GameOver()
-//		public void Victory()
-//		private void OnTriggerEnter2D(Collider2D collidingObj)
-// Author: Michael Miljanovic
-// Date Last Modified: 6/1/2016
-//****************************************************************************//
-
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -32,6 +9,7 @@ using System;
 
 public class LevelGenerator : MonoBehaviour {
 	public stringLib stringLibrary = new stringLib();
+	public TextColoration textColoration = new TextColoration();
 	// A state-transition variable. When this becomes true, when Update() is called it will trigger a Game Over state.
 	public bool isLosing;
 	public bool isAnswering = false;
@@ -200,12 +178,7 @@ public class LevelGenerator : MonoBehaviour {
 		winning = false;
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: private void Update()
-	// Description: Update the remaining time, check for remaining tasks, handle win and loss transitions, handle menu toggle event
-	//************************************************************************//
-	// Update is called once per frame
+ // This is called every draw call in game.
 	private void Update() {
 		if (gamestate == stateLib.GAMESTATE_IN_GAME)
 		{
@@ -333,7 +306,7 @@ public class LevelGenerator : MonoBehaviour {
 				sidebarLabel.GetComponent<GUIText>().enabled = sidebarToggle;
 				sidebarpanel.GetComponent<GUITexture>().enabled = sidebarToggle;
 				sidebarDescription.GetComponent<GUIText>().enabled = sidebarToggle;
-				// transform the bottoms to the right. Store their original position first.
+				// transform the buttons to the right. Store their original position first.
 				for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS ; i++) {
 					if (sidebarToggle) {
 						toolIcons[i].transform.position -= new Vector3(0.18f, 0, 0);
@@ -349,11 +322,6 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void GUISwitch(bool gui_on)
-	// Description: Toggle the GUI on or off
-	//************************************************************************//
 	public void GUISwitch(bool gui_on) {
 		switch(gui_on) {
 			case true:
@@ -373,46 +341,58 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void BuildLevel(string filename, bool warp, string linenum = "")
-	// Description: Driver for level creation. If we're warping to this level, behavior is different.
-	// linenum is the line number the player should appear on, if warping.
-	//************************************************************************//
-	public void BuildLevel(string filename, bool warp, string linenum = "")	{
+	public void BuildLevel(string filename, bool warp, string warpToLine = "")	{
 		ResetLevel(warp);
-		XmlDocument doc = new XmlDocument();
-		doc.Load(filename);
-
+		XmlDocument doc = XMLReader.ReadFile(filename);
 		XmlNode levelnode = doc.FirstChild;
-		StoreOuterXml(levelnode);
-		StoreInnerXml(levelnode);
+		outerXmlLines = XMLReader.GetOuterXML(doc);
+		//@TODO: This is a bug. InnerXML should not be OuterXML. Need to convert all outerXML to InnerXML.
+		//innerXmlLines = outerXmlLines;
+		
+		//add description to sidebar and level title
+		foreach (XmlNode codenode in levelnode.ChildNodes) {
+			if (codenode.Name == stringLib.NODE_NAME_DESCRIPTION){
+				destext.GetComponent<TextMesh>().text = codenode.InnerText;
+			}
+		}
+
+		
+		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", outerXmlLines), language);
+		Debug.Log("Convert result string -> " + innerXMLstring);
+		innerXmlLines = innerXMLstring.Split('\n');
+		//int iter = 0;
+		//foreach(string s in innerXmlLines) {
+		//	Debug.Log("InnerXML: " + s);
+		//	innerXmlLines[iter] = PrepareOuterXMLToGameScreen(s, XMLReader.GetLanguage(doc));
+		//	iter += 1;
+		//}
+		linecount = XMLReader.GetLineCount(doc);
+		CreateLevelLines(linecount);
 		taskOnLines = new int[linecount,stateLib.NUMBER_OF_TOOLS];
 		PlaceObjects(levelnode);
 
 		if (warp) {
-			hero.transform.position = (linenum != "")  ? new Vector3(-7, initialLineY -(int.Parse(linenum) - 1) * linespacing, 1) : hero.transform.position;
+			hero.transform.position = (warpToLine != "")  ? new Vector3(-8, initialLineY -(int.Parse(warpToLine) - 1) * linespacing, 1) : hero.transform.position;
 			GetComponent<AudioSource>().clip = sounds[1];
 			GetComponent<AudioSource>().Play();
 		}
 		else {
-			ProvisionToolsFromXml(levelnode);
+			ProvisionToolsFromXml(doc);
 			selectedtool.GetComponent<SelectedTool>().NextTool();
 			currentlevel = filename.Substring(filename.IndexOf(menu.GetComponent<Menu>().filepath) + 1);
+			// time
 			startTime = Time.time;
-			foreach (XmlNode node in levelnode.ChildNodes) {
-				switch (node.Name) {
-					case stringLib.NODE_NAME_TIME:
-					node.InnerText = (node.InnerText.ToLower() == "unlimited") ? "9001" : node.InnerText;
-					endTime = (float)int.Parse(node.InnerText) + startTime;
-					remainingTime = (float)int.Parse(node.InnerText);
-					break;
-					case stringLib.NODE_NAME_NEXT_LEVEL: nextlevel = gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + node.InnerText; break;
-					case stringLib.NODE_NAME_INTRO_TEXT: cinematic.GetComponent<Cinematic>().introtext = node.InnerText; break;
-					case stringLib.NODE_NAME_END_TEXT: cinematic.GetComponent<Cinematic>().endtext = node.InnerText; break;
-					default: break;
-				}
-			}
+			string sReadTime = XMLReader.GetTimeLimit(doc);
+			sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
+			endTime = (float)int.Parse(sReadTime) + startTime;
+			remainingTime = (float)int.Parse(sReadTime);
+			// next level
+			nextlevel = gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + XMLReader.GetNextLevel(doc);
+			// intro text
+			cinematic.GetComponent<Cinematic>().introtext = XMLReader.GetIntroText(doc);
+			// end text
+			cinematic.GetComponent<Cinematic>().endtext = XMLReader.GetEndText(doc);
+
 		}
 		// Resize the boundaries of the level to correspond with how many lines we have
 		if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE) {
@@ -430,78 +410,14 @@ public class LevelGenerator : MonoBehaviour {
 			initialresize = true;
 			TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
 		}
-
 	}
 
 	//.................................>8.......................................
 	//************************************************************************//
-	// Method: private void StoreOuterXml(XmlNode levelnode)
-	// Description: Read through levelnode XML and store the outerXml lines. These
-	// will need to be parsed later to create the level text.
+	// Method: public void CreateLevelLines();
+	// Description: Create the grey level line objects between each line of code
 	//************************************************************************//
-	private void StoreOuterXml(XmlNode levelnode) {
-		string outerXml = "";
-		int outerXmlLineCount = 0;
-
-		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			if (codenode.Name == stringLib.NODE_NAME_CODE) outerXml += codenode.OuterXml;
-		}
-
-		// Insert newlines between tags. Don't do this for <bug> tags though
-		Regex rgxTags = new Regex("><(?!bug)");
-		outerXml = rgxTags.Replace(outerXml, ">\n<");
-
-		foreach (char c in outerXml) {
-			if (c == '\n') outerXmlLineCount++;
-		}
-
-		outerXmlLines = new string[outerXmlLineCount+1];
-		Regex rgxNewlineSplit = new Regex("\n");
-		string[] substrings = rgxNewlineSplit.Split(outerXml);
-		int iterator = 0;
-		//@TODO
-		// VERY IMPORTANT: Rename and Variable Color scripts will BREAK if the XML file has a newline right after <code language="lang">
-		// The first line of the code must start on the SAME LINE as the <code> tag. I need to check for this case and correct it if the level
-		// designer puts a newline right after. If they do, the indexing of outerXmlLines[] will be offset by +1, and it will cause the rename and variable color references
-		// to be wrong.
-		foreach(string s in substrings) {
-			outerXmlLines[iterator] = s;
-			iterator++;
-		}
-	}
-
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: private void StoreInnerXml(XmlNode levelnode)
-	// Description: Read through levelnode XML and store the InnerXML
-	//************************************************************************//
-	private void StoreInnerXml(XmlNode levelnode) {
-		destext.GetComponent<TextMesh>().text = "";
-		codetext = "";
-		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			switch(codenode.Name) {
-				case stringLib.NODE_NAME_CODE:
-				foreach (XmlNode printnode in codenode.ChildNodes) {
-					if (printnode.Name == stringLib.NODE_NAME_QUESTION || printnode.Name == stringLib.NODE_NAME_NEWLINE) {
-						printnode.InnerText = NodeToColorString(codenode, printnode, false);
-						printnode.InnerText += "\n";
-					}
-					else {
-						printnode.InnerText = NodeToColorString(codenode, printnode, true);
-					}
-					codetext += printnode.InnerText;
-				}
-				break;
-
-				case stringLib.NODE_NAME_DESCRIPTION: destext.GetComponent<TextMesh>().text = codenode.InnerText; break;
-				default: break;
-			}
-		}
-
-		foreach (char c in codetext) {
-			if (c == '\n') linecount++;
-		}
-
+	public void CreateLevelLines(int linecount) {
 		// Create the grey line objects for each line.
 		lineNumbers = new string[linecount];
 		for (int i = 0; i < linecount; i++) {
@@ -514,43 +430,49 @@ public class LevelGenerator : MonoBehaviour {
 			}
 			lines.Add(newline);
 		}
-
-		// Store the entire codetext (The code displayed in the game's level)
-		innerXmlLines = new string[linecount+1];
-		Regex rgxNewlineSplit = new Regex("\n");
-		string[] substrings = rgxNewlineSplit.Split(codetext);
-		int iterator = 0;
-		foreach(string s in substrings) {
-			innerXmlLines[iterator] = s;
-			iterator++;
-		}
 	}
 
 	//.................................>8.......................................
 	//************************************************************************//
-	// Method: public string NodeToColorString(XmlNode thisNode);
+	// Method: public void PrepareOuterXMLToGameScreen();
+	// Description: Colorize the Outer XML for use on the game screen.
+	// This method will convert Outer XML to Inner XML if required
+	//************************************************************************//
+	//@TODO: This needs to convert outerXML to InnerXML
+	public string PrepareOuterXMLToGameScreen(string s, string language) {
+		string sReturn = s;
+		IList<XmlNode> nodelist = XMLReader.GetNodesInString(s);
+		if (nodelist.Count == 0) {
+			sReturn = textColoration.ColorizeText(s, language);
+		}
+		else {
+			sReturn = textColoration.ColorizeText(s, language);
+		}
+		return sReturn;
+	}
+
+	//.................................>8.......................................
+	//************************************************************************//
+	// Method: public string NodeToColorString(XmlNode    );
 	// Description: Read an XML node and return a colorized string
 	//************************************************************************//
-	public string NodeToColorString(XmlNode codenode, XmlNode thisNode, bool newline = true) {
+	public string NodeToColorString(XmlNode node) {
 		string sReturn = "";
-		switch (thisNode.Name) {
-			case stringLib.NODE_NAME_NEWLINE:
-			sReturn = "";
-			break;
+		switch (node.Name) {
 			case stringLib.NODE_NAME_PRINT:
-			sReturn = stringLibrary.node_color_print + thisNode.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = stringLibrary.node_color_print + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_WARP:
-			sReturn = stringLibrary.node_color_warp + thisNode.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = stringLibrary.node_color_warp + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_RENAME:
-			sReturn = stringLibrary.node_color_rename + thisNode.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = stringLibrary.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_QUESTION:
-			sReturn = stringLibrary.node_color_question + thisNode.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = stringLibrary.node_color_question + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_VARIABLE_COLOR:
-			sReturn = stringLibrary.node_color_rename + thisNode.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = stringLibrary.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_COMMENT: {
 				string commentStyle;
@@ -564,8 +486,8 @@ public class LevelGenerator : MonoBehaviour {
 				string commentOpenSymbol = multilineCommentOpenSymbolPython;
 				string commentCloseSymbol = multilineCommentCloseSymbolPython;
 				try {
-					commentStyle = thisNode.Attributes[stringLib.XML_ATTRIBUTE_COMMENT_STYLE].Value;
-					commentLanguage = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
+					commentStyle = node.Attributes[stringLib.XML_ATTRIBUTE_COMMENT_STYLE].Value;
+					commentLanguage = language;
 				}
 				catch {
 					commentStyle = "single";
@@ -590,22 +512,22 @@ public class LevelGenerator : MonoBehaviour {
 						break;
 					}
 				}
-				switch(thisNode.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value) {
+				switch(node.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value) {
 					case "description":
-					switch(thisNode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value) {
+					switch(node.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value) {
 						case "true":
-						sReturn = thisNode.InnerText;
+						sReturn = node.InnerText;
 						break;
 						case "false":
-						sReturn = thisNode.InnerText;
+						sReturn = node.InnerText;
 						break;
 						default:
 						break;
 					}
 					break;
 					case "code":
-					string[] sNewParts = thisNode.InnerText.Split('\n');
-					switch(thisNode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value) {
+					string[] sNewParts = node.InnerText.Split('\n');
+					switch(node.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value) {
 						case "true":
 						if (sNewParts.Length != 1 && commentStyle == "single") {
 							// multiple lines using single-line commenting style
@@ -616,7 +538,7 @@ public class LevelGenerator : MonoBehaviour {
 							}
 						}
 						else {
-							sReturn = stringLibrary.node_color_uncomment + commentOpenSymbol + thisNode.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+							sReturn = stringLibrary.node_color_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 						}
 						break;
 						case "false":
@@ -629,7 +551,7 @@ public class LevelGenerator : MonoBehaviour {
 							}
 						}
 						else {
-							sReturn = stringLibrary.node_color_incorrect_uncomment + commentOpenSymbol + thisNode.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+							sReturn = stringLibrary.node_color_incorrect_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 						}
 						break;
 						default:
@@ -637,71 +559,24 @@ public class LevelGenerator : MonoBehaviour {
 					}
 					break;
 					case "robobug":
-					sReturn = thisNode.InnerText + stringLibrary.node_color_comment + commentOpenSymbol + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+					sReturn = node.InnerText + stringLibrary.node_color_comment + commentOpenSymbol + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 					break;
 					default:
 					break;
 				}
-				if (newline) sReturn += "\n";
 				break;
 			}
 			default:
 			string thislanguage;
 			try {
-				thislanguage = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
+				thislanguage = language;
 			}
 			catch {
 				thislanguage = "python";
 			}
-			sReturn = ColorizeText(thisNode.InnerText, thislanguage, true);
+			sReturn = textColoration.ColorizeText(node.InnerText, thislanguage);
 			break;
 		}
-		return sReturn;
-	}
-
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public string OuterToInnerXml(string outerXml);
-	// Description: Convert an outerXml string to innerXml
-	//************************************************************************//
-	public string OuterToInnerXml(string outerXml, string language) {
-		string sReturn 		= "";
-		string sHead		= "";
-		string sTail		= "";
-		string sPretagText	= "";
-		XmlDocument doc = new XmlDocument();
-		Regex rgxTail = new Regex("(<.*>)(.*)");
-		Match m = rgxTail.Match(outerXml);
-		sHead = m.Groups[1].Value;
-		sTail = m.Groups[2].Value;
-		sPretagText = outerXml.Substring(0, outerXml.Length - sHead.Length - sTail.Length);
-
-		// Not a tag, just colorize it
-		if (sHead == "" && sTail == "") {
-			sReturn = ColorizeText(outerXml, language, false);
-		}
-		// Code node
-		else if (sHead.IndexOf("<" + stringLib.NODE_NAME_CODE + " ") == -1 && sHead.IndexOf("</" + stringLib.NODE_NAME_CODE + ">") == -1) {
-			doc.LoadXml("<" + stringLib.NODE_NAME_CODE + ">" + sHead + "</" + stringLib.NODE_NAME_CODE + ">");
-			XmlNode node = doc.FirstChild;
-			foreach(XmlNode codenode in node.ChildNodes) {
-				sReturn += (codenode.Name == stringLib.NODE_NAME_NEWLINE) ? sReturn += "" : NodeToColorString(codenode, codenode, false);
-			}
-			if (sPretagText.Length > 0) {
-				sReturn = ColorizeText(sPretagText, language, false) + sReturn;
-			}
-			if (sHead.IndexOf("<" + stringLib.NODE_NAME_NEWLINE + " />") == -1 && sHead.IndexOf("<" + stringLib.NODE_NAME_NEWLINE + "/>") == -1 && sTail != "") {
-				sReturn += ColorizeText(sTail, language, false);
-			}
-		}
-		else if (sHead.IndexOf("</" + stringLib.NODE_NAME_CODE + ">") != -1) {
-			sReturn = "";
-		}
-		else {
-			sReturn += ColorizeText(sTail, language, false);
-		}
-		// Remove &gt; and &lt;
-		sReturn = sReturn.Replace("&gt;", ">").Replace("&lt;", "<");
 		return sReturn;
 	}
 
@@ -713,63 +588,25 @@ public class LevelGenerator : MonoBehaviour {
 	//************************************************************************//
 	public void DrawInnerXmlLinesToScreen(bool bRedrawLineNumbers = true) {
 		string drawCode = "";
-		for (int x = 1 ; x < innerXmlLines.GetLength(0); x++) {
+		for (int x = 1 ; x < innerXmlLines.GetLength(0) + 1; x++) {
+			//draw the line number next to the text
 			if (bRedrawLineNumbers) {
-				string lineNum = ColorTaskLine(innerXmlLines[x-1], x-1);
-				lineNum += (x).ToString();
-				lineNum += (lineNum.IndexOf("color") != -1) ? stringLib.CLOSE_COLOR_TAG : "";
-				lineNumbers[x-1] = lineNum;
+				// Color the number next to the line depending on the tasks on the line.
+				
+				//REFACTOR: This no longer is done; now using sprites.
+				
+				//string lineNumber = textColoration.ColorTaskLine(innerXmlLines[x-1], x-1, this);
+				string lineNumber = (x).ToString();
+				//lineNumber += (lineNumber.IndexOf("color") != -1) ? stringLib.CLOSE_COLOR_TAG : "";
+				lineNumbers[x-1] = lineNumber;
 			}
 			drawCode += lineNumbers[x-1] + "\t" + innerXmlLines[x-1];
 			drawCode += "\n";
 		}
+		print("Drawcode is: " + drawCode);
 		leveltext.GetComponent<TextMesh>().text = drawCode;
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: 	public string ColorTaskLine(string sLine)
-	// Description: returns the colorized number for the line. This function
-	// selects the color to use based on a task hierarchy.
-	//************************************************************************//
-	public string ColorTaskLine(string sLine, int nLine)
-	{
-		for (int toolCheck = 0; toolCheck < stateLib.NUMBER_OF_TOOLS; toolCheck++) {
-			if (taskOnLines[nLine,toolCheck] != 1) {
-				continue;
-			}
-			switch(toolCheck) {
-				case stateLib.TOOL_CATCHER_OR_ACTIVATOR:
-				break;
-
-				case stateLib.TOOL_PRINTER_OR_QUESTION:
-				if (sLine.IndexOf(stringLibrary.node_color_print) != -1) return stringLibrary.node_color_print;
-				else if (sLine.IndexOf(stringLibrary.node_color_question) != -1) return stringLibrary.node_color_question;
-				break;
-
-				case stateLib.TOOL_WARPER_OR_RENAMER:
-				if (sLine.IndexOf(stringLibrary.node_color_warp) != -1) return stringLibrary.node_color_warp;
-				else if (sLine.IndexOf(stringLibrary.node_color_rename) != -1) return stringLibrary.node_color_rename;
-				break;
-
-				case stateLib.TOOL_COMMENTER:
-				if (sLine.IndexOf(stringLibrary.node_color_correct_comment) == -1 && sLine != "") return stringLibrary.node_color_correct_comment;
-				else if (sLine.IndexOf(stringLibrary.node_color_incorrect_comment) == -1 && sLine != "") return stringLibrary.node_color_incorrect_comment;
-				else if (sLine.IndexOf(stringLibrary.node_color_comment) == -1 && sLine != "") return stringLibrary.node_color_comment;
-				break;
-
-				case stateLib.TOOL_CONTROL_FLOW:
-				if (sLine.IndexOf(stringLibrary.node_color_uncomment) != -1) return stringLibrary.node_color_uncomment;
-				else if (sLine.IndexOf(stringLibrary.node_color_incorrect_uncomment) != -1) return stringLibrary.node_color_incorrect_uncomment;
-				break;
-				case stateLib.TOOL_HELPER:
-				break;
-				default:
-				break;
-			}
-		}
-		return "";
-	}
 
 	//.................................>8.......................................
 	//************************************************************************//
@@ -777,166 +614,172 @@ public class LevelGenerator : MonoBehaviour {
 	// Description: Read through levelnode XML and create the interactable game objects.
 	//************************************************************************//
 	private void PlaceObjects(XmlNode levelnode) {
-
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			XmlNamespaceManager nsmgr = new XmlNamespaceManager(new NameTable());
-			XmlParserContext context = new XmlParserContext(null, nsmgr, null, XmlSpace.None);
-			XmlValidatingReader xmlReader = new XmlValidatingReader(codenode.InnerXml, XmlNodeType.Element, context);
-			IXmlLineInfo lineInfo = (IXmlLineInfo)xmlReader;
-			// Parse the XML code tags
-			if (codenode.Name == stringLib.NODE_NAME_CODE) {
-				// Parse XML --[
-				do {
-					CreateLevelObject(codenode, xmlReader, lineInfo);
+			if (codenode.Name != stringLib.NODE_NAME_CODE) {
+				continue;
+			}
+			int indexOf = 0;
+			foreach(XmlNode childNode in codenode.ChildNodes)
+			{
+				CreateLevelObject(codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value, childNode, indexOf);
+				foreach(char c in childNode.OuterXml)
+				{
+					if (c == '\n') indexOf++;
 				}
-				while(xmlReader.Read());
-				// ]-- End of XML Parsing
+			}
 
-				// These are counters to update the blocktext of each object
-				int numberOfroboBUGcomments = 0;
-				int numberOfrobotONcorrectComments = 0;
-				int numberOfrobotONincorrectComments = 0;
-				int numberOfrobotONcorrectUncomments = 0;
-				int numberOfrobotONincorrectUncomments = 0;
+			// These are counters to update the blocktext of each object
+			int numberOfroboBUGcomments = 0;
+			int numberOfrobotONcorrectComments = 0;
+			int numberOfrobotONincorrectComments = 0;
+			int numberOfrobotONcorrectUncomments = 0;
+			int numberOfrobotONincorrectUncomments = 0;
 
-				// Cycle through all comment objects and assign their blocktext values here
-				for (int i = 0; i < codenode.ChildNodes.Count; i++) {
-					if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_COMMENT) {
-						//////////////////////
-						List<GameObject> allComments = new List<GameObject>();
-						allComments.AddRange(robotONcorrectComments);
-						allComments.AddRange(robotONincorrectComments);
-						allComments.AddRange(robotONcorrectUncomments);
-						allComments.AddRange(robotONincorrectUncomments);
-						foreach(GameObject comment in allComments) {
-							comment.transform.position = new Vector3(-7, initialLineY -(comment.GetComponent<comment>().index + 0.9f *(comment.GetComponent<comment>().size - 1)) * linespacing, 0f);
-						}
-						foreach(GameObject question in robotONquestions) {
-							question.transform.position = new Vector3(-7, initialLineY -question.GetComponent<question>().index * linespacing, 1);
-						}
-						foreach(GameObject rename in robotONrenamers) {
-							rename.transform.position = new Vector3(-7, initialLineY - rename.GetComponent<rename>().index * linespacing, 1);
-						}
-						/////////////////
-						GameObject thisObject;
+			// Cycle through all comment objects and assign their blocktext values here
+			for (int i = 0; i < codenode.ChildNodes.Count; i++) {
+				if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_COMMENT) {
+					//////////////////////
+					List<GameObject> allComments = new List<GameObject>();
+					allComments.AddRange(robotONcorrectComments);
+					allComments.AddRange(robotONincorrectComments);
+					allComments.AddRange(robotONcorrectUncomments);
+					allComments.AddRange(robotONincorrectUncomments);
+					foreach(GameObject comment in allComments) {
+						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().index + 0.93f *(comment.GetComponent<comment>().size - 1)) * linespacing, 0f);
+					}
+					foreach(GameObject question in robotONquestions) {
+						question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().index * linespacing, 1);
+					}
+					foreach(GameObject rename in robotONrenamers) {
+						rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().index * linespacing, 1);
+					}
+					/////////////////
+					GameObject thisObject;
 
-						switch(codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value) {
-							case "robobug":
-							// RoboBUG comment
-							thisObject = roboBUGcomments[numberOfroboBUGcomments];
+					switch(codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value) {
+						case "robobug":
+						// RoboBUG comment
+						thisObject = roboBUGcomments[numberOfroboBUGcomments];
+						thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
+						// Colorize all multi-comment line numbers green
+						for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
+							taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+						}
+						// Resize the hitbox for this comment to cover all lines (if multi-line comment)
+						thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+						
+						//Removed; using sprites instead:
+						//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, textscale * (thisObject.GetComponent<comment>().size - 1), thisObject.transform.localScale.z);
+						numberOfroboBUGcomments++;
+						break;
+						case "description":
+						if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
+							// Correct Comment
+							thisObject = robotONcorrectComments[numberOfrobotONcorrectComments];
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
 								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-							thisObject.transform.position = new Vector3(-7, initialLineY - (thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
-							thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, textscale * (thisObject.GetComponent<comment>().size - 1), thisObject.transform.localScale.z);
-							numberOfroboBUGcomments++;
-							break;
-							case "description":
-							if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
-								// Correct Comment
-								thisObject = robotONcorrectComments[numberOfrobotONcorrectComments];
-								thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
-								thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-								// Colorize all multi-comment line numbers green
-								for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-									taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
-								}
-								// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-								thisObject.transform.position = new Vector3(-7, initialLineY -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
 
-								float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-								thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
-								numberOfrobotONcorrectComments++;
-							}
-							else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
-								// Incorrect comment
-								thisObject = robotONincorrectComments[numberOfrobotONincorrectComments];
-								thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
-								thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-								// Colorize all multi-comment line numbers green
-								for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-									taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
-								}
-								// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-								float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-								thisObject.transform.position = new Vector3(-7, initialLineY -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
-								thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
-								numberOfrobotONincorrectComments++;
-							}
-							break;
-							case "code":
-							if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
-								// Correct Uncomment
-								thisObject = robotONcorrectUncomments[numberOfrobotONcorrectUncomments];
-								thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
-								thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-								// Colorize all multi-comment line numbers red
-								for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-									taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
-								}
-								// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-								float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-								thisObject.transform.position = new Vector3(-7, initialLineY -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
-								thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
-								numberOfrobotONcorrectUncomments++;
-							}
-							else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
-								// Incorrect Uncomment
-								thisObject = robotONincorrectUncomments[numberOfrobotONincorrectUncomments];
-								thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
-								thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-								// Colorize all multi-comment line numbers red
-								for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-									taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
-								}
-								// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-								float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-								thisObject.transform.position = new Vector3(-7, initialLineY -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
-								thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
-								numberOfrobotONincorrectUncomments++;
-							}
-							break;
-							default:
-							break;
+							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
+							//Removed; using sprites instead:
+							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
+							numberOfrobotONcorrectComments++;
 						}
+						else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
+							// Incorrect comment
+							thisObject = robotONincorrectComments[numberOfrobotONincorrectComments];
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
+							// Colorize all multi-comment line numbers green
+							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
+								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+							}
+							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
+							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							
+							//Removed; using sprites instead:
+							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
+							numberOfrobotONincorrectComments++;
+						}
+						break;
+						case "code":
+						if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
+							// Correct Uncomment
+							thisObject = robotONcorrectUncomments[numberOfrobotONcorrectUncomments];
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
+							// Colorize all multi-comment line numbers red
+							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
+								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+							}
+							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
+							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							
+							//Removed; using sprites instead:
+							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
+							numberOfrobotONcorrectUncomments++;
+						}
+						else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
+							// Incorrect Uncomment
+							thisObject = robotONincorrectUncomments[numberOfrobotONincorrectUncomments];
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
+							// Colorize all multi-comment line numbers red
+							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
+								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+							}
+							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
+							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							
+							//Removed; using sprites instead:
+							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
+							numberOfrobotONincorrectUncomments++;
+						}
+						break;
+						default:
+						break;
 					}
 				}
-				// ]-- End of blocktext setting
-				// Pair Incorrect Comments to their corresponding correct comments --[
-				foreach (GameObject incorrectComment in robotONincorrectComments) {
-					foreach (GameObject correctComment in robotONcorrectComments) {
-						if (incorrectComment.GetComponent<comment>().groupid == correctComment.GetComponent<comment>().groupid) {
-							incorrectComment.GetComponent<comment>().CorrectCommentObject = correctComment;
-							break;
-						}
-					}
-				}
-
-
-				foreach (GameObject incorrectUncomment in robotONincorrectUncomments) {
-					foreach (GameObject correctUncomment in robotONcorrectUncomments) {
-						if (incorrectUncomment.GetComponent<comment>().groupid == correctUncomment.GetComponent<comment>().groupid) {
-							incorrectUncomment.GetComponent<comment>().CorrectCommentObject = correctUncomment;
-							break;
-						}
-					}
-				}
-
-				foreach (GameObject variablecolor in robotONvariablecolors) {
-					foreach (GameObject rename in robotONrenamers) {
-						if (variablecolor.GetComponent<VariableColor>().groupid == rename.GetComponent<rename>().groupid) {
-							variablecolor.GetComponent<VariableColor>().CorrectRenameObject = rename;
-							variablecolor.GetComponent<VariableColor>().correct = rename.GetComponent<rename>().correct;
-							break;
-						}
-					}
-				}
-				// ]--
-
 			}
+			// ]-- End of blocktext setting
+			// Pair Incorrect Comments to their corresponding correct comments --[
+			foreach (GameObject incorrectComment in robotONincorrectComments) {
+				foreach (GameObject correctComment in robotONcorrectComments) {
+					if (incorrectComment.GetComponent<comment>().groupid == correctComment.GetComponent<comment>().groupid) {
+						incorrectComment.GetComponent<comment>().CorrectCommentObject = correctComment;
+						break;
+					}
+				}
+			}
+
+
+			foreach (GameObject incorrectUncomment in robotONincorrectUncomments) {
+				foreach (GameObject correctUncomment in robotONcorrectUncomments) {
+					if (incorrectUncomment.GetComponent<comment>().groupid == correctUncomment.GetComponent<comment>().groupid) {
+						incorrectUncomment.GetComponent<comment>().CorrectCommentObject = correctUncomment;
+						break;
+					}
+				}
+			}
+
+			foreach (GameObject variablecolor in robotONvariablecolors) {
+				foreach (GameObject rename in robotONrenamers) {
+					if (variablecolor.GetComponent<VariableColor>().groupid == rename.GetComponent<rename>().groupid) {
+						variablecolor.GetComponent<VariableColor>().CorrectRenameObject = rename;
+						variablecolor.GetComponent<VariableColor>().correct = rename.GetComponent<rename>().correct;
+						break;
+					}
+				}
+			}
+			// ]--
 		}
 	}
 
@@ -946,25 +789,26 @@ public class LevelGenerator : MonoBehaviour {
 	// Description: Handle XML parsing. Right now it just returns 1 if a tag was found.
 	//              Returns 0 if an XML tag was not found.
 	//************************************************************************//
-	GameObject CreateLevelObject(XmlNode codenode, XmlValidatingReader xmlReader, IXmlLineInfo lineInfo) {
-
-		if (xmlReader.NodeType != XmlNodeType.Element) {
+	GameObject CreateLevelObject(String language, XmlNode childnode, int lineNumber) {
+		if (childnode.NodeType != XmlNodeType.Element) {
+			//print("CreateLevelObject: This is just text, no game object to create.");
 			return null;
 		}
-		switch(xmlReader.Name) {
+		switch(childnode.Name) {
 			case stringLib.NODE_NAME_PRINT: {
-				GameObject newoutput = (GameObject)Instantiate(printobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_PRINTER_OR_QUESTION]++;
+				print("CreateLevelObject: Creating print node with index of " + lineNumber);
+				GameObject newoutput = (GameObject)Instantiate(printobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				prints.Add(newoutput);
 				printer propertyHandler = newoutput.GetComponent<printer>();
 				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.displaytext = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TEXT);
+				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
 				propertyHandler.SidebarObject = sidebaroutput;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL) != null) {
-					string toolatt = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL);
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
+					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
 					for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 						propertyHandler.tools[i] = int.Parse(toolcounts[i]);
@@ -973,72 +817,74 @@ public class LevelGenerator : MonoBehaviour {
 				return newoutput;
 			}
 			case stringLib.NODE_NAME_WARP: {
-				GameObject newwarp = (GameObject)Instantiate(warpobject, new Vector3(-7, initialLineY - (lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_WARPER_OR_RENAMER]++;
+				print("CreateLevelObject: Creating warp node with index of " + lineNumber);
+				GameObject newwarp = (GameObject)Instantiate(warpobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - (lineNumber) * linespacing, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				roboBUGwarps.Add(newwarp);
 				warper propertyHandler = newwarp.GetComponent<warper>();
 				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.filename = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_FILE);
+				propertyHandler.filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.Menu = menu;
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL) != null) {
-					string toolatt = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL);
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
+					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
 					for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 						propertyHandler.tools[i] = int.Parse(toolcounts[i]);
 					}
 				}
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_LINE) != null) {
-					propertyHandler.linenum = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_LINE);
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value != null) {
+					propertyHandler.warpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
 				}
 				return newwarp;
 			}
 			case stringLib.NODE_NAME_BUG: {
-				bugsize = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_SIZE));
+				print("CreateLevelObject: Creating bug node with index of " + lineNumber);
+				bugsize = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_SIZE].Value);
 				int row = 0;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_ROW) != null) {
-					row = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_ROW));
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value != null) {
+					row = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value);
 				}
 				int col = 0;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_COL) != null) {
-					col = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_COL));
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value != null) {
+					col = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value);
 				}
-				levelbug =(GameObject)Instantiate(bugobject, new Vector3(bugXshift + col * fontwidth +(bugsize - 1) * levelLineRatio, initialLineY -(lineInfo.LineNumber + row - 1 + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
+				levelbug =(GameObject)Instantiate(bugobject, new Vector3(bugXshift + col * fontwidth +(bugsize - 1) * levelLineRatio, initialLineY -(lineNumber + row + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
 				levelbug.transform.localScale += new Vector3(bugscale *(bugsize - 1), bugscale *(bugsize - 1), 0);
 				GenericBug propertyHandler = levelbug.GetComponent<GenericBug>();
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.CodescreenObject = selectedtool;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+				propertyHandler.language = language;
+				taskOnLines[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				bugs.Add(levelbug);
 				numberOfBugsRemaining++;
 				return levelbug;
 			}
 			case stringLib.NODE_NAME_COMMENT: {
-				GameObject newcomment = (GameObject)Instantiate(commentobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 0f), transform.rotation);
+				print("CreateLevelObject: Creating comment node with index of " + lineNumber);
+				GameObject newcomment = (GameObject)Instantiate(commentobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 0f), transform.rotation);
 				comment propertyHandler = newcomment.GetComponent<comment>();
-				propertyHandler.groupid = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_GROUPID));
-				propertyHandler.index = lineInfo.LineNumber - 1;
+				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
+				propertyHandler.index = lineNumber;
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
+				propertyHandler.language = language;
 				try {
-					propertyHandler.commentStyle = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_COMMENT_STYLE);
+					propertyHandler.commentStyle = childnode.Attributes[stringLib.XML_ATTRIBUTE_COMMENT_STYLE].Value;
 				}
 				catch {
 					propertyHandler.commentStyle = "single";
-					print("no commentStyle found");
 				}
-				switch(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TYPE)) {
+				switch(childnode.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value) {
 					case "robobug":
 					roboBUGcomments.Add(newcomment);
 					propertyHandler.entityType = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
-					propertyHandler.errmsg = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TEXT);
+					propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
 					propertyHandler.SidebarObject = sidebaroutput;
-					if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL) != null) {
-						string toolatt = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL);
+					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
+						string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 						string[] toolcounts = toolatt.Split(',');
 						for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 							propertyHandler.tools[i] = int.Parse(toolcounts[i]);
@@ -1046,13 +892,13 @@ public class LevelGenerator : MonoBehaviour {
 					}
 					break;
 					case "description":
-					taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_COMMENTER]++;
-					if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_CORRECT) == "true") {
+					taskOnLines[lineNumber, stateLib.TOOL_COMMENTER]++;
+					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectComments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
 						tasklist[3]++;
 					}
-					else if(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_CORRECT) == "false") {
+					else if(childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 						robotONincorrectComments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
 					}
@@ -1061,13 +907,13 @@ public class LevelGenerator : MonoBehaviour {
 					}
 					break;
 					case "code":
-					taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_CONTROL_FLOW]++;
-					if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_CORRECT) == "true") {
+					taskOnLines[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
+					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectUncomments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT;
 						tasklist[4]++;
 					}
-					else if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_CORRECT) == "false") {
+					else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 						robotONincorrectUncomments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT;
 					}
@@ -1080,60 +926,71 @@ public class LevelGenerator : MonoBehaviour {
 				return newcomment;
 			}
 			case stringLib.NODE_NAME_QUESTION: {
-				GameObject newquestion = (GameObject)Instantiate(questionobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_PRINTER_OR_QUESTION]++;
+				print("CreateLevelObject: Creating question node with index of " + lineNumber);
+				GameObject newquestion = (GameObject)Instantiate(questionobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				robotONquestions.Add(newquestion);
 				question propertyHandler = newquestion.GetComponent<question>();
-				propertyHandler.displaytext = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TEXT) + "\n";
-				propertyHandler.expected = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_ANSWER);
+				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
+				propertyHandler.expected = childnode.Attributes[stringLib.XML_ATTRIBUTE_ANSWER].Value;
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.SidebarObject = sidebaroutput;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
 				tasklist[1]++;
-				// propertyHandler.innertext = xmlReader.ReadInnerXml(); //Danger will robinson
+				// propertyHandler.innertext = childnode.ReadInnerXml(); //Danger will robinson
 				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_question+")(.*)(</color>)(.*)");
 				string thisQuestionInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
 				propertyHandler.innertext = thisQuestionInnerText;
 				return newquestion;
 			}
 			case stringLib.NODE_NAME_RENAME: {
-				GameObject newrename = (GameObject)Instantiate(renameobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_WARPER_OR_RENAMER]++;
+				print("CreateLevelObject: Creating rename node with index of " + lineNumber);
+				GameObject newrename = (GameObject)Instantiate(renameobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				robotONrenamers.Add(newrename);
 				rename propertyHandler = newrename.GetComponent<rename>();
-				propertyHandler.displaytext = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TEXT) + "\n";
-				propertyHandler.correct = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_CORRECT);
-				propertyHandler.groupid = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_GROUPID));
+				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
+				propertyHandler.correct = childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value;
+				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
+				propertyHandler.oldname = childnode.Attributes[stringLib.XML_ATTRIBUTE_OLDNAME].Value;
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.SidebarObject = sidebaroutput;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				string options = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_OPTIONS);
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
+				string options = childnode.Attributes[stringLib.XML_ATTRIBUTE_OPTIONS].Value;
 				string[] optionsArray = options.Split(',');
 				for (int i = 0; i < optionsArray.Length; i++) {
 					propertyHandler.options.Add(optionsArray[i]);
 				}
 				tasklist[2]++;
-				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(.*)(</color>)(.*)");
-				string thisRenameInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
-				propertyHandler.innertext = thisRenameInnerText;
+				
+				//for now, ignore this coloring; will be done later.
+				//Regex rgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(.*)(</color>)(.*)");
+				//string thisRenameInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
+				//propertyHandler.innertext = thisRenameInnerText;
+				
+				propertyHandler.innertext = textColoration.ColorizeText(innerXmlLines[propertyHandler.index]);
+				Debug.Log("property text = " + propertyHandler.innertext);
+				Debug.Log("oldname = " + propertyHandler.oldname);
+				
 				return newrename;
 			}
 			case stringLib.NODE_NAME_BREAKPOINT: {
-				GameObject newbreakpoint =(GameObject)Instantiate(breakpointobject, new Vector3(-10, initialLineY -(lineInfo.LineNumber - 1) * linespacing + 0.4f, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_CONTROL_FLOW]++;
+				print("CreateLevelObject: Creating breakpoint node with index of " + lineNumber);
+				GameObject newbreakpoint =(GameObject)Instantiate(breakpointobject, new Vector3(-10, initialLineY - lineNumber * linespacing + 0.4f, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
 				roboBUGbreakpoints.Add(newbreakpoint);
 				Breakpoint propertyHandler = newbreakpoint.GetComponent<Breakpoint>();
 				propertyHandler.SidebarObject = sidebaroutput;
-				propertyHandler.values = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TEXT);
+				propertyHandler.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL) != null) {
-					string toolatt = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_TOOL);
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
+					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
 					for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 						propertyHandler.tools[i] = int.Parse(toolcounts[i]);
@@ -1142,14 +999,15 @@ public class LevelGenerator : MonoBehaviour {
 				return newbreakpoint;
 			}
 			case stringLib.NODE_NAME_PRIZE: {
-				bugsize = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_SIZE));
-				GameObject prizebug =(GameObject)Instantiate(prizeobject, new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineInfo.LineNumber - 1 + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
+				print("CreateLevelObject: Creating prize node with index of " + lineNumber);
+				bugsize = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_SIZE].Value);
+				GameObject prizebug =(GameObject)Instantiate(prizeobject, new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineNumber + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
 				prizebug.transform.localScale += new Vector3(bugscale *(bugsize - 1), bugscale *(bugsize - 1), 0);
 				PrizeBug propertyHandler = prizebug.GetComponent<PrizeBug>();
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				string[] bonuses = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_BONUSES).Split(',');
+				propertyHandler.language = language;
+				string[] bonuses = childnode.Attributes[stringLib.XML_ATTRIBUTE_BONUSES].Value.Split(',');
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					propertyHandler.bonus[i] += int.Parse(bonuses[i]);
 				}
@@ -1157,15 +1015,16 @@ public class LevelGenerator : MonoBehaviour {
 				return prizebug;
 			}
 			case stringLib.NODE_NAME_BEACON: {
-				GameObject newbeacon = (GameObject)Instantiate(beaconobject, new Vector3(-9.95f, initialLineY -(lineInfo.LineNumber - 1) * linespacing + lineOffset + 0.4f, 1), transform.rotation);
-				taskOnLines[lineInfo.LineNumber - 1, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+				print("CreateLevelObject: Creating beacon node with index of " + lineNumber);
+				GameObject newbeacon = (GameObject)Instantiate(beaconobject, new Vector3(-9.95f, initialLineY - lineNumber * linespacing + lineOffset + 0.4f, 1), transform.rotation);
+				taskOnLines[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				beacon propertyHandler = newbeacon.GetComponent<beacon>();
 				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.index = lineInfo.LineNumber - 1;
+				propertyHandler.index = lineNumber;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
-				if (xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_FLOWORDER) != "") {
-					string[] flowOrder = xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_FLOWORDER).Split(',');
+				propertyHandler.language = language;
+				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value != "") {
+					string[] flowOrder = childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value.Split(',');
 					for (int i = 0; i < flowOrder.Length; i++) {
 						propertyHandler.flowOrder.Add(int.Parse(flowOrder[i]));
 						tasklist[0]++;
@@ -1175,13 +1034,14 @@ public class LevelGenerator : MonoBehaviour {
 				return newbeacon;
 			}
 			case stringLib.NODE_NAME_VARIABLE_COLOR: {
-				GameObject newvariablecolor =(GameObject)Instantiate(variablecolorobject, new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1) * linespacing, 1), transform.rotation);
+				print("CreateLevelObject: Creating print node with index of " + lineNumber);
+				GameObject newvariablecolor =(GameObject)Instantiate(variablecolorobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
 				newvariablecolor.GetComponent<VariableColor>().CodescreenObject = this.gameObject;
 				robotONvariablecolors.Add(newvariablecolor);
 				VariableColor propertyHandler = newvariablecolor.GetComponent<VariableColor>();
-				propertyHandler.groupid = int.Parse(xmlReader.GetAttribute(stringLib.XML_ATTRIBUTE_GROUPID));
-				propertyHandler.index = lineInfo.LineNumber-1;
-				propertyHandler.language = codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value;
+				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
+				propertyHandler.index = lineNumber;
+				propertyHandler.language = language;
 				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(\\w)(</color>)(.*)");
 				string thisVarnamenInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
 				propertyHandler.innertext = thisVarnamenInnerText;
@@ -1197,45 +1057,40 @@ public class LevelGenerator : MonoBehaviour {
 	// Description: Read through levelnode XML and provision the tools for this level
 	// levelnode is typically the parent XML node in the XML document.
 	//************************************************************************//
-	public void ProvisionToolsFromXml(XmlNode levelnode) {
+	public void ProvisionToolsFromXml(XmlDocument doc) {
 		// Grey out all tools
 		for (int i = 0; i < totalNumberOfTools; i++) {
 			toolIcons[i].GetComponent<GUITexture>().enabled = false;
 		}
-		// For each XML node in levelnode's children
-		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			// For each child node whose XML node name is "tools". eg <tools>
-			if (codenode.Name == stringLib.NODE_NAME_TOOLS) {
-				// For each XML node in <tools> nodes (really there should only be 1 <tools> tag), eg <tool attr="val">
-				foreach (XmlNode toolnode in codenode.ChildNodes) {
-					// Set the tool count for each tool node --[
-					int toolnum = 0;
-					switch(toolnode.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value) {
-						case "catcher":
-						case "activator":
-						toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
-						break;
-						case "printer":
-						case "checker":
-						case "answer":
-						toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
-						break;
-						case "warper":
-						case "namer":
-						toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
-						break;
-						case "commenter": toolnum = stateLib.TOOL_COMMENTER;
-						break;
-						case "controlflow": toolnum = stateLib.TOOL_CONTROL_FLOW;
-						break;
-						default:
-						break;
-					}
-					toolIcons[toolnum].GetComponent<GUITexture>().enabled = bool.Parse(toolnode.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
-					selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (toolnode.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(toolnode.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
-					// ]-- End of tool count for each tool node
-				}
+		IList<XmlNode> nodelist = XMLReader.GetToolNodes(doc);
+		foreach (XmlNode tool in nodelist) {
+			// Set the tool count for each tool node --[
+			int toolnum = 0;
+			Debug.Log("Working with node: " + tool.OuterXml);
+			switch(tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value) {
+				case "catcher":
+				case "activator":
+				toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+				break;
+				case "printer":
+				case "checker":
+				case "answer":
+				toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
+				break;
+				case "warper":
+				case "namer":
+				toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
+				break;
+				case "commenter": toolnum = stateLib.TOOL_COMMENTER;
+				break;
+				case "controlflow": toolnum = stateLib.TOOL_CONTROL_FLOW;
+				break;
+				default:
+				break;
 			}
+			toolIcons[toolnum].GetComponent<GUITexture>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
+			selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
+			// ]-- End of tool count for each tool node
 		}
 	}
 
@@ -1388,99 +1243,7 @@ public class LevelGenerator : MonoBehaviour {
 		if (collidingObj.name != "Hero") toolsAirborne--;
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public string ColorizeText(string sBlockText, bool overrideNewline = false)
-	// Description: Colorizes sBlockText. If overrideNewline is true, it won't put a newline character
-	// at the end of sBlockText. Right now, it colorizes comments and keywords only.
-	// The tool highlighting is handled elsewhere, in StoreInnerXml(). The color tags are saved in
-	// stringLib.cs, if you want to use a different color.
-	//************************************************************************//
-	public string ColorizeText(string sBlockText, string language, bool newline = true) {
-		// sBlockText is empty. Save us the hassle of doing the regex operations and just return.
-		if (sBlockText == "") return sBlockText;
 
-		// Turn all comments and their following text green. Remove all color tags from following text.
-		Regex rgxNewlineSplit = new Regex("\n");
-		Regex rgxStringLiteral = new Regex("(\"|\')(.*)(\"|\')");
-		string patternCommentPython = "(//|\\s#|\n#|#)(.*)";
-		string patternCommentCpp = "(//|\\*/)(.*)";
-		string patternKeywordPython = "(\\W|^)(else if|class|print|not|or|and|def|include|bool|auto|double|int|struct|break|else|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned)(\\W|$)";
-		string patternKeywordCpp = "(\\W|^)(else if|class|print|not|or|and|def|include|bool|auto|double|int|struct|break|else|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned)(\\W|$)";
-		string patternIncludeGeneric = "(#include\\s)(.*)";
-		string patternComment = patternCommentPython;
-		string patternKeyword = patternKeywordPython;
-		string patternInclude = patternIncludeGeneric;
-		switch(language) {
-			case "python": {
-				patternComment = patternCommentPython;
-				patternKeyword = patternKeywordPython;
-				break;
-			}
-			case "c++":
-			case "c":
-			case "c#": {
-				patternComment = patternCommentCpp;
-				patternKeyword = patternKeywordCpp;
-				break;
-			}
-			default: {
-				patternComment = patternCommentPython;
-				patternKeyword = patternKeywordPython;
-				break;
-			}
-		}
-		Regex rgxComment = new Regex(patternComment);
-		Regex rgxKeyword = new Regex(patternKeyword);
-		Regex rgxInclude = new Regex(patternInclude);
-		Match m0, m1, m2, m3;
-		string[] saStringBuilder = rgxNewlineSplit.Split(sBlockText);
-		string sReturnString = "";
-		foreach (string substring in saStringBuilder)
-		{
-			m0 = rgxStringLiteral.Match(substring);
-			m1 = rgxComment.Match(substring);
-			m2 = rgxKeyword.Match(substring);
-			m3 = rgxInclude.Match(substring);
-			string sPiece = substring;
-			if (m3.Success) {
-				sPiece = rgxInclude.Replace(sPiece, stringLibrary.syntax_color_include + "$1$2" + stringLib.CLOSE_COLOR_TAG);
-			}
-			else if (m0.Success && !m1.Success) {
-				sPiece = rgxStringLiteral.Replace(sPiece, stringLibrary.syntax_color_string + "$1$2$3" + stringLib.CLOSE_COLOR_TAG);
-				if (m2.Success) {
-					// Found a keyword as well as a string, the fun begins.
-					Regex rgxOutsideKeyword = new Regex(patternKeyword + "(?=(?:[^\"]|\"[^\"]*\")*$)");
-					sPiece = rgxOutsideKeyword.Replace(sPiece, "$1" + stringLibrary.syntax_color_keyword + "$2" + stringLib.CLOSE_COLOR_TAG + "$3");
-				}
-			}
-			// Comment found in this substring
-			else if (m1.Success) {
-				sPiece = rgxComment.Replace(sPiece, stringLibrary.syntax_color_comment + "$1$2" + stringLib.CLOSE_COLOR_TAG);
-			}
-			// Keyword found in this substring
-			else if (m2.Success) {
-				sPiece = rgxKeyword.Replace(sPiece, "$1" + stringLibrary.syntax_color_keyword + "$2" + stringLib.CLOSE_COLOR_TAG + "$3");
-			}
-			// Handle new lines
-			if (substring != "" && substring.Trim().Length > 0 && substring.Substring(substring.Length-1, 1) != " " && newline) {
-				sPiece += "\n";
-			}
-			sReturnString += sPiece;
-		}
-		return sReturnString;
-	}
-
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public string DecolorizeText(string sBlockText)
-	// Description: Removes color tags surrounding sBlockText and returns the new substring.
-	//************************************************************************//
-	public string DecolorizeText(string sBlockText) {
-		Regex rgx = new Regex("(?s)(.*)(<color=#.{8}>)(.*)(</color>)(.*)");
-		sBlockText = rgx.Replace(sBlockText, "$1$3$5");
-		return sBlockText;
-	}
 
 	//.................................>8.......................................
 	//************************************************************************//
@@ -1550,10 +1313,10 @@ public class LevelGenerator : MonoBehaviour {
 		// Resize game objects
 		// Each game object needs to know its line number I think. Alternatively, the line number can be derived based on its position.
 		foreach(GameObject printer in prints) {
-			printer.transform.position = new Vector3(-7, initialLineY - printer.GetComponent<printer>().index * linespacing, 1);
+			printer.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - printer.GetComponent<printer>().index * linespacing, 1);
 		}
 		foreach(GameObject warp in roboBUGwarps) {
-			warp.transform.position = new Vector3(-7, initialLineY - warp.GetComponent<warper>().index * linespacing, 1);
+			warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - warp.GetComponent<warper>().index * linespacing, 1);
 
 		}
 		/*
@@ -1562,7 +1325,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	}
 	foreach(GameObject comment in roboBUGcomments) {
-	comment.transform.position = new Vector3(-7, initialLineY -(lineInfo.LineNumber - 1 + 0.9f *(commentsize - 1)) * linespacing, 0f);
+	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY -(lineNumber + 0.9f *(commentsize - 1)) * linespacing, 0f);
 }
 */
 List<GameObject> allComments = new List<GameObject>();
@@ -1572,30 +1335,32 @@ allComments.AddRange(robotONcorrectUncomments);
 allComments.AddRange(robotONincorrectUncomments);
 foreach(GameObject comment in allComments) {
 	comment thisComment = comment.GetComponent<comment>();
-	comment.transform.position = new Vector3(-7, initialLineY -(thisComment.index + 0.93f * (thisComment.size - 1)) * linespacing, 0f);
+	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 0.93f * (thisComment.size - 1)) * linespacing, 0f);
 	float yPos = (textscale * (thisComment.size - 1) > 0) ? textscale * (thisComment.size - 1) : 1.0f;
-	comment.transform.localScale = new Vector3(comment.transform.localScale.x, yPos, comment.transform.localScale.z);
+	
+	//Removed; using sprites instead:
+	//comment.transform.localScale = new Vector3(comment.transform.localScale.x, yPos, comment.transform.localScale.z);
 }
 foreach(GameObject question in robotONquestions) {
-	question.transform.position = new Vector3(-7, initialLineY -question.GetComponent<question>().index * linespacing, 1);
+	question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().index * linespacing, 1);
 }
 foreach(GameObject rename in robotONrenamers) {
-	rename.transform.position = new Vector3(-7, initialLineY - rename.GetComponent<rename>().index * linespacing, 1);
+	rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().index * linespacing, 1);
 }
 /*
 foreach(GameObject breakpoint in roboBUGbreakpoints) {
-breakpoint.transform.position = new Vector3(-10, initialLineY -(lineInfo.LineNumber - 1) * linespacing + 0.4f, 1);
+breakpoint.transform.position = new Vector3(-10, initialLineY - lineNumber * linespacing + 0.4f, 1);
 
 }
 foreach(GameObject prize in roboBUGprizes) {
-prize.transform.position = new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineInfo.LineNumber - 1 + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f);
+prize.transform.position = new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineNumber + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f);
 }
 */
 foreach(GameObject beacon in robotONbeacons) {
 	beacon.transform.position = new Vector3(-9.95f, initialLineY - beacon.GetComponent<beacon>().index * linespacing + lineOffset + 0.4f, 1);
 }
 foreach(GameObject varcolor in robotONvariablecolors) {
-	varcolor.transform.position = new Vector3(-7, initialLineY - varcolor.GetComponent<VariableColor>().index * linespacing, 1);
+	varcolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().index * linespacing, 1);
 }
 
 }
@@ -1603,7 +1368,7 @@ foreach(GameObject varcolor in robotONvariablecolors) {
 //.................................>8.......................................
 //************************************************************************//
 // Method: public void ToggleLightDark()
-// Description: Transform the play area to correspond to a new text size.
+// Description: Toggle between light and dark color schemes for the game.
 //************************************************************************//
 public void ToggleLightDark() {
 	if (backgroundLightDark == false) {

@@ -24,16 +24,20 @@ public class rename : MonoBehaviour {
 	public string displaytext = "";
 	public string innertext;
 	public string language;
+	public string oldname = "";
 	public List<string> options;
 	public GameObject SidebarObject;
 	public GameObject CodescreenObject;
 	public GameObject ToolSelectorObject;
-  public AudioSource audioPrompt;
-  public AudioSource audioCorrect;
+	public AudioSource audioPrompt;
+	public AudioSource audioCorrect;
 	public bool answered = false;
 
 	private bool answering = false;
 	private bool decolorOnce = false;
+	
+	public Sprite renSpriteOff;
+	public Sprite renSpriteOn;
 
 	private int selection = 0;
 	private LevelGenerator lg;
@@ -42,6 +46,7 @@ public class rename : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		lg = CodescreenObject.GetComponent<LevelGenerator>();
+		GetComponent<SpriteRenderer>().sprite = renSpriteOff;
 	}
 
 	//.................................>8.......................................
@@ -85,6 +90,8 @@ public class rename : MonoBehaviour {
 				else {
 					// Change this object to the correct text
 					lg.taskscompleted[2]++;
+					GetComponent<SpriteRenderer>().sprite = renSpriteOn;
+
 					// Award 1 extra use of the tool.
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_WARPER_OR_RENAMER]++;
 					audioCorrect.Play();
@@ -96,7 +103,7 @@ public class rename : MonoBehaviour {
 						if (renames.GetComponent<rename>().groupid == (groupid+1)) {
 							int lineNum = renames.GetComponent<rename>().index;
 							string sReplace = lg.outerXmlLines[lineNum];
-							sReplace = lg.OuterToInnerXml(sReplace, language);
+							//sReplace = lg.OuterToInnerXml(sReplace, language);
 							lg.innerXmlLines[lineNum] = sReplace;
 							lg.DrawInnerXmlLinesToScreen();
 						}
@@ -115,7 +122,7 @@ public class rename : MonoBehaviour {
 		else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
 			// Change the next groupid objects to the new colors
 			decolorOnce = true;
-			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.DecolorizeText(innertext));
+			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
 			lg.DrawInnerXmlLinesToScreen();
 		}
 

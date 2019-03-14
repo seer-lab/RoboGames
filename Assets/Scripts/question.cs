@@ -30,6 +30,9 @@ public class question : MonoBehaviour {
 	public GameObject ToolSelectorObject;
   public AudioSource audioPrompt;
   public AudioSource audioCorrect;
+  
+  	public Sprite qSpriteOff;
+	public Sprite qSpriteOn;
 
 	private bool answering = false;
 	private bool answered = false;
@@ -40,6 +43,7 @@ public class question : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		lg = CodescreenObject.GetComponent<LevelGenerator>();
+		GetComponent<SpriteRenderer>().sprite = qSpriteOff;
 		expectedArray = expected.Split(new String[] {", ", ","}, StringSplitOptions.RemoveEmptyEntries);
 	}
 
@@ -66,6 +70,10 @@ public class question : MonoBehaviour {
 				answered = true;
 				answering = false;
 				lg.isAnswering = false;
+				
+				
+				/* This Fix is nonfunctional; to be removed
+				
 				// There's an odd case where if a user enters "3." instead of "3.0" for an expected of "3.0", it will be marked wrong
 				// So we try casting the input as a decimal.
 				decimal inputCastDecimal;
@@ -74,7 +82,7 @@ public class question : MonoBehaviour {
 				inputDecimalAsString = inputCastDecimal.ToString();
 				if (inputIsDecimal && !inputDecimalAsString.Contains(".")) {
 					input = inputDecimalAsString + ".0";
-				}
+				}*/
 
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
 					// Incorrect Answer
@@ -121,6 +129,7 @@ public class question : MonoBehaviour {
 				}
 				else {
 					// Correct Answer
+					GetComponent<SpriteRenderer>().sprite = qSpriteOn;
 					lg.taskscompleted[1]++;
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				  audioCorrect.Play();
@@ -143,8 +152,8 @@ public class question : MonoBehaviour {
 						}
 
 					}
-					lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, newtext + "\t\t" + lg.stringLibrary.node_color_comment + sOpenCommentSymbol + input + sCloseCommentSymbol + stringLib.CLOSE_COLOR_TAG);
-					lg.DrawInnerXmlLinesToScreen();
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, newtext + "\t\t" + lg.stringLibrary.node_color_comment + sOpenCommentSymbol + input + sCloseCommentSymbol + stringLib.CLOSE_COLOR_TAG);
+					//lg.DrawInnerXmlLinesToScreen();
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Backspace) && input.Length-1 >= 0) {
