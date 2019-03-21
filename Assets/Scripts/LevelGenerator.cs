@@ -954,7 +954,13 @@ public class LevelGenerator : MonoBehaviour {
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
 				propertyHandler.correct = childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value;
 				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
-				propertyHandler.oldname = childnode.Attributes[stringLib.XML_ATTRIBUTE_OLDNAME].Value;
+				try{
+					propertyHandler.oldname = childnode.Attributes[stringLib.XML_ATTRIBUTE_OLDNAME].Value;
+					
+				}
+				catch(Exception ex){
+					propertyHandler.oldname = childnode.InnerText;
+				}
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.SidebarObject = sidebaroutput;
 				propertyHandler.ToolSelectorObject = selectedtool;
@@ -968,13 +974,17 @@ public class LevelGenerator : MonoBehaviour {
 				tasklist[2]++;
 				
 				//for now, ignore this coloring; will be done later.
-				//Regex rgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(.*)(</color>)(.*)");
+				//Regex rgx = new Regex(@"(.*)("+stringLibrary.node_color_rename+")(.*)(</color>)(.*)");
 				//string thisRenameInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
 				//propertyHandler.innertext = thisRenameInnerText;
 				
-				propertyHandler.innertext = textColoration.ColorizeText(innerXmlLines[propertyHandler.index]);
+				Regex rgx = new Regex(@"(^| |\>)("+propertyHandler.oldname+")(;| )");
+				innerXmlLines[propertyHandler.index] = rgx.Replace(innerXmlLines[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(" " + propertyHandler.oldname + " ", " " + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
+				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(">" + propertyHandler.oldname + " ", ">" + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
+				
+				//propertyHandler.innertext = textColoration.ColorizeText(innerXmlLines[propertyHandler.index]);
 				Debug.Log("property text = " + propertyHandler.innertext);
-				Debug.Log("oldname = " + propertyHandler.oldname);
 				
 				return newrename;
 			}
@@ -1042,8 +1052,12 @@ public class LevelGenerator : MonoBehaviour {
 				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
-				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(\\w)(</color>)(.*)");
-				string thisVarnamenInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
+				propertyHandler.oldname = childnode.InnerText;
+				Debug.Log("oldname for new variable object = " + propertyHandler.oldname);
+				Regex varrgx = new Regex(@"(^| |\t|\>)("+propertyHandler.oldname+")(;| )");
+				innerXmlLines[propertyHandler.index] = varrgx.Replace(innerXmlLines[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				varrgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(\\w)(</color>)(.*)");
+				string thisVarnamenInnerText = varrgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
 				propertyHandler.innertext = thisVarnamenInnerText;
 				return newvariablecolor;
 			}

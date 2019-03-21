@@ -35,6 +35,7 @@ public class rename : MonoBehaviour {
 
 	private bool answering = false;
 	private bool decolorOnce = false;
+	private bool colorOnce = false;
 	
 	public Sprite renSpriteOff;
 	public Sprite renSpriteOn;
@@ -88,27 +89,38 @@ public class rename : MonoBehaviour {
 					ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 				}
 				else {
-					// Change this object to the correct text
-					lg.taskscompleted[2]++;
-					GetComponent<SpriteRenderer>().sprite = renSpriteOn;
-
 					// Award 1 extra use of the tool.
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_WARPER_OR_RENAMER]++;
 					audioCorrect.Play();
-					lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
+					
+					// Change this object to the correct text
+					GetComponent<SpriteRenderer>().sprite = renSpriteOn;
+					
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
+					Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
+					rgx = new Regex(@"(^| |\>)("+oldname+")(;| )");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 					lg.DrawInnerXmlLinesToScreen();
+					
 					SidebarObject.GetComponent<GUIText>().text= "";
 					// Change the next groupid objects to the new colors
-					foreach(GameObject renames in lg.robotONrenamers) {
-						if (renames.GetComponent<rename>().groupid == (groupid+1)) {
-							int lineNum = renames.GetComponent<rename>().index;
-							string sReplace = lg.outerXmlLines[lineNum];
+				//	foreach(GameObject renames in lg.robotONrenamers) {
+				//		if (renames.GetComponent<rename>().groupid == (groupid+1)) {
+				//			int lineNum = renames.GetComponent<rename>().index;
+							//string sReplace = lg.outerXmlLines[lineNum];
 							//sReplace = lg.OuterToInnerXml(sReplace, language);
-							lg.innerXmlLines[lineNum] = sReplace;
-							lg.DrawInnerXmlLinesToScreen();
-						}
-					}
+							//lg.innerXmlLines[lineNum] = sReplace;
+							//lg.innerXmlLines[lineNum] = lg.innerXmlLines[lineNum].Replace(" " + oldname + " " , " " + correct + " ");
+							//lg.innerXmlLines[lineNum] = lg.innerXmlLines[lineNum].Replace(">" + oldname + " " , ">" + correct + " ");
+							//lg.DrawInnerXmlLinesToScreen();
+				//		}
+				//	}
 					lg.renamegroupidCounter++;
+					lg.taskscompleted[2]++;
+
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.RightArrow)) {
@@ -122,15 +134,17 @@ public class rename : MonoBehaviour {
 		else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
 			// Change the next groupid objects to the new colors
 			decolorOnce = true;
-			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
+			//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
 			lg.DrawInnerXmlLinesToScreen();
 		}
-
+		
 	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered && lg.renamegroupidCounter == groupid) {
+		//outdated: only allowed renaming first variable
+		//if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered && lg.renamegroupidCounter == groupid) {
+		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered) {
 			Destroy(collidingObj.gameObject);
 			SidebarObject.GetComponent<GUIText>().text = displaytext;
 			audioPrompt.Play();

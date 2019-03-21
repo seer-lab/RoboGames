@@ -110,6 +110,10 @@ public class TextColoration {
 	Regex ordrgx = new Regex(@"(?s)(<color=#.{8}>)(</color>)");
 	sText = ordrgx.Replace(sText, "$2$1");
 	
+	//fix parentheses stuck in color tags
+	Regex parrgx = new Regex(@"(?s)(\)|\()(</color>)");
+	sText = parrgx.Replace(sText, "$2$1");
+	
 	
     // Keyword found in this substring
     Debug.Log("ColorizeText processedString: " + sText);
