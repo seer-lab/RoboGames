@@ -1349,7 +1349,7 @@ allComments.AddRange(robotONcorrectUncomments);
 allComments.AddRange(robotONincorrectUncomments);
 foreach(GameObject comment in allComments) {
 	comment thisComment = comment.GetComponent<comment>();
-	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 0.93f * (thisComment.size - 1)) * linespacing, 0f);
+	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 1 * (thisComment.size/2)) * linespacing, 0f);
 	float yPos = (textscale * (thisComment.size - 1) > 0) ? textscale * (thisComment.size - 1) : 1.0f;
 	
 	//Removed; using sprites instead:

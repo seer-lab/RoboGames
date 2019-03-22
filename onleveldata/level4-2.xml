@@ -18,11 +18,11 @@ int main {
 	<comment type="description" correct="true" size="1" groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
 	<comment type="code" correct="false" size="1" groupid="0" style="multi">	cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!";</comment>
 	<comment type="code" correct="true" size="3" groupid="0" style="multi">	cout &lt;&lt; "Hello, how are you today?"; 
-	cout &lt;&lt; I hope you are having a most fantastic day!";</comment>	
+	cout &lt;&lt; "I hope you are having a most fantastic day!";</comment>	
 	<comment type="description" correct="true" size="1" groupid="1">	Do not put multiple statements on a single line.</comment>
 	string <variable-rename text="Choose a name for this variable: " options="author,company,greeting,month" correct="greeting" groupid="0">x</variable-rename>;
-	<comment type="code" correct="false" size="1" groupid="1" style="multi">	x = "Good day!"; cout &lt;&lt; greeting;</comment>
-	<comment type="code" correct="true" size="3" groupid="1" style="multi">	x = "Good day!"; 
+	<comment type="code" correct="false" size="1" groupid="1" style="multi">x = "Good day!"; cout &lt;&lt; greeting;</comment>
+	<comment type="code" correct="true" size="3" groupid="1" style="multi">x = "Good day!"; 
 	cout &lt;&lt; greeting;</comment>
 	<comment type="description" correct="true" size="1" groupid="2">	Brackets and Braces should be placed in a consistent manner.</comment>
 	int <variable-rename text="Choose a name for this variable: " options="time,counter,salary,temperature" correct="counter" groupid="1">i</variable-rename> = 0;
@@ -47,7 +47,7 @@ int main {
 <comment type="code" correct="false" size="1" groupid="4" style="multi">		while(i &lt; 3){</comment>
 <comment type="code" correct="true" size="1" groupid="4" style="multi">	while(i &lt; 3){</comment>
 	<comment type="code" correct="false" size="1" groupid="5" style="multi">		cout &lt;&lt; "Enter item number " &lt;&lt; i &lt;&lt; " then press enter on the keyboard.";</comment>
-	<comment type="code" correct="true" size="1" groupid="5" style="multi">		cout &lt;&lt; "Enter item number " &lt;&lt; i";
+	<comment type="code" correct="true" size="1" groupid="5" style="multi">		cout &lt;&lt; "Enter item number " &lt;&lt; i;
 		cout &lt;&lt; " then press enter on the keyboard."</comment>
 		cin &gt;&gt; <variable-color groupid="2">z</variable-color>;
 		<variable-color groupid="3">array</variable-color>[i] = <variable-color groupid="2">z</variable-color>;

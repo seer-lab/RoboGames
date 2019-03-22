@@ -97,10 +97,20 @@ public class rename : MonoBehaviour {
 					GetComponent<SpriteRenderer>().sprite = renSpriteOn;
 					
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-					Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+					/*Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
 					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
 					rgx = new Regex(@"(^| |\>)("+oldname+")(;| )");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");*/
+					
+					int iter = 0;
+					foreach(string s in lg.innerXmlLines) {
+						Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+						lg.innerXmlLines[iter] = rgx.Replace(s, "$1$3$5");
+						rgx = new Regex(@"(^| |\>|\t|\()("+oldname+@")(;| |\+|\[)");
+						lg.innerXmlLines[iter] = rgx.Replace(lg.innerXmlLines[iter],"$1"+correct+"$3");
+						iter += 1;
+					}
+					
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 					lg.DrawInnerXmlLinesToScreen();

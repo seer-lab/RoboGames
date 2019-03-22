@@ -14,7 +14,7 @@ public class TextColoration {
   public string ColorizeText(string sText, string language = "c++") {
     Debug.Log("ColorizeText: test string: " + sText);
     // Turn all comments and their following text green. Remove all color tags from following text.
-    Regex rgxStringLiteral = new Regex("(\"|\')(.*)(\"|\')");
+    Regex rgxStringLiteral = new Regex("(\"|\')([^\"\']*)(\"|\')");
     //string patternCommentPython = @"(\/\/|\s#|\n#|#)(.*)";
     string patternCommentPython = @"(\/\/|\n#|\s#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
@@ -110,8 +110,14 @@ public class TextColoration {
 	Regex ordrgx = new Regex(@"(?s)(<color=#.{8}>)(</color>)");
 	sText = ordrgx.Replace(sText, "$2$1");
 	
+	//clean duplicated tags 
+	Regex duprgx = new Regex(@"(?s)(<color=#.{8}>)\1+");
+	sText = duprgx.Replace(sText, "$1");
+	duprgx = new Regex(@"(?s)(</color>)\1+");
+	sText = duprgx.Replace(sText, "$1");
+	
 	//fix parentheses stuck in color tags
-	Regex parrgx = new Regex(@"(?s)(\)|\()(</color>)");
+	Regex parrgx = new Regex(@"(?s)(\)|\()(<\/color>)");
 	sText = parrgx.Replace(sText, "$2$1");
 	
 	
