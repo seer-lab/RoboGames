@@ -225,6 +225,10 @@ public static class XMLReader {
 		
 		// Remove &gt; and &lt;
 		sReturn = sReturn.Replace("&gt;", ">").Replace("&lt;", "<");
+		
+		// Remove &amp;
+		sReturn = sReturn.Replace("&amp;", "&");
+		
 		Debug.Log("sReturn = " + sReturn);
 		return sReturn;
 	}

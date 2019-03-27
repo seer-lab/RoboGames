@@ -134,6 +134,7 @@ public class question : MonoBehaviour {
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				  audioCorrect.Play();
 					// Substring is startingPos, length. We want to start after the first color tag, and the length is the whole string - length of color tag - length of close color tag.
+					//TODO: the following line of code causes errors at times, double check what's going on
 					string newtext = innertext.Substring(lg.stringLibrary.node_color_question.Length,(innertext.Length)-(lg.stringLibrary.node_color_question.Length)-(stringLib.CLOSE_COLOR_TAG.Length));
 					string sOpenCommentSymbol = "# ";
 					string sCloseCommentSymbol = "";

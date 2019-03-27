@@ -149,6 +149,8 @@ public class comment : MonoBehaviour {
 
 	//.................................>8.......................................
 	void TriggerCorrectUncomment(Collider2D collidingObj) {
+		
+		//TODO NOTE: This section is a bit of a mess and needs cleaning ^_^
 		if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented) {
 			GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
 			Destroy(collidingObj.gameObject);
@@ -188,6 +190,10 @@ public class comment : MonoBehaviour {
 				}
 				Regex rgx = new Regex(patternComment);
 				sNewText = rgx.Replace(sNewText, "$2");
+				//todo: refactor this quick hack
+				rgx = new Regex(@"(\/\*)(.*)(\*\/)");
+				sNewText = rgx.Replace(sNewText, "$2");	
+				
 				
 				//verify comment color is removed
 				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);
@@ -196,10 +202,25 @@ public class comment : MonoBehaviour {
 				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(tempDecolText, sNewText);
 			}
 			else {
-				// Multi line
+				string commentOpenSymbol = "/*";
+				string commentCloseSymbol = "*/"; //TODO: Modularize
+			
+				sNewParts[0] = sNewParts[0].Replace(lg.stringLibrary.node_color_correct_comment, "");
+				sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
+				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(commentCloseSymbol, "");
+				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(stringLib.CLOSE_COLOR_TAG, "");
+				/*for (int i = 1 ; i < sNewParts.Length - 1 ; i++) {
+					sNewParts[i] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
+															   lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+				}*/
+				lg.innerXmlLines[index] = lg.textColoration.ColorizeText(sNewParts[0], language);
+				lg.innerXmlLines[index+sNewParts.Length-1] = lg.textColoration.ColorizeText(sNewParts[sNewParts.Length-1], language);
+
+				
+				/*// Multi line old version; probably can be removed 
 				// Look for /* something
 				string multilinePatternOpenCommentCpp = @"(\/\*)(.*)";
-				// Look for something */
+				// Look for something 
 				string multilinePatternCloseCommentCpp = @"(.*)(\*\/)";
 				// Look for ''' something
 				string multilinePatternOpenCommentPython = @"(\'\'\')(.*)";
@@ -252,7 +273,7 @@ public class comment : MonoBehaviour {
 						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
 					}
 					lg.innerXmlLines[index+i] = sNewParts[i];
-				}
+				}*/
 			}
 
 			lg.DrawInnerXmlLinesToScreen();
@@ -313,7 +334,12 @@ public class comment : MonoBehaviour {
 		if (CorrectCommentObject) {
 			if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating) {
 				doneUpdating = true;
-				GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+				if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT){
+					GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+				}
+				else{
+					GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
+				}
 				string sNewText = blocktext;
 				string[] sNewParts = sNewText.Split('\n');
 				if (sNewParts.Length == 1) {
@@ -322,7 +348,8 @@ public class comment : MonoBehaviour {
 				//verify comment color is removed
 				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);					
 					
-					lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
+					lg.innerXmlLines[index] = "";
 				}
 				else {
 					// Multi line

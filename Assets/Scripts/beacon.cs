@@ -65,7 +65,7 @@ public class beacon : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			Destroy(collidingObj.gameObject);
 			if (GetComponent<SpriteRenderer>().sprite == activebeacon || flowOrder.Count == 0) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Beacons must be activated in the \nright order. Sometimes they are \nactivated more than once, sometimes not at all. You will need to start over.";
+				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
 				ResetAllBeacons();
 			}
 			else if (actcounter > flowOrder.Count - 1) {

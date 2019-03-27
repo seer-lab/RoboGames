@@ -645,7 +645,7 @@ public class LevelGenerator : MonoBehaviour {
 					allComments.AddRange(robotONcorrectUncomments);
 					allComments.AddRange(robotONincorrectUncomments);
 					foreach(GameObject comment in allComments) {
-						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().index + 0.93f *(comment.GetComponent<comment>().size - 1)) * linespacing, 0f);
+						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().index) * linespacing, 0f);
 					}
 					foreach(GameObject question in robotONquestions) {
 						question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().index * linespacing, 1);
@@ -676,14 +676,15 @@ public class LevelGenerator : MonoBehaviour {
 						if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 							// Correct Comment
 							thisObject = robotONcorrectComments[numberOfrobotONcorrectComments];
-							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							//thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
 								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
 
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
 							//Removed; using sprites instead:
@@ -693,7 +694,8 @@ public class LevelGenerator : MonoBehaviour {
 						else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 							// Incorrect comment
 							thisObject = robotONincorrectComments[numberOfrobotONincorrectComments];
-							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							//thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
@@ -701,7 +703,7 @@ public class LevelGenerator : MonoBehaviour {
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
 							
 							//Removed; using sprites instead:
 							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
@@ -712,7 +714,8 @@ public class LevelGenerator : MonoBehaviour {
 						if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 							// Correct Uncomment
 							thisObject = robotONcorrectUncomments[numberOfrobotONcorrectUncomments];
-							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							//thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
@@ -720,7 +723,7 @@ public class LevelGenerator : MonoBehaviour {
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
 							
 							//Removed; using sprites instead:
 							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
@@ -729,7 +732,8 @@ public class LevelGenerator : MonoBehaviour {
 						else if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 							// Incorrect Uncomment
 							thisObject = robotONincorrectUncomments[numberOfrobotONincorrectUncomments];
-							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							//thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText.Trim();
+							thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
@@ -737,7 +741,7 @@ public class LevelGenerator : MonoBehaviour {
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
 							
 							//Removed; using sprites instead:
 							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
@@ -1349,7 +1353,8 @@ allComments.AddRange(robotONcorrectUncomments);
 allComments.AddRange(robotONincorrectUncomments);
 foreach(GameObject comment in allComments) {
 	comment thisComment = comment.GetComponent<comment>();
-	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 1 * (thisComment.size/2)) * linespacing, 0f);
+	//comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 1 * (thisComment.size/2)) * linespacing, 0f);
+	comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index) * linespacing, 0f);
 	float yPos = (textscale * (thisComment.size - 1) > 0) ? textscale * (thisComment.size - 1) : 1.0f;
 	
 	//Removed; using sprites instead:
