@@ -24,6 +24,7 @@ public class VariableColor : MonoBehaviour {
 	public int index = -1;
     public int groupid = -1;
     public string innertext = "";
+	public string oldname;
     public string correct = "";
     public string language;
 	private LevelGenerator lg;
@@ -47,19 +48,39 @@ public class VariableColor : MonoBehaviour {
         if (CorrectRenameObject) {
             if (CorrectRenameObject.GetComponent<rename>().answered && !doneUpdating) {
                 doneUpdating = true;
-                lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-                lg.DrawInnerXmlLinesToScreen();
+                
+				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
+                //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
+				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
+				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
+				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+				
+				lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
             }
             else if (CorrectRenameObject.GetComponent<rename>().answered && doneUpdating && !doneFlashing) {
                 if (flashCounter % 100 == 0) {
                     // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG);
-                    lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, innertext);
+                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, innertext);
+					
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + correct + " " , " " + oldname + " ");
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + correct + " " , ">" + oldname + " ");
+					Regex rgx = new Regex(@"(^| |\t|\>)("+correct+")(;| )");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+oldname+"$3");
+					
                     lg.DrawInnerXmlLinesToScreen();
                 }
                 else if (flashCounter % 50 == 0) {
                     // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG, correct);
-                    lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
+                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
+					
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
+					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+					Regex rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+					
                     lg.DrawInnerXmlLinesToScreen(false);
                 }
                 flashCounter--;
@@ -70,7 +91,7 @@ public class VariableColor : MonoBehaviour {
                         if (variablecolor.GetComponent<VariableColor>().groupid == (groupid+1)) {
                             int lineNum = variablecolor.GetComponent<VariableColor>().index;
                             string sReplace = lg.outerXmlLines[lineNum];
-                            sReplace = lg.OuterToInnerXml(sReplace, language);
+                            //sReplace = lg.OuterToInnerXml(sReplace, language);
                             lg.innerXmlLines[lineNum] = sReplace;
                             lg.DrawInnerXmlLinesToScreen();
                         }
@@ -80,7 +101,7 @@ public class VariableColor : MonoBehaviour {
             else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
     			// Change the next groupid objects to the new colors
     			decolorOnce = true;
-    			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.DecolorizeText(innertext));
+    			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
     			lg.DrawInnerXmlLinesToScreen();
     		}
         }

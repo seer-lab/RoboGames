@@ -11,6 +11,8 @@ public static class stateLib
 {
 	public const float GAMESETTING_INITIAL_LINE_Y              = 3.5f;
 	public const float GAMESETTING_LINE_SPACING                = 0.825f;
+	public const int LEFT_CODESCREEN_X_COORDINATE              = -10;	
+	public const float TOOLBOX_Y_OFFSET		                   = 0.1f;
 
 	public const int NUMBER_OF_TOOLS                           = 6;
 

@@ -67,6 +67,7 @@ public class stringLib
 	public const string NODE_NAME_CODE 						= "code";
 	public const string NODE_NAME_DESCRIPTION			= "description";
 	public const string NODE_NAME_TOOLS						= "tools";
+	public const string NODE_NAME_TOOL						= "tool";
 	public const string NODE_NAME_TIME						= "timelimit";
 	public const string NODE_NAME_NEXT_LEVEL			= "next-level";
 	public const string NODE_NAME_INTRO_TEXT			= "introtext";
@@ -83,7 +84,7 @@ public class stringLib
 	public const string NODE_NAME_VARIABLE_COLOR	= "variable-color";
 	public const string NODE_NAME_NEWLINE					= "newline";
 
-    public const string XML_ATTRIBUTE_LANGUAGE              = "language";
+  public const string XML_ATTRIBUTE_LANGUAGE              = "language";
 	public const string XML_ATTRIBUTE_TEXT					= "text";
 	public const string XML_ATTRIBUTE_TOOL					= "tool";
 	public const string XML_ATTRIBUTE_FILE					= "file";
@@ -102,9 +103,15 @@ public class stringLib
 	public const string XML_ATTRIBUTE_COUNT					= "count";
 	public const string XML_ATTRIBUTE_ENABLED				= "enabled";
 	public const string XML_ATTRIBUTE_COMMENT_STYLE			= "style";
+	public const string XML_ATTRIBUTE_OLDNAME				= "oldname";
+
+
+	public const string START_LEVEL_FILE                    = "level0-1.xml";
 
 	public string comic_level_zero							= "tut1.xml";
-	public string game_level_zero 							= "tut1.xml";
+	public string game_level_zero 							= "tut1.xml"; 
+	//REFACTOR: Check that this isn't used anywhere and replace
+	
 
 	public string question_text_color_tag 					= "<color=#ffff00ff>";
 

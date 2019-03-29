@@ -18,13 +18,13 @@ public class beacon : MonoBehaviour {
 
 	public int index = -1;
 	public int actcounter = 0;
-    public bool revOnce = false;
+	public bool revOnce = false;
 	public List<int> flowOrder;
 	public string language;
 	public GameObject CodescreenObject;
 	public GameObject ToolSelectorObject;
-    public AudioSource audioCorrect;
-    public AudioSource audioRev;
+	public AudioSource audioCorrect;
+	public AudioSource audioRev;
 	public Sprite activebeacon;
 	public Sprite inactivebeacon;
 	public Sprite progressbeacon;
@@ -43,9 +43,9 @@ public class beacon : MonoBehaviour {
 	void Update() {
 		// All beacons complete
 		if (lg.taskscompleted[0] == lg.tasklist[0] && !revOnce) {
-            revOnce = true;
+			revOnce = true;
 			GetComponent<SpriteRenderer>().sprite = activebeacon;
-            audioRev.Play();
+			audioRev.Play();
 		}
 		else if (lg.taskscompleted[0] != lg.tasklist[0] && actcounter > 0)
 		{
@@ -65,7 +65,7 @@ public class beacon : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			Destroy(collidingObj.gameObject);
 			if (GetComponent<SpriteRenderer>().sprite == activebeacon || flowOrder.Count == 0) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Beacons must be activated in the \nright order. Sometimes they are \nactivated more than once, sometimes not at all. You will need to start over.";
+				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
 				ResetAllBeacons();
 			}
 			else if (actcounter > flowOrder.Count - 1) {
@@ -77,7 +77,7 @@ public class beacon : MonoBehaviour {
 				ResetAllBeacons();
 			}
 			else {
-                // Correct Selection
+				// Correct Selection
 				audioCorrect.Play();
 				lg.taskscompleted[0]++;
 				// Award 1 extra use of the tool.
@@ -85,21 +85,21 @@ public class beacon : MonoBehaviour {
 				actcounter++;
 				/*
 				if (actcounter == flowOrder.Count) {
-					GetComponent<SpriteRenderer>().sprite = activebeacon;
-				}
-				*/
+				GetComponent<SpriteRenderer>().sprite = activebeacon;
 			}
-			lg.toolsAirborne--;
+			*/
 		}
+		lg.toolsAirborne--;
 	}
+}
 
-	//.................................>8.......................................
-	void ResetAllBeacons() {
-		foreach(GameObject beacon in lg.robotONbeacons) {
-			beacon.GetComponent<beacon>().actcounter = 0;
-			beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
-			beacon.GetComponent<beacon>().flashCounter = 0;
-			lg.taskscompleted[0] = 0;
-		}
+//.................................>8.......................................
+void ResetAllBeacons() {
+	foreach(GameObject beacon in lg.robotONbeacons) {
+		beacon.GetComponent<beacon>().actcounter = 0;
+		beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
+		beacon.GetComponent<beacon>().flashCounter = 0;
+		lg.taskscompleted[0] = 0;
 	}
+}
 }

@@ -1,5 +1,5 @@
 <level>
-<next-level></next-level>
+<next-level>level4-0.xml</next-level>
 <description>While on the Subject</description>
 <introtext>While loops work quite differently
 Make sure you check conditions!</introtext>
@@ -30,25 +30,25 @@ int main {
 	i=0;
 	while (i &lt; 0){
 <beacon flow-order="" />		word += "o";
-								i++;
+		i++;
 	}
 	cout &lt;&lt; <question text="What is the word now?
-	Type your answer: " answer="hello">text;</question>
+	Type your answer: " answer="hello">word;</question>
 	//You may want to use loops for things other than counting
 	string input = "";
 	string inventory = "";
-	<newline/>
 	<comment type="description" correct="false" size="1" groupid="0">The code below never works.</comment>
 	<comment type="description" correct="false" size="1" groupid="0">The code below adds the word 'exit' to the inventory.</comment>
-	<comment type="description" correct="true" size="1" groupid="0">The code below gets user input repeatedly and adds it to the inventory until the user is done.</comment>
+	<comment type="description" correct="true" size="1" groupid="0">The code below gets user input repeatedly and 
+	adds it to the inventory until the user is done.</comment>
 	while (input != "exit"){
 <beacon flow-order="5" />		cout &lt;&lt; "Enter an item: " &lt;&lt; endl;
 		cin &gt;&gt; <question text="What input will terminate the loop?
 	Type your answer: " answer="exit">input;</question>
 		inventory += " " + input;
 	}
-	<comment type="description" correct="true" size="1" groupid="2">You have to make sure your loop terminates at some point or your program will run forever.</comment>
-	<newline/>
+	<comment type="description" correct="true" size="1" groupid="2">You have to make sure your loop terminates at some point 
+	or your program will run forever.</comment>
 	<comment type="description" correct="false" size="1" groupid="3">The code below is correct.</comment>
 	<comment type="description" correct="true" size="1" groupid="3">The code below has an INFINITE LOOP!</comment>
 	int i = 0;

@@ -25,8 +25,8 @@ int main {
 	for (int i = 4; i &gt;= 0; i -= 2;){
 <beacon flow-order="2,3,4" />		text += "b";
 	}
-	<comment type="description" correct="false" size="1" groupid="0">Loops always run multiple times no matter what you do!</comment>
-	<comment type="description" correct="true" size="1" groupid="0">Loops only run while the condition is true, which may mean they never run!</comment>
+	<comment type="description" correct="false" size="1" groupid="2">Loops always run multiple times no matter what you do!</comment>
+	<comment type="description" correct="true" size="1" groupid="2">Loops only run while the condition is true, which may mean they never run!</comment>
 	for (int i = 0; i &lt; 0; i--){
 <beacon flow-order="" />		text += "c";
 	}

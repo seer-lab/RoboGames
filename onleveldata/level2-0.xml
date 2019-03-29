@@ -19,10 +19,10 @@ int main {
 	<beacon flow-order="0" /> //activate this first!
 	<beacon flow-order="1" /> //activate this second!
 	//The red Uncommenter tool is used to change code comments into real code.
-	<comment type="code" correct="true" size="1" groupid="1">cout &lt;&lt; "Hello world!" </comment>
+	<comment type="code" correct="true" size="1" groupid="1">//cout &lt;&lt; "Hello world!" </comment>
 	//Beware: Not all code comments are correct. Be careful what you uncomment!
-	<comment type="code" correct="false" size="1" groupid="2">return0</comment>
-	<comment type="code" correct="true" size="1" groupid="2">return 0;</comment>
+	<comment type="code" correct="false" size="1" groupid="2">//return0 </comment>
+	<comment type="code" correct="true" size="1" groupid="2">//return 0;</comment>
 }
 </code>
 </level>

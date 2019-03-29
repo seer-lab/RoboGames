@@ -9,12 +9,11 @@ Let's find out how to speak in C++!</introtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++"><comment type="description" correct="true" size="1" groupid="0">Code begins to run in the MAIN function.</comment>
-int main {
+<code language="c++">int main {
+	<comment type="description" correct="true" size="1" groupid="0">Code begins to run in the MAIN function.</comment>
 	<comment type="description" correct="true" size="1" groupid="1">COUT will make a program print text to the screen.</comment>
 	cout &lt;&lt; <question text="What will get printed?
 	Type your answer: " answer="hello world">"hello world";</question>
-	
 }
 </code>
 </level>
