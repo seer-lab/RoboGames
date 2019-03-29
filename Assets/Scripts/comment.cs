@@ -193,13 +193,15 @@ public class comment : MonoBehaviour {
 				//todo: refactor this quick hack
 				rgx = new Regex(@"(\/\*)(.*)(\*\/)");
 				sNewText = rgx.Replace(sNewText, "$2");	
+				rgx = new Regex(@"(\/\/)(.*?)");
+				sNewText = rgx.Replace(sNewText, "$2");	
 				
 				
 				//verify comment color is removed
-				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);
+				tempDecolText = lg.textColoration.DecolorizeText(sNewText);
 				
-				sNewText = lg.textColoration.ColorizeText(sNewText, language);
-				lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(tempDecolText, sNewText);
+				sNewText = lg.textColoration.ColorizeText(tempDecolText, language);
+				lg.innerXmlLines[index] = sNewText;
 			}
 			else {
 				string commentOpenSymbol = "/*";

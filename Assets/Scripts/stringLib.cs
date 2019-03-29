@@ -106,7 +106,7 @@ public class stringLib
 	public const string XML_ATTRIBUTE_OLDNAME				= "oldname";
 
 
-	public const string START_LEVEL_FILE                    = "level4-2.xml";
+	public const string START_LEVEL_FILE                    = "level0-1.xml";
 
 	public string comic_level_zero							= "tut1.xml";
 	public string game_level_zero 							= "tut1.xml"; 

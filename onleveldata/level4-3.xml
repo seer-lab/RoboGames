@@ -8,8 +8,6 @@ You've mastered code style!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="namer" enabled="true" count="unlimited"/>
-<tool name="commenter" enabled="true" count="unlimited"/>
-<tool name="controlflow" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cmath&gt;
@@ -23,24 +21,27 @@ void functionD(int&amp; sum);
 int functionE(double number); void functionF(int n);
 
 int main {
-	int <variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,prices" correct="factories" groupid="1">a</variable-rename> [ A_CONSTANT];
-    cout &lt;&lt; "This program displays a graph showing\n" &lt;&lt; "production for each factory in the company.\n";
+	int <variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factories" groupid="1">a</variable-rename> [ A_CONSTANT];
+    cout &lt;&lt; "This program displays a graph showing\n";
+	cout &lt;&lt; "production for each factory in the company.\n";
     functionA(a, A_CONSTANT);
     functionB(a, A_CONSTANT);
     functionC(a, A_CONSTANT);
     return 0;
 }
 
-void <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="2">functionA</variable-rename> (int a[], int aNumber)
+void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="2">functionA</variable-rename> (int a[], int A_CONSTANT)
 {
-    for (int someNumber = 1;someNumber &lt;= aNumber; someNumber++)
+    for (int <variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factory_number" groupid="1">someNumber</variable-rename> = 1;someNumber &lt;= A_CONSTANT; someNumber++)
     {
-        cout &lt;&lt; endl &lt;&lt; "Enter production data for plant number " &lt;&lt; someNumber &lt;&lt; endl;
+        cout &lt;&lt; endl &lt;&lt; "Enter production data for plant number ";
+		cout &lt;&lt; someNumber &lt;&lt; endl;
         functionD(a[someNumber - 1]);}}
 
-void <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="3">functionD</variable-rename>(int&amp; sum)
+void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="InputUnits" groupid="3">functionD</variable-rename> (int&amp; sum)
 {
-    cout &lt;&lt; "Enter number of units produced by each department.\n" &lt;&lt; "Append a negative number to the end of the list.\n";
+    cout &lt;&lt; "Enter number of units produced by each department.\n" 
+	cout &lt;&lt; "Append a negative number to the end of the list.\n";
     sum = 0; int next;
     cin >> next;
     while (next >= 0) {
@@ -49,27 +50,27 @@ void <variable-rename text="Choose a name for this variable: " options="Round,Pr
     } cout &lt;&lt; "Total = " &lt;&lt; sum &lt;&lt; endl;
 }
 
-void <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="4">functionB</variable-rename>(int a[], int anotherNumber)
+void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="ThousandsOfUnits" groupid="4">functionB</variable-rename> (int a[], int A_CONSTANT)
 {
-for (int index = 0; index &lt; anotherNumber; index++)
+for (int index = 0; index &lt; A_CONSTANT; index++)
     a[Index] = functionE(a[Index]/1000.0);
 }
 
-int <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="5">functionE</variable-rename>(double number) {
+int <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="Round" groupid="5">functionE</variable-rename> (double number) {
 return static_cast&lt;int&gt;(floor(number + 0.5));
 }
 
-void <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="6">functionC</variable-rename>(const int anArray[], int aNumber)
+void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintFactories" groupid="6">functionC</variable-rename> (const int a[], int A_CONSTANT)
 {
     cout &lt;&lt; "\nUnits produced in thousands of units:\n";
-    for (int someNumber = 1; someNumber &lt;= aNumber; someNumber++)
+    for (int someNumber = 1; someNumber &lt;= A_CONSTANT; someNumber++)
     {
         cout &lt;&lt; "Factory #" &lt;&lt; someNumber &lt;&lt; " ";
-        functionF(anArray[someNumber - 1]);
+        functionF(a[someNumber - 1]);
         cout &lt;&lt; endl;
     }
 }
-void <variable-rename text="Choose a name for this variable: " options="Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction" groupid="7">functionF</variable-rename>(int n) {
+void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintStars" groupid="7">functionF</variable-rename> (int n) {
     for (int count = 1; count &lt;= n; count++) cout &lt;&lt; "*";
 }
 </code>

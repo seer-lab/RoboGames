@@ -103,10 +103,11 @@ public class rename : MonoBehaviour {
 					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");*/
 					
 					int iter = 0;
+					Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*?)(</color>)(.*)");
+					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
 					foreach(string s in lg.innerXmlLines) {
-						Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
-						lg.innerXmlLines[iter] = rgx.Replace(s, "$1$3$5");
-						rgx = new Regex(@"(^| |\>|\t|\()("+oldname+@")(;| |\+|\[)");
+						//rgx = new Regex(@"(^| |\>|\t|\()("+oldname+@")(;| |\+|\[)");
+						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
 						lg.innerXmlLines[iter] = rgx.Replace(lg.innerXmlLines[iter],"$1"+correct+"$3");
 						iter += 1;
 					}

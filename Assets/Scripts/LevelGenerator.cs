@@ -951,7 +951,7 @@ public class LevelGenerator : MonoBehaviour {
 			}
 			case stringLib.NODE_NAME_RENAME: {
 				print("CreateLevelObject: Creating rename node with index of " + lineNumber);
-				GameObject newrename = (GameObject)Instantiate(renameobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
+				GameObject newrename = (GameObject)Instantiate(renameobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - lineNumber * linespacing, 1), transform.rotation);
 				taskOnLines[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				robotONrenamers.Add(newrename);
 				rename propertyHandler = newrename.GetComponent<rename>();
