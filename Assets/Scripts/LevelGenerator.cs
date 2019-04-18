@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -184,7 +185,7 @@ public class LevelGenerator : MonoBehaviour {
 		{
 			// Running out of time. --[
 			if (endTime - startTime >= 9000) {
-				sidebartimer.GetComponent<GUIText>().text = "Time Remaining: --:--:--";
+				sidebartimer.GetComponent<Text>().text = "Time Remaining: --:--:--";
 			}
 			else if (endTime - Time.time < 30) {
 				sidebartimer.GetComponent<GUIText>().text = "Time Remaining: <size=50><color=red>" + ((int)(endTime - Time.time)).ToString() + "</color></size> seconds";
@@ -325,15 +326,15 @@ public class LevelGenerator : MonoBehaviour {
 	public void GUISwitch(bool gui_on) {
 		switch(gui_on) {
 			case true:
-			sidebarpanel.GetComponent<GUITexture>().enabled = (sidebarToggle) ? true : false;
-			outputpanel.GetComponent<GUITexture>().enabled = true;
+			sidebarpanel.GetComponent<Image>().enabled = (sidebarToggle) ? true : false;
+			outputpanel.GetComponent<Image>().enabled = true;
 			endTime = remainingTime + Time.time;
 			break;
 
 			case false:
-			sidebarpanel.GetComponent<GUITexture>().enabled = false;
-			outputpanel.GetComponent<GUITexture>().enabled = false;
-			sidebartimer.GetComponent<GUIText>().text = "";
+			sidebarpanel.GetComponent<Image>().enabled = false;
+			outputpanel.GetComponent<Image>().enabled = false;
+			sidebartimer.GetComponent<Text>().text = "";
 			remainingTime = endTime - Time.time;
 			break;
 
@@ -1078,7 +1079,7 @@ public class LevelGenerator : MonoBehaviour {
 	public void ProvisionToolsFromXml(XmlDocument doc) {
 		// Grey out all tools
 		for (int i = 0; i < totalNumberOfTools; i++) {
-			toolIcons[i].GetComponent<GUITexture>().enabled = false;
+			toolIcons[i].GetComponent<Image>().enabled = false;
 		}
 		IList<XmlNode> nodelist = XMLReader.GetToolNodes(doc);
 		foreach (XmlNode tool in nodelist) {
@@ -1106,7 +1107,7 @@ public class LevelGenerator : MonoBehaviour {
 				default:
 				break;
 			}
-			toolIcons[toolnum].GetComponent<GUITexture>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
+			toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
 			selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
 			// ]-- End of tool count for each tool node
 		}
@@ -1175,7 +1176,7 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 		// Reset local variables
-		sidebaroutput.GetComponent<GUIText>().text = "";
+		sidebaroutput.GetComponent<Text>().text = "";
 		lines 									  	= new List<GameObject>();
 		prints 								  	  	= new List<GameObject>();
 		roboBUGwarps 							  	= new List<GameObject>();
@@ -1195,8 +1196,8 @@ public class LevelGenerator : MonoBehaviour {
 		// Reset tool counts if not warping to this level
 		if (!warping) {
 			for (int i = 0; i < totalNumberOfTools; i++) {
-				toolIcons[i].GetComponent<GUITexture>().enabled 		 = false;
-				toolIcons[i].GetComponent<GUITexture>().color 			 = new Color(0.3f, 0.3f, 0.3f);
+				toolIcons[i].GetComponent<Image>().enabled 		 = false;
+				toolIcons[i].GetComponent<Image>().color 			 = new Color(0.3f, 0.3f, 0.3f);
 				selectedtool.GetComponent<SelectedTool>().toolCounts[i]  = 0;
 				selectedtool.GetComponent<SelectedTool>().bonusTools[i]  = 0;
 				selectedtool.GetComponent<SelectedTool>().projectilecode = 0;
