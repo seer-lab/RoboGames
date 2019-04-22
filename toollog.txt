@@ -1,2 +1,2 @@
 Tool, Location, Time
-projectileComment(Clone)Wasted, 6, 23.04
+projectileComment(Clone)Wasted, 1, 47.48
