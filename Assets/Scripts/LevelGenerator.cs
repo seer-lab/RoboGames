@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -73,16 +74,16 @@ public class LevelGenerator : MonoBehaviour {
 	public GameObject sidebarChecklist;
 	public GameObject sidebarLabel;
 	public GameObject sidebarDescription;
-	public Texture2D lightBackground;
-	public Texture2D darkBackground;
+	public Sprite lightBackground;
+	public Sprite darkBackground;
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 	public Sprite panel2;
-	public Texture2D panel3;
+	public Sprite panel3;
 	public Sprite panel4;
-	public Texture2D panel6;
-	public Texture2D panel5;
-	public Texture2D panel7;
+	public Sprite panel6;
+	public Sprite panel5;
+	public Sprite panel7;
 	public Sprite panel8;
 	public Sprite panel9;
 	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
@@ -184,10 +185,10 @@ public class LevelGenerator : MonoBehaviour {
 		{
 			// Running out of time. --[
 			if (endTime - startTime >= 9000) {
-				sidebartimer.GetComponent<GUIText>().text = "Time Remaining: --:--:--";
+				sidebartimer.GetComponent<Text>().text = "Time Remaining: --:--:--";
 			}
 			else if (endTime - Time.time < 30) {
-				sidebartimer.GetComponent<GUIText>().text = "Time Remaining: <size=50><color=red>" + ((int)(endTime - Time.time)).ToString() + "</color></size> seconds";
+				sidebartimer.GetComponent<Text>().text = "Time Remaining: <size=50><color=red>" + ((int)(endTime - Time.time)).ToString() + "</color></size> seconds";
 				if (!isTimerAlarmTriggered) {
 					isTimerAlarmTriggered = true;
 					sidebartimer.GetComponent<AudioSource>().Play();
@@ -203,27 +204,27 @@ public class LevelGenerator : MonoBehaviour {
 					nNumberOfSeconds -= nNumberOfHours * 3600;
 					int nNumberOfMinutes = (nNumberOfSeconds) / 60;
 					nNumberOfSeconds -= nNumberOfMinutes * 60;
-					sidebartimer.GetComponent<GUIText>().text = "Time Remaining: ";
-					if (nNumberOfHours < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfHours.ToString() + ":";
-					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfMinutes.ToString() + ":";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfSeconds.ToString();
+					sidebartimer.GetComponent<Text>().text = "Time Remaining: ";
+					if (nNumberOfHours < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfHours.ToString() + ":";
+					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfMinutes.ToString() + ":";
+					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString();
 				}
 				else if (nNumberOfSeconds > 60) {
 					int nNumberOfMinutes = nNumberOfSeconds / 60;
 					nNumberOfSeconds -= nNumberOfMinutes * 60;
-					sidebartimer.GetComponent<GUIText>().text = "Time Remaining: 00:";
-					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfMinutes.ToString() + ":";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfSeconds.ToString() + ":";
+					sidebartimer.GetComponent<Text>().text = "Time Remaining: 00:";
+					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfMinutes.ToString() + ":";
+					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString() + ":";
 				}
 				else {
-					sidebartimer.GetComponent<GUIText>().text = "Time Remaining: 00:00:";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<GUIText>().text += "0";
-					sidebartimer.GetComponent<GUIText>().text += nNumberOfSeconds.ToString();
+					sidebartimer.GetComponent<Text>().text = "Time Remaining: 00:00:";
+					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
+					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString();
 				}
 				isTimerAlarmTriggered = false;
 				// ]-- End of Time Controller
@@ -301,11 +302,11 @@ public class LevelGenerator : MonoBehaviour {
 			}
 			else if (Input.GetKeyDown(KeyCode.C) && !isAnswering) {
 				sidebarToggle = (sidebarToggle) ? false : true;
-				sidebartimer.GetComponent<GUIText>().enabled = sidebarToggle;
-				sidebarChecklist.GetComponent<GUIText>().enabled = sidebarToggle;
-				sidebarLabel.GetComponent<GUIText>().enabled = sidebarToggle;
-				sidebarpanel.GetComponent<GUITexture>().enabled = sidebarToggle;
-				sidebarDescription.GetComponent<GUIText>().enabled = sidebarToggle;
+				sidebartimer.GetComponent<Text>().enabled = sidebarToggle;
+				sidebarChecklist.GetComponent<Text>().enabled = sidebarToggle;
+				sidebarLabel.GetComponent<Text>().enabled = sidebarToggle;
+				sidebarpanel.GetComponent<Text>().enabled = sidebarToggle;
+				sidebarDescription.GetComponent<Text>().enabled = sidebarToggle;
 				// transform the buttons to the right. Store their original position first.
 				for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS ; i++) {
 					if (sidebarToggle) {
@@ -325,15 +326,15 @@ public class LevelGenerator : MonoBehaviour {
 	public void GUISwitch(bool gui_on) {
 		switch(gui_on) {
 			case true:
-			sidebarpanel.GetComponent<GUITexture>().enabled = (sidebarToggle) ? true : false;
-			outputpanel.GetComponent<GUITexture>().enabled = true;
+			sidebarpanel.GetComponent<Image>().enabled = (sidebarToggle) ? true : false;
+			outputpanel.GetComponent<Image>().enabled = true;
 			endTime = remainingTime + Time.time;
 			break;
 
 			case false:
-			sidebarpanel.GetComponent<GUITexture>().enabled = false;
-			outputpanel.GetComponent<GUITexture>().enabled = false;
-			sidebartimer.GetComponent<GUIText>().text = "";
+			sidebarpanel.GetComponent<Image>().enabled = false;
+			outputpanel.GetComponent<Image>().enabled = false;
+			sidebartimer.GetComponent<Text>().text = "";
 			remainingTime = endTime - Time.time;
 			break;
 
@@ -1078,7 +1079,7 @@ public class LevelGenerator : MonoBehaviour {
 	public void ProvisionToolsFromXml(XmlDocument doc) {
 		// Grey out all tools
 		for (int i = 0; i < totalNumberOfTools; i++) {
-			toolIcons[i].GetComponent<GUITexture>().enabled = false;
+			toolIcons[i].GetComponent<Image>().enabled = false;
 		}
 		IList<XmlNode> nodelist = XMLReader.GetToolNodes(doc);
 		foreach (XmlNode tool in nodelist) {
@@ -1106,7 +1107,7 @@ public class LevelGenerator : MonoBehaviour {
 				default:
 				break;
 			}
-			toolIcons[toolnum].GetComponent<GUITexture>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
+			toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
 			selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
 			// ]-- End of tool count for each tool node
 		}
@@ -1175,7 +1176,7 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 		// Reset local variables
-		sidebaroutput.GetComponent<GUIText>().text = "";
+		sidebaroutput.GetComponent<Text>().text = "";
 		lines 									  	= new List<GameObject>();
 		prints 								  	  	= new List<GameObject>();
 		roboBUGwarps 							  	= new List<GameObject>();
@@ -1195,8 +1196,8 @@ public class LevelGenerator : MonoBehaviour {
 		// Reset tool counts if not warping to this level
 		if (!warping) {
 			for (int i = 0; i < totalNumberOfTools; i++) {
-				toolIcons[i].GetComponent<GUITexture>().enabled 		 = false;
-				toolIcons[i].GetComponent<GUITexture>().color 			 = new Color(0.3f, 0.3f, 0.3f);
+				toolIcons[i].GetComponent<Image>().enabled 		 = false;
+				toolIcons[i].GetComponent<Image>().color 			 = new Color(0.3f, 0.3f, 0.3f);
 				selectedtool.GetComponent<SelectedTool>().toolCounts[i]  = 0;
 				selectedtool.GetComponent<SelectedTool>().bonusTools[i]  = 0;
 				selectedtool.GetComponent<SelectedTool>().projectilecode = 0;
@@ -1391,27 +1392,28 @@ foreach(GameObject varcolor in robotONvariablecolors) {
 //************************************************************************//
 public void ToggleLightDark() {
 	if (backgroundLightDark == false) {
+            Debug.Log("Turning Light"); 
 		backgroundLightDark = true;
-		backgroundImage.GetComponent<GUITexture>().texture 		= lightBackground;
+		backgroundImage.GetComponent<Image>().sprite 		= lightBackground;
 		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
-		sidebartimer.GetComponent<GUIText>().color 				= Color.black;
-		sidebarpanel.GetComponent<GUITexture>().texture 		= panel6;
+		sidebartimer.GetComponent<Text>().color 				= Color.black;
+		sidebarpanel.GetComponent<Image>().sprite 		= panel6;
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
-		sidebaroutput.GetComponent<GUIText>().color 			= Color.black;
-		sidebarChecklist.GetComponent<GUIText>().color 			= Color.black;
-		selectedtool.GetComponent<GUIText>().color 				= Color.black;
-		sidebarLabel.GetComponent<GUIText>().color 				= Color.black;
+		sidebaroutput.GetComponent<Text>().color 			= Color.black;
+		sidebarChecklist.GetComponent<Text>().color 			= Color.black;
+		selectedtool.GetComponent<Text>().color 				= Color.black;
+		sidebarLabel.GetComponent<Text>().color 				= Color.black;
 		// Labels are updated on each frame in SelectedTool.cs
-		sidebarDescription.GetComponent<GUIText>().color		= Color.black;
-		outputEnter.GetComponent<GUIText>().color				= Color.black;
+		sidebarDescription.GetComponent<Text>().color		= Color.black;
+		outputEnter.GetComponent<Text>().color				= Color.black;
 		menuTitle.GetComponent<TextMesh>().color				= Color.black;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.black;
 		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
 		toolprompt.GetComponent<TextMesh>().color				= Color.black;
-		outputpanel.GetComponent<GUITexture>().texture			= panel7;
+		outputpanel.GetComponent<Image>().sprite			= panel7;
 		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panel8;
 		menu.GetComponent<SpriteRenderer>().sprite				= panel9;
 		foreach (GameObject line in lines) {
@@ -1468,40 +1470,40 @@ public void ToggleLightDark() {
 		stringLibrary.checklist_incomplete_comment_color_tag    	= stringLibrary.checklist_incomplete_comment_color_tag_dark;
 		stringLibrary.checklist_incomplete_uncomment_color_tag  	= stringLibrary.checklist_incomplete_uncomment_color_tag_dark;
 
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_dark);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_dark);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_dark);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_dark);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_dark);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_dark);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_dark);
 
 		for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS - 1; i++) {
-			toolLabels[i].GetComponent<GUIText>().color = (tasklist[i] == taskscompleted[i]) ? new Color(0, 0.6f, 0.2f, 1) : Color.white;
+			toolLabels[i].GetComponent<Text>().color = (tasklist[i] == taskscompleted[i]) ? new Color(0, 0.6f, 0.2f, 1) : Color.white;
 		}
 
 	}
 	else {
 		backgroundLightDark = false;
-		backgroundImage.GetComponent<GUITexture>().texture 		= darkBackground;
+		backgroundImage.GetComponent<Image>().sprite 		= darkBackground;
 		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
-		sidebartimer.GetComponent<GUIText>().color 				= Color.white;
-		sidebarpanel.GetComponent<GUITexture>().texture 		= panel3;
+		sidebartimer.GetComponent<Text>().color 				= Color.white;
+		sidebarpanel.GetComponent<Image>().sprite 		= panel3;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
-		sidebaroutput.GetComponent<GUIText>().color 			= Color.white;
-		sidebarChecklist.GetComponent<GUIText>().color 			= Color.white;
-		selectedtool.GetComponent<GUIText>().color 				= Color.white;
-		sidebarLabel.GetComponent<GUIText>().color 				= Color.white;
+		sidebaroutput.GetComponent<Text>().color 			= Color.white;
+		sidebarChecklist.GetComponent<Text>().color 			= Color.white;
+		selectedtool.GetComponent<Text>().color 				= Color.white;
+		sidebarLabel.GetComponent<Text>().color 				= Color.white;
 		// Labels are updated on each frame in SelectedTool.cs
-		sidebarDescription.GetComponent<GUIText>().color		= Color.white;
-		outputEnter.GetComponent<GUIText>().color				= Color.white;
+		sidebarDescription.GetComponent<Text>().color		= Color.white;
+		outputEnter.GetComponent<Text>().color				= Color.white;
 		menuTitle.GetComponent<TextMesh>().color				= Color.white;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.white;
 		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-		outputpanel.GetComponent<GUITexture>().texture			= panel5;
+		outputpanel.GetComponent<Image>().sprite			= panel5;
 		menu.GetComponent<SpriteRenderer>().sprite				= panel2;
 		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panel4;
 		foreach (GameObject line in lines) {
@@ -1558,15 +1560,15 @@ public void ToggleLightDark() {
 		stringLibrary.checklist_incomplete_comment_color_tag    	= stringLibrary.checklist_incomplete_comment_color_tag_light;
 		stringLibrary.checklist_incomplete_uncomment_color_tag  	= stringLibrary.checklist_incomplete_uncomment_color_tag_light;
 
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_light);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_light);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_light);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_light);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
-		sidebarChecklist.GetComponent<GUIText>().text = sidebarChecklist.GetComponent<GUIText>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
+		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
 
 		for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS - 1 ; i++) {
-			toolLabels[i].GetComponent<GUIText>().color = (tasklist[i] == taskscompleted[i]) ? Color.green : Color.white;
+			toolLabels[i].GetComponent<Text>().color = (tasklist[i] == taskscompleted[i]) ? Color.green : Color.white;
 		}
 
 	}

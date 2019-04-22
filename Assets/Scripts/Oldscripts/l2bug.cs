@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class l2bug : MonoBehaviour {
@@ -29,8 +30,8 @@ public class l2bug : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D c){
 		if (c.name == "hero"){
-			valuelabel.GetComponent<GUIText>().text = resultname;
-			valueslabel.GetComponent<GUIText>().text = listname;
+			valuelabel.GetComponent<Text>().text = resultname;
+			valueslabel.GetComponent<Text>().text = listname;
 			currenttest.GetComponent<TextMesh>().text = listname;
 		}
 	}

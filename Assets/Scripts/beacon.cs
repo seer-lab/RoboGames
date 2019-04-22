@@ -13,6 +13,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI; 
 
 public class beacon : MonoBehaviour {
 
@@ -65,15 +66,15 @@ public class beacon : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			Destroy(collidingObj.gameObject);
 			if (GetComponent<SpriteRenderer>().sprite == activebeacon || flowOrder.Count == 0) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
+				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
 				ResetAllBeacons();
 			}
 			else if (actcounter > flowOrder.Count - 1) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "You have activated this \nbeacon enough times, but the \nsequence is now broken. \nYou will have to start over.";
+				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You have activated this \nbeacon enough times, but the \nsequence is now broken. \nYou will have to start over.";
 				ResetAllBeacons();
 			}
 			else if (lg.taskscompleted[0] != flowOrder[actcounter]) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "You will need to start the \nsequence again. Read the code carefully for \nclues.";
+				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You will need to start the \nsequence again. Read the code carefully for \nclues.";
 				ResetAllBeacons();
 			}
 			else {

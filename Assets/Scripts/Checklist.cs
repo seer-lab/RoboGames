@@ -9,6 +9,7 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class Checklist : MonoBehaviour {
@@ -22,7 +23,7 @@ public class Checklist : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		lg = codescreen.GetComponent<LevelGenerator>();
-		GetComponent<GUIText>().text = "";
+		GetComponent<Text>().text = "";
 		projectilecode = selectedTool.GetComponent<SelectedTool>().projectilecode;
 	}
 
@@ -31,18 +32,18 @@ public class Checklist : MonoBehaviour {
 	void Update() {
 
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && lg.gamemode == stringLib.GAME_MODE_ON) {
-			GetComponent<GUIText>().text = "Tooltip:";
+			GetComponent<Text>().text = "Tooltip:";
 			projectilecode = selectedTool.GetComponent<SelectedTool>().projectilecode;
 			// Activate
 			if (lg.tasklist[0] > 0 && projectilecode == 0) {
 				if (lg.tasklist[0] == lg.taskscompleted[0]) {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 					 								lg.stringLibrary.checklist_complete_color_tag +
 													"ACTIVATE the beacons in the \nright order✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_incomplete_activate_color_tag +
 													"ACTIVATE" +
 													stringLib.CLOSE_COLOR_TAG +
@@ -52,13 +53,13 @@ public class Checklist : MonoBehaviour {
 			// Check
 			if (lg.tasklist[1] > 0 && projectilecode == 1) {
 				if (lg.tasklist[1]==lg.taskscompleted[1]) {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"CHECK the values of the \nvariables✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_incomplete_question_color_tag +
 													"CHECK" +
 													stringLib.CLOSE_COLOR_TAG +
@@ -68,13 +69,13 @@ public class Checklist : MonoBehaviour {
 			// Name
 			if (lg.tasklist[2] > 0 && projectilecode == 2) {
 				if (lg.tasklist[2]==lg.taskscompleted[2]) {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"RENAME the obscure variables✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_incomplete_name_color_tag +
 													"RENAME" +
 													stringLib.CLOSE_COLOR_TAG +
@@ -84,13 +85,13 @@ public class Checklist : MonoBehaviour {
 			// Comment
 			if (lg.tasklist[3] > 0 && projectilecode == 3) {
 				if (lg.tasklist[3]==lg.taskscompleted[3]) {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"COMMENT the lines that \ndescribe the code✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_incomplete_comment_color_tag +
 													"COMMENT" +
 													stringLib.CLOSE_COLOR_TAG +
@@ -100,13 +101,13 @@ public class Checklist : MonoBehaviour {
 			// Un-comment
 			if (lg.tasklist[4] > 0 && projectilecode == 4) {
 				if (lg.tasklist[4]==lg.taskscompleted[4]) {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"UN-COMMENT the code that is \ncorrect✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
-					GetComponent<GUIText>().text += "\n" +
+					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_incomplete_uncomment_color_tag +
 													"UN-COMMENT" +
 													stringLib.CLOSE_COLOR_TAG +
@@ -116,7 +117,7 @@ public class Checklist : MonoBehaviour {
 		}
 		// Not in game
 		else {
-			GetComponent<GUIText>().text = "";
+			GetComponent<Text>().text = "";
 		}
 	}
 

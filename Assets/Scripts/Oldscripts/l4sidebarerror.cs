@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class l4sidebarerror : MonoBehaviour
@@ -35,7 +36,7 @@ public class l4sidebarerror : MonoBehaviour
 		void Update ()
 		{
 				int levelnum = System.Convert.ToInt16 (level.GetComponent<TextMesh> ().text);
-				GUIText tm = this.GetComponent<GUIText> ();
+				Text tm = this.GetComponent<Text> ();
 				TextMesh bugt = bugtext.GetComponent<TextMesh> ();
 				if (levelnum == 4) {
 						if (compiling && Time.time < compileTime) {

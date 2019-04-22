@@ -11,9 +11,10 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
-public class SelectedTool : MonoBehaviour
+public partial class SelectedTool : MonoBehaviour
 {
 	public int projectilecode = 0;
 	public int[] toolCounts = new int[stateLib.NUMBER_OF_TOOLS];
@@ -33,7 +34,7 @@ public class SelectedTool : MonoBehaviour
 	private bool noRemainingActivators = false;
 	private float lossDelay = 4f;
 	private float losstime;
-	private Color toolOnColor = new Color(.7f, .7f, .7f);
+	private Color toolOnColor = new Color(1,1,1);
 	private Color toolOffColor = new Color(.3f, .3f, .3f);
 	private LevelGenerator lg;
 	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
@@ -44,16 +45,18 @@ public class SelectedTool : MonoBehaviour
 	// Use this for initialization
 	void Start() {
 		lg = codescreen.GetComponent<LevelGenerator>();
-		this.GetComponent<GUIText>().text = "";
+		this.GetComponent<Text>().text = "";
+        InitializeToolLabels(); 
 	}
 
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
+        UpdateProtocol(); 
+        /*
 		// Start of the game, so we are not losing the game and have not failed.
 		if (lg.gamestate >= stateLib.GAMESTATE_LEVEL_START) {
-			isLosing = false;
-			noRemainingActivators = false;
+			Initialize(); 
 		}
 		// In game
 		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME) {
@@ -144,101 +147,107 @@ public class SelectedTool : MonoBehaviour
 		else {
             // Menu is up
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-			    toolIcons[i].GetComponent<GUITexture>().enabled = false;
+			    toolIcons[i].GetComponent<Image>().enabled = false;
 			}
 			isLosing = false;
-			toolAvailableTools.GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text = "";
-			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().enabled = true;
-			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().enabled = true;
-			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().enabled = true;
-			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().enabled = true;
-			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().enabled = true;
-			toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().enabled = true;
-			levelDescription.GetComponent<GUIText>().text = "";
+			toolAvailableTools.GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = "";
+			toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().enabled = true;
+			toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().enabled = true;
+			toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().enabled = true;
+			toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().enabled = true;
+			toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().enabled = true;
+			toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().enabled = true;
+			levelDescription.GetComponent<Text>().text = "";
 			taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
 		}
+        */
 	}
 
 	//.................................>8.......................................
 	public void NextTool() {
-		int notoolcount = 0;
-		// Turn this tool's color to the toolOff color.
-		print("projectilecode is " + projectilecode.ToString());
-		toolIcons[projectilecode].GetComponent<GUITexture>().color = toolOffColor;
-		// If the checklist entry was is completed, then disable this current tool before switching to the next
-		if (lg.tasklist[projectilecode] == lg.taskscompleted[projectilecode]) {
-			taskComplete[projectilecode] = true;
-			toolIcons[projectilecode].GetComponent<GUITexture>().enabled = false;
-			toolLabels[projectilecode].GetComponent<GUIText>().enabled = false;
-			toolCounts[projectilecode] = 0;
-			bonusTools[projectilecode] = 0;
-		}
-		else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0) {
-			toolLabels[projectilecode].GetComponent<GUIText>().color = Color.red;
-			toolLabels[projectilecode].GetComponent<GUIText>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
-			lg.isLosing = true;
-		}
-		// Cycle to the next tool.
-		projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
-		// Count the number of empty tools from the set of tools.
-		while(toolCounts[projectilecode] <= 0) {
-			notoolcount++;
-			projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
-			// Player has no useable tools
-			if (notoolcount > stateLib.NUMBER_OF_TOOLS + 1) {
-				projectilecode = stateLib.PROJECTILE_CODE_NO_TOOLS;
-				break;
-			}
-		}
-		// If we have no remaining tools, lose the game.
-		if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
-			isLosing = true;
-			losstime = Time.time + lossDelay;
-		}
-	}
+        int notoolcount = 0;
+        // Turn this tool's color to the toolOff color.
+        print("projectilecode is " + projectilecode.ToString());
+        toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
+        // If the checklist entry was is completed, then disable this current tool before switching to the next
+        if (lg.tasklist[projectilecode] == lg.taskscompleted[projectilecode])
+        {
+            taskComplete[projectilecode] = true;
+            toolIcons[projectilecode].GetComponent<Image>().enabled = false;
+            toolLabels[projectilecode].GetComponent<Text>().enabled = false;
+            toolCounts[projectilecode] = 0;
+            bonusTools[projectilecode] = 0;
+        }
+        else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
+        {
+            toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
+            toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
+            lg.isLosing = true;
+        }
+        // Cycle to the next tool.
+        projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+        // Count the number of empty tools from the set of tools.
+        while (toolCounts[projectilecode] <= 0)
+        {
+            notoolcount++;
+            projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+            // Player has no useable tools
+            if (notoolcount > stateLib.NUMBER_OF_TOOLS + 1)
+            {
+                projectilecode = stateLib.PROJECTILE_CODE_NO_TOOLS;
+                break;
+            }
+        }
+        // If we have no remaining tools, lose the game.
+        if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
+        {
+            isLosing = true;
+            losstime = Time.time + lossDelay;
+        }
+    }
 
 	//.................................>8.......................................
 	public void refreshToolList() {
 	  if (toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] + bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CATCHER_OR_ACTIVATOR);
 	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;
-	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) + ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
+	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) + ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] + bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_PRINTER_OR_QUESTION);
 	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_1_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_1_ROBOTON;
-	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) + ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
+	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) + ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] + bonusTools[stateLib.TOOL_WARPER_OR_RENAMER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_WARPER_OR_RENAMER);
 	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_2_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_2_ROBOTON;
-	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) + ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
+	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) + ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_COMMENTER] + bonusTools[stateLib.TOOL_COMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_COMMENTER);
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_3 + " [" : "[";
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) + ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
+	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_3 + " [" : "[";
+	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) + ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
 
 	  }
 	  if (toolCounts[stateLib.TOOL_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CONTROL_FLOW] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CONTROL_FLOW);
 	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
-	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) + ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) + ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_HELPER] + bonusTools[stateLib.TOOL_HELPER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_HELPER);
-	    toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
-	    toolLabels[stateLib.TOOL_HELPER].GetComponent<GUIText>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) + ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
+	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
+	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) + ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
 	  }
 	}
 	//.................................>8.......................................
@@ -248,18 +257,18 @@ public class SelectedTool : MonoBehaviour
 			for (int i = 0 ; i < 5 ; i++) {
 				NextTool();
 			}
-			toolIcons[nToolCode].GetComponent<GUITexture>().enabled = false;
-			toolLabels[nToolCode].GetComponent<GUIText>().enabled = false;
+			toolIcons[nToolCode].GetComponent<Image>().enabled = false;
+			toolLabels[nToolCode].GetComponent<Text>().enabled = false;
 		}
 		if (lg.tasklist[nToolCode] == lg.taskscompleted[nToolCode] && !taskComplete[nToolCode]) {
             taskComplete[nToolCode] = true;
-            toolLabels[nToolCode].GetComponent<GUIText>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
+            toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
             NextTool();
-            outputtext.GetComponent<GUIText>().text = stringLib.INTERFACE_TASK_COMPLETE;
+            outputtext.GetComponent<Text>().text = stringLib.INTERFACE_TASK_COMPLETE;
             outputtext.GetComponent<AudioSource>().Play();
 		}
 		else if (lg.tasklist[nToolCode] != lg.taskscompleted[nToolCode]) {
-            toolLabels[nToolCode].GetComponent<GUIText>().color = lg.backgroundLightDark == false ? Color.white : Color.black;
+            toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == false ? Color.white : Color.black;
 		}
 	}
 

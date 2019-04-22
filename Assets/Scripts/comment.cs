@@ -13,6 +13,7 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI; 
 using System.Text.RegularExpressions;
 
 public class comment : MonoBehaviour {
@@ -289,7 +290,7 @@ public class comment : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating) {
 			Destroy(collidingObj.gameObject);
 			lg.toolsAirborne--;
-			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
+			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
 		}
 	}
 
@@ -298,7 +299,7 @@ public class comment : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !doneUpdating) {
 			Destroy(collidingObj.gameObject);
 			lg.toolsAirborne--;
-			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "There are errors with the selected code; \nfigure out what the mistake is, then \nuncomment the correct solution.";
+			ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "There are errors with the selected code; \nfigure out what the mistake is, then \nuncomment the correct solution.";
 		}
 	}
 
@@ -315,7 +316,7 @@ public class comment : MonoBehaviour {
 			// CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
 			// 																	  blocktext.Replace("/**/","") +
 			// 																	  " */" + stringLib.CLOSE_COLOR_TAG);
-			SidebarObject.GetComponent<GUIText>().text = errmsg;
+			SidebarObject.GetComponent<Text>().text = errmsg;
 			resetTime = Time.time + timeDelay;
 			resetting = true;
 

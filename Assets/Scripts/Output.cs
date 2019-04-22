@@ -9,6 +9,7 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Output : MonoBehaviour
@@ -31,7 +32,7 @@ public class Output : MonoBehaviour
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-		bool isText = outputtext.GetComponent<GUIText>().text != "";
+		bool isText = outputtext.GetComponent<Text>().text != "";
 		if (isText) {
 			anim.SetBool("Appearing", true);
 			anim.SetBool("Hiding", false);
@@ -41,7 +42,7 @@ public class Output : MonoBehaviour
 			anim.SetBool("Hiding", true);
 		}
 		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || lg.gamestate != stateLib.GAMESTATE_IN_GAME) {
-			outputtext.GetComponent<GUIText>().text = "";
+			outputtext.GetComponent<Text>().text = "";
 		}
 	}
 

@@ -10,6 +10,7 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -56,13 +57,13 @@ public class rename : MonoBehaviour {
 		if (answering) {
 			// Handle left and right arrows --[
 			if (selection == 0) {
-				SidebarObject.GetComponent<GUIText>().text = displaytext + "   " + options[selection] + " →";
+				SidebarObject.GetComponent<Text>().text = displaytext + "   " + options[selection] + " →";
 			}
 			else if (selection == options.Count-1) {
-				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection];
+				SidebarObject.GetComponent<Text>().text = displaytext + "← " + options[selection];
 			}
 			else {
-				SidebarObject.GetComponent<GUIText>().text = displaytext + "← " + options[selection] + " →";
+				SidebarObject.GetComponent<Text>().text = displaytext + "← " + options[selection] + " →";
 			}
 			// ]-- End of handling arrows
 
@@ -77,7 +78,7 @@ public class rename : MonoBehaviour {
 				answered = false;
 				answering = false;
 				lg.isAnswering = false;
-				SidebarObject.GetComponent<GUIText>().text = "";
+				SidebarObject.GetComponent<Text>().text = "";
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
@@ -86,7 +87,7 @@ public class rename : MonoBehaviour {
 				if (selection != options.IndexOf(correct)) {
 					// lg.isLosing = true;
 					answered = false;
-					ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
+					ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 				}
 				else {
 					// Award 1 extra use of the tool.
@@ -116,7 +117,7 @@ public class rename : MonoBehaviour {
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 					lg.DrawInnerXmlLinesToScreen();
 					
-					SidebarObject.GetComponent<GUIText>().text= "";
+					SidebarObject.GetComponent<Text>().text= "";
 					// Change the next groupid objects to the new colors
 				//	foreach(GameObject renames in lg.robotONrenamers) {
 				//		if (renames.GetComponent<rename>().groupid == (groupid+1)) {
@@ -157,7 +158,7 @@ public class rename : MonoBehaviour {
 		//if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered && lg.renamegroupidCounter == groupid) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered) {
 			Destroy(collidingObj.gameObject);
-			SidebarObject.GetComponent<GUIText>().text = displaytext;
+			SidebarObject.GetComponent<Text>().text = displaytext;
 			audioPrompt.Play();
 			answering = true;
 			lg.isAnswering = true;

@@ -13,6 +13,7 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI; 
 
 public class Breakpoint : MonoBehaviour {
 
@@ -53,7 +54,7 @@ public class Breakpoint : MonoBehaviour {
 			Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();
-			SidebarObject.GetComponent<GUIText>().text = values;
+			SidebarObject.GetComponent<Text>().text = values;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class l2sidebarvalues : MonoBehaviour
@@ -13,7 +14,7 @@ public class l2sidebarvalues : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				GetComponent<GUIText> ().text = "";
+				GetComponent<Text> ().text = "";
 		}
 	
 		// Update is called once per frame
@@ -23,15 +24,15 @@ public class l2sidebarvalues : MonoBehaviour
 				if (levelnum == 2) {
 						string test = currentTest.GetComponent<TextMesh> ().text;
 						if (test == "distanceValues") {
-								GetComponent<GUIText> ().text = text1.GetComponent<TextMesh> ().text;
+								GetComponent<Text> ().text = text1.GetComponent<TextMesh> ().text;
 						} else if (test == "powerValues") {
-								GetComponent<GUIText> ().text = text2.GetComponent<TextMesh> ().text;
+								GetComponent<Text> ().text = text2.GetComponent<TextMesh> ().text;
 						} else {
-								GetComponent<GUIText> ().text = text3.GetComponent<TextMesh> ().text;
+								GetComponent<Text> ().text = text3.GetComponent<TextMesh> ().text;
 						}
 						
 				} else {
-						GetComponent<GUIText> ().text = "";
+						GetComponent<Text> ().text = "";
 				}
 		}
 }
