@@ -13,6 +13,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
+using UnityEngine.UI; 
 using System;
 
 
@@ -45,6 +46,7 @@ public class question : MonoBehaviour {
 		lg = CodescreenObject.GetComponent<LevelGenerator>();
 		GetComponent<SpriteRenderer>().sprite = qSpriteOff;
 		expectedArray = expected.Split(new String[] {", ", ","}, StringSplitOptions.RemoveEmptyEntries);
+        SidebarObject = GameObject.Find("Output").transform.GetChild(1).gameObject; 
 	}
 
 	//.................................>8.......................................
@@ -64,7 +66,7 @@ public class question : MonoBehaviour {
 				lg.isAnswering = false;
 				input = "";
 				// Hide the pop-up window (Output.cs)
-				SidebarObject.GetComponent<GUIText>().text = "";
+				SidebarObject.GetComponent<Text>().text = "";
 			}
 			else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
@@ -103,28 +105,28 @@ public class question : MonoBehaviour {
 					bool correctAnswerIsIntegerValue = Int32.TryParse(expected, out expectedInteger);
 
 					if (correctAnswerIsBoolean) {
-						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "You should double check to make \nsure you have the right result; \nit is either 'true' or 'false', \nnothing else is possible.";
+						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You should double check to make \nsure you have the right result; \nit is either 'true' or 'false', \nnothing else is possible.";
 					}
 					else if (correctAnswerIsDecimal && lastAnswerIsDecimal) {
 						// Working with numbers
 						if (expectedValue < inputValue) {
-							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Looks like your answer is too high; \ndid you forget to subtract a value?";
+							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Looks like your answer is too high; \ndid you forget to subtract a value?";
 						}
 						else if (expectedValue > inputValue) {
-							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Your answer is too low; \nperhaps you missed an addition somewhere?";
+							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Your answer is too low; \nperhaps you missed an addition somewhere?";
 						}
 						else if (!lastAnswerIsIntegerValue && correctAnswerIsIntegerValue) {
-							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Remember that integer variables do \nnot have decimal points; \nthey are whole numbers.";
+							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Remember that integer variables do \nnot have decimal points; \nthey are whole numbers.";
 						}
 						else if (lastAnswerIsIntegerValue && !correctAnswerIsIntegerValue) {
-							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Remember that double variables have \ndecimal points; the number 5 would \nbe written as 5.0";
+							ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Remember that double variables have \ndecimal points; the number 5 would \nbe written as 5.0";
 						}
 					}
 					else if (correctAnswerIsDecimal) {
-						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "The answer should be a number value. \nTry again.";
+						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "The answer should be a number value. \nTry again.";
 					}
 					else {
-						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<GUIText>().text = "Try again. Make sure to check for spelling \nerrors and read the directions carefully.";
+						ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Try again. Make sure to check for spelling \nerrors and read the directions carefully.";
 					}
 				}
 				else {
@@ -159,12 +161,12 @@ public class question : MonoBehaviour {
 			}
 			else if (Input.GetKeyDown(KeyCode.Backspace) && input.Length-1 >= 0) {
 				input = input.Substring(0,input.Length-1);
-				SidebarObject.GetComponent<GUIText>().text = displaytext + input;
+				SidebarObject.GetComponent<Text>().text = displaytext + input;
 			}
 			else {
 				string inputString = Input.inputString;
 				input += inputString;
-				SidebarObject.GetComponent<GUIText>().text = displaytext + input;
+				SidebarObject.GetComponent<Text>().text = displaytext + input;
 			}
 		}
 	}
@@ -173,7 +175,7 @@ public class question : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
-			SidebarObject.GetComponent<GUIText>().text = displaytext;
+			SidebarObject.GetComponent<Text>().text = displaytext;
 			audioPrompt.Play();
 			answering = true;
 			lg.isAnswering = true;

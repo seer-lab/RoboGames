@@ -149,7 +149,7 @@ public partial class SelectedTool : MonoBehaviour
         }
         if (toolCounts[projectilecode] <= 0 && bonusTools[projectilecode] <= 0 && !lg.isAnswering && lg.toolsAirborne <= 0)
         {
-            NextToolNew();
+            NextTool();
         }
     }
     private void InitializeToolLabels()
@@ -198,7 +198,7 @@ public partial class SelectedTool : MonoBehaviour
             // Pressing Tab cycles to the next tool
             if (Input.GetKeyDown("tab") && projectilecode >= 0)
             {
-                NextToolNew();
+                NextTool();
             }
             HandleThrows();
         }
