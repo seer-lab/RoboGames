@@ -34,7 +34,7 @@ public partial class SelectedTool : MonoBehaviour
 	private bool noRemainingActivators = false;
 	private float lossDelay = 4f;
 	private float losstime;
-	private Color toolOnColor = new Color(.7f, .7f, .7f);
+	private Color toolOnColor = new Color(1,1,1);
 	private Color toolOffColor = new Color(.3f, .3f, .3f);
 	private LevelGenerator lg;
 	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
