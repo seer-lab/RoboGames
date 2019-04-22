@@ -1,1 +1,2 @@
 Tool, Location, Time
+projectileActivator(Clone)Wasted, 4, 43.88

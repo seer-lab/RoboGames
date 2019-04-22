@@ -11,6 +11,7 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 using System.IO;
 
@@ -53,7 +54,7 @@ public class warper : MonoBehaviour
 					if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] += tools[i];
 					if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] == 0 && ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] == 0) {
-						ToolSelectorObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<GUITexture>().enabled = false;
+						ToolSelectorObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<Image>().enabled = false;
 						if (ToolSelectorObject.GetComponent<SelectedTool>().projectilecode == i) ToolSelectorObject.GetComponent<SelectedTool>().NextTool();
 						}
 					}

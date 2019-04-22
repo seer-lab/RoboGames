@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class l5variables : MonoBehaviour {
@@ -14,10 +15,10 @@ public class l5variables : MonoBehaviour {
 	void Update () {
 		string lvl = level.GetComponent<TextMesh>().text;
 		if (lvl == "5") {
-			this.GetComponent<GUIText>().enabled = true;
+			this.GetComponent<Text>().enabled = true;
 		}
 		else{
-			this.GetComponent<GUIText>().enabled = false;
+			this.GetComponent<Text>().enabled = false;
 		}
 	}
 }

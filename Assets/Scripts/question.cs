@@ -46,7 +46,7 @@ public class question : MonoBehaviour {
 		lg = CodescreenObject.GetComponent<LevelGenerator>();
 		GetComponent<SpriteRenderer>().sprite = qSpriteOff;
 		expectedArray = expected.Split(new String[] {", ", ","}, StringSplitOptions.RemoveEmptyEntries);
-        SidebarObject = GameObject.Find("Output").transform.GetChild(1).gameObject; 
+        //SidebarObject = GameObject.Find("Output").transform.GetChild(1).gameObject; 
 	}
 
 	//.................................>8.......................................

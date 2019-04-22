@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class HUDText : MonoBehaviour {
@@ -12,7 +13,7 @@ public class HUDText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		GUIText gi = GetComponent<GUIText> ();
+        Text gi = GetComponent<Text> ();
 		TextMesh tm = level.GetComponent<TextMesh> ();
 		int levelnum = System.Convert.ToInt16(level.GetComponent<TextMesh> ().text);
 		if (levelnum > 0 && levelnum < 100) {

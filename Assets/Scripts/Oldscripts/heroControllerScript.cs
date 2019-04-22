@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class heroControllerScript : MonoBehaviour {
@@ -153,7 +154,7 @@ public class heroControllerScript : MonoBehaviour {
 		}
 
 		if (falseTime > Time.time) {
-						selectedtool.GetComponent<GUIText> ().text = "DISABLED FOR " + Mathf.Round (falseTime - Time.time) + " SECONDS.";
+						selectedtool.GetComponent<Text> ().text = "DISABLED FOR " + Mathf.Round (falseTime - Time.time) + " SECONDS.";
 				} else if (projectilecode == 0) {
 			projectilecode = 1;
 			projectileobject.GetComponent<TextMesh>().text = System.Convert.ToString(projectilecode);
@@ -286,7 +287,7 @@ public class heroControllerScript : MonoBehaviour {
 			quitting = true;
 		}
 		if (quitting) {
-						quitPrompt.GetComponent<GUIText> ().text = "Would you like to quit?\nPress Y to Quit\nPress N to return";
+						quitPrompt.GetComponent<Text> ().text = "Would you like to quit?\nPress Y to Quit\nPress N to return";
 						if (Input.GetKeyDown ("y")) {
 								Application.Quit ();
 						} else if (Input.GetKeyDown ("n")) {
@@ -294,7 +295,7 @@ public class heroControllerScript : MonoBehaviour {
 								
 						}
 				} else {
-			quitPrompt.GetComponent<GUIText> ().text = "";
+			quitPrompt.GetComponent<Text> ().text = "";
 				}
 	}
 

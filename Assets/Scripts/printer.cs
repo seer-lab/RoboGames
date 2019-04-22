@@ -10,6 +10,7 @@
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 using System.IO;
 
@@ -41,7 +42,7 @@ public class printer : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Logger.printLogFile(stringLib.LOG_PRINTED, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			SidebarObject.GetComponent<GUIText>().text = displaytext;
+			SidebarObject.GetComponent<Text>().text = displaytext;
 			GetComponent<AudioSource>().Play();
 			if (!toolgiven) {
 				toolgiven = true;

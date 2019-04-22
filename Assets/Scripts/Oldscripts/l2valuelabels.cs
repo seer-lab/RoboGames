@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class l2valuelabels : MonoBehaviour {
@@ -14,9 +15,9 @@ public class l2valuelabels : MonoBehaviour {
 	void Update () {
 		int levelnum = System.Convert.ToInt16(level.GetComponent<TextMesh> ().text);
 		if (levelnum == 2) {
-			this.GetComponent<GUIText>().enabled = true;
+			this.GetComponent<Text>().enabled = true;
 		} else {
-			this.GetComponent<GUIText>().enabled = false;
+			this.GetComponent<Text>().enabled = false;
 		}
 	}
 }

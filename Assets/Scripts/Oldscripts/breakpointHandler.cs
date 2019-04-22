@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; 
 using System.Collections;
 
 public class breakpointHandler : MonoBehaviour {
@@ -88,15 +89,15 @@ public class breakpointHandler : MonoBehaviour {
 				col1num = 0;
 				col2num = 15;
 				stepnum = 0;
-				debugtexts[0].GetComponent<GUIText>().text = "x1 = ";
-				debugtexts[1].GetComponent<GUIText>().text = "y1 = ";
-				debugtexts[2].GetComponent<GUIText>().text = "z1 = ";
-				debugtexts[3].GetComponent<GUIText>().text = "x2 = ";
-				debugtexts[4].GetComponent<GUIText>().text = "y2 = ";
-				debugtexts[5].GetComponent<GUIText>().text = "z2 = ";
-				debugtexts[6].GetComponent<GUIText>().text = "closer.name = \"\"";
-				debugtexts[7].GetComponent<GUIText>().text = "object1.name = \"\"";
-				debugtexts[8].GetComponent<GUIText>().text = "object2.name = \"\"";
+				debugtexts[0].GetComponent<Text>().text = "x1 = ";
+				debugtexts[1].GetComponent<Text>().text = "y1 = ";
+				debugtexts[2].GetComponent<Text>().text = "z1 = ";
+				debugtexts[3].GetComponent<Text>().text = "x2 = ";
+				debugtexts[4].GetComponent<Text>().text = "y2 = ";
+				debugtexts[5].GetComponent<Text>().text = "z2 = ";
+				debugtexts[6].GetComponent<Text>().text = "closer.name = \"\"";
+				debugtexts[7].GetComponent<Text>().text = "object1.name = \"\"";
+				debugtexts[8].GetComponent<Text>().text = "object2.name = \"\"";
 			}
 			stop = false;
 		}
@@ -105,47 +106,47 @@ public class breakpointHandler : MonoBehaviour {
 			col1num = 0;
 			col2num = 15;
 			stepnum = 0;
-			debugtexts[0].GetComponent<GUIText>().text = "x1 = ";
-			debugtexts[1].GetComponent<GUIText>().text = "y1 = ";
-			debugtexts[2].GetComponent<GUIText>().text = "z1 = ";
-			debugtexts[3].GetComponent<GUIText>().text = "x2 = ";
-			debugtexts[4].GetComponent<GUIText>().text = "y2 = ";
-			debugtexts[5].GetComponent<GUIText>().text = "z2 = ";
-			debugtexts[6].GetComponent<GUIText>().text = "closer.name = \"\"";
-			debugtexts[7].GetComponent<GUIText>().text = "object1.name = \"\"";
-			debugtexts[8].GetComponent<GUIText>().text = "object2.name = \"\"";
+			debugtexts[0].GetComponent<Text>().text = "x1 = ";
+			debugtexts[1].GetComponent<Text>().text = "y1 = ";
+			debugtexts[2].GetComponent<Text>().text = "z1 = ";
+			debugtexts[3].GetComponent<Text>().text = "x2 = ";
+			debugtexts[4].GetComponent<Text>().text = "y2 = ";
+			debugtexts[5].GetComponent<Text>().text = "z2 = ";
+			debugtexts[6].GetComponent<Text>().text = "closer.name = \"\"";
+			debugtexts[7].GetComponent<Text>().text = "object1.name = \"\"";
+			debugtexts[8].GetComponent<Text>().text = "object2.name = \"\"";
 		}
 	}
 	void step(){
 		switch (stepnum) {
 		case 0:
 			col1 = colors[col1num].Split(',');
-			debugtexts[7].GetComponent<GUIText>().text = "object1.name = \n" + col1[0];
+			debugtexts[7].GetComponent<Text>().text = "object1.name = \n" + col1[0];
 			break;
 		case 1:
-			debugtexts[0].GetComponent<GUIText>().text = "x1 = " + col1[1];
+			debugtexts[0].GetComponent<Text>().text = "x1 = " + col1[1];
 			break;
 		case 2:
-			debugtexts[1].GetComponent<GUIText>().text = "y1 = " + col1[2];
+			debugtexts[1].GetComponent<Text>().text = "y1 = " + col1[2];
 			break;
 		case 3:
-			debugtexts[2].GetComponent<GUIText>().text = "z1 = " + col1[3];
+			debugtexts[2].GetComponent<Text>().text = "z1 = " + col1[3];
 			break;
 		case 4:
 			col2 = colors[col2num].Split(',');
-			debugtexts[8].GetComponent<GUIText>().text = "object2.name = \n" + col2[0];
+			debugtexts[8].GetComponent<Text>().text = "object2.name = \n" + col2[0];
 			break;
 		case 5:
-			debugtexts[3].GetComponent<GUIText>().text = "x2 = " + col2[1];
+			debugtexts[3].GetComponent<Text>().text = "x2 = " + col2[1];
 			break;
 		case 6:
-			debugtexts[4].GetComponent<GUIText>().text = "y2 = " + col2[2];
+			debugtexts[4].GetComponent<Text>().text = "y2 = " + col2[2];
 			break;
 		case 7:
-			debugtexts[5].GetComponent<GUIText>().text = "z2 = " + col2[3];
+			debugtexts[5].GetComponent<Text>().text = "z2 = " + col2[3];
 			break;
 		case 8:
-			debugtexts[6].GetComponent<GUIText>().text = "closer.name = \n" + closer(col1,col2);
+			debugtexts[6].GetComponent<Text>().text = "closer.name = \n" + closer(col1,col2);
 			break;
 		}
 	}
