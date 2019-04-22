@@ -1392,6 +1392,7 @@ foreach(GameObject varcolor in robotONvariablecolors) {
 //************************************************************************//
 public void ToggleLightDark() {
 	if (backgroundLightDark == false) {
+            Debug.Log("Turning Light"); 
 		backgroundLightDark = true;
 		backgroundImage.GetComponent<Image>().sprite 		= lightBackground;
 		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;

@@ -1,1 +1,3 @@
 Tool, Location, Time
+projectileActivator(Clone)Wasted, 3, 37.86
+projectileComment(Clone)Wasted, 3, 64.62
