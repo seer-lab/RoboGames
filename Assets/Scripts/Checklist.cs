@@ -31,7 +31,7 @@ public class Checklist : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && lg.gamemode == stringLib.GAME_MODE_ON) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && GlobalState.GameMode == stringLib.GAME_MODE_ON) {
 			GetComponent<Text>().text = "Tooltip:";
 			projectilecode = selectedTool.GetComponent<SelectedTool>().projectilecode;
 			// Activate

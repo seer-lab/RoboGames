@@ -59,7 +59,7 @@ public class warper : MonoBehaviour
 						}
 					}
 				}
-		lg.BuildLevel(lg.gamemode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, warpToLine);
+		lg.BuildLevel(GlobalState.GameMode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, warpToLine);
 		}
 	}
 	//.................................>8.......................................

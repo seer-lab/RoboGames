@@ -109,7 +109,7 @@ public class SelectedTool : MonoBehaviour
                 }
             }
             // RoboBUG: If we are out of activators, we've failed the game.
-            if (projectilecode == 0 && toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] == 0 && lg.gamemode == stringLib.GAME_MODE_BUG)
+            if (projectilecode == 0 && toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] == 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
             {
                 noRemainingActivators = true;
                 losstime = Time.time + lossDelay;
@@ -190,11 +190,11 @@ public class SelectedTool : MonoBehaviour
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
-        if (lg.gamestate >= stateLib.GAMESTATE_LEVEL_START)
+        if (GlobalState.GameState >= stateLib.GAMESTATE_LEVEL_START)
         {
             Initialize();
         }
-        if (lg.gamestate == stateLib.GAMESTATE_IN_GAME)
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             SetDisplayText();
             CheckLosing();
@@ -260,19 +260,19 @@ public class SelectedTool : MonoBehaviour
 	public void refreshToolList() {
 	  if (toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] + bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CATCHER_OR_ACTIVATOR);
-	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;
+	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;
 	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) + ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] + bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_PRINTER_OR_QUESTION);
-	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_1_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_1_ROBOTON;
+	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_1_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_1_ROBOTON;
 	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) + ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] + bonusTools[stateLib.TOOL_WARPER_OR_RENAMER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_WARPER_OR_RENAMER);
-	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_2_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_2_ROBOTON;
+	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_2_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_2_ROBOTON;
 	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) + ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
 	  }
@@ -284,7 +284,7 @@ public class SelectedTool : MonoBehaviour
 	  }
 	  if (toolCounts[stateLib.TOOL_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CONTROL_FLOW] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CONTROL_FLOW);
-	    displayString = (lg.gamemode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
+	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
 	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) + ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
 	  }

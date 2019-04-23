@@ -12,6 +12,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 using System.IO;
 
@@ -23,15 +24,15 @@ public class Menu : MonoBehaviour
 	public List<string> passed;
 	public GameObject codescreen;
 	public GameObject cinematic;
-	public GameObject[] buttons = new GameObject[5];
-	public GameObject[] buttontext = new GameObject[5];
+	private GameObject[] buttons = new GameObject[5];
+    private MenuButton[] menuButtons = new MenuButton[5]; 
+	private Text[] buttontext = new Text[5];
 	public GameObject[] m2buttons = new GameObject[2];
 	public GameObject[] m2buttontext = new GameObject[2];
 	public GameObject[] m2arrows = new GameObject[2];
 	public GameObject menu2;
-	public Sprite bluebutton;
-	public Sprite greenbutton;
 
+    private Submenu submenu; 
 
 	private bool soundon = true;
 	private float delaytime = 0f;
@@ -39,7 +40,6 @@ public class Menu : MonoBehaviour
 	private int option = 0;
 	private int levoption = 0;
 	private string lfile;
-	private LevelGenerator lg;
 	private StreamReader sr;
     private string windowsFilepath = @"\";
     private string unixFilepath = @"/";
@@ -47,149 +47,158 @@ public class Menu : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
-		buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
-		buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";
-		buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
-		buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
-		buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-		lg = codescreen.GetComponent<LevelGenerator>();
-		m2switch(false);
+        LoadButtons();
+        menuButtons[stateLib.GAMEMENU_NEW_GAME].LoadText("New Game");
+        menuButtons[stateLib.GAMEMENU_LOAD_GAME].LoadText("Load Game");
+        menuButtons[stateLib.GAMEMENU_SOUND_OPTIONS].LoadText("Sound Options");
+        menuButtons[stateLib.GAMEMENU_EXIT_GAME].LoadText("Exit Game");
+        menuButtons[stateLib.GAMEMENU_RESUME_GAME].LoadText("Resume Game");
+        menuButtons[stateLib.GAMEMENU_RESUME_GAME].ToggleInactive(); 
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 	}
+    public void HandleClick(int index)
+    {
 
+    }
+    private void LoadButtons()
+    {
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i] = this.transform.GetChild(i + 1).gameObject;
+            buttontext[i] = buttons[i].transform.GetChild(0).GetComponent<Text>();
+            menuButtons[i] = buttons[i].GetComponent<MenuButton>(); 
+        }
+        submenu = this.transform.GetChild(buttons.Length + 1).GetComponent<Submenu>(); 
+    }
+    private void HandleResumeGame()
+    {
+        // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
+        if (!gameon)
+        {
+            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<Image>().color = Color.grey;
+        }
+        else
+        {
+            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<Image>().color = Color.white;
+        }
+    }
+    private void HandleArrowInput()
+    {
+        // If we are in the menu, handle up and down arrows --[
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            // The previous button should be made blue (change from green to blue).
+            // If we are on the first option (New Game), don't allow the up arrow to wrap-around.
+            menuButtons[option].ToggleBlue();
+            option = (option == stateLib.GAMEMENU_NEW_GAME) ? stateLib.GAMEMENU_NEW_GAME : option - 1;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            // The previous button should be made blue (change from green to blue).
+            // The last option will be either Resume Game or Exit game. In either case, don't allow the down arrow to wrap-around.
+            menuButtons[option].ToggleBlue();
+            if (gameon)
+            {
+                option = (option == stateLib.GAMEMENU_RESUME_GAME) ? stateLib.GAMEMENU_RESUME_GAME : option + 1;
+            }
+            else
+            {
+                option = (option == stateLib.GAMEMENU_EXIT_GAME) ? stateLib.GAMEMENU_EXIT_GAME : option + 1;
+            }
+        }
+    }
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-		// Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
-		if (!gameon) {
-			buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-		}
-		else {
-			buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
-		}
-		// ]-- End of "Resume Game" button behavior.
-		// If we are in the menu, handle up and down arrows --[
-		if (lg.gamestate == stateLib.GAMESTATE_MENU) {
-			if (Input.GetKeyDown(KeyCode.UpArrow)) {
-				// The previous button should be made blue (change from green to blue).
-				// If we are on the first option (New Game), don't allow the up arrow to wrap-around.
-				buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-				option = (option == stateLib.GAMEMENU_NEW_GAME) ? stateLib.GAMEMENU_NEW_GAME : option - 1;
-			}
-			if (Input.GetKeyDown(KeyCode.DownArrow)) {
-				// The previous button should be made blue (change from green to blue).
-				// The last option will be either Resume Game or Exit game. In either case, don't allow the down arrow to wrap-around.
-				buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-				if (gameon) {
-					option = (option == stateLib.GAMEMENU_RESUME_GAME) ? stateLib.GAMEMENU_RESUME_GAME : option + 1;
-				}
-				else {
-					option = (option == stateLib.GAMEMENU_EXIT_GAME) ? stateLib.GAMEMENU_EXIT_GAME : option + 1;
-				}
-			}
-			if (Input.GetKeyDown(KeyCode.Z)) {
-				lg.ToggleLightDark();
-			}
-			// ]-- End of Arrow controller.
+        HandleResumeGame();
+        HandleArrowInput(); 
 
-			// Make the current button appear green. The previous buttons change to blue
-			// because there is an Up or Down arrow event. This will fire outside of the event.
-			buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+		// Make the current button appear green. The previous buttons change to blue
+		// because there is an Up or Down arrow event. This will fire outside of the event.
+		menuButtons[option].ToggleGreen();
 
-			// When we press Return (Enter Key), take us to the sub-menus
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
-				switch(option) {
-					case stateLib.GAMEMENU_NEW_GAME:
-					// Select between RobotON or RoboBUG.
-					lg.gamestate = -3;
-					buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-					option = 0;
-					m2switch(true);
-					m2buttontext[0].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_ON;
-					m2buttontext[1].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_BUG;
-					break;
-					case stateLib.GAMEMENU_LOAD_GAME:
-					// Load a level from RobotON or RoboBUG.
-					lg.gamestate = -4;
-					buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-					option = 0;
-					m2switch(true);
-					m2buttontext[0].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_ON;
-					m2buttontext[1].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_BUG;
-					break;
-					case stateLib.GAMEMENU_SOUND_OPTIONS:
-					lg.gamestate = -2;
-					buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-					option = 0;
-					m2switch(true);
-					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " +(soundon ? lg.stringLibrary.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : lg.stringLibrary.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
-					m2buttontext[1].GetComponent<TextMesh>().text = "Back";
-					break;
-					case stateLib.GAMEMENU_EXIT_GAME:
-					postToDatabase.Start();
-					Application.Quit();
-					break;
-					case stateLib.GAMEMENU_RESUME_GAME:
-					lg.gamestate = stateLib.GAMESTATE_IN_GAME;
-					buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-					lg.GUISwitch(true);
-					break;
-					default:
-					break;
+		// When we press Return (Enter Key), take us to the sub-menus
+		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
+            switch (option) {
+                case stateLib.GAMEMENU_NEW_GAME:
+                    // Select between RobotON or RoboBUG.
+                    menuButtons[option].ToggleBlue();
+                    option = 0;            
+                    string[] values = { stringLib.GAME_ROBOT_ON, stringLib.GAME_ROBOT_BUG };
+                    submenu.ParentPosition = buttons[0].transform.position; 
+                    submenu.LoadButtons(values);
+                    break;
+                case stateLib.GAMEMENU_LOAD_GAME:
+                    // Load a level from RobotON or RoboBUG.
+                    menuButtons[option].ToggleBlue();
+                    option = 0;
+                    string[] arr = { stringLib.GAME_ROBOT_ON, stringLib.GAME_ROBOT_BUG };
+                    submenu.ParentPosition = buttons[0].transform.position; 
+                    submenu.LoadButtons(arr);
+                    break;
+                case stateLib.GAMEMENU_SOUND_OPTIONS:
+                    menuButtons[option].ToggleBlue();
+                    option = 0;
+                    string[] v = { "Sound: " + (soundon ? "ON" + stringLib.CLOSE_COLOR_TAG : "OFF" + stringLib.CLOSE_COLOR_TAG) };
+                    submenu.LoadButtons(v); 
+				    break;
+				case stateLib.GAMEMENU_EXIT_GAME:
+				    postToDatabase.Start();
+				    Application.Quit();
+				    break;
+				case stateLib.GAMEMENU_RESUME_GAME:
+				    menuButtons[option].ToggleBlue();
+				    break;
+				    default:
+				    break;
 				}
 			}
-		}
-		else if (Input.GetKeyDown(KeyCode.Escape) && lg.gamestate < 0 && !lg.isAnswering) {
+		else if (Input.GetKeyDown(KeyCode.Escape)) {
 			m2switch(false);
 			flushButtonColor();
-			lg.gamestate = stateLib.GAMESTATE_MENU;
 		}
-		else if (lg.gamestate == stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU) {
+		else if (false) {
 			if (levoption < levels.Count - 1 && passed[levoption] == "1") {
-				m2arrows[1].GetComponent<SpriteRenderer>().enabled = true;
+				m2arrows[1].GetComponent<Image>().enabled = true;
 			}
 			else {
-				m2arrows[1].GetComponent<SpriteRenderer>().enabled = false;
+				m2arrows[1].GetComponent<Image>().enabled = false;
 			}
 			if (levoption != 0) {
-				m2arrows[0].GetComponent<SpriteRenderer>().enabled = true;
+				m2arrows[0].GetComponent<Image>().enabled = true;
 			}
 			else {
-				m2arrows[0].GetComponent<SpriteRenderer>().enabled = false;
+				m2arrows[0].GetComponent<Image>().enabled = false;
 			}
-			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+			//m2buttons[option].GetComponent<Image>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
-				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 				option = 0;
 			}
 			if (Input.GetKeyDown(KeyCode.DownArrow)) {
-				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[0].GetComponent<Image>().sprite = bluebutton;
 				option = 1;
 			}
 			if (Input.GetKeyDown(KeyCode.RightArrow)) {
 				if (levoption < levels.Count - 1 && passed[levoption] == "1") {
 					levoption++;
 				}
-				m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+				m2buttontext[0].GetComponent<Text>().text = levels[levoption];
 			}
 			if (Input.GetKeyDown(KeyCode.LeftArrow)) {
 				levoption = (levoption == 0) ? 0 : levoption - 1;
-				m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+				m2buttontext[0].GetComponent<Text>().text = levels[levoption];
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
-					lg.BuildLevel(lg.gamemode + "leveldata" + filepath + levels[levoption], false);
-					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
 					levoption = 0;
 					gameon = true;
-					buttons[4].GetComponent<SpriteRenderer>().color = Color.white;
+					buttons[4].GetComponent<Image>().color = Color.white;
 					m2switch(false);
 					break;
 					case 1:
-					lg.gamestate = stateLib.GAMESTATE_MENU;
-					m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+					//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 
 					m2switch(false);
 					break;
@@ -200,53 +209,48 @@ public class Menu : MonoBehaviour
 
 		}
 		//
-		else if (lg.gamestate == stateLib.GAMESTATE_MENU_SOUNDOPTIONS) {
-			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+		else if (false) {
+			//m2buttons[option].GetComponent<Image>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
-				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 				option = 0;
 			}
 			if (Input.GetKeyDown(KeyCode.DownArrow)) {
-				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[0].GetComponent<Image>().sprite = bluebutton;
 				option = 1;
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
 					soundon = !soundon;
-					m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + ((soundon) ? lg.stringLibrary.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : lg.stringLibrary.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
+					//m2buttontext[0].GetComponent<Text>().text = "Sound: " + ((soundon) ? lg.stringLibrary.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : lg.stringLibrary.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
 					AudioListener.volume = (soundon) ? 1 : 0;
 					break;
 					case 1:
-					lg.gamestate = stateLib.GAMESTATE_MENU;
-					m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+					//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 					m2switch(false);
 					option = 2;
 					break;
 				}
 			}
 		}
-		else if (lg.gamestate == stateLib.GAMESTATE_MENU_NEWGAME) {
-			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+		else if (false) {
+			//m2buttons[option].GetComponent<Image>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
-				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
 				option = 0;
 			}
 			if (Input.GetKeyDown(KeyCode.DownArrow)) {
-				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
 				option = 1;
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
-					lg.gamemode = stringLib.GAME_MODE_ON;
-					lg.BuildLevel("onleveldata" + filepath + stringLib.START_LEVEL_FILE, false);
-					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
+
 					break;
 					case 1:
-					lg.gamemode = stringLib.GAME_MODE_ON;
-					lg.BuildLevel("onleveldata" + filepath + stringLib.START_LEVEL_FILE, false);
-					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
+
 					/*
 					lg.gamemode = stringLib.GAME_MODE_BUG;
 					lg.BuildLevel("bugleveldata" + filepath + "tut1.xml");
@@ -256,33 +260,31 @@ public class Menu : MonoBehaviour
 				}
 				m2switch(false);
 				gameon = true;
-				buttons[4].GetComponent<SpriteRenderer>().color = Color.white;
+				buttons[4].GetComponent<Image>().color = Color.white;
 
 			}
 		}
-		else if (lg.gamestate == stateLib.GAMESTATE_MENU_LOADGAME) {
-			m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+		else if (true) {
+			//m2buttons[option].GetComponent<Image>().sprite = greenbutton;
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
-				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 				option = 0;
 			}
 			if (Input.GetKeyDown(KeyCode.DownArrow)) {
-				m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
+				//m2buttons[0].GetComponent<Image>().sprite = bluebutton;
 				option = 1;
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				switch(option) {
 					case 0:
-					lg.gamemode = stringLib.GAME_MODE_ON;
 					break;
 					case 1:
-					lg.gamemode = stringLib.GAME_MODE_BUG;
 					break;
 				}
 
 				levels.Clear();
 				passed.Clear();
-				lfile = lg.gamemode + "leveldata" + filepath + "levels.txt";
+				lfile = "leveldata" + filepath + "levels.txt";
 				sr = File.OpenText(lfile);
 				string line;
 				while((line = sr.ReadLine()) != null) {
@@ -291,12 +293,10 @@ public class Menu : MonoBehaviour
 					passed.Add(data[1]);
 				}
 				sr.Close();
-
-				lg.gamestate = -1;
 				option = 0;
-				m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-				m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
-				m2buttontext[1].GetComponent<TextMesh>().text = "Back";
+				//m2buttons[1].GetComponent<Image>().sprite = bluebutton;
+				m2buttontext[0].GetComponent<Text>().text = levels[levoption];
+				m2buttontext[1].GetComponent<Text>().text = "Back";
 			}
 		}
 		else {
@@ -308,7 +308,7 @@ public class Menu : MonoBehaviour
 	public void saveGame(string currentlevel) {
 		levels.Clear();
 		passed.Clear();
-		lfile = lg.gamemode + "leveldata" + filepath + "levels.txt";
+		//lfile = lg.gamemode + "leveldata" + filepath + "levels.txt";
 
 		sr = File.OpenText(lfile);
 		string line;
@@ -319,7 +319,7 @@ public class Menu : MonoBehaviour
 		}
 		sr.Close();
 		passed[levels.IndexOf(currentlevel)] = "1";
-		StreamWriter sw = File.CreateText(lg.gamemode + "leveldata" + filepath + "levels.txt");
+		StreamWriter sw = File.CreateText("leveldata" + filepath + "levels.txt");
 		for (int i = 0; i < levels.Count; i++) {
 			sw.WriteLine(levels[i] + " " + passed[i]);
 		}
@@ -335,21 +335,21 @@ public class Menu : MonoBehaviour
 	//************************************************************************//
 	private void m2switch(bool on) {
 		if (on) {
-			menu2.GetComponent<SpriteRenderer>().enabled = true;
+			menu2.GetComponent<Image>().enabled = true;
 			foreach(GameObject button in m2buttons) {
-				button.GetComponent<SpriteRenderer>().enabled = true;
+				button.GetComponent<Image>().enabled = true;
 			}
 		}
 		else {
-			menu2.GetComponent<SpriteRenderer>().enabled = false;
+			menu2.GetComponent<Image>().enabled = false;
 			foreach(GameObject button in m2buttons) {
-				button.GetComponent<SpriteRenderer>().enabled = false;
+				button.GetComponent<Image>().enabled = false;
 			}
 			foreach(GameObject btext in m2buttontext) {
-				btext.GetComponent<TextMesh>().text = "";
+				btext.GetComponent<Text>().text = "";
 			}
 			foreach(GameObject arrow in m2arrows) {
-				arrow.GetComponent<SpriteRenderer>().enabled = false;
+				arrow.GetComponent<Image>().enabled = false;
 			}
 		}
 	}
@@ -361,9 +361,11 @@ public class Menu : MonoBehaviour
 	// to the New Game option. Basically, reset the menu.
 	//************************************************************************//
 	public void flushButtonColor() {
-		m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
-		m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+        /*
+		m2buttons[0].GetComponent<Image>().sprite = bluebutton;
+		m2buttons[1].GetComponent<Image>().sprite = bluebutton;
 		option = 0;
-		buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
+		buttons[option].GetComponent<Image>().sprite = greenbutton;
+        */
 	}
 }

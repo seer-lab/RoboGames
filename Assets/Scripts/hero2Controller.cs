@@ -52,7 +52,7 @@ public class hero2Controller : MonoBehaviour
 
 	//.................................>8.......................................
 	void FixedUpdate() {
-		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.isLosing && !lg.isAnswering) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && !lg.isLosing && !lg.isAnswering) {
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
@@ -128,7 +128,7 @@ public class hero2Controller : MonoBehaviour
 
 	//.................................>8.......................................
 	void Update() {
-		if (codescreen.GetComponent<LevelGenerator>().gamestate == stateLib.GAMESTATE_IN_GAME) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
 			AudioSource ad = GetComponent<AudioSource>();
 			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
 			GetComponent<Rigidbody2D>().velocity.y == 0 &&

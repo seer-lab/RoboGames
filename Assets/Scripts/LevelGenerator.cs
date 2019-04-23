@@ -5,10 +5,11 @@ using System.Collections;
 using System.IO;
 using System.Text;
 using System.Xml;
+using UnityEngine.SceneManagement; 
 using System.Text.RegularExpressions;
 using System;
 
-public class LevelGenerator : MonoBehaviour {
+public partial class LevelGenerator : MonoBehaviour {
 	public stringLib stringLibrary = new stringLib();
 	public TextColoration textColoration = new TextColoration();
 	// A state-transition variable. When this becomes true, when Update() is called it will trigger a Game Over state.
@@ -24,8 +25,7 @@ public class LevelGenerator : MonoBehaviour {
 	public int numberOfBugsRemaining = 0;
 	// Number of in-flight wrenches/shurikens.
 	public int toolsAirborne = 0;
-	// Refer to stateLib for distinct gamestates
-	public int gamestate;
+
 	// Contains the remaining tasks the player must complete before winning the level.
 	public int[] tasklist = new int[5];
 	// Contains the completed tasks of the player.
@@ -40,9 +40,7 @@ public class LevelGenerator : MonoBehaviour {
 	// The filename of the next XML file to read from.
 	public string nextlevel = "";
 	// The current level, contains the filename of the XML loaded.
-	public string currentlevel = "level0.xml";
 	// Game Mode is either "on" or "bug", for RobotON or RoboBUG respectively. This is defined in stringLib.
-	public string gamemode;
 	public string language;
 	// Stores the audio clips used in the game.
 	public AudioClip[] sounds = new AudioClip[10];
@@ -78,14 +76,8 @@ public class LevelGenerator : MonoBehaviour {
 	public Sprite darkBackground;
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
-	public Sprite panel2;
-	public Sprite panel3;
-	public Sprite panel4;
-	public Sprite panel6;
-	public Sprite panel5;
-	public Sprite panel7;
-	public Sprite panel8;
-	public Sprite panel9;
+
+	private Sprite[] panels = new Sprite[8]; 
 	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
 	public GameObject selectedtool;
 	public GameObject sidebarpanel;
@@ -94,7 +86,6 @@ public class LevelGenerator : MonoBehaviour {
 	public GameObject cinematic;
 	public GameObject cinematicEnter;
 	public GameObject cinematicVoidMain;
-	public GameObject menu;
 	public GameObject menuSubmenu;
 	public GameObject menuTitle;
 	public GameObject credits;
@@ -147,11 +138,12 @@ public class LevelGenerator : MonoBehaviour {
 	public List<GameObject> roboBUGprizes;
 	// Stores the robotONbeacons used in this level.
 	public List<GameObject> robotONbeacons;
-
+    LevelManager manager; 
 	//.................................>8.......................................
 	// Use this for initialization
 	private void Start() {
-		gamemode 					 = stringLib.GAME_MODE_BUG;
+		LoadPanels(); 
+		GlobalState.GameMode 					 = stringLib.GAME_MODE_ON;
 		losstime 					 = 0;
 		lines 						 = new List<GameObject>();
 		prints 					 	 = new List<GameObject>();
@@ -169,7 +161,7 @@ public class LevelGenerator : MonoBehaviour {
 		robotONcorrectComments 		 = new List<GameObject>();
 		robotONquestions 			 = new List<GameObject>();
 		isLosing 					 = false;
-		gamestate 					 = stateLib.GAMESTATE_MENU;
+		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
 		for (int i = 0; i < 5; i++) {
 			tasklist[i] = 0;
 			taskscompleted[i] = 0;
@@ -177,11 +169,12 @@ public class LevelGenerator : MonoBehaviour {
 		GUISwitch(false);
 		isTimerAlarmTriggered = false;
 		winning = false;
+        manager = new LevelManager(); 
 	}
 
  // This is called every draw call in game.
 	private void Update() {
-		if (gamestate == stateLib.GAMESTATE_IN_GAME)
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
 			// Running out of time. --[
 			if (endTime - startTime >= 9000) {
@@ -233,7 +226,7 @@ public class LevelGenerator : MonoBehaviour {
 
 			// Win condition check for RobotON, this is necessary because the win condition is a checklist
 			// and the checklist can be completed in any order --[
-			if (gamemode == stringLib.GAME_MODE_ON) {
+			if (GlobalState.GameMode == stringLib.GAME_MODE_ON) {
 				winning = true;
 				for (int i = 0; i < 5; i++) {
 					if (tasklist[i] != taskscompleted[i]) {
@@ -264,15 +257,15 @@ public class LevelGenerator : MonoBehaviour {
 				else if (Time.time > startNextLevelTimeDelay) {
 					winning = false;
 					startNextLevelTimeDelay = 0f;
-					if (nextlevel != gamemode + "leveldata" + menu.GetComponent<Menu>().filepath) {
+					if (nextlevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath) {
 						// Destroy the bugs in this level and go to win screen.
 						foreach (GameObject bug in bugs) {
 							Destroy(bug);
 						}
 						GUISwitch(false);
-						print("Savegame (currentlevel): " + currentlevel);
-						menu.GetComponent<Menu>().saveGame(currentlevel);
-						gamestate = stateLib.GAMESTATE_LEVEL_WIN;
+						print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
+                        manager.SaveGame(); 
+					    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
 					}
 					else {
 						// Credits
@@ -289,8 +282,8 @@ public class LevelGenerator : MonoBehaviour {
 			// ]--
 			// Handle menu toggle (Escape key pressed) --[
 			if (Input.GetKeyDown(KeyCode.Escape) && !isAnswering) {
-				gamestate = stateLib.GAMESTATE_MENU;
-				menu.GetComponent<Menu>().flushButtonColor();
+				GlobalState.GameState = stateLib.GAMESTATE_MENU;
+                SceneManager.LoadScene("MainMenu"); 
 				GUISwitch(false);
 			}
 			// ]--
@@ -380,7 +373,7 @@ public class LevelGenerator : MonoBehaviour {
 		else {
 			ProvisionToolsFromXml(doc);
 			selectedtool.GetComponent<SelectedTool>().NextTool();
-			currentlevel = filename.Substring(filename.IndexOf(menu.GetComponent<Menu>().filepath) + 1);
+			GlobalState.CurrentONLevel = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
 			// time
 			startTime = Time.time;
 			string sReadTime = XMLReader.GetTimeLimit(doc);
@@ -388,7 +381,7 @@ public class LevelGenerator : MonoBehaviour {
 			endTime = (float)int.Parse(sReadTime) + startTime;
 			remainingTime = (float)int.Parse(sReadTime);
 			// next level
-			nextlevel = gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + XMLReader.GetNextLevel(doc);
+			nextlevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
 			// intro text
 			cinematic.GetComponent<Cinematic>().introtext = XMLReader.GetIntroText(doc);
 			// end text
@@ -830,7 +823,7 @@ public class LevelGenerator : MonoBehaviour {
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
 				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.Menu = menu;
+				//propertyHandler.Menu = menu;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
@@ -1234,8 +1227,8 @@ public class LevelGenerator : MonoBehaviour {
 	//************************************************************************//
 	public void GameOver() {
 		GUISwitch(false);
-		menu.GetComponent<Menu>().gameon = false;
-		gamestate = stateLib.GAMESTATE_LEVEL_LOSE;
+        GlobalState.IsPlaying = false; 
+		GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
 	}
 
 	//.................................>8.......................................
@@ -1247,9 +1240,9 @@ public class LevelGenerator : MonoBehaviour {
 	//************************************************************************//
 	public void Victory() {
 		GUISwitch(false);
-		menu.GetComponent<Menu>().gameon = false;
-		currentlevel = "level5";
-		gamestate = stateLib.GAMESTATE_GAME_END;
+		GlobalState.IsPlaying = false;
+		GlobalState.CurrentONLevel = "level5";
+		GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
 	}
 
 	//.................................>8.......................................
@@ -1398,7 +1391,7 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
 		sidebartimer.GetComponent<Text>().color 				= Color.black;
-		sidebarpanel.GetComponent<Image>().sprite 		= panel6;
+            sidebarpanel.GetComponent<Image>().sprite = panels[4] ;
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
 		sidebaroutput.GetComponent<Text>().color 			= Color.black;
@@ -1413,9 +1406,9 @@ public void ToggleLightDark() {
 		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
 		toolprompt.GetComponent<TextMesh>().color				= Color.black;
-		outputpanel.GetComponent<Image>().sprite			= panel7;
-		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panel8;
-		menu.GetComponent<SpriteRenderer>().sprite				= panel9;
+		outputpanel.GetComponent<Image>().sprite			= panels[5];
+		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panels[6];
+		//menu.GetComponent<SpriteRenderer>().sprite				= panels[7];
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
 		}
@@ -1488,7 +1481,7 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		sidebartimer.GetComponent<Text>().color 				= Color.white;
-		sidebarpanel.GetComponent<Image>().sprite 		= panel3;
+		sidebarpanel.GetComponent<Image>().sprite 		= panels[1];
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
 		sidebaroutput.GetComponent<Text>().color 			= Color.white;
@@ -1503,9 +1496,9 @@ public void ToggleLightDark() {
 		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-		outputpanel.GetComponent<Image>().sprite			= panel5;
-		menu.GetComponent<SpriteRenderer>().sprite				= panel2;
-		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panel4;
+		outputpanel.GetComponent<Image>().sprite			= panels[3];
+		//menu.GetComponent<SpriteRenderer>().sprite				= panels[0];
+		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panels[2];
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;
 		}

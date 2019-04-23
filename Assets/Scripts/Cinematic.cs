@@ -23,7 +23,6 @@ public class Cinematic : MonoBehaviour
 	public string endtext = "Winner!\nLevel End Placeholder!";
 	public GameObject CodescreenObject;
 	public GameObject prompt2;
-	public GameObject menu;
 	public GameObject[] cinebugs = new GameObject[6];
 
 	private bool cinerun = false;
@@ -44,10 +43,10 @@ public class Cinematic : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (lg.gamestate == stateLib.GAMESTATE_LEVEL_START) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START) {
 			if (!cinerun) {
 				cinerun = true;
-				if (lg.gamemode != stringLib.GAME_MODE_ON) {
+				if (GlobalState.GameMode != stringLib.GAME_MODE_ON) {
 					GameObject bug =(GameObject)Instantiate(cinebugs[2]);
 					objs.Add(bug);
 				}
@@ -58,14 +57,14 @@ public class Cinematic : MonoBehaviour
 			}
 			GetComponent<TextMesh>().text = introtext;
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
-				lg.gamestate = stateLib.GAMESTATE_IN_GAME;
+				GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
 				Destroy(objs[0]);
 				cinerun = false;
 				objs = new List<GameObject>();
 				lg.GUISwitch(true);
 			}
 		}
-		else if (lg.gamestate == stateLib.GAMESTATE_LEVEL_WIN) {
+		else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) {
 			if (!cinerun) {
 				cinerun = true;
 				GameObject bug =(GameObject)Instantiate(cinebugs[3]);
@@ -79,11 +78,11 @@ public class Cinematic : MonoBehaviour
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				// RobotON 2, don't always want tutorials to run comics.
 				// Read in the levels.txt and grab the top one.
-				if (lg.currentlevel.StartsWith("tut") && lg.gamemode == stringLib.GAME_MODE_BUG) {
-					lg.gamestate = stateLib.GAMESTATE_STAGE_COMIC;
+				if (GlobalState.CurrentONLevel.StartsWith("tut") && GlobalState.GameMode == stringLib.GAME_MODE_BUG) {
+					GlobalState.GameState = stateLib.GAMESTATE_STAGE_COMIC;
 				}
 				else {
-					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
+                    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 				}
 
 				lg.BuildLevel(lg.nextlevel, false);
@@ -93,7 +92,7 @@ public class Cinematic : MonoBehaviour
 				objs = new List<GameObject>();
 			}
 		}
-		else if (lg.gamestate == stateLib.GAMESTATE_LEVEL_LOSE) {
+		else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_LOSE) {
 			if (!cinerun) {
 				cinerun = true;
 				GameObject bug =(GameObject)Instantiate(cinebugs[4]);
@@ -107,7 +106,7 @@ public class Cinematic : MonoBehaviour
 
 				cinerun = false;
 				objs = new List<GameObject>();
-				lg.gamestate = stateLib.GAMESTATE_MENU;
+                GlobalState.GameState = stateLib.GAMESTATE_MENU;
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
 				Destroy(objs[0]);
@@ -115,11 +114,10 @@ public class Cinematic : MonoBehaviour
 
 				cinerun = false;
 				objs = new List<GameObject>();
-				menu.GetComponent<Menu>().gameon = true;
 				// One is called Bugleveldata and another OnLevel data.
 				// Levels.txt, coding in menu.cs
-				lg.BuildLevel(lg.gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + lg.currentlevel, false);
-				lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
+				lg.BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false);
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 			}
 		}
 		else {
