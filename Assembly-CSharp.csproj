@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
+     <Compile Include="Assets\SidebarController.cs" />
      <Compile Include="Assets\TimeController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/kashi/Documents/RobotONKashif/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

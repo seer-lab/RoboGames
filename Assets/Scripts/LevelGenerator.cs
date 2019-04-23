@@ -88,7 +88,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject menuTitle;
 	public GameObject credits;
 	public GameObject toolprompt;
-
+    private GameObject sidebar; 
 	public Vector3 defaultPosition = new Vector3(0,0,0);
 	public Vector3 defaultLocalScale = new Vector3(0,0,0);
 	// Player has been notified of less than 30 seconds remaining on the clock.
@@ -167,6 +167,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		isTimerAlarmTriggered = false;
 		winning = false;
         manager = new LevelManager();
+        sidebar = GameObject.Find("Sidebar"); 
         BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
 	}
     public void OnTimeFinish()
@@ -177,94 +178,108 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         }
 
     }
- // This is called every draw call in game.
-	private void Update() {
+    private void CheckWin()
+    {
+        // Win condition check for RobotON, this is necessary because the win condition is a checklist
+        // and the checklist can be completed in any order --[
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+        {
+            winning = true;
+            for (int i = 0; i < 5; i++)
+            {
+                if (tasklist[i] != taskscompleted[i])
+                {
+                    winning = false;
+                }
+            }
+        }
+    }
+    private void CheckLoss()
+    {
+        // For either RobotON or RoboBUG, if we're losing, play the audio clip and show the game over screen. --[
+        if (isLosing)
+        {
+            if (losstime == 0)
+            {
+                GetComponent<AudioSource>().clip = sounds[0];
+                GetComponent<AudioSource>().Play();
+                losstime = Time.time + lossdelay;
+            }
+            else if (losstime < Time.time)
+            {
+                losstime = 0;
+                isLosing = false;
+                GameOver();
+            }
+        }
+    }
+    private void WinConditions()
+    {
+        // Handle win conditions --[
+        if (numberOfBugsRemaining <= 0 && bugs.Count > 0 || winning)
+        {
+            if (startNextLevelTimeDelay == 0f)
+            {
+                startNextLevelTimeDelay = Time.time + leveldelay;
+            }
+            else if (Time.time > startNextLevelTimeDelay)
+            {
+                winning = false;
+                startNextLevelTimeDelay = 0f;
+                if (nextlevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath)
+                {
+                    // Destroy the bugs in this level and go to win screen.
+                    foreach (GameObject bug in bugs)
+                    {
+                        Destroy(bug);
+                    }
+                    GUISwitch(false);
+                    print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
+                    manager.SaveGame();
+                    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+                }
+                else
+                {
+                    // Credits
+                    Victory();
+                }
+            }
+
+        }
+        // ]-- End of Win Conditions
+    }
+    private void HandleInterface()
+    {
+        // Handle menu toggle (Escape key pressed) --[
+        if (Input.GetKeyDown(KeyCode.Escape) && !isAnswering)
+        {
+            GlobalState.GameState = stateLib.GAMESTATE_MENU;
+            SceneManager.LoadScene("MainMenu");
+            GUISwitch(false);
+        }
+        // ]--
+        else if (Input.GetKeyDown(KeyCode.X) && !isAnswering)
+        {
+            TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z) && !isAnswering)
+        {
+            ToggleLightDark();
+        }
+        else if (Input.GetKeyDown(KeyCode.C) && !isAnswering)   
+        {
+            sidebarToggle = !sidebarToggle;
+            sidebar.SetActive(sidebarToggle); 
+        }
+    }
+    // This is called every draw call in game.
+    private void Update() {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
-			// Win condition check for RobotON, this is necessary because the win condition is a checklist
-			// and the checklist can be completed in any order --[
-			if (GlobalState.GameMode == stringLib.GAME_MODE_ON) {
-				winning = true;
-				for (int i = 0; i < 5; i++) {
-					if (tasklist[i] != taskscompleted[i]) {
-						winning = false;
-					}
-				}
-			}
-			// ]--
-			// For either RobotON or RoboBUG, if we're losing, play the audio clip and show the game over screen. --[
-			if (isLosing) {
-				if (losstime == 0) {
-					GetComponent<AudioSource>().clip = sounds[0];
-					GetComponent<AudioSource>().Play();
-					losstime = Time.time + lossdelay;
-				}
-				else if (losstime < Time.time) {
-					losstime = 0;
-					isLosing = false;
-					GameOver();
-				}
-			}
-			// ]-- End of Losing blocktext
-			// Handle win conditions --[
-			if (numberOfBugsRemaining <= 0 && bugs.Count > 0 || winning) {
-				if (startNextLevelTimeDelay == 0f) {
-					startNextLevelTimeDelay = Time.time + leveldelay;
-				}
-				else if (Time.time > startNextLevelTimeDelay) {
-					winning = false;
-					startNextLevelTimeDelay = 0f;
-					if (nextlevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath) {
-						// Destroy the bugs in this level and go to win screen.
-						foreach (GameObject bug in bugs) {
-							Destroy(bug);
-						}
-						GUISwitch(false);
-						print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
-                        manager.SaveGame(); 
-					    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-					}
-					else {
-						// Credits
-						Victory();
-					}
-				}
-
-			}
-			// ]-- End of Win Conditions
-			// Handle menu toggle (Escape key pressed) --[
-			if (Input.GetKeyDown(KeyCode.Escape) && !isAnswering) {
-				GlobalState.GameState = stateLib.GAMESTATE_MENU;
-                SceneManager.LoadScene("MainMenu"); 
-				GUISwitch(false);
-			}
-			// ]--
-			else if (Input.GetKeyDown(KeyCode.X) && !isAnswering) {
-				TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
-			}
-			else if (Input.GetKeyDown(KeyCode.Z) && !isAnswering) {
-				ToggleLightDark();
-			}
-			else if (Input.GetKeyDown(KeyCode.C) && !isAnswering) {
-				sidebarToggle = (sidebarToggle) ? false : true;
-				sidebartimer.GetComponent<Text>().enabled = sidebarToggle;
-				sidebarChecklist.GetComponent<Text>().enabled = sidebarToggle;
-				sidebarLabel.GetComponent<Text>().enabled = sidebarToggle;
-				sidebarpanel.GetComponent<Text>().enabled = sidebarToggle;
-				sidebarDescription.GetComponent<Text>().enabled = sidebarToggle;
-				// transform the buttons to the right. Store their original position first.
-				for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS ; i++) {
-					if (sidebarToggle) {
-						toolIcons[i].transform.position -= new Vector3(0.18f, 0, 0);
-						toolLabels[i].transform.position -= new Vector3(0.18f, 0, 0);
-					}
-					else {
-						toolIcons[i].transform.position += new Vector3(0.18f, 0, 0);
-						toolLabels[i].transform.position += new Vector3(0.18f, 0, 0);
-					}
-				}
-
-			}
+            CheckWin();
+            CheckLoss();
+            WinConditions();
+            HandleInterface(); 
 		}
 	}
 
@@ -1339,25 +1354,14 @@ public void ToggleLightDark() {
 		backgroundImage.GetComponent<Image>().sprite 		= lightBackground;
 		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
-		sidebartimer.GetComponent<Text>().color 				= Color.black;
-            sidebarpanel.GetComponent<Image>().sprite = panels[4] ;
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
 		sidebaroutput.GetComponent<Text>().color 			= Color.black;
-		sidebarChecklist.GetComponent<Text>().color 			= Color.black;
-		selectedtool.GetComponent<Text>().color 				= Color.black;
-		sidebarLabel.GetComponent<Text>().color 				= Color.black;
-		// Labels are updated on each frame in SelectedTool.cs
-		sidebarDescription.GetComponent<Text>().color		= Color.black;
 		outputEnter.GetComponent<Text>().color				= Color.black;
-		menuTitle.GetComponent<TextMesh>().color				= Color.black;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.black;
 		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
-		toolprompt.GetComponent<TextMesh>().color				= Color.black;
 		outputpanel.GetComponent<Image>().sprite			= panels[5];
-		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panels[6];
-		//menu.GetComponent<SpriteRenderer>().sprite				= panels[7];
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
 		}
@@ -1390,38 +1394,7 @@ public void ToggleLightDark() {
 			question propertyHandler = questionObj.GetComponent<question>();
 			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
 		}
-		stringLibrary.node_color_print 					= stringLibrary.node_color_print_dark;
-		stringLibrary.node_color_warp 					= stringLibrary.node_color_warp_dark;
-		stringLibrary.node_color_rename 				= stringLibrary.node_color_rename_dark;
-		stringLibrary.node_color_question 				= stringLibrary.node_color_question_dark;
-		stringLibrary.node_color_uncomment				= stringLibrary.node_color_uncomment_dark;
-		stringLibrary.node_color_incorrect_uncomment 	= stringLibrary.node_color_incorrect_uncomment_dark;
-		stringLibrary.node_color_correct_comment 		= stringLibrary.node_color_correct_comment_dark;
-		stringLibrary.node_color_incorrect_comment 		= stringLibrary.node_color_incorrect_comment_dark;
-		stringLibrary.node_color_comment 				= stringLibrary.node_color_comment_dark;
-
-		stringLibrary.syntax_color_comment 				= stringLibrary.syntax_color_comment_dark;
-		stringLibrary.syntax_color_keyword 				= stringLibrary.syntax_color_keyword_dark;
-		stringLibrary.syntax_color_badcomment 			= stringLibrary.syntax_color_badcomment_dark;
-		stringLibrary.syntax_color_string 				= stringLibrary.syntax_color_string_dark;
-
-		stringLibrary.checklist_complete_color_tag    	      		= stringLibrary.checklist_complete_color_tag_dark;
-		stringLibrary.checklist_incomplete_activate_color_tag  		= stringLibrary.checklist_incomplete_activate_color_tag_dark;
-		stringLibrary.checklist_incomplete_question_color_tag   	= stringLibrary.checklist_incomplete_question_color_tag_dark;
-		stringLibrary.checklist_incomplete_name_color_tag       	= stringLibrary.checklist_incomplete_name_color_tag_dark;
-		stringLibrary.checklist_incomplete_comment_color_tag    	= stringLibrary.checklist_incomplete_comment_color_tag_dark;
-		stringLibrary.checklist_incomplete_uncomment_color_tag  	= stringLibrary.checklist_incomplete_uncomment_color_tag_dark;
-
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_dark);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_dark);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_dark);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_dark);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_dark);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_dark);
-
-		for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS - 1; i++) {
-			toolLabels[i].GetComponent<Text>().color = (tasklist[i] == taskscompleted[i]) ? new Color(0, 0.6f, 0.2f, 1) : Color.white;
-		}
+            GameObject.Find("Sidebar").GetComponent<SidebarController>().ToggleWhite(); 
 
 	}
 	else {
@@ -1429,25 +1402,15 @@ public void ToggleLightDark() {
 		backgroundImage.GetComponent<Image>().sprite 		= darkBackground;
 		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
-		sidebartimer.GetComponent<Text>().color 				= Color.white;
-		sidebarpanel.GetComponent<Image>().sprite 		= panels[1];
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
 		sidebaroutput.GetComponent<Text>().color 			= Color.white;
-		sidebarChecklist.GetComponent<Text>().color 			= Color.white;
-		selectedtool.GetComponent<Text>().color 				= Color.white;
-		sidebarLabel.GetComponent<Text>().color 				= Color.white;
-		// Labels are updated on each frame in SelectedTool.cs
-		sidebarDescription.GetComponent<Text>().color		= Color.white;
 		outputEnter.GetComponent<Text>().color				= Color.white;
-		menuTitle.GetComponent<TextMesh>().color				= Color.white;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.white;
 		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
 		outputpanel.GetComponent<Image>().sprite			= panels[3];
-		//menu.GetComponent<SpriteRenderer>().sprite				= panels[0];
-		menuSubmenu.GetComponent<SpriteRenderer>().sprite		= panels[2];
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;
 		}
@@ -1480,40 +1443,8 @@ public void ToggleLightDark() {
 			question propertyHandler = questionObj.GetComponent<question>();
 			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_light);
 		}
-		stringLibrary.node_color_print 					= stringLibrary.node_color_print_light;
-		stringLibrary.node_color_warp 					= stringLibrary.node_color_warp_light;
-		stringLibrary.node_color_rename 				= stringLibrary.node_color_rename_light;
-		stringLibrary.node_color_question 				= stringLibrary.node_color_question_light;
-		stringLibrary.node_color_uncomment 				= stringLibrary.node_color_uncomment_light;
-		stringLibrary.node_color_incorrect_uncomment 	= stringLibrary.node_color_incorrect_uncomment_light;
-		stringLibrary.node_color_correct_comment 		= stringLibrary.node_color_correct_comment_light;
-		stringLibrary.node_color_incorrect_comment 		= stringLibrary.node_color_incorrect_comment_light;
-		stringLibrary.node_color_comment 				= stringLibrary.node_color_comment_light;
-
-		stringLibrary.syntax_color_comment 				= stringLibrary.syntax_color_comment_light;
-		stringLibrary.syntax_color_keyword 				= stringLibrary.syntax_color_keyword_light;
-		stringLibrary.syntax_color_badcomment 			= stringLibrary.syntax_color_badcomment_light;
-		stringLibrary.syntax_color_string 				= stringLibrary.syntax_color_string_light;
-
-		stringLibrary.checklist_complete_color_tag    	      		= stringLibrary.checklist_complete_color_tag_light;
-		stringLibrary.checklist_incomplete_activate_color_tag  		= stringLibrary.checklist_incomplete_activate_color_tag_light;
-		stringLibrary.checklist_incomplete_question_color_tag   	= stringLibrary.checklist_incomplete_question_color_tag_light;
-		stringLibrary.checklist_incomplete_name_color_tag       	= stringLibrary.checklist_incomplete_name_color_tag_light;
-		stringLibrary.checklist_incomplete_comment_color_tag    	= stringLibrary.checklist_incomplete_comment_color_tag_light;
-		stringLibrary.checklist_incomplete_uncomment_color_tag  	= stringLibrary.checklist_incomplete_uncomment_color_tag_light;
-
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_light);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_light);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_question_color_tag, stringLibrary.checklist_incomplete_question_color_tag_light);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_light);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
-		sidebarChecklist.GetComponent<Text>().text = sidebarChecklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
-
-		for (int i = 0 ; i < stateLib.NUMBER_OF_TOOLS - 1 ; i++) {
-			toolLabels[i].GetComponent<Text>().color = (tasklist[i] == taskscompleted[i]) ? Color.green : Color.white;
-		}
-
-	}
+            GameObject.Find("Sidebar").GetComponent<SidebarController>().ToggleDark();
+        }
 	DrawInnerXmlLinesToScreen();
 }
 
