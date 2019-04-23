@@ -53,8 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MenuButton.cs" />
-     <Compile Include="Assets\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
@@ -66,11 +64,14 @@
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
+     <Compile Include="Assets\Scripts\ITimeUser.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelGeneratorInitialize.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Logger.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\MenuButton.cs" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\OldMenu.cs" />
      <Compile Include="Assets\Scripts\Output.cs" />
      <Compile Include="Assets\Scripts\postToDatabase.cs" />
@@ -82,12 +83,14 @@
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\stateLib.cs" />
      <Compile Include="Assets\Scripts\stringLib.cs" />
+     <Compile Include="Assets\Scripts\Submenu.cs" />
      <Compile Include="Assets\Scripts\TextColoration.cs" />
+     <Compile Include="Assets\Scripts\TimeDisplayController.cs" />
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\Submenu.cs" />
+     <Compile Include="Assets\TimeController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/kashi/Documents/RobotONKashif/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

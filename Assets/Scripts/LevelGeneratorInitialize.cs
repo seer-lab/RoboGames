@@ -15,5 +15,11 @@ public partial class LevelGenerator: MonoBehaviour{
             panels[i] = Resources.Load<Sprite>(path+(i+2).ToString()); 
         }
     }
+    private void LoadTimer(float time)
+    {
+        TimeDisplayController controller =  sidebartimer.GetComponent<TimeDisplayController>();
+        controller.EndTime = time;
+        controller.Callback = this; 
+    }
 }
 

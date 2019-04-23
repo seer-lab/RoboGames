@@ -205,7 +205,8 @@ public class OldMenu : MonoBehaviour
                 switch (option)
                 {
                     case 0:
-                        SceneManager.LoadScene("newgame"); 
+                        GlobalState.CurrentONLevel = levels[levoption]; 
+                        SceneManager.LoadScene("newgame");       
                         //Construt Level
                         /*
                         lg.BuildLevel(GlobalState.GameState + "leveldata" + filepath + levels[levoption], false);
@@ -280,6 +281,7 @@ public class OldMenu : MonoBehaviour
                     case 0:
                         GlobalState.GameMode = stringLib.GAME_MODE_ON;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                  
                         SceneManager.LoadScene("newgame");  
                         //Construct Level
                         /*

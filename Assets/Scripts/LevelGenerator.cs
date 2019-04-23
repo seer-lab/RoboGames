@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
 using System;
 
-public partial class LevelGenerator : MonoBehaviour {
+public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public stringLib stringLibrary = new stringLib();
 	public TextColoration textColoration = new TextColoration();
 	// A state-transition variable. When this becomes true, when Update() is called it will trigger a Game Over state.
@@ -18,9 +18,7 @@ public partial class LevelGenerator : MonoBehaviour {
 	public bool backgroundLightDark = false;
 	public bool sidebarToggle = true;
 	// The amount of time the player has to complete this level. Read from XML file.
-	public float endTime = 0f;
-	// The amount of time remaining, in seconds, until the level is considered lost.
-	public float remainingTime = 0f;
+
 	// The number of Bugs remaining in this level. Originally read from XML file, it will decrease as players squash bugs.
 	public int numberOfBugsRemaining = 0;
 	// Number of in-flight wrenches/shurikens.
@@ -116,7 +114,6 @@ public partial class LevelGenerator : MonoBehaviour {
 	private float lossdelay 							= 3f;
 	private float leveldelay 							= 2f;
 	private float startNextLevelTimeDelay 				= 0f;
-	private float startTime 							= 0f;
 	private int   totalNumberOfTools 				    = stateLib.NUMBER_OF_TOOLS;
 	private string codetext;
 	private GameObject levelbug;
@@ -166,64 +163,24 @@ public partial class LevelGenerator : MonoBehaviour {
 			tasklist[i] = 0;
 			taskscompleted[i] = 0;
 		}
-		GUISwitch(false);
+		GUISwitch(true);
 		isTimerAlarmTriggered = false;
 		winning = false;
-        manager = new LevelManager(); 
+        manager = new LevelManager();
+        BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
 	}
+    public void OnTimeFinish()
+    {
+        if (numberOfBugsRemaining > 0 || bugs.Count == 0)
+        {
+            GameOver(); 
+        }
 
+    }
  // This is called every draw call in game.
 	private void Update() {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
-			// Running out of time. --[
-			if (endTime - startTime >= 9000) {
-				sidebartimer.GetComponent<Text>().text = "Time Remaining: --:--:--";
-			}
-			else if (endTime - Time.time < 30) {
-				sidebartimer.GetComponent<Text>().text = "Time Remaining: <size=50><color=red>" + ((int)(endTime - Time.time)).ToString() + "</color></size> seconds";
-				if (!isTimerAlarmTriggered) {
-					isTimerAlarmTriggered = true;
-					sidebartimer.GetComponent<AudioSource>().Play();
-				}
-			}
-			// ]-- End of Out of Time
-			// Not running out of time, so handle the time here --[
-			else {
-				// Time Controller --[
-				int nNumberOfSeconds = (int)(endTime - Time.time);
-				if (nNumberOfSeconds > 3600) {
-					int nNumberOfHours = nNumberOfSeconds / 3600;
-					nNumberOfSeconds -= nNumberOfHours * 3600;
-					int nNumberOfMinutes = (nNumberOfSeconds) / 60;
-					nNumberOfSeconds -= nNumberOfMinutes * 60;
-					sidebartimer.GetComponent<Text>().text = "Time Remaining: ";
-					if (nNumberOfHours < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfHours.ToString() + ":";
-					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfMinutes.ToString() + ":";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString();
-				}
-				else if (nNumberOfSeconds > 60) {
-					int nNumberOfMinutes = nNumberOfSeconds / 60;
-					nNumberOfSeconds -= nNumberOfMinutes * 60;
-					sidebartimer.GetComponent<Text>().text = "Time Remaining: 00:";
-					if (nNumberOfMinutes < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfMinutes.ToString() + ":";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString() + ":";
-				}
-				else {
-					sidebartimer.GetComponent<Text>().text = "Time Remaining: 00:00:";
-					if (nNumberOfSeconds < 10) sidebartimer.GetComponent<Text>().text += "0";
-					sidebartimer.GetComponent<Text>().text += nNumberOfSeconds.ToString();
-				}
-				isTimerAlarmTriggered = false;
-				// ]-- End of Time Controller
-			}
-			// ]-- End of Out of Time else block.
-
 			// Win condition check for RobotON, this is necessary because the win condition is a checklist
 			// and the checklist can be completed in any order --[
 			if (GlobalState.GameMode == stringLib.GAME_MODE_ON) {
@@ -275,11 +232,6 @@ public partial class LevelGenerator : MonoBehaviour {
 
 			}
 			// ]-- End of Win Conditions
-			// Handle out of time --[
-			if (endTime < Time.time && (numberOfBugsRemaining > 0 || bugs.Count == 0) && endTime - startTime < 9000) {
-				GameOver();
-			}
-			// ]--
 			// Handle menu toggle (Escape key pressed) --[
 			if (Input.GetKeyDown(KeyCode.Escape) && !isAnswering) {
 				GlobalState.GameState = stateLib.GAMESTATE_MENU;
@@ -321,14 +273,12 @@ public partial class LevelGenerator : MonoBehaviour {
 			case true:
 			sidebarpanel.GetComponent<Image>().enabled = (sidebarToggle) ? true : false;
 			outputpanel.GetComponent<Image>().enabled = true;
-			endTime = remainingTime + Time.time;
 			break;
 
 			case false:
 			sidebarpanel.GetComponent<Image>().enabled = false;
 			outputpanel.GetComponent<Image>().enabled = false;
 			sidebartimer.GetComponent<Text>().text = "";
-			remainingTime = endTime - Time.time;
 			break;
 
 			default: break;
@@ -375,13 +325,12 @@ public partial class LevelGenerator : MonoBehaviour {
 			selectedtool.GetComponent<SelectedTool>().NextTool();
 			GlobalState.CurrentONLevel = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
 			// time
-			startTime = Time.time;
 			string sReadTime = XMLReader.GetTimeLimit(doc);
 			sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
-			endTime = (float)int.Parse(sReadTime) + startTime;
-			remainingTime = (float)int.Parse(sReadTime);
+			LoadTimer((float)int.Parse(sReadTime));
 			// next level
 			nextlevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
+            Debug.Log("Next Level: " + nextlevel); 
 			// intro text
 			cinematic.GetComponent<Cinematic>().introtext = XMLReader.GetIntroText(doc);
 			// end text
