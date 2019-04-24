@@ -23,27 +23,14 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public int numberOfBugsRemaining = 0;
 	// Number of in-flight wrenches/shurikens.
 	public int toolsAirborne = 0;
-
-	// Contains the remaining tasks the player must complete before winning the level.
-	//public int[] tasklist = new int[5];
-	// Contains the completed tasks of the player.
-	//public int[] taskscompleted = new int[5];
 	// The number of lines in the XML file. Computed by counting the number of newline characters the XML contains.
 	public int renamegroupidCounter = 0;
 	// Lines of code stored in an array. innerXmlLines is the colorized text from NodeToColorString(), outerXmlLnes is the line with the tags.
-	//public string[] innerXmlLines;
-	//public string[] outerXmlLines;
 	public string[] lineNumbers;
-	// The filename of the next XML file to read from.
-	// The current level, contains the filename of the XML loaded.
-	// Game Mode is either "on" or "bug", for RobotON or RoboBUG respectively. This is defined in stringLib.
-	//public string language;
 	// Stores the audio clips used in the game.
 	public AudioClip[] sounds = new AudioClip[10];
 	// Stores the icons for each tool.
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
-	public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
-	// Stores the tasks for each line.
 
 	// Stores the level text, the lines of code the player sees.
 	public GameObject leveltext;
@@ -173,89 +160,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         }
 
     }
-    private void CheckWin()
-    {
-        // Win condition check for RobotON, this is necessary because the win condition is a checklist
-        // and the checklist can be completed in any order --[
-        if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
-        {
-            winning = true;
 
-            for (int i = 0; i < 5; i++)
-            {
-                if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
-                {
-                    winning = false;
-                }
-            }
-            if  (winning == true)
-            {
-                GUISwitch(false);
-                print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
-                manager.SaveGame();
-                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            }
-        }
-    }
-    private void CheckLoss()
-    {
-        // For either RobotON or RoboBUG, if we're losing, play the audio clip and show the game over screen. --[
-        if (isLosing)
-        {
-            if (losstime == 0)
-            {
-                GetComponent<AudioSource>().clip = sounds[0];
-                GetComponent<AudioSource>().Play();
-                losstime = Time.time + lossdelay;
-            }
-            else if (losstime < Time.time)
-            {
-                losstime = 0;
-                isLosing = false;
-                GameOver();
-            }
-        }
-    }
-    private void WinConditions()
-    {
-        // Handle win conditions --[
-        if (numberOfBugsRemaining <= 0 && bugs.Count > 0 || winning)
-        {
-            if (startNextLevelTimeDelay == 0f)
-            {
-                startNextLevelTimeDelay = Time.time + leveldelay;
-            }
-            else if (Time.time > startNextLevelTimeDelay)
-            {
-                winning = false;
-                startNextLevelTimeDelay = 0f;
-                if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath)
-                {
-                    // Destroy the bugs in this level and go to win screen.
-                    foreach (GameObject bug in bugs)
-                    {
-                        Destroy(bug);
-                    }
-                    GUISwitch(false);
-                    print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
-                    manager.SaveGame();
-                    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-                }
-                else
-                {
-                    // Credits
-                    Victory();
-                }
-            }
-
-        }
-        // ]-- End of Win Conditions
-    }
-
-    public void ClearLevel()
-    {
-
-    }
     private void HandleInterface()
     {
         // Handle menu toggle (Escape key pressed) --[
@@ -284,9 +189,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
     private void Update() {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
-            //CheckWin();
-            //CheckLoss();
-            //WinConditions();
             HandleInterface(); 
 		}
 	}
@@ -347,77 +249,12 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         }
 
     }
-    /*
-    public void BuildLevel(string filename, bool warp, string warpToLine = "")	{
-		ResetLevel(warp);
-		XmlDocument doc = XMLReader.ReadFile(filename);
-		XmlNode levelnode = doc.FirstChild;
-		GlobalState.level.Tags = XMLReader.GetOuterXML(doc);
-		//@TODO: This is a bug. InnerXML should not be OuterXML. Need to convert all outerXML to InnerXML.
-		//innerXmlLines = outerXmlLines;
-		
-		//add description to sidebar and level title
-		foreach (XmlNode codenode in levelnode.ChildNodes) {
-			if (codenode.Name == stringLib.NODE_NAME_DESCRIPTION){
-				destext.GetComponent<TextMesh>().text = codenode.InnerText;
-			}
-		}
-
-		
-		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", GlobalState.level.Tags), GlobalState.level.Language);
-		Debug.Log("Convert result string -> " + innerXMLstring);
-		GlobalState.level.Code = innerXMLstring.Split('\n');
-		//int iter = 0;
-		//foreach(string s in innerXmlLines) {
-		//	Debug.Log("InnerXML: " + s);
-		//	innerXmlLines[iter] = PrepareOuterXMLToGameScreen(s, XMLReader.GetLanguage(doc));
-		//	iter += 1;
-		//}
-		GlobalState.level.LineCount = XMLReader.GetLineCount(doc);
-		CreateLevelLines(GlobalState.level.LineCount);
-		GlobalState.level.TaskOnLine = new int[GlobalState.level.LineCount,stateLib.NUMBER_OF_TOOLS];
-		PlaceObjects(levelnode);
-
-		if (warp) {
-			hero.transform.position = (warpToLine != "")  ? new Vector3(-8, initialLineY -(int.Parse(warpToLine) - 1) * linespacing, 1) : hero.transform.position;
-			GetComponent<AudioSource>().clip = sounds[1];
-			GetComponent<AudioSource>().Play();
-		}
-		else {
-			ProvisionToolsFromXml(doc);
-			selectedtool.GetComponent<SelectedTool>().NextTool();
-			GlobalState.CurrentONLevel = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
-			// time
-			string sReadTime = XMLReader.GetTimeLimit(doc);
-			sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
-			LoadTimer((float)int.Parse(sReadTime));
-            // next level
-            GlobalState.level.NextLevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
-            Debug.Log("Next Level: " + GlobalState.level.NextLevel); 
-			// intro text
-			cinematic.GetComponent<Cinematic>().introtext = XMLReader.GetIntroText(doc);
-			// end text
-			cinematic.GetComponent<Cinematic>().endtext = XMLReader.GetEndText(doc);
-
-		}
-		// Resize the boundaries of the level to correspond with how many lines we have
-		if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE) {
-			this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
-			this.transform.position += new Vector3(2.2f, 0, 0);
-			this.transform.localScale += new Vector3(2, levelLineRatio * GlobalState.level.LineCount, 0);
-		}
-		else {
-			this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
-			this.transform.localScale += new Vector3(0.1f, levelLineRatio * GlobalState.level.LineCount, 0);
-		}
-		DrawInnerXmlLinesToScreen();
-		if (!initialresize) {
-			// Make the text large in size for first run.
-			initialresize = true;
-			TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
-		}
-	}
-    */
+    public void WarpPlayer(string warpToLine)
+    {
+        hero.transform.position = (warpToLine != "") ? new Vector3(-8, initialLineY - (int.Parse(warpToLine) - 1) * linespacing, 1) : hero.transform.position;
+        GetComponent<AudioSource>().clip = sounds[1];
+        GetComponent<AudioSource>().Play();
+    }
 	//.................................>8.......................................
 	//************************************************************************//
 	// Method: public void CreateLevelLines();
@@ -1072,6 +909,13 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		return null;
 	}
 
+    //.................................>8.......................................
+    //************************************************************************//
+    // Method: public void ProvisionToolsFromXml(XmlNode levelnode)
+    // Description: Read through levelnode XML and provision the tools for this level
+    // levelnode is typically the parent XML node in the XML document.
+    //************************************************************************//
+
     public void ProvisionToolsFromXml(IList<XmlNode> nodelist)
     {
         foreach (XmlNode tool in nodelist)
@@ -1108,50 +952,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
             // ]-- End of tool count for each tool node
         }
     }
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void ProvisionToolsFromXml(XmlNode levelnode)
-    // Description: Read through levelnode XML and provision the tools for this level
-    // levelnode is typically the parent XML node in the XML document.
-    //************************************************************************//
-
-    public void ProvisionToolsFromXml(XmlDocument doc) {
-		// Grey out all tools
-		for (int i = 0; i < totalNumberOfTools; i++) {
-			toolIcons[i].GetComponent<Image>().enabled = false;
-		}
-		IList<XmlNode> nodelist = XMLReader.GetToolNodes(doc);
-		foreach (XmlNode tool in nodelist) {
-			// Set the tool count for each tool node --[
-			int toolnum = 0;
-			Debug.Log("Working with node: " + tool.OuterXml);
-			switch(tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value) {
-				case "catcher":
-				case "activator":
-				toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
-				break;
-				case "printer":
-				case "checker":
-				case "answer":
-				toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
-				break;
-				case "warper":
-				case "namer":
-				toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
-				break;
-				case "commenter": toolnum = stateLib.TOOL_COMMENTER;
-				break;
-				case "controlflow": toolnum = stateLib.TOOL_CONTROL_FLOW;
-				break;
-				default:
-				break;
-			}
-			toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
-			selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
-			// ]-- End of tool count for each tool node
-		}
-	}
-
 	//.................................>8.......................................
 	//************************************************************************//
 	// Method: public void ResetLevel(bool warp)

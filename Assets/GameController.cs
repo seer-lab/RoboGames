@@ -44,6 +44,13 @@ public class GameController : MonoBehaviour
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(); 
     }
+    public void WarpLevel(string file, string line)
+    {
+        factory = new LevelFactory(file);
+        GlobalState.level = factory.GetLevel();
+        lg.BuildLevel();
+        lg.WarpPlayer(line); 
+    }
     // Start is called before the first frame update
     void Start()
     {
