@@ -11,6 +11,10 @@ public class SidebarController : MonoBehaviour
     private Sprite[] panels = new Sprite[8];
     private stringLib stringLibrary;
     bool active = true; 
+    public void NextTool()
+    {
+        tool.GetComponent<SelectedTool>().NextTool(); 
+    }
     private void LoadPanels()
     {
         string path = "Sprites/panel-";

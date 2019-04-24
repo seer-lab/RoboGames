@@ -15,24 +15,54 @@ using System.Collections;
 public class Output : MonoBehaviour
 {
 	public GameObject codescreen;
-	public GameObject outputtext;
+
+	public GameObject text, panel , enter;
 
 	private Animator anim;
-	private LevelGenerator lg;
 
+    Sprite[] panels = new Sprite[8];
+
+    private void LoadPanels()
+    {
+        string path = "Sprites/panel-";
+        for (int i = 0; i < panels.Length; i++)
+        {
+            panels[i] = Resources.Load<Sprite>(path + (i + 2).ToString());
+        }
+    }
+
+    public Text Text
+    {
+        get
+        {
+            return text.GetComponent<Text>();
+        }
+    }
+    public void ToggleLight()
+    {
+        Text.color = Color.black;
+        enter.GetComponent<Text>().color = Color.black;
+        panel.GetComponent<Image>().sprite = panels[5]; 
+    }
+    public void ToggleDark()
+    {
+        Text.color = Color.white;
+        enter.GetComponent<Text>().color = Color.black;
+        panel.GetComponent<Image>().sprite = panels[3]; 
+    }
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
 		anim = GetComponent<Animator>();
 		anim.SetBool("Appearing", false);
 		anim.SetBool("Hiding", false);
-		lg = codescreen.GetComponent<LevelGenerator>();
+        LoadPanels(); 
 	}
 
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-		bool isText = outputtext.GetComponent<Text>().text != "";
+		bool isText = text.GetComponent<Text>().text != "";
 		if (isText) {
 			anim.SetBool("Appearing", true);
 			anim.SetBool("Hiding", false);
@@ -42,7 +72,7 @@ public class Output : MonoBehaviour
 			anim.SetBool("Hiding", true);
 		}
 		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
-			outputtext.GetComponent<Text>().text = "";
+			text.GetComponent<Text>().text = "";
 		}
 	}
 

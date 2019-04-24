@@ -65,7 +65,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject warpobject;
 	public GameObject breakpointobject;
 	public GameObject hero;
-	public GameObject sidebaroutput;
 	public GameObject backgroundImage;
 	public GameObject sidebarChecklist;
 	public GameObject sidebarLabel;
@@ -78,9 +77,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	private Sprite[] panels = new Sprite[8]; 
 	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
 	public GameObject selectedtool;
-	public GameObject sidebarpanel;
-	public GameObject outputpanel;
-	public GameObject outputEnter;
 	public GameObject cinematic;
 	public GameObject cinematicEnter;
 	public GameObject cinematicVoidMain;
@@ -88,7 +84,10 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject menuTitle;
 	public GameObject credits;
 	public GameObject toolprompt;
-    private GameObject sidebar; 
+
+    private Output output; 
+    private SidebarController sidebar; 
+
 	public Vector3 defaultPosition = new Vector3(0,0,0);
 	public Vector3 defaultLocalScale = new Vector3(0,0,0);
 	// Player has been notified of less than 30 seconds remaining on the clock.
@@ -163,11 +162,12 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			tasklist[i] = 0;
 			taskscompleted[i] = 0;
 		}
-		GUISwitch(true);
 		isTimerAlarmTriggered = false;
 		winning = false;
         manager = new LevelManager();
-        sidebar = GameObject.Find("Sidebar"); 
+        output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
+        sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
+        GUISwitch(true);
         BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
 	}
     public void OnTimeFinish()
@@ -269,7 +269,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         else if (Input.GetKeyDown(KeyCode.C) && !isAnswering)   
         {
             sidebarToggle = !sidebarToggle;
-            sidebar.SetActive(sidebarToggle); 
+            sidebar.GetComponent<Canvas>().enabled = sidebarToggle;
         }
     }
     // This is called every draw call in game.
@@ -286,15 +286,14 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public void GUISwitch(bool gui_on) {
 		switch(gui_on) {
 			case true:
-			sidebarpanel.GetComponent<Image>().enabled = (sidebarToggle) ? true : false;
-			outputpanel.GetComponent<Image>().enabled = true;
+                sidebar.GetComponent<Canvas>().enabled = sidebarToggle;
+                output.GetComponent<Canvas>().enabled = true; 
 			break;
 
 			case false:
-			sidebarpanel.GetComponent<Image>().enabled = false;
-			outputpanel.GetComponent<Image>().enabled = false;
-			sidebartimer.GetComponent<Text>().text = "";
-			break;
+                sidebar.GetComponent<Canvas>().enabled = false;
+                output.GetComponent<Canvas>().enabled = false;
+                break;
 
 			default: break;
 		}
@@ -765,7 +764,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				printer propertyHandler = newoutput.GetComponent<printer>();
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-				propertyHandler.SidebarObject = sidebaroutput;
+				propertyHandler.SidebarObject = output.text;
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
@@ -844,7 +843,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					roboBUGcomments.Add(newcomment);
 					propertyHandler.entityType = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
 					propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-					propertyHandler.SidebarObject = sidebaroutput;
+					propertyHandler.SidebarObject = output.text;
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
 						string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 						string[] toolcounts = toolatt.Split(',');
@@ -896,7 +895,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
 				propertyHandler.expected = childnode.Attributes[stringLib.XML_ATTRIBUTE_ANSWER].Value;
 				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.SidebarObject = sidebaroutput;
+				propertyHandler.SidebarObject = output.text;
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
@@ -924,7 +923,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					propertyHandler.oldname = childnode.InnerText;
 				}
 				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.SidebarObject = sidebaroutput;
+				propertyHandler.SidebarObject = output.text;
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
@@ -956,7 +955,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				taskOnLines[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
 				roboBUGbreakpoints.Add(newbreakpoint);
 				Breakpoint propertyHandler = newbreakpoint.GetComponent<Breakpoint>();
-				propertyHandler.SidebarObject = sidebaroutput;
+				propertyHandler.SidebarObject = output.text;
 				propertyHandler.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
@@ -1133,7 +1132,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 
 		// Reset local variables
-		sidebaroutput.GetComponent<Text>().text = "";
+		output.text.GetComponent<Text>().text = "";
 		lines 									  	= new List<GameObject>();
 		prints 								  	  	= new List<GameObject>();
 		roboBUGwarps 							  	= new List<GameObject>();
@@ -1356,12 +1355,13 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
-		sidebaroutput.GetComponent<Text>().color 			= Color.black;
-		outputEnter.GetComponent<Text>().color				= Color.black;
+		//output.Text.color			= Color.black;
+		//outputEnter.GetComponent<Text>().color				= Color.black;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.black;
 		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
-		outputpanel.GetComponent<Image>().sprite			= panels[5];
+            //output.transform.GetChild(0).GetComponent<Image>().sprite			= panels[5];
+            output.ToggleLight(); 
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
 		}
@@ -1394,7 +1394,7 @@ public void ToggleLightDark() {
 			question propertyHandler = questionObj.GetComponent<question>();
 			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
 		}
-            GameObject.Find("Sidebar").GetComponent<SidebarController>().ToggleWhite(); 
+        sidebar.ToggleWhite(); 
 
 	}
 	else {
@@ -1404,13 +1404,14 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
-		sidebaroutput.GetComponent<Text>().color 			= Color.white;
-		outputEnter.GetComponent<Text>().color				= Color.white;
+		//sidebaroutput.GetComponent<Text>().color 			= Color.white;
+		//outputEnter.GetComponent<Text>().color				= Color.white;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.white;
 		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-		outputpanel.GetComponent<Image>().sprite			= panels[3];
+            //output.transform.GetChild(0).GetComponent<Image>().sprite			= panels[3];
+            output.ToggleDark(); 
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;
 		}
