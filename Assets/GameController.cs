@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
     LevelFactory factory; 
     LevelManager manager;
     LevelGenerator lg;
+    Output output;
+    SidebarController sidebar;
+    BackgroundController background; 
     bool winning = false; 
     private void CheckWin()
     {
@@ -58,6 +61,10 @@ public class GameController : MonoBehaviour
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
         GlobalState.level = factory.GetLevel();
+
+        output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
+        sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
+        
     }
 
     // Update is called once per frame

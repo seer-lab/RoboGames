@@ -48,10 +48,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject warpobject;
 	public GameObject breakpointobject;
 	public GameObject hero;
-	public GameObject backgroundImage;
 
-	public Sprite lightBackground;
-	public Sprite darkBackground;
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 
@@ -67,6 +64,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 
     private Output output; 
     private SidebarController sidebar;
+    private BackgroundController background; 
 
 	public Vector3 defaultPosition = new Vector3(0,0,0);
 	public Vector3 defaultLocalScale = new Vector3(0,0,0);
@@ -148,6 +146,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         manager = new LevelManager();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
+        background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         GUISwitch(true);
         BuildLevel();
         //BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
@@ -1233,7 +1232,7 @@ public void ToggleLightDark() {
 	if (backgroundLightDark == false) {
             Debug.Log("Turning Light"); 
 		backgroundLightDark = true;
-		backgroundImage.GetComponent<Image>().sprite 		= lightBackground;
+            background.ToggleLight(); 
 		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
 		destext.GetComponent<TextMesh>().color 					= Color.black;
@@ -1279,7 +1278,7 @@ public void ToggleLightDark() {
 	}
 	else {
 		backgroundLightDark = false;
-		backgroundImage.GetComponent<Image>().sprite 		= darkBackground;
+            background.ToggleDark(); 
 		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
