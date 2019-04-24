@@ -19,9 +19,10 @@ public class printer : MonoBehaviour {
 	public int index = -1;
 	public string language = "";
 	public string displaytext = "";
-	public GameObject SidebarObject;
-	public GameObject ToolSelectorObject;
-	public GameObject CodescreenObject;
+	public SidebarController sidebar;
+	public SelectedTool selectedTool;
+    public Output output; 
+	//public GameObject CodescreenObject;
 	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 
 	private LevelGenerator lg;
@@ -29,7 +30,10 @@ public class printer : MonoBehaviour {
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
+        lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>(); 
+        output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>(); 
+        sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
+        selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>(); 
 	}
 
 	//.................................>8.......................................
@@ -42,7 +46,7 @@ public class printer : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Logger.printLogFile(stringLib.LOG_PRINTED, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			SidebarObject.GetComponent<Text>().text = displaytext;
+			output.Text.text = displaytext;
 			GetComponent<AudioSource>().Play();
 			if (!toolgiven) {
 				toolgiven = true;
@@ -50,7 +54,7 @@ public class printer : MonoBehaviour {
 					if (tools[i] > 0) {
 						lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
 					}
-					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
+					selectedTool.toolCounts[i] += tools[i];
 				}
 			}
 			lg.toolsAirborne--;

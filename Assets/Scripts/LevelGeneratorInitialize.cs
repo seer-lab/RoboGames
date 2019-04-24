@@ -9,15 +9,9 @@ using System.Text.RegularExpressions;
 using System;
 
 public partial class LevelGenerator: MonoBehaviour{
-    private void LoadPanels(){
-        string path = "Sprites/panel-"; 
-        for (int i = 0; i < panels.Length; i++){
-            panels[i] = Resources.Load<Sprite>(path+(i+2).ToString()); 
-        }
-    }
     private void LoadTimer(float time)
     {
-        TimeDisplayController controller =  sidebartimer.GetComponent<TimeDisplayController>();
+        TimeDisplayController controller = sidebar.timer.GetComponent<TimeDisplayController>(); 
         controller.EndTime = time;
         controller.Callback = this; 
     }

@@ -35,8 +35,8 @@ public class Checklist : MonoBehaviour {
 			GetComponent<Text>().text = "Tooltip:";
 			projectilecode = selectedTool.GetComponent<SelectedTool>().projectilecode;
 			// Activate
-			if (lg.tasklist[0] > 0 && projectilecode == 0) {
-				if (lg.tasklist[0] == lg.taskscompleted[0]) {
+			if (GlobalState.level.Tasks[0] > 0 && projectilecode == 0) {
+                if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0]) {
 					GetComponent<Text>().text += "\n" +
 					 								lg.stringLibrary.checklist_complete_color_tag +
 													"ACTIVATE the beacons in the \nright order✓" +
@@ -51,8 +51,8 @@ public class Checklist : MonoBehaviour {
 				}
 			}
 			// Check
-			if (lg.tasklist[1] > 0 && projectilecode == 1) {
-				if (lg.tasklist[1]==lg.taskscompleted[1]) {
+			if (GlobalState.level.Tasks[1] > 0 && projectilecode == 1) {
+				if (GlobalState.level.Tasks[1]==GlobalState.level.CompletedTasks[1]) {
 					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"CHECK the values of the \nvariables✓" +
@@ -67,8 +67,8 @@ public class Checklist : MonoBehaviour {
 				}
 			}
 			// Name
-			if (lg.tasklist[2] > 0 && projectilecode == 2) {
-				if (lg.tasklist[2]==lg.taskscompleted[2]) {
+			if (GlobalState.level.Tasks[2] > 0 && projectilecode == 2) {
+				if (GlobalState.level.Tasks[2]== GlobalState.level.CompletedTasks[2]) {
 					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"RENAME the obscure variables✓" +
@@ -83,8 +83,8 @@ public class Checklist : MonoBehaviour {
 				}
 			}
 			// Comment
-			if (lg.tasklist[3] > 0 && projectilecode == 3) {
-				if (lg.tasklist[3]==lg.taskscompleted[3]) {
+			if (GlobalState.level.Tasks[3] > 0 && projectilecode == 3) {
+				if (GlobalState.level.Tasks[3]== GlobalState.level.CompletedTasks[3]) {
 					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"COMMENT the lines that \ndescribe the code✓" +
@@ -99,8 +99,8 @@ public class Checklist : MonoBehaviour {
 				}
 			}
 			// Un-comment
-			if (lg.tasklist[4] > 0 && projectilecode == 4) {
-				if (lg.tasklist[4]==lg.taskscompleted[4]) {
+			if (GlobalState.level.Tasks[4] > 0 && projectilecode == 4) {
+				if (GlobalState.level.Tasks[4]== GlobalState.level.CompletedTasks[4]) {
 					GetComponent<Text>().text += "\n" +
 													lg.stringLibrary.checklist_complete_color_tag +
 													"UN-COMMENT the code that is \ncorrect✓" +

@@ -132,7 +132,7 @@ public class question : MonoBehaviour {
 				else {
 					// Correct Answer
 					GetComponent<SpriteRenderer>().sprite = qSpriteOn;
-					lg.taskscompleted[1]++;
+                    GlobalState.level.CompletedTasks[1]++;
 					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				  audioCorrect.Play();
 					// Substring is startingPos, length. We want to start after the first color tag, and the length is the whole string - length of color tag - length of close color tag.

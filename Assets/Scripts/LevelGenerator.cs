@@ -25,9 +25,9 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public int toolsAirborne = 0;
 
 	// Contains the remaining tasks the player must complete before winning the level.
-	public int[] tasklist = new int[5];
+	//public int[] tasklist = new int[5];
 	// Contains the completed tasks of the player.
-	public int[] taskscompleted = new int[5];
+	//public int[] taskscompleted = new int[5];
 	// The number of lines in the XML file. Computed by counting the number of newline characters the XML contains.
 	public int linecount = 0;
 	public int renamegroupidCounter = 0;
@@ -36,10 +36,9 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public string[] outerXmlLines;
 	public string[] lineNumbers;
 	// The filename of the next XML file to read from.
-	public string nextlevel = "";
 	// The current level, contains the filename of the XML loaded.
 	// Game Mode is either "on" or "bug", for RobotON or RoboBUG respectively. This is defined in stringLib.
-	public string language;
+	//public string language;
 	// Stores the audio clips used in the game.
 	public AudioClip[] sounds = new AudioClip[10];
 	// Stores the icons for each tool.
@@ -47,8 +46,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
 	// Stores the tasks for each line.
 	public int[,] taskOnLines;
-	// Stores the time remaining on the sidebar.
-	public GameObject sidebartimer;
+
 	// Stores the level text, the lines of code the player sees.
 	public GameObject leveltext;
 	// Stores the level's (Displayed at the top of the level when playing).
@@ -66,15 +64,12 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject breakpointobject;
 	public GameObject hero;
 	public GameObject backgroundImage;
-	public GameObject sidebarChecklist;
-	public GameObject sidebarLabel;
-	public GameObject sidebarDescription;
+
 	public Sprite lightBackground;
 	public Sprite darkBackground;
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 
-	private Sprite[] panels = new Sprite[8]; 
 	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
 	public GameObject selectedtool;
 	public GameObject cinematic;
@@ -86,7 +81,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject toolprompt;
 
     private Output output; 
-    private SidebarController sidebar; 
+    private SidebarController sidebar;
 
 	public Vector3 defaultPosition = new Vector3(0,0,0);
 	public Vector3 defaultLocalScale = new Vector3(0,0,0);
@@ -137,8 +132,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
     LevelManager manager; 
 	//.................................>8.......................................
 	// Use this for initialization
-	private void Start() {
-		LoadPanels(); 
+	private void Start() { 
 		GlobalState.GameMode 					 = stringLib.GAME_MODE_ON;
 		losstime 					 = 0;
 		lines 						 = new List<GameObject>();
@@ -158,9 +152,12 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		robotONquestions 			 = new List<GameObject>();
 		isLosing 					 = false;
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
+        GlobalState.level = new Level(); 
+        GlobalState.level.Tasks = new int[5];
+        GlobalState.level.CompletedTasks = new int[5]; 
 		for (int i = 0; i < 5; i++) {
-			tasklist[i] = 0;
-			taskscompleted[i] = 0;
+            GlobalState.level.Tasks[i] = 0;
+            GlobalState.level.CompletedTasks[i] = 0;
 		}
 		isTimerAlarmTriggered = false;
 		winning = false;
@@ -185,12 +182,20 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
         {
             winning = true;
+
             for (int i = 0; i < 5; i++)
             {
-                if (tasklist[i] != taskscompleted[i])
+                if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     winning = false;
                 }
+            }
+            if  (winning == true)
+            {
+                GUISwitch(false);
+                print("Savegame (currentlevel): " + GlobalState.CurrentONLevel);
+                manager.SaveGame();
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             }
         }
     }
@@ -226,7 +231,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
             {
                 winning = false;
                 startNextLevelTimeDelay = 0f;
-                if (nextlevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath)
+                if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath)
                 {
                     // Destroy the bugs in this level and go to win screen.
                     foreach (GameObject bug in bugs)
@@ -247,6 +252,11 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 
         }
         // ]-- End of Win Conditions
+    }
+
+    public void ClearLevel()
+    {
+
     }
     private void HandleInterface()
     {
@@ -277,8 +287,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
             CheckWin();
-            CheckLoss();
-            WinConditions();
+            //CheckLoss();
+            //WinConditions();
             HandleInterface(); 
 		}
 	}
@@ -287,12 +297,12 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		switch(gui_on) {
 			case true:
                 sidebar.GetComponent<Canvas>().enabled = sidebarToggle;
-                output.GetComponent<Canvas>().enabled = true; 
+                GameObject.Find("OutputCanvas").GetComponent<Canvas>().enabled = true; 
 			break;
 
 			case false:
                 sidebar.GetComponent<Canvas>().enabled = false;
-                output.GetComponent<Canvas>().enabled = false;
+                GameObject.Find("OutputCanvas").GetComponent<Canvas>().enabled = false;
                 break;
 
 			default: break;
@@ -315,7 +325,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 
 		
-		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", outerXmlLines), language);
+		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", outerXmlLines), GlobalState.level.Language);
 		Debug.Log("Convert result string -> " + innerXMLstring);
 		innerXmlLines = innerXMLstring.Split('\n');
 		//int iter = 0;
@@ -342,9 +352,9 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			string sReadTime = XMLReader.GetTimeLimit(doc);
 			sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
 			LoadTimer((float)int.Parse(sReadTime));
-			// next level
-			nextlevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
-            Debug.Log("Next Level: " + nextlevel); 
+            // next level
+            GlobalState.level.NextLevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
+            Debug.Log("Next Level: " + GlobalState.level.NextLevel); 
 			// intro text
 			cinematic.GetComponent<Cinematic>().introtext = XMLReader.GetIntroText(doc);
 			// end text
@@ -444,7 +454,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				string commentCloseSymbol = multilineCommentCloseSymbolPython;
 				try {
 					commentStyle = node.Attributes[stringLib.XML_ATTRIBUTE_COMMENT_STYLE].Value;
-					commentLanguage = language;
+					commentLanguage = GlobalState.level.Language;
 				}
 				catch {
 					commentStyle = "single";
@@ -526,7 +536,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			default:
 			string thislanguage;
 			try {
-				thislanguage = language;
+				thislanguage = GlobalState.level.Language;
 			}
 			catch {
 				thislanguage = "python";
@@ -762,10 +772,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				taskOnLines[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				prints.Add(newoutput);
 				printer propertyHandler = newoutput.GetComponent<printer>();
-				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-				propertyHandler.SidebarObject = output.text;
-				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
@@ -785,7 +792,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				warper propertyHandler = newwarp.GetComponent<warper>();
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
-				propertyHandler.ToolSelectorObject = selectedtool;
 				//propertyHandler.Menu = menu;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
@@ -857,7 +863,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectComments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
-						tasklist[3]++;
+                        GlobalState.level.Tasks[3]++;
 					}
 					else if(childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 						robotONincorrectComments.Add(newcomment);
@@ -872,7 +878,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectUncomments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT;
-						tasklist[4]++;
+                        GlobalState.level.Tasks[4]++;
 					}
 					else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false") {
 						robotONincorrectUncomments.Add(newcomment);
@@ -899,7 +905,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				propertyHandler.ToolSelectorObject = selectedtool;
 				propertyHandler.index = lineNumber;
 				propertyHandler.language = language;
-				tasklist[1]++;
+                GlobalState.level.Tasks[1]++;
 				// propertyHandler.innertext = childnode.ReadInnerXml(); //Danger will robinson
 				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_question+")(.*)(</color>)(.*)");
 				string thisQuestionInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
@@ -932,7 +938,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				for (int i = 0; i < optionsArray.Length; i++) {
 					propertyHandler.options.Add(optionsArray[i]);
 				}
-				tasklist[2]++;
+                    GlobalState.level.Tasks[2]++;
 				
 				//for now, ignore this coloring; will be done later.
 				//Regex rgx = new Regex(@"(.*)("+stringLibrary.node_color_rename+")(.*)(</color>)(.*)");
@@ -998,7 +1004,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					string[] flowOrder = childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value.Split(',');
 					for (int i = 0; i < flowOrder.Length; i++) {
 						propertyHandler.flowOrder.Add(int.Parse(flowOrder[i]));
-						tasklist[0]++;
+                        GlobalState.level.Tasks[0]++;
 					}
 				}
 				robotONbeacons.Add(newbeacon);
@@ -1125,14 +1131,19 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			Destroy(levelbug);
 		}
 
-		// Reset task list
+        // Reset task list
+        /*
 		for (int i = 0; i < 5; i++) {
-			taskscompleted[i] = 0;
-			tasklist[i] = 0;
+            GlobalState.level.CompletedTasks[i] = 0;
+            GlobalState.level.Tasks[i] = 0;
 		}
+        */
+        GlobalState.level = new Level(); 
+        GlobalState.level.Tasks = new int[5];
+        GlobalState.level.CompletedTasks = new int[5];
 
-		// Reset local variables
-		output.text.GetComponent<Text>().text = "";
+        // Reset local variables
+        output.text.GetComponent<Text>().text = "";
 		lines 									  	= new List<GameObject>();
 		prints 								  	  	= new List<GameObject>();
 		roboBUGwarps 							  	= new List<GameObject>();
@@ -1355,12 +1366,9 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
-		//output.Text.color			= Color.black;
-		//outputEnter.GetComponent<Text>().color				= Color.black;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.black;
 		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
-            //output.transform.GetChild(0).GetComponent<Image>().sprite			= panels[5];
             output.ToggleLight(); 
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
@@ -1404,13 +1412,10 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
-		//sidebaroutput.GetComponent<Text>().color 			= Color.white;
-		//outputEnter.GetComponent<Text>().color				= Color.white;
 		cinematicEnter.GetComponent<TextMesh>().color			= Color.white;
 		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-            //output.transform.GetChild(0).GetComponent<Image>().sprite			= panels[3];
             output.ToggleDark(); 
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;

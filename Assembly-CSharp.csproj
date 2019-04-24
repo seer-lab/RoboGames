@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GameController.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\GlobalState.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
+     <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelGeneratorInitialize.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />

@@ -11,5 +11,6 @@ public static class GlobalState
     public static int GameState { get; set; }
     public static stringLib StringLib { get; set; }
     public static string FilePath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
+    public static Level level; 
 
 }

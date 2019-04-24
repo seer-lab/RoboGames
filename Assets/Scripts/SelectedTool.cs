@@ -76,7 +76,7 @@ public class SelectedTool : MonoBehaviour
         {
             if (toolCounts[i] + bonusTools[i] > 0)
             {
-                if (lg.tasklist[i] != lg.taskscompleted[i])
+                if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     toolIcons[i].GetComponent<Image>().enabled = true;
                 }
@@ -220,7 +220,7 @@ public class SelectedTool : MonoBehaviour
         print("projectilecode is " + projectilecode.ToString());
         toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
         // If the checklist entry was is completed, then disable this current tool before switching to the next
-        if (lg.tasklist[projectilecode] == lg.taskscompleted[projectilecode])
+        if (GlobalState.level.Tasks[projectilecode] == GlobalState.level.CompletedTasks[projectilecode])
         {
             taskComplete[projectilecode] = true;
             toolIcons[projectilecode].GetComponent<Image>().enabled = false;
@@ -296,7 +296,7 @@ public class SelectedTool : MonoBehaviour
 	}
 	//.................................>8.......................................
 	private void CheckTaskComplete(int nToolCode) {
-		if (lg.tasklist[nToolCode] == lg.taskscompleted[nToolCode] && !taskComplete[nToolCode] && lg.tasklist[nToolCode] == 0) {
+		if (GlobalState.level.Tasks[nToolCode] == GlobalState.level.CompletedTasks[nToolCode] && !taskComplete[nToolCode] && GlobalState.level.Tasks[nToolCode] == 0) {
 			taskComplete[nToolCode] = true;
 			for (int i = 0 ; i < 5 ; i++) {
 				NextTool();
@@ -304,14 +304,14 @@ public class SelectedTool : MonoBehaviour
 			toolIcons[nToolCode].GetComponent<Image>().enabled = false;
 			toolLabels[nToolCode].GetComponent<Text>().enabled = false;
 		}
-		if (lg.tasklist[nToolCode] == lg.taskscompleted[nToolCode] && !taskComplete[nToolCode]) {
+		if (GlobalState.level.Tasks[nToolCode] == GlobalState.level.CompletedTasks[nToolCode] && !taskComplete[nToolCode]) {
             taskComplete[nToolCode] = true;
             toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
             NextTool();
             outputtext.GetComponent<Text>().text = stringLib.INTERFACE_TASK_COMPLETE;
             outputtext.GetComponent<AudioSource>().Play();
 		}
-		else if (lg.tasklist[nToolCode] != lg.taskscompleted[nToolCode]) {
+		else if (GlobalState.level.Tasks[nToolCode] != GlobalState.level.Tasks[nToolCode]) {
             toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == false ? Color.white : Color.black;
 		}
 	}

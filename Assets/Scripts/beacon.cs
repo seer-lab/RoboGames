@@ -43,12 +43,12 @@ public class beacon : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		// All beacons complete
-		if (lg.taskscompleted[0] == lg.tasklist[0] && !revOnce) {
+		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && !revOnce) {
 			revOnce = true;
 			GetComponent<SpriteRenderer>().sprite = activebeacon;
 			audioRev.Play();
 		}
-		else if (lg.taskscompleted[0] != lg.tasklist[0] && actcounter > 0)
+		else if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter > 0)
 		{
 			flashCounter++;
 			if (flashCounter > 50) {
@@ -73,14 +73,14 @@ public class beacon : MonoBehaviour {
 				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You have activated this \nbeacon enough times, but the \nsequence is now broken. \nYou will have to start over.";
 				ResetAllBeacons();
 			}
-			else if (lg.taskscompleted[0] != flowOrder[actcounter]) {
+			else if (GlobalState.level.CompletedTasks[0] != flowOrder[actcounter]) {
 				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You will need to start the \nsequence again. Read the code carefully for \nclues.";
 				ResetAllBeacons();
 			}
 			else {
 				// Correct Selection
 				audioCorrect.Play();
-				lg.taskscompleted[0]++;
+				GlobalState.level.CompletedTasks[0]++;
 				// Award 1 extra use of the tool.
 				ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				actcounter++;
@@ -100,7 +100,7 @@ void ResetAllBeacons() {
 		beacon.GetComponent<beacon>().actcounter = 0;
 		beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
 		beacon.GetComponent<beacon>().flashCounter = 0;
-		lg.taskscompleted[0] = 0;
+            GlobalState.level.CompletedTasks[0] = 0; 
 	}
 }
 }

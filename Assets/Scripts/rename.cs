@@ -131,7 +131,7 @@ public class rename : MonoBehaviour {
 				//		}
 				//	}
 					lg.renamegroupidCounter++;
-					lg.taskscompleted[2]++;
+                    GlobalState.level.CompletedTasks[2]++;
 
 				}
 			}

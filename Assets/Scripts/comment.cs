@@ -143,7 +143,7 @@ public class comment : MonoBehaviour {
 
 			lg.DrawInnerXmlLinesToScreen();
 			lg.toolsAirborne--;
-			lg.taskscompleted[3]++;
+            GlobalState.level.CompletedTasks[3]++;
 
 		}
 	}
@@ -156,7 +156,7 @@ public class comment : MonoBehaviour {
 			GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
 			Destroy(collidingObj.gameObject);
 			GetComponent<AudioSource>().Play();
-			lg.taskscompleted[4]++;
+            GlobalState.level.CompletedTasks[4]++;
 			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
 			string sNewText = lg.textColoration.DecolorizeText(blocktext);
 			string tempDecolText = sNewText;
