@@ -29,11 +29,10 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	// Contains the completed tasks of the player.
 	//public int[] taskscompleted = new int[5];
 	// The number of lines in the XML file. Computed by counting the number of newline characters the XML contains.
-	public int linecount = 0;
 	public int renamegroupidCounter = 0;
 	// Lines of code stored in an array. innerXmlLines is the colorized text from NodeToColorString(), outerXmlLnes is the line with the tags.
-	public string[] innerXmlLines;
-	public string[] outerXmlLines;
+	//public string[] innerXmlLines;
+	//public string[] outerXmlLines;
 	public string[] lineNumbers;
 	// The filename of the next XML file to read from.
 	// The current level, contains the filename of the XML loaded.
@@ -45,7 +44,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
 	public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
 	// Stores the tasks for each line.
-	public int[,] taskOnLines;
 
 	// Stores the level text, the lines of code the player sees.
 	public GameObject leveltext;
@@ -152,7 +150,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		robotONquestions 			 = new List<GameObject>();
 		isLosing 					 = false;
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
-        GlobalState.level = new Level(); 
         GlobalState.level.Tasks = new int[5];
         GlobalState.level.CompletedTasks = new int[5]; 
 		for (int i = 0; i < 5; i++) {
@@ -165,7 +162,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         GUISwitch(true);
-        BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
+        BuildLevel();
+        //BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
 	}
     public void OnTimeFinish()
     {
@@ -179,7 +177,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
     {
         // Win condition check for RobotON, this is necessary because the win condition is a checklist
         // and the checklist can be completed in any order --[
-        if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
         {
             winning = true;
 
@@ -286,7 +284,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
     private void Update() {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
 		{
-            CheckWin();
+            //CheckWin();
             //CheckLoss();
             //WinConditions();
             HandleInterface(); 
@@ -309,11 +307,52 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 	}
 
-	public void BuildLevel(string filename, bool warp, string warpToLine = "")	{
+    public void BuildLevel()
+    {
+        ResetLevel(false);
+        Debug.Log(GlobalState.level.CodeNodes); 
+        foreach (XmlNode codenode in GlobalState.level.CodeNodes)
+        {
+            if (codenode.Name == stringLib.NODE_NAME_DESCRIPTION)
+            {
+                destext.GetComponent<TextMesh>().text = codenode.InnerText;
+            }
+        }
+        CreateLevelLines(GlobalState.level.LineCount);
+        PlaceObjects(GlobalState.level.LevelNode);
+        ProvisionToolsFromXml(GlobalState.level.NodeList);
+        LoadTimer(GlobalState.level.Time);
+        cinematic.GetComponent<Cinematic>().introtext = GlobalState.level.IntroText;
+        // end text
+        cinematic.GetComponent<Cinematic>().endtext = GlobalState.level.ExitText;
+
+        // Resize the boundaries of the level to correspond with how many lines we have
+        if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE)
+        {
+            this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
+            this.transform.position += new Vector3(2.2f, 0, 0);
+            this.transform.localScale += new Vector3(2, levelLineRatio * GlobalState.level.LineCount, 0);
+        }
+        else
+        {
+            this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
+            this.transform.localScale += new Vector3(0.1f, levelLineRatio * GlobalState.level.LineCount, 0);
+        }
+        DrawInnerXmlLinesToScreen();
+        if (!initialresize)
+        {
+            // Make the text large in size for first run.
+            initialresize = true;
+            TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
+        }
+
+    }
+    /*
+    public void BuildLevel(string filename, bool warp, string warpToLine = "")	{
 		ResetLevel(warp);
 		XmlDocument doc = XMLReader.ReadFile(filename);
 		XmlNode levelnode = doc.FirstChild;
-		outerXmlLines = XMLReader.GetOuterXML(doc);
+		GlobalState.level.Tags = XMLReader.GetOuterXML(doc);
 		//@TODO: This is a bug. InnerXML should not be OuterXML. Need to convert all outerXML to InnerXML.
 		//innerXmlLines = outerXmlLines;
 		
@@ -325,18 +364,18 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 
 		
-		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", outerXmlLines), GlobalState.level.Language);
+		string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", GlobalState.level.Tags), GlobalState.level.Language);
 		Debug.Log("Convert result string -> " + innerXMLstring);
-		innerXmlLines = innerXMLstring.Split('\n');
+		GlobalState.level.Code = innerXMLstring.Split('\n');
 		//int iter = 0;
 		//foreach(string s in innerXmlLines) {
 		//	Debug.Log("InnerXML: " + s);
 		//	innerXmlLines[iter] = PrepareOuterXMLToGameScreen(s, XMLReader.GetLanguage(doc));
 		//	iter += 1;
 		//}
-		linecount = XMLReader.GetLineCount(doc);
-		CreateLevelLines(linecount);
-		taskOnLines = new int[linecount,stateLib.NUMBER_OF_TOOLS];
+		GlobalState.level.LineCount = XMLReader.GetLineCount(doc);
+		CreateLevelLines(GlobalState.level.LineCount);
+		GlobalState.level.TaskOnLine = new int[GlobalState.level.LineCount,stateLib.NUMBER_OF_TOOLS];
 		PlaceObjects(levelnode);
 
 		if (warp) {
@@ -363,13 +402,13 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 		// Resize the boundaries of the level to correspond with how many lines we have
 		if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE) {
-			this.transform.position -= new Vector3(0, linecount * linespacing / 2, 0);
+			this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
 			this.transform.position += new Vector3(2.2f, 0, 0);
-			this.transform.localScale += new Vector3(2, levelLineRatio * linecount, 0);
+			this.transform.localScale += new Vector3(2, levelLineRatio * GlobalState.level.LineCount, 0);
 		}
 		else {
-			this.transform.position -= new Vector3(0, linecount * linespacing / 2, 0);
-			this.transform.localScale += new Vector3(0.1f, levelLineRatio * linecount, 0);
+			this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
+			this.transform.localScale += new Vector3(0.1f, levelLineRatio * GlobalState.level.LineCount, 0);
 		}
 		DrawInnerXmlLinesToScreen();
 		if (!initialresize) {
@@ -378,14 +417,14 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
 		}
 	}
-
+    */
 	//.................................>8.......................................
 	//************************************************************************//
 	// Method: public void CreateLevelLines();
 	// Description: Create the grey level line objects between each line of code
 	//************************************************************************//
 	public void CreateLevelLines(int linecount) {
-		// Create the grey line objects for each line.
+        // Create the grey line objects for each line.
 		lineNumbers = new string[linecount];
 		for (int i = 0; i < linecount; i++) {
 			float fTransform = initialLineY - i * linespacing + lineOffset;
@@ -555,7 +594,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 	//************************************************************************//
 	public void DrawInnerXmlLinesToScreen(bool bRedrawLineNumbers = true) {
 		string drawCode = "";
-		for (int x = 1 ; x < innerXmlLines.GetLength(0) + 1; x++) {
+		for (int x = 1 ; x < GlobalState.level.Code.GetLength(0) + 1; x++) {
 			//draw the line number next to the text
 			if (bRedrawLineNumbers) {
 				// Color the number next to the line depending on the tasks on the line.
@@ -564,10 +603,11 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				
 				//string lineNumber = textColoration.ColorTaskLine(innerXmlLines[x-1], x-1, this);
 				string lineNumber = (x).ToString();
-				//lineNumber += (lineNumber.IndexOf("color") != -1) ? stringLib.CLOSE_COLOR_TAG : "";
+                //lineNumber += (lineNumber.IndexOf("color") != -1) ? stringLib.CLOSE_COLOR_TAG : "";
+
 				lineNumbers[x-1] = lineNumber;
 			}
-			drawCode += lineNumbers[x-1] + "\t" + innerXmlLines[x-1];
+			drawCode += lineNumbers[x-1] + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
 		}
 		print("Drawcode is: " + drawCode);
@@ -630,7 +670,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 						thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 						// Colorize all multi-comment line numbers green
 						for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-							taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
 						}
 						// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 						thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
@@ -648,7 +688,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
@@ -666,7 +706,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
@@ -686,7 +726,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
@@ -704,7 +744,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-								taskOnLines[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
@@ -769,7 +809,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_PRINT: {
 				print("CreateLevelObject: Creating print node with index of " + lineNumber);
 				GameObject newoutput = (GameObject)Instantiate(printobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				prints.Add(newoutput);
 				printer propertyHandler = newoutput.GetComponent<printer>();
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
@@ -787,7 +827,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_WARP: {
 				print("CreateLevelObject: Creating warp node with index of " + lineNumber);
 				GameObject newwarp = (GameObject)Instantiate(warpobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - (lineNumber) * linespacing, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				roboBUGwarps.Add(newwarp);
 				warper propertyHandler = newwarp.GetComponent<warper>();
 				propertyHandler.CodescreenObject = this.gameObject;
@@ -824,7 +864,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.CodescreenObject = selectedtool;
 				propertyHandler.language = language;
-				taskOnLines[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				bugs.Add(levelbug);
 				numberOfBugsRemaining++;
 				return levelbug;
@@ -859,7 +899,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					}
 					break;
 					case "description":
-					taskOnLines[lineNumber, stateLib.TOOL_COMMENTER]++;
+                            GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_COMMENTER]++;
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectComments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
@@ -874,7 +914,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					}
 					break;
 					case "code":
-					taskOnLines[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
+                            GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true") {
 						robotONcorrectUncomments.Add(newcomment);
 						propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT;
@@ -895,7 +935,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_QUESTION: {
 				print("CreateLevelObject: Creating question node with index of " + lineNumber);
 				GameObject newquestion = (GameObject)Instantiate(questionobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				robotONquestions.Add(newquestion);
 				question propertyHandler = newquestion.GetComponent<question>();
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
@@ -908,14 +948,14 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                 GlobalState.level.Tasks[1]++;
 				// propertyHandler.innertext = childnode.ReadInnerXml(); //Danger will robinson
 				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_question+")(.*)(</color>)(.*)");
-				string thisQuestionInnerText = rgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
+				string thisQuestionInnerText = rgx.Replace(GlobalState.level.Code[propertyHandler.index], "$2$3$4");
 				propertyHandler.innertext = thisQuestionInnerText;
 				return newquestion;
 			}
 			case stringLib.NODE_NAME_RENAME: {
 				print("CreateLevelObject: Creating rename node with index of " + lineNumber);
 				GameObject newrename = (GameObject)Instantiate(renameobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - lineNumber * linespacing, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				robotONrenamers.Add(newrename);
 				rename propertyHandler = newrename.GetComponent<rename>();
 				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
@@ -946,7 +986,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				//propertyHandler.innertext = thisRenameInnerText;
 				
 				Regex rgx = new Regex(@"(^| |\>)("+propertyHandler.oldname+")(;| )");
-				innerXmlLines[propertyHandler.index] = rgx.Replace(innerXmlLines[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				GlobalState.level.Code[propertyHandler.index] = rgx.Replace(GlobalState.level.Code[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
 				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(" " + propertyHandler.oldname + " ", " " + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
 				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(">" + propertyHandler.oldname + " ", ">" + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
 				
@@ -958,7 +998,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_BREAKPOINT: {
 				print("CreateLevelObject: Creating breakpoint node with index of " + lineNumber);
 				GameObject newbreakpoint =(GameObject)Instantiate(breakpointobject, new Vector3(-10, initialLineY - lineNumber * linespacing + 0.4f, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
 				roboBUGbreakpoints.Add(newbreakpoint);
 				Breakpoint propertyHandler = newbreakpoint.GetComponent<Breakpoint>();
 				propertyHandler.SidebarObject = output.text;
@@ -994,7 +1034,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_BEACON: {
 				print("CreateLevelObject: Creating beacon node with index of " + lineNumber);
 				GameObject newbeacon = (GameObject)Instantiate(beaconobject, new Vector3(-9.95f, initialLineY - lineNumber * linespacing + lineOffset + 0.4f, 1), transform.rotation);
-				taskOnLines[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				beacon propertyHandler = newbeacon.GetComponent<beacon>();
 				propertyHandler.CodescreenObject = this.gameObject;
 				propertyHandler.index = lineNumber;
@@ -1022,9 +1062,9 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				propertyHandler.oldname = childnode.InnerText;
 				Debug.Log("oldname for new variable object = " + propertyHandler.oldname);
 				Regex varrgx = new Regex(@"(^| |\t|\>)("+propertyHandler.oldname+")(;| )");
-				innerXmlLines[propertyHandler.index] = varrgx.Replace(innerXmlLines[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				GlobalState.level.Code[propertyHandler.index] = varrgx.Replace(GlobalState.level.Code[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
 				varrgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(\\w)(</color>)(.*)");
-				string thisVarnamenInnerText = varrgx.Replace(innerXmlLines[propertyHandler.index], "$2$3$4");
+				string thisVarnamenInnerText = varrgx.Replace(GlobalState.level.Code[propertyHandler.index], "$2$3$4");
 				propertyHandler.innertext = thisVarnamenInnerText;
 				return newvariablecolor;
 			}
@@ -1032,13 +1072,50 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		return null;
 	}
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void ProvisionToolsFromXml(XmlNode levelnode)
-	// Description: Read through levelnode XML and provision the tools for this level
-	// levelnode is typically the parent XML node in the XML document.
-	//************************************************************************//
-	public void ProvisionToolsFromXml(XmlDocument doc) {
+    public void ProvisionToolsFromXml(IList<XmlNode> nodelist)
+    {
+        foreach (XmlNode tool in nodelist)
+        {
+            // Set the tool count for each tool node --[
+            int toolnum = 0;
+            Debug.Log("Working with node: " + tool.OuterXml);
+            switch (tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value)
+            {
+                case "catcher":
+                case "activator":
+                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                    break;
+                case "printer":
+                case "checker":
+                case "answer":
+                    toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
+                    break;
+                case "warper":
+                case "namer":
+                    toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
+                    break;
+                case "commenter":
+                    toolnum = stateLib.TOOL_COMMENTER;
+                    break;
+                case "controlflow":
+                    toolnum = stateLib.TOOL_CONTROL_FLOW;
+                    break;
+                default:
+                    break;
+            }
+            toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
+            selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
+            // ]-- End of tool count for each tool node
+        }
+    }
+    //.................................>8.......................................
+    //************************************************************************//
+    // Method: public void ProvisionToolsFromXml(XmlNode levelnode)
+    // Description: Read through levelnode XML and provision the tools for this level
+    // levelnode is typically the parent XML node in the XML document.
+    //************************************************************************//
+
+    public void ProvisionToolsFromXml(XmlDocument doc) {
 		// Grey out all tools
 		for (int i = 0; i < totalNumberOfTools; i++) {
 			toolIcons[i].GetComponent<Image>().enabled = false;
@@ -1138,12 +1215,9 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
             GlobalState.level.Tasks[i] = 0;
 		}
         */
-        GlobalState.level = new Level(); 
-        GlobalState.level.Tasks = new int[5];
-        GlobalState.level.CompletedTasks = new int[5];
 
         // Reset local variables
-        output.text.GetComponent<Text>().text = "";
+        if (output != null)output.text.GetComponent<Text>().text = "";
 		lines 									  	= new List<GameObject>();
 		prints 								  	  	= new List<GameObject>();
 		roboBUGwarps 							  	= new List<GameObject>();
@@ -1186,8 +1260,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		this.transform.position = defaultPosition;
 		this.transform.localScale = defaultLocalScale;
 
-		// Reset line count
-		linecount = 0;
 
 		// Move player to default position
 		hero.transform.position = leveltext.transform.position;
@@ -1272,8 +1344,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		}
 		this.transform.position = defaultPosition;
 		this.transform.localScale = defaultLocalScale;
-		this.transform.position -= new Vector3(0, linecount * linespacing / 2, 0);
-		this.transform.localScale += new Vector3(0, levelLineRatio * linecount, 0);
+		this.transform.position -= new Vector3(0, GlobalState.level.LineCount * linespacing / 2, 0);
+		this.transform.localScale += new Vector3(0, levelLineRatio * GlobalState.level.LineCount, 0);
 		if (nTextSizeConst == stateLib.TEXT_SIZE_LARGE) {
 			this.transform.position += new Vector3(2.2f, 0, 0);
 			this.transform.localScale += new Vector3(2, 0, 0);
@@ -1283,7 +1355,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			Destroy(line);
 		}
 		lines.Clear();
-		for (int i = 0; i < linecount; i++) {
+		for (int i = 0; i < GlobalState.level.LineCount; i++) {
 			float fTransform = initialLineY - i * linespacing + lineOffset;
 			GameObject newline =(GameObject)Instantiate(lineobject, new Vector3(initialLineX, fTransform, 1.1f), transform.rotation);
 			newline.transform.localScale += new Vector3(0.35f, 0, 0);
@@ -1374,21 +1446,21 @@ public void ToggleLightDark() {
 			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
 		}
 		// Switch the text colors to correspond with the Light Color palette (darker colors)
-		for (int i = 0 ; i < innerXmlLines.GetLength(0) ; i++) {
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_print, stringLibrary.node_color_print_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_warp, stringLibrary.node_color_warp_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_uncomment, stringLibrary.node_color_uncomment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_incorrect_uncomment, stringLibrary.node_color_incorrect_uncomment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_correct_comment, stringLibrary.node_color_correct_comment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_incorrect_comment, stringLibrary.node_color_incorrect_comment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_comment, stringLibrary.node_color_comment_dark);
+		for (int i = 0 ; i < GlobalState.level.Code.GetLength(0) ; i++) {
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_print, stringLibrary.node_color_print_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_warp, stringLibrary.node_color_warp_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_uncomment, stringLibrary.node_color_uncomment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_incorrect_uncomment, stringLibrary.node_color_incorrect_uncomment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_correct_comment, stringLibrary.node_color_correct_comment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_incorrect_comment, stringLibrary.node_color_incorrect_comment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_comment, stringLibrary.node_color_comment_dark);
 
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_comment, stringLibrary.syntax_color_comment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_keyword, stringLibrary.syntax_color_keyword_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_badcomment, stringLibrary.syntax_color_badcomment_dark);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_string, stringLibrary.syntax_color_string_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_comment, stringLibrary.syntax_color_comment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_keyword, stringLibrary.syntax_color_keyword_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_badcomment, stringLibrary.syntax_color_badcomment_dark);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_string, stringLibrary.syntax_color_string_dark);
 		}
 		foreach (GameObject renameObj in robotONrenamers) {
 			rename propertyHandler = renameObj.GetComponent<rename>();
@@ -1420,23 +1492,23 @@ public void ToggleLightDark() {
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;
 		}
-		// Switch the text colors to correspond with the Dark Color palette (lighter colors)
-		for (int i = 0 ; i < innerXmlLines.GetLength(0) ; i++) {
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_print, stringLibrary.node_color_print_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_warp, stringLibrary.node_color_warp_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_uncomment, stringLibrary.node_color_uncomment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_incorrect_uncomment, stringLibrary.node_color_incorrect_uncomment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_correct_comment, stringLibrary.node_color_correct_comment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_incorrect_comment, stringLibrary.node_color_incorrect_comment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.node_color_comment, stringLibrary.node_color_comment_light);
-
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_comment, stringLibrary.syntax_color_comment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_keyword, stringLibrary.syntax_color_keyword_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_badcomment, stringLibrary.syntax_color_badcomment_light);
-			innerXmlLines[i] = innerXmlLines[i].Replace(stringLibrary.syntax_color_string, stringLibrary.syntax_color_string_light);
-		}
+            // Switch the text colors to correspond with the Dark Color palette (lighter colors)
+            for (int i = 0; i < GlobalState.level.Code.GetLength(0); i++)
+            {
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_print, stringLibrary.node_color_print_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_warp, stringLibrary.node_color_warp_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_uncomment, stringLibrary.node_color_uncomment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_incorrect_uncomment, stringLibrary.node_color_incorrect_uncomment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_correct_comment, stringLibrary.node_color_correct_comment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_incorrect_comment, stringLibrary.node_color_incorrect_comment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_comment, stringLibrary.node_color_comment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_comment, stringLibrary.syntax_color_comment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_keyword, stringLibrary.syntax_color_keyword_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_badcomment, stringLibrary.syntax_color_badcomment_light);
+                GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_string, stringLibrary.syntax_color_string_light);
+            }
 		foreach (GameObject renameObj in robotONrenamers) {
 			rename propertyHandler = renameObj.GetComponent<rename>();
 			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_light);

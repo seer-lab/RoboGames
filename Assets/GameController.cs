@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public Level level;
+    LevelFactory factory; 
     LevelManager manager;
-    LevelGenerator lg; 
+    LevelGenerator lg;
+    bool winning = false; 
     private void CheckWin()
     {
-        if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
         {
-            bool winning = true;
+            winning = true;
             for (int i = 0; i < 5; i++)
             {
-                if (level.Tasks[i] != level.CompletedTasks[i])
+                if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     winning = false;
                 }
@@ -28,25 +29,34 @@ public class GameController : MonoBehaviour
 
     IEnumerator Win()
     {
-        yield return new WaitForSecondsRealtime(1f); 
-        if (level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath)
+        yield return new WaitForSecondsRealtime(2.2f); 
+        if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath && winning)
         {
             manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            lg.ClearLevel();
-            lg.GUISwitch(false); 
-
+            lg.GUISwitch(false);
+            winning = false; 
         }
+    }
+    public void SetLevel(string file)
+    {
+        factory = new LevelFactory(file);
+        GlobalState.level = factory.GetLevel();
+        lg.BuildLevel(); 
     }
     // Start is called before the first frame update
     void Start()
     {
-        lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>(); 
+        manager = new LevelManager(); 
+        lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
+        factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+        GlobalState.level = factory.GetLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CheckWin(); 
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
+            CheckWin(); 
     }
 }

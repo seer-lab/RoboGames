@@ -165,7 +165,7 @@ public class TextColoration {
   public string ColorTaskLine(string sLine, int nLine, LevelGenerator lg)
 	{
 		for (int toolCheck = 0; toolCheck < stateLib.NUMBER_OF_TOOLS; toolCheck++) {
-			if (lg.taskOnLines[nLine,toolCheck] != 1) {
+			if (GlobalState.level.TaskOnLine[nLine,toolCheck] != 1) {
 				continue;
 			}
 			switch(toolCheck) {

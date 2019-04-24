@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
+     <Compile Include="Assets\Scripts\LevelFactory.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelGeneratorInitialize.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />

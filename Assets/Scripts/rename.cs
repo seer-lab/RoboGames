@@ -105,11 +105,11 @@ public class rename : MonoBehaviour {
 					
 					int iter = 0;
 					Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*?)(</color>)(.*)");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
-					foreach(string s in lg.innerXmlLines) {
+					GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
+					foreach(string s in GlobalState.level.Code) {
 						//rgx = new Regex(@"(^| |\>|\t|\()("+oldname+@")(;| |\+|\[)");
 						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
-						lg.innerXmlLines[iter] = rgx.Replace(lg.innerXmlLines[iter],"$1"+correct+"$3");
+						GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
 						iter += 1;
 					}
 					

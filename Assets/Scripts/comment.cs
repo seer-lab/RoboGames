@@ -121,10 +121,10 @@ public class comment : MonoBehaviour {
 				}
 			}
 			if (sNewParts.Length == 1) {
-				// Single line
-				// Add comment style around the text
-				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG);
-				lg.innerXmlLines[index] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+                // Single line
+                // Add comment style around the text
+                //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG);
+                GlobalState.level.Code[index] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 			}
 			else {
 				// Multi line
@@ -137,7 +137,7 @@ public class comment : MonoBehaviour {
 																			lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[sNewParts.Length-1] + stringLib.CLOSE_COLOR_TAG;
 
 				for (int i = 0 ; i < sNewParts.Length ; i++) {
-					lg.innerXmlLines[index+i] = sNewParts[i];
+                    GlobalState.level.Code[index+i] = sNewParts[i];
 				}
 			}
 
@@ -202,7 +202,7 @@ public class comment : MonoBehaviour {
 				tempDecolText = lg.textColoration.DecolorizeText(sNewText);
 				
 				sNewText = lg.textColoration.ColorizeText(tempDecolText, language);
-				lg.innerXmlLines[index] = sNewText;
+                GlobalState.level.Code[index] = sNewText;
 			}
 			else {
 				string commentOpenSymbol = "/*";
@@ -212,12 +212,12 @@ public class comment : MonoBehaviour {
 				sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
 				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(commentCloseSymbol, "");
 				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(stringLib.CLOSE_COLOR_TAG, "");
-				/*for (int i = 1 ; i < sNewParts.Length - 1 ; i++) {
+                /*for (int i = 1 ; i < sNewParts.Length - 1 ; i++) {
 					sNewParts[i] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
 															   lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 				}*/
-				lg.innerXmlLines[index] = lg.textColoration.ColorizeText(sNewParts[0], language);
-				lg.innerXmlLines[index+sNewParts.Length-1] = lg.textColoration.ColorizeText(sNewParts[sNewParts.Length-1], language);
+                GlobalState.level.Code[index] = lg.textColoration.ColorizeText(sNewParts[0], language);
+                GlobalState.level.Code[index+sNewParts.Length-1] = lg.textColoration.ColorizeText(sNewParts[sNewParts.Length-1], language);
 
 				
 				/*// Multi line old version; probably can be removed 
@@ -349,15 +349,15 @@ public class comment : MonoBehaviour {
 					// Single line
 					
 				//verify comment color is removed
-				lg.innerXmlLines[index] = lg.textColoration.DecolorizeText(lg.innerXmlLines[index]);					
-					
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
-					lg.innerXmlLines[index] = "";
+				GlobalState.level.Code[index] = lg.textColoration.DecolorizeText(GlobalState.level.Code[index]);
+
+                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
+                    GlobalState.level.Code[index] = "";
 				}
 				else {
 					// Multi line
 					for (int i = 0 ; i < sNewParts.Length ; i++) {
-						lg.innerXmlLines[index+i] = "";
+                        GlobalState.level.Code[index+i] = "";
 					}
 				}
 				lg.DrawInnerXmlLinesToScreen();

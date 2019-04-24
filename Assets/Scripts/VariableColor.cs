@@ -53,9 +53,9 @@ public class VariableColor : MonoBehaviour {
                 //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
 				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
-				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
 				
 				lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
@@ -68,7 +68,7 @@ public class VariableColor : MonoBehaviour {
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + correct + " " , " " + oldname + " ");
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + correct + " " , ">" + oldname + " ");
 					Regex rgx = new Regex(@"(^| |\t|\>)("+correct+")(;| )");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+oldname+"$3");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+oldname+"$3");
 					
                     lg.DrawInnerXmlLinesToScreen();
                 }
@@ -79,7 +79,7 @@ public class VariableColor : MonoBehaviour {
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 					Regex rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
 					
                     lg.DrawInnerXmlLinesToScreen(false);
                 }
@@ -90,9 +90,9 @@ public class VariableColor : MonoBehaviour {
                     foreach(GameObject variablecolor in lg.robotONvariablecolors) {
                         if (variablecolor.GetComponent<VariableColor>().groupid == (groupid+1)) {
                             int lineNum = variablecolor.GetComponent<VariableColor>().index;
-                            string sReplace = lg.outerXmlLines[lineNum];
+                            string sReplace = GlobalState.level.Tags[lineNum];
                             //sReplace = lg.OuterToInnerXml(sReplace, language);
-                            lg.innerXmlLines[lineNum] = sReplace;
+                            GlobalState.level.Code[lineNum] = sReplace;
                             lg.DrawInnerXmlLinesToScreen();
                         }
 					}
@@ -101,7 +101,7 @@ public class VariableColor : MonoBehaviour {
             else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
     			// Change the next groupid objects to the new colors
     			decolorOnce = true;
-    			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
+                GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
     			lg.DrawInnerXmlLinesToScreen();
     		}
         }
