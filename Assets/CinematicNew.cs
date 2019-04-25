@@ -11,7 +11,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
 public class CinematicNew : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CinematicNew : MonoBehaviour
     public string continuetext = "Continue Text Placeholder";
     // This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
     public string endtext = "Winner!\nLevel End Placeholder!";
-    public GameObject prompt2;
+    public GameObject prompt1, prompt2;
     public GameObject[] cinebugs = new GameObject[6];
 
     private bool cinerun = false;
@@ -40,13 +41,13 @@ public class CinematicNew : MonoBehaviour
     }
     public void ToggleLight()
     {
-        this.GetComponent<TextMesh>().color = Color.black;
-        prompt2.GetComponent<TextMesh>().color = Color.black; 
+        prompt1.GetComponent<Text>().color = Color.black;
+        prompt2.GetComponent<Text>().color = Color.black; 
     }
     public void ToggleDark()
     {
-        this.GetComponent<TextMesh>().color = Color.white;
-        prompt2.GetComponent<TextMesh>().color = Color.white; 
+        prompt1.GetComponent<Text>().color = Color.white;
+        prompt2.GetComponent<Text>().color = Color.white; 
     }
     private void UpdateText()
     {
@@ -86,7 +87,7 @@ public class CinematicNew : MonoBehaviour
                     objs.Add(rob);
                 }
             }
-            GetComponent<TextMesh>().text = introtext;
+            prompt1.GetComponent<Text>().text = introtext;
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
@@ -107,7 +108,7 @@ public class CinematicNew : MonoBehaviour
                 objs.Add(bug);
             }
 
-            GetComponent<TextMesh>().text = endtext;
+            prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
@@ -139,12 +140,12 @@ public class CinematicNew : MonoBehaviour
                 GameObject bug = (GameObject)Instantiate(cinebugs[4]);
                 objs.Add(bug);
             }
-            GetComponent<TextMesh>().text = stringLib.LOSE_TEXT;
-            prompt2.GetComponent<TextMesh>().text = stringLib.RETRY_TEXT;
+            prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
+            prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
             {
                 Destroy(objs[0]);
-                prompt2.GetComponent<TextMesh>().text = stringLib.CONTINUE_TEXT;
+                prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
                 cinerun = false;
                 objs = new List<GameObject>();
@@ -153,7 +154,7 @@ public class CinematicNew : MonoBehaviour
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 Destroy(objs[0]);
-                prompt2.GetComponent<TextMesh>().text = stringLib.CONTINUE_TEXT;
+                prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
                 cinerun = false;
                 objs = new List<GameObject>();

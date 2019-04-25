@@ -76,8 +76,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            winning = false;
-            Debug.Log("Enumerator Win"); 
+            winning = false; 
             SceneManager.LoadScene("Cinematic"); 
         }
         else

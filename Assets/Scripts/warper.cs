@@ -20,7 +20,6 @@ public class warper : Tools
 	public string Filename { get; set; }
 	public string WarpToLine { get; set; }
 
-	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
 			string sMessage = stringLib.LOG_WARPED + Filename;
@@ -39,8 +38,7 @@ public class warper : Tools
 					}
 				}
             GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + Filename, WarpToLine);
-            //lg.BuildLevel(GlobalState.GameMode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, warpToLine);
+           
 		}
 	}
-	//.................................>8.......................................
 }
