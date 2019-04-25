@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Cinematic.unity
+- path: Assets/Credits.unity
   isLoaded: 1
   isActive: 1

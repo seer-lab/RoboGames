@@ -30,6 +30,21 @@ public class GameController : MonoBehaviour
             }
         }
     }
+    //.................................>8.......................................
+    //************************************************************************//
+    // Method: public void Victory()
+    // Description: Switch to the GAME_END state. When Update() is called, appropriate
+    // action is taken there.
+    //@TODO: level5 seems to be a magic level or something to signal the end of the game?
+    //************************************************************************//
+    public void Victory()
+    {
+        manager.SaveGame();
+        GlobalState.IsPlaying = false;
+        GlobalState.CurrentONLevel = "level5";
+        GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
+        SceneManager.LoadScene("Credits");
+    }
 
     IEnumerator Win()
     {
@@ -41,6 +56,10 @@ public class GameController : MonoBehaviour
             winning = false;
             Debug.Log("Enumerator Win"); 
             SceneManager.LoadScene("Cinematic"); 
+        }
+        else
+        {
+            Victory(); 
         }
     }
     /*

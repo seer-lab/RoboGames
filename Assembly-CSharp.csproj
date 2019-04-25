@@ -55,6 +55,8 @@
   <ItemGroup>
      <Compile Include="Assets\BackgroundController.cs" />
      <Compile Include="Assets\CinematicNew.cs" />
+     <Compile Include="Assets\credits.cs" />
+     <Compile Include="Assets\CreditsController.cs" />
      <Compile Include="Assets\GameController.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />

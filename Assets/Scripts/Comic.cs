@@ -79,25 +79,6 @@ public class Comic : MonoBehaviour
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 			}
 		}
-		else if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END) {
-			if (credtext == "") {
-				FileInfo fi = new FileInfo(GlobalState.GameState + @"leveldata/credits.txt");
-				StreamReader sr = fi.OpenText();
-				string text;
-				do {
-					text = sr.ReadLine();
-					credtext += text + "\n";
-				} while(text != null);
-				credits.GetComponent<TextMesh>().text = credtext;
-				credits.GetComponent<Animator>().SetBool("Ended", true);
-			}
-			if (Input.anyKeyDown && !Input.GetMouseButton(0)) {
-                GlobalState.GameState = 0;
-				credtext = "";
-				credits.GetComponent<TextMesh>().text = credtext;
-				credits.GetComponent<Animator>().SetBool("Ended", false);
-			}
-		}
 		else {
 			delaytime = Time.time + delay;
 		}
