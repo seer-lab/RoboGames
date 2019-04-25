@@ -15,36 +15,15 @@ using UnityEngine.UI;
 using System.Collections;
 using System.IO;
 
-public class warper : MonoBehaviour
+public class warper : Tools
 {
-	public int index = -1;
-	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
-	public string filename = "";
-	public string warpToLine = "";
-	public string language;
-	public GameObject CodescreenObject;
-	public GameObject ToolSelectorObject;
-	public GameObject Menu;
-
-
-	private bool toolgiven = false;
-	private LevelGenerator lg;
-
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-	}
-
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
-	}
+	public string Filename { get; set; }
+	public string WarpToLine { get; set; }
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
-			string sMessage = stringLib.LOG_WARPED + filename;
+			string sMessage = stringLib.LOG_WARPED + Filename;
 			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(collidingObj.gameObject);
 			lg.toolsAirborne--;
@@ -52,14 +31,14 @@ public class warper : MonoBehaviour
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
-					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] += tools[i];
-					if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] == 0 && ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[i] == 0) {
-						ToolSelectorObject.GetComponent<SelectedTool>().toolIcons[i].GetComponent<Image>().enabled = false;
-						if (ToolSelectorObject.GetComponent<SelectedTool>().projectilecode == i) ToolSelectorObject.GetComponent<SelectedTool>().NextTool();
+					selectedTool.bonusTools[i] += tools[i];
+					if (selectedTool.toolCounts[i] == 0 && selectedTool.bonusTools[i] == 0) {
+						selectedTool.toolIcons[i].GetComponent<Image>().enabled = false;
+						if (selectedTool.projectilecode == i) selectedTool.NextTool();
 						}
 					}
 				}
-            GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + filename, warpToLine);
+            GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + Filename, WarpToLine);
             //lg.BuildLevel(GlobalState.GameMode + "leveldata" + Menu.GetComponent<Menu>().filepath + filename, true, warpToLine);
 		}
 	}

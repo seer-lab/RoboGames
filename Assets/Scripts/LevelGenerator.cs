@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
 using System;
 
-public partial class LevelGenerator : MonoBehaviour, ITimeUser {
+public partial class LevelGenerator : MonoBehaviour {
 	public stringLib stringLibrary = new stringLib();
 	public TextColoration textColoration = new TextColoration();
 	// A state-transition variable. When this becomes true, when Update() is called it will trigger a Game Over state.
@@ -145,65 +145,13 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
-        GUISwitch(true);
         BuildLevel();
         //BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false); 
 	}
-    public void OnTimeFinish()
-    {
-        if (numberOfBugsRemaining > 0 || bugs.Count == 0)
-        {
-            GameOver(); 
-        }
-
-    }
-
-    private void HandleInterface()
-    {
-        // Handle menu toggle (Escape key pressed) --[
-        if (Input.GetKeyDown(KeyCode.Escape) && !isAnswering)
-        {
-            GlobalState.GameState = stateLib.GAMESTATE_MENU;
-            SceneManager.LoadScene("MainMenu");
-            GUISwitch(false);
-        }
-        // ]--
-        else if (Input.GetKeyDown(KeyCode.X) && !isAnswering)
-        {
-            TransformTextSize(leveltext.GetComponent<TextMesh>().fontSize);
-        }
-        else if (Input.GetKeyDown(KeyCode.Z) && !isAnswering)
-        {
-            ToggleLightDark();
-        }
-        else if (Input.GetKeyDown(KeyCode.C) && !isAnswering)   
-        {
-            sidebarToggle = !sidebarToggle;
-            sidebar.GetComponent<Canvas>().enabled = sidebarToggle;
-        }
-    }
+ 
     // This is called every draw call in game.
     private void Update() {
-		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
-		{
-            HandleInterface(); 
-		}
-	}
 
-	public void GUISwitch(bool gui_on) {
-		switch(gui_on) {
-			case true:
-                sidebar.GetComponent<Canvas>().enabled = sidebarToggle;
-                GameObject.Find("OutputCanvas").GetComponent<Canvas>().enabled = true; 
-			break;
-
-			case false:
-                sidebar.GetComponent<Canvas>().enabled = false;
-                GameObject.Find("OutputCanvas").GetComponent<Canvas>().enabled = false;
-                break;
-
-			default: break;
-		}
 	}
 
     public void BuildLevel()
@@ -220,7 +168,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         CreateLevelLines(GlobalState.level.LineCount);
         PlaceObjects(GlobalState.level.LevelNode);
         ProvisionToolsFromXml(GlobalState.level.NodeList);
-        LoadTimer(GlobalState.level.Time);
 
         // Resize the boundaries of the level to correspond with how many lines we have
         if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE)
@@ -486,10 +433,10 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().index) * linespacing, 0f);
 					}
 					foreach(GameObject question in robotONquestions) {
-						question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().index * linespacing, 1);
+						question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().Index * linespacing, 1);
 					}
 					foreach(GameObject rename in robotONrenamers) {
-						rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().index * linespacing, 1);
+						rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * linespacing, 1);
 					}
 					/////////////////
 					GameObject thisObject;
@@ -643,9 +590,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				prints.Add(newoutput);
 				printer propertyHandler = newoutput.GetComponent<printer>();
-				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
+				propertyHandler.Index = lineNumber;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
 					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
@@ -661,11 +607,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				roboBUGwarps.Add(newwarp);
 				warper propertyHandler = newwarp.GetComponent<warper>();
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
-				//propertyHandler.Menu = menu;
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.Filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
+				propertyHandler.Index = lineNumber;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
 					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
@@ -674,7 +617,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 					}
 				}
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value != null) {
-					propertyHandler.warpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
+					propertyHandler.WarpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
 				}
 				return newwarp;
 			}
@@ -692,10 +635,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				levelbug =(GameObject)Instantiate(bugobject, new Vector3(bugXshift + col * fontwidth +(bugsize - 1) * levelLineRatio, initialLineY -(lineNumber + row + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
 				levelbug.transform.localScale += new Vector3(bugscale *(bugsize - 1), bugscale *(bugsize - 1), 0);
 				GenericBug propertyHandler = levelbug.GetComponent<GenericBug>();
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.CodescreenObject = selectedtool;
-				propertyHandler.language = language;
-                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+                GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				bugs.Add(levelbug);
 				numberOfBugsRemaining++;
 				return levelbug;
@@ -769,17 +709,13 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
 				robotONquestions.Add(newquestion);
 				question propertyHandler = newquestion.GetComponent<question>();
-				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
+				propertyHandler.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
 				propertyHandler.expected = childnode.Attributes[stringLib.XML_ATTRIBUTE_ANSWER].Value;
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.SidebarObject = output.text;
-				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.Index = lineNumber;
                 GlobalState.level.Tasks[1]++;
 				// propertyHandler.innertext = childnode.ReadInnerXml(); //Danger will robinson
 				Regex rgx = new Regex("(.*)("+stringLibrary.node_color_question+")(.*)(</color>)(.*)");
-				string thisQuestionInnerText = rgx.Replace(GlobalState.level.Code[propertyHandler.index], "$2$3$4");
+				string thisQuestionInnerText = rgx.Replace(GlobalState.level.Code[propertyHandler.Index], "$2$3$4");
 				propertyHandler.innertext = thisQuestionInnerText;
 				return newquestion;
 			}
@@ -789,7 +725,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_WARPER_OR_RENAMER]++;
 				robotONrenamers.Add(newrename);
 				rename propertyHandler = newrename.GetComponent<rename>();
-				propertyHandler.displaytext = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
+				propertyHandler.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
 				propertyHandler.correct = childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value;
 				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
 				try{
@@ -799,11 +735,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				catch(Exception ex){
 					propertyHandler.oldname = childnode.InnerText;
 				}
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.SidebarObject = output.text;
-				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.Index = lineNumber;
 				string options = childnode.Attributes[stringLib.XML_ATTRIBUTE_OPTIONS].Value;
 				string[] optionsArray = options.Split(',');
 				for (int i = 0; i < optionsArray.Length; i++) {
@@ -817,7 +749,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				//propertyHandler.innertext = thisRenameInnerText;
 				
 				Regex rgx = new Regex(@"(^| |\>)("+propertyHandler.oldname+")(;| )");
-				GlobalState.level.Code[propertyHandler.index] = rgx.Replace(GlobalState.level.Code[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				GlobalState.level.Code[propertyHandler.Index] = rgx.Replace(GlobalState.level.Code[propertyHandler.Index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
 				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(" " + propertyHandler.oldname + " ", " " + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
 				//innerXmlLines[propertyHandler.index] = innerXmlLines[propertyHandler.index].Replace(">" + propertyHandler.oldname + " ", ">" + stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG + " ");
 				
@@ -832,11 +764,8 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
 				roboBUGbreakpoints.Add(newbreakpoint);
 				Breakpoint propertyHandler = newbreakpoint.GetComponent<Breakpoint>();
-				propertyHandler.SidebarObject = output.text;
 				propertyHandler.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.Index = lineNumber;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
 					string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 					string[] toolcounts = toolatt.Split(',');
@@ -867,10 +796,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 				GameObject newbeacon = (GameObject)Instantiate(beaconobject, new Vector3(-9.95f, initialLineY - lineNumber * linespacing + lineOffset + 0.4f, 1), transform.rotation);
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				beacon propertyHandler = newbeacon.GetComponent<beacon>();
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.index = lineNumber;
-				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.language = language;
+				propertyHandler.Index = lineNumber;
 				if (childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value != "") {
 					string[] flowOrder = childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value.Split(',');
 					for (int i = 0; i < flowOrder.Length; i++) {
@@ -884,18 +810,16 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 			case stringLib.NODE_NAME_VARIABLE_COLOR: {
 				print("CreateLevelObject: Creating print node with index of " + lineNumber);
 				GameObject newvariablecolor =(GameObject)Instantiate(variablecolorobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1), transform.rotation);
-				newvariablecolor.GetComponent<VariableColor>().CodescreenObject = this.gameObject;
 				robotONvariablecolors.Add(newvariablecolor);
 				VariableColor propertyHandler = newvariablecolor.GetComponent<VariableColor>();
 				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
-				propertyHandler.index = lineNumber;
-				propertyHandler.language = language;
+				propertyHandler.Index = lineNumber;
 				propertyHandler.oldname = childnode.InnerText;
 				Debug.Log("oldname for new variable object = " + propertyHandler.oldname);
 				Regex varrgx = new Regex(@"(^| |\t|\>)("+propertyHandler.oldname+")(;| )");
-				GlobalState.level.Code[propertyHandler.index] = varrgx.Replace(GlobalState.level.Code[propertyHandler.index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
+				GlobalState.level.Code[propertyHandler.Index] = varrgx.Replace(GlobalState.level.Code[propertyHandler.Index],"$1"+stringLibrary.node_color_rename + propertyHandler.oldname + stringLib.CLOSE_COLOR_TAG+"$3");
 				varrgx = new Regex("(.*)("+stringLibrary.node_color_rename+")(\\w)(</color>)(.*)");
-				string thisVarnamenInnerText = varrgx.Replace(GlobalState.level.Code[propertyHandler.index], "$2$3$4");
+				string thisVarnamenInnerText = varrgx.Replace(GlobalState.level.Code[propertyHandler.Index], "$2$3$4");
 				propertyHandler.innertext = thisVarnamenInnerText;
 				return newvariablecolor;
 			}
@@ -1061,32 +985,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 
 	//.................................>8.......................................
 	//************************************************************************//
-	// Method: public void GameOver()
-	// Description: Switch to the LEVEL_LOSE state. When Update() is called, appropriate
-	// action is taken there.
-	//************************************************************************//
-	public void GameOver() {
-		GUISwitch(false);
-        GlobalState.IsPlaying = false; 
-		GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
-	}
-
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void Victory()
-	// Description: Switch to the GAME_END state. When Update() is called, appropriate
-	// action is taken there.
-	//@TODO: level5 seems to be a magic level or something to signal the end of the game?
-	//************************************************************************//
-	public void Victory() {
-		GUISwitch(false);
-		GlobalState.IsPlaying = false;
-		GlobalState.CurrentONLevel = "level5";
-		GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
-	}
-
-	//.................................>8.......................................
-	//************************************************************************//
 	// Method: private void OnTriggerEnter2D(Collider2D c)
 	// Description: Projectile has hit the game's boundry box.
 	//************************************************************************//
@@ -1165,10 +1063,10 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 		// Resize game objects
 		// Each game object needs to know its line number I think. Alternatively, the line number can be derived based on its position.
 		foreach(GameObject printer in prints) {
-			printer.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - printer.GetComponent<printer>().index * linespacing, 1);
+			printer.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - printer.GetComponent<printer>().Index * linespacing, 1);
 		}
 		foreach(GameObject warp in roboBUGwarps) {
-			warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - warp.GetComponent<warper>().index * linespacing, 1);
+			warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - warp.GetComponent<warper>().Index * linespacing, 1);
 
 		}
 		/*
@@ -1195,50 +1093,37 @@ foreach(GameObject comment in allComments) {
 	//comment.transform.localScale = new Vector3(comment.transform.localScale.x, yPos, comment.transform.localScale.z);
 }
 foreach(GameObject question in robotONquestions) {
-	question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().index * linespacing, 1);
+	question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().Index * linespacing, 1);
 }
 foreach(GameObject rename in robotONrenamers) {
-	rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().index * linespacing, 1);
+	rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * linespacing, 1);
 }
-/*
-foreach(GameObject breakpoint in roboBUGbreakpoints) {
-breakpoint.transform.position = new Vector3(-10, initialLineY - lineNumber * linespacing + 0.4f, 1);
 
-}
-foreach(GameObject prize in roboBUGprizes) {
-prize.transform.position = new Vector3(-9f +(bugsize - 1) * levelLineRatio, initialLineY -(lineNumber + 0.5f *(bugsize - 1)) * linespacing + 0.4f, 0f);
-}
-*/
 foreach(GameObject beacon in robotONbeacons) {
-	beacon.transform.position = new Vector3(-9.95f, initialLineY - beacon.GetComponent<beacon>().index * linespacing + lineOffset + 0.4f, 1);
+	beacon.transform.position = new Vector3(-9.95f, initialLineY - beacon.GetComponent<beacon>().Index * linespacing + lineOffset + 0.4f, 1);
 }
 foreach(GameObject varcolor in robotONvariablecolors) {
-	varcolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().index * linespacing, 1);
+	varcolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * linespacing, 1);
 }
 
 }
 
-//.................................>8.......................................
-//************************************************************************//
-// Method: public void ToggleLightDark()
-// Description: Toggle between light and dark color schemes for the game.
-//************************************************************************//
-public void ToggleLightDark() {
-	if (backgroundLightDark == false) {
-            Debug.Log("Turning Light"); 
-		backgroundLightDark = true;
-            background.ToggleLight(); 
-		this.GetComponent<SpriteRenderer>().sprite 				= whiteCodescreen;
-		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
-		destext.GetComponent<TextMesh>().color 					= Color.black;
-		leveltext.GetComponent<TextMesh>().color 				= Color.black;
-		credits.GetComponent<TextMesh>().color					= Color.black;
-            output.ToggleLight(); 
-		foreach (GameObject line in lines) {
-			line.GetComponent<SpriteRenderer>().color 	= new Color(0.95f, 0.95f, 0.95f, 1);
-		}
-		// Switch the text colors to correspond with the Light Color palette (darker colors)
-		for (int i = 0 ; i < GlobalState.level.Code.GetLength(0) ; i++) {
+    public void ToggleLight()
+    {
+        if (backgroundLightDark == false)
+        {
+            backgroundLightDark = true;
+            this.GetComponent<SpriteRenderer>().sprite = whiteCodescreen;
+            this.GetComponent<SpriteRenderer>().color = new Color(0.94f, 0.97f, 0.99f, 0.8f);
+            destext.GetComponent<TextMesh>().color = Color.black;
+            leveltext.GetComponent<TextMesh>().color = Color.black;
+            foreach (GameObject line in lines)
+            {
+                line.GetComponent<SpriteRenderer>().color = new Color(0.95f, 0.95f, 0.95f, 1);
+            }
+            // Switch the text colors to correspond with the Light Color palette (darker colors)
+            for (int i = 0; i < GlobalState.level.Code.GetLength(0); i++)
+            {
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_print, stringLibrary.node_color_print_dark);
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_warp, stringLibrary.node_color_warp_dark);
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
@@ -1253,32 +1138,38 @@ public void ToggleLightDark() {
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_keyword, stringLibrary.syntax_color_keyword_dark);
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_badcomment, stringLibrary.syntax_color_badcomment_dark);
                 GlobalState.level.Code[i] = GlobalState.level.Code[i].Replace(stringLibrary.syntax_color_string, stringLibrary.syntax_color_string_dark);
-		}
-		foreach (GameObject renameObj in robotONrenamers) {
-			rename propertyHandler = renameObj.GetComponent<rename>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
-		}
-		foreach (GameObject varcolorObj in robotONvariablecolors) {
-			VariableColor propertyHandler = varcolorObj.GetComponent<VariableColor>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
-		}
-		foreach (GameObject questionObj in robotONquestions) {
-			question propertyHandler = questionObj.GetComponent<question>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
-		}
-        sidebar.ToggleWhite(); 
+            }
+            foreach (GameObject renameObj in robotONrenamers)
+            {
+                rename propertyHandler = renameObj.GetComponent<rename>();
+                propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
+            }
+            foreach (GameObject varcolorObj in robotONvariablecolors)
+            {
+                VariableColor propertyHandler = varcolorObj.GetComponent<VariableColor>();
+                propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
+            }
+            foreach (GameObject questionObj in robotONquestions)
+            {
+                question propertyHandler = questionObj.GetComponent<question>();
+                propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
+            }
 
-	}
-	else {
+        }
+    }
+//.................................>8.......................................
+//************************************************************************//
+// Method: public void ToggleLightDark()
+// Description: Toggle between light and dark color schemes for the game.
+//************************************************************************//
+public void ToggleDark() {
+	 
 		backgroundLightDark = false;
-            background.ToggleDark(); 
 		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
-		leveltext.GetComponent<TextMesh>().color 				= Color.white;
-		credits.GetComponent<TextMesh>().color					= Color.white;
+		leveltext.GetComponent<TextMesh>().color 				= Color.white;;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-            output.ToggleDark(); 
 		foreach (GameObject line in lines) {
 			line.GetComponent<SpriteRenderer>().color 			= Color.white;
 		}
@@ -1311,8 +1202,7 @@ public void ToggleLightDark() {
 			question propertyHandler = questionObj.GetComponent<question>();
 			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_light);
 		}
-            GameObject.Find("Sidebar").GetComponent<SidebarController>().ToggleDark();
-        }
+        
 	DrawInnerXmlLinesToScreen();
 }
 

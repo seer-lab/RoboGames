@@ -17,19 +17,14 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 
-public class rename : MonoBehaviour {
+public class rename : Tools {
 
-	public int index = -1;
 	public int groupid = -1;
 	public string correct;
-	public string displaytext = "";
 	public string innertext;
-	public string language;
 	public string oldname = "";
 	public List<string> options;
-	public GameObject SidebarObject;
-	public GameObject CodescreenObject;
-	public GameObject ToolSelectorObject;
+
 	public AudioSource audioPrompt;
 	public AudioSource audioCorrect;
 	public bool answered = false;
@@ -42,14 +37,11 @@ public class rename : MonoBehaviour {
 	public Sprite renSpriteOn;
 
 	private int selection = 0;
-	private LevelGenerator lg;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-		GetComponent<SpriteRenderer>().sprite = renSpriteOff;
-	}
+    protected override void Initialize()
+    {
+        GetComponent<SpriteRenderer>().sprite = renSpriteOff;
+    }
 
 	//.................................>8.......................................
 	// Update is called once per frame
@@ -57,13 +49,13 @@ public class rename : MonoBehaviour {
 		if (answering) {
 			// Handle left and right arrows --[
 			if (selection == 0) {
-				SidebarObject.GetComponent<Text>().text = displaytext + "   " + options[selection] + " →";
+				output.Text.text = displaytext + "   " + options[selection] + " →";
 			}
 			else if (selection == options.Count-1) {
-				SidebarObject.GetComponent<Text>().text = displaytext + "← " + options[selection];
+                output.Text.text = displaytext + "← " + options[selection];
 			}
 			else {
-				SidebarObject.GetComponent<Text>().text = displaytext + "← " + options[selection] + " →";
+                output.Text.text = displaytext + "← " + options[selection] + " →";
 			}
 			// ]-- End of handling arrows
 
@@ -71,14 +63,14 @@ public class rename : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				// Increment number of tool uses
-				if (ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] != 999)
+				if (selectedTool.toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] != 999)
 				{
-					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]++;
+					selectedTool.toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]++;
 				}
 				answered = false;
 				answering = false;
 				lg.isAnswering = false;
-				SidebarObject.GetComponent<Text>().text = "";
+				output.Text.text = "";
 			}
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
@@ -87,11 +79,11 @@ public class rename : MonoBehaviour {
 				if (selection != options.IndexOf(correct)) {
 					// lg.isLosing = true;
 					answered = false;
-					ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
+					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 				}
 				else {
 					// Award 1 extra use of the tool.
-					ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_WARPER_OR_RENAMER]++;
+					selectedTool.bonusTools[stateLib.TOOL_WARPER_OR_RENAMER]++;
 					audioCorrect.Play();
 					
 					// Change this object to the correct text
@@ -117,7 +109,7 @@ public class rename : MonoBehaviour {
 					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
 					lg.DrawInnerXmlLinesToScreen();
 					
-					SidebarObject.GetComponent<Text>().text= "";
+					output.Text.text= "";
 					// Change the next groupid objects to the new colors
 				//	foreach(GameObject renames in lg.robotONrenamers) {
 				//		if (renames.GetComponent<rename>().groupid == (groupid+1)) {
@@ -158,7 +150,7 @@ public class rename : MonoBehaviour {
 		//if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered && lg.renamegroupidCounter == groupid) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP && !answered) {
 			Destroy(collidingObj.gameObject);
-			SidebarObject.GetComponent<Text>().text = displaytext;
+			output.Text.text = displaytext;
 			audioPrompt.Play();
 			answering = true;
 			lg.isAnswering = true;

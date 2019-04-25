@@ -18,17 +18,13 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 
-public class VariableColor : MonoBehaviour {
+public class VariableColor : Tools {
 
     public GameObject parent;
-	public int index = -1;
     public int groupid = -1;
     public string innertext = "";
 	public string oldname;
     public string correct = "";
-    public string language;
-	private LevelGenerator lg;
-    public GameObject CodescreenObject;
     public GameObject CorrectRenameObject;
 
     private bool doneUpdating;
@@ -36,11 +32,6 @@ public class VariableColor : MonoBehaviour {
     private int  flashCounter;
     private bool decolorOnce = false;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-	}
 
 	//.................................>8.......................................
 	// Update is called once per frame

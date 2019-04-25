@@ -94,6 +94,7 @@
      <Compile Include="Assets\Scripts\TextColoration.cs" />
      <Compile Include="Assets\Scripts\TimeDisplayController.cs" />
      <Compile Include="Assets\Scripts\ToolManager.cs" />
+     <Compile Include="Assets\Scripts\Tools.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />

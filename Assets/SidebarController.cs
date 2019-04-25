@@ -31,10 +31,10 @@ public class SidebarController : MonoBehaviour
     }
     public void ToggleSidebar()
     {
-        active = !active; 
-        this.gameObject.SetActive(active);
+        active = !active;
+        this.GetComponent<Canvas>().enabled = active; 
     }
-    public void ToggleWhite()
+    public void ToggleLight()
     {
         Debug.Log("SidebarController"); 
         panel.GetComponent<Image>().sprite = panels[4];

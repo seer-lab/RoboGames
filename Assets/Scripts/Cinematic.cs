@@ -61,7 +61,6 @@ public class Cinematic : MonoBehaviour
 				Destroy(objs[0]);
 				cinerun = false;
 				objs = new List<GameObject>();
-				lg.GUISwitch(true);
 			}
 		}
 		else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) {

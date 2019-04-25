@@ -37,6 +37,7 @@ public class Output : MonoBehaviour
         {
             return text.GetComponent<Text>();
         }
+
     }
     public void ToggleLight()
     {

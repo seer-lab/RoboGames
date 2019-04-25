@@ -15,15 +15,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI; 
 
-public class beacon : MonoBehaviour {
-
-	public int index = -1;
+public class beacon : Tools {
 	public int actcounter = 0;
 	public bool revOnce = false;
 	public List<int> flowOrder;
-	public string language;
-	public GameObject CodescreenObject;
-	public GameObject ToolSelectorObject;
+
 	public AudioSource audioCorrect;
 	public AudioSource audioRev;
 	public Sprite activebeacon;
@@ -31,13 +27,8 @@ public class beacon : MonoBehaviour {
 	public Sprite progressbeacon;
 	int flashCounter = 0;
 
-	private LevelGenerator lg;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-	}
+
 
 	//.................................>8.......................................
 	// Update is called once per frame
@@ -66,15 +57,15 @@ public class beacon : MonoBehaviour {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			Destroy(collidingObj.gameObject);
 			if (GetComponent<SpriteRenderer>().sprite == activebeacon || flowOrder.Count == 0) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
+				selectedTool.outputtext.GetComponent<Text>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
 				ResetAllBeacons();
 			}
 			else if (actcounter > flowOrder.Count - 1) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You have activated this \nbeacon enough times, but the \nsequence is now broken. \nYou will have to start over.";
+				selectedTool.outputtext.GetComponent<Text>().text = "You have activated this \nbeacon enough times, but the \nsequence is now broken. \nYou will have to start over.";
 				ResetAllBeacons();
 			}
 			else if (GlobalState.level.CompletedTasks[0] != flowOrder[actcounter]) {
-				ToolSelectorObject.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "You will need to start the \nsequence again. Read the code carefully for \nclues.";
+				selectedTool.outputtext.GetComponent<Text>().text = "You will need to start the \nsequence again. Read the code carefully for \nclues.";
 				ResetAllBeacons();
 			}
 			else {
@@ -82,7 +73,7 @@ public class beacon : MonoBehaviour {
 				audioCorrect.Play();
 				GlobalState.level.CompletedTasks[0]++;
 				// Award 1 extra use of the tool.
-				ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+				selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				actcounter++;
 				/*
 				if (actcounter == flowOrder.Count) {
