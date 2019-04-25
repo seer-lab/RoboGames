@@ -32,10 +32,8 @@ public class LevelFactory
         //innerXmlLines = outerXmlLines;
         level.LevelNode = levelnode; 
         level.CodeNodes = levelnode.ChildNodes;
-        Debug.Log("Code Nodes: " + level.CodeNodes); 
         level.Language = "c++"; 
         string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", level.Tags), level.Language);
-        Debug.Log("Convert result string -> " + innerXMLstring);
         level.Code = innerXMLstring.Split('\n');
 
         level.LineCount = XMLReader.GetLineCount(doc);

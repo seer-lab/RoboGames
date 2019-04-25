@@ -54,9 +54,7 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
 
 	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
 	public GameObject selectedtool;
-	public GameObject cinematic;
-	public GameObject cinematicEnter;
-	public GameObject cinematicVoidMain;
+
 	public GameObject menuSubmenu;
 	public GameObject menuTitle;
 	public GameObject credits;
@@ -223,9 +221,6 @@ public partial class LevelGenerator : MonoBehaviour, ITimeUser {
         PlaceObjects(GlobalState.level.LevelNode);
         ProvisionToolsFromXml(GlobalState.level.NodeList);
         LoadTimer(GlobalState.level.Time);
-        cinematic.GetComponent<Cinematic>().introtext = GlobalState.level.IntroText;
-        // end text
-        cinematic.GetComponent<Cinematic>().endtext = GlobalState.level.ExitText;
 
         // Resize the boundaries of the level to correspond with how many lines we have
         if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE)
@@ -1237,8 +1232,6 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= new Color(0.94f, 0.97f, 0.99f, 0.8f);
 		destext.GetComponent<TextMesh>().color 					= Color.black;
 		leveltext.GetComponent<TextMesh>().color 				= Color.black;
-		cinematicEnter.GetComponent<TextMesh>().color			= Color.black;
-		cinematic.GetComponent<TextMesh>().color				= Color.black;
 		credits.GetComponent<TextMesh>().color					= Color.black;
             output.ToggleLight(); 
 		foreach (GameObject line in lines) {
@@ -1283,8 +1276,6 @@ public void ToggleLightDark() {
 		this.GetComponent<SpriteRenderer>().color 				= Color.black;
 		destext.GetComponent<TextMesh>().color 					= Color.white;
 		leveltext.GetComponent<TextMesh>().color 				= Color.white;
-		cinematicEnter.GetComponent<TextMesh>().color			= Color.white;
-		cinematic.GetComponent<TextMesh>().color				= Color.white;
 		credits.GetComponent<TextMesh>().color					= Color.white;
 		toolprompt.GetComponent<TextMesh>().color				= Color.white;
             output.ToggleDark(); 

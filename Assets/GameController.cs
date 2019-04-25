@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -37,16 +38,19 @@ public class GameController : MonoBehaviour
         {
             manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            lg.GUISwitch(false);
-            winning = false; 
+            winning = false;
+            Debug.Log("Enumerator Win"); 
+            SceneManager.LoadScene("Cinematic"); 
         }
     }
+    /*
     public void SetLevel(string file)
     {
         factory = new LevelFactory(file);
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(); 
     }
+    */
     public void WarpLevel(string file, string line)
     {
         factory = new LevelFactory(file);
@@ -59,6 +63,7 @@ public class GameController : MonoBehaviour
     {
         manager = new LevelManager(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
+        Debug.Log(GlobalState.CurrentONLevel);
         factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
         GlobalState.level = factory.GetLevel();
 

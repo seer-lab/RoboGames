@@ -85,7 +85,7 @@ public class Cinematic : MonoBehaviour
                     GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 				}
 
-                 GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel); 
+                 //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel); 
                 Destroy(objs[1]);
 				Destroy(objs[0]);
 				cinerun = false;
@@ -116,7 +116,7 @@ public class Cinematic : MonoBehaviour
 				objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+                //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
                 //lg.BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 			}

@@ -47,7 +47,7 @@ public class Output : MonoBehaviour
     public void ToggleDark()
     {
         Text.color = Color.white;
-        enter.GetComponent<Text>().color = Color.black;
+        enter.GetComponent<Text>().color = Color.white;
         panel.GetComponent<Image>().sprite = panels[3]; 
     }
 	//.................................>8.......................................

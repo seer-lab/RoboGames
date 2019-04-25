@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/MainMenu.unity
+- path: Assets/Cinematic.unity
   isLoaded: 1
   isActive: 1
