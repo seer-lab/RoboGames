@@ -31,18 +31,20 @@ public class VariableColor : Tools {
     private bool doneFlashing;
     private int  flashCounter;
     private bool decolorOnce = false;
+    TextColoration textColoration;
 
+    protected override void Initialize()
+    {
+        textColoration = new TextColoration(); 
+    }
 
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
+    //.................................>8.......................................
+    // Update is called once per frame
+    void Update() {
         if (CorrectRenameObject) {
             if (CorrectRenameObject.GetComponent<rename>().answered && !doneUpdating) {
                 doneUpdating = true;
-                
-				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-                //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
-				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+
 				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
                 GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
@@ -53,22 +55,14 @@ public class VariableColor : Tools {
             }
             else if (CorrectRenameObject.GetComponent<rename>().answered && doneUpdating && !doneFlashing) {
                 if (flashCounter % 100 == 0) {
-                    // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG);
-                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, innertext);
-					
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + correct + " " , " " + oldname + " ");
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + correct + " " , ">" + oldname + " ");
+
 					Regex rgx = new Regex(@"(^| |\t|\>)("+correct+")(;| )");
                     GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+oldname+"$3");
 					
                     lg.DrawInnerXmlLinesToScreen();
                 }
                 else if (flashCounter % 50 == 0) {
-                    // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG, correct);
-                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-					
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+
 					Regex rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
                     GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
 					
@@ -92,7 +86,7 @@ public class VariableColor : Tools {
             else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
     			// Change the next groupid objects to the new colors
     			decolorOnce = true;
-                GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
+                GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, textColoration.DecolorizeText(innertext));
     			lg.DrawInnerXmlLinesToScreen();
     		}
         }

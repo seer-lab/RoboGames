@@ -48,6 +48,7 @@ public class comment : MonoBehaviour {
 	private float resetTime = 0f;
 	private float timeDelay = 30f;
 
+    TextColoration textColoration; 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
@@ -58,6 +59,7 @@ public class comment : MonoBehaviour {
 		else {
 			GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
 		}
+        textColoration = new TextColoration(); 
 	}
 
 	//.................................>8.......................................
@@ -66,7 +68,7 @@ public class comment : MonoBehaviour {
 		switch(entityType) {
 			case stateLib.ENTITY_TYPE_INCORRECT_COMMENT:
 			case stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT: UpdateIncorrect(); break;
-			case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT: UpdateRoboBUGComment(); break;
+			case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT:  break;
 			default: break;
 		}
 	}
@@ -158,7 +160,7 @@ public class comment : MonoBehaviour {
 			GetComponent<AudioSource>().Play();
             GlobalState.level.CompletedTasks[4]++;
 			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
-			string sNewText = lg.textColoration.DecolorizeText(blocktext);
+			string sNewText = textColoration.DecolorizeText(blocktext);
 			string tempDecolText = sNewText;
 			string[] sNewParts = sNewText.Split('\n');
 			if (sNewParts.Length == 1) {
@@ -199,9 +201,9 @@ public class comment : MonoBehaviour {
 				
 				
 				//verify comment color is removed
-				tempDecolText = lg.textColoration.DecolorizeText(sNewText);
+				tempDecolText = textColoration.DecolorizeText(sNewText);
 				
-				sNewText = lg.textColoration.ColorizeText(tempDecolText, language);
+				sNewText = textColoration.ColorizeText(tempDecolText, language);
                 GlobalState.level.Code[index] = sNewText;
 			}
 			else {
@@ -212,71 +214,12 @@ public class comment : MonoBehaviour {
 				sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
 				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(commentCloseSymbol, "");
 				sNewParts[sNewParts.Length-1] = sNewParts[sNewParts.Length-1].Replace(stringLib.CLOSE_COLOR_TAG, "");
-                /*for (int i = 1 ; i < sNewParts.Length - 1 ; i++) {
-					sNewParts[i] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
-															   lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
-				}*/
-                GlobalState.level.Code[index] = lg.textColoration.ColorizeText(sNewParts[0], language);
-                GlobalState.level.Code[index+sNewParts.Length-1] = lg.textColoration.ColorizeText(sNewParts[sNewParts.Length-1], language);
+
+                GlobalState.level.Code[index] = textColoration.ColorizeText(sNewParts[0], language);
+                GlobalState.level.Code[index+sNewParts.Length-1] = textColoration.ColorizeText(sNewParts[sNewParts.Length-1], language);
 
 				
-				/*// Multi line old version; probably can be removed 
-				// Look for /* something
-				string multilinePatternOpenCommentCpp = @"(\/\*)(.*)";
-				// Look for something 
-				string multilinePatternCloseCommentCpp = @"(.*)(\*\/)";
-				// Look for ''' something
-				string multilinePatternOpenCommentPython = @"(\'\'\')(.*)";
-				// Look for something '''
-				string multilinePatternCloseCommentPython =  @"(.*)(\'\'\')";
-				// Look for #something
-				string singlelinePatternOpenCommentPython = @"(\s#|\n#|#)(.*)";
-				string singlelinePatternCloseCommentPython = singlelinePatternOpenCommentPython;
-				// Look for //something
-				string singlelinePatternOpenCommentCpp = @"(//)(.*)";
-				string singlelinePatternCloseCommentCpp = singlelinePatternOpenCommentCpp;
-				string patternOpenComment = singlelinePatternOpenCommentPython;
-				string patternCloseComment = "";
-				switch(language) {
-					case "python": {
-						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentPython : singlelinePatternOpenCommentPython;
-						patternCloseComment = (commentStyle == "multi") ? multilinePatternCloseCommentPython : singlelinePatternCloseCommentPython;
-						break;
-					}
-					case "c++":
-					case "c":
-					case "c#": {
-						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentCpp : singlelinePatternOpenCommentCpp;
-						patternCloseComment =  (commentStyle == "multi") ? multilinePatternCloseCommentCpp : singlelinePatternCloseCommentCpp;
-						break;
-					}
-					default: {
-						patternOpenComment = (commentStyle == "multi") ? multilinePatternOpenCommentPython : singlelinePatternOpenCommentPython;
-						patternCloseComment = (commentStyle == "multi") ? multilinePatternCloseCommentPython : singlelinePatternCloseCommentPython;
-						break;
-					}
-				}
-				// Search for open pattern, strip that, then colorize all the text, then get rid of the close pattern
-				//@TODO: Left off here, check this next block for correctness
-				Regex rgx = new Regex(patternOpenComment);
-				sNewParts[0] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[0]), "$2");
-				rgx = new Regex(patternCloseComment);
-				if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$2");
-				}
-				else {
-					sNewParts[sNewParts.Length-1] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[sNewParts.Length-1]), "$1");
-				}
-				for (int i = 0 ; i < sNewParts.Length ; i++) {
-					if (patternCloseComment == singlelinePatternCloseCommentCpp || patternCloseComment == singlelinePatternCloseCommentPython) {
-						sNewParts[i] = rgx.Replace(lg.textColoration.DecolorizeText(sNewParts[i]), "$2");
-						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
-					}
-					else {
-						sNewParts[i] = lg.textColoration.ColorizeText(sNewParts[i], language);
-					}
-					lg.innerXmlLines[index+i] = sNewParts[i];
-				}*/
+
 			}
 
 			lg.DrawInnerXmlLinesToScreen();
@@ -348,10 +291,9 @@ public class comment : MonoBehaviour {
 				if (sNewParts.Length == 1) {
 					// Single line
 					
-				//verify comment color is removed
-				GlobalState.level.Code[index] = lg.textColoration.DecolorizeText(GlobalState.level.Code[index]);
+				    //verify comment color is removed
+				    GlobalState.level.Code[index] = textColoration.DecolorizeText(GlobalState.level.Code[index]);
 
-                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(blocktext, "");
                     GlobalState.level.Code[index] = "";
 				}
 				else {
@@ -364,21 +306,5 @@ public class comment : MonoBehaviour {
 			}
 		}
 	}
-	//.................................>8.......................................
-	void UpdateRoboBUGComment() {
-		// if (resetting) {
-		// 	if (CodeObject.GetComponent<TextMesh>().text != oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
-		// 																			   blocktext.Replace("/**/","") +
-		//     																		   " */" + stringLib.CLOSE_COLOR_TAG)) {
-		// 		resetting = false;
-		// 	}
-		// 	else if (Time.time > resetTime || (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
-		// 		resetting = false;
-		// 		SidebarObject.GetComponent<GUIText>().text = "";
-		// 		CodeObject.GetComponent<TextMesh>().text = oldtext;
-		// 	}
-		// }
-	}
 
-	//.................................>8.......................................
 }

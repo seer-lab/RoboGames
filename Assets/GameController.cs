@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using System.Xml; 
 using UnityEngine;
 
 public class GameController : MonoBehaviour, ITimeUser
@@ -93,17 +94,15 @@ public class GameController : MonoBehaviour, ITimeUser
     }
     // Start is called before the first frame update
     void Start()
-    {
-        manager = new LevelManager(); 
+    { 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         Debug.Log(GlobalState.CurrentONLevel);
         factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
         GlobalState.level = factory.GetLevel();
-
+        manager = new LevelManager();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
-        background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>(); 
-        
+        background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
     }
     private void HandleInterface()
     {

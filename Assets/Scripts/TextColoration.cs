@@ -44,21 +44,6 @@ public class TextColoration {
         break;
       }
     }
-    /*
-    // Test case
-    Debug.Log("Beginning Test case for include foobar");
-    sText = "#include foobar";
-    Regex rgxTest = new Regex(@"(#include\s)(.*)");
-    Match mTest = rgxTest.Match(sText);
-    if (mTest.Success) {
-      Debug.Log("Test case was successful in finding pattern #include and .*");
-    }
-    else {
-      Debug.Log("Test case was unsuccessful in finding pattern #include and .*");
-    }
-    Debug.Log("Ending Test case for include foobar");
-    // end of test case
-    */
 	
     Regex rgxComment = new Regex(patternComment);
     Regex rgxKeyword = new Regex(patternKeyword);
@@ -74,17 +59,13 @@ public class TextColoration {
     }
     mKeyword = rgxKeyword.Match(sText);
 	while (mKeyword.Success){
-		Debug.Log("key found: " + mKeyword.Value + " in " + sText);
 
-		//int keyplace = sText.IndexOf(mKeyword.Value, mKeyword.Index);
-		//fix to handle finding keywords inside other keywords and similar issues
-		//sText = sText.Remove(keyplace, mKeyword.Value.Length).Insert(keyplace,stringLibrary.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 		sText = sText.Replace(mKeyword.Value, stringLibrary.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 		
 		Debug.Log("key result " + sText);
 
 		mKeyword = mKeyword.NextMatch();
-		//mKeyword = rgxKeyword.Match(sText);
+
 		
 	}
     mStringLiteral = rgxStringLiteral.Match(sText);
@@ -99,7 +80,7 @@ public class TextColoration {
 		string cleanedstring = DecolorizeText(mComment.Value);
         sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 		mComment = mComment.NextMatch();
-	  //}
+	  
     }
 	
 	//block comments (todo: Add to previous comment loop)

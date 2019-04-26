@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO; 
 using UnityEngine;
+using System.Xml; 
 
 public class LevelManager
 {
@@ -13,9 +14,20 @@ public class LevelManager
     {
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
         levels = new List<string>();
-        passed = new List<string>(); 
+        passed = new List<string>();
+        SetTitle(); 
     }
-    
+    void SetTitle()
+    {
+        TextMesh title = GameObject.Find("Description").GetComponent<TextMesh>();
+        foreach (XmlNode codenode in GlobalState.level.CodeNodes)
+        {
+            if (codenode.Name == stringLib.NODE_NAME_DESCRIPTION)
+            {
+                title.text = codenode.InnerText;
+            }
+        }
+    }
     public void SaveGame()
     {
         levels.Clear();

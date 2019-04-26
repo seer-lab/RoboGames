@@ -64,19 +64,7 @@ public class question : Tools {
 				answering = false;
 				lg.isAnswering = false;
 				
-				
-				/* This Fix is nonfunctional; to be removed
-				
-				// There's an odd case where if a user enters "3." instead of "3.0" for an expected of "3.0", it will be marked wrong
-				// So we try casting the input as a decimal.
-				decimal inputCastDecimal;
-				string inputDecimalAsString;
-				bool inputIsDecimal = decimal.TryParse(input, out inputCastDecimal);
-				inputDecimalAsString = inputCastDecimal.ToString();
-				if (inputIsDecimal && !inputDecimalAsString.Contains(".")) {
-					input = inputDecimalAsString + ".0";
-				}*/
-
+			
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
 					// Incorrect Answer
 					answered = false;
@@ -107,10 +95,10 @@ public class question : Tools {
                             selectedTool.outputtext.GetComponent<Text>().text = "Your answer is too low; \nperhaps you missed an addition somewhere?";
 						}
 						else if (!lastAnswerIsIntegerValue && correctAnswerIsIntegerValue) {
-                            selectedTool.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Remember that integer variables do \nnot have decimal points; \nthey are whole numbers.";
+                            selectedTool.outputtext.GetComponent<Text>().text = "Remember that integer variables do \nnot have decimal points; \nthey are whole numbers.";
 						}
 						else if (lastAnswerIsIntegerValue && !correctAnswerIsIntegerValue) {
-                            selectedTool.GetComponent<SelectedTool>().outputtext.GetComponent<Text>().text = "Remember that double variables have \ndecimal points; the number 5 would \nbe written as 5.0";
+                            selectedTool.outputtext.GetComponent<Text>().text = "Remember that double variables have \ndecimal points; the number 5 would \nbe written as 5.0";
 						}
 					}
 					else if (correctAnswerIsDecimal) {
@@ -152,12 +140,12 @@ public class question : Tools {
 			}
 			else if (Input.GetKeyDown(KeyCode.Backspace) && input.Length-1 >= 0) {
 				input = input.Substring(0,input.Length-1);
-				output.Text.text = displaytext + input;
+                selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 			}
 			else {
 				string inputString = Input.inputString;
 				input += inputString;
-                output.Text.text = displaytext + input;
+                selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 			}
 		}
 	}
@@ -166,7 +154,8 @@ public class question : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
-            output.Text.text = displaytext;
+            Debug.Log(displaytext); 
+            selectedTool.outputtext.GetComponent<Text>().text = displaytext;
 			audioPrompt.Play();
 			answering = true;
 			lg.isAnswering = true;
