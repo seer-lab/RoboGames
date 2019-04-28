@@ -33,7 +33,7 @@ public class VariableColor : Tools {
     private bool decolorOnce = false;
     TextColoration textColoration;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         textColoration = new TextColoration(); 
     }

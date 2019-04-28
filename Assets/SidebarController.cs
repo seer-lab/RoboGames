@@ -11,6 +11,13 @@ public class SidebarController : MonoBehaviour
     private Sprite[] panels = new Sprite[8];
     private stringLib stringLibrary;
     bool active = true; 
+    public bool isActive
+    {
+        get
+        {
+            return active; 
+        }
+    }
     public void NextTool()
     {
         tool.GetComponent<SelectedTool>().NextTool(); 

@@ -40,5 +40,5 @@ public class Tools : MonoBehaviour
         selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
         Initialize(); 
     }
-    protected virtual void Initialize() { }
+    public virtual void Initialize() { }
 }

@@ -20,7 +20,7 @@ public class GenericBug : Tools {
     public bool Finished { get; set; }
 	public Animator anim;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         IsDead = false;
         Finished = false; 

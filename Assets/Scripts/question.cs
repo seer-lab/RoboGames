@@ -35,7 +35,7 @@ public class question : Tools {
 	private string input = "";
 
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         GetComponent<SpriteRenderer>().sprite = qSpriteOff;
         expectedArray = expected.Split(new String[] { ", ", "," }, StringSplitOptions.RemoveEmptyEntries);

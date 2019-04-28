@@ -39,6 +39,7 @@ public class SelectedTool : MonoBehaviour
 	private LevelGenerator lg;
 	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
 
+    SidebarController sidebar; 
 	private string displayString = "";
 
 	//.................................>8.......................................
@@ -46,7 +47,8 @@ public class SelectedTool : MonoBehaviour
 	void Start() {
 		lg = codescreen.GetComponent<LevelGenerator>();
 		this.GetComponent<Text>().text = "";
-        InitializeToolLabels(); 
+        InitializeToolLabels();
+        sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
 	}
     private void Initialize()
     {
@@ -261,36 +263,36 @@ public class SelectedTool : MonoBehaviour
 	  if (toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] + bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CATCHER_OR_ACTIVATOR);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;
-	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR]) + ReplaceBonusText(stateLib.TOOL_CATCHER_OR_ACTIVATOR) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] + bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_PRINTER_OR_QUESTION);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_1_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_1_ROBOTON;
-	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION]) + ReplaceBonusText(stateLib.TOOL_PRINTER_OR_QUESTION) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] + bonusTools[stateLib.TOOL_WARPER_OR_RENAMER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_WARPER_OR_RENAMER);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_2_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_2_ROBOTON;
-	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_WARPER_OR_RENAMER]) + ReplaceBonusText(stateLib.TOOL_WARPER_OR_RENAMER) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_COMMENTER] + bonusTools[stateLib.TOOL_COMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_COMMENTER);
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_3 + " [" : "[";
+	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_3 + " [" : "[";
 	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) + ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
 
 	  }
 	  if (toolCounts[stateLib.TOOL_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CONTROL_FLOW] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CONTROL_FLOW);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
-	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = (lg.sidebarToggle) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
 	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) + ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_HELPER] + bonusTools[stateLib.TOOL_HELPER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_HELPER);
-	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = (lg.sidebarToggle) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
+	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
 	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) + ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
 	  }
 	}

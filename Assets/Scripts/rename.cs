@@ -38,7 +38,7 @@ public class rename : Tools {
 
 	private int selection = 0;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         GetComponent<SpriteRenderer>().sprite = renSpriteOff;
     }

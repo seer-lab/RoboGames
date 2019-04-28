@@ -309,3 +309,56 @@ public class VariableColorFactory: ToolFactory
         return variableColor; 
     }
 }
+public class CommentFactory: ToolFactory
+{
+    public int Entity;
+    public CommentFactory(XmlNode node, int line)
+        :base(node, line)
+    {
+
+    }
+    public override Tools GetScript()
+    {
+        CommentTypeFactory factory;
+        switch (childnode.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value)
+        {
+            case "robobug":
+                factory = new BugCommentFactory(childnode, lineNumber);
+                return factory.GetScript();
+            case "description":
+                factory = new DescriptionCommentFactory(childnode, lineNumber);
+                return factory.GetScript();
+            case "code":
+                factory = new CodeCommentFactory(childnode, lineNumber);
+                return factory.GetScript();
+            default: return null;
+        }
+    }
+    public override GameObject GetGameObject()
+    {
+        GameObject newComment = GameObject.Instantiate(Resources.Load<GameObject>(path + "comment"));
+        CommentTypeFactory factory; 
+        switch (childnode.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value)
+        {
+            case "robobug":
+                factory = new BugCommentFactory(childnode, lineNumber);
+                factory.ApplyScript(newComment);
+                Entity = factory.Entity;
+                break;
+            case "description": 
+                factory = new DescriptionCommentFactory(childnode, lineNumber);
+                factory.ApplyScript(newComment);
+                Entity = factory.Entity;
+                break;
+            case "code":
+                factory = new CodeCommentFactory(childnode, lineNumber);
+                factory.ApplyScript(newComment);
+                Entity = factory.Entity;
+                break;
+            default: break; 
+        }
+    
+        return newComment; 
+    }
+
+}

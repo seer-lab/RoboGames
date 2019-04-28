@@ -16,7 +16,6 @@ public partial class LevelGenerator : MonoBehaviour {
 	public bool isLosing;
 	public bool isAnswering = false;
 	public bool backgroundLightDark = false;
-	public bool sidebarToggle = true;
 	// The amount of time the player has to complete this level. Read from XML file.
 
 	// The number of Bugs remaining in this level. Originally read from XML file, it will decrease as players squash bugs.
@@ -272,7 +271,7 @@ public partial class LevelGenerator : MonoBehaviour {
 					allComments.AddRange(robotONcorrectUncomments);
 					allComments.AddRange(robotONincorrectUncomments);
 					foreach(GameObject comment in allComments) {
-						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().index) * linespacing, 0f);
+						comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(comment.GetComponent<comment>().Index) * linespacing, 0f);
 					}
 					foreach(GameObject question in robotONquestions) {
 						question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().Index * linespacing, 1);
@@ -290,10 +289,10 @@ public partial class LevelGenerator : MonoBehaviour {
 						thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 						// Colorize all multi-comment line numbers green
 						for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-                                GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
 						}
 						// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-						thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
+						thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index + 0.93f *(thisObject.GetComponent<comment>().size - 1)) * linespacing, 0f);
 						
 						//Removed; using sprites instead:
 						numberOfroboBUGcomments++;
@@ -306,10 +305,10 @@ public partial class LevelGenerator : MonoBehaviour {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().Index) * linespacing, 0f);
 
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
 							//Removed; using sprites instead:						
@@ -322,11 +321,11 @@ public partial class LevelGenerator : MonoBehaviour {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers green
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_COMMENTER]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().Index) * linespacing, 0f);
 							
 							numberOfrobotONincorrectComments++;
 						}
@@ -339,11 +338,11 @@ public partial class LevelGenerator : MonoBehaviour {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_CONTROL_FLOW]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().Index) * linespacing, 0f);
 							
 							//Removed; using sprites instead:
 							//thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
@@ -356,11 +355,11 @@ public partial class LevelGenerator : MonoBehaviour {
 							thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 							// Colorize all multi-comment line numbers red
 							for (int j = 1 ; j < thisObject.GetComponent<comment>().size ; j++) {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_CONTROL_FLOW]++;
 							}
 							// Resize the hitbox for this comment to cover all lines (if multi-line comment)
 							float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().index) * linespacing, 0f);
+							thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisObject.GetComponent<comment>().Index) * linespacing, 0f);
 
 							numberOfrobotONincorrectUncomments++;
 						}
@@ -449,14 +448,34 @@ public partial class LevelGenerator : MonoBehaviour {
 				return levelbug;
 			}
 			case stringLib.NODE_NAME_COMMENT: {
-				print("CreateLevelObject: Creating comment node with index of " + lineNumber);
+				    print("CreateLevelObject: Creating comment node with index of " + lineNumber);
+                    toolFactory = new CommentFactory(childnode, lineNumber);
+                    GameObject newcomment = toolFactory.GetGameObject();
+                    newcomment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 1);
+                    switch (((CommentFactory)toolFactory).Entity)
+                    {
+                        case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT:
+                            roboBUGbreakpoints.Add(newcomment);
+                            break;
+                        case stateLib.ENTITY_TYPE_CORRECT_COMMENT:
+                            robotONcorrectComments.Add(newcomment);
+                            break;
+                        case stateLib.ENTITY_TYPE_INCORRECT_COMMENT:
+                            robotONincorrectComments.Add(newcomment);
+                            break;
+                        case stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT:
+                            robotONcorrectUncomments.Add(newcomment);
+                            break;
+                        case stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT:
+                            robotONincorrectUncomments.Add(newcomment);
+                            break;
+                        default: break;          
+                    }
+
+                    /*
 				GameObject newcomment = (GameObject)Instantiate(commentobject, new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY - lineNumber * linespacing, 0f), transform.rotation);
 				comment propertyHandler = newcomment.GetComponent<comment>();
 				propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
-				propertyHandler.index = lineNumber;
-				propertyHandler.CodescreenObject = this.gameObject;
-				propertyHandler.ToolSelectorObject = selectedtool;
-				propertyHandler.language = language;
 				try {
 					propertyHandler.commentStyle = childnode.Attributes[stringLib.XML_ATTRIBUTE_COMMENT_STYLE].Value;
 				}
@@ -468,7 +487,7 @@ public partial class LevelGenerator : MonoBehaviour {
 					roboBUGcomments.Add(newcomment);
 					propertyHandler.entityType = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
 					propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-					propertyHandler.SidebarObject = output.text;
+                       
 					if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null) {
 						string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
 						string[] toolcounts = toolatt.Split(',');
@@ -509,7 +528,8 @@ public partial class LevelGenerator : MonoBehaviour {
 					break;
 					default: break;
 				}
-				return newcomment;
+                */
+                return newcomment;
 			}
 			case stringLib.NODE_NAME_QUESTION: {
 				    print("CreateLevelObject: Creating question node with index of " + lineNumber);
@@ -811,12 +831,9 @@ public partial class LevelGenerator : MonoBehaviour {
         allComments.AddRange(robotONincorrectUncomments);
         foreach(GameObject comment in allComments) {
 	        comment thisComment = comment.GetComponent<comment>();
-	        //comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index + 1 * (thisComment.size/2)) * linespacing, 0f);
-	        comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -(thisComment.index) * linespacing, 0f);
-	        float yPos = (textscale * (thisComment.size - 1) > 0) ? textscale * (thisComment.size - 1) : 1.0f;
+            comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET - thisComment.Index * linespacing, 1);
+            float yPos = (textscale * (thisComment.size - 1) > 0) ? textscale * (thisComment.size - 1) : 1.0f;
 	
-	        //Removed; using sprites instead:
-	        //comment.transform.localScale = new Vector3(comment.transform.localScale.x, yPos, comment.transform.localScale.z);
         }
         foreach(GameObject question in robotONquestions) {
 	        question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, initialLineY + stateLib.TOOLBOX_Y_OFFSET -question.GetComponent<question>().Index * linespacing, 1);

@@ -22,7 +22,7 @@ public class Breakpoint : Tools {
 
 	private bool activated = false;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
     }
