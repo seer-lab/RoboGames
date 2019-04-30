@@ -29,7 +29,7 @@ public class SelectedTool : MonoBehaviour
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
 
 	// Determine if the player has lost the game.
-	private bool isLosing = false;
+	public bool isLosing = false;
 	// Determine the player has any remaining activavator tools (RoboBUG)
 	private bool noRemainingActivators = false;
 	private float lossDelay = 4f;
@@ -68,7 +68,6 @@ public class SelectedTool : MonoBehaviour
             {
                 noRemainingActivators = false;
                 isLosing = false;
-                lg.isLosing = true;
             }
         }
     }
@@ -96,7 +95,6 @@ public class SelectedTool : MonoBehaviour
         // A projectile has been thrown by the player in hero2Controller
         if (hero.GetComponent<hero2Controller>().throwing)
         {
-            lg.toolsAirborne++;
             hero.GetComponent<hero2Controller>().throwing = false;
             // Decrease the remaining number of tools if tools are not infinite (999)
             if (toolCounts[projectilecode] < 999)
@@ -152,7 +150,7 @@ public class SelectedTool : MonoBehaviour
             losstime = Time.time + lossDelay;
             return;
         }
-        if (toolCounts[projectilecode] <= 0 && bonusTools[projectilecode] <= 0 && !lg.isAnswering && lg.toolsAirborne <= 0)
+        if (toolCounts[projectilecode] <= 0 && bonusTools[projectilecode] <= 0 && !Output.IsAnswering && GameObject.FindGameObjectsWithTag("Projectile").Length == 0)
         {
             NextTool();
         }
@@ -234,7 +232,7 @@ public class SelectedTool : MonoBehaviour
         {
             toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
             toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
-            lg.isLosing = true;
+            isLosing = true;
         }
         // Cycle to the next tool.
         projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
@@ -297,7 +295,7 @@ public class SelectedTool : MonoBehaviour
 	  }
 	}
 	//.................................>8.......................................
-	private void CheckTaskComplete(int nToolCode) {
+	private void CheckTaskComplete(int nToolCode) { 
 		if (GlobalState.level.Tasks[nToolCode] == GlobalState.level.CompletedTasks[nToolCode] && !taskComplete[nToolCode] && GlobalState.level.Tasks[nToolCode] == 0) {
 			taskComplete[nToolCode] = true;
 			for (int i = 0 ; i < 5 ; i++) {
@@ -308,13 +306,13 @@ public class SelectedTool : MonoBehaviour
 		}
 		if (GlobalState.level.Tasks[nToolCode] == GlobalState.level.CompletedTasks[nToolCode] && !taskComplete[nToolCode]) {
             taskComplete[nToolCode] = true;
-            toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
+            toolLabels[nToolCode].GetComponent<Text>().color = GlobalState.IsDark == true ? new Color(0, 0.6f, 0.2f, 1) : Color.green;
             NextTool();
             outputtext.GetComponent<Text>().text = stringLib.INTERFACE_TASK_COMPLETE;
             outputtext.GetComponent<AudioSource>().Play();
 		}
 		else if (GlobalState.level.Tasks[nToolCode] != GlobalState.level.Tasks[nToolCode]) {
-            toolLabels[nToolCode].GetComponent<Text>().color = lg.backgroundLightDark == false ? Color.white : Color.black;
+            toolLabels[nToolCode].GetComponent<Text>().color = GlobalState.IsDark == false ? Color.white : Color.black;
 		}
 	}
 

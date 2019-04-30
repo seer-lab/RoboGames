@@ -24,7 +24,7 @@ public class CorrectComment : comment
             string singlelineCommentOpenSymbolCpp = @"// ";
             string commentOpenSymbol = multilineCommentOpenSymbolPython;
             string commentCloseSymbol = multilineCommentCloseSymbolPython;
-            switch (language)
+            switch (GlobalState.level.Language)
             {
                 case "python":
                     {
@@ -70,7 +70,6 @@ public class CorrectComment : comment
             }
 
             lg.DrawInnerXmlLinesToScreen();
-            lg.toolsAirborne--;
             GlobalState.level.CompletedTasks[3]++;
 
         }

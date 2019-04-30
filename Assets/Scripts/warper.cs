@@ -25,7 +25,6 @@ public class warper : Tools
 			string sMessage = stringLib.LOG_WARPED + Filename;
 			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			lg.toolsAirborne--;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {

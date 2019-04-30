@@ -17,6 +17,7 @@ public class CorrectUncomment : comment
             GlobalState.level.CompletedTasks[4]++;
             selectedTool.bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
             string sNewText = textColoration.DecolorizeText(blocktext);
+            Debug.Log(blocktext);
             string tempDecolText = sNewText;
             string[] sNewParts = sNewText.Split('\n');
             if (sNewParts.Length == 1)
@@ -32,7 +33,7 @@ public class CorrectUncomment : comment
                 string singlelinePatternCommentPython = @"(#)(.*)";
 
                 string patternComment = singlelinePatternCommentPython;
-                switch (language)
+                switch (GlobalState.level.Language)
                 {
                     case "python":
                         {
@@ -60,11 +61,10 @@ public class CorrectUncomment : comment
                 rgx = new Regex(@"(\/\/)(.*?)");
                 sNewText = rgx.Replace(sNewText, "$2");
 
-
                 //verify comment color is removed
                 tempDecolText = textColoration.DecolorizeText(sNewText);
 
-                sNewText = textColoration.ColorizeText(tempDecolText, language);
+                sNewText = textColoration.ColorizeText(tempDecolText, GlobalState.level.Language);
                 GlobalState.level.Code[index] = sNewText;
             }
             else
@@ -86,47 +86,11 @@ public class CorrectUncomment : comment
 
             lg.DrawInnerXmlLinesToScreen();
             isCommented = true;
-            lg.toolsAirborne--;
         }
     
-    }   
+    }
     public override void UpdateProtocol()
     {
         base.UpdateProtocol();
-        if (CorrectCommentObject)
-        {
-            if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
-            {
-                doneUpdating = true;
-                if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
-                {
-                    GetComponent<SpriteRenderer>().sprite = descSpriteOn;
-                }
-                else
-                {
-                    GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
-                }
-                string sNewText = blocktext;
-                string[] sNewParts = sNewText.Split('\n');
-                if (sNewParts.Length == 1)
-                {
-                    // Single line
-
-                    //verify comment color is removed
-                    GlobalState.level.Code[index] = textColoration.DecolorizeText(GlobalState.level.Code[index]);
-
-                    GlobalState.level.Code[index] = "";
-                }
-                else
-                {
-                    // Multi line
-                    for (int i = 0; i < sNewParts.Length; i++)
-                    {
-                        GlobalState.level.Code[index + i] = "";
-                    }
-                }
-                lg.DrawInnerXmlLinesToScreen();
-            }
-        }
     }
 }

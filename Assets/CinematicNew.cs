@@ -51,10 +51,19 @@ public class CinematicNew : MonoBehaviour
     }
     private void UpdateText()
     {
+        if (GlobalState.level == null)
+        {
+            UpdateLevel(); 
+        }
         introtext = GlobalState.level.IntroText;
         endtext = GlobalState.level.ExitText; 
     }
-
+    private void UpdateLevel()
+    {
+        Debug.Log("LEVEL LOADING: " + GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel);
+        factory = new LevelFactory(GlobalState.GameMode + "leveldata/"+ GlobalState.CurrentONLevel);
+        GlobalState.level = factory.GetLevel();
+    }
     private void UpdateLevel(string file)
     {
         string[] temp = file.Split('\\');
@@ -161,8 +170,6 @@ public class CinematicNew : MonoBehaviour
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
                 UpdateLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel); 
-                //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
-                //lg.BuildLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel, false);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 SceneManager.LoadScene("newgame"); 
             }

@@ -34,7 +34,7 @@ public class BugComment : comment
                     selectedTool.toolCounts[i] += tools[i];
                 }
             }
-            lg.toolsAirborne--;
+
         }
     }
 }

@@ -71,23 +71,24 @@ public class VariableColor : Tools {
                 flashCounter--;
                 if (flashCounter == 0) {
                     doneFlashing = true;
+                    /*
                     // Change the next groupid objects to the new colors
-                    foreach(GameObject variablecolor in lg.robotONvariablecolors) {
+                    foreach(GameObject variablecolor in lg.manager.robotONvariablecolors) {
                         if (variablecolor.GetComponent<VariableColor>().groupid == (groupid+1)) {
                             int lineNum = variablecolor.GetComponent<VariableColor>().index;
                             string sReplace = GlobalState.level.Tags[lineNum];
-                            //sReplace = lg.OuterToInnerXml(sReplace, language);
-                            GlobalState.level.Code[lineNum] = sReplace;
-                            lg.DrawInnerXmlLinesToScreen();
+                            GlobalState.level.Code[lineNum] = sReplace;                          
                         }
 					}
+                    */
+                    lg.DrawInnerXmlLinesToScreen();
                 }
             }
             else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
     			// Change the next groupid objects to the new colors
     			decolorOnce = true;
-                GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, textColoration.DecolorizeText(innertext));
-    			lg.DrawInnerXmlLinesToScreen();
+                //GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, textColoration.DecolorizeText(innertext));
+    			//lg.DrawInnerXmlLinesToScreen();
     		}
         }
 	}

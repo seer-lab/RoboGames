@@ -29,7 +29,6 @@ public class beacon : Tools {
 
 
 
-
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
@@ -75,23 +74,19 @@ public class beacon : Tools {
 				// Award 1 extra use of the tool.
 				selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				actcounter++;
-				/*
-				if (actcounter == flowOrder.Count) {
-				GetComponent<SpriteRenderer>().sprite = activebeacon;
+				GetComponent<SpriteRenderer>().sprite = progressbeacon;
 			}
-			*/
+			
 		}
-		lg.toolsAirborne--;
 	}
-}
 
-//.................................>8.......................................
-void ResetAllBeacons() {
-	foreach(GameObject beacon in lg.robotONbeacons) {
-		beacon.GetComponent<beacon>().actcounter = 0;
-		beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
-		beacon.GetComponent<beacon>().flashCounter = 0;
+    //.................................>8.......................................
+    void ResetAllBeacons() {
+	    foreach(GameObject beacon in lg.manager.robotONbeacons) {
+		    beacon.GetComponent<beacon>().actcounter = 0;
+		    beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
+		    beacon.GetComponent<beacon>().flashCounter = 0;
             GlobalState.level.CompletedTasks[0] = 0; 
-	}
-}
+	    }
+    }
 }

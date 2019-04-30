@@ -11,7 +11,6 @@ public class IncorrectComment : comment
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating)
         {
             Destroy(collidingObj.gameObject);
-            lg.toolsAirborne--;
             selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
         }
     }

@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Checklist.cs" />
      <Compile Include="Assets\Scripts\Cinematic.cs" />
      <Compile Include="Assets\Scripts\CodeFormater.cs" />
+     <Compile Include="Assets\Scripts\CodeProperties.cs" />
      <Compile Include="Assets\Scripts\Comic.cs" />
      <Compile Include="Assets\Scripts\comment.cs" />
      <Compile Include="Assets\Scripts\CommentTypeFactory.cs" />

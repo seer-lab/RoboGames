@@ -38,6 +38,7 @@ public class Tools : MonoBehaviour
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
+        language = GlobalState.level.Language; 
         Initialize(); 
     }
     public virtual void Initialize() { }

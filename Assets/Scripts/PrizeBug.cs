@@ -43,7 +43,6 @@ public class PrizeBug : Tools {
 			for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 				selectedTool.bonusTools[i] += bonus[i];
 			}
-			lg.toolsAirborne--;
 		}
 	}
 

@@ -47,6 +47,7 @@ public abstract class comment : Tools {
 
     public override void Initialize()
     {
+
         string path = "Sprites/";
         descSpriteOff = Resources.LoadAll<Sprite>(path + "dComment")[2];
         descSpriteOn = Resources.LoadAll<Sprite>(path + "dComment")[0]; 
@@ -67,7 +68,10 @@ public abstract class comment : Tools {
     void Update() {
         UpdateProtocol(); 
 	}
-    public virtual void UpdateProtocol() { }
+    public virtual void UpdateProtocol() {
+       
+    }
+
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
         OnTriggerProtocol(collidingObj); 

@@ -54,7 +54,7 @@ public class question : Tools {
 				}
 				answered = false;
 				answering = false;
-				lg.isAnswering = false;
+				Output.IsAnswering = false;
 				input = "";
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
@@ -62,7 +62,7 @@ public class question : Tools {
 			else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
-				lg.isAnswering = false;
+                Output.IsAnswering = false;
 				
 			
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
@@ -154,12 +154,10 @@ public class question : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
-            Debug.Log(displaytext); 
             selectedTool.outputtext.GetComponent<Text>().text = displaytext;
 			audioPrompt.Play();
 			answering = true;
-			lg.isAnswering = true;
-			lg.toolsAirborne--;
+            Output.IsAnswering = true;
 		}
 	}
 

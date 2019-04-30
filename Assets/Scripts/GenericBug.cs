@@ -39,7 +39,6 @@ public class GenericBug : Tools {
 			lg.numberOfBugsRemaining--;
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
-			lg.toolsAirborne--;
 		}
 	}
 

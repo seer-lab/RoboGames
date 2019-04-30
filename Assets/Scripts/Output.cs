@@ -20,6 +20,8 @@ public class Output : MonoBehaviour
 
 	private Animator anim;
 
+    public static bool IsAnswering { get; set; }
+
     Sprite[] panels = new Sprite[8];
 
     private void LoadPanels()
@@ -57,7 +59,8 @@ public class Output : MonoBehaviour
 		anim = GetComponent<Animator>();
 		anim.SetBool("Appearing", false);
 		anim.SetBool("Hiding", false);
-        LoadPanels(); 
+        LoadPanels();
+        IsAnswering = false; 
 	}
 
 	//.................................>8.......................................

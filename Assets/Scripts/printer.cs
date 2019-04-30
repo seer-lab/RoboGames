@@ -32,7 +32,6 @@ public class printer : Tools {
 					selectedTool.toolCounts[i] += tools[i];
 				}
 			}
-			lg.toolsAirborne--;
 		}
 	}
 

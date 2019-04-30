@@ -51,8 +51,9 @@ public class OldMenu : MonoBehaviour
         GlobalState.IsPlaying = false; 
         GlobalState.CurrentONLevel = "level0.xml";
         GlobalState.CurrentBUGLevel = "level0.xml";
-        GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME; 
-
+        GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
+        GlobalState.GameMode = "on"; 
+        GlobalState.level = null;
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
         buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
         buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";
@@ -60,6 +61,7 @@ public class OldMenu : MonoBehaviour
         buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         m2switch(false);
+       
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
     }
 
@@ -205,8 +207,9 @@ public class OldMenu : MonoBehaviour
                 switch (option)
                 {
                     case 0:
+                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption]; 
-                        SceneManager.LoadScene("newgame");       
+                        SceneManager.LoadScene("Cinematic");       
                         //Construt Level
                         /*
                         lg.BuildLevel(GlobalState.GameState + "leveldata" + filepath + levels[levoption], false);
@@ -281,8 +284,8 @@ public class OldMenu : MonoBehaviour
                     case 0:
                         GlobalState.GameMode = stringLib.GAME_MODE_ON;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                  
-                        SceneManager.LoadScene("newgame");  
+                        
+                        SceneManager.LoadScene("Cinematic");  
                         //Construct Level
                         /*
                         lg.gamemode = stringLib.GAME_MODE_ON;
@@ -293,7 +296,7 @@ public class OldMenu : MonoBehaviour
                     case 1:
                         GlobalState.GameMode = stringLib.GAME_MODE_ON;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        SceneManager.LoadScene("newgame"); 
+                        SceneManager.LoadScene("Cinematic"); 
                         /*
                         lg.gamemode = stringLib.GAME_MODE_ON;
                         lg.BuildLevel("onleveldata" + filepath + stringLib.START_LEVEL_FILE, false);

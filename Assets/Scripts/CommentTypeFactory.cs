@@ -16,7 +16,7 @@ public abstract class CommentTypeFactory
     }
     protected virtual void Initalize(comment propertyHandler)
     {
-        propertyHandler.Index = lineNumber; 
+        propertyHandler.Index = lineNumber;
         propertyHandler.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
         try
         {
@@ -26,6 +26,7 @@ public abstract class CommentTypeFactory
         {
             propertyHandler.commentStyle = "single";
         }
+
         propertyHandler.Initialize(); 
     }
     public abstract comment GetScript();
@@ -85,9 +86,9 @@ public class DescriptionCommentFactory: CommentTypeFactory
         else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false")
         {
             IncorrectComment propertyHandler = obj.AddComponent<IncorrectComment>() as IncorrectComment; 
-            propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
-            Initalize(propertyHandler); 
+            propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;         
             Entity = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
+            Initalize(propertyHandler);
         }
     }
     public override comment GetScript()
@@ -129,13 +130,13 @@ public class CodeCommentFactory: CommentTypeFactory
         {
             CorrectUncomment propertyHandler = obj.AddComponent<CorrectUncomment>() as CorrectUncomment;
             propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT;
-            Initalize(propertyHandler); 
             Entity = stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT; 
-            GlobalState.level.Tasks[4]++; 
+            GlobalState.level.Tasks[4]++;
+            Initalize(propertyHandler);
         }
         else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false")
         {
-            IncorrectComment propertyHandler = obj.AddComponent<IncorrectComment>() as IncorrectComment; 
+            IncorrentUncomment propertyHandler = obj.AddComponent<IncorrentUncomment>() as IncorrentUncomment; 
             propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT;
             Entity = stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT;
             Initalize(propertyHandler); 

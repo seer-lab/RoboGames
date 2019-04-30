@@ -7,13 +7,12 @@ using UnityEngine;
 public class GameController : MonoBehaviour, ITimeUser
 {
     LevelFactory factory; 
-    LevelManager manager;
     LevelGenerator lg;
     Output output;
     SidebarController sidebar;
+    SelectedTool selectedTool; 
     BackgroundController background; 
     bool winning = false;
-    bool IsDark = true; 
     private void CheckWin()
     {
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
@@ -30,6 +29,13 @@ public class GameController : MonoBehaviour, ITimeUser
             {
                 StartCoroutine(Win()); 
             }
+        }
+    }
+    private void CheckLose()
+    {
+        if (selectedTool.isLosing)
+        {
+            StartCoroutine(Lose());
         }
     }
     public void OnTimeFinish()
@@ -51,7 +57,6 @@ public class GameController : MonoBehaviour, ITimeUser
     //************************************************************************//
     public void Victory()
     {
-        manager.SaveGame();
         GlobalState.IsPlaying = false;
         GlobalState.CurrentONLevel = "level5";
         GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
@@ -69,13 +74,21 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         SceneManager.LoadScene("Cinematic"); 
     }
-
+    IEnumerator Lose()
+    {
+        yield return new WaitForSecondsRealtime(2.4f); 
+        if (!winning)
+        {
+            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
+            SceneManager.LoadScene("Cinematic"); 
+        }
+    }
     IEnumerator Win()
     {
         yield return new WaitForSecondsRealtime(2.2f);
         if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath )
         {
-            manager.SaveGame();
+            lg.manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             winning = false; 
             SceneManager.LoadScene("Cinematic"); 
@@ -94,27 +107,28 @@ public class GameController : MonoBehaviour, ITimeUser
     }
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        GlobalState.IsDark = true; 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         Debug.Log(GlobalState.CurrentONLevel);
         factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
         GlobalState.level = factory.GetLevel();
-        manager = new LevelManager();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
+        selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
     }
     private void HandleInterface()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !lg.isAnswering)
+        if (Input.GetKeyDown(KeyCode.Z) && !Output.IsAnswering)
         {
             ToggleTheme(); 
         }
-        else if (Input.GetKeyDown(KeyCode.C) && !lg.isAnswering)
+        else if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
             sidebar.ToggleSidebar(); 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !lg.isAnswering)
+        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             SceneManager.LoadScene("MainMenu");
@@ -122,8 +136,8 @@ public class GameController : MonoBehaviour, ITimeUser
     }
     private void ToggleTheme()
     {
-        IsDark = !IsDark; 
-        if (IsDark)
+        GlobalState.IsDark = !GlobalState.IsDark; 
+        if (GlobalState.IsDark)
         {
             lg.ToggleDark();
             sidebar.ToggleDark();
@@ -145,6 +159,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             CheckWin();
+            CheckLose(); 
             HandleInterface(); 
         }
     }
