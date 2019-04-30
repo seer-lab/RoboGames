@@ -58,7 +58,7 @@ public class SelectedTool : MonoBehaviour
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
-        levelDescription.GetComponent<Text>().text = lg.destext.GetComponent<TextMesh>().text;
+        levelDescription.GetComponent<Text>().text = GameObject.Find("Description").GetComponent<TextMesh>().text;
     }
     private void CheckLosing()
     {
@@ -323,7 +323,7 @@ public class SelectedTool : MonoBehaviour
 
 	//.................................>8.......................................
 	private string ReplaceBonusText(int nToolIndex) {
-		return bonusTools[nToolIndex] > 0 ? lg.stringLibrary.checklist_complete_color_tag + " +" + ReplaceTextInfinite(bonusTools[nToolIndex]) + stringLib.CLOSE_COLOR_TAG : "";
+		return bonusTools[nToolIndex] > 0 ? GlobalState.StringLib.checklist_complete_color_tag + " +" + ReplaceTextInfinite(bonusTools[nToolIndex]) + stringLib.CLOSE_COLOR_TAG : "";
 	}
 
 	//.................................>8.......................................

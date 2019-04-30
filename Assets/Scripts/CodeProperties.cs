@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds data regarding spacing, sizes and positioning of various code objects in the game.
+/// </summary>
 public class CodeProperties 
 {
     public float initialLineY = 3f;
@@ -22,4 +25,6 @@ public class CodeProperties
     public float leveldelay = 2f;
     public float startNextLevelTimeDelay = 0f;
     public int totalNumberOfTools = stateLib.NUMBER_OF_TOOLS;
+    public Vector3 defaultPosition = new Vector3(0, 0, 0);
+    public Vector3 defaultLocalScale = new Vector3(0, 0, 0);
 }

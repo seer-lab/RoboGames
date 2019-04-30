@@ -17,7 +17,6 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 
-
 public class VariableColor : Tools {
 
     public GameObject parent;

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Super class for all tools 
+/// </summary>
 public class Tools : MonoBehaviour
 {
     protected int index = -1;
@@ -41,5 +44,8 @@ public class Tools : MonoBehaviour
         language = GlobalState.level.Language; 
         Initialize(); 
     }
+    /// <summary>
+    /// Will be called at Start, use this for correct ordering of Instantiation. 
+    /// </summary>
     public virtual void Initialize() { }
 }

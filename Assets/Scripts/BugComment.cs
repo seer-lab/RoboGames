@@ -14,7 +14,7 @@ public class BugComment : comment
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
             // Substring is startingPos, length. We want to start after the first color tag, and the length is the whole string - length of color tag - length of close color tag.
-            blocktext = blocktext.Substring(lg.stringLibrary.node_color_question.Length, (blocktext.Length) - (lg.stringLibrary.node_color_question.Length) - (stringLib.CLOSE_COLOR_TAG.Length));
+            blocktext = blocktext.Substring(GlobalState.StringLib.node_color_question.Length, (blocktext.Length) - (GlobalState.StringLib.node_color_question.Length) - (stringLib.CLOSE_COLOR_TAG.Length));
             lg.DrawInnerXmlLinesToScreen();
 
             // CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +

@@ -72,7 +72,7 @@ public class CorrectUncomment : comment
                 string commentOpenSymbol = "/*";
                 string commentCloseSymbol = "*/"; //TODO: Modularize
 
-                sNewParts[0] = sNewParts[0].Replace(lg.stringLibrary.node_color_correct_comment, "");
+                sNewParts[0] = sNewParts[0].Replace(GlobalState.StringLib.node_color_correct_comment, "");
                 sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(commentCloseSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(stringLib.CLOSE_COLOR_TAG, "");

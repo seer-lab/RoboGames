@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Variables and Data that needs to be maintained between Scenes and large numbers of classes. 
+/// </summary>
 public static class GlobalState 
 {
     public static bool IsPlaying { get; set; }

@@ -49,19 +49,19 @@ public class CorrectComment : comment
             }
             if (sNewParts.Length == 1)
             {
-                GlobalState.level.Code[index] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+                GlobalState.level.Code[index] = GlobalState.StringLib.node_color_correct_comment + commentOpenSymbol + blocktext + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
             }
             else
             {
                 // Multi line
-                sNewParts[0] = lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[0] + stringLib.CLOSE_COLOR_TAG;
+                sNewParts[0] = GlobalState.StringLib.node_color_correct_comment + commentOpenSymbol + sNewParts[0] + stringLib.CLOSE_COLOR_TAG;
                 for (int i = 1; i < sNewParts.Length - 1; i++)
                 {
-                    sNewParts[i] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
-                                                               lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+                    sNewParts[i] = (commentStyle == "multi") ? GlobalState.StringLib.node_color_correct_comment + sNewParts[i] + stringLib.CLOSE_COLOR_TAG :
+                                                               GlobalState.StringLib.node_color_correct_comment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
                 }
-                sNewParts[sNewParts.Length - 1] = (commentStyle == "multi") ? lg.stringLibrary.node_color_correct_comment + sNewParts[sNewParts.Length - 1] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG :
-                                                                            lg.stringLibrary.node_color_correct_comment + commentOpenSymbol + sNewParts[sNewParts.Length - 1] + stringLib.CLOSE_COLOR_TAG;
+                sNewParts[sNewParts.Length - 1] = (commentStyle == "multi") ? GlobalState.StringLib.node_color_correct_comment + sNewParts[sNewParts.Length - 1] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG :
+                                                                            GlobalState.StringLib.node_color_correct_comment + commentOpenSymbol + sNewParts[sNewParts.Length - 1] + stringLib.CLOSE_COLOR_TAG;
 
                 for (int i = 0; i < sNewParts.Length; i++)
                 {

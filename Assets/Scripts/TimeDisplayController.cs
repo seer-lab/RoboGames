@@ -45,6 +45,7 @@ public class TimeDisplayController : MonoBehaviour
             }
             else
             {
+                //Display the time appropriately. 
                 int nNumberOfSeconds = (int)(endTime - Time.time);
                 if (nNumberOfSeconds > 3600)
                 {
@@ -80,6 +81,7 @@ public class TimeDisplayController : MonoBehaviour
             }
             if (endTime < Time.time && endTime - startTime < 9000)
             {
+                //let the GameController know that the time is up. 
                 Callback.OnTimeFinish(); 
             }
         }

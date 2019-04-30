@@ -9,15 +9,15 @@ using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
 using System;
 
+/// <summary>
+/// Responsible for Generating and maintaining Code on-screen and the 
+/// properties arround them. Based on GlobalStates level. 
+/// </summary>
 public partial class LevelGenerator : MonoBehaviour {
-	public stringLib stringLibrary = new stringLib();
-    public CodeFormater codeFormatter; 
 
-	// The number of Bugs remaining in this level. Originally read from XML file, it will decrease as players squash bugs.
 	public int numberOfBugsRemaining = 0;
-
-	// The number of lines in the XML file. Computed by counting the number of newline characters the XML contains.
 	public int renamegroupidCounter = 0;
+
 	// Lines of code stored in an array. innerXmlLines is the colorized text from NodeToColorString(), outerXmlLnes is the line with the tags.
 	public string[] lineNumbers;
 
@@ -28,28 +28,26 @@ public partial class LevelGenerator : MonoBehaviour {
 
 	// Stores the level text, the lines of code the player sees.
 	public GameObject leveltext;
-	// Stores the level's (Displayed at the top of the level when playing).
-	public GameObject destext;
+
+    //This isn't necessary but will be addressed during the merge of 
+    //RoboBug into RobotON. 
 	public GameObject bugobject;
-	public GameObject lineobject;
-	public GameObject printobject;
-	public GameObject prizeobject;
+    public GameObject prizeobject;
+
+    public GameObject lineobject;
 	public GameObject hero;
 
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 
-	// Reference to SelectedTool object. When ProvisionToolsFromXml() is called, tools are provisioned and then passed to SelectedTool object.
+    // Reference to SelectedTool object. When ProvisionToolsFromXml() is called, 
+    //tools are provisioned and then passed to SelectedTool object.
 	public GameObject selectedtool;
-
 	public GameObject toolprompt;
-
     private Output output; 
     private SidebarController sidebar;
     private BackgroundController background; 
 
-	private Vector3 defaultPosition = new Vector3(0,0,0);
-	private Vector3 defaultLocalScale = new Vector3(0,0,0);
 	// Player has been notified of less than 30 seconds remaining on the clock.
 	private bool isTimerAlarmTriggered;
 	private bool winning;
@@ -60,12 +58,11 @@ public partial class LevelGenerator : MonoBehaviour {
 	private string codetext;
 
     public LevelManager manager; 
-	//.................................>8.......................................
+
 	// Use this for initialization
 	private void Start() { 
 		GlobalState.GameMode 					 = stringLib.GAME_MODE_ON;
         properties = new CodeProperties(); 
-        codeFormatter = new CodeFormater(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
         GlobalState.level.Tasks = new int[5];
         GlobalState.level.CompletedTasks = new int[5]; 
@@ -81,18 +78,16 @@ public partial class LevelGenerator : MonoBehaviour {
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         BuildLevel();
 	}
- 
-    // This is called every draw call in game.
-    private void Update() {
-
-	}
-
+    /// <summary>
+    /// Essentially Generates the Level Visually.
+    /// Uses data from the GlobalState Level. 
+    /// </summary>
     public void BuildLevel()
     {
         ResetLevel(false);
         CreateLevelLines(GlobalState.level.LineCount);
         PlaceObjects(GlobalState.level.LevelNode);
-        ProvisionToolsFromXml(GlobalState.level.NodeList);
+        ProvisionToolsFromXml();
         
         // Resize the boundaries of the level to correspond with how many lines we have
         if (leveltext.GetComponent<TextMesh>().fontSize == stateLib.TEXT_SIZE_VERY_LARGE)
@@ -115,18 +110,23 @@ public partial class LevelGenerator : MonoBehaviour {
         }
 
     }
+
+    /// <summary>
+    /// Move the player to the correct position after Warping. 
+    /// </summary>
+    /// <param name="warpToLine">Line the player Warps To</param>
     public void WarpPlayer(string warpToLine)
     {
         hero.transform.position = (warpToLine != "") ? new Vector3(-8, properties.initialLineY - (int.Parse(warpToLine) - 1) * properties.linespacing, 1) : hero.transform.position;
         GetComponent<AudioSource>().clip = warpSound;
         GetComponent<AudioSource>().Play();
     }
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void CreateLevelLines();
-	// Description: Create the grey level line objects between each line of code
-	//************************************************************************//
-	public void CreateLevelLines(int linecount) {
+
+    /// <summary>
+    /// Create the grey level line objects between each line of code
+    /// </summary>
+    /// <param name="linecount">Numer of Lines</param>
+    public void CreateLevelLines(int linecount) {
         // Create the grey line objects for each line.
 		lineNumbers = new string[linecount];
 		for (int i = 0; i < linecount; i++) {
@@ -143,13 +143,18 @@ public partial class LevelGenerator : MonoBehaviour {
 
 
 
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: public void DrawInnerXmlLinesToScreen();
-	// Description: Updates the code the player sees on the screen. Also adds the line
-	// numbers to the code
-	//************************************************************************//
-	public void DrawInnerXmlLinesToScreen(bool bRedrawLineNumbers = true) {
+    //.................................>8.......................................
+    //************************************************************************//
+    // Method: public void DrawInnerXmlLinesToScreen();
+    // Description: Updates the code the player sees on the screen. Also adds the line
+    // numbers to the code
+    //************************************************************************//
+    /// <summary>
+    /// Updates the code the player sees on the screen. Also adds the line
+    /// numbers to the code
+    /// </summary>
+    /// <param name="bRedrawLineNumbers"></param>
+    public void DrawInnerXmlLinesToScreen(bool bRedrawLineNumbers = true) {
 		string drawCode = "";
 		for (int x = 1 ; x < GlobalState.level.Code.GetLength(0) + 1; x++) {
 			//draw the line number next to the text
@@ -168,13 +173,11 @@ public partial class LevelGenerator : MonoBehaviour {
 		leveltext.GetComponent<TextMesh>().text = drawCode;
 	}
 
-
-	//.................................>8.......................................
-	//************************************************************************//
-	// Method: private void PlaceObjects(XmlNode levelnode)
-	// Description: Read through levelnode XML and create the interactable game objects.
-	//************************************************************************//
-	private void PlaceObjects(XmlNode levelnode) {
+    /// <summary>
+    ///  Read through levelnode XML and create the interactable game objects.
+    /// </summary>
+    /// <param name="levelnode"></param>
+    private void PlaceObjects(XmlNode levelnode) {
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
 			if (codenode.Name != stringLib.NODE_NAME_CODE) {
 				continue;
@@ -183,7 +186,7 @@ public partial class LevelGenerator : MonoBehaviour {
 			foreach(XmlNode childNode in codenode.ChildNodes)
 
 			{
-				manager.CreateLevelObject(codenode.Attributes[stringLib.XML_ATTRIBUTE_LANGUAGE].Value, childNode, indexOf);
+				manager.CreateLevelObject(childNode, indexOf);
 				foreach(char c in childNode.OuterXml)
 				{
 					if (c == '\n') indexOf++;
@@ -195,11 +198,15 @@ public partial class LevelGenerator : MonoBehaviour {
             int numberOfrobotONincorrectComments = 0;
             int numberOfrobotONcorrectUncomments = 0;
             int numberOfrobotONincorrectUncomments = 0;
+
+            //Create a single list of comments. 
             List<GameObject> allComments = new List<GameObject>();
             allComments.AddRange(manager.robotONcorrectComments);
             allComments.AddRange(manager.robotONincorrectComments);
             allComments.AddRange(manager.robotONcorrectUncomments);
             allComments.AddRange(manager.robotONincorrectUncomments);
+
+            //Adjust all the positions. 
             foreach (GameObject comment in allComments)
             {
                 comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (comment.GetComponent<comment>().Index) * properties.linespacing, 0f);
@@ -212,7 +219,6 @@ public partial class LevelGenerator : MonoBehaviour {
             {
                 rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
             }
-            
             GameObject thisObject;
             for (int i = 0; i < codenode.ChildNodes.Count; i++)
             {
@@ -366,7 +372,6 @@ public partial class LevelGenerator : MonoBehaviour {
             }
             */
 
-			// ]-- End of blocktext setting
 			// Pair Incorrect Comments to their corresponding correct comments --[
 			foreach (GameObject incorrectComment in manager.robotONincorrectComments) {
 				foreach (GameObject correctComment in manager.robotONcorrectComments) {
@@ -400,17 +405,14 @@ public partial class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void ProvisionToolsFromXml(XmlNode levelnode)
-    // Description: Read through levelnode XML and provision the tools for this level
-    // levelnode is typically the parent XML node in the XML document.
-    //************************************************************************//
-
-    public void ProvisionToolsFromXml(IList<XmlNode> nodelist)
+    /// <summary>
+    /// Read through levelnode XML and provision the tools for this level
+    /// levelnode is typically the parent XML node in the XML document.
+    /// </summary>
+    /// <param name="nodelist"></param>
+    public void ProvisionToolsFromXml()
     {
-        foreach (XmlNode tool in nodelist)
+        foreach (XmlNode tool in GlobalState.level.NodeList)
         {
             // Set the tool count for each tool node --[
             int toolnum = 0;
@@ -474,11 +476,11 @@ public partial class LevelGenerator : MonoBehaviour {
         if (!storedDefaultPlayArea)
         {
             storedDefaultPlayArea = true;
-            defaultPosition = this.transform.position;
-            defaultLocalScale = this.transform.localScale;
+            properties.defaultPosition = this.transform.position;
+            properties.defaultLocalScale = this.transform.localScale;
         }
-        this.transform.position = defaultPosition;
-        this.transform.localScale = defaultLocalScale;
+        this.transform.position = properties.defaultPosition;
+        this.transform.localScale = properties.defaultLocalScale;
 
 
         // Move player to default position
@@ -525,8 +527,8 @@ public partial class LevelGenerator : MonoBehaviour {
 			default:
 			    break;
 		}
-		this.transform.position = defaultPosition;
-		this.transform.localScale = defaultLocalScale;
+		this.transform.position = properties.defaultPosition;
+		this.transform.localScale = properties.defaultLocalScale;
 		this.transform.position -= new Vector3(0, GlobalState.level.LineCount * properties.linespacing / 2, 0);
 		this.transform.localScale += new Vector3(0, properties.levelLineRatio * GlobalState.level.LineCount, 0);
 		if (nTextSizeConst == stateLib.TEXT_SIZE_LARGE) {
@@ -554,12 +556,14 @@ public partial class LevelGenerator : MonoBehaviour {
         manager.ResizeObjects(); 
 
     }
-
+    /// <summary>
+    /// Toggle Code Elements Light
+    /// </summary>
     public void ToggleLight()
     {
         this.GetComponent<SpriteRenderer>().sprite = whiteCodescreen;
         this.GetComponent<SpriteRenderer>().color = new Color(0.94f, 0.97f, 0.99f, 0.8f);
-        destext.GetComponent<TextMesh>().color = Color.black;
+        GameObject.Find("Description").GetComponent<TextMesh>().color = Color.black;
         leveltext.GetComponent<TextMesh>().color = Color.black;
         foreach (GameObject line in manager.lines)
         {
@@ -569,58 +573,57 @@ public partial class LevelGenerator : MonoBehaviour {
         foreach (GameObject renameObj in manager.robotONrenamers)
         {
             rename propertyHandler = renameObj.GetComponent<rename>();
-            propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
+            propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_rename, GlobalState.StringLib.node_color_rename_dark);
         }
         foreach (GameObject varcolorObj in manager.robotONvariablecolors)
         {
             VariableColor propertyHandler = varcolorObj.GetComponent<VariableColor>();
-            propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_dark);
+            propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_rename, GlobalState.StringLib.node_color_rename_dark);
         }
         foreach (GameObject questionObj in manager.robotONquestions)
         {
             question propertyHandler = questionObj.GetComponent<question>();
-            propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_dark);
+            propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_dark);
         }
 
     }
-//.................................>8.......................................
-//************************************************************************//
-// Method: public void ToggleLightDark()
-// Description: Toggle between light and dark color schemes for the game.
-//************************************************************************//
-public void ToggleDark() {
-	 
-		this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
-		this.GetComponent<SpriteRenderer>().color 				= Color.black;
-		destext.GetComponent<TextMesh>().color 					= Color.white;
-		leveltext.GetComponent<TextMesh>().color 				= Color.white;;
-		toolprompt.GetComponent<TextMesh>().color				= Color.white;
-		foreach (GameObject line in manager.lines) {
-			line.GetComponent<SpriteRenderer>().color 			= Color.white;
-		}
-           
-		foreach (GameObject renameObj in manager.robotONrenamers) {
-			rename propertyHandler = renameObj.GetComponent<rename>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_light);
-		}
-		foreach (GameObject varcolorObj in manager.robotONvariablecolors) {
-			VariableColor propertyHandler = varcolorObj.GetComponent<VariableColor>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_rename, stringLibrary.node_color_rename_light);
-		}
-		foreach (GameObject questionObj in manager.robotONquestions) {
-			question propertyHandler = questionObj.GetComponent<question>();
-			propertyHandler.innertext = propertyHandler.innertext.Replace(stringLibrary.node_color_question, stringLibrary.node_color_question_light);
-		}
-        
-	DrawInnerXmlLinesToScreen();
-}
 
-//.................................>8.......................................
-public void floatingTextOnPlayer(string sMessage) {
-	toolprompt.GetComponent<TextMesh>().text = sMessage;
-	Animator anim = toolprompt.GetComponent<Animator>();
-	anim.Play("hide");
-}
+    /// <summary>
+    /// Toggle Code elements Dark
+    /// </summary>
+    public void ToggleDark() {
+	 
+		    this.GetComponent<SpriteRenderer>().sprite 				= blackCodescreen;
+		    this.GetComponent<SpriteRenderer>().color 				= Color.black;
+            GameObject.Find("Description").GetComponent<TextMesh>().color 					= Color.white;
+		    leveltext.GetComponent<TextMesh>().color 				= Color.white;;
+		    toolprompt.GetComponent<TextMesh>().color				= Color.white;
+		    foreach (GameObject line in manager.lines) {
+			    line.GetComponent<SpriteRenderer>().color 			= Color.white;
+		    }
+           
+		    foreach (GameObject renameObj in manager.robotONrenamers) {
+			    rename propertyHandler = renameObj.GetComponent<rename>();
+			    propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_rename, GlobalState.StringLib.node_color_rename_light);
+		    }
+		    foreach (GameObject varcolorObj in manager.robotONvariablecolors) {
+			    VariableColor propertyHandler = varcolorObj.GetComponent<VariableColor>();
+			    propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_rename, GlobalState.StringLib.node_color_rename_light);
+		    }
+		    foreach (GameObject questionObj in manager.robotONquestions) {
+			    question propertyHandler = questionObj.GetComponent<question>();
+			    propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_light);
+		    }
+        
+	    DrawInnerXmlLinesToScreen();
+    }
+
+    //.................................>8.......................................
+    public void floatingTextOnPlayer(string sMessage) {
+	    toolprompt.GetComponent<TextMesh>().text = sMessage;
+	    Animator anim = toolprompt.GetComponent<Animator>();
+	    anim.Play("hide");
+    }
 
 //.................................>8.......................................
 }

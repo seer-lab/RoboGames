@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UI; 
 using UnityEngine;
 
+/// <summary>
+/// Control the elements in the sidebar and buffer them from other 
+/// classes trying to access them. 
+/// </summary>
 public class SidebarController : MonoBehaviour
 {
     public GameObject panel, levelDescriptor, availableTools;
@@ -43,7 +47,6 @@ public class SidebarController : MonoBehaviour
     }
     public void ToggleLight()
     {
-        Debug.Log("SidebarController"); 
         panel.GetComponent<Image>().sprite = panels[4];
         timer.GetComponent<Text>().color = Color.black; 
         checklist.GetComponent<Text>().color = Color.black;

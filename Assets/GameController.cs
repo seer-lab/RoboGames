@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 using System.Xml; 
 using UnityEngine;
 
+/// <summary>
+/// Oversees the Game Logic such as winning, losing, picking which level to Load. 
+/// </summary>
 public class GameController : MonoBehaviour, ITimeUser
 {
     LevelFactory factory; 
@@ -13,11 +16,16 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     bool winning = false;
+
+    /// <summary>
+    /// Checks if the game meets the win condition. 
+    /// </summary>
     private void CheckWin()
     {
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
         {
             winning = true;
+            //Check if all the tasks have been completed. 
             for (int i = 0; i < 5; i++)
             {
                 if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
@@ -31,6 +39,9 @@ public class GameController : MonoBehaviour, ITimeUser
             }
         }
     }
+    /// <summary>
+    /// Checks if the Game meets the Lose Condition
+    /// </summary>
     private void CheckLose()
     {
         if (selectedTool.isLosing)
@@ -38,23 +49,28 @@ public class GameController : MonoBehaviour, ITimeUser
             StartCoroutine(Lose());
         }
     }
+    /// <summary>
+    /// ITimeUser Callback function
+    /// </summary>
     public void OnTimeFinish()
     {
         GameOver(); 
     }
+
+    /// <summary>
+    /// Initialize the Timer with the Level's time. 
+    /// </summary>
+    /// <param name="time"></param>
     private void LoadTimer(float time)
     {
         TimeDisplayController controller = sidebar.timer.GetComponent<TimeDisplayController>();
         controller.EndTime = time;
         controller.Callback = this;
     }
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void Victory()
-    // Description: Switch to the GAME_END state. When Update() is called, appropriate
-    // action is taken there.
-    //@TODO: level5 seems to be a magic level or something to signal the end of the game?
-    //************************************************************************//
+
+    /// <summary>
+    /// Switch to the GAME_END state and load the credits scene. 
+    /// </summary>
     public void Victory()
     {
         GlobalState.IsPlaying = false;
@@ -62,30 +78,38 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
         SceneManager.LoadScene("Credits");
     }
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void GameOver()
-    // Description: Switch to the LEVEL_LOSE state. When Update() is called, appropriate
-    // action is taken there.
-    //************************************************************************//
+
+    /// <summary>
+    /// Switches to the Level Lose and Loads the Cinematic Scene. 
+    /// </summary>
     public void GameOver()
     {
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         SceneManager.LoadScene("Cinematic"); 
     }
+    /// <summary>
+    /// Delays the Lose Operation to ensure the player isn't about to win 
+    /// and then ends the game.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Lose()
     {
         yield return new WaitForSecondsRealtime(2.4f); 
         if (!winning)
         {
-            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
-            SceneManager.LoadScene("Cinematic"); 
+            GameOver();  
         }
     }
+    /// <summary>
+    /// Delays the Win Operation to ensure the player actually won, then 
+    /// completes win game operations. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Win()
     {
         yield return new WaitForSecondsRealtime(2.2f);
+        //if the end of the level string is empty then there is no anticipated next level. 
         if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath )
         {
             lg.manager.SaveGame();
@@ -98,6 +122,11 @@ public class GameController : MonoBehaviour, ITimeUser
             Victory(); 
         }
     }
+    /// <summary>
+    /// Use this if the level needs to be loaded because of the player warping. 
+    /// </summary>
+    /// <param name="file">file of the warped level</param>
+    /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
         factory = new LevelFactory(file);
@@ -118,6 +147,9 @@ public class GameController : MonoBehaviour, ITimeUser
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
     }
+    /// <summary>
+    /// Handles operations regarding the UI of the game. 
+    /// </summary>
     private void HandleInterface()
     {
         if (Input.GetKeyDown(KeyCode.Z) && !Output.IsAnswering)
@@ -134,6 +166,10 @@ public class GameController : MonoBehaviour, ITimeUser
             SceneManager.LoadScene("MainMenu");
         }
     }
+    /// <summary>
+    /// Triggers all elements with the Toggle theme capability to 
+    /// update their theme. 
+    /// </summary>
     private void ToggleTheme()
     {
         GlobalState.IsDark = !GlobalState.IsDark; 

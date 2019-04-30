@@ -45,7 +45,7 @@ public class Comic : MonoBehaviour
 				// comic/level generator, there is a list of all images that is associated with each panel.
 				// All of it is hardcoded.
 				// Remove comics for now and add it back in later.
-				if (GlobalState.CurrentONLevel == lg.stringLibrary.game_level_zero) {
+				if (GlobalState.CurrentONLevel == GlobalState.StringLib.game_level_zero) {
 					level = 0;
 				}
 				else {

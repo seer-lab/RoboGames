@@ -1,21 +1,14 @@
-//**************************************************//
-// Class Name: comment
-// Class Description: Instantiable object in the Robot ON! game. This class is the controller for
-//                    the comment tasks, and is paired with the Commenter and Un-commenter tool.
-// Methods:
-// 		void Start()
-//		void Update()
-//		void OnTriggerEnter2D(Collider2D collidingObj)
-// Author: Scott McLean
-// Date Last Modified: 6/24/2016
-//**************************************************//
-
 using UnityEngine;
 using System.Collections;
 using System.IO;
 using UnityEngine.UI; 
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Comment is super class for all the various types comments, 
+/// and now inherits from Tools. All children must inherit OnTriggerProtol 
+/// and can optionally inherit UpdateProtocol. 
+/// </summary>
 public abstract class comment : Tools {
 	public bool isCommented;
 	public string commentStyle;
@@ -47,7 +40,6 @@ public abstract class comment : Tools {
 
     public override void Initialize()
     {
-
         string path = "Sprites/";
         descSpriteOff = Resources.LoadAll<Sprite>(path + "dComment")[2];
         descSpriteOn = Resources.LoadAll<Sprite>(path + "dComment")[0]; 
@@ -63,24 +55,18 @@ public abstract class comment : Tools {
         }
         textColoration = new TextColoration();
     }
-    //.................................>8.......................................
+
     // Update is called once per frame
     void Update() {
         UpdateProtocol(); 
 	}
-    public virtual void UpdateProtocol() {
-       
-    }
+    public virtual void UpdateProtocol() {}
 
-	//.................................>8.......................................
+
 	void OnTriggerEnter2D(Collider2D collidingObj) {
         OnTriggerProtocol(collidingObj); 
 	}
     protected abstract void OnTriggerProtocol(Collider2D collidingObj); 
 
-	//.................................>8.......................................
-	void UpdateIncorrect() {
-		
-	}
 
 }

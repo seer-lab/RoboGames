@@ -4,12 +4,14 @@ using System.IO;
 using UnityEngine.SceneManagement; 
 using UnityEngine;
 
+/// <summary>
+/// Controls the credits functionality. 
+/// </summary>
 public class CreditsController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(GlobalState.GameState);
         FileInfo fi = new FileInfo(@"onleveldata/credits.txt");
         StreamReader sr = fi.OpenText();
         string text;
@@ -29,8 +31,6 @@ public class CreditsController : MonoBehaviour
         if (Input.anyKeyDown && !Input.GetMouseButton(0))
         {
             GlobalState.GameState = 0;
-           // this.GetComponent<TextMesh>().text = "";
-           // this.GetComponent<Animator>().SetBool("Ended", false);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {

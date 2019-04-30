@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.IO; 
 using UnityEngine;
-using System.Xml; 
+using System.Xml;
 
+/// <summary>
+/// Maintains dynamic data used by Level Generator and facilitates in "managing" 
+/// creating and destruction of Tool objects. The nature of LevelManager is that 
+/// its operations are self contained and does not reference back to LevelGenerator.
+/// </summary>
 public class LevelManager
 {
+    //maintain data for saving the game. 
     public List<string> levels;
     public List<string> passed;
     private string filepath;
 
+    //store the various Tool Objects in the Level. 
     public GameObject levelBug;
 
     public List<GameObject> robotONrenamers;
@@ -29,10 +36,11 @@ public class LevelManager
     public List<GameObject> robotONquestions;
     public List<GameObject> roboBUGbreakpoints;
     public List<GameObject> roboBUGprizes;
-    // Stores the robotONbeacons used in this level.
     public List<GameObject> robotONbeacons;
 
+    //Maintain an instance of properties for spacing. 
     CodeProperties properties; 
+
 
     public LevelManager(CodeProperties properties)
     {
@@ -58,16 +66,10 @@ public class LevelManager
         robotONcorrectComments = new List<GameObject>();
         robotONquestions = new List<GameObject>();
     }
-    //Resetting the level shouldn't be required anymore but further testing should be done
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void ResetLevel(bool warp)
-    // Description: Completely resets the level. Will destroy all game objects,
-    // 				and reset task list and bug values to their default state.
-    //				If isWarping is TRUE, then retain current tools. If FALSE, reset
-    //				the tool count.
-    //************************************************************************//
 
+    /// <summary>
+    /// Remove all GameObjects LevelManager has 
+    /// </summary>
     public void DestroyInstances()
     {
         // Destroy objects
@@ -152,19 +154,22 @@ public class LevelManager
         roboBUGprizes = new List<GameObject>();
         
     }
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: int void CreateLevelObjects(XmlNode parentNode)
-    // Description: Handle XML parsing. Right now it just returns 1 if a tag was found.
-    //              Returns 0 if an XML tag was not found.
-    //************************************************************************//
-    public GameObject CreateLevelObject(string language, XmlNode childnode, int lineNumber)
+
+    /// <summary>
+    /// Creates a gameobject of the appropriate type using an XML node. 
+    /// </summary>
+    /// <param name="childnode">XML node being parsed</param>
+    /// <param name="lineNumber">Line number the Object is on in code</param>
+    /// <returns>Corresponding child GameObject, if non identifiable will return null</returns>
+    public GameObject CreateLevelObject(XmlNode childnode, int lineNumber)
     {
         if (childnode.NodeType != XmlNodeType.Element)
         {
             return null;
         }
         ToolFactory toolFactory;
+        //Identify the kind of child node and use the correct factory for the creation of 
+        //the tool. 
         switch (childnode.Name)
         {
             case stringLib.NODE_NAME_PRINT:
@@ -293,6 +298,9 @@ public class LevelManager
         }
         return null;
     }
+    /// <summary>
+    /// Resize all gameobjects so they fit correctly on the display. 
+    /// </summary>
     public void ResizeObjects()
     {
         // Resize game objects
@@ -336,6 +344,7 @@ public class LevelManager
             varcolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
         }
     }
+    //Update the Title object of the level. 
     void SetTitle()
     {
         TextMesh title = GameObject.Find("Description").GetComponent<TextMesh>();
@@ -347,6 +356,9 @@ public class LevelManager
             }
         }
     }
+    /// <summary>
+    /// Save the game state to a file. 
+    /// </summary>
     public void SaveGame()
     {
         levels.Clear();

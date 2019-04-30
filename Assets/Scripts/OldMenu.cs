@@ -54,6 +54,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
         GlobalState.GameMode = "on"; 
         GlobalState.level = null;
+        GlobalState.StringLib = new stringLib();
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
         buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
         buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";

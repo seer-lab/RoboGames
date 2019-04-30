@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Xml; 
 using UnityEngine;
 
+/// <summary>
+/// Store all Data regarding the Level. 
+/// </summary>
 public class Level 
 {
     public string Language { get; set; }

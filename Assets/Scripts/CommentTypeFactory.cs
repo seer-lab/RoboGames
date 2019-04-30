@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
+/// <summary>
+/// Handles the differences in various kinds of comments in the game. Used only by CommentFactory
+/// </summary>
 public abstract class CommentTypeFactory 
 {
     protected XmlNode childnode;
@@ -14,6 +17,11 @@ public abstract class CommentTypeFactory
         childnode = node;
         lineNumber = line; 
     }
+    /// <summary>
+    /// All Comments have a few variables that are initialized similarly. These
+    /// are done here. 
+    /// </summary>
+    /// <param name="propertyHandler">The instance of Comment</param>
     protected virtual void Initalize(comment propertyHandler)
     {
         propertyHandler.Index = lineNumber;
@@ -29,9 +37,18 @@ public abstract class CommentTypeFactory
 
         propertyHandler.Initialize(); 
     }
+    /// <summary>
+    /// Creates a Script version. 
+    /// </summary>
+    /// <returns></returns>
     public abstract comment GetScript();
+    /// <summary>
+    /// Applies the script to an object. Is used primarily over GetScript()
+    /// </summary>
+    /// <param name="obj">The GameObject to apply the script to</param>
     public abstract void ApplyScript(GameObject obj); 
 }
+
 public class BugCommentFactory : CommentTypeFactory
 {
     BugComment propertyHandler;
@@ -66,6 +83,8 @@ public class BugCommentFactory : CommentTypeFactory
         return propertyHandler;
     }
 }
+
+
 public class DescriptionCommentFactory: CommentTypeFactory
 {
     public DescriptionCommentFactory(XmlNode node, int line)
@@ -117,6 +136,7 @@ public class DescriptionCommentFactory: CommentTypeFactory
     }
 
 }
+
 public class CodeCommentFactory: CommentTypeFactory
 {
     public CodeCommentFactory(XmlNode node, int line)
