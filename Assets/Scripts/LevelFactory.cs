@@ -42,9 +42,16 @@ public class LevelFactory
         level.NodeList = XMLReader.GetToolNodes(doc);
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
         // time
-        string sReadTime = XMLReader.GetTimeLimit(doc);
-        sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
-        level.Time = (float)int.Parse(sReadTime);
+        try
+        {
+            string sReadTime = XMLReader.GetTimeLimit(doc);
+            sReadTime = (sReadTime.ToLower() == "unlimited") ? "9001" : sReadTime;
+            level.Time = (float)int.Parse(sReadTime);
+        }
+        catch(Exception e)
+        {
+            level.Time = 9001; 
+        }
         // next level
         level.NextLevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
         // intro text

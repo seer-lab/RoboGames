@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckWin()
     {
-        if (GlobalState.GameMode == stringLib.GAME_MODE_ON && GlobalState.level != null)
+        if (GlobalState.level != null)
         {
             winning = true;
             //Check if all the tasks have been completed. 
@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour, ITimeUser
                     winning = false;
                 }
             }
+            
             if (winning)
             {
                 StartCoroutine(Win()); 

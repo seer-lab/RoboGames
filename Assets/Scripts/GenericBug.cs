@@ -29,7 +29,9 @@ public class GenericBug : Tools {
     }
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
+        Debug.Log("Collided");
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
+            Debug.Log("Made it In!");
 			Logger.printLogFile(stringLib.LOG_BUG_FOUND, this.transform.position);
 			this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
@@ -37,6 +39,7 @@ public class GenericBug : Tools {
 			GetComponent<AudioSource>().Play();
 			IsDead = true;
 			lg.numberOfBugsRemaining--;
+            GlobalState.level.CompletedTasks[0]++;
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 		}

@@ -52,7 +52,6 @@ public class OldMenu : MonoBehaviour
         GlobalState.CurrentONLevel = "level0.xml";
         GlobalState.CurrentBUGLevel = "level0.xml";
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
-        GlobalState.GameMode = "on"; 
         GlobalState.level = null;
         GlobalState.StringLib = new stringLib();
 
@@ -212,20 +211,16 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption]; 
                         SceneManager.LoadScene("Cinematic");       
-                        //Construt Level
-                        /*
-                        lg.BuildLevel(GlobalState.GameState + "leveldata" + filepath + levels[levoption], false);
-                        lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
-                        levoption = 0;
-                        gameon = true;
-                        */
+
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;                       
                         m2switch(false);
                         break;
                     case 1:
-                        //lg.gamestate = stateLib.GAMESTATE_MENU;
+                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                        GlobalState.CurrentONLevel = levels[levoption];
+                        SceneManager.LoadScene("Cinematic");
                         m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-
+                    
                         m2switch(false);
                         break;
                     default:
@@ -288,27 +283,13 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         
                         SceneManager.LoadScene("Cinematic");  
-                        //Construct Level
-                        /*
-                        lg.gamemode = stringLib.GAME_MODE_ON;
-                        lg.BuildLevel("onleveldata" + filepath + stringLib.START_LEVEL_FILE, false);
-                        lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
-                        */
+
                         break;
                     case 1:
-                        GlobalState.GameMode = stringLib.GAME_MODE_ON;
+                        GlobalState.GameMode = stringLib.GAME_MODE_BUG;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                        GlobalState.CurrentONLevel = "tut1.xml";
                         SceneManager.LoadScene("Cinematic"); 
-                        /*
-                        lg.gamemode = stringLib.GAME_MODE_ON;
-                        lg.BuildLevel("onleveldata" + filepath + stringLib.START_LEVEL_FILE, false);
-                        lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
-                        */
-                        /*
-                        lg.gamemode = stringLib.GAME_MODE_BUG;
-                        lg.BuildLevel("bugleveldata" + filepath + "tut1.xml");
-                        lg.gamestate = stateLib.GAMESTATE_INITIAL_COMIC;
-                        */
                         break;
                 }
                 m2switch(false);

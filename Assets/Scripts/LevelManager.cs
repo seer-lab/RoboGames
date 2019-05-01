@@ -190,26 +190,28 @@ public class LevelManager
                 {
                     int bugsize = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_SIZE].Value);
                     int row = 0;
-                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value != null)
+                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW] != null)
                     {
                         row = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value);
                     }
                     int col = 0;
-                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value != null)
+                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_COL] != null)
                     {
                         col = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value);
                     }
                     //RoboBug Implementation 
-                    /*
-                    levelBug = GameObject.Instantiate(bugobject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1) * properties.levelLineRatio, properties.initialLineY - (lineNumber + row + 0.5f * (bugsize - 1)) * properties.linespacing + 0.4f, 0f), transform.rotation);
+                    GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
+                    levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1) * properties.levelLineRatio, properties.initialLineY - (lineNumber + row + 0.5f * (bugsize)) * properties.linespacing + 0.4f, 0f), bugObject.transform.rotation);
                     levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
                     GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
+                    propertyHandler.Index = lineNumber;
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
                     bugs.Add(levelBug);
+                    GlobalState.level.Tasks[0]++;
                     //numberOfBugsRemaining++;
                     return levelBug;
-                    */
-                    return null; 
+                    
+                    //return null; 
                 }
             case stringLib.NODE_NAME_COMMENT:
                 {

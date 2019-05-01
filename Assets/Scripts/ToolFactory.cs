@@ -71,7 +71,7 @@ public class WarperFactory: ToolFactory
     {
         tool.Filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
@@ -80,7 +80,7 @@ public class WarperFactory: ToolFactory
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
         }
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE] != null)
         {
             tool.WarpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
         }

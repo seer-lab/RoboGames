@@ -61,7 +61,6 @@ public partial class LevelGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	private void Start() { 
-		GlobalState.GameMode 					 = stringLib.GAME_MODE_ON;
         properties = new CodeProperties(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
         GlobalState.level.Tasks = new int[5];
@@ -219,6 +218,9 @@ public partial class LevelGenerator : MonoBehaviour {
             {
                 rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
             }
+            manager.levelBug.transform.position = new Vector3(manager.levelBug.transform.position.x, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - 
+                (manager.levelBug.GetComponent<GenericBug>().Index  + 0.5f*(properties.bugsize))* (properties.linespacing) + 0.4f, 1);
+            
             GameObject thisObject;
             for (int i = 0; i < codenode.ChildNodes.Count; i++)
             {
@@ -376,6 +378,8 @@ public partial class LevelGenerator : MonoBehaviour {
             switch (tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value)
             {
                 case "catcher":
+                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                    break;
                 case "activator":
                     toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
                     break;
