@@ -218,9 +218,8 @@ public partial class LevelGenerator : MonoBehaviour {
             {
                 rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
             }
-            manager.levelBug.transform.position = new Vector3(manager.levelBug.transform.position.x, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - 
-                (manager.levelBug.GetComponent<GenericBug>().Index  + 0.5f*(properties.bugsize))* (properties.linespacing) + 0.4f, 1);
-            
+            //manager.levelBug.transform.localPosition = new Vector3(manager.levelBug.transform.position.x, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET -(manager.levelBug.GetComponent<GenericBug>().Index)*properties.linespacing, 0);
+            //Debug.Log("Bug Line Number: " + manager.levelBug.GetComponent<GenericBug>().Index);
             GameObject thisObject;
             for (int i = 0; i < codenode.ChildNodes.Count; i++)
             {

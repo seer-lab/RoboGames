@@ -17,7 +17,7 @@ public class LevelManager
     private string filepath;
 
     //store the various Tool Objects in the Level. 
-    public GameObject levelBug;
+    //public GameObject levelBug;
 
     public List<GameObject> robotONrenamers;
     public List<GameObject> robotONvariablecolors;
@@ -129,10 +129,12 @@ public class LevelManager
         {
             GameObject.Destroy(roboBUGprize);
         }
+        /*
         if (levelBug)
         {
             GameObject.Destroy(levelBug);
         }
+        */
 
         
         // Reset local variables
@@ -201,9 +203,11 @@ public class LevelManager
                     }
                     //RoboBug Implementation 
                     GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
-                    levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1) * properties.levelLineRatio, properties.initialLineY - (lineNumber + row + 0.5f * (bugsize)) * properties.linespacing + 0.4f, 0f), bugObject.transform.rotation);
-                    levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
+                    GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1), properties.initialLineY - (lineNumber + row -1+ 0.5f * (bugsize - 1) *properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
+                    //levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
+                    levelBug.transform.position = new Vector3(levelBug.transform.position.x + properties.bugscale * (bugsize - 1), properties.initialLineY  - (lineNumber), 0);
                     GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
+                    Debug.Log(levelBug.transform.position.ToString() + " Initial Line: " + lineNumber);
                     propertyHandler.Index = lineNumber;
                     GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
                     bugs.Add(levelBug);
