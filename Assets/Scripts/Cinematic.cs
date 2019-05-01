@@ -1,131 +1,174 @@
-//**************************************************//
-// Class Name: Cinematic
-// Class Description: This class controls the transition scenes between levels.
-// Methods:
-// 		void Start()
-//		void Update()
-// Author: Michael Miljanovic
-// Date Last Modified: 6/1/2016
-//**************************************************//
 
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Cinematic : MonoBehaviour
 {
+    LevelFactory factory;
+    // This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
+    public string introtext = "Level Start Placeholder!";
+    // This text basically says "Press Enter to Continue" and is displayed at the bottom of the "Loading Screen" prior to playing the level.
+    public string continuetext = "Continue Text Placeholder";
+    // This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
+    public string endtext = "Winner!\nLevel End Placeholder!";
+    public GameObject prompt1, prompt2;
+    public GameObject[] cinebugs = new GameObject[6];
 
-	// This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
-	public string introtext = "Level Start Placeholder!";
-	// This text basically says "Press Enter to Continue" and is displayed at the bottom of the "Loading Screen" prior to playing the level.
-	public string continuetext = "Continue Text Placeholder";
-	// This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
-	public string endtext = "Winner!\nLevel End Placeholder!";
-	public GameObject CodescreenObject;
-	public GameObject prompt2;
-	public GameObject menu;
-	public GameObject[] cinebugs = new GameObject[6];
+    private bool cinerun = false;
+    private float delaytime = 0f;
+    private float delay = 0.1f;
+    private List<GameObject> objs;
 
-	private bool cinerun = false;
-	private float delaytime = 0f;
-	private float delay = 0.1f;
-	private List<GameObject> objs;
-	private LevelGenerator lg;
+    //.................................>8.......................................
+    // Use this for initialization
+    void Start()
+    {
+        objs = new List<GameObject>();
+        continuetext = stringLib.CONTINUE_TEXT;
+        UpdateText();
+    }
+    public void ToggleLight()
+    {
+        prompt1.GetComponent<Text>().color = Color.black;
+        prompt2.GetComponent<Text>().color = Color.black;
+    }
+    public void ToggleDark()
+    {
+        prompt1.GetComponent<Text>().color = Color.white;
+        prompt2.GetComponent<Text>().color = Color.white;
+    }
+    private void UpdateText()
+    {
+        if (GlobalState.level == null)
+        {
+            UpdateLevel();
+        }
+        introtext = GlobalState.level.IntroText;
+        endtext = GlobalState.level.ExitText;
+    }
+    private void UpdateLevel()
+    {
+        factory = new LevelFactory(GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel);
+        GlobalState.level = factory.GetLevel();
+    }
+    private void UpdateLevel(string file)
+    {
+        string[] temp = file.Split('\\');
+        for (int i = 0; i < temp.Length; i++)
+        {
+            Debug.Log(temp[i]);
+        }
+        GlobalState.CurrentONLevel = temp[temp.Length - 1];
+        factory = new LevelFactory(file);
+        GlobalState.level = factory.GetLevel();
+    }
+    //.................................>8.......................................
+    // Update is called once per frame
+    void Update()
+    {
+        if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
+        {
+            if (!cinerun)
+            {
+                cinerun = true;
+                if (GlobalState.GameMode != stringLib.GAME_MODE_ON)
+                {
+                    GameObject bug = (GameObject)Instantiate(cinebugs[2]);
+                    objs.Add(bug);
+                }
+                else
+                {
+                    GameObject rob = (GameObject)Instantiate(cinebugs[3]);
+                    objs.Add(rob);
+                }
+            }
+            prompt1.GetComponent<Text>().text = introtext;
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            {
+                GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
+                Destroy(objs[0]);
+                cinerun = false;
+                objs = new List<GameObject>();
+                SceneManager.LoadScene("newgame");
+            }
+        }
+        else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN)
+        {
+            if (!cinerun)
+            {
+                cinerun = true;
+                GameObject bug = (GameObject)Instantiate(cinebugs[3]);
+                objs.Add(bug);
+                bug = (GameObject)Instantiate(cinebugs[0]);
+                objs.Add(bug);
+            }
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-		objs = new List<GameObject>();
-		continuetext = stringLib.CONTINUE_TEXT;
-	}
+            prompt1.GetComponent<Text>().text = endtext;
 
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update()
-	{
-		if (lg.gamestate == stateLib.GAMESTATE_LEVEL_START) {
-			if (!cinerun) {
-				cinerun = true;
-				if (lg.gamemode != stringLib.GAME_MODE_ON) {
-					GameObject bug =(GameObject)Instantiate(cinebugs[2]);
-					objs.Add(bug);
-				}
-				else {
-					GameObject rob =(GameObject)Instantiate(cinebugs[3]);
-					objs.Add(rob);
-				}
-			}
-			GetComponent<TextMesh>().text = introtext;
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
-				lg.gamestate = stateLib.GAMESTATE_IN_GAME;
-				Destroy(objs[0]);
-				cinerun = false;
-				objs = new List<GameObject>();
-				lg.GUISwitch(true);
-			}
-		}
-		else if (lg.gamestate == stateLib.GAMESTATE_LEVEL_WIN) {
-			if (!cinerun) {
-				cinerun = true;
-				GameObject bug =(GameObject)Instantiate(cinebugs[3]);
-				objs.Add(bug);
-				bug =(GameObject)Instantiate(cinebugs[0]);
-				objs.Add(bug);
-			}
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            {
+                // RobotON 2, don't always want tutorials to run comics.
+                // Read in the levels.txt and grab the top one.
+                if (GlobalState.CurrentONLevel.StartsWith("tut") && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
+                {
+                    // GlobalState.GameState = stateLib.GAMESTATE_STAGE_COMIC;
+                }
+                else
+                {
+                    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                }
+                UpdateLevel(GlobalState.level.NextLevel);
+                UpdateText();
+                //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);
+                Destroy(objs[1]);
+                Destroy(objs[0]);
+                cinerun = false;
+                objs = new List<GameObject>();
 
-			GetComponent<TextMesh>().text = endtext;
+            }
+        }
+        else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_LOSE)
+        {
+            if (!cinerun)
+            {
+                cinerun = true;
+                GameObject bug = (GameObject)Instantiate(cinebugs[4]);
+                objs.Add(bug);
+            }
+            prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
+            prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
+            if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
+            {
+                Destroy(objs[0]);
+                prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
-				// RobotON 2, don't always want tutorials to run comics.
-				// Read in the levels.txt and grab the top one.
-				if (lg.currentlevel.StartsWith("tut") && lg.gamemode == stringLib.GAME_MODE_BUG) {
-					lg.gamestate = stateLib.GAMESTATE_STAGE_COMIC;
-				}
-				else {
-					lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
-				}
+                cinerun = false;
+                objs = new List<GameObject>();
+                GlobalState.GameState = stateLib.GAMESTATE_MENU;
+            }
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            {
+                Destroy(objs[0]);
+                prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
-				lg.BuildLevel(lg.nextlevel, false);
-				Destroy(objs[1]);
-				Destroy(objs[0]);
-				cinerun = false;
-				objs = new List<GameObject>();
-			}
-		}
-		else if (lg.gamestate == stateLib.GAMESTATE_LEVEL_LOSE) {
-			if (!cinerun) {
-				cinerun = true;
-				GameObject bug =(GameObject)Instantiate(cinebugs[4]);
-				objs.Add(bug);
-			}
-			GetComponent<TextMesh>().text = stringLib.LOSE_TEXT;
-			prompt2.GetComponent<TextMesh>().text = stringLib.RETRY_TEXT;
-			if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time) {
-				Destroy(objs[0]);
-				prompt2.GetComponent<TextMesh>().text = stringLib.CONTINUE_TEXT;
+                cinerun = false;
+                objs = new List<GameObject>();
+                // One is called Bugleveldata and another OnLevel data.
+                // Levels.txt, coding in menu.cs
+                UpdateLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                //Debug.Log("LoadingScreen");
+                SceneManager.LoadScene("newgame");
+            }
+        }
+        else
+        {
+            delaytime = Time.time + delay;
+        }
+    }
 
-				cinerun = false;
-				objs = new List<GameObject>();
-				lg.gamestate = stateLib.GAMESTATE_MENU;
-			}
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time) {
-				Destroy(objs[0]);
-				prompt2.GetComponent<TextMesh>().text = stringLib.CONTINUE_TEXT;
-
-				cinerun = false;
-				objs = new List<GameObject>();
-				menu.GetComponent<Menu>().gameon = true;
-				// One is called Bugleveldata and another OnLevel data.
-				// Levels.txt, coding in menu.cs
-				lg.BuildLevel(lg.gamemode + "leveldata" + menu.GetComponent<Menu>().filepath + lg.currentlevel, false);
-				lg.gamestate = stateLib.GAMESTATE_LEVEL_START;
-			}
-		}
-		else {
-			delaytime = Time.time + delay;
-		}
-	}
-
-	//.................................>8.......................................
+    //.................................>8.......................................
 }

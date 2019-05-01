@@ -14,29 +14,19 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 
-public class GenericBug : MonoBehaviour {
+public class GenericBug : Tools {
 
-	public bool isDead	= false;
-	public bool finished = false;
-	public string language;
+	public bool IsDead { get; set; }
+    public bool Finished { get; set; }
 	public Animator anim;
-	public GameObject CodescreenObject;
-	public GameObject ToolSelectorObject;
-	private LevelGenerator lg;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		this.GetComponent<Renderer>().enabled = false;
-		anim = GetComponent<Animator>();
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-	}
-
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
-	}
-
+    public override void Initialize()
+    {
+        IsDead = false;
+        Finished = false; 
+        this.GetComponent<Renderer>().enabled = false;
+        anim = GetComponent<Animator>();
+    }
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
@@ -45,11 +35,10 @@ public class GenericBug : MonoBehaviour {
 			Destroy(collidingObj.gameObject);
 			anim.SetBool("Dying", true);
 			GetComponent<AudioSource>().Play();
-			isDead = true;
+			IsDead = true;
 			lg.numberOfBugsRemaining--;
 			// Award 1 extra use of the tool.
-			ToolSelectorObject.GetComponent<SelectedTool>().bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
-			lg.toolsAirborne--;
+			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 		}
 	}
 

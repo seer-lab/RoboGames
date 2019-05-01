@@ -15,29 +15,17 @@ using System.Collections;
 using System.IO;
 using UnityEngine.UI; 
 
-public class Breakpoint : MonoBehaviour {
+public class Breakpoint : Tools {
 
-	public int index = -1;
-	public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
 	public string values;
-	public string language;
-	public GameObject SidebarObject;
 	public AudioClip[] sound = new AudioClip[2];
-	public GameObject ToolSelectorObject;
 
 	private bool activated = false;
-	private bool toolgiven = false;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
-	}
-
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
-	}
+    public override void Initialize()
+    {
+        this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
+    }
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -54,7 +42,7 @@ public class Breakpoint : MonoBehaviour {
 			Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();
-			SidebarObject.GetComponent<Text>().text = values;
+			sidebar.tool.GetComponent<Text>().text = values;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
@@ -62,7 +50,7 @@ public class Breakpoint : MonoBehaviour {
                         // Must be called from level generator, not ToolSelectorObject
 						// lg.floatingTextOnPlayer("New Tools!");
 					}
-					ToolSelectorObject.GetComponent<SelectedTool>().toolCounts[i] += tools[i];
+					selectedTool.toolCounts[i] += tools[i];
 				}
 			}
 		}

@@ -17,92 +17,77 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 
-
-public class VariableColor : MonoBehaviour {
+public class VariableColor : Tools {
 
     public GameObject parent;
-	public int index = -1;
     public int groupid = -1;
     public string innertext = "";
 	public string oldname;
     public string correct = "";
-    public string language;
-	private LevelGenerator lg;
-    public GameObject CodescreenObject;
     public GameObject CorrectRenameObject;
 
     private bool doneUpdating;
     private bool doneFlashing;
     private int  flashCounter;
     private bool decolorOnce = false;
+    TextColoration textColoration;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = CodescreenObject.GetComponent<LevelGenerator>();
-	}
+    public override void Initialize()
+    {
+        textColoration = new TextColoration(); 
+    }
 
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
+    //.................................>8.......................................
+    // Update is called once per frame
+    void Update() {
         if (CorrectRenameObject) {
             if (CorrectRenameObject.GetComponent<rename>().answered && !doneUpdating) {
                 doneUpdating = true;
-                
-				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-                //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
-				//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+
 				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
-				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index], "$1$3$5");
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-				lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
-				
-				lg.DrawInnerXmlLinesToScreen();
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
+                textColoration.ColorizeText(GlobalState.level.Code[index]);
+                lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
             }
             else if (CorrectRenameObject.GetComponent<rename>().answered && doneUpdating && !doneFlashing) {
                 if (flashCounter % 100 == 0) {
-                    // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG);
-                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(correct, innertext);
-					
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + correct + " " , " " + oldname + " ");
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + correct + " " , ">" + oldname + " ");
+
 					Regex rgx = new Regex(@"(^| |\t|\>)("+correct+")(;| )");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+oldname+"$3");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+oldname+"$3");
 					
                     lg.DrawInnerXmlLinesToScreen();
                 }
                 else if (flashCounter % 50 == 0) {
-                    // lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(lg.stringLibrary.NODE_COLOR_RENAME + correct + lg.stringLibrary.CLOSE_COLOR_TAG, correct);
-                    //lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, correct);
-					
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(" " + oldname + " " , " " + correct + " ");
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(">" + oldname + " " , ">" + correct + " ");
+
 					Regex rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-					lg.innerXmlLines[index] = rgx.Replace(lg.innerXmlLines[index],"$1"+correct+"$3");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
 					
                     lg.DrawInnerXmlLinesToScreen(false);
                 }
                 flashCounter--;
                 if (flashCounter == 0) {
                     doneFlashing = true;
+                    /*
                     // Change the next groupid objects to the new colors
-                    foreach(GameObject variablecolor in lg.robotONvariablecolors) {
+                    foreach(GameObject variablecolor in lg.manager.robotONvariablecolors) {
                         if (variablecolor.GetComponent<VariableColor>().groupid == (groupid+1)) {
                             int lineNum = variablecolor.GetComponent<VariableColor>().index;
-                            string sReplace = lg.outerXmlLines[lineNum];
-                            //sReplace = lg.OuterToInnerXml(sReplace, language);
-                            lg.innerXmlLines[lineNum] = sReplace;
-                            lg.DrawInnerXmlLinesToScreen();
+                            string sReplace = GlobalState.level.Tags[lineNum];
+                            GlobalState.level.Code[lineNum] = sReplace;                          
                         }
 					}
+                    */
+                    lg.DrawInnerXmlLinesToScreen();
                 }
             }
             else if (lg.renamegroupidCounter != groupid && decolorOnce != true) {
     			// Change the next groupid objects to the new colors
     			decolorOnce = true;
-    			lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, lg.textColoration.DecolorizeText(innertext));
-    			lg.DrawInnerXmlLinesToScreen();
+                //GlobalState.level.Code[index] = GlobalState.level.Code[index].Replace(innertext, textColoration.DecolorizeText(innertext));
+    			//lg.DrawInnerXmlLinesToScreen();
     		}
         }
 	}

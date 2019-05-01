@@ -39,29 +39,29 @@ public class Logger : MonoBehaviour {
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-		if (currentstate != lg.gamestate) {
+		if (currentstate != GlobalState.GameState) {
 			output = new StreamWriter(stringLib.TOOL_STATELOGFILE, true);
-			switch(lg.gamestate) {
+			switch(GlobalState.GameState) {
 				case stateLib.GAMESTATE_MENU:
-					output.WriteLine("MenuAccessed, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					output.WriteLine("MenuAccessed, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
 					break;
 				case stateLib.GAMESTATE_IN_GAME:
-					output.WriteLine("LevelBegin, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					output.WriteLine("LevelBegin, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
 					break;
 				case stateLib.GAMESTATE_LEVEL_WIN:
-					output.WriteLine("LevelComplete, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					output.WriteLine("LevelComplete, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
 					break;
 				case stateLib.GAMESTATE_LEVEL_LOSE:
-					output.WriteLine("LevelFailed, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					output.WriteLine("LevelFailed, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
 					break;
 				case stateLib.GAMESTATE_GAME_END:
-					output.WriteLine("GameFinished, " + currentstate + ", " + Time.time + ", " + lg.currentlevel);
+					output.WriteLine("GameFinished, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
 					break;
 				default:
 					break;
 			}
 			output.Close();
-			currentstate = lg.gamestate;
+			currentstate = GlobalState.GameState;
 		}
 }
 

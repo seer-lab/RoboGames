@@ -51,7 +51,6 @@ public static class XMLReader {
   public static string GetNextLevel(XmlDocument doc) {
     foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
       if (xmlnode.Name == stringLib.NODE_NAME_NEXT_LEVEL) {
-        Debug.Log(xmlnode.InnerText);
         return xmlnode.InnerText;
       }
     }

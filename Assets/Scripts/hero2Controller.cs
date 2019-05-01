@@ -52,7 +52,7 @@ public class hero2Controller : MonoBehaviour
 
 	//.................................>8.......................................
 	void FixedUpdate() {
-		if (lg.gamestate == stateLib.GAMESTATE_IN_GAME && !lg.isLosing && !lg.isAnswering) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && !Output.IsAnswering) {
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
@@ -121,14 +121,14 @@ public class hero2Controller : MonoBehaviour
 				}
 			}
 		}
-		else if (lg.isLosing || lg.isAnswering) {
+		else if (Output.IsAnswering) {
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 		}
 	}
 
 	//.................................>8.......................................
 	void Update() {
-		if (codescreen.GetComponent<LevelGenerator>().gamestate == stateLib.GAMESTATE_IN_GAME) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
 			AudioSource ad = GetComponent<AudioSource>();
 			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
 			GetComponent<Rigidbody2D>().velocity.y == 0 &&
@@ -148,8 +148,8 @@ public class hero2Controller : MonoBehaviour
 			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl")) &&
 			   Time.time > nextFire &&
 			   !onWall &&
-			   !lg.isAnswering &&
-			   lg.toolsAirborne == 0 &&
+			   !Output.IsAnswering &&
+			   GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
 			   GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
 			   projectilecode >= 0 &&
 			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {

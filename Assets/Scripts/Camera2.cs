@@ -39,7 +39,7 @@ public class Camera2 : MonoBehaviour
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
-		int gs = codescreen.GetComponent<LevelGenerator>().gamestate;
+        int gs = GlobalState.GameState; 
 		if (laststate != gs) {
 			switch(gs) {
 				case stateLib.GAMESTATE_INITIAL_COMIC:
