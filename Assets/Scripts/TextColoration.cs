@@ -19,7 +19,7 @@ public class TextColoration {
     string patternCommentPython = @"(\/\/|\n#|\s#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\t|\()(class|print|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
-    string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
+    string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*)";
     string patternComment = patternCommentPython;
     string patternKeyword = patternKeywordPython;

@@ -326,51 +326,7 @@ public partial class LevelGenerator : MonoBehaviour {
                     }
                 }
             }
-        
-            
-            //this implementation is a lot simpler but some how breaks the correct uncommenter 
-            //such that the green comments remain. If someone can fix this and remove the above 
-            //that'd be great.
-            /*
-            int count = 0; 
-            for (int i = 0; i < codenode.ChildNodes.Count; i++)
-            {
-                if (codenode.ChildNodes[i].Name == stringLib.NODE_NAME_COMMENT)
-                {
-                    GameObject thisObject = allComments[count];
-                    thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-                    if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value == "code")
-                    {
-                        for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
-                        {
-                            GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_CONTROL_FLOW]++;
-                        }
-                        
-                    }
-                    else
-                    {
-                        //make green
-                        for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
-                        {
-                            GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
-                        }
 
-                    }
-
-                    // float yPos = (textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-                    if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value == "robobug")
-                        thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index + 0.93f * (thisObject.GetComponent<comment>().size - 1)) * properties.linespacing, 0f);
-                    else
-                    {
-                        thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
-                        thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
-                    }
-                    count++;
-
-                }
-
-            }
-            */
 
 			// Pair Incorrect Comments to their corresponding correct comments --[
 			foreach (GameObject incorrectComment in manager.robotONincorrectComments) {

@@ -49,7 +49,6 @@ public class LevelFactory
         level.NextLevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
         // intro text
         level.IntroText = XMLReader.GetIntroText(doc);
-        Debug.Log(level.IntroText);
         // end text
         level.ExitText = XMLReader.GetEndText(doc);
     }
