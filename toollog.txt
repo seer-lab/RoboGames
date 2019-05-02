@@ -1,2 +1,9 @@
 Tool, Location, Time
-BugCaught, 15, 23.32
+projectileBug(Clone)Wasted, 16, 71.36
+projectileBug(Clone)Wasted, 18, 76.72
+projectileBug(Clone)Wasted, 19, 78.54
+projectileBug(Clone)Wasted, 21, 80.46
+projectileBug(Clone)Wasted, 22, 82.3
+projectileBug(Clone)Wasted, 23, 84.12
+projectileBug(Clone)Wasted, 16, 88.66
+BugCaught, 12, 92.32

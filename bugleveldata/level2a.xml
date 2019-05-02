@@ -3,13 +3,15 @@
 First, check out the Swap function to figure out what is wrong.
 Use the new &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool for clues.
 After using the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt;, use the BUGCATCHER to catch the bug.</description>
-<nextlevel>level2b.xml</nextlevel>
+<next-level>level2b.xml</next-level>
 <introtext>The first bug is in the SWAP function.
 Can you find it with the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool?</introtext>
 <endtext>The SWAP function is fixed!
 Time to look at the Priority Assigner.</endtext>
-<time>150</time>
+<timelimit>150</timelimit>
 <tools>
+<tool name="printer" enabled="true" count="unlimited"/>
+<tool name="catcher" enabled="true" count="1"/>
 <enabled count="5">1</enabled>
 </tools>
 <code>//Robot Priority Swap Function

@@ -11,8 +11,8 @@ They can show you output from the code.</introtext>
 You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
 <timelimit>1000</timelimit>
 <tools>
-<tool name="printer" enabled="true" count="unlimited">
-<tool name="catcher" enabled="true" count="unlimited">
+<tool name="printer" enabled="true" count="unlimited"/>
+<tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
 <code>void FCalls(string errmsg){
     //call some functions then return

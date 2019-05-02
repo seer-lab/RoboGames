@@ -37,7 +37,7 @@ public class PrinterFactory : ToolFactory
     {
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
@@ -45,6 +45,7 @@ public class PrinterFactory : ToolFactory
             {
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
+            GlobalState.level.Tasks[1]++; 
         }
         return tool; 
     }
@@ -54,6 +55,7 @@ public class PrinterFactory : ToolFactory
         GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
         tool = newoutput.GetComponent<printer>();
         GetScript();
+        //GlobalState.level.Tasks[1]++;
         return newoutput; 
     }
 

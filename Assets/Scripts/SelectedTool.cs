@@ -295,7 +295,9 @@ public class SelectedTool : MonoBehaviour
 	  }
 	}
 	//.................................>8.......................................
-	private void CheckTaskComplete(int nToolCode) { 
+	private void CheckTaskComplete(int nToolCode) {
+        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG)
+            return; 
 		if (GlobalState.level.Tasks[nToolCode] == GlobalState.level.CompletedTasks[nToolCode] && !taskComplete[nToolCode] && GlobalState.level.Tasks[nToolCode] == 0) {
 			taskComplete[nToolCode] = true;
 			for (int i = 0 ; i < 5 ; i++) {

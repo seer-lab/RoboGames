@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour, ITimeUser
                     winning = false;
                 }
             }
-            
+            if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
+                winning = true; 
             if (winning)
             {
                 StartCoroutine(Win()); 

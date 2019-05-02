@@ -3,14 +3,15 @@
 The SetPriority function has a bug that is affecting the Assigner.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; to learn about the bug.
 Figure out where the bug is, then use the BUGCATCHER to catch it.</description>
-<nextlevel>level2.xml</nextlevel>
+<next-level>level2.xml</next-level>
 <introtext>The Priority Assigner isn't working.
 Can you figure out what it's doing wrong?</introtext>
 <endtext>The boundary bug has been caught!
 Only one bug remains in the completed function.</endtext>
 <time>150</time>
 <tools>
-<enabled count="6">1</enabled>
+<tool name="printer" enabled="true" count="6"/>
+<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Priority Assigner
 //SetPriority sorts a priority element value in a list

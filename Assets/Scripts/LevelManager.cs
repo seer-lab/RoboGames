@@ -178,7 +178,7 @@ public class LevelManager
                 {
                     toolFactory = new PrinterFactory(childnode, lineNumber);
                     GameObject newoutput = toolFactory.GetGameObject();
-                    newoutput.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber * properties.linespacing, 1);
+                    newoutput.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber, 1);
                     return newoutput;
                 }
             case stringLib.NODE_NAME_WARP:

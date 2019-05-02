@@ -383,6 +383,8 @@ public partial class LevelGenerator : MonoBehaviour {
                     toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
                     break;
                 case "printer":
+                    toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
+                    break;
                 case "checker":
                 case "answer":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
@@ -400,6 +402,7 @@ public partial class LevelGenerator : MonoBehaviour {
                 default:
                     break;
             }
+            Debug.Log("Tool Num: "+  toolnum); 
             toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             toolIcons[toolnum].transform.GetChild(0).GetComponent<Text>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
