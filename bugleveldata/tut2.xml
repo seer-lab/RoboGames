@@ -20,7 +20,7 @@ You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
 	function1();
 	function2();
 	function3();
-    <bug size="1" col="6">function4();</bug>
+    $bug$function4();
 	function5();
     return;
 }

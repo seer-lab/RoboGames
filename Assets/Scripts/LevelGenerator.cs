@@ -81,9 +81,9 @@ public partial class LevelGenerator : MonoBehaviour {
     /// Essentially Generates the Level Visually.
     /// Uses data from the GlobalState Level. 
     /// </summary>
-    public void BuildLevel()
+    public void BuildLevel(bool warp = false)
     {
-        ResetLevel(false);
+        ResetLevel(warp);
         CreateLevelLines(GlobalState.level.LineCount);
         PlaceObjects(GlobalState.level.LevelNode);
         ProvisionToolsFromXml();
@@ -116,6 +116,8 @@ public partial class LevelGenerator : MonoBehaviour {
     /// <param name="warpToLine">Line the player Warps To</param>
     public void WarpPlayer(string warpToLine)
     {
+        if (warpToLine == null)
+            warpToLine = "0";
         hero.transform.position = (warpToLine != "") ? new Vector3(-8, properties.initialLineY - (int.Parse(warpToLine) - 1) * properties.linespacing, 1) : hero.transform.position;
         GetComponent<AudioSource>().clip = warpSound;
         GetComponent<AudioSource>().Play();
@@ -141,13 +143,6 @@ public partial class LevelGenerator : MonoBehaviour {
 	}
 
 
-
-    //.................................>8.......................................
-    //************************************************************************//
-    // Method: public void DrawInnerXmlLinesToScreen();
-    // Description: Updates the code the player sees on the screen. Also adds the line
-    // numbers to the code
-    //************************************************************************//
     /// <summary>
     /// Updates the code the player sees on the screen. Also adds the line
     /// numbers to the code
@@ -179,13 +174,32 @@ public partial class LevelGenerator : MonoBehaviour {
     private void PlaceObjects(XmlNode levelnode) {
 		foreach (XmlNode codenode in levelnode.ChildNodes) {
 			if (codenode.Name != stringLib.NODE_NAME_CODE) {
-				continue;
+				 continue;
 			}
 			int indexOf = 0;
 			foreach(XmlNode childNode in codenode.ChildNodes)
-
 			{
-				manager.CreateLevelObject(childNode, indexOf);
+                if (childNode.InnerText.Contains("$bug$"))
+                {
+                    string[] lines = childNode.InnerText.Split('\n');
+                    int row = 0, col = 0;
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Contains("$bug$"))
+                        {
+                            row = indexOf + i;
+                            col = lines[i].IndexOf("$bug$");
+                            GlobalState.level.Code[row] = lines[i].Replace("$bug$", "");
+                        }
+                    }
+                    childNode.InnerText = childNode.InnerText.Replace("$bug$", "");
+                    manager.CreateBug(childNode, row, col);
+                }
+                else
+                {
+                    manager.CreateLevelObject(childNode, indexOf);
+                    Debug.Log(childNode.Name + " " + indexOf); 
+                }
 				foreach(char c in childNode.OuterXml)
 				{
 					if (c == '\n') indexOf++;
@@ -204,6 +218,7 @@ public partial class LevelGenerator : MonoBehaviour {
             allComments.AddRange(manager.robotONincorrectComments);
             allComments.AddRange(manager.robotONcorrectUncomments);
             allComments.AddRange(manager.robotONincorrectUncomments);
+            allComments.AddRange(manager.roboBUGcomments); 
 
             //Adjust all the positions. 
             foreach (GameObject comment in allComments)
@@ -218,6 +233,14 @@ public partial class LevelGenerator : MonoBehaviour {
             {
                 rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
             }
+            foreach (GameObject warp in manager.roboBUGwarps)
+            {
+                warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - warp.GetComponent<warper>().Index * properties.linespacing, 1);
+            }
+            foreach (GameObject print in manager.roboBugPrint)
+            {
+                print.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - print.GetComponent<printer>().Index, 1);
+            }
             //manager.levelBug.transform.localPosition = new Vector3(manager.levelBug.transform.position.x, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET -(manager.levelBug.GetComponent<GenericBug>().Index)*properties.linespacing, 0);
             //Debug.Log("Bug Line Number: " + manager.levelBug.GetComponent<GenericBug>().Index);
             GameObject thisObject;
@@ -230,6 +253,12 @@ public partial class LevelGenerator : MonoBehaviour {
                         case "robobug":
                             // RoboBUG comment
                             thisObject = manager.roboBUGcomments[numberOfroboBUGcomments];
+                            thisObject.GetComponent<BugComment>().blocktext = "<color=#00ff00ff>/**/</color>" + codenode.ChildNodes[i].InnerXml + "<color=#00ff00ff>/**/</color>\n\n";
+                            string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
+                            for (int j = 0; i < text.Length; i++)
+                            {
+                                GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index + j] = text[i];
+                            }
                             thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                             // Colorize all multi-comment line numbers green
                             for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
@@ -390,6 +419,8 @@ public partial class LevelGenerator : MonoBehaviour {
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
                     break;
                 case "warper":
+                    toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
+                    break;
                 case "namer":
                     toolnum = stateLib.TOOL_WARPER_OR_RENAMER;
                     break;

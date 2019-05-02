@@ -60,8 +60,9 @@ public class BugCommentFactory : CommentTypeFactory
     public override void ApplyScript(GameObject obj)
     {
         propertyHandler = obj.AddComponent<BugComment>() as BugComment;
-        GetScript(); 
-       
+        GetScript();
+        GlobalState.level.Tasks[3]++;
+
     }
     public override comment GetScript()
     {
@@ -69,9 +70,9 @@ public class BugCommentFactory : CommentTypeFactory
         propertyHandler.entityType = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
         Entity = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
         propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
-
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
+            /*
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
@@ -79,6 +80,7 @@ public class BugCommentFactory : CommentTypeFactory
                 propertyHandler.tools[i] = int.Parse(toolcounts[i]);
 
             }
+            */
         }
         return propertyHandler;
     }

@@ -23,7 +23,7 @@ float avgForce(int forces[], int numOfForces){
                  
     for (i=0;i&lt;numOfForces;i++) 
     { 
-        <bug size="1" col="11">sum += avgf;</bug>
+        sum += $bug$avgf;
     }    
     //to do : rest of algorithm	
 }

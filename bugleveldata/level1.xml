@@ -26,7 +26,7 @@ float avgForce(int forces[], int numOfForces){
         sum+=forces[i]; 
     }  
 	avgf= float(sum/numOfForces);  
-    <bug size="1" col="6">avgf++</bug>; 
+    avgf++$bug$; 
     return avgf;    
 }
 </code>

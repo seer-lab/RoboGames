@@ -86,6 +86,7 @@ public class WarperFactory: ToolFactory
         {
             tool.WarpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
         }
+        GlobalState.level.Tasks[2]++;
         return tool; 
     }
     public override GameObject GetGameObject()

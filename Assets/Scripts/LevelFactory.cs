@@ -12,27 +12,27 @@ public class LevelFactory
     IList<XmlNode> nodelist;
     Level level; 
 
-    public LevelFactory(string filename)
+    public LevelFactory(string filename, bool warp = false)
     {
         level = new Level();
-        BuildLevel(filename); 
+        if (warp)
+            BuildFromCurrent(filename); 
+        else
+            BuildLevel(filename); 
     }
     public Level GetLevel()
     {
         return level; 
     }
-    public void BuildLevel(string filename)
+    private void BuildFile(XmlDocument doc, string filename)
     {
-        level.Tasks = new int[5];
-        level.CompletedTasks = new int[5]; 
-        XmlDocument doc = XMLReader.ReadFile(filename);
         XmlNode levelnode = doc.FirstChild;
         level.Tags = XMLReader.GetOuterXML(doc);
         //@TODO: This is a bug. InnerXML should not be OuterXML. Need to convert all outerXML to InnerXML.
         //innerXmlLines = outerXmlLines;
-        level.LevelNode = levelnode; 
+        level.LevelNode = levelnode;
         level.CodeNodes = levelnode.ChildNodes;
-        level.Language = "c++"; 
+        level.Language = "c++";
         string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", level.Tags), level.Language);
         level.Code = innerXMLstring.Split('\n');
 
@@ -41,6 +41,21 @@ public class LevelFactory
 
         level.NodeList = XMLReader.GetToolNodes(doc);
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
+    }
+    private void BuildFromCurrent(string filename)
+    {
+        level = GlobalState.level;
+        XmlDocument doc = XMLReader.ReadFile(filename);
+        BuildFile(doc,filename); 
+
+    }
+    
+    private void BuildLevel(string filename)
+    {
+        level.Tasks = new int[5];
+        level.CompletedTasks = new int[5];
+        XmlDocument doc = XMLReader.ReadFile(filename);
+        BuildFile(doc, filename); 
         // time
         try
         {

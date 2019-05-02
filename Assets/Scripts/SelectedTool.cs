@@ -220,7 +220,7 @@ public class SelectedTool : MonoBehaviour
         print("projectilecode is " + projectilecode.ToString());
         toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
         // If the checklist entry was is completed, then disable this current tool before switching to the next
-        if (GlobalState.level.Tasks[projectilecode] == GlobalState.level.CompletedTasks[projectilecode])
+        if (GlobalState.level.Tasks[projectilecode] == GlobalState.level.CompletedTasks[projectilecode] && GlobalState.GameMode == stringLib.GAME_MODE_ON)
         {
             taskComplete[projectilecode] = true;
             toolIcons[projectilecode].GetComponent<Image>().enabled = false;

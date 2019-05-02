@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour, ITimeUser
                     winning = false;
                 }
             }
-            if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
+            if (GlobalState.level.Tasks[0] != 0 && GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
                 winning = true; 
             if (winning)
             {
@@ -46,7 +46,8 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckLose()
     {
-        if (selectedTool.isLosing)
+        if ((selectedTool.isLosing && GlobalState.GameMode == stringLib.GAME_MODE_ON)
+            || (selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0))
         {
             StartCoroutine(Lose());
         }
@@ -97,6 +98,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Lose()
     {
+        CheckWin(); 
         yield return new WaitForSecondsRealtime(2.4f); 
         if (!winning)
         {
@@ -116,7 +118,6 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             lg.manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            winning = false; 
             SceneManager.LoadScene("Cinematic"); 
         }
         else
@@ -131,9 +132,9 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
-        factory = new LevelFactory(file);
+        factory = new LevelFactory(file, true);
         GlobalState.level = factory.GetLevel();
-        lg.BuildLevel();
+        lg.BuildLevel(true);
         lg.WarpPlayer(line); 
     }
     // Start is called before the first frame update
