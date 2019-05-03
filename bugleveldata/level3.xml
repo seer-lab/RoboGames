@@ -11,7 +11,10 @@ Can you combine all your tools to find it?</introtext>
 The Database is fully functional once again!</endtext>
 <timelimit>300</timelimit>
 <tools>
-<enabled count="2">1</enabled>
+<tool name="printer" count="2" enabled="true"/>
+<tool name="commenter" count="unlimited" enabled="true"/>
+<tool name="catcher" count="1" enabled="true"/>
+<tool name="warper" count="3" enabled="true"/>
 </tools>
 <code>//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors
@@ -32,60 +35,50 @@ is out of bounds&lt;/color&gt;" tool="0,0,0,6,0,0">db.checkColors();
 
 	</print>
 	
-    <comment size="3" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment type="robobug" groupid="1" size="3" text="&lt;color=#ff0000ff&gt;A red color value
 in the database
 is out of bounds&lt;/color&gt;">cm.Whites = db.getWhites();
     cm.Greys = db.getGreys();
     cm.Blacks = db.getBlacks();</comment>
-    <warp file="L3Whites.xml">    cm.Whites;
-	</warp>
-    <warp file="L3Greys.xml">cm.Greys;
-	</warp>
-    <warp file="L3Blacks.xml">cm.Blacks;
+    <warp file="L3Whites.xml">cm.Whites;</warp>
+
+    <warp file="L3Greys.xml">cm.Greys;</warp>
+
+    <warp file="L3Blacks.xml">cm.Blacks;</warp>
 	
-	</warp>
-	
-    <comment size="2" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="2" text="&lt;color=#ff0000ff&gt;A red color value
 in the database
 is out of bounds&lt;/color&gt;">cm.Reds = db.getReds();
     cm.Browns = db.getBrowns();</comment>
 	 
-    <warp file="L3Reds.xml">    cm.Reds;
-	</warp>
-    <warp file="L3Browns.xml">cm.Browns;
+    <warp file="L3Reds.xml">cm.Reds;</warp>
+    
+    <warp file="L3Browns.xml">cm.Browns;</warp>
 	
-	</warp>
-	
-    <comment size="2" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="3" text="&lt;color=#ff0000ff&gt;A red color value
 in the database
 is out of bounds&lt;/color&gt;">cm.Oranges = db.getOranges();
     cm.Yellows = db.getYellows();</comment>
 	 
-    <warp file="L3Oranges.xml">    cm.Oranges;
-	</warp>
-    <warp file="L3Yellows.xml">cm.Yellows;
+    <warp file="L3Oranges.xml">cm.Oranges;</warp>
+    <warp file="L3Yellows.xml">cm.Yellows;</warp>
 	
-	</warp>
-	
-    <comment size="2" text="Database contains no errors" tool="1,0,4,0,0,0">cm.Greens = db.getGreens();
+    <comment size="2" type="robobug" groupid="4" text="Database contains no errors" tool="1,0,4,0,0,0">cm.Greens = db.getGreens();
     cm.Cyans = db.getCyans();</comment>
 	 
-    <warp file="L3Greens.xml">    cm.Greens;
-	</warp>
-    <warp file="L3Cyans.xml">cm.Cyans;
+    <warp file="L3Greens.xml">cm.Greens;</warp>
+
+    <warp file="L3Cyans.xml">cm.Cyans;</warp>
 	
-	</warp>
-	
-    <comment size="2" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="5" text="&lt;color=#ff0000ff&gt;A red color value
 in the database
 is out of bounds&lt;/color&gt;">cm.Blues = db.getBlues();
     cm.Magentas = db.getMagentas();
 	</comment>
 	 
-    <warp file="L3Blues.xml">    cm.Blues;
-	</warp>
-    <warp file="L3Magentas.xml">cm.Magentas;
-	</warp>
+    <warp file="L3Blues.xml">cm.Blues;</warp>
+
+    <warp file="L3Magentas.xml">cm.Magentas;</warp>
 }
 </code>
 </level>

@@ -21,7 +21,6 @@ public class warper : Tools
 	public string WarpToLine { get; set; }
 
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-        Debug.Log("Entered: " + collidingObj.name);
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
 			string sMessage = stringLib.LOG_WARPED + Filename;
 			Logger.printLogFile(sMessage, this.transform.position);

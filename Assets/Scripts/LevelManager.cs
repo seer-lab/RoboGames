@@ -172,9 +172,8 @@ public class LevelManager
         GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
         GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1), properties.initialLineY - (lineNumber + 0.5f * (bugsize - 1) * properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
         //levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
-        levelBug.transform.position = new Vector3(levelBug.transform.position.x + properties.bugscale * (bugsize - 1), properties.initialLineY - (lineNumber), 0);
+        levelBug.transform.position = new Vector3(levelBug.transform.position.x + properties.bugscale * (bugsize - 1), properties.initialLineY - (lineNumber)*0.99f, 0);
         GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
-        Debug.Log(levelBug.transform.position.ToString() + " Initial Line: " + lineNumber);
         propertyHandler.Index = lineNumber;
         GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
         bugs.Add(levelBug);
@@ -197,7 +196,6 @@ public class LevelManager
         ToolFactory toolFactory;
         //Identify the kind of child node and use the correct factory for the creation of 
         //the tool. 
-        Debug.Log("Creating " + childnode.Name);
         switch (childnode.Name)
         {
             case stringLib.NODE_NAME_PRINT:

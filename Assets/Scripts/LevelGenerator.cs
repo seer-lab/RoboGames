@@ -179,6 +179,7 @@ public partial class LevelGenerator : MonoBehaviour {
 			int indexOf = 0;
 			foreach(XmlNode childNode in codenode.ChildNodes)
 			{
+                
                 if (childNode.InnerText.Contains("$bug$"))
                 {
                     string[] lines = childNode.InnerText.Split('\n');
@@ -190,17 +191,16 @@ public partial class LevelGenerator : MonoBehaviour {
                             row = indexOf + i;
                             col = lines[i].IndexOf("$bug$");
                             GlobalState.level.Code[row] = lines[i].Replace("$bug$", "");
+                            TextColoration color = new TextColoration();
+                            GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row]);
                         }
                     }
                     childNode.InnerText = childNode.InnerText.Replace("$bug$", "");
                     manager.CreateBug(childNode, row, col);
                 }
-                else
-                {
-                    manager.CreateLevelObject(childNode, indexOf);
-                    Debug.Log(childNode.Name + " " + indexOf); 
-                }
-				foreach(char c in childNode.OuterXml)
+                manager.CreateLevelObject(childNode, indexOf);
+                
+                foreach (char c in childNode.OuterXml)
 				{
 					if (c == '\n') indexOf++;
 				}
@@ -218,7 +218,7 @@ public partial class LevelGenerator : MonoBehaviour {
             allComments.AddRange(manager.robotONincorrectComments);
             allComments.AddRange(manager.robotONcorrectUncomments);
             allComments.AddRange(manager.robotONincorrectUncomments);
-            allComments.AddRange(manager.roboBUGcomments); 
+            //allComments.AddRange(manager.roboBUGcomments); 
 
             //Adjust all the positions. 
             foreach (GameObject comment in allComments)
@@ -241,8 +241,7 @@ public partial class LevelGenerator : MonoBehaviour {
             {
                 print.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - print.GetComponent<printer>().Index, 1);
             }
-            //manager.levelBug.transform.localPosition = new Vector3(manager.levelBug.transform.position.x, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET -(manager.levelBug.GetComponent<GenericBug>().Index)*properties.linespacing, 0);
-            //Debug.Log("Bug Line Number: " + manager.levelBug.GetComponent<GenericBug>().Index);
+
             GameObject thisObject;
             for (int i = 0; i < codenode.ChildNodes.Count; i++)
             {
@@ -253,21 +252,18 @@ public partial class LevelGenerator : MonoBehaviour {
                         case "robobug":
                             // RoboBUG comment
                             thisObject = manager.roboBUGcomments[numberOfroboBUGcomments];
-                            thisObject.GetComponent<BugComment>().blocktext = "<color=#00ff00ff>/**/</color>" + codenode.ChildNodes[i].InnerXml + "<color=#00ff00ff>/**/</color>\n\n";
+                            thisObject.GetComponent<BugComment>().blocktext = "<color=#00ff00ff>/**/</color>" + codenode.ChildNodes[i].InnerXml;
+                            Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
-                            for (int j = 0; i < text.Length; i++)
-                            {
-                                GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index + j] = text[i];
-                            }
-                            thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-                            // Colorize all multi-comment line numbers green
-                            for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
-                            {
-                                GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
-                            }
-                            // Resize the hitbox for this comment to cover all lines (if multi-line comment)
-                            thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index + 0.93f * (thisObject.GetComponent<comment>().size - 1)) * properties.linespacing, 0f);
 
+                            GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = text[0];
+                            //Debug.Log((thisObject.GetComponent<BugComment>().Index + text.Length - 1) + " " + GlobalState.level.Code.Length);
+                            //GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index + text.Length-1] = text[text.Length-1];
+                           // thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
+                            // Colorize all multi-comment line numbers green
+                            
+                            // Resize the hitbox for this comment to cover all lines (if multi-line comment)
+                            thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index)*0.99f, 0f);
                             //Removed; using sprites instead:
                             numberOfroboBUGcomments++;
                             break;
@@ -433,7 +429,6 @@ public partial class LevelGenerator : MonoBehaviour {
                 default:
                     break;
             }
-            Debug.Log("Tool Num: "+  toolnum); 
             toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             toolIcons[toolnum].transform.GetChild(0).GetComponent<Text>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);

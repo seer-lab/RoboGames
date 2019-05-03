@@ -3,7 +3,7 @@
 <warp line="20" file="level3a.xml">Return;</warp>
 
 {"alizarincrimson",227,38,54},
-<bug size="1" col="15">{"brick",156,948932710,31},</bug>
+{"brick",156,948$bug$932710,31},
 {"cadmiumreddeep",227,23,13},
 {"coral",255,127,80},
 {"corallight",240,128,128},

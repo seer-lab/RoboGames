@@ -13,6 +13,7 @@ There are still more bugs to find.</endtext>
 <tools>
 <tool name="printer" enabled="true" count="1"/>
 <tool name="warper" enabled="true" count="3"/>
+<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors
