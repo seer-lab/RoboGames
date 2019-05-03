@@ -207,8 +207,9 @@ public class BreakpointFactory: ToolFactory
     public override Tools GetScript()
     {
         tool.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
+        Debug.Log(childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value);
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');

@@ -8,7 +8,7 @@ Go to that line and use the BUGCATCHER and win!</description>
 //E.g. (25,75,0) is closer to Robot than (50,25,100)
 target Closer(target t1, target t2){
     int xdif,ydif,zdif = 0;
-	<bug size="1" col="14">xdif=xdif-t1.x+t2.x;</bug>
+	xdif=xdif-t$bug$1.x+t2.x;
 	ydif-=(t2.y-t1.y);
 	zdif+=t1.z-t2.z;
 	if (xdif+ydif+zdif&lt;0) return t1;

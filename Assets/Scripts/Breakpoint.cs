@@ -29,7 +29,7 @@ public class Breakpoint : Tools {
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
-		if (collidingObj.name == stringLib.PROJECTILE_DEBUG) {
+        if (!activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			if (!activated) {
 				GetComponent<AudioSource>().clip = sound[0];
 				GetComponent<AudioSource>().Play();
@@ -37,8 +37,27 @@ public class Breakpoint : Tools {
 			}
 			activated = true;
 			this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
-		}
+            Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
+            GetComponent<AudioSource>().clip = sound[1];
+            GetComponent<AudioSource>().Play();
+            output.Text.text = values;
+            if (!toolgiven)
+            {
+                toolgiven = true;
+                for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+                {
+                    if (tools[i] > 0)
+                    {
+                        // Must be called from level generator, not ToolSelectorObject
+                        // lg.floatingTextOnPlayer("New Tools!");
+                    }
+                    selectedTool.toolCounts[i] += tools[i];
+                }
+            }
+            Destroy(collidingObj.gameObject);
+        }
 		else if (activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
+            Debug.Log("MAGIC");
 			Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();

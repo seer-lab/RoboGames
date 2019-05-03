@@ -265,7 +265,7 @@ public class LevelManager
                 {
                     toolFactory = new BreakpointFactory(childnode, lineNumber);
                     GameObject newbreakpoint = toolFactory.GetGameObject();
-                    newbreakpoint.transform.position = new Vector3(-10, properties.initialLineY - lineNumber * properties.linespacing + 0.4f, 1);
+                    newbreakpoint.transform.position = new Vector3(-10, properties.initialLineY - lineNumber *0.99f, 1);
                     roboBUGbreakpoints.Add(newbreakpoint);
                     return newbreakpoint;
                 }
