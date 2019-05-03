@@ -3,15 +3,15 @@
 It calculates the closest of two objects using coordinates.
 Use Code Tracing to see how the Closer calculation works.
 Use the BUGCATCHER to identify the bug.</description>
-<nextlevel>level4b.xml</nextlevel>
+<next-level>level4b.xml</next-level>
 <introtext>The Closeness Calculator has a bug inside.
 Use CODE TRACING to find the bug, but pay attention!
 You will see this code again in the future!</introtext>
 <endtext>You've found the first bug!
 Don't forget how that function worked.</endtext>
-<time>180</time>
+<timelimit>180</timelimit>
 <tools>
-<enabled count="1">0</enabled>
+<tool name="catcher" count="1" enabled="true"/>
 </tools>
 <code>//Robot Targeting Systems Closeness Calculator
 //Identifies Closer of two targets based on coordinates
@@ -31,7 +31,7 @@ target Closer(target t1, target t2){
     if (xdif + ydif &lt; 0){
         return t1;
     }
-    <bug size="1" col="15">else if (xdif + ydif = 0){</bug>
+    else if (xdif + ydif $bug$= 0){
         return t2;
     }
 }

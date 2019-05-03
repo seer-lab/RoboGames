@@ -3,7 +3,7 @@
 You can use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel from function to function.
 Use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool on any line of &lt;color=#ff00ffff&gt;purple&lt;/color&gt; text.
 You can use TAB to switch between tools.</description>
-<nextlevel>level3a.xml</nextlevel>
+<next-level>level3a.xml</next-level>
 <introtext>There are two new tools to learn:
 &lt;color=#ff00ffff&gt;WARPERS&lt;/color&gt; help move through code
 &lt;color=#00ff00ff&gt;COMMENTERS&lt;/color&gt; identify if code is buggy.
@@ -11,9 +11,11 @@ You will need both of these to succeed!</introtext>
 <endtext>You found the bug with a Divide-and-Conquer approach!
 Now two new tools are yours!
 Can you put them both to good use?</endtext>
-<time>1000</time>
+<timelimit>1000</timelimit>
 <tools>
-<enabled count="999">2</enabled>
+<tool name="warper" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
 <code>void main(){
     <warp file="tut4.xml" tool="0,0,-999,999,0,0" col="4">function1();</warp>

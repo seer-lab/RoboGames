@@ -5,12 +5,15 @@ Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the v
 &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; &lt;color=#ffff00ff&gt;output&lt;/color&gt;.
 Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
 Use the BUGCATCHER to identify the incorrect calculation.</description>
-<nextlevel></nextlevel>
+<next-level></next-level>
 <introtext>This is the last level!
 Can you figure out where the last bug is?</introtext>
 <endtext>You did it! You've won!</endtext>
-<time>300</time>
+<timelimit>300</timelimit>
 <tools>
+<tool name="catcher" count="1" enabled="true"/>
+<tool name="printer" count="20" enabled="true"/>
+<tool name="warper" count="1" enabled="true"/>
 <enabled count="20">1</enabled>
 <enabled count="1">2</enabled>
 <enabled count="3">4</enabled>

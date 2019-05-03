@@ -25,17 +25,18 @@ public class warper : Tools
 			string sMessage = stringLib.LOG_WARPED + Filename;
 			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			if (!toolgiven) {
-				toolgiven = true;
-				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-					if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
-					selectedTool.bonusTools[i] += tools[i];
-					if (selectedTool.toolCounts[i] == 0 && selectedTool.bonusTools[i] == 0) {
-						selectedTool.toolIcons[i].GetComponent<Image>().enabled = false;
-						if (selectedTool.projectilecode == i) selectedTool.NextTool();
-						}
-					}
-				}
+            if (!toolgiven)
+            {
+                toolgiven = true;
+                for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+                {
+                    if (tools[i] > 0)
+                    {
+                        lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
+                    }
+                    selectedTool.toolCounts[i] += tools[i];
+                }
+            }
             GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + Filename, WarpToLine);
            
 		}

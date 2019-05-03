@@ -2,14 +2,14 @@
 <description>You fixed the first bug! There are still more to find.
 Use "Code Tracing" to find it by reading the code line by line.
 Find a bug and throw the BUGCATCHER (CTRL) to catch it!</description>
-<nextlevel>level1.xml</nextlevel>
+<next-level>level1.xml</next-level>
 <introtext>The calculator has a bit more code now.
 Can you find the next bug?</introtext>
 <endtext>Another bug found.
 The calculator is almost fixed!</endtext>
-<time>120</time>
+<timelimit>120</timelimit>
 <tools>
-<enabled count="1">0</enabled>
+<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Average Force Calculator
 //To Find average of forces acting on the body in one dimension 
@@ -23,7 +23,7 @@ float avgForce(int forces[], int numOfForces){
                  
     for (i=0;i&lt;numOfForces;i++) 
     { 
-        <bug size="1" col="11">sum += avgf;</bug>
+        sum += $bug$avgf;
     }    
     //to do : rest of algorithm	
 }

@@ -37,7 +37,7 @@ public class PrinterFactory : ToolFactory
     {
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
@@ -45,6 +45,7 @@ public class PrinterFactory : ToolFactory
             {
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
+            GlobalState.level.Tasks[1]++; 
         }
         return tool; 
     }
@@ -54,6 +55,7 @@ public class PrinterFactory : ToolFactory
         GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_PRINTER_OR_QUESTION]++;
         tool = newoutput.GetComponent<printer>();
         GetScript();
+        //GlobalState.level.Tasks[1]++;
         return newoutput; 
     }
 
@@ -71,7 +73,7 @@ public class WarperFactory: ToolFactory
     {
         tool.Filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
@@ -80,10 +82,12 @@ public class WarperFactory: ToolFactory
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
         }
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE] != null)
         {
             tool.WarpToLine = childnode.Attributes[stringLib.XML_ATTRIBUTE_LINE].Value;
         }
+
+        GlobalState.level.Tasks[2]++;
         return tool; 
     }
     public override GameObject GetGameObject()
@@ -203,8 +207,9 @@ public class BreakpointFactory: ToolFactory
     public override Tools GetScript()
     {
         tool.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
+        Debug.Log(childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value);
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value != null)
+        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');

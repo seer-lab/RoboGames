@@ -23,6 +23,7 @@ public class printer : Tools {
 			Destroy(collidingObj.gameObject);
 			output.Text.text = displaytext;
 			GetComponent<AudioSource>().Play();
+            GlobalState.level.CompletedTasks[1]++;
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
@@ -32,6 +33,7 @@ public class printer : Tools {
 					selectedTool.toolCounts[i] += tools[i];
 				}
 			}
+
 		}
 	}
 

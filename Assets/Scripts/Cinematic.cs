@@ -120,6 +120,7 @@ public class Cinematic : MonoBehaviour
                 {
                     GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 }
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
                 //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);

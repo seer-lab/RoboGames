@@ -2,14 +2,15 @@
 <description>The Robot Priority Assigner is ready for debugging.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool to check the priorities array.
 Figure out where the bug is and use the BUGCATCHER to catch it.</description>
-<nextlevel>tut3.xml</nextlevel>
+<next-level>tut3.xml</next-level>
 <introtext>The final version of the Assigner sorts all numbers.
 Can you figure out what is wrong this time?</introtext>
 <endtext>All the bugs have been found.
 You've fixed the Priority Assigner!</endtext>
-<time>180</time>
+<timelimit>180</timelimit>
 <tools>
-<enabled count="10">1</enabled>
+<tool name="printer" enabled="true" count="10"/>
+<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Priority Assigner
 //PrioritizeAll sorts an unsorted list of elements
@@ -21,7 +22,7 @@ int[] PrioritizeAll(int priorities[], int numOfTargets){
 	</print>
     <print text="5" col="4">cout &lt;&lt; numOfTargets;
 	</print>
-    <bug size="1" col="7">int i=1,j=1;</bug>
+    int i=1,$bug$j=1;
     while (i&lt;numOfTargets){
         <print text="[32,22,43,99,5]
 [32,99,22,43,5]

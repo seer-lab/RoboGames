@@ -37,6 +37,7 @@ public class GenericBug : Tools {
 			GetComponent<AudioSource>().Play();
 			IsDead = true;
 			lg.numberOfBugsRemaining--;
+            GlobalState.level.CompletedTasks[0]++;
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 		}

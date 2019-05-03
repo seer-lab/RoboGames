@@ -2,16 +2,18 @@
 <description>Another color in the database is bugged.
 Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors don't affect the bug.
 Check the RGB values and use the BUGCATCHER to catch the bug.</description>
-<nextlevel>level3.xml</nextlevel>
+<next-level>level3.xml</next-level>
 <introtext>Now it's time to use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
 There are many colors to check in a short duration.
 The &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool can speed things up.
 Use it to Divide-and-Conquer!</introtext>
 <endtext>That bug was tricky to find.
 Well done!</endtext>
-<time>180</time>
+<timelimit>180</timelimit>
 <tools>
-<enabled count="2">1</enabled>
+<tool name="catcher" count="1" enabled="true"/>
+<tool name="printer" count="2" enabled="true"/>
+<tool name="commenter" count="5" enabled="true"/> 
 </tools>
 <code>//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors
@@ -21,7 +23,7 @@ Well done!</endtext>
 out of bounds&lt;/color&gt;" tool="0,0,0,8,0,0">cout &lt;&lt; db.checkColors();
 </print>
 
-<comment size="30" text="&lt;color=#ff0000ff&gt;Blue color value 
+<comment size="30" type="robobug" groupid="1" text="&lt;color=#ff0000ff&gt;Blue color value 
 out of bounds&lt;/color&gt;">{"antiquewhite",250,235,215},
 {"azure",240,255,255},
 {"bisque",255,228,196},
@@ -53,7 +55,7 @@ out of bounds&lt;/color&gt;">{"antiquewhite",250,235,215},
 {"whitesmoke",245,245,245},
 {"zincwhite",253,248,255}</comment>
 
-<comment size="27" text="&lt;color=#ff0000ff&gt;Blue color value 
+<comment size="27" type="robobug" groupid="2" text="&lt;color=#ff0000ff&gt;Blue color value 
 out of bounds&lt;/color&gt;">{"aliceblue",240,248,255},
 {"blue",0,0,255},
 {"bluelight",173,216,230},
@@ -82,7 +84,7 @@ out of bounds&lt;/color&gt;">{"aliceblue",240,248,255},
 {"turquoiseblue",0,199,140},
 {"ultramarine",18,10,143}</comment>
 
-<comment size="23" text="&lt;color=#ff0000ff&gt;Blue color value 
+<comment size="23" type="robobug" groupid="3" text="&lt;color=#ff0000ff&gt;Blue color value 
 out of bounds&lt;/color&gt;">{"alizarincrimson",227,38,54},
 {"brick",156,102,31},
 {"cadmiumreddeep",227,23,13},
@@ -106,11 +108,11 @@ out of bounds&lt;/color&gt;">{"alizarincrimson",227,38,54},
 {"tomato",255,99,71},
 {"venetianred",212,26,31}</comment>
 
-<comment size="3" text="No errors found" tool="1,0,0,0,0,0">{"black",0,0,0},
+<comment size="3" type="robobug" groupid="4" text="No errors found" tool="1,0,0,0,0,0">{"black",0,0,0},
 {"ivoryblack",41,36,33},
-{"lampblack",46,71,-59}</comment><bug size="1" col="19" row="-2"></bug>
+{"lampblack",46,71,-$bug$59}</comment>
 
-<comment size="28" text="&lt;color=#ff0000ff&gt;Blue color value 
+<comment size="28" type="robobug" groupid="5" text="&lt;color=#ff0000ff&gt;Blue color value 
 out of bounds&lt;/color&gt;">{"chartreuse",127,255,0},
 {"chromeoxidegreen",102,128,20},
 {"cinnabargreen",97,179,41},
@@ -139,7 +141,7 @@ out of bounds&lt;/color&gt;">{"chartreuse",127,255,0},
 {"viridianlight",110,255,112},
 {"yellowgreen",154,205,50}</comment>
 
-<comment size="16" text="&lt;color=#ff0000ff&gt;Blue color value 
+<comment size="16" type="robobug" groupid="6" text="&lt;color=#ff0000ff&gt;Blue color value 
 out of bounds&lt;/color&gt;">{"aureolineyellow",255,168,36},
 {"banana",227,207,87},
 {"cadmiumlemon",255,227,3},
@@ -155,6 +157,7 @@ out of bounds&lt;/color&gt;">{"aureolineyellow",255,168,36},
 {"naplesyellowdeep",255,168,18},
 {"yellow",255,255,0},
 {"yellowlight",255,255,224}</comment>
+
 
 </code>
 </level>

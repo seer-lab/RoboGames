@@ -17,7 +17,7 @@ public class LevelManager
     private string filepath;
 
     //store the various Tool Objects in the Level. 
-    public GameObject levelBug;
+    //public GameObject levelBug;
 
     public List<GameObject> robotONrenamers;
     public List<GameObject> robotONvariablecolors;
@@ -36,6 +36,7 @@ public class LevelManager
     public List<GameObject> robotONquestions;
     public List<GameObject> roboBUGbreakpoints;
     public List<GameObject> roboBUGprizes;
+    public List<GameObject> roboBugPrint; 
     public List<GameObject> robotONbeacons;
 
     //Maintain an instance of properties for spacing. 
@@ -55,6 +56,7 @@ public class LevelManager
         bugs = new List<GameObject>();
         roboBUGwarps = new List<GameObject>();
         roboBUGcomments = new List<GameObject>();
+        roboBugPrint = new List<GameObject>(); 
         roboBUGbreakpoints = new List<GameObject>();
         roboBUGprizes = new List<GameObject>();
         robotONbeacons = new List<GameObject>();
@@ -109,6 +111,10 @@ public class LevelManager
         {
             GameObject.Destroy(warp);
         }
+        foreach(GameObject print in roboBugPrint)
+        {
+            GameObject.Destroy(print); 
+        }
         foreach (GameObject roboBUGComment in roboBUGcomments)
         {
             GameObject.Destroy(roboBUGComment);
@@ -129,10 +135,12 @@ public class LevelManager
         {
             GameObject.Destroy(roboBUGprize);
         }
+        /*
         if (levelBug)
         {
             GameObject.Destroy(levelBug);
         }
+        */
 
         
         // Reset local variables
@@ -152,9 +160,27 @@ public class LevelManager
         roboBUGcomments = new List<GameObject>();
         roboBUGbreakpoints = new List<GameObject>();
         roboBUGprizes = new List<GameObject>();
+        roboBugPrint = new List<GameObject>();
+        roboBUGwarps = new List<GameObject>(); 
         
     }
-
+    public GameObject CreateBug(XmlNode childnode, int lineNumber, int column = 0)
+    {
+        int bugsize = 1;
+        int col = column; 
+        //RoboBug Implementation 
+        GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
+        GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1), properties.initialLineY - (lineNumber + 0.5f * (bugsize - 1) * properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
+        //levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
+        levelBug.transform.position = new Vector3(levelBug.transform.position.x + properties.bugscale * (bugsize - 1), properties.initialLineY - (lineNumber)*0.99f, 0);
+        GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
+        propertyHandler.Index = lineNumber;
+        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+        bugs.Add(levelBug);
+        GlobalState.level.Tasks[0]++;
+        //numberOfBugsRemaining++;
+        return levelBug;
+    }
     /// <summary>
     /// Creates a gameobject of the appropriate type using an XML node. 
     /// </summary>
@@ -176,40 +202,22 @@ public class LevelManager
                 {
                     toolFactory = new PrinterFactory(childnode, lineNumber);
                     GameObject newoutput = toolFactory.GetGameObject();
-                    newoutput.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber * properties.linespacing, 1);
+                    newoutput.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber, 1);
+                    roboBugPrint.Add(newoutput);
                     return newoutput;
                 }
             case stringLib.NODE_NAME_WARP:
                 {
                     toolFactory = new WarperFactory(childnode, lineNumber);
                     GameObject newWarper = toolFactory.GetGameObject();
-                    newWarper.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - (lineNumber) * properties.linespacing, 1);
+                    newWarper.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - lineNumber * properties.linespacing, 1);
+                    roboBUGwarps.Add(newWarper);
                     return newWarper;
                 }
             case stringLib.NODE_NAME_BUG:
                 {
-                    int bugsize = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_SIZE].Value);
-                    int row = 0;
-                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value != null)
-                    {
-                        row = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_ROW].Value);
-                    }
-                    int col = 0;
-                    if (childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value != null)
-                    {
-                        col = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_COL].Value);
-                    }
-                    //RoboBug Implementation 
-                    /*
-                    levelBug = GameObject.Instantiate(bugobject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1) * properties.levelLineRatio, properties.initialLineY - (lineNumber + row + 0.5f * (bugsize - 1)) * properties.linespacing + 0.4f, 0f), transform.rotation);
-                    levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
-                    GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
-                    GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
-                    bugs.Add(levelBug);
-                    //numberOfBugsRemaining++;
-                    return levelBug;
-                    */
-                    return null; 
+
+                    return CreateBug(childnode, lineNumber);
                 }
             case stringLib.NODE_NAME_COMMENT:
                 {
@@ -219,7 +227,7 @@ public class LevelManager
                     switch (((CommentFactory)toolFactory).Entity)
                     {
                         case stateLib.ENTITY_TYPE_ROBOBUG_COMMENT:
-                            roboBUGbreakpoints.Add(newcomment);
+                            roboBUGcomments.Add(newcomment);
                             break;
                         case stateLib.ENTITY_TYPE_CORRECT_COMMENT:
                             robotONcorrectComments.Add(newcomment);
@@ -257,7 +265,7 @@ public class LevelManager
                 {
                     toolFactory = new BreakpointFactory(childnode, lineNumber);
                     GameObject newbreakpoint = toolFactory.GetGameObject();
-                    newbreakpoint.transform.position = new Vector3(-10, properties.initialLineY - lineNumber * properties.linespacing + 0.4f, 1);
+                    newbreakpoint.transform.position = new Vector3(-10, properties.initialLineY - lineNumber *0.99f, 1);
                     roboBUGbreakpoints.Add(newbreakpoint);
                     return newbreakpoint;
                 }

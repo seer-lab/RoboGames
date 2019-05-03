@@ -71,7 +71,6 @@ public class CorrectComment : comment
 
             lg.DrawInnerXmlLinesToScreen();
             GlobalState.level.CompletedTasks[3]++;
-
         }
     }
 }
