@@ -1,1 +1,8 @@
 Tool, Location, Time
+BreakpointOn, 27, 12.86
+BreakpointOn, 25, 13.84
+BreakpointOn, 24, 14.92
+BreakpointActivated, 25, 19.42
+BreakpointActivated, 24, 21.34
+BreakpointActivated, 27, 22.66
+Warped, L4Closer.xml30, 25.76

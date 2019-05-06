@@ -81,6 +81,7 @@ public class SelectedTool : MonoBehaviour
                 {
                     toolIcons[i].GetComponent<Image>().enabled = true;
                     toolLabels[i].GetComponent<Text>().enabled = true; 
+                    toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
                     //Debug.Log("Updating Icons");
                 }
                 isLosing = false;
@@ -234,6 +235,7 @@ public class SelectedTool : MonoBehaviour
         }
         else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
         {
+            Debug.Log(toolCounts[projectilecode]);
             toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
             toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
             isLosing = true;
