@@ -83,6 +83,7 @@ public class stringLib
 	public const string NODE_NAME_PRIZE						= "prize";
 	public const string NODE_NAME_VARIABLE_COLOR	= "variable-color";
 	public const string NODE_NAME_NEWLINE					= "newline";
+    public const string NODE_NAME_HINT                      = "hint";
 
   public const string XML_ATTRIBUTE_LANGUAGE              = "language";
 	public const string XML_ATTRIBUTE_TEXT					= "text";
@@ -104,6 +105,7 @@ public class stringLib
 	public const string XML_ATTRIBUTE_ENABLED				= "enabled";
 	public const string XML_ATTRIBUTE_COMMENT_STYLE			= "style";
 	public const string XML_ATTRIBUTE_OLDNAME				= "oldname";
+    public const string XML_ATTRIBUTE_HINT                  = "hint";
 
 
 	public const string START_LEVEL_FILE                    = "level0-1.xml";

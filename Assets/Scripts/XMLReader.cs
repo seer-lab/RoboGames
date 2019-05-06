@@ -108,6 +108,23 @@ public static class XMLReader {
     return "python";
   }
 
+    //Parses Through the file for hint tag
+    public static string GetHints(XmlDocument doc) {
+        foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes) {
+            if(xmlNode.Name == stringLib.NODE_NAME_HINT) {
+                try {
+                 
+                    Debug.Log(xmlNode.Attributes[stringLib.XML_ATTRIBUTE_HINT].Value);
+                    return xmlNode.Attributes[stringLib.XML_ATTRIBUTE_HINT].Value;
+                }
+                catch {
+                    return "hint NaN";
+                }
+            }
+        }
+        return "hint NaN";
+    }
+
   public static IList<XmlNode> GetNodesInString(string s) {
     IList<XmlNode> nodelist = new List<XmlNode>();
     XmlDocument doc = new XmlDocument();
