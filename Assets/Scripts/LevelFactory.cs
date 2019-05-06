@@ -73,5 +73,6 @@ public class LevelFactory
         level.IntroText = XMLReader.GetIntroText(doc);
         // end text
         level.ExitText = XMLReader.GetEndText(doc);
+        level.Hint = XMLReader.GetHints(doc);
     }
 }

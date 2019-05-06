@@ -21,6 +21,7 @@ public class Level
     public string IntroText { get; set; }
     public string ExitText { get; set; }
     public int LineCount { get; set; }
+    public string Hint { get; set; }
 
     public XmlNodeList CodeNodes { get; set; }
     public IList<XmlNode> NodeList { get; set; }
