@@ -10,7 +10,6 @@ You've fixed the Priority Assigner!</endtext>
 <timelimit>180</timelimit>
 <tools>
 <tool name="printer" enabled="true" count="10"/>
-<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Priority Assigner
 //PrioritizeAll sorts an unsorted list of elements

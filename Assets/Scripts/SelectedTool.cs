@@ -31,7 +31,7 @@ public class SelectedTool : MonoBehaviour
 	// Determine if the player has lost the game.
 	public bool isLosing = false;
 	// Determine the player has any remaining activavator tools (RoboBUG)
-	private bool noRemainingActivators = false;
+	public bool noRemainingActivators = false;
 	private float lossDelay = 4f;
 	private float losstime;
 	private Color toolOnColor = new Color(1,1,1);
@@ -80,6 +80,9 @@ public class SelectedTool : MonoBehaviour
                 if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     toolIcons[i].GetComponent<Image>().enabled = true;
+                    toolLabels[i].GetComponent<Text>().enabled = true; 
+                    toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
+                    //Debug.Log("Updating Icons");
                 }
                 isLosing = false;
                 if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
@@ -171,18 +174,20 @@ public class SelectedTool : MonoBehaviour
         }
         isLosing = false;
         toolAvailableTools.GetComponent<Text>().text = "";
+        /* 
         toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = "";
         toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = "";
         toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = "";
         toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = "";
         toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = "";
         toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().enabled = true;
-        toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().enabled = true;
-        toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().enabled = true;
-        toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().enabled = true;
-        toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().enabled = true;
-        toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().enabled = true;
+        */
+        toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().enabled = false;
         levelDescription.GetComponent<Text>().text = "";
         taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
     }
@@ -230,6 +235,7 @@ public class SelectedTool : MonoBehaviour
         }
         else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
         {
+            Debug.Log(toolCounts[projectilecode]);
             toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
             toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
             isLosing = true;

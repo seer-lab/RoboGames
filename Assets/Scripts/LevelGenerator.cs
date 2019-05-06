@@ -410,7 +410,9 @@ public partial class LevelGenerator : MonoBehaviour {
                 case "printer":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
                     break;
-                case "checker":
+                case "breakpointer":
+                    toolnum=stateLib.TOOL_CONTROL_FLOW; 
+                    break;
                 case "answer":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
                     break;

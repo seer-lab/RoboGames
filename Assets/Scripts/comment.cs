@@ -49,6 +49,9 @@ public abstract class comment : Tools {
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOff;
         }
+        else if (entityType == stateLib.ENTITY_TYPE_ROBOBUG_COMMENT){
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOn; 
+        }
         else
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOff;

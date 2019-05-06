@@ -10,8 +10,7 @@ Can you find it with the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool?</int
 Time to look at the Priority Assigner.</endtext>
 <timelimit>150</timelimit>
 <tools>
-<tool name="printer" enabled="true" count="unlimited"/>
-<tool name="catcher" enabled="true" count="1"/>
+<tool name="printer" enabled="true" count="5"/>
 <enabled count="5">1</enabled>
 </tools>
 <code>//Robot Priority Swap Function

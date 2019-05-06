@@ -218,6 +218,7 @@ public class BreakpointFactory: ToolFactory
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
         }
+        GlobalState.level.Tasks[4]++; 
         return tool; 
     }
     public override GameObject GetGameObject()

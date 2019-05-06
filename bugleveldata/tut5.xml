@@ -14,6 +14,7 @@ Time to find the final bugs!</endtext>
 <tools>
 <tool name="catcher" enabled="true" count="unlimited"/>
 <tool name="printer" enabled="true" count="unlimited"/>
+<tool name="breakpointer" enabled="true" count="unlimited"/>
 </tools>
 <code>void main(){
     checkforBugs();
