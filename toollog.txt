@@ -1,7 +1,1 @@
 Tool, Location, Time
-BreakpointOn, 16, 44.68
-BreakpointOn, 25, 49.42
-BreakpointActivated, 16, 52.14
-BreakpointActivated, 25, 57.82
-Warped, L4Closer.xml30, 62.02
-projectileBug(Clone)Wasted, 11, 78.9
