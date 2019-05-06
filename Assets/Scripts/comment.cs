@@ -27,7 +27,7 @@ public abstract class comment : Tools {
 	protected Sprite descSpriteOn;
 	protected Sprite codeSpriteOff;
 	protected Sprite codeSpriteOn;
-
+    
 
 	protected bool doneUpdating = false;
 
