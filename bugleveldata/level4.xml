@@ -11,12 +11,9 @@ Can you figure out where the last bug is?</introtext>
 <endtext>You did it! You've won!</endtext>
 <timelimit>300</timelimit>
 <tools>
-<tool name="catcher" count="1" enabled="true"/>
 <tool name="printer" count="20" enabled="true"/>
 <tool name="warper" count="1" enabled="true"/>
-<enabled count="20">1</enabled>
-<enabled count="1">2</enabled>
-<enabled count="3">4</enabled>
+<tool name="breakpointer" count="3" enabled="true"/>
 </tools>
 <code>struct target{
     string name[30];
@@ -32,19 +29,15 @@ target FirstPriority(threatID id){
     //id.toString(i) prints a string representation of the ith threat
     <breakpoint text="id = [t1,t2,t3]"></breakpoint>int num_of_threats = id.Count;
     <breakpoint text="id = [t1,t2,t3]
-num_of_threats = 3"></breakpoint><print text="num of threats = 3">cout &lt;&lt; "num of threats = " &lt;&lt; num_of_threats;
-</print>
+num_of_threats = 3"></breakpoint>
     <breakpoint text="id = [t1,t2,t3]
 num_of_threats = 3"></breakpoint>    target t1 = id.getThreat(1);
-    <print text="t1.x,y,z = 100,50,50">cout &lt;&lt; t1.toString();
-</print>
+
     <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>    target t2 = id.getThreat(2);
-    <print text="t2.x,y,z = 50,51,50">cout &lt;&lt; t2.toString();
-</print>
+
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50"></breakpoint>    target t3 = id.getThreat(3);
-    <print text="t3.x,y,z = 255,0,75">cout &lt;&lt; t3.toString();
-</print>
+
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50
 t3.x,y,z = 255,0,75"></breakpoint>    target closest = Closer(t1, t2);

@@ -47,7 +47,8 @@ public class GameController : MonoBehaviour, ITimeUser
     private void CheckLose()
     {
         if ((selectedTool.isLosing && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-            || (selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0))
+            || (selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0 && 
+            selectedTool.noRemainingActivators))
         {
             StartCoroutine(Lose());
         }

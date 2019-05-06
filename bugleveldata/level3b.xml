@@ -11,9 +11,7 @@ Use it to Divide-and-Conquer!</introtext>
 Well done!</endtext>
 <timelimit>180</timelimit>
 <tools>
-<tool name="catcher" count="1" enabled="true"/>
 <tool name="printer" count="2" enabled="true"/>
-<tool name="commenter" count="5" enabled="true"/> 
 </tools>
 <code>//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors

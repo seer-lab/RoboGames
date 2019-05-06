@@ -11,7 +11,6 @@ Only one bug remains in the completed function.</endtext>
 <time>150</time>
 <tools>
 <tool name="printer" enabled="true" count="6"/>
-<tool name="catcher" enabled="true" count="1"/>
 </tools>
 <code>//Robot Priority Assigner
 //SetPriority sorts a priority element value in a list

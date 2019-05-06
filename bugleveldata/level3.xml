@@ -12,9 +12,6 @@ The Database is fully functional once again!</endtext>
 <timelimit>300</timelimit>
 <tools>
 <tool name="printer" count="2" enabled="true"/>
-<tool name="commenter" count="unlimited" enabled="true"/>
-<tool name="catcher" count="1" enabled="true"/>
-<tool name="warper" count="3" enabled="true"/>
 </tools>
 <code>//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors

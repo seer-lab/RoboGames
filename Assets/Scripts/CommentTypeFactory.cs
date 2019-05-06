@@ -72,7 +72,7 @@ public class BugCommentFactory : CommentTypeFactory
         propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
-            /*
+            
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
@@ -80,7 +80,7 @@ public class BugCommentFactory : CommentTypeFactory
                 propertyHandler.tools[i] = int.Parse(toolcounts[i]);
 
             }
-            */
+            
         }
         return propertyHandler;
     }
