@@ -17,6 +17,7 @@ Only one bug remains in the completed function.</endtext>
 //Priorities is a list where all elements except the first are sorted
 //SetPriority returns the list where all elements are sorted
 //The list is sorted from biggest to smallest
+
 int[] SetPriority(int priorities[], int numOfTargets){
     <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; priorities;
 	</print>

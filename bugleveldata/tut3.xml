@@ -18,7 +18,7 @@ Can you put them both to good use?</endtext>
 <tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
 <code>void main(){
-    <warp file="tut4.xml" tool="0,0,-999,999,0,0" col="4">function1();</warp>
+    <warp file="tut4.xml" col="4">function1();</warp>
 	return;
 }
 </code>

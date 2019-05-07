@@ -16,7 +16,7 @@ You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
 </tools>
 <code>void FCalls(string errmsg){
     //call some functions then return
-	<print text="function4 has a bug!" tool="999,0,0,0,0,0" col="4">cout &lt;&lt; errmsg;</print> //try the PRINTER here!!
+	<print text="function4 has a bug!" col="4">cout &lt;&lt; errmsg;</print> //try the PRINTER here!!
 	function1();
 	function2();
 	function3();

@@ -26,15 +26,15 @@ struct color{
 void LoadColors(colormanager cm, colordatabase db){
 
     cm.initialize();
-    <print text="&lt;color=#ff0000ff&gt;A red color value
+    <print text="$err$A red color value
 in the database
-is out of bounds&lt;/color&gt;" tool="0,0,0,6,0,0">db.checkColors();
+is out of bounds" tool="0,0,0,6,0,0">db.checkColors();
 
 	</print>
 	
-    <comment type="robobug" groupid="1" size="3" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment type="robobug" groupid="1" size="3" text="$err$A red color value
 in the database
-is out of bounds&lt;/color&gt;">cm.Whites = db.getWhites();
+is out of bounds">cm.Whites = db.getWhites();
     cm.Greys = db.getGreys();
     cm.Blacks = db.getBlacks();</comment>
     <warp file="L3Whites.xml">cm.Whites;</warp>
@@ -43,18 +43,18 @@ is out of bounds&lt;/color&gt;">cm.Whites = db.getWhites();
 
     <warp file="L3Blacks.xml">cm.Blacks;</warp>
 	
-    <comment size="2" type="robobug" groupid="2" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="2" text="$err$A red color value
 in the database
-is out of bounds&lt;/color&gt;">cm.Reds = db.getReds();
+is out of bounds.">cm.Reds = db.getReds();
     cm.Browns = db.getBrowns();</comment>
 	 
     <warp file="L3Reds.xml">cm.Reds;</warp>
     
     <warp file="L3Browns.xml">cm.Browns;</warp>
 	
-    <comment size="2" type="robobug" groupid="3" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="3" text="$err$A red color value
 in the database
-is out of bounds&lt;/color&gt;">cm.Oranges = db.getOranges();
+is out of bounds.">cm.Oranges = db.getOranges();
     cm.Yellows = db.getYellows();</comment>
 	 
     <warp file="L3Oranges.xml">cm.Oranges;</warp>
@@ -67,9 +67,9 @@ is out of bounds&lt;/color&gt;">cm.Oranges = db.getOranges();
 
     <warp file="L3Cyans.xml">cm.Cyans;</warp>
 	
-    <comment size="2" type="robobug" groupid="5" text="&lt;color=#ff0000ff&gt;A red color value
+    <comment size="2" type="robobug" groupid="5" text="$err$A red color value
 in the database
-is out of bounds&lt;/color&gt;">cm.Blues = db.getBlues();
+is out of bounds">cm.Blues = db.getBlues();
     cm.Magentas = db.getMagentas();
 	</comment>
 	 

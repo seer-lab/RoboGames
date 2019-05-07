@@ -16,6 +16,7 @@ Congratulations!</endtext>
 //To Find average of forces acting on the body in one dimension 
 //Input : Integer numbers (any unit of measurement)  
 //Output: Floating Point Average force on body (same units); 
+
 float avgForce(int forces[], int numOfForces){
                
     int sum=0;

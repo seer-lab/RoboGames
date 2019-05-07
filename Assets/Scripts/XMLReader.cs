@@ -182,7 +182,7 @@ public static class XMLReader {
 			outerXml = outerXml.Replace(m.Value, rgxTag.Replace(m.Value, ""));
 			m = rgxTag.Match(outerXml);
 		}
-		
+    
 		sReturn = textColoration.ColorizeText(outerXml, language);
 		
 		//NONFUNCTIONAL CODE

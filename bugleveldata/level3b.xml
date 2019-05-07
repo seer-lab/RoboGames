@@ -17,12 +17,12 @@ Well done!</endtext>
 //Loads database of colors and sub-categories of colors
 //matches color RGB values with English names
 //IMPORTANT NOTE: color values range from 000 to 255
-<print text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;" tool="0,0,0,8,0,0">cout &lt;&lt; db.checkColors();
+<print text="$err$Blue color value 
+out of bounds." tool="0,0,0,8,0,0">cout &lt;&lt; db.checkColors();
 </print>
 
-<comment size="30" type="robobug" groupid="1" text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;">{"antiquewhite",250,235,215},
+<comment size="30" type="robobug" groupid="1" text="$err$Blue color value 
+out of bounds.">{"antiquewhite",250,235,215},
 {"azure",240,255,255},
 {"bisque",255,228,196},
 {"blanchedalmond",255,235,205},
@@ -53,8 +53,8 @@ out of bounds&lt;/color&gt;">{"antiquewhite",250,235,215},
 {"whitesmoke",245,245,245},
 {"zincwhite",253,248,255}</comment>
 
-<comment size="27" type="robobug" groupid="2" text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;">{"aliceblue",240,248,255},
+<comment size="27" type="robobug" groupid="2" text="$err$Blue color value 
+out of bounds">{"aliceblue",240,248,255},
 {"blue",0,0,255},
 {"bluelight",173,216,230},
 {"bluemedium",0,0,205},
@@ -82,8 +82,8 @@ out of bounds&lt;/color&gt;">{"aliceblue",240,248,255},
 {"turquoiseblue",0,199,140},
 {"ultramarine",18,10,143}</comment>
 
-<comment size="23" type="robobug" groupid="3" text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;">{"alizarincrimson",227,38,54},
+<comment size="23" type="robobug" groupid="3" text="$err$Blue color value 
+out of bounds.">{"alizarincrimson",227,38,54},
 {"brick",156,102,31},
 {"cadmiumreddeep",227,23,13},
 {"coral",255,127,80},
@@ -110,8 +110,8 @@ out of bounds&lt;/color&gt;">{"alizarincrimson",227,38,54},
 {"ivoryblack",41,36,33},
 {"lampblack",46,71,-$bug$59}</comment>
 
-<comment size="28" type="robobug" groupid="5" text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;">{"chartreuse",127,255,0},
+<comment size="28" type="robobug" groupid="5" text="$err$Blue color value 
+out of bounds">{"chartreuse",127,255,0},
 {"chromeoxidegreen",102,128,20},
 {"cinnabargreen",97,179,41},
 {"cobaltgreen",61,145,64},
@@ -139,8 +139,8 @@ out of bounds&lt;/color&gt;">{"chartreuse",127,255,0},
 {"viridianlight",110,255,112},
 {"yellowgreen",154,205,50}</comment>
 
-<comment size="16" type="robobug" groupid="6" text="&lt;color=#ff0000ff&gt;Blue color value 
-out of bounds&lt;/color&gt;">{"aureolineyellow",255,168,36},
+<comment size="16" type="robobug" groupid="6" text="$err$Blue color value 
+out of bounds">{"aureolineyellow",255,168,36},
 {"banana",227,207,87},
 {"cadmiumlemon",255,227,3},
 {"cadmiumyellow",255,153,18},

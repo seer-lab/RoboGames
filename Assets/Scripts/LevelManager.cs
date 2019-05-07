@@ -22,7 +22,6 @@ public class LevelManager
     public List<GameObject> robotONrenamers;
     public List<GameObject> robotONvariablecolors;
     public List<GameObject> lines;
-    public List<GameObject> prints;
     public List<GameObject> roboBUGwarps;
     public List<GameObject> bugs;
     public List<GameObject> roboBUGcomments;
@@ -52,7 +51,6 @@ public class LevelManager
         SetTitle();
 
         lines = new List<GameObject>();
-        prints = new List<GameObject>();
         bugs = new List<GameObject>();
         roboBUGwarps = new List<GameObject>();
         roboBUGcomments = new List<GameObject>();
@@ -99,10 +97,6 @@ public class LevelManager
         {
             GameObject.Destroy(variablecolor);
         }
-        foreach (GameObject print in prints)
-        {
-            GameObject.Destroy(print);
-        }
         foreach (GameObject incorrectComment in robotONincorrectComments)
         {
             GameObject.Destroy(incorrectComment);
@@ -146,7 +140,6 @@ public class LevelManager
         // Reset local variables
        
         lines = new List<GameObject>();
-        prints = new List<GameObject>();
         roboBUGwarps = new List<GameObject>();
         robotONcorrectComments = new List<GameObject>();
         robotONrenamers = new List<GameObject>();
@@ -265,7 +258,7 @@ public class LevelManager
                 {
                     toolFactory = new BreakpointFactory(childnode, lineNumber);
                     GameObject newbreakpoint = toolFactory.GetGameObject();
-                    newbreakpoint.transform.position = new Vector3(-10, properties.initialLineY - lineNumber *0.99f, 1);
+                    newbreakpoint.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET- lineNumber *properties.linespacing, 1);
                     roboBUGbreakpoints.Add(newbreakpoint);
                     return newbreakpoint;
                 }
@@ -299,7 +292,7 @@ public class LevelManager
                 {
                     toolFactory = new VariableColorFactory(childnode, lineNumber);
                     GameObject newvariablecolor = toolFactory.GetGameObject();
-                    newvariablecolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber * properties.linespacing, 1);
+                    newvariablecolor.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - lineNumber * properties.linespacing + properties.lineOffset + 0.4f, 1);
                     robotONvariablecolors.Add(newvariablecolor);
                     return newvariablecolor;
                 }
@@ -313,16 +306,7 @@ public class LevelManager
     {
         // Resize game objects
         // Each game object needs to know its line number I think. Alternatively, the line number can be derived based on its position.
-        foreach (GameObject printer in prints)
-        {
-            printer.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - printer.GetComponent<printer>().Index * properties.linespacing, 1);
-        }
-        foreach (GameObject warp in roboBUGwarps)
-        {
-            warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - warp.GetComponent<warper>().Index * properties.linespacing, 1);
-
-        }
-
+        
         List<GameObject> allComments = new List<GameObject>();
         allComments.AddRange(robotONcorrectComments);
         allComments.AddRange(robotONincorrectComments);
@@ -338,14 +322,24 @@ public class LevelManager
         {
             question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - question.GetComponent<question>().Index * properties.linespacing, 1);
         }
+        foreach (GameObject printer in roboBugPrint)
+        {
+            printer.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY +stateLib.TOOLBOX_Y_OFFSET - printer.GetComponent<printer>().Index * properties.linespacing, 1);
+        }
         foreach (GameObject rename in robotONrenamers)
         {
             rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
         }
-
+        foreach (GameObject warp in roboBUGwarps)
+        {
+            warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - warp.GetComponent<warper>().Index * properties.linespacing, 1);
+        }
         foreach (GameObject beacon in robotONbeacons)
         {
             beacon.transform.position = new Vector3(-9.95f, properties.initialLineY - beacon.GetComponent<beacon>().Index * properties.linespacing + properties.lineOffset + 0.4f, 1);
+        }
+        foreach(GameObject breakpoint in roboBUGbreakpoints){
+            breakpoint.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - breakpoint.GetComponent<Breakpoint>().Index*properties.linespacing, 1); 
         }
         foreach (GameObject varcolor in robotONvariablecolors)
         {

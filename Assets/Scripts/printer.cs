@@ -21,7 +21,10 @@ public class printer : Tools {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Logger.printLogFile(stringLib.LOG_PRINTED, this.transform.position);
 			Destroy(collidingObj.gameObject);
-			output.Text.text = displaytext;
+			if (displaytext.Contains("$err$")){
+                output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 
+            }
+			else output.Text.text = displaytext;
 			GetComponent<AudioSource>().Play();
             GlobalState.level.CompletedTasks[1]++;
 			if (!toolgiven) {

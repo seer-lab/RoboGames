@@ -58,7 +58,6 @@ public class SelectedTool : MonoBehaviour
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
-        levelDescription.GetComponent<Text>().text = GameObject.Find("Description").GetComponent<TextMesh>().text;
     }
     private void CheckLosing()
     {
