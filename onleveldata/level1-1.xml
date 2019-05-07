@@ -16,4 +16,6 @@ Let's find out how to speak in C++!</introtext>
 	Type your answer: " answer="hello world">"hello world";</question>
 }
 </code>
+<hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 
+testing the output of the program<hint>
 </level>
