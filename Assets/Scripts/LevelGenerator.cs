@@ -83,6 +83,7 @@ public partial class LevelGenerator : MonoBehaviour {
     /// </summary>
     public void BuildLevel(bool warp = false)
     {
+        manager.SetTitle();
         ResetLevel(warp);
         CreateLevelLines(GlobalState.level.LineCount);
         PlaceObjects(GlobalState.level.LevelNode);

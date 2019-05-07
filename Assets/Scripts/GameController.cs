@@ -137,6 +137,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
         lg.WarpPlayer(line); 
+
     }
     // Start is called before the first frame update
     void Start()

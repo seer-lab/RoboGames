@@ -1,3 +1,4 @@
+using System.Data;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -19,7 +20,7 @@ public class TextColoration {
     string patternCommentPython = @"(\/\/|\n#|\s#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\t|\()(class|print|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
-    string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
+    string patternKeywordCpp = @"(^| |\s|\n|\t|\()(class|else if|int\[\]|cout|cin|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|short|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*)";
     string patternComment = patternCommentPython;
     string patternKeyword = patternKeywordPython;
@@ -50,6 +51,7 @@ public class TextColoration {
     Regex rgxInclude = new Regex(patternInclude);
 
     Match mStringLiteral, mComment, mKeyword, mInclude;
+
     mInclude = rgxInclude.Match(sText);
 	
     while (mInclude.Success) {
@@ -65,9 +67,10 @@ public class TextColoration {
 		Debug.Log("key result " + sText);
 
 		mKeyword = mKeyword.NextMatch();
-
 		
 	}
+
+	
     mStringLiteral = rgxStringLiteral.Match(sText);
 	while (mStringLiteral.Success)
 	{
@@ -128,6 +131,9 @@ public class TextColoration {
 	sText = amprgx.Replace(sText, "$2$1");
 	
     Debug.Log("ColorizeText processedString: " + sText);
+	sText = sText.Replace("float ", stringLibrary.syntax_color_keyword + "float " + stringLib.CLOSE_COLOR_TAG);
+		sText = sText.Replace("else if", stringLibrary.syntax_color_keyword + "else if" + stringLib.CLOSE_COLOR_TAG);
+		sText = sText.Replace("else", stringLibrary.syntax_color_keyword + "else" + stringLib.CLOSE_COLOR_TAG);
     return sText;
   }
 
@@ -142,6 +148,7 @@ public class TextColoration {
 	Debug.Log("decolored text = " + sText);
     return sText;
   }
+	
 
   public string ColorTaskLine(string sLine, int nLine, LevelGenerator lg)
 	{

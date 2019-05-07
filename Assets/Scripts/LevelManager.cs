@@ -347,7 +347,7 @@ public class LevelManager
         }
     }
     //Update the Title object of the level. 
-    void SetTitle()
+    public void SetTitle()
     {
         TextMesh title = GameObject.Find("Description").GetComponent<TextMesh>();
         foreach (XmlNode codenode in GlobalState.level.CodeNodes)
