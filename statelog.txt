@@ -1,0 +1,2 @@
+NewState, PreviousState#, Time, CurrentLevel
+LevelBegin, 10, 19.57426, level1-1.xml

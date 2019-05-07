@@ -234,7 +234,6 @@ public class SelectedTool : MonoBehaviour
             
             toolCounts[projectilecode] = 0;
             bonusTools[projectilecode] = 0;
-            NextTool();
         }
         else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
         {
