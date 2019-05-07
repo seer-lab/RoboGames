@@ -48,13 +48,13 @@ public class HintDispayController : MonoBehaviour
         //     output.Text.text = "";
         // }
     }
-    private void CheckAvailableTools() {
-        for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-            if (toolCounts[i] + bonusTools[i] > 0) {
-                if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
-                    projectilecode = i;
-                }
-            }
-        }
-    }
+    // private void CheckAvailableTools() {
+    //     for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
+    //         if (toolCounts[i] + bonusTools[i] > 0) {
+    //             if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
+    //                 projectilecode = i;
+    //             }
+    //         }
+    //     }
+    // }
 }
