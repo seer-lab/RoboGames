@@ -16,6 +16,7 @@ public class Camera2 : MonoBehaviour
 	public int track = 0;
 	public GameObject hero;
 	public GameObject codescreen;
+	/*
 	public AudioClip menutrack;
 	public AudioClip victorytrack;
 	public AudioClip newleveltrack;
@@ -23,7 +24,7 @@ public class Camera2 : MonoBehaviour
 	public AudioClip endtrack;
 	public AudioClip comictrack;
 	public AudioClip[] soundtrack = new AudioClip[15];
-
+*/
 	private int laststate = stateLib.GAMESTATE_MENU;
 	private int trackmax = 12;
 	private AudioSource ads;
@@ -32,14 +33,15 @@ public class Camera2 : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
-		ads = GetComponent<AudioSource>();
-		ads.clip = menutrack;
+		//ads = GetComponent<AudioSource>();
+		//ads.clip = menutrack;
 	}
 
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
         int gs = GlobalState.GameState; 
+		/*
 		if (laststate != gs) {
 			switch(gs) {
 				case stateLib.GAMESTATE_INITIAL_COMIC:
@@ -90,6 +92,7 @@ public class Camera2 : MonoBehaviour
 			}
 			laststate = gs;
 		}
+		*/
 		// Game End
 		if (gs == stateLib.GAMESTATE_GAME_END) {
 			GetComponent<Camera>().transform.position = new Vector3(54.4f, 50f, -10f);

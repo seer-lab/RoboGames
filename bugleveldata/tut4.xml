@@ -7,12 +7,12 @@ Use the BUGCATCHER tool to catch the bug when you find it.</description>
 <code>void function1(){
     //do some stuff
 	
-<comment type="robobug" groupid="1" size="3" text="Error in doMoreStuff function!
+<comment type="robobug" groupid="1" size="3" text="$err$Error in doMoreStuff function!
 (it hasn't been commented out yet)">doStuff(x);
     doMoreStuff(x);
     doAllStuff(x);</comment>
     	
-    <comment type="robobug" groupid="2" size="3" text="Error in doMoreStuff function!
+    <comment type="robobug" groupid="2" size="3" text="$err$Error in doMoreStuff function!
 (it hasn't been commented out yet)">doStuff(y);
     doMoreStuff(y);
     doAllStuff(y);</comment>

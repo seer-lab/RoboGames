@@ -18,12 +18,12 @@ Time to find the final bugs!</endtext>
 </tools>
 <code>void main(){
     checkforBugs();
-//sum() returns the sum of two numbers (e.g. sum(1,1) == 1+1 == 2)
+    //sum() returns the sum of two numbers (e.g. sum(1,1) == 1+1 == 2)
     <breakpoint text="Variables not defined yet!"></breakpoint>int x = sum(2,2);
-//multiply() returns the product of two numbers (e.g. multiply(2,3) == 2x3 == 6)
-    <breakpoint text="x = 4"></breakpoint>int y = m$bug$ultiply(3,4);
+    //multiply() returns the product of two numbers (e.g. multiply(2,3) == 2x3 == 6)
+    <breakpoint text="x = 4"></breakpoint>     int y = m$bug$ultiply(3,4);
     <breakpoint tool="999,0,0,0,0,0" text="x = 4
-    y = 9"></breakpoint>return;
+    y = 9"></breakpoint>  return;
 }
 </code>
 </level>

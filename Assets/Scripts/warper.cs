@@ -34,8 +34,7 @@ public class warper : Tools
                     {
                         lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
                     }
-                    selectedTool.toolCounts[i] += tools[i];
-                    Debug.Log(i + ": " + tools[i]);
+                    selectedTool.toolCounts[i] += tools[i];                    Debug.Log(i + ": " + tools[i]);
                 }
             }
             GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + Filename, WarpToLine);

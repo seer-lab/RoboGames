@@ -137,6 +137,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
         lg.WarpPlayer(line); 
+
     }
     // Start is called before the first frame update
     void Start()
@@ -162,7 +163,11 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
+            Debug.Log("Handling Sidebar"); 
             sidebar.ToggleSidebar(); 
+        }
+        else if (Input.GetKeyDown(KeyCode.X) && !Output.IsAnswering){
+            lg.TransformTextSize(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {

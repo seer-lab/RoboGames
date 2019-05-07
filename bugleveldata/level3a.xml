@@ -26,9 +26,9 @@ struct color{
 void LoadColors(colormanager cm, colordatabase db){
 
     cm.initialize();
-    <print text="&lt;color=#ff0000ff&gt;A green color value
+    <print text="$err$A green color value
 in the database
-is out of bounds&lt;/color&gt;" tool="1,0,8,0,0,0">db.checkColors();</print>
+is out of bounds" tool="1,0,8,0,0,0">db.checkColors();</print>
 	
     cm.Blues = db.getBlues();
     cm.Reds = db.getReds();

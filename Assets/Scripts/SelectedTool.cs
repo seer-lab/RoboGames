@@ -58,7 +58,6 @@ public class SelectedTool : MonoBehaviour
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
-        levelDescription.GetComponent<Text>().text = GameObject.Find("Description").GetComponent<TextMesh>().text;
     }
     private void CheckLosing()
     {
@@ -115,6 +114,8 @@ public class SelectedTool : MonoBehaviour
             if (projectilecode == 0 && toolCounts[stateLib.TOOL_CATCHER_OR_ACTIVATOR] == 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
             {
                 noRemainingActivators = true;
+                toolIcons[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Image>().enabled = false; 
+                toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().enabled = false; 
                 losstime = Time.time + lossDelay;
             }
         }
@@ -230,8 +231,10 @@ public class SelectedTool : MonoBehaviour
             taskComplete[projectilecode] = true;
             toolIcons[projectilecode].GetComponent<Image>().enabled = false;
             toolLabels[projectilecode].GetComponent<Text>().enabled = false;
+            
             toolCounts[projectilecode] = 0;
             bonusTools[projectilecode] = 0;
+            NextTool();
         }
         else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
         {

@@ -30,7 +30,11 @@ public class BugComment : comment
             // CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
             // 																	  blocktext.Replace("/**/","") +
             // 																	  " */" + stringLib.CLOSE_COLOR_TAG);
-            output.Text.text = errmsg;
+
+            if (errmsg.Contains("$err$")){
+                output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", ""); 
+            }
+            else output.Text.text = errmsg;
             resetTime = Time.time + timeDelay;
             resetting = true;
 

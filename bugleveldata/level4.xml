@@ -31,16 +31,16 @@ target FirstPriority(threatID id){
     <breakpoint text="id = [t1,t2,t3]
 num_of_threats = 3"></breakpoint>
     <breakpoint text="id = [t1,t2,t3]
-num_of_threats = 3"></breakpoint>    target t1 = id.getThreat(1);
+num_of_threats = 3"></breakpoint>target t1 = id.getThreat(1);
 
-    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>    target t2 = id.getThreat(2);
+    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>target t2 = id.getThreat(2);
 
     <breakpoint text="t1.x,y,z = 100,50,50
-t2.x,y,z = 50,51,50"></breakpoint>    target t3 = id.getThreat(3);
+t2.x,y,z = 50,51,50"></breakpoint>target t3 = id.getThreat(3);
 
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50
-t3.x,y,z = 255,0,75"></breakpoint>    target closest = Closer(t1, t2);
+t3.x,y,z = 255,0,75"></breakpoint>target closest = Closer(t1, t2);
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50
 t3.x,y,z = 255,0,75

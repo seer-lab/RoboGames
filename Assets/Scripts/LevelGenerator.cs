@@ -83,6 +83,7 @@ public partial class LevelGenerator : MonoBehaviour {
     /// </summary>
     public void BuildLevel(bool warp = false)
     {
+        manager.SetTitle();
         ResetLevel(warp);
         CreateLevelLines(GlobalState.level.LineCount);
         PlaceObjects(GlobalState.level.LevelNode);
@@ -158,7 +159,7 @@ public partial class LevelGenerator : MonoBehaviour {
 				string lineNumber = (x).ToString();
 
 				lineNumbers[x-1] = lineNumber;
-			}
+			}   
 			drawCode += lineNumbers[x-1] + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
 		}
@@ -212,36 +213,7 @@ public partial class LevelGenerator : MonoBehaviour {
             int numberOfrobotONcorrectUncomments = 0;
             int numberOfrobotONincorrectUncomments = 0;
 
-            //Create a single list of comments. 
-            List<GameObject> allComments = new List<GameObject>();
-            allComments.AddRange(manager.robotONcorrectComments);
-            allComments.AddRange(manager.robotONincorrectComments);
-            allComments.AddRange(manager.robotONcorrectUncomments);
-            allComments.AddRange(manager.robotONincorrectUncomments);
-            //allComments.AddRange(manager.roboBUGcomments); 
-
-            //Adjust all the positions. 
-            foreach (GameObject comment in allComments)
-            {
-                comment.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (comment.GetComponent<comment>().Index) * properties.linespacing, 0f);
-            }
-            foreach (GameObject question in manager.robotONquestions)
-            {
-                question.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - question.GetComponent<question>().Index * properties.linespacing, 1);
-            }
-            foreach (GameObject rename in manager.robotONrenamers)
-            {
-                rename.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - rename.GetComponent<rename>().Index * properties.linespacing, 1);
-            }
-            foreach (GameObject warp in manager.roboBUGwarps)
-            {
-                warp.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - warp.GetComponent<warper>().Index * properties.linespacing, 1);
-            }
-            foreach (GameObject print in manager.roboBugPrint)
-            {
-                print.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - print.GetComponent<printer>().Index, 1);
-            }
-
+            manager.ResizeObjects();
             GameObject thisObject;
             for (int i = 0; i < codenode.ChildNodes.Count; i++)
             {
@@ -483,7 +455,12 @@ public partial class LevelGenerator : MonoBehaviour {
     // Method: public void TransformTextSize(int nTextSizeConst)
     // Description: Transform the play area to correspond to a new text size.
     //************************************************************************//
-    public void TransformTextSize(int nTextSizeConst) {
+    public void TransformTextSize(int nTextSizeConst = -1) {
+
+        if (nTextSizeConst == -1){
+            nTextSizeConst = leveltext.GetComponent<TextMesh>().fontSize;
+        }
+
 		hero.transform.position = new Vector3(-9.5f, properties.initialLineY, hero.transform.position.z);
 		switch (nTextSizeConst) {
 			case stateLib.TEXT_SIZE_SMALL:
