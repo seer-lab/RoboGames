@@ -7,11 +7,13 @@ public class HintDispayController : MonoBehaviour
 {
     public int projectilecode = 0;
     public int usedprojectile = 0;
-    public int[] toolCounts = new int[stateLib.NUMBER_OF_TOOLS];
-    public int[] bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
-    public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
-    public GameObject codescreen;
+    public string hints;
+    // public int[] toolCounts = new int[stateLib.NUMBER_OF_TOOLS];
+    // public int[] bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
+    // public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
+    protected Output output;
     public GameObject toolAvailableTools;
+    public GameObject hint;
 
     private LevelGenerator lg;
 
@@ -19,14 +21,12 @@ public class HintDispayController : MonoBehaviour
 
     // Use this for initialization
     void Start() {
-        lg = codescreen.GetComponent<LevelGenerator>();
         this.GetComponent<Text>().text = "";
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
-
-        CheckAvailableTools();
-        if(projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
-
-        }
+        output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
+        Debug.Log(message: GlobalState.level.Hint);
+        hints = GlobalState.level.Hint;
+        
     }
 
     // Update is called once per frame
@@ -34,11 +34,19 @@ public class HintDispayController : MonoBehaviour
     {
         //Idea, if the user has used one of its tool, display a hint
 
-        CheckAvailableTools();
 
-        if(GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && (usedprojectile < projectilecode)) {
-            Debug.Log("Show Hint here");
+        if(Input.GetKeyDown("h")){
+            output.Text.text = hints;
+        }else if(Input.GetKeyDown("enter")){
+            output.Text.text = ""; 
         }
+        // if(usedprojectile == 1){
+        //     output.Text.text = hints;
+        //     //output.GetComponent<Text>().text = hints;
+        // }else{
+        //     usedprojectile =0;
+        //     output.Text.text = "";
+        // }
     }
     private void CheckAvailableTools() {
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
