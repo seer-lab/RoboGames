@@ -385,7 +385,7 @@ public partial class LevelGenerator : MonoBehaviour {
                 case "breakpointer":
                     toolnum=stateLib.TOOL_CONTROL_FLOW; 
                     break;
-                case "answer":
+                case "checker":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
                     break;
                 case "warper":
@@ -403,6 +403,7 @@ public partial class LevelGenerator : MonoBehaviour {
                 default:
                     break;
             }
+            Debug.Log("Adding Tool: " + toolnum);
             toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             toolIcons[toolnum].transform.GetChild(0).GetComponent<Text>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);
