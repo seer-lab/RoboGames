@@ -11,9 +11,11 @@ public class LevelFactory
 
     IList<XmlNode> nodelist;
     Level level; 
+    public bool failureHappened;
 
     public LevelFactory(string filename, bool warp = false)
     {
+        failureHappened = false;
         level = new Level();
         if (warp)
             BuildFromCurrent(filename); 
@@ -41,12 +43,26 @@ public class LevelFactory
 
         level.NodeList = XMLReader.GetToolNodes(doc);
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
+
+        level.Failure_Level = XMLReader.GetFailureLevel(doc);
+        //Hacking time
+        string tempFilename = "onleveldata//" + level.Failure_Level;
+        // Debug.LogWarning("TmpFilename: " + tempFilename);
+        // Debug.LogWarning("Original Filename: " + level.FileName);
+
+        // if(!(tempFilename.Equals(level.FileName)) && !tempFilename.Equals("onlevel//NULL") && !failureHappened){
+        //     XmlDocument docTemp = XMLReader.ReadFile(tempFilename);
+        //     level= new Level();
+        //     failureHappened = true;
+        //     BuildLevel(tempFilename);
+        // }
     }
     private void BuildFromCurrent(string filename)
     {
+        failureHappened = true;
         level = GlobalState.level;
         XmlDocument doc = XMLReader.ReadFile(filename);
-        BuildFile(doc,filename); 
+        BuildLevel(filename); 
 
     }
     
@@ -55,6 +71,7 @@ public class LevelFactory
         level.Tasks = new int[5];
         level.CompletedTasks = new int[5];
         XmlDocument doc = XMLReader.ReadFile(filename);
+
         BuildFile(doc, filename); 
         // time
         try
@@ -73,5 +90,6 @@ public class LevelFactory
         level.IntroText = XMLReader.GetIntroText(doc);
         // end text
         level.ExitText = XMLReader.GetEndText(doc);
+        level.Hint = XMLReader.GetHints(doc);
     }
 }

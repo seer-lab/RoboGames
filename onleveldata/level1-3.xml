@@ -1,13 +1,14 @@
 <level>
 <next-level>level1-4.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
 <description>String Theory</description>
 <introtext>Here's a chance to work with
 STRINGS and OUTPUT</introtext>
 <endtext>Your skills are cOUT of this world!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="commenter" enabled="true" count="unlimited"/>
-<tool name="checker" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
 </tools>
 <code language="c++">//Recall that COUT is used to print out variables.
 <comment type="description" correct="true" size="1" groupid="0">Input and output operations come from LIBRARIES that you add to your code.</comment>
