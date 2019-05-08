@@ -29,12 +29,14 @@ public class Camera2 : MonoBehaviour
 	private int trackmax = 12;
 	private AudioSource ads;
 
-
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+		GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE = this.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0,1,0)).x + 2.32f;
+		hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, hero.transform.position.y, hero.transform.position.z);
 		//ads = GetComponent<AudioSource>();
 		//ads.clip = menutrack;
+
 	}
 
 	//.................................>8.......................................
