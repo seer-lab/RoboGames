@@ -230,7 +230,7 @@ public partial class LevelGenerator : MonoBehaviour {
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
                             GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0]);
 
-                            thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index)*0.99f, 0f);
+                            thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index)*0.99f, 0f);
                             //Removed; using sprites instead:
                             numberOfroboBUGcomments++;
                             break;
@@ -247,7 +247,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                     GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_COMMENTER]++;
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
-                                thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
+                                thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
 
                                 float yPos = (properties.textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? properties.textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
                                 //Removed; using sprites instead:						
@@ -269,7 +269,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
                                 float yPos = (properties.textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? properties.textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-                                thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
+                                thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
 
                                 numberOfrobotONincorrectComments++;
                             }
@@ -290,7 +290,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
                                 float yPos = (properties.textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? properties.textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-                                thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
+                                thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
 
                                 //Removed; using sprites instead:
                                 //thisObject.transform.localScale = new Vector3(thisObject.transform.localScale.x, yPos, thisObject.transform.localScale.z);
@@ -309,7 +309,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
                                 float yPos = (properties.textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? properties.textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
-                                thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
+                                thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * properties.linespacing, 0f);
 
                                 numberOfrobotONincorrectUncomments++;
                             }
@@ -442,7 +442,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
 
         // Move player to default position
-        hero.transform.position = leveltext.transform.position;
+        //hero.transform.position = leveltext.transform.position;
     }
 
 
@@ -457,7 +457,8 @@ public partial class LevelGenerator : MonoBehaviour {
             nTextSizeConst = leveltext.GetComponent<TextMesh>().fontSize;
         }
 
-		hero.transform.position = new Vector3(-9.5f, properties.initialLineY, hero.transform.position.z);
+		hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
+        leveltext.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f, leveltext.transform.position.y, leveltext.transform.position.z);
 		switch (nTextSizeConst) {
 			case stateLib.TEXT_SIZE_SMALL:
 			    leveltext.GetComponent<TextMesh>().fontSize = stateLib.TEXT_SIZE_NORMAL;
