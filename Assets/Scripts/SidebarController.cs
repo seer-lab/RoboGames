@@ -11,7 +11,7 @@ public class SidebarController : MonoBehaviour
 {
     public GameObject panel, levelDescriptor, availableTools;
     public GameObject[] tools = new GameObject[6]; 
-    public GameObject checklist, tool, timer;
+    public GameObject checklist, tool, timer, hint;
     private Sprite[] panels = new Sprite[8];
     private stringLib stringLibrary;
     bool active = true; 
@@ -54,6 +54,7 @@ public class SidebarController : MonoBehaviour
         levelDescriptor.GetComponent<Text>().color = Color.black; 
         availableTools.GetComponent<Text>().color = Color.black;
         tool.GetComponent<Text>().color = Color.black;
+        hint.GetComponent<Text>().color = Color.black;
 
         stringLibrary.node_color_print = stringLibrary.node_color_print_dark;
         stringLibrary.node_color_warp = stringLibrary.node_color_warp_dark;
@@ -92,7 +93,6 @@ public class SidebarController : MonoBehaviour
     }
     public void ToggleDark()
     {
-
         timer.GetComponent<Text>().color = Color.white;
         panel.GetComponent<Image>().sprite = panels[1];
         levelDescriptor.GetComponent<Text>().color = Color.white;

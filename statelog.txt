@@ -1,2 +1,6 @@
 NewState, PreviousState#, Time, CurrentLevel
+<<<<<<< HEAD
 LevelBegin, 10, 19.57426, level1-1.xml
+=======
+LevelBegin, 10, 4.429517, level1-1.xml
+>>>>>>> master

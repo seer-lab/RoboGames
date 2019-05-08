@@ -108,6 +108,28 @@ public static class XMLReader {
     return "python";
   }
 
+    //Parses Through the file for hint tag
+    // TODO: Handle cases within child node of code
+    public static string GetHints(XmlDocument doc) {
+        foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes) {
+            if(xmlNode.Name == stringLib.NODE_NAME_HINT) {
+                Debug.Log("Tag name in GetHints() " + xmlNode.Name);
+                Debug.Log(xmlNode.InnerText);
+                return xmlNode.InnerText;
+            }
+        }
+        return "hint sucks";
+    }
+
+  public static string GetFailureLevel(XmlDocument doc){
+    foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes){
+      if(xmlNode.Name == "failure_level"){
+        return xmlNode.InnerText;
+      }
+    }
+      return "Null";
+  }
+
   public static IList<XmlNode> GetNodesInString(string s) {
     IList<XmlNode> nodelist = new List<XmlNode>();
     XmlDocument doc = new XmlDocument();
