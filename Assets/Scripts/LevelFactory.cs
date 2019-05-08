@@ -41,6 +41,14 @@ public class LevelFactory
 
         level.NodeList = XMLReader.GetToolNodes(doc);
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
+
+        level.Failure_Level = XMLReader.GetFailureLevel(doc);
+        // //Hacking time
+        // string tempFilename = "onleveldata\\" + level.Failure_Level;
+        // if(tempFilename != level.FileName || tempFilename != "onleveldata\\NULL"){
+        //     doc = XMLReader.ReadFile(tempFilename);
+        //     BuildFile(doc,tempFilename);
+        // }
     }
     private void BuildFromCurrent(string filename)
     {
@@ -55,6 +63,7 @@ public class LevelFactory
         level.Tasks = new int[5];
         level.CompletedTasks = new int[5];
         XmlDocument doc = XMLReader.ReadFile(filename);
+
         BuildFile(doc, filename); 
         // time
         try

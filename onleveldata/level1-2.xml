@@ -1,6 +1,6 @@
 <level>
 <next-level>level1-3.xml</next-level>
-<!-- <failure_level>level1-1.xml</failure_level> -->
+<failure_level>level1-1.xml</failure_level>
 <description>What's Your Type?</description>
 <introtext>A Mech Suit saves information using VARIABLES.
 Check out the types that are used in C++.</introtext>
