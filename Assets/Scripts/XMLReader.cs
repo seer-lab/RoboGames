@@ -121,6 +121,15 @@ public static class XMLReader {
         return "hint sucks";
     }
 
+  public static string GetFailureLevel(XmlDocument doc){
+    foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes){
+      if(xmlNode.Name == "failure_level"){
+        return xmlNode.InnerText;
+      }
+    }
+      return "Null";
+  }
+
   public static IList<XmlNode> GetNodesInString(string s) {
     IList<XmlNode> nodelist = new List<XmlNode>();
     XmlDocument doc = new XmlDocument();
