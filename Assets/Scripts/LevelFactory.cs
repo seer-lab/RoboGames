@@ -11,9 +11,11 @@ public class LevelFactory
 
     IList<XmlNode> nodelist;
     Level level; 
+    public bool failureHappened;
 
     public LevelFactory(string filename, bool warp = false)
     {
+        failureHappened = false;
         level = new Level();
         if (warp)
             BuildFromCurrent(filename); 
@@ -43,18 +45,24 @@ public class LevelFactory
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
 
         level.Failure_Level = XMLReader.GetFailureLevel(doc);
-        // //Hacking time
-        // string tempFilename = "onleveldata\\" + level.Failure_Level;
-        // if(tempFilename != level.FileName || tempFilename != "onleveldata\\NULL"){
-        //     doc = XMLReader.ReadFile(tempFilename);
-        //     BuildFile(doc,tempFilename);
+        //Hacking time
+        string tempFilename = "onleveldata//" + level.Failure_Level;
+        // Debug.LogWarning("TmpFilename: " + tempFilename);
+        // Debug.LogWarning("Original Filename: " + level.FileName);
+
+        // if(!(tempFilename.Equals(level.FileName)) && !tempFilename.Equals("onlevel//NULL") && !failureHappened){
+        //     XmlDocument docTemp = XMLReader.ReadFile(tempFilename);
+        //     level= new Level();
+        //     failureHappened = true;
+        //     BuildLevel(tempFilename);
         // }
     }
     private void BuildFromCurrent(string filename)
     {
+        failureHappened = true;
         level = GlobalState.level;
         XmlDocument doc = XMLReader.ReadFile(filename);
-        BuildFile(doc,filename); 
+        BuildLevel(filename); 
 
     }
     
