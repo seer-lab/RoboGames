@@ -16,10 +16,10 @@ You've aced the indentations!</endtext>
 using namespace std;
 int main {
 <comment type="description" correct="true" size="1" groupid="0">	Proper indentation helps you to see where the code fits.</comment>
-	<comment type="code" correct="true" size="1" groupid="1" style="single">//int year = 2016;</comment>
+<comment type="code" correct="true" size="1" groupid="1" style="single">	//int year = 2016;</comment>
 <comment type="description" correct="true" size="1" groupid="2">	You should have an indent inside each new if statement, loop, or function.</comment>
 	if (year &gt;= 2000){
-		<comment type="code" correct="true" size="1" groupid="3">//cout &lt;&lt; "It's the 21st century!";</comment>
+<comment type="code" correct="true" size="1" groupid="3">		//cout &lt;&lt; "It's the 21st century!";</comment>
 	}
 	//Read the code below, then choose the right names and correctly styled code.
 <comment type="code" correct="true" size="1" groupid="4" style="single">	//int birthyear;</comment>
@@ -37,8 +37,8 @@ int main {
 	}
 	else{
 <comment type="code" correct="false" size="1" groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
-	<comment type="code" correct="true" size="1" groupid="9" style="single">	//cout &lt;&lt; "Enter a valid year:"</comment>
-		<comment type="code" correct="false" size="1" groupid="9" style="single">		//cout &lt;&lt; "Enter a valid year:"</comment>		
+<comment type="code" correct="false" size="1" groupid="9" style="single">	  //cout &lt;&lt; "Enter a valid year:"</comment>
+<comment type="code" correct="true" size="1" groupid="9" style="single">		 //cout &lt;&lt; "Enter a valid year:"</comment>		
 	}
 }
 	int <variable-rename text="Choose a name for this variable: " options="temperature,time,age,date" correct="age" groupid="1">x</variable-rename> = year - birthyear;

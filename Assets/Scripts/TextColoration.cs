@@ -69,7 +69,9 @@ public class TextColoration {
 		mKeyword = mKeyword.NextMatch();
 		
 	}
-
+		//find ints 
+	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
+	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
 	
     mStringLiteral = rgxStringLiteral.Match(sText);
 	while (mStringLiteral.Success)
@@ -119,9 +121,6 @@ public class TextColoration {
 	parrgx = new Regex(@"(?s)(<color=#.{8}>)(\)|\()");
 	sText = parrgx.Replace(sText, "$2$1");
 	
-	//find ints 
-	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
-	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
 	//fix braces stuck in color tags
 	Regex brrgx = new Regex(@"(?s)(}|{)(<\/color>)");
 	sText = brrgx.Replace(sText, "$2$1");
