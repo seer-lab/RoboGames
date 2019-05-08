@@ -5,6 +5,7 @@
 Be careful not to follow into a trap!</introtext>
 <endtext>Good show! 
 You've made it through some tricky stuff!</endtext>
+<failure_level>level1-1.xml</failure_level>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="commenter" enabled="true" count="unlimited"/>

@@ -6,6 +6,7 @@ Can you output the right answers?</introtext>
 <endtext>Congratulations! 
 You've mastered data types and variables!</endtext>
 <timelimit>unlimited</timelimit>
+<failure_level>level1-5.xml</failure_level>
 <tools>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>

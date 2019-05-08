@@ -1,5 +1,6 @@
 <level>
 <next-level>level1-2.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
 <description>Hello World!</description>
 <introtext>A programmer's first program is Hello World!
 Let's find out how to speak in C++!</introtext>
@@ -17,5 +18,5 @@ Let's find out how to speak in C++!</introtext>
 }
 </code>
 <hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 
-testing the output of the program<hint>
+testing the output of the program</hint>
 </level>
