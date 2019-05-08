@@ -20,7 +20,7 @@ public class TextColoration {
     string patternCommentPython = @"(\/\/|\n#|\s#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\t|\()(class|print|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
-    string patternKeywordCpp = @"(^| |\n|\t|\()(class|else if|cout|cin|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|short|unsigned|string)(\W|$|\))";
+    string patternKeywordCpp = @"(^| |\n|\t|\()(class|else if|cout|cin|not|or|and|def|bool|auto|double|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|short|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*)";
     string patternComment = patternCommentPython;
     string patternKeyword = patternKeywordPython;
@@ -119,6 +119,9 @@ public class TextColoration {
 	parrgx = new Regex(@"(?s)(<color=#.{8}>)(\)|\()");
 	sText = parrgx.Replace(sText, "$2$1");
 	
+	//find ints 
+	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
+	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
 	//fix braces stuck in color tags
 	Regex brrgx = new Regex(@"(?s)(}|{)(<\/color>)");
 	sText = brrgx.Replace(sText, "$2$1");
