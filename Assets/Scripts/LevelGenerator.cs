@@ -224,17 +224,12 @@ public partial class LevelGenerator : MonoBehaviour {
                         case "robobug":
                             // RoboBUG comment
                             thisObject = manager.roboBUGcomments[numberOfroboBUGcomments];
-                            thisObject.GetComponent<BugComment>().blocktext = "<color=#00ff00ff>/**/</color>" + codenode.ChildNodes[i].InnerXml;
+                            TextColoration color = new TextColoration(); 
+                            thisObject.GetComponent<BugComment>().blocktext = codenode.ChildNodes[i].InnerXml;
                             Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
+                            GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0]);
 
-                            GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = text[0];
-                            //Debug.Log((thisObject.GetComponent<BugComment>().Index + text.Length - 1) + " " + GlobalState.level.Code.Length);
-                            //GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index + text.Length-1] = text[text.Length-1];
-                           // thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
-                            // Colorize all multi-comment line numbers green
-                            
-                            // Resize the hitbox for this comment to cover all lines (if multi-line comment)
                             thisObject.transform.position = new Vector3(stateLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index)*0.99f, 0f);
                             //Removed; using sprites instead:
                             numberOfroboBUGcomments++;
