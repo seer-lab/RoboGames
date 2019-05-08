@@ -71,8 +71,7 @@ public class BugCommentFactory : CommentTypeFactory
         Entity = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
         propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
-        {
-            
+        {           
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)

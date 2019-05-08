@@ -10,16 +10,16 @@ public class BugComment : comment
     bool isAnswered = false; 
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
-        if (collidingObj.name == stringLib.PROJECTILE_COMMENT)
+        if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isAnswered)
         {
             isAnswered = true; 
             Logger.printLogFile(stringLib.LOG_COMMENT_ON, this.transform.position);
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
-            blocktext = blocktext.Substring("<color=#00ff00ff>/**/</color>".Length, blocktext.Length- "<color=#00ff00ff>/**/</color>".Length);
-            blocktext = "<color=#00ff00ff>/*" + blocktext + "*/</color>";
+            //blocktext = blocktext.Substring("<color=#00ff00ff>/**/</color>".Length, blocktext.Length- "<color=#00ff00ff>/**/</color>".Length);
+            string value = "<color=#00ff00ff>/*" + blocktext + "*/</color>";
             
-            string[] text = blocktext.Split('\n');
+            string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
             {
                 GlobalState.level.Code[index + i] = text[i];
@@ -53,9 +53,9 @@ public class BugComment : comment
     }
     public override void UpdateProtocol(){
         if (output.Text.text == "" && isAnswered){
-            blocktext = blocktext.Substring("<color=#00ff00ff>/*".Length, blocktext.Length-"<color=#00ff00ff>/**/</color>".Length);
-            blocktext = "<color=#00ff00ff>/**/</color>" + blocktext; 
-            string[] text = blocktext.Split('\n');
+            string value = textColoration.ColorizeText(blocktext); 
+            value = "<color=#00ff00ff>/**/</color>" + value; 
+            string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
             {
                 GlobalState.level.Code[index + i] = text[i];

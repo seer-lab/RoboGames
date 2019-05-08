@@ -20,7 +20,7 @@ public class TextColoration {
     string patternCommentPython = @"(\/\/|\n#|\s#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\t|\()(class|print|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
-    string patternKeywordCpp = @"(^| |\s|\n|\t|\()(class|else if|int\[\]|cout|cin|not|or|and|def|bool|auto|double|int|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|short|unsigned|string)(\W|$|\))";
+    string patternKeywordCpp = @"(^| |\n|\t|\()(class|else if|cout|cin|not|or|and|def|bool|auto|double|struct|break|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|short|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*)";
     string patternComment = patternCommentPython;
     string patternKeyword = patternKeywordPython;
@@ -69,7 +69,9 @@ public class TextColoration {
 		mKeyword = mKeyword.NextMatch();
 		
 	}
-
+		//find ints 
+	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
+	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
 	
     mStringLiteral = rgxStringLiteral.Match(sText);
 	while (mStringLiteral.Success)
@@ -97,7 +99,6 @@ public class TextColoration {
 		sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 		mComment = mComment.NextMatch();
 	}
-	
 	Debug.Log("Pre-cleaning text = " + sText);
 	
 	//Decolorize tags stuck inside words
@@ -125,15 +126,17 @@ public class TextColoration {
 	sText = brrgx.Replace(sText, "$2$1");
 	brrgx = new Regex(@"(?s)(<color=#.{8}>)(}|{)");
 	sText = brrgx.Replace(sText, "$2$1");
-	
+
 	//fix ampersands stuck in color tags
-    Regex amprgx = new Regex(@"(?s)(&)(<\/color>)");
+  Regex amprgx = new Regex(@"(?s)(&)(<\/color>)");
 	sText = amprgx.Replace(sText, "$2$1");
-	
     Debug.Log("ColorizeText processedString: " + sText);
-	sText = sText.Replace("float ", stringLibrary.syntax_color_keyword + "float " + stringLib.CLOSE_COLOR_TAG);
+		//sText = sText.Replace("float ", stringLibrary.syntax_color_keyword + "float " + stringLib.CLOSE_COLOR_TAG);
 		sText = sText.Replace("else if", stringLibrary.syntax_color_keyword + "else if" + stringLib.CLOSE_COLOR_TAG);
 		sText = sText.Replace("else", stringLibrary.syntax_color_keyword + "else" + stringLib.CLOSE_COLOR_TAG);
+		Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
+		sText = colorLine.Replace(sText, '\n' + stringLibrary.syntax_color_keyword);
+		Debug.Log(sText); 
     return sText;
   }
 
