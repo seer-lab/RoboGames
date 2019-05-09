@@ -54,7 +54,7 @@ public class SidebarController : MonoBehaviour
         levelDescriptor.GetComponent<Text>().color = Color.black; 
         availableTools.GetComponent<Text>().color = Color.black;
         tool.GetComponent<Text>().color = Color.black;
-        hint.GetComponent<Text>().color = Color.black;
+        //hint.GetComponent<Text>().color = Color.black;
 
         stringLibrary.node_color_print = stringLibrary.node_color_print_dark;
         stringLibrary.node_color_warp = stringLibrary.node_color_warp_dark;

@@ -53,6 +53,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.CurrentBUGLevel = "level0.xml";
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
         GlobalState.level = null;
+        GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
 
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
@@ -210,7 +211,7 @@ public class OldMenu : MonoBehaviour
                     case 0:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption]; 
-                        SceneManager.LoadScene("Cinematic");       
+                        SceneManager.LoadScene("CharacterSelect");       
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;                       
                         m2switch(false);
@@ -218,7 +219,7 @@ public class OldMenu : MonoBehaviour
                     case 1:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption];
-                        SceneManager.LoadScene("Cinematic");
+                        SceneManager.LoadScene("CharacterSelect");
                         m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
                     
                         m2switch(false);
@@ -282,14 +283,14 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameMode = stringLib.GAME_MODE_ON;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         
-                        SceneManager.LoadScene("Cinematic");  
+                        SceneManager.LoadScene("CharacterSelect");  
 
                         break;
                     case 1:
                         GlobalState.GameMode = stringLib.GAME_MODE_BUG;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = "tut1.xml";
-                        SceneManager.LoadScene("Cinematic"); 
+                        SceneManager.LoadScene("CharacterSelect"); 
                         break;
                 }
                 m2switch(false);
