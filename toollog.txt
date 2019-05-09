@@ -1,5 +1,2 @@
 Tool, Location, Time
-projectileActivator(Clone)Wasted, 16, 12.56
-projectileActivator(Clone)Wasted, 16, 13.14
-projectileActivator(Clone)Wasted, 16, 13.68
-projectileActivator(Clone)Wasted, 16, 14.24
+projectileActivator(Clone)Wasted, 4, 48.38
