@@ -146,28 +146,19 @@ public class hero2Controller : MonoBehaviour
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 		}
 	}
-
-	//.................................>8.......................................
-	void Update() {
-		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
-			AudioSource ad = GetComponent<AudioSource>();
-			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
-			GetComponent<Rigidbody2D>().velocity.y == 0 &&
-			!onWall) {
-				ad.Play();
-				walkloop = true;
-				ad.loop = true;
-			}
-			if (Input.GetAxis("Horizontal") == 0f ||
-			GetComponent<Rigidbody2D>().velocity.y != 0 ||
-			onWall) {
-				ad.loop = false;
-				walkloop = false;
-			}
-
-			//firing
-			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl")) &&
-			   Time.time > nextFire &&
+	private void onWalk(){
+		AudioSource ad = GetComponent<AudioSource>();
+		ad.Play();
+		walkloop = true;
+		ad.loop = true;
+	}
+	private void onStop(){
+		AudioSource ad = GetComponent<AudioSource>();
+		ad.loop = false; 
+		walkloop = false; 
+	}
+	private void onFire(){
+		if (Time.time > nextFire &&
 			   !onWall &&
 			   !Output.IsAnswering &&
 			   GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
@@ -185,6 +176,26 @@ public class hero2Controller : MonoBehaviour
    				else {
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * -300);
    				}
+			   }
+	}
+	//.................................>8.......................................
+	void Update() {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
+			AudioSource ad = GetComponent<AudioSource>();
+			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
+			GetComponent<Rigidbody2D>().velocity.y == 0 &&
+			!onWall) {
+				onWalk(); 
+			}
+			if (Input.GetAxis("Horizontal") == 0f ||
+			GetComponent<Rigidbody2D>().velocity.y != 0 ||
+			onWall) {
+				onStop();
+			}
+
+			//firing
+			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl"))){
+				onFire();
 			}
 			if (Time.time > animDelay) {
 				anim.SetBool("throw", false);
@@ -206,6 +217,8 @@ public class hero2Controller : MonoBehaviour
 		else {
 			GetComponent<AudioSource>().loop = false;
 		}
+
+
 	}
 
 	//.................................>8.......................................
