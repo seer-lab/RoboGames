@@ -71,6 +71,9 @@ public class SelectedTool : MonoBehaviour
             }
         }
     }
+    public void SelectTool(int index){
+        NextTool(index);
+    }
     private void CheckAvailableTools()
     {
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
@@ -221,7 +224,7 @@ public class SelectedTool : MonoBehaviour
     }
 
 	//.................................>8.......................................
-	public void NextTool() {
+	public void NextTool(int index = -1) {
         int notoolcount = 0;
         // Turn this tool's color to the toolOff color.
         print("projectilecode is " + projectilecode.ToString());
@@ -244,7 +247,8 @@ public class SelectedTool : MonoBehaviour
             isLosing = true;
         }
         // Cycle to the next tool.
-        projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+        if (index== -1)projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+        else projectilecode = index; 
         // Count the number of empty tools from the set of tools.
         while (toolCounts[projectilecode] <= 0)
         {
