@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public static class GlobalState 
 {
+    public static string Character {get;set;}
     public static bool IsPlaying { get; set; }
     public static string CurrentONLevel { get; set; }
     public static string CurrentBUGLevel { get; set; }

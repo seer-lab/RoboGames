@@ -141,6 +141,11 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.WarpPlayer(line); 
 
     }
+
+    void Awake(){
+        GameObject hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+        hero.name = "Hero"; 
+    }
     // Start is called before the first frame update
     void Start()
     {

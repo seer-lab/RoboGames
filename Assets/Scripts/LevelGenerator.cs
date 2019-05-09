@@ -35,7 +35,7 @@ public partial class LevelGenerator : MonoBehaviour {
     public GameObject prizeobject;
 
     public GameObject lineobject;
-	public GameObject hero;
+	GameObject hero;
 
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
@@ -61,6 +61,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	private void Start() { 
+        hero = GameObject.Find("Hero");
         properties = new CodeProperties(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
         GlobalState.level.Tasks = new int[5];
