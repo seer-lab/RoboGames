@@ -77,17 +77,21 @@ public class SelectedTool : MonoBehaviour
         {
             if (toolCounts[i] + bonusTools[i] > 0)
             {
-                if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
-                {
-                    toolIcons[i].GetComponent<Image>().enabled = true;
-                    toolLabels[i].GetComponent<Text>().enabled = true; 
-                    toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
-                    //Debug.Log("Updating Icons");
-                }
-                isLosing = false;
-                if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
-                {
-                    projectilecode = i;
+                if(i!= stateLib.TOOL_HINTER){
+
+                
+                    if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
+                    {
+                        toolIcons[i].GetComponent<Image>().enabled = true;
+                        toolLabels[i].GetComponent<Text>().enabled = true; 
+                        toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
+                        //Debug.Log("Updating Icons");
+                    }
+                    isLosing = false;
+                    if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
+                    {
+                        projectilecode = i;
+                    }
                 }
             }
         }
@@ -146,6 +150,10 @@ public class SelectedTool : MonoBehaviour
                 refreshToolList();
                 toolIcons[stateLib.TOOL_HELPER].GetComponent<Image>().color = toolOnColor;
                 break;
+            case stateLib.TOOL_HINTER:
+                refreshToolList();
+                toolIcons[stateLib.TOOL_HINTER].GetComponent<Image>().color = toolOnColor;
+                break;
             default:
                 break;
         }
@@ -190,6 +198,7 @@ public class SelectedTool : MonoBehaviour
         toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().enabled = false;
         toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().enabled = false;
         toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().enabled = false;
+        toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().enabled = false;
         levelDescription.GetComponent<Text>().text = "";
         taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
     }
@@ -226,22 +235,34 @@ public class SelectedTool : MonoBehaviour
         // Turn this tool's color to the toolOff color.
         print("projectilecode is " + projectilecode.ToString());
         toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
-        // If the checklist entry was is completed, then disable this current tool before switching to the next
-        if (GlobalState.level.Tasks[projectilecode] == GlobalState.level.CompletedTasks[projectilecode] && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-        {
-            taskComplete[projectilecode] = true;
-            toolIcons[projectilecode].GetComponent<Image>().enabled = false;
-            toolLabels[projectilecode].GetComponent<Text>().enabled = false;
-            
-            toolCounts[projectilecode] = 0;
-            bonusTools[projectilecode] = 0;
-        }
-        else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
-        {
-            Debug.Log(toolCounts[projectilecode]);
-            toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
-            toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
-            isLosing = true;
+
+        //Check if its the hinter tool and if it is ignore the next statement
+        if(projectilecode != stateLib.TOOL_HINTER){
+            // If the checklist entry was is completed, then disable this current tool before switching to the next
+            if (GlobalState.level.Tasks[projectilecode] == GlobalState.level.CompletedTasks[projectilecode] && GlobalState.GameMode == stringLib.GAME_MODE_ON)
+            {
+                taskComplete[projectilecode] = true;
+                toolIcons[projectilecode].GetComponent<Image>().enabled = false;
+                toolLabels[projectilecode].GetComponent<Text>().enabled = false;
+                
+                toolCounts[projectilecode] = 0;
+                bonusTools[projectilecode] = 0;
+            }
+            else if (toolCounts[projectilecode] + bonusTools[projectilecode] <= 0)
+            {
+                Debug.Log(toolCounts[projectilecode]);
+                toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
+                toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
+                isLosing = true;
+            }
+
+        }else{
+            if(toolCounts[stateLib.TOOL_HINTER] + bonusTools[stateLib.TOOL_HINTER] <=0){
+                Debug.Log(toolCounts[projectilecode]);
+                toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
+                toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
+
+            }
         }
         // Cycle to the next tool.
         projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
@@ -302,6 +323,10 @@ public class SelectedTool : MonoBehaviour
 	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
 	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_HELPER]) + ReplaceBonusText(stateLib.TOOL_HELPER) + "]";
 	  }
+      if(toolCounts[stateLib.TOOL_HINTER] + bonusTools[stateLib.TOOL_HINTER] > 0){
+          toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_6 + " [" : "[";
+          toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_HINTER]) + ReplaceBonusText(stateLib.TOOL_HINTER) + "]";
+      }
 	}
 	//.................................>8.......................................
 	private void CheckTaskComplete(int nToolCode) {

@@ -9,6 +9,7 @@ STRINGS and OUTPUT</introtext>
 <tools>
 <tool name="commenter" enabled="true" count="8"/>
 <tool name="checker" enabled="true" count="5"/>
+<tool name="hint" enabled="true" count="3"/>
 </tools>
 <code language="c++">//Recall that COUT is used to print out variables.
 <comment type="description" correct="true" size="1" groupid="0">Input and output operations come from LIBRARIES that you add to your code.</comment>
@@ -25,6 +26,7 @@ int main {
 	mystring = "new value";
 	cout &lt;&lt; <question text="What is the value of mystring?
 	Type your answer: " answer="new value">mystring;</question>
+	<!-- <hint type="description">This is an hint</hint> -->
 	<comment type="description" correct="true" size="1" groupid="3">You may want to SWAP 2 variables so that they have the other's value.</comment>
 	//For example, when variable1 = "hello" and variable2 = "goodbye",
 	//a successful swap will have variable1 = "goodbye" and variable2 = "hello"

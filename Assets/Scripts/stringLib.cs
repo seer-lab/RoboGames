@@ -26,6 +26,7 @@ public class stringLib
 	public const string INTERFACE_TOOL_NAME_4_ROBOBUG				= "Breakpointer";
 	public const string INTERFACE_TOOL_NAME_4_ROBOTON				= "Un-Commenter";
 	public const string INTERFACE_TOOL_NAME_5								= "Helper";
+	public const string INTERFACE_TOOL_NAME_6								= "Hinter";
 
 	public const string TOOL_LOGFILE		 	 				= "toollog.txt";
 	public const string TOOL_STATELOGFILE					= "statelog.txt";
@@ -61,6 +62,7 @@ public class stringLib
 	public const string TOOL_NAME_3								= "commenter";
 	public const string TOOL_NAME_4								= "controlflow";
 	public const string TOOL_NAME_5								= "helper";
+	public const string TOOL_NAME_6								= "hinter";
 
 	public const string CLOSE_COLOR_TAG 					= "</color>";
 

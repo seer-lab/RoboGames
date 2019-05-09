@@ -27,7 +27,7 @@ public class hero2Controller : MonoBehaviour
 	public int projectilecode = 0;
 	public GameObject codescreen;
 	public GameObject selectedTool;
-	public Rigidbody2D[] projectiles = new Rigidbody2D[6];
+	public Rigidbody2D[] projectiles = new Rigidbody2D[stateLib.NUMBER_OF_TOOLS];
 
 	private bool walkloop = false;
 	private bool facingRight = true;
