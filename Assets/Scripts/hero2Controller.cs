@@ -96,7 +96,14 @@ public class hero2Controller : MonoBehaviour
 				facingRight = false;
 			}
 			anim.SetBool("facingRight", facingRight);
-			this.GetComponent<SpriteRenderer>().flipX = !facingRight; 
+
+			if (this.GetComponent<SpriteRenderer>().flipX == facingRight && GlobalState.Character == "Boy"){
+				float offset = 0.5f; 
+				Transform pos = this.GetComponent<Transform>(); 
+				if (!facingRight) offset*= -1; 
+				pos.position = new Vector3(pos.position.x + offset, pos.position.y, pos.position.z); 
+			}
+			this.GetComponent<SpriteRenderer>().flipX = !facingRight;
 
 			//code for falling down through platforms
 			if (fMoveVelocityVertical < 0 && !onWall && !dropping) {
