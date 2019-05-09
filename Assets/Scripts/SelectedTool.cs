@@ -21,7 +21,7 @@ public class SelectedTool : MonoBehaviour
 	public int[] bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
 	public GameObject[] toolLabels = new GameObject[stateLib.NUMBER_OF_TOOLS];
 	public GameObject codescreen;
-	public GameObject hero;
+	GameObject hero;
 	public GameObject toolprompt;
 	public GameObject toolAvailableTools;
 	public GameObject levelDescription;
@@ -45,6 +45,7 @@ public class SelectedTool : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+        hero = GameObject.Find("Hero");
 		lg = codescreen.GetComponent<LevelGenerator>();
 		this.GetComponent<Text>().text = "";
         InitializeToolLabels();

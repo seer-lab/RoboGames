@@ -45,11 +45,23 @@ public class hero2Controller : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+		codescreen = GameObject.Find("CodeScreen");
+		selectedTool = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").gameObject;
+		projectiles[0] = Resources.Load<GameObject>("Prefabs/projectileBug").GetComponent<Rigidbody2D>();
+		projectiles[1] =  Resources.Load<GameObject>("Prefabs/projectileActivator").GetComponent<Rigidbody2D>();
+		projectiles[2] =  Resources.Load<GameObject>("Prefabs/projectileWarp").GetComponent<Rigidbody2D>();
+		projectiles[3] =  Resources.Load<GameObject>("Prefabs/projectileComment").GetComponent<Rigidbody2D>();
+		projectiles[4] =  Resources.Load<GameObject>("Prefabs/projectileDebug").GetComponent<Rigidbody2D>();
+		projectiles[5] =  Resources.Load<GameObject>("Prefabs/projectileHelp").GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		climbTime = 0f;
 		lg = codescreen.GetComponent<LevelGenerator>();
 	}
-
+	void Flip(){
+		if (facingRight && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("left")){
+			//this.GetComponent<SpriteRenderer>().flipX = true; 
+		}
+	}
 	//.................................>8.......................................
 	void FixedUpdate() {
 		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && !Output.IsAnswering) {
@@ -78,11 +90,13 @@ public class hero2Controller : MonoBehaviour
 			anim.SetFloat("climbSpeed", fMoveVelocityVertical);
 			if (fMoveVelocityHorizontal > 0) {
 				facingRight = true;
+
 			}
 			else if (fMoveVelocityHorizontal < 0) {
 				facingRight = false;
 			}
 			anim.SetBool("facingRight", facingRight);
+			this.GetComponent<SpriteRenderer>().flipX = !facingRight; 
 
 			//code for falling down through platforms
 			if (fMoveVelocityVertical < 0 && !onWall && !dropping) {

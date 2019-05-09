@@ -15,7 +15,6 @@ using System.IO;
 
 public class Logger : MonoBehaviour {
 
-	public GameObject hero;
 	public GameObject codescreen;
 
 	private int currentstate;
