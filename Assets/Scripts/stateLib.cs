@@ -14,7 +14,7 @@ public static class stateLib
 	public const int LEFT_CODESCREEN_X_COORDINATE              = -10;	
 	public const float TOOLBOX_Y_OFFSET		                   = 0.1f;
 
-	public const int NUMBER_OF_TOOLS                           = 6;
+	public const int NUMBER_OF_TOOLS                           = 7;
 
 	public const int TOOL_CATCHER_OR_ACTIVATOR                 = 0;
 	public const int TOOL_PRINTER_OR_QUESTION                  = 1;
@@ -22,6 +22,7 @@ public static class stateLib
 	public const int TOOL_COMMENTER                            = 3;
 	public const int TOOL_CONTROL_FLOW                         = 4;
 	public const int TOOL_HELPER                               = 5;
+	public const int TOOL_HINTER								=6;
 
 	public const int GAMESTATE_SUBMENU                         = 0;
 	public const int GAMESTATE_MENU                            = 0;

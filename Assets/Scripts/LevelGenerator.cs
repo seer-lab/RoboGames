@@ -395,6 +395,9 @@ public partial class LevelGenerator : MonoBehaviour {
                 case "controlflow":
                     toolnum = stateLib.TOOL_CONTROL_FLOW;
                     break;
+                case "hint":
+                    toolnum = stateLib.TOOL_HINTER;
+                    break;
                 default:
                     break;
             }
