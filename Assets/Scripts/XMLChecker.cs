@@ -6,10 +6,12 @@ using UnityEditor;
 [CustomEditor (typeof (XMLParser))]
 public class XMLChecker : Editor{
     public override void OnInspectorGUI() {
+        XMLParser xmlParser = (XMLParser)target;
+
         base.OnInspectorGUI();
 
         if(GUILayout.Button("Check XML")) {
-            //XMLParser xMLParser = new XMLParser();
+            xmlParser.checkXML();
         }
     }
 }

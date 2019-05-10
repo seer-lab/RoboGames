@@ -7,47 +7,42 @@ using UnityEngine;
 using System.IO;
 
 public class XMLParser : MonoBehaviour {
-    private string filename;
-    private bool isSucesses = false;
+    public string filedirectory;
+    public bool isSucesses = false;
+    public static string[] files{get;set;}
+    public string schemafile;
+    public static int i{get; set;}
+    public void checkXML(){
+        files = Directory.GetFiles(this.filedirectory, "*.xml");
+        schemafile = Directory.GetFiles(this.filedirectory, "*.xsd")[0];
 
-    XMLParser(string filename) {
-        this.filename = filename;
-        if (!File.Exists(filename)) {
-            Debug.Log("File Does not exists");
-        }
-    }
+        XmlSchemaSet schemaset = new XmlSchemaSet();
+        schemaset.Add(null, schemafile);
 
-
-    public bool checkXML() {
-
-        isSucesses = true;
-        Debug.Log("Checking file " + filename);
         XmlReaderSettings settings = new XmlReaderSettings();
-        XmlReader reader = XmlReader.Create(filename, settings);
+        settings.ValidationType = ValidationType.Schema;
+        settings.Schemas = schemaset;
+        settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
 
-        try {
-
-            XmlDocument document = new XmlDocument();
-            document.Load(reader);
-            ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
-            document.Validate(eventHandler);
-            return true;
+        for(i =0 ; i < files.Length; i++){
+            try{
+            XmlReader reader = XmlReader.Create(files[i], settings);
+            while(reader.Read());
+            }catch(Exception e){
+                string errMessage = "XML File: " + files[i] + " " + e.Message;
+                Debug.LogError(errMessage);
+            }
         }
-        catch (Exception ex){
-            Debug.Log("Xml not well formed");
-            Debug.Log(ex.Message);
-        }
-        return false;
     }
 
-
-    static void ValidationEventHandler(object sender, ValidationEventArgs e) {
+    static void ValidationCallBack(object sender, ValidationEventArgs e) {
+        string errMessage = "XML File: " + files[i] + " " + e.Message;
         switch (e.Severity) {
             case XmlSeverityType.Error:
-                Console.WriteLine("Error: {0}", e.Message);
+                Debug.LogWarning(errMessage);
                 break;
             case XmlSeverityType.Warning:
-                Console.WriteLine("Warning {0}", e.Message);
+                Debug.LogError(errMessage);
                 break;
         }
 
