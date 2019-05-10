@@ -48,14 +48,9 @@ public class OldMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GlobalState.IsPlaying = false; 
-        GlobalState.CurrentONLevel = "level0.xml";
-        GlobalState.CurrentBUGLevel = "level0.xml";
-        GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
-        GlobalState.level = null;
-        GlobalState.Character = "Robot";
-        GlobalState.StringLib = new stringLib();
-
+        if (!GlobalState.IsResume){
+            InitializeGlobals();
+        }
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
         buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
         buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";
@@ -67,12 +62,24 @@ public class OldMenu : MonoBehaviour
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
     }
 
+    private void InitializeGlobals(){
+        GlobalState.IsPlaying = false; 
+            if (GlobalState.CurrentONLevel == null){
+                GlobalState.CurrentONLevel = "level0.xml";
+            }
+            else GlobalState.IsPlaying = true; 
+            GlobalState.CurrentBUGLevel = "level0.xml";
+            GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
+            GlobalState.level = null;
+            GlobalState.Character = "Robot";
+            GlobalState.StringLib = new stringLib();
+    }
     //.................................>8.......................................
     // Update is called once per frame
     void Update()
     {
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
-        if (!gameon)
+        if (!GlobalState.IsResume)
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         }
@@ -96,7 +103,7 @@ public class OldMenu : MonoBehaviour
                 // The previous button should be made blue (change from green to blue).
                 // The last option will be either Resume Game or Exit game. In either case, don't allow the down arrow to wrap-around.
                 buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                if (gameon)
+                if (GlobalState.IsResume)
                 {
                     option = (option == stateLib.GAMEMENU_RESUME_GAME) ? stateLib.GAMEMENU_RESUME_GAME : option + 1;
                 }
@@ -150,6 +157,8 @@ public class OldMenu : MonoBehaviour
                     case stateLib.GAMEMENU_RESUME_GAME:
                         GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                        GlobalState.IsResume = false; 
+                        SceneManager.UnloadSceneAsync("MainMenu");
                         break;
                     default:
                         break;
@@ -211,6 +220,7 @@ public class OldMenu : MonoBehaviour
                     case 0:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption]; 
+                        GlobalState.IsResume = false; 
                         SceneManager.LoadScene("CharacterSelect");       
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;                       
@@ -219,6 +229,7 @@ public class OldMenu : MonoBehaviour
                     case 1:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = levels[levoption];
+                        GlobalState.IsResume = false; 
                         SceneManager.LoadScene("CharacterSelect");
                         m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
                     
@@ -280,16 +291,20 @@ public class OldMenu : MonoBehaviour
                 switch (option)
                 {
                     case 0:
+                        InitializeGlobals(); 
                         GlobalState.GameMode = stringLib.GAME_MODE_ON;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        
+                        GlobalState.IsResume = false; 
+                
                         SceneManager.LoadScene("CharacterSelect");  
 
                         break;
                     case 1:
+                        InitializeGlobals(); 
                         GlobalState.GameMode = stringLib.GAME_MODE_BUG;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.CurrentONLevel = "tut1.xml";
+                        GlobalState.IsResume = false; 
                         SceneManager.LoadScene("CharacterSelect"); 
                         break;
                 }
@@ -350,30 +365,6 @@ public class OldMenu : MonoBehaviour
         }
     }
 
-    //.................................>8.......................................
-    public void saveGame(string currentlevel)
-    {
-        levels.Clear();
-        passed.Clear();
-        lfile = GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-
-        sr = File.OpenText(lfile);
-        string line;
-        while ((line = sr.ReadLine()) != null)
-        {
-            string[] data = line.Split(' ');
-            levels.Add(data[0]);
-            passed.Add(data[1]);
-        }
-        sr.Close();
-        passed[levels.IndexOf(currentlevel)] = "1";
-        StreamWriter sw = File.CreateText(GlobalState.GameMode + "leveldata" + filepath + "levels.txt");
-        for (int i = 0; i < levels.Count; i++)
-        {
-            sw.WriteLine(levels[i] + " " + passed[i]);
-        }
-        sw.Close();
-    }
 
     //.................................>8.......................................
     //************************************************************************//

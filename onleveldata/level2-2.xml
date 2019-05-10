@@ -17,8 +17,9 @@ int main {
 	int var1 = 0;
 	int var2 = 0;
 	int var3 = 0;
-	//NOT (!) means to take the opposite result of the expression
-	//for example, !(2 > 3) is true because 2 is NOT greater than 3
+	/*NOT (!) means to take the opposite result of the expression
+	for example, !(2 > 3) is true because 2 is NOT greater than 3*/
+	
 	if (!(9 &lt; 1)){
 <beacon flow-order="0" />		var1 = 5;
 	}

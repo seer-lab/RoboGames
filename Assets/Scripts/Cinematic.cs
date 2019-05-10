@@ -29,6 +29,7 @@ public class Cinematic : MonoBehaviour
         objs = new List<GameObject>();
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
+        Debug.Log(SceneManager.sceneCount);
     }
     public void ToggleLight()
     {
