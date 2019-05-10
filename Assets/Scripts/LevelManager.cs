@@ -175,6 +175,24 @@ public class LevelManager
         //numberOfBugsRemaining++;
         return levelBug;
     }
+
+    public GameObject CreateHint(XmlNode childNode, int lineNumber){
+
+        //@TODO Change the hardcoded value 
+        int hintsize = 1;
+        int col = 20;
+
+        //@TODO Change the prefab to somthing cooler
+        GameObject hintObject = Resources.Load<GameObject>("Prefabs/bugHint");
+        GameObject levelHint = GameObject.Instantiate(hintObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (hintsize - 1), properties.initialLineY - (lineNumber + 0.5f * (hintsize - 1) * properties.linespacing + 0.4f), 0f), hintObject.transform.rotation);
+    
+        levelHint.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f + col * properties.fontwidth, properties.initialLineY - (lineNumber)*0.99f, 0);
+        HintCollider hintCollider = levelHint.GetComponent<HintCollider>();
+        levelHint.GetComponent<HintCollider>().outmessage = childNode.Attributes["hint"].Value;
+        return levelHint;
+    }
+
+
     /// <summary>
     /// Creates a gameobject of the appropriate type using an XML node. 
     /// </summary>

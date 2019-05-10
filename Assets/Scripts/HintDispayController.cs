@@ -5,14 +5,8 @@ using UnityEngine.UI;
 
 public class HintDispayController : MonoBehaviour
 {
-    public int projectilecode = 0;
-    public int usedprojectile = 0;
     public string hints;
-    public int[] toolCounts = new int[stateLib.NUMBER_OF_TOOLS];
-    public int[] bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
     protected Output output;
-    public GameObject toolAvailableTools;
-    public GameObject hint;
 
     private LevelGenerator lg;
     SidebarController sidebar;
@@ -26,6 +20,10 @@ public class HintDispayController : MonoBehaviour
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
         Debug.Log(message: GlobalState.level.Hint);
         hints = GlobalState.level.Hint;
+        if(hints.Equals("")){
+            hints = "fake hints";
+            output.Text.text = hints;
+        }
         
     }
 
@@ -41,27 +39,7 @@ public class HintDispayController : MonoBehaviour
             output.Text.text = ""; 
             isButtonPressed = false;
         }
-        checkCurrentTools();
 
     }
-    // private void CheckAvailableTools() {
-    //     for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
-    //         if (toolCounts[i] + bonusTools[i] > 0) {
-    //             if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS) {
-    //                 projectilecode = i;
-    //             }
-    //         }
-    //     }
-    // }
 
-    private void checkCurrentTools(){
-        for(int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++){
-            if(toolCounts[i] + bonusTools[i] > 0){
-                if(projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS){
-                    projectilecode = i;
-                }
-            }
-
-        }
-    }
 }
