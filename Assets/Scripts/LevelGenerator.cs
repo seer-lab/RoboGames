@@ -76,7 +76,7 @@ public partial class LevelGenerator : MonoBehaviour {
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
-        BuildLevel();
+        BuildLevel(); 
 	}
     /// <summary>
     /// Essentially Generates the Level Visually.
@@ -588,6 +588,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
     //.................................>8.......................................
     public void floatingTextOnPlayer(string sMessage) {
+        toolprompt = hero.transform.GetChild(0).gameObject;
 	    toolprompt.GetComponent<TextMesh>().text = sMessage;
 	    Animator anim = toolprompt.GetComponent<Animator>();
 	    anim.Play("hide");

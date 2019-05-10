@@ -45,17 +45,16 @@ public class SelectedTool : MonoBehaviour
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+        isLosing = false;
+        noRemainingActivators = false;
+        toolCounts =new int[stateLib.NUMBER_OF_TOOLS];
+        bonusTools = new int[stateLib.NUMBER_OF_TOOLS];
         hero = GameObject.Find("Hero");
 		lg = codescreen.GetComponent<LevelGenerator>();
 		this.GetComponent<Text>().text = "";
         InitializeToolLabels();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
 	}
-    private void Initialize()
-    {
-        isLosing = false;
-        noRemainingActivators = false;
-    }
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
@@ -73,7 +72,7 @@ public class SelectedTool : MonoBehaviour
     }
     private void CheckAvailableTools()
     {
-        for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+        for (int i = 0; i < toolCounts.Length; i++)
         {
             if (toolCounts[i] + bonusTools[i] > 0)
             {
@@ -175,41 +174,10 @@ public class SelectedTool : MonoBehaviour
             toolLabels[i] = toolIcons[i].transform.GetChild(0).gameObject;
         }
     }
-    private void MenuIsUp()
-    {
-        // Menu is up
-        for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
-        {
-            toolIcons[i].GetComponent<Image>().enabled = false;
-        }
-        isLosing = false;
-        toolAvailableTools.GetComponent<Text>().text = "";
-        /* 
-        toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = "";
-        toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = "";
-        */
-        toolLabels[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().enabled = false;
-        toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().enabled = false;
-        levelDescription.GetComponent<Text>().text = "";
-        taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
-    }
 
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
-        if (GlobalState.GameState >= stateLib.GAMESTATE_LEVEL_START)
-        {
-            Initialize();
-        }
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             SetDisplayText();
@@ -222,10 +190,6 @@ public class SelectedTool : MonoBehaviour
                 NextTool();
             }
             HandleThrows();
-        }
-        else
-        {
-            MenuIsUp();
         }
     }
 

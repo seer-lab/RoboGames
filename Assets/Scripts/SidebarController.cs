@@ -139,6 +139,9 @@ public class SidebarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && this.GetComponent<Canvas>().enabled != active){
+            this.GetComponent<Canvas>().enabled = active;
+        }
+        else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) GetComponent<Canvas>().enabled = false; 
     }
 }

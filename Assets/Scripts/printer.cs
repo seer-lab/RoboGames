@@ -29,7 +29,7 @@ public class printer : Tools {
             GlobalState.level.CompletedTasks[1]++;
 			if (!toolgiven) {
 				toolgiven = true;
-				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
+				for (int i = 0; i < tools.Length; i++) {
 					if (tools[i] > 0) {
 						lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
 					}

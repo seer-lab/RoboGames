@@ -47,14 +47,16 @@ public abstract class comment : Tools {
         codeSpriteOn = Resources.LoadAll<Sprite>(path + "cComment")[0];
         if (entityType == stateLib.ENTITY_TYPE_CORRECT_COMMENT || entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOff;
+            if (isCommented)this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+            else this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOff;
         }
         else if (entityType == stateLib.ENTITY_TYPE_ROBOBUG_COMMENT){
             this.gameObject.GetComponent<SpriteRenderer>().sprite = descSpriteOn; 
         }
         else
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
+            if (isCommented) this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
+            else this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
         }
         textColoration = new TextColoration();
     }

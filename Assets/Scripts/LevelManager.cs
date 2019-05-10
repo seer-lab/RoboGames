@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO; 
 using UnityEngine;
@@ -359,6 +360,47 @@ public class LevelManager
             }
         }
     }
+    public void SetToolObjects(List<List<dynamic>> items){
+        int count = 0; 
+         foreach(GameObject item in robotONcorrectComments){
+             //item.GetComponent<comment>() = (comment)items[0][count];
+             count++; 
+        }
+        /*/
+        count = 0; 
+        foreach(GameObject item in robotONcorrectUncomments){
+             item.GetComponent<comment>().isCommented = items[1][count].GetComponent<comment>().isCommented; 
+             count++; 
+        }
+        count = 0; 
+        foreach(GameObject item in robotONquestions){
+             item.GetComponent<question>().IsAnswerd = items[2][count].GetComponent<question>().IsAnswerd; 
+             count++; 
+        }
+        count = 0; 
+        foreach(GameObject item in robotONrenamers){
+             item.GetComponent<rename>().answered = items[3][count].GetComponent<rename>().answered; 
+             count++; 
+        }
+        count = 0; 
+        foreach(GameObject item in robotONbeacons){
+             item.GetComponent<beacon>().flowOrder = items[0][count].GetComponent<beacon>().flowOrder; 
+             item.GetComponent<beacon>().actcounter = items[0][count].GetComponent<beacon>().actcounter; 
+             count++; 
+         }
+        count = 0; 
+        */
+    }
+    public List<List<dynamic>> GetToolObjects(){
+        List<List<dynamic>> total = new List<List<dynamic>>(); 
+        total.Add((robotONcorrectComments.Select(item => (dynamic)item.GetComponent<comment>())).ToList());
+        total.Add((robotONcorrectUncomments.Select(item => (dynamic)item.GetComponent<comment>())).ToList());
+        total.Add((robotONquestions.Select(item => (dynamic)item.GetComponent<comment>())).ToList());
+        total.Add((robotONrenamers.Select(item => (dynamic)item.GetComponent<comment>())).ToList());
+        total.Add((robotONbeacons.Select(item => (dynamic)item.GetComponent<comment>())).ToList());
+        
+        return total; 
+    }
     /// <summary>
     /// Save the game state to a file. 
     /// </summary>
@@ -367,7 +409,7 @@ public class LevelManager
         levels.Clear();
         passed.Clear();
         string lfile = GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-
+        
         StreamReader sr = File.OpenText(lfile);
         string line;
         while ((line = sr.ReadLine()) != null)
