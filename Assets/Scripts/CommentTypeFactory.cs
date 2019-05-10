@@ -74,7 +74,7 @@ public class BugCommentFactory : CommentTypeFactory
         {           
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
-            for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+            for (int i = 0; i < toolcounts.Length; i++)
             {
                 propertyHandler.tools[i] = int.Parse(toolcounts[i]);
 

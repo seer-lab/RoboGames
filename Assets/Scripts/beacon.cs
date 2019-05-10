@@ -33,12 +33,12 @@ public class beacon : Tools {
 	// Update is called once per frame
 	void Update() {
 		// All beacons complete
-		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && !revOnce) {
+		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0) {
 			revOnce = true;
 			GetComponent<SpriteRenderer>().sprite = activebeacon;
 			audioRev.Play();
 		}
-		else if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter > 0)
+		else if (GlobalState.level.Tasks[0] != GlobalState.level.CompletedTasks[0] && actcounter > 0)
 		{
 			flashCounter++;
 			if (flashCounter > 50) {
