@@ -9,7 +9,7 @@ public class Banner : MonoBehaviour
    public int index; 
    Image glow; 
    CharacterSelect select; 
-   void Start(){
+   void Awake(){
        glow = GameObject.Find("Glow" + this.gameObject.name).GetComponent<Image>();
        glow.color = new Color(1,1,1,0);  
        select = this.transform.parent.GetComponent<CharacterSelect>(); 
