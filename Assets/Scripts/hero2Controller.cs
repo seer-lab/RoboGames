@@ -1,3 +1,5 @@
+using System.Diagnostics.SymbolStore;
+using System.Xml.Schema;
 //**************************************************//
 // Class Name: hero2Controller
 // Class Description: This class is the controller for the hero. It controls movement, throwing wrenches
@@ -11,6 +13,7 @@
 //**************************************************//
 
 using UnityEngine;
+using System; 
 using System.Collections;
 
 // BOOKMARK -END 5/31/2016
@@ -34,14 +37,17 @@ public class hero2Controller : MonoBehaviour
 	private bool quitting = false;
 	private float fireRate = 0.5f;
 	private float nextFire = 0.0f;
-	private float animTime = 0.3f;
+	private float animTime = 0.2f;
 	private float animDelay = 0.0f;
 	private float dropTime = 0.25f;
 	private float climbTime;
 	private float climbDelay = 0.2f;
 	private Animator anim;
 	private LevelGenerator lg;
-
+	
+	private float verticalMovement = 1f; 
+	private bool isMovingX = false; 
+	private bool reachedPosition = true; 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
@@ -68,6 +74,11 @@ public class hero2Controller : MonoBehaviour
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
+			if (Input.GetMouseButton(0) && !reachedPosition) {
+				if (isMovingX)
+					fMoveVelocityHorizontal = (facingRight) ? 1f: -1f; 
+				else fMoveVelocityVertical = verticalMovement; 
+			}
 			if (fMoveVelocityVertical > 0) {
 				GetComponent<Rigidbody2D>().gravityScale = 0;
 				if (!onWall) {
@@ -146,28 +157,8 @@ public class hero2Controller : MonoBehaviour
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 		}
 	}
-
-	//.................................>8.......................................
-	void Update() {
-		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
-			AudioSource ad = GetComponent<AudioSource>();
-			if (!walkloop && Input.GetAxis("Horizontal") != 0f &&
-			GetComponent<Rigidbody2D>().velocity.y == 0 &&
-			!onWall) {
-				ad.Play();
-				walkloop = true;
-				ad.loop = true;
-			}
-			if (Input.GetAxis("Horizontal") == 0f ||
-			GetComponent<Rigidbody2D>().velocity.y != 0 ||
-			onWall) {
-				ad.loop = false;
-				walkloop = false;
-			}
-
-			//firing
-			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl")) &&
-			   Time.time > nextFire &&
+	public void ThrowTool(){
+		if (Time.time > nextFire &&
 			   !onWall &&
 			   !Output.IsAnswering &&
 			   GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
@@ -186,10 +177,66 @@ public class hero2Controller : MonoBehaviour
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * -300);
    				}
 			}
+	}
+	IEnumerator MoveToPosition(Vector3 position){
+		yield return new WaitForSecondsRealtime(0.1f);
+		if (!Input.GetMouseButton(0)) position = this.transform.localPosition; 
+		
+		reachedPosition = false; 
+		isMovingX = true; 
+
+		while(Math.Abs(GetComponent<Transform>().localPosition.x-position.x) > 0.1f){
+			if (this.transform.position.x - position.x < 0) facingRight = true;
+			else facingRight = false; 
+			yield return null;
+		}
+		isMovingX = false; 
+		while(Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 0.1f){
+			if (GetComponent<Transform>().localPosition.y - position.y < 0)
+				verticalMovement = 0.5f; 
+			else verticalMovement = -1f; 
+			yield return null; 
+		}
+		reachedPosition = true; 
+
+	}
+	//.................................>8.......................................
+	void Update() {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
+			AudioSource ad = GetComponent<AudioSource>();
+			if (!walkloop && (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Mouse X") != 0f) &&
+			Input.GetMouseButton(0)&&
+			GetComponent<Rigidbody2D>().velocity.y == 0 &&
+			!onWall) {
+				ad.Play();
+				walkloop = true;
+				ad.loop = true;
+			}
+			if (Input.GetAxis("Horizontal") == 0f && (Input.GetAxis("Mouse X") == 0f && Input.GetMouseButton(0))||
+			GetComponent<Rigidbody2D>().velocity.y != 0 ||
+			onWall) {
+				ad.loop = false;
+				walkloop = false;
+			}
+
+			//firing
+			if ((Input.GetKeyDown("left ctrl") || Input.GetKeyDown("right ctrl"))){
+				ThrowTool();
+			}
+			if (Input.GetMouseButtonDown(0)){
+				Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+				Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds; 
+				Debug.Log("X compare: " + collider.max.x.ToString() + ' ' + pos.x); 
+				Debug.Log("Y compare: " + collider.min.y.ToString()  + ' ' + pos.y); 
+				if (pos.x < collider.max.x && pos.y > collider.min.y)
+					StartCoroutine(MoveToPosition(pos)); 
+			}
+			else if (Input.GetMouseButtonUp(0)){
+				StopAllCoroutines();
+			}		   
 			if (Time.time > animDelay) {
 				anim.SetBool("throw", false);
 			}
-
 			//quit
 			if (Input.GetKeyDown(KeyCode.Escape) == true) {
 				quitting = true;
@@ -207,6 +254,7 @@ public class hero2Controller : MonoBehaviour
 			GetComponent<AudioSource>().loop = false;
 		}
 	}
+
 
 	//.................................>8.......................................
 

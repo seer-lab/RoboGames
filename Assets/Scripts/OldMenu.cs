@@ -44,10 +44,14 @@ public class OldMenu : MonoBehaviour
     private string windowsFilepath = @"\";
     private string unixFilepath = @"/";
 
+    int selectedIndex = -1; 
+    bool entered = false;
+
     //.................................>8.......................................
     // Use this for initialization
     void Start()
     {
+        Screen.orientation = ScreenOrientation.Landscape;
         if (!GlobalState.IsResume){
             InitializeGlobals();
         }
@@ -61,7 +65,15 @@ public class OldMenu : MonoBehaviour
        
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
     }
-
+    public void onClick(int index){
+        Debug.Log("clicked");
+        if (GlobalState.IsResume && index == 4)
+            return; 
+        selectedIndex = index; 
+        buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+        option = selectedIndex; 
+        entered =true; 
+    }
     private void InitializeGlobals(){
         GlobalState.IsPlaying = false; 
             if (GlobalState.CurrentONLevel == null){
@@ -120,8 +132,9 @@ public class OldMenu : MonoBehaviour
             buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
 
             // When we press Return (Enter Key), take us to the sub-menus
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
+                entered = false; 
                 switch (option)
                 {
                     case stateLib.GAMEMENU_NEW_GAME:
@@ -213,8 +226,9 @@ public class OldMenu : MonoBehaviour
                 levoption = (levoption == 0) ? 0 : levoption - 1;
                 m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
             }
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
+                entered = false;
                 switch (option)
                 {
                     case 0:
@@ -251,8 +265,9 @@ public class OldMenu : MonoBehaviour
                 m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 option = 1;
             }
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
-            {
+            if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            {   
+                entered = false;
                 switch (option)
                 {
                     case 0:
@@ -282,8 +297,9 @@ public class OldMenu : MonoBehaviour
                 m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 option = 1;
             }
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
+                entered = false;
                 switch (option)
                 {
                     case 0:
@@ -320,8 +336,9 @@ public class OldMenu : MonoBehaviour
                 m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 option = 1;
             }
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+            if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
+                entered = false;
                 switch (option)
                 {
                     case 0:

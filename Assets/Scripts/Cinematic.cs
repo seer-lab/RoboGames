@@ -87,7 +87,7 @@ public class Cinematic : MonoBehaviour
                 }
             }
             prompt1.GetComponent<Text>().text = introtext;
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 Destroy(objs[0]);
@@ -109,7 +109,7 @@ public class Cinematic : MonoBehaviour
 
             prompt1.GetComponent<Text>().text = endtext;
 
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 // RobotON 2, don't always want tutorials to run comics.
                 // Read in the levels.txt and grab the top one.
