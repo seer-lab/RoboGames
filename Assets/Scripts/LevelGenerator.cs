@@ -207,14 +207,15 @@ public partial class LevelGenerator : MonoBehaviour {
 					if (c == '\n') indexOf++;
 				}
 			}
-
+            indexOf = 0;
+            int tmp = 0;
             foreach (XmlNode node in GlobalState.level.LevelNode){
                 indexOf = 0;
                 foreach(XmlNode childs in node.ChildNodes){
                     try{
                         if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
-                            //Debug.Log(childs.Attributes["hint"].Value);
-                            manager.CreateHint(childs, indexOf + 2);
+                            tmp = indexOf +childs.InnerText.Split('\n').Length;
+                            manager.CreateHint(childs,tmp + indexOf);
                         }
                     }catch(Exception e){
                         //Debug.LogError(e.Message);

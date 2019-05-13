@@ -12,7 +12,7 @@ public class HintCollider : Tools
     public override void Initialize(){
         isTriggered = false;
         isFinished = false;
-        this.GetComponent<Renderer>().enabled = false;
+        this.GetComponent<Renderer>().enabled = true;
         anim = GetComponent<Animator>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
 
