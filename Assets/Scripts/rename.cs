@@ -40,7 +40,8 @@ public class rename : Tools {
 
     public override void Initialize()
     {
-        GetComponent<SpriteRenderer>().sprite = renSpriteOff;
+		if (answered)GetComponent<SpriteRenderer>().sprite = renSpriteOn;
+        else GetComponent<SpriteRenderer>().sprite = renSpriteOff;
     }
 
 	//.................................>8.......................................

@@ -26,18 +26,27 @@ public class question : Tools {
 
      public AudioSource audioPrompt;
      public AudioSource audioCorrect;
-  
+	
   	public Sprite qSpriteOff;
 	public Sprite qSpriteOn;
 
 	private bool answering = false;
 	private bool answered = false;
 	private string input = "";
-
+	
+	public bool IsAnswerd {
+		get{
+			return answered;
+		}
+		set{
+			answered =value;
+		}
+	}
 
     public override void Initialize()
     {
-        GetComponent<SpriteRenderer>().sprite = qSpriteOff;
+		if (IsAnswerd)GetComponent<SpriteRenderer>().sprite = qSpriteOn;
+        else GetComponent<SpriteRenderer>().sprite = qSpriteOff;
         expectedArray = expected.Split(new String[] { ", ", "," }, StringSplitOptions.RemoveEmptyEntries);
     }
     //.................................>8.......................................

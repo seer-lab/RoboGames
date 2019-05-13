@@ -41,7 +41,7 @@ public class PrinterFactory : ToolFactory
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
-            for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+            for (int i = 0; i < toolcounts.Length; i++)
             {
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
@@ -77,7 +77,7 @@ public class WarperFactory: ToolFactory
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
-            for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+            for (int i = 0; i < toolcounts.Length; i++)
             {
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }
@@ -213,7 +213,7 @@ public class BreakpointFactory: ToolFactory
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
-            for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+            for (int i = 0; i < toolcounts.Length; i++)
             {
                 tool.tools[i] = int.Parse(toolcounts[i]);
             }

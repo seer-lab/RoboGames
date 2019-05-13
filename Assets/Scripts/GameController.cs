@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Xml; 
+using System.IO; 
 using UnityEngine;
 
 /// <summary>
@@ -121,7 +123,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             lg.manager.SaveGame();
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            SceneManager.LoadScene("Cinematic"); 
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
         {
@@ -139,9 +141,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
         lg.WarpPlayer(line); 
-
     }
-
     void Awake(){
         GameObject hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
         hero.name = "Hero"; 
@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour, ITimeUser
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
     }
     /// <summary>
-    /// Handles operations regarding the UI of the game. 
+    /// Handles operations regaserding the UI of the game. 
     /// </summary>
     private void HandleInterface()
     {
@@ -170,7 +170,6 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
-            Debug.Log("Handling Sidebar"); 
             sidebar.ToggleSidebar(); 
         }
         else if (Input.GetKeyDown(KeyCode.X) && !Output.IsAnswering){
@@ -178,8 +177,10 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
+            //SaveGameState();
+            GlobalState.IsResume = true; 
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
         }
     }
     /// <summary>

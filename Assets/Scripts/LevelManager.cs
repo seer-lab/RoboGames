@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO; 
 using UnityEngine;
@@ -385,7 +386,7 @@ public class LevelManager
         levels.Clear();
         passed.Clear();
         string lfile = GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-
+        
         StreamReader sr = File.OpenText(lfile);
         string line;
         while ((line = sr.ReadLine()) != null)
