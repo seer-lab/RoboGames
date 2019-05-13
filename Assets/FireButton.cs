@@ -16,7 +16,7 @@ public class FireButton : MonoBehaviour
         tool = toolObject.GetComponent<SelectedTool>(); 
         colours = new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
         Color.red, Color.blue, Color.cyan};
-        icons = new string[]{"bugcatcher", "activator",  "warp","comment", "breakpoint","help", "help"};
+        icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         code = tool.projectilecode; 
         UpdateLook();
     }
@@ -29,8 +29,11 @@ public class FireButton : MonoBehaviour
             code = tool.projectilecode; 
             UpdateLook();
         }
+        if (Input.GetKeyDown("left ctrl")  || Input.GetKeyDown("right ctrl"))
+            GetComponent<Animator>().SetTrigger("Fire");
     }
     public void onClick(){
         hero.ThrowTool(); 
+        GetComponent<Animator>().SetTrigger("Fire");
     }
 }

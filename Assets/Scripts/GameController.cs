@@ -93,7 +93,6 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        GlobalState.CurrentONLevel = GlobalState.level.Failure_Level;
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>

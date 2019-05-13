@@ -226,10 +226,12 @@ public class hero2Controller : MonoBehaviour
 			if (Input.GetMouseButtonDown(0)){
 				Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
 				Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds; 
-				Debug.Log("X compare: " + collider.max.x.ToString() + ' ' + pos.x); 
-				Debug.Log("Y compare: " + collider.min.y.ToString()  + ' ' + pos.y); 
-				if (pos.x < collider.max.x && pos.y > collider.min.y)
+				if (pos.x < collider.max.x && pos.y > collider.center.y - collider.size.y/2){
+					Debug.Log("Starting Coroutine");
+					Debug.Log("X compare: " + collider.max.x.ToString() + ' ' + pos.x); 
+					Debug.Log("Y compare: " + (collider.center.y - collider.size.y/2)  + ' ' + pos.y); 
 					StartCoroutine(MoveToPosition(pos)); 
+				}
 			}
 			else if (Input.GetMouseButtonUp(0)){
 				StopAllCoroutines();
