@@ -43,6 +43,7 @@ public class stringLib
 	public const string PROJECTILE_WARP		 				= "projectileWarp(Clone)";
 	public const string PROJECTILE_COMMENT	 			= "projectileComment(Clone)";
 	public const string PROJECTILE_DEBUG	 				= "projectileDebug(Clone)";
+	public const string PROJECTILE_HINT						="projectileHint(Clone)";
 
 	public const string LOSE_TEXT     						= "Try Again!\n";
 	public const string RETRY_TEXT    						= "Press Enter to try again\nor ESC to quit";

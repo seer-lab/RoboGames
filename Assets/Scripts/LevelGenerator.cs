@@ -164,7 +164,7 @@ public partial class LevelGenerator : MonoBehaviour {
 			drawCode += lineNumbers[x-1] + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
 		}
-		print("Drawcode is: " + drawCode);
+		//print("Drawcode is: " + drawCode);
         
 		leveltext.GetComponent<TextMesh>().text = drawCode;
 	}
@@ -207,6 +207,22 @@ public partial class LevelGenerator : MonoBehaviour {
 					if (c == '\n') indexOf++;
 				}
 			}
+            indexOf = 0;
+            int tmp = 0;
+            foreach (XmlNode node in GlobalState.level.LevelNode){
+                indexOf = 0;
+                foreach(XmlNode childs in node.ChildNodes){
+                    try{
+                        if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
+                            tmp = indexOf +childs.InnerText.Split('\n').Length;
+                            manager.CreateHint(childs,tmp + indexOf);
+                        }
+                    }catch(Exception e){
+                        //Debug.LogError(e.Message);
+                    }
+                    indexOf++;
+                }
+            }
             // These are counters to update the blocktext of each object
             int numberOfroboBUGcomments = 0;
             int numberOfrobotONcorrectComments = 0;
@@ -227,7 +243,7 @@ public partial class LevelGenerator : MonoBehaviour {
                             thisObject = manager.roboBUGcomments[numberOfroboBUGcomments];
                             TextColoration color = new TextColoration(); 
                             thisObject.GetComponent<BugComment>().blocktext = codenode.ChildNodes[i].InnerXml;
-                            Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
+                            //Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
                             GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0]);
 
@@ -366,7 +382,7 @@ public partial class LevelGenerator : MonoBehaviour {
         {
             // Set the tool count for each tool node --[
             int toolnum = 0;
-            Debug.Log("Working with node: " + tool.OuterXml);
+            //Debug.Log("Working with node: " + tool.OuterXml);
             switch (tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value)
             {
                 case "catcher":
@@ -402,7 +418,7 @@ public partial class LevelGenerator : MonoBehaviour {
                 default:
                     break;
             }
-            Debug.Log("Adding Tool: " + toolnum);
+            //Debug.Log("Adding Tool: " + toolnum);
             toolIcons[toolnum].GetComponent<Image>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             toolIcons[toolnum].transform.GetChild(0).GetComponent<Text>().enabled = bool.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_ENABLED].Value);
             selectedtool.GetComponent<SelectedTool>().toolCounts[toolnum] = (tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value == "unlimited") ? 999 : int.Parse(tool.Attributes[stringLib.XML_ATTRIBUTE_COUNT].Value);

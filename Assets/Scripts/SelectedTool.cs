@@ -197,7 +197,7 @@ public class SelectedTool : MonoBehaviour
 	public void NextTool() {
         int notoolcount = 0;
         // Turn this tool's color to the toolOff color.
-        print("projectilecode is " + projectilecode.ToString());
+        //print("projectilecode is " + projectilecode.ToString());
         toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
 
         //Check if its the hinter tool and if it is ignore the next statement
