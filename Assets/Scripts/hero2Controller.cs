@@ -209,12 +209,9 @@ public class hero2Controller : MonoBehaviour
 	}
 	Vector3 RoundPosition(Vector3 position){
 		Transform lineAbove=null, lineBelow = null; 
-		int count = 1; 
 		foreach(GameObject line in lg.manager.lines){
-			count++;
 			if (line.GetComponent<Transform>().position.y < position.y){
 				lineBelow = line.GetComponent<Transform>(); 
-				Debug.Log(count);
 				break; 
 			} else lineAbove = line.GetComponent<Transform>(); 
 		}

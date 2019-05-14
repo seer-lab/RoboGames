@@ -29,7 +29,7 @@ public class FireButton : MonoBehaviour
         GameObject.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[code]);
     }
     void Update(){
-        if (code != tool.projectilecode){
+        if (code != tool.projectilecode && tool.projectilecode >= 0){
             code = tool.projectilecode; 
             UpdateLook();
         }
@@ -37,6 +37,8 @@ public class FireButton : MonoBehaviour
             GetComponent<Animator>().SetTrigger("Fire");
     }
     public void onClick(){
+        if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
+            return; 
         hero.ThrowTool(); 
         GetComponent<Animator>().SetTrigger("Fire");
         StartCoroutine(onFire());

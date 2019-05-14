@@ -65,10 +65,24 @@ public class OldMenu : MonoBehaviour
        
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
     }
+
     public void onClick(int index){
-        Debug.Log("clicked");
+
         if (GlobalState.IsResume && index == 4)
             return; 
+        if (index < -1){
+            if (index == -2){
+                if (levoption < levels.Count - 1 && passed[levoption] == "1")
+                {
+                    levoption++;
+                }
+                m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+            } else if (index == -3){
+                levoption = (levoption == 0) ? 0 : levoption - 1;
+                m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+            }
+            return; 
+        }
         selectedIndex = index; 
         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
         option = selectedIndex; 
