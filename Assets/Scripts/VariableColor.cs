@@ -48,7 +48,7 @@ public class VariableColor : Tools {
                 GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
                 GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
-                textColoration.ColorizeText(GlobalState.level.Code[index]);
+                textColoration.ColorizeText(GlobalState.level.Code[index], GlobalState.level.Language);
                 lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
             }

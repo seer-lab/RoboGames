@@ -53,7 +53,7 @@ public class BugComment : comment
     }
     public override void UpdateProtocol(){
         if (output.Text.text == "" && isAnswered){
-            string value = textColoration.ColorizeText(blocktext); 
+            string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language); 
             value = "<color=#00ff00ff>/**/</color>" + value; 
             string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
