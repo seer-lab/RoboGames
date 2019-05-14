@@ -43,7 +43,6 @@ public class LevelFactory
 
         level.NodeList = XMLReader.GetToolNodes(doc);
         level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
-
         level.Failure_Level = XMLReader.GetFailureLevel(doc);
         //Hacking time
         string tempFilename = "onleveldata//" + level.Failure_Level;

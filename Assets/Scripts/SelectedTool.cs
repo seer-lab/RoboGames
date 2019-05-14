@@ -59,6 +59,9 @@ public class SelectedTool : MonoBehaviour
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
     }
+    public void onClick(int index){
+        NextTool(index); 
+    }
     private void CheckLosing()
     {
         if (isLosing || noRemainingActivators)
@@ -194,7 +197,7 @@ public class SelectedTool : MonoBehaviour
     }
 
 	//.................................>8.......................................
-	public void NextTool() {
+	public void NextTool(int index = -1) {
         int notoolcount = 0;
         // Turn this tool's color to the toolOff color.
         //print("projectilecode is " + projectilecode.ToString());
@@ -228,8 +231,10 @@ public class SelectedTool : MonoBehaviour
 
             }
         }
-        // Cycle to the next tool.
-        projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+        if (index == -1)
+            projectilecode = (projectilecode + 1) % stateLib.NUMBER_OF_TOOLS;
+        else 
+            projectilecode = index;
         // Count the number of empty tools from the set of tools.
         while (toolCounts[projectilecode] <= 0)
         {
