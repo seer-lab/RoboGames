@@ -75,7 +75,7 @@ public class Output : MonoBehaviour
 			anim.SetBool("Appearing", false);
 			anim.SetBool("Hiding", true);
 		}
-		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
+		if (( Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
 			text.GetComponent<Text>().text = "";
 		}
 	}

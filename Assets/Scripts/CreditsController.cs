@@ -32,7 +32,7 @@ public class CreditsController : MonoBehaviour
         {
             GlobalState.GameState = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
         {
             SceneManager.LoadScene("MainMenu"); 
         }
