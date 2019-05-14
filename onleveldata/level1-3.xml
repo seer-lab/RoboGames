@@ -18,10 +18,10 @@ STRINGS and OUTPUT</introtext>
 using namespace std;
 //Don't forget to put these at the start of your programs!
 int main {
-	<comment type="description" correct="true" size="1" groupid="4">STRING variables store any amount of text.</comment>
+	<comment type="description" correct="true" size="1" groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
 	string truth = "programming is awesome!";
-	<comment type="description" correct="false" size="1" groupid="1">The computer magically knows every value that every variable has ever had.</comment>
-	<comment type="description" correct="true" size="1" groupid="1">If you reassign a value to a variable, its old value disappears!</comment>
+	<comment type="description" correct="false" size="1" groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
+	<comment type="description" correct="true" size="1" groupid="1" hint="Woah this is a hint as well">If you reassign a value to a variable, its old value disappears!</comment>
 	string mystring = "this is the old value";
 	mystring = "new value";
 	cout &lt;&lt; <question text="What is the value of mystring?
@@ -48,4 +48,5 @@ int main {
     <comment type="description" correct="true" size="1" groupid="2">Keyboard input is a string; You may need to convert it to other types!</comment>
 }
 </code>
+<hint type="description">This is a hint</hint>
 </level>

@@ -114,6 +114,12 @@ public class Checklist : MonoBehaviour {
 													" the code that is \ncorrect";
 				}
 			}
+			//Hint Tool
+			if(projectilecode == stateLib.TOOL_HINTER){
+				GetComponent<Text>().text +=GlobalState.StringLib.checklist_complete_color_tag + 
+											"\nProvids Hints when thrown at code" + 
+											stringLib.CLOSE_COLOR_TAG;
+			}
 		}
 		// Not in game
 		else {
