@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BackButton.cs" />
      <Compile Include="Assets\Banner.cs" />
      <Compile Include="Assets\CharacterSelect.cs" />
      <Compile Include="Assets\ClickableMenu.cs" />

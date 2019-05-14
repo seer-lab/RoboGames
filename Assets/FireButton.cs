@@ -35,6 +35,11 @@ public class FireButton : MonoBehaviour
         }
         if (Input.GetKeyDown("left ctrl")  || Input.GetKeyDown("right ctrl"))
             GetComponent<Animator>().SetTrigger("Fire");
+
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
+            this.transform.parent.GetComponent<Canvas>().enabled = true;
+        }
+        else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) transform.parent.GetComponent<Canvas>().enabled = false; 
     }
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))

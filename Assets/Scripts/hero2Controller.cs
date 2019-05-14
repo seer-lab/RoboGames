@@ -198,7 +198,7 @@ public class hero2Controller : MonoBehaviour
 				yield return null;
 			}
 			isMovingX = false; 
-			while(Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 1f){
+			while(Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 0.6f){
 				if (GetComponent<Transform>().localPosition.y - position.y < 0)
 					verticalMovement = 0.5f; 
 				else verticalMovement = -1f; 
