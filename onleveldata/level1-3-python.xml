@@ -11,9 +11,12 @@ STRINGS and OUTPUT</introtext>
 <tool name="checker" enabled="true" count="5"/>
 <tool name="hint" enabled="true" count="3"/>
 </tools>
-<code language="python">//Recall that COUT is used to print out variables.
+<code language="python">
+	#Recall that PRINT is used to print out variables.
+	import numpy as np
+	import scipy as sc
 <comment type="description" correct="true" size="1" groupid="0">Input and output operations come from LIBRARIES that you add to your code.</comment>
-#Don't forget to put these at the start of your programs!
+	#Don't forget to put these at the start of your programs!
 	<comment type="description" correct="true" size="1" groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
 	truth = "programming is awesome!";
 	<comment type="description" correct="false" size="1" groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
@@ -41,7 +44,19 @@ STRINGS and OUTPUT</introtext>
 	Type your answer: " answer="true">my_variable;</question>)
 	<comment type="description" correct="false" size="1" groupid="2">The computer psychically determines what variable type was entered.</comment>
     <comment type="description" correct="true" size="1" groupid="2">Keyboard input is a string; You may need to convert it to other types!</comment>
+	if(my_variable)
+		print(<question text="What does this code output?
+	Type your answer: " answer="true">my_variable</question>)
+
+	def approx_arclength(tn,m,xp,yp):
+    Al = 0.0
+    deltaM = tn/m
+    for j in range(m):
+        deltaX = xp((j+1)*deltaM) - xp(j*deltaM)
+        deltaY = yp((j+1)*deltaM) - yp(j*deltaM)
+
+        Al += math.sqrt(deltaX**2 + deltaY**2)
+    return Al
 }
 </code>
-<hint type="description">This is a hint</hint>
 </level>
