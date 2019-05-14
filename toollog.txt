@@ -1,2 +1,2 @@
 Tool, Location, Time
-Printed, 16, 14.26
+projectileComment(Clone)Wasted, 2, 34.68

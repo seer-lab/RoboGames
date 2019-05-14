@@ -10,6 +10,10 @@ public class FireButton : MonoBehaviour
     hero2Controller hero; 
     public GameObject toolObject; 
     private SelectedTool tool; 
+    private bool isFiring; 
+    public bool IsFiring{get{
+        return isFiring; 
+    }}
     int code = -1; 
     void Start(){
         hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
@@ -35,5 +39,11 @@ public class FireButton : MonoBehaviour
     public void onClick(){
         hero.ThrowTool(); 
         GetComponent<Animator>().SetTrigger("Fire");
+        StartCoroutine(onFire());
+    }
+    IEnumerator onFire(){
+        isFiring = true; 
+        yield return new WaitForSecondsRealtime(0.1f); 
+        isFiring = false; 
     }
 }

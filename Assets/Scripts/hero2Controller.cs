@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Net.Sockets;
 using System.Diagnostics.SymbolStore;
 using System.Xml.Schema;
 //**************************************************//
@@ -48,10 +50,12 @@ public class hero2Controller : MonoBehaviour
 	private float verticalMovement = 1f; 
 	private bool isMovingX = false; 
 	private bool reachedPosition = true; 
+	private FireButton fire; 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
 		codescreen = GameObject.Find("CodeScreen");
+		fire = GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>();
 		selectedTool = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").gameObject;
 		projectiles[0] = Resources.Load<GameObject>("Prefabs/projectileBug").GetComponent<Rigidbody2D>();
 		projectiles[1] =  Resources.Load<GameObject>("Prefabs/projectileActivator").GetComponent<Rigidbody2D>();
@@ -179,26 +183,45 @@ public class hero2Controller : MonoBehaviour
 			}
 	}
 	IEnumerator MoveToPosition(Vector3 position){
-		yield return new WaitForSecondsRealtime(0.1f);
-		if (!Input.GetMouseButton(0)) position = this.transform.localPosition; 
-		
-		reachedPosition = false; 
-		isMovingX = true; 
+		if (position.x > transform.position.x)
+			facingRight = true; 
+		else facingRight = false; 
+		anim.SetBool("facingRight", facingRight);
+		yield return new WaitForSecondsRealtime(0.2f);
+		if (Input.GetMouseButton(0)) {		
+			reachedPosition = false; 
+			isMovingX = true; 
 
-		while(Math.Abs(GetComponent<Transform>().localPosition.x-position.x) > 0.1f){
-			if (this.transform.position.x - position.x < 0) facingRight = true;
-			else facingRight = false; 
-			yield return null;
+			while(Math.Abs(GetComponent<Transform>().localPosition.x-position.x) > 0.6f){
+				if (this.transform.position.x - position.x < 0) facingRight = true;
+				else facingRight = false; 
+				yield return null;
+			}
+			isMovingX = false; 
+			while(Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 1f){
+				if (GetComponent<Transform>().localPosition.y - position.y < 0)
+					verticalMovement = 0.5f; 
+				else verticalMovement = -1f; 
+				yield return null; 
+			}
+			reachedPosition = true; 
 		}
-		isMovingX = false; 
-		while(Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 0.1f){
-			if (GetComponent<Transform>().localPosition.y - position.y < 0)
-				verticalMovement = 0.5f; 
-			else verticalMovement = -1f; 
-			yield return null; 
+	}
+	Vector3 RoundPosition(Vector3 position){
+		Transform lineAbove=null, lineBelow = null; 
+		int count = 1; 
+		foreach(GameObject line in lg.manager.lines){
+			count++;
+			if (line.GetComponent<Transform>().position.y < position.y){
+				lineBelow = line.GetComponent<Transform>(); 
+				Debug.Log(count);
+				break; 
+			} else lineAbove = line.GetComponent<Transform>(); 
 		}
-		reachedPosition = true; 
-
+		if (lineAbove == null || lineBelow == null){
+			return position; 
+		}
+		return new Vector3(position.x, (lineAbove.position.y-lineBelow.position.y)/2 + lineBelow.position.y, position.z); 
 	}
 	//.................................>8.......................................
 	void Update() {
@@ -226,11 +249,9 @@ public class hero2Controller : MonoBehaviour
 			if (Input.GetMouseButtonDown(0)){
 				Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
 				Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds; 
-				if (pos.x < collider.max.x && pos.y > collider.center.y - collider.size.y/2){
-					Debug.Log("Starting Coroutine");
-					Debug.Log("X compare: " + collider.max.x.ToString() + ' ' + pos.x); 
-					Debug.Log("Y compare: " + (collider.center.y - collider.size.y/2)  + ' ' + pos.y); 
-					StartCoroutine(MoveToPosition(pos)); 
+				if (pos.x < collider.center.x + collider.size.x/2 && pos.y > collider.center.y - collider.size.y/2
+					&& !fire.IsFiring) {
+					StartCoroutine(MoveToPosition(RoundPosition(pos))); 
 				}
 			}
 			else if (Input.GetMouseButtonUp(0)){
