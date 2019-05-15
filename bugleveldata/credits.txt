@@ -1,4 +1,4 @@
-CREDITS: 
+﻿CREDITS: 
 
 Created by: Michael Miljanovic
 
@@ -46,6 +46,10 @@ A robot
 by Anton Yu. 
 From 0.18 OCAL database. 
 
+Robot, Boy & Girl 
+by pzUH
+
+
 Space ship collection
 by clayster2012
 
@@ -59,7 +63,8 @@ Space Gui in various colors
 by Rawdanitsu 
 
 Icons 
-by phaelax 
+by phaelax
+by www.crownjoseph.com 
 
 angled metal tracks on an electronic
 circuit board from creative103.com  
@@ -133,6 +138,12 @@ by movingplaid
 
 zoom up 1 (quicker delay).wav 
 by Chriddof 
+
+Various Alerts
+by dklon 
+
+Side Blaster sound effects
+by Master484
 
 Whoosh_Swish_03.wav 
 by mich3d  

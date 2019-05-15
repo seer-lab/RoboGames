@@ -25,8 +25,12 @@ public class beacon : Tools {
 	public Sprite activebeacon;
 	public Sprite inactivebeacon;
 	public Sprite progressbeacon;
+	public Animator anim; 
 	int flashCounter = 0;
 
+	public override void Initialize(){
+		anim = GetComponent<Animator>(); 
+	}
 
 
 	//.................................>8.......................................
@@ -35,19 +39,9 @@ public class beacon : Tools {
 		// All beacons complete
 		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0) {
 			revOnce = true;
-			GetComponent<SpriteRenderer>().sprite = activebeacon;
+			//GetComponent<SpriteRenderer>().sprite = activebeacon;
+			anim.SetTrigger("Complete");
 			audioRev.Play();
-		}
-		else if (GlobalState.level.Tasks[0] != GlobalState.level.CompletedTasks[0] && actcounter > 0)
-		{
-			flashCounter++;
-			if (flashCounter > 50) {
-				GetComponent<SpriteRenderer>().sprite = progressbeacon;
-			}
-			if (flashCounter > 100) {
-				GetComponent<SpriteRenderer>().sprite = inactivebeacon;
-				flashCounter = 0;
-			}
 		}
 	}
 
@@ -74,7 +68,8 @@ public class beacon : Tools {
 				// Award 1 extra use of the tool.
 				selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
 				actcounter++;
-				GetComponent<SpriteRenderer>().sprite = progressbeacon;
+				//GetComponent<SpriteRenderer>().sprite = progressbeacon;
+				anim.SetBool("IsActive", true); 
 			}
 			
 		}
@@ -86,6 +81,7 @@ public class beacon : Tools {
 		    beacon.GetComponent<beacon>().actcounter = 0;
 		    beacon.GetComponent<SpriteRenderer>().sprite = inactivebeacon;
 		    beacon.GetComponent<beacon>().flashCounter = 0;
+			beacon.GetComponent<beacon>().anim.SetBool("IsActive", false); 
             GlobalState.level.CompletedTasks[0] = 0; 
 	    }
     }
