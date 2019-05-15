@@ -1,4 +1,2 @@
 NewState, PreviousState#, Time, CurrentLevel
-LevelBegin, 10, 2.693974, level0.xml
-MenuAccessed, 1, 4.96236, level0.xml
-MenuAccessed, -2, 18.29421, level0.xml
+LevelBegin, 10, 5.422502, level1-3.xml

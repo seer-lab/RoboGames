@@ -61,7 +61,7 @@ public class TextColoration {
     Regex rgxKeyword = new Regex(patternKeyword);
     Regex rgxInclude = new Regex(patternInclude);
 
-    Match mStringLiteral, mComment, mKeyword, mInclude;
+    Match mStringLiteral, mComment, mKeyword, mInclude, mBlockComment;
 
     mInclude = rgxInclude.Match(sText);
 	
@@ -80,6 +80,12 @@ public class TextColoration {
 		mKeyword = mKeyword.NextMatch();
 		
 	}
+	// mBlockComment = rgxBlockComment.Match(sText);
+	// while(mBlockComment.Success){
+	// 	string cleanedstring = DecolorizeText(mBlockComment.Value);
+  //   sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+	// 	mBlockComment = mBlockComment.NextMatch();
+	// }
 		//find ints 
 	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
 	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
@@ -96,14 +102,14 @@ public class TextColoration {
 	}
     mComment = rgxComment.Match(sText);
     while (mComment.Success) {
-		string cleanedstring = DecolorizeText(mComment.Value);
-        sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
-		mComment = mComment.NextMatch();
+			string cleanedstring = DecolorizeText(mComment.Value);
+      sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			mComment = mComment.NextMatch();
 	  
     }
 	
 	//block comments (todo: Add to previous comment loop)
-	rgxComment = new Regex(@"(?s)(\/\*)(.*?)(\*\/)"); 
+	rgxComment = new Regex(patternComment); 
 	//TODO: I discovered the lazy "?" after doing a lot of modification; 
 	//this probably could be used elsewhere
 	
@@ -113,6 +119,40 @@ public class TextColoration {
 		sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 		mComment = mComment.NextMatch();
 	}
+
+	//Block Comments/First Comment
+	if(language.Equals("python")){
+		Regex rgxBlock = new Regex(@"(\/\/|\#)(.*)");
+		mBlockComment = rgxBlock.Match(sText);
+
+		while(mBlockComment.Success){
+			string cleanedstring = DecolorizeText(mBlockComment.Value);
+			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			break;
+		}
+
+		string block = @"(['" + "])\\1\\1(.*?)\\1{3}";
+		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
+		rgxBlock = new Regex(block,options);
+		mBlockComment = rgxBlock.Match(sText);
+
+		while(mBlockComment.Success){
+			string cleanedstring = DecolorizeText(mBlockComment.Value);
+			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			break;
+		}
+
+		rgxBlock = new Regex(block);
+		mBlockComment = rgxBlock.Match(sText);
+		while(mBlockComment.Success){
+			string cleanedstring = DecolorizeText(mBlockComment.Value);
+			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			break;
+		}
+
+	}
+
+
 	Debug.Log("Pre-cleaning text = " + sText);
 	
 	//Decolorize tags stuck inside words
