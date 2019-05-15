@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour, ITimeUser
     SidebarController sidebar;
     SelectedTool selectedTool; 
     BackgroundController background; 
+    BackButton backButton; 
     bool winning = false;
 
     /// <summary>
@@ -153,6 +154,7 @@ public class GameController : MonoBehaviour, ITimeUser
         Debug.Log(GlobalState.CurrentONLevel);
         factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
         GlobalState.level = factory.GetLevel();
+        backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
@@ -195,6 +197,7 @@ public class GameController : MonoBehaviour, ITimeUser
             sidebar.ToggleDark();
             output.ToggleDark();
             background.ToggleDark(); 
+            backButton.ToggleColor();
         }
         else
         {
@@ -202,6 +205,7 @@ public class GameController : MonoBehaviour, ITimeUser
             sidebar.ToggleLight();
             output.ToggleLight();
             background.ToggleLight(); 
+            backButton.ToggleColor();
         }
     }
 
