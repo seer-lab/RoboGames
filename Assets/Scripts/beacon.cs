@@ -31,8 +31,6 @@ public class beacon : Tools {
 	public override void Initialize(){
 		anim = GetComponent<Animator>(); 
 	}
-
-
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {

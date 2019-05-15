@@ -35,12 +35,14 @@ public abstract class comment : Tools {
 
 	protected float resetTime = 0f;
 	protected float timeDelay = 30f;
+    protected Animator anim; 
 
     protected TextColoration textColoration; 
 
     public override void Initialize()
     {
         string path = "Sprites/";
+        anim = GetComponent<Animator>();
         descSpriteOff = Resources.LoadAll<Sprite>(path + "dComment")[2];
         descSpriteOn = Resources.LoadAll<Sprite>(path + "dComment")[0]; 
         codeSpriteOff = Resources.LoadAll<Sprite>(path + "cComment")[2];
@@ -57,6 +59,7 @@ public abstract class comment : Tools {
         {
             if (isCommented) this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
             else this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
+            anim.SetBool("IsUncomment", true);
         }
         textColoration = new TextColoration();
     }

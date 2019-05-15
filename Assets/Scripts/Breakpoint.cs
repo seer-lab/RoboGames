@@ -20,7 +20,11 @@ public class Breakpoint : Tools {
 	public string values;
 	public AudioClip[] sound = new AudioClip[2];
 
+	Animator anim; 
 	private bool activated = false;
+	public override void Initialize(){
+		anim = GetComponent<Animator>();
+	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -31,6 +35,7 @@ public class Breakpoint : Tools {
 				Logger.printLogFile(stringLib.LOG_BREAKPOINT_ON, this.transform.position);
 			}
 			activated = true;
+			anim.SetTrigger("Complete");
 			this.GetComponent<SpriteRenderer>().sprite = Resources.LoadAll<Sprite>("Sprites/yellowbreakpoint")[0];
             Destroy(collidingObj.gameObject);
         }

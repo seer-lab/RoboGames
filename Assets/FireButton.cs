@@ -19,7 +19,7 @@ public class FireButton : MonoBehaviour
         hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
         tool = toolObject.GetComponent<SelectedTool>(); 
         colours = new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
-        Color.red, Color.blue, Color.cyan};
+        Color.cyan, Color.blue, Color.blue};
         icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         code = tool.projectilecode; 
         UpdateLook();

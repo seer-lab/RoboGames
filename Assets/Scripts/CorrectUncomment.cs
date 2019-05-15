@@ -11,6 +11,7 @@ public class CorrectUncomment : comment
         //TODO NOTE: This section is a bit of a mess and needs cleaning ^_^
         if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented)
         {
+            anim.SetTrigger("Complete");
             GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
