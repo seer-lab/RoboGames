@@ -161,8 +161,10 @@ public partial class LevelGenerator : MonoBehaviour {
 				string lineNumber = (x).ToString();
 
 				lineNumbers[x-1] = lineNumber;
-			}   
-			drawCode += lineNumbers[x-1] + "\t" + GlobalState.level.Code[x-1];
+			}
+            string lineN = "<color=#ffffffff>" + lineNumbers[x-1] + stringLib.CLOSE_COLOR_TAG;   
+            //string lineN = lineNumbers[x-1];
+			drawCode += lineN + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
 		}
 		//print("Drawcode is: " + drawCode);
@@ -195,7 +197,7 @@ public partial class LevelGenerator : MonoBehaviour {
                             col = lines[i].IndexOf("$bug$");
                             GlobalState.level.Code[row] = lines[i].Replace("$bug$", "");
                             TextColoration color = new TextColoration();
-                            GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row]);
+                            GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
                         }
                     }
                     childNode.InnerText = childNode.InnerText.Replace("$bug$", "");
@@ -216,7 +218,7 @@ public partial class LevelGenerator : MonoBehaviour {
                     try{
                         if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
                             tmp = indexOf +childs.InnerText.Split('\n').Length;
-                            manager.CreateHint(childs,tmp + indexOf);
+                            manager.CreateHint(childs,tmp);
                         }
                     }catch(Exception e){
                         //Debug.LogError(e.Message);
@@ -246,7 +248,7 @@ public partial class LevelGenerator : MonoBehaviour {
                             thisObject.GetComponent<BugComment>().blocktext = codenode.ChildNodes[i].InnerXml;
                             //Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
-                            GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0]);
+                            GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0], GlobalState.level.Language);
 
                             thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index)*0.99f, 0f);
                             //Removed; using sprites instead:

@@ -113,8 +113,6 @@ public static class XMLReader {
     public static string GetHints(XmlDocument doc) {
         foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes) {
             if(xmlNode.Name == stringLib.NODE_NAME_HINT) {
-                Debug.Log("Tag name in GetHints() " + xmlNode.Name);
-                Debug.Log(xmlNode.InnerText);
                 return xmlNode.InnerText;
             }
         }
@@ -250,7 +248,7 @@ public static class XMLReader {
 		// Remove &amp;
 		sReturn = sReturn.Replace("&amp;", "&");
 		
-		Debug.Log("sReturn = " + sReturn);
+		//Debug.Log("sReturn = " + sReturn);
 		return sReturn;
 	}
 
