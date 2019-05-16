@@ -34,6 +34,12 @@ public class TitleController : MonoBehaviour
             yield return null; 
         }
     }
+    IEnumerator LoadGame(){
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+        yield return new WaitForSecondsRealtime(1f); 
+        SceneManager.LoadScene("MainMenu");
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -41,7 +47,7 @@ public class TitleController : MonoBehaviour
             StartCoroutine(ShowCharacters()); 
         }
         if (Input.anyKey || Input.GetMouseButton(0)){
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(LoadGame()); 
         }
     }
 }

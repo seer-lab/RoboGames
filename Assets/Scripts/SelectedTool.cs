@@ -130,31 +130,31 @@ public class SelectedTool : MonoBehaviour
         {
             case stateLib.TOOL_CATCHER_OR_ACTIVATOR:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_CATCHER_OR_ACTIVATOR].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_PRINTER_OR_QUESTION:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_WARPER_OR_RENAMER:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_COMMENTER:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_COMMENTER].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_COMMENTER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_CONTROL_FLOW:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_CONTROL_FLOW].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_CONTROL_FLOW].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_HELPER:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_HELPER].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_HELPER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_HINTER:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_HINTER].GetComponent<Image>().color = toolOnColor;
+                toolIcons[stateLib.TOOL_HINTER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             default:
                 break;
@@ -201,7 +201,8 @@ public class SelectedTool : MonoBehaviour
         int notoolcount = 0;
         // Turn this tool's color to the toolOff color.
         //print("projectilecode is " + projectilecode.ToString());
-        toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
+        //toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
+        toolIcons[projectilecode].GetComponent<Animator>().SetBool("enabled", false);
 
         //Check if its the hinter tool and if it is ignore the next statement
         if(projectilecode != stateLib.TOOL_HINTER){

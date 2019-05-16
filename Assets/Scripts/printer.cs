@@ -31,7 +31,7 @@ public class printer : Tools {
 				toolgiven = true;
 				for (int i = 0; i < tools.Length; i++) {
 					if (tools[i] > 0) {
-						lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
+						lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);
 					}
 					selectedTool.toolCounts[i] += tools[i];
 				}

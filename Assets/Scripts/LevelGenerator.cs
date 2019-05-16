@@ -604,10 +604,10 @@ public partial class LevelGenerator : MonoBehaviour {
     }
 
     //.................................>8.......................................
-    public void floatingTextOnPlayer(string sMessage) {
-	    toolprompt.GetComponent<TextMesh>().text = sMessage;
-	    Animator anim = toolprompt.GetComponent<Animator>();
-	    anim.Play("hide");
+    public void floatingTextOnPlayer(Color color) {
+        hero.transform.Find("NewTool").GetComponent<SpriteRenderer>().color = color; 
+	    Animator anim = hero.transform.Find("NewTool").GetComponent<Animator>(); 
+	    anim.SetTrigger("onNewTool");
     }
 
 //.................................>8.......................................

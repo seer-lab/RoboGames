@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI; 
@@ -6,6 +7,10 @@ using UnityEngine;
 
 public class IncorrentUncomment : comment
 {
+    public override void Initialize(){
+        base.Initialize();
+        anim.SetBool("IsUncomment", true);
+    }
     public override void UpdateProtocol()
     {
         base.UpdateProtocol();
@@ -14,6 +19,7 @@ public class IncorrentUncomment : comment
             if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
             {
                 doneUpdating = true;
+                anim.SetTrigger("Complete");
                 if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
                 {
                     GetComponent<SpriteRenderer>().sprite = descSpriteOn;

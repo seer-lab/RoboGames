@@ -59,7 +59,6 @@ public abstract class comment : Tools {
         {
             if (isCommented) this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
             else this.gameObject.GetComponent<SpriteRenderer>().sprite = codeSpriteOff;
-            anim.SetBool("IsUncomment", true);
         }
         textColoration = new TextColoration();
     }

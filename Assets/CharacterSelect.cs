@@ -30,11 +30,17 @@ public class CharacterSelect : MonoBehaviour
         indexOfSelected = 0; 
         characters[indexOfSelected].SelectCharacter(); 
     }
+     IEnumerator LoadGame(){
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+        yield return new WaitForSecondsRealtime(1f); 
+        SceneManager.LoadScene("Cinematic");
+
+    }
     
     public void SelectCharacter(int index){
         if (index == indexOfSelected){
             GlobalState.Character = names[indexOfSelected]; 
-            SceneManager.LoadScene("Cinematic");
+            StartCoroutine(LoadGame()); 
         }
         StopAllCoroutines(); 
         characters[indexOfSelected].DeselectCharacter(); 
@@ -64,7 +70,7 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)){
             GlobalState.Character = names[indexOfSelected]; 
-            SceneManager.LoadScene("Cinematic");
+            StartCoroutine(LoadGame());
         }
     }
 }

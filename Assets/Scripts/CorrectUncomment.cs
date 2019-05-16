@@ -6,6 +6,10 @@ using System.Text.RegularExpressions;
 
 public class CorrectUncomment : comment
 {
+    public override void Initialize(){
+        base.Initialize();
+        anim.SetBool("IsUncomment", true);
+    }
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
         //TODO NOTE: This section is a bit of a mess and needs cleaning ^_^

@@ -104,9 +104,11 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Lose()
     {
         CheckWin(); 
-        yield return new WaitForSecondsRealtime(2.4f); 
+        yield return new WaitForSecondsRealtime(1.4f); 
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
+            yield return new WaitForSecondsRealtime(1f); 
             GameOver();  
         }
     }
@@ -149,6 +151,7 @@ public class GameController : MonoBehaviour, ITimeUser
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         GlobalState.IsDark = true; 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         Debug.Log(GlobalState.CurrentONLevel);
@@ -159,6 +162,7 @@ public class GameController : MonoBehaviour, ITimeUser
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
+        
     }
     /// <summary>
     /// Handles operations regaserding the UI of the game. 
