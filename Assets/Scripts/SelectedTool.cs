@@ -38,7 +38,7 @@ public class SelectedTool : MonoBehaviour
 	private Color toolOffColor = new Color(.3f, .3f, .3f);
 	private LevelGenerator lg;
 	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
-
+    private bool isBugActive = false;
     SidebarController sidebar; 
 	private string displayString = "";
 
@@ -82,7 +82,7 @@ public class SelectedTool : MonoBehaviour
                 if(i!= stateLib.TOOL_HINTER){
 
                 
-                    if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
+                    if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i] || (i == 0 && GlobalState.GameMode == "bug" && toolCounts[i] != 0))
                     {
                         toolIcons[i].GetComponent<Image>().enabled = true;
                         toolLabels[i].GetComponent<Text>().enabled = true; 
@@ -96,6 +96,7 @@ public class SelectedTool : MonoBehaviour
                     }
                 }
             }
+            
         }
     }
 
