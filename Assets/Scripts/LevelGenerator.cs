@@ -162,6 +162,7 @@ public partial class LevelGenerator : MonoBehaviour {
 				lineNumbers[x-1] = lineNumber;
 			}
             string lineN = "<color=#ffffffff>" + lineNumbers[x-1] + stringLib.CLOSE_COLOR_TAG;   
+            //string lineN = lineNumbers[x-1];
 			drawCode += lineN + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
 		}

@@ -248,7 +248,7 @@ public static class XMLReader {
 		// Remove &amp;
 		sReturn = sReturn.Replace("&amp;", "&");
 		
-		Debug.Log("sReturn = " + sReturn);
+		//Debug.Log("sReturn = " + sReturn);
 		return sReturn;
 	}
 
