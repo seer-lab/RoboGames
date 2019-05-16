@@ -37,6 +37,7 @@ public class rename : Tools {
 	public Sprite renSpriteOn;
 
 	private int selection = 0;
+	private bool hasHappened = false;
 
     public override void Initialize()
     {
@@ -94,6 +95,10 @@ public class rename : Tools {
 					foreach(string s in GlobalState.level.Code) {
 						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
 						GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
+						if(GlobalState.level.Code[iter].Contains(oldname) && !hasHappened){
+							GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
+							hasHappened = true;
+						}
 						iter += 1;
 					}
 

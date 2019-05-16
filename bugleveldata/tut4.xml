@@ -4,7 +4,7 @@ You can use it on white text to see if that code affects the bug.
 Check the functions below using the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
 The error will remain if you comment out non-buggy code.
 Use the BUGCATCHER tool to catch the bug when you find it.</description>
-<code>void function1(){
+<code language="c++">void function1(){
     //do some stuff
 	
 <comment type="robobug" groupid="1" size="3" text="$err$Error in doMoreStuff function!

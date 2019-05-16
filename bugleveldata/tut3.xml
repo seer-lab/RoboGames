@@ -17,7 +17,7 @@ Can you put them both to good use?</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
-<code>void main(){
+<code language="c++">void main(){
     <warp file="tut4.xml" col="4">function1();</warp>
 	return;
 }

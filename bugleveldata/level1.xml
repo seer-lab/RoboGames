@@ -11,7 +11,7 @@ The calculator works!</endtext>
 <tools>
 <tool name="catcher" enabled="true" count="1"/>
 </tools>
-<code>//Robot Average Force Calculator
+<code language="c++">//Robot Average Force Calculator
 //To Find average of forces acting on the body in one dimension 
 //Input : Integer numbers (any unit of measurement)  
 //Output: Floating Point Average force on body (same units);

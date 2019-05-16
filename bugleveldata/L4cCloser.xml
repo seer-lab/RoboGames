@@ -2,7 +2,7 @@
 <description>Now you can use Code Tracing in the Closer function.
 Use what you have learned from the breakpoints to identify the bug.
 Use the BUGCATCHER when you have found the bug.</description>
-<code>struct target{
+<code language="c++">struct target{
     string name[30];
     int x, y;
 };
