@@ -143,6 +143,18 @@ public class TextColoration {
 			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mBlockComment=mBlockComment.NextMatch();
 		}
+}else if(language.Equals("c++") || language.Equals("c") ||language.Equals("c#")|| language.Equals("java")){
+		string block = @"\/\*+((([^\*])+)|([\*]+(?!\/)))[*]+\/";
+		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
+		Regex rgxBlock = new Regex(block,options);
+		mBlockComment = rgxBlock.Match(sText);
+
+		while(mBlockComment.Success){
+			string cleanedstring = DecolorizeText(mBlockComment.Value);
+			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			mBlockComment=mBlockComment.NextMatch();
+		}
+
 }
 
 	Debug.Log("Pre-cleaning text = " + sText);
