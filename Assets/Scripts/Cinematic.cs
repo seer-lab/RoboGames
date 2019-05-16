@@ -29,7 +29,14 @@ public class Cinematic : MonoBehaviour
         objs = new List<GameObject>();
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         Debug.Log(SceneManager.sceneCount);
+    }
+    IEnumerator LoadGame(){
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+        yield return new WaitForSecondsRealtime(1f); 
+        SceneManager.LoadScene("newgame");
+
     }
     public void ToggleLight()
     {
@@ -93,7 +100,7 @@ public class Cinematic : MonoBehaviour
                 Destroy(objs[0]);
                 cinerun = false;
                 objs = new List<GameObject>();
-                SceneManager.LoadScene("newgame");
+                StartCoroutine(LoadGame()); 
             }
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN)
@@ -163,7 +170,7 @@ public class Cinematic : MonoBehaviour
                 UpdateLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
-                SceneManager.LoadScene("newgame");
+                StartCoroutine(LoadGame()); 
             }
         }
         else

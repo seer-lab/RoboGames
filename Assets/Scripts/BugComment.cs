@@ -13,6 +13,7 @@ public class BugComment : comment
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isAnswered)
         {
             isAnswered = true; 
+            anim.SetTrigger("Complete");
             Logger.printLogFile(stringLib.LOG_COMMENT_ON, this.transform.position);
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
@@ -44,7 +45,7 @@ public class BugComment : comment
                 toolgiven = true;
                 for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
                 {
-                    if (tools[i] > 0) lg.floatingTextOnPlayer("New Tools!");
+                    if (tools[i] > 0) lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);
                     selectedTool.toolCounts[i] += tools[i];
                 }
             }
@@ -53,6 +54,7 @@ public class BugComment : comment
     }
     public override void UpdateProtocol(){
         if (output.Text.text == "" && isAnswered){
+            anim.SetTrigger("isBug");
             string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language); 
             value = "<color=#00ff00ff>/**/</color>" + value; 
             string[] text = value.Split('\n');

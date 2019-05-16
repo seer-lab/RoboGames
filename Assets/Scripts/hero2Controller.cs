@@ -173,7 +173,7 @@ public class hero2Controller : MonoBehaviour
    				anim.SetBool("throw", true);
    				nextFire = Time.time + fireRate;
    				animDelay = Time.time + animTime;
-   				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], transform.position, transform.rotation);
+   				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
    				if (facingRight) {
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
    				}

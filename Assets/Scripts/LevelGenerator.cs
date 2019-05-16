@@ -62,6 +62,7 @@ public partial class LevelGenerator : MonoBehaviour {
 	// Use this for initialization
 	private void Start() { 
         hero = GameObject.Find("Hero");
+        toolprompt = hero.transform.GetChild(0).gameObject;
         properties = new CodeProperties(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
         GlobalState.level.Tasks = new int[5];
@@ -605,11 +606,10 @@ public partial class LevelGenerator : MonoBehaviour {
     }
 
     //.................................>8.......................................
-    public void floatingTextOnPlayer(string sMessage) {
-        toolprompt = hero.transform.GetChild(0).gameObject;
-	    toolprompt.GetComponent<TextMesh>().text = sMessage;
-	    Animator anim = toolprompt.GetComponent<Animator>();
-	    anim.Play("hide");
+    public void floatingTextOnPlayer(Color color) {
+        hero.transform.Find("NewTool").GetComponent<SpriteRenderer>().color = color; 
+	    Animator anim = hero.transform.Find("NewTool").GetComponent<Animator>(); 
+	    anim.SetTrigger("onNewTool");
     }
 
 //.................................>8.......................................

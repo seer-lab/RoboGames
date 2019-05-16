@@ -6,11 +6,16 @@ using System.Text.RegularExpressions;
 
 public class CorrectUncomment : comment
 {
+    public override void Initialize(){
+        base.Initialize();
+        anim.SetBool("IsUncomment", true);
+    }
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
         //TODO NOTE: This section is a bit of a mess and needs cleaning ^_^
         if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented)
         {
+            anim.SetTrigger("Complete");
             GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();

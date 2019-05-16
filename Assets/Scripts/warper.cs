@@ -32,7 +32,7 @@ public class warper : Tools
                 {
                     if (tools[i] > 0)
                     {
-                        lg.floatingTextOnPlayer(stringLib.INTERFACE_NEW_TOOLS);
+                        lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);
                     }
                     selectedTool.toolCounts[i] += tools[i];                    Debug.Log(i + ": " + tools[i]);
                 }
