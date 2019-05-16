@@ -3,7 +3,7 @@
 Set the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; to check the state of the variables.
 &lt;color=#ffff00ff&gt;ACTIVATE&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; to observe behavior.
 Use the BUGCATCHER to identify the bug.</description>
-<code>struct target{
+<code language="c++">struct target{
     string name[30];
     int x, y;
 };

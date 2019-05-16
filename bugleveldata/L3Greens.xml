@@ -1,5 +1,5 @@
 <level>
-<code>
+<code language="c++">
 <warp line="39" file="level3.xml">Return;</warp>
 
 {"chartreuse",127,255,0},

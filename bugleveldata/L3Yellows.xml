@@ -1,5 +1,5 @@
 <level>
-<code>
+<code language="c++">
 <warp line="34" file="level3.xml">Return;</warp>
 
 {"aureolineyellow",255,168,36},
