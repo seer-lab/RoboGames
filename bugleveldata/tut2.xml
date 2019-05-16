@@ -14,7 +14,7 @@ You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
 <tool name="printer" enabled="true" count="unlimited"/>
 <tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
-<code>void FCalls(string errmsg){
+<code language="c++">void FCalls(string errmsg){
     //call some functions then return
 	<print text="function4 has a bug!" col="4">cout &lt;&lt; errmsg;</print> //try the PRINTER here!!
 	function1();

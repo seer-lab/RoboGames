@@ -12,7 +12,7 @@ and observe the behavior of the variables.</introtext>
 <tools>
 <tool name="printer" count="9" enabled="true"/>
 </tools>
-<code>struct target{
+<code language="c++">struct target{
     string name[30];
     int x, y;
 };

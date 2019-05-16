@@ -12,7 +12,7 @@ Only one bug remains in the completed function.</endtext>
 <tools>
 <tool name="printer" enabled="true" count="6"/>
 </tools>
-<code>//Robot Priority Assigner
+<code language="c++">//Robot Priority Assigner
 //SetPriority sorts a priority element value in a list
 //Priorities is a list where all elements except the first are sorted
 //SetPriority returns the list where all elements are sorted

@@ -16,7 +16,7 @@ Time to find the final bugs!</endtext>
 <tool name="printer" enabled="true" count="unlimited"/>
 <tool name="breakpointer" enabled="true" count="unlimited"/>
 </tools>
-<code>void main(){
+<code language="c++">void main(){
     checkforBugs();
     //sum() returns the sum of two numbers (e.g. sum(1,1) == 1+1 == 2)
     <breakpoint text="Variables not defined yet!"></breakpoint>int x = sum(2,2);

@@ -15,7 +15,7 @@ Can you figure out where the last bug is?</introtext>
 <tool name="warper" count="1" enabled="true"/>
 <tool name="breakpointer" count="3" enabled="true"/>
 </tools>
-<code>struct target{
+<code language="c++">struct target{
     string name[30];
     int x, y, z;
 };

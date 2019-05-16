@@ -13,7 +13,7 @@ Time to look at the Priority Assigner.</endtext>
 <tool name="printer" enabled="true" count="5"/>
 <enabled count="5">1</enabled>
 </tools>
-<code>//Robot Priority Swap Function
+<code language="c++">//Robot Priority Swap Function
 //This function swaps two numbers. For example, 
 //if a=5 and b=6, swap(a,b) changes them
 //to a=6 and b=5 

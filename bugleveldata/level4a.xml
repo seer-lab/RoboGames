@@ -13,7 +13,7 @@ Don't forget how that function worked.</endtext>
 <tools>
 <tool name="catcher" count="1" enabled="true"/>
 </tools>
-<code>//Robot Targeting Systems Closeness Calculator
+<code language="c++">//Robot Targeting Systems Closeness Calculator
 //Identifies Closer of two targets based on coordinates
 //Uses (X,Y) 2 dimensional coordinates and calculates the difference
 //NOTE: Robot is located at (0,0)

@@ -13,7 +13,7 @@ There are still more bugs to find.</endtext>
 <tools>
 <tool name="printer" enabled="true" count="3"/>
 </tools>
-<code>//Robot Color Vision Database
+<code language="c++">//Robot Color Vision Database
 //Loads database of colors and sub-categories of colors
 //matches color Red, Green, and Blue (RGB) values with English names
 //IMPORTANT NOTE: color values range from 000 to 255
