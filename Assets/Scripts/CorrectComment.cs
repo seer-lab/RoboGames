@@ -9,8 +9,9 @@ public class CorrectComment : comment
     {
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented)
         {
-            GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+            //GetComponent<SpriteRenderer>().sprite = descSpriteOn;
             isCommented = true;
+            anim.SetTrigger("Complete");
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
             selectedTool.bonusTools[stateLib.TOOL_COMMENTER]++;

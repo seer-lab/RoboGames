@@ -20,6 +20,7 @@ public class IncorrectComment : comment
         {
             if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
             {
+                anim.SetTrigger("Complete");
                 doneUpdating = true;
                 if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
                 {

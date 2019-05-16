@@ -110,7 +110,8 @@ public class stringLib
 	public const string XML_ATTRIBUTE_OLDNAME				= "oldname";
     public const string XML_ATTRIBUTE_HINT                  = "hint";
 
-
+	public Color[] COLORS= new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
+        Color.cyan, Color.blue, Color.blue};
 	public const string START_LEVEL_FILE                    = "level0-1.xml";
 
 	public string comic_level_zero							= "tut1.xml";

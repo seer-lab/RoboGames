@@ -54,6 +54,7 @@ public class OldMenu : MonoBehaviour
         Screen.orientation = ScreenOrientation.Landscape;
         if (!GlobalState.IsResume){
             InitializeGlobals();
+            GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         }
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
         buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";

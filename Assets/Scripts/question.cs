@@ -33,6 +33,8 @@ public class question : Tools {
 	private bool answering = false;
 	private bool answered = false;
 	private string input = "";
+
+	public Animator anim; 
 	TouchScreenKeyboard keyboard;
 	public bool IsAnswerd {
 		get{
@@ -48,6 +50,7 @@ public class question : Tools {
 		if (IsAnswerd)GetComponent<SpriteRenderer>().sprite = qSpriteOn;
         else GetComponent<SpriteRenderer>().sprite = qSpriteOff;
         expectedArray = expected.Split(new String[] { ", ", "," }, StringSplitOptions.RemoveEmptyEntries);
+		anim = GetComponent<Animator>(); 
     }
     //.................................>8.......................................
     // Update is called once per frame
@@ -123,6 +126,7 @@ public class question : Tools {
 					}
 				}
 				else {
+					anim.SetTrigger("Complete");
 					// Correct Answer
 					GetComponent<SpriteRenderer>().sprite = qSpriteOn;
                     GlobalState.level.CompletedTasks[1]++;

@@ -52,7 +52,6 @@ public static class stateLib
 	public const int ENTITY_TYPE_INCORRECT_COMMENT             = 3;
 	public const int ENTITY_TYPE_INCORRECT_UNCOMMENT           = 4;
 	public const int ENTITY_TYPE_ROBOBUG_COMMENT               = 5;
-
 	public const int TEXT_SIZE_VERY_LARGE			    						 = 40;
 	public const int TEXT_SIZE_LARGE													 = 30;
 	public const int TEXT_SIZE_NORMAL													 = 25;
