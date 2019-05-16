@@ -94,6 +94,9 @@ public class rename : Tools {
 					foreach(string s in GlobalState.level.Code) {
 						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
 						GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
+						if(GlobalState.level.Code[iter].Contains(oldname)){
+							GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
+						}
 						iter += 1;
 					}
 
