@@ -118,7 +118,7 @@ public class hero2Controller : MonoBehaviour
 				Transform pos = this.GetComponent<Transform>(); 
 				Transform newTool = this.transform.Find("NewTool").GetComponent<Transform>(); 
 				if (!facingRight) offset*= -1; 
-				newTool.position = new Vector3(newTool.position.x - offset,newTool.position.y,newTool.position.z); 
+				newTool.position = new Vector3(newTool.position.x - offset/2,newTool.position.y,newTool.position.z); 
 				pos.position = new Vector3(pos.position.x + offset, pos.position.y, pos.position.z); 
 			}
 			this.GetComponent<SpriteRenderer>().flipX = !facingRight;
