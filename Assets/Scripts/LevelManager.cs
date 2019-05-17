@@ -186,7 +186,6 @@ public class LevelManager
         //@TODO Change the prefab to somthing cooler
         GameObject hintObject = Resources.Load<GameObject>("Prefabs/bugHint");
         GameObject levelHint = GameObject.Instantiate(hintObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (hintsize - 1), properties.initialLineY - (lineNumber + 0.5f * (hintsize - 1) * properties.linespacing + 0.4f), 0f), hintObject.transform.rotation);
-    
         levelHint.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f + col * properties.fontwidth, properties.initialLineY - (lineNumber)*0.99f, 0);
         HintCollider hintCollider = levelHint.GetComponent<HintCollider>();
         levelHint.GetComponent<HintCollider>().outmessage = childNode.Attributes["hint"].Value;
@@ -359,6 +358,9 @@ public class LevelManager
         {
             beacon.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - beacon.GetComponent<beacon>().Index * properties.linespacing + properties.lineOffset + 0.4f, 1);
         }
+        foreach (GameObject bug in bugs){
+            bug.transform.position = new Vector3(bug.transform.position.x, properties.initialLineY - (bug.GetComponent<GenericBug>().Index)*properties.linespacing, 0);
+        }
         foreach(GameObject breakpoint in roboBUGbreakpoints){
             breakpoint.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - breakpoint.GetComponent<Breakpoint>().Index*properties.linespacing, 1); 
         }
@@ -366,6 +368,7 @@ public class LevelManager
         {
             varcolor.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
         }
+    
     }
     //Update the Title object of the level. 
     public void SetTitle()
