@@ -108,7 +108,9 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Lose()
     {
         CheckWin(); 
-        yield return new WaitForSecondsRealtime(1.4f); 
+        do {
+            yield return new WaitForSecondsRealtime(1.4f); 
+        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
@@ -123,7 +125,9 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
+        do {
         yield return new WaitForSecondsRealtime(2.2f);
+        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         //if the end of the level string is empty then there is no anticipated next level. 
         if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath )
         {
