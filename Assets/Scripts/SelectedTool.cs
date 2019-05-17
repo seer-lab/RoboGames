@@ -55,6 +55,12 @@ public class SelectedTool : MonoBehaviour
         InitializeToolLabels();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
 	}
+    public bool CheckAllToolsUsed(){
+        for (int i = 0; i < toolCounts.Length; i++){
+            if (toolCounts[i] > 0) return false; 
+        }
+        return true; 
+    }
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
@@ -89,6 +95,7 @@ public class SelectedTool : MonoBehaviour
                         //Debug.Log("Updating Icons");
                     }
                     isLosing = false;
+                    noRemainingActivators = false; 
                     if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
                     {
                         projectilecode = i;
@@ -221,6 +228,7 @@ public class SelectedTool : MonoBehaviour
                 Debug.Log(toolCounts[projectilecode]);
                 toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
                 toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
+                if (GlobalState.GameMode == "on")
                 isLosing = true;
             }
 
