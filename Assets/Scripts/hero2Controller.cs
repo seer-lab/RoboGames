@@ -33,7 +33,7 @@ public class hero2Controller : MonoBehaviour
 	public GameObject codescreen;
 	public GameObject selectedTool;
 	public Rigidbody2D[] projectiles = new Rigidbody2D[stateLib.NUMBER_OF_TOOLS];
-
+	private GameController controller; 
 	private bool walkloop = false;
 	private bool facingRight = true;
 	private bool quitting = false;
@@ -46,7 +46,7 @@ public class hero2Controller : MonoBehaviour
 	private float climbDelay = 0.2f;
 	private Animator anim;
 	private LevelGenerator lg;
-	
+	private int lastLineNumberactive; 
 	private float verticalMovement = 1f; 
 	private bool isMovingX = false; 
 	private bool reachedPosition = true; 
@@ -66,6 +66,7 @@ public class hero2Controller : MonoBehaviour
 		anim = GetComponent<Animator>();
 		climbTime = 0f;
 		lg = codescreen.GetComponent<LevelGenerator>();
+		controller = Camera.main.GetComponent<GameController>(); 
 	}
 	void Flip(){
 		if (facingRight && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("left")){
@@ -173,10 +174,11 @@ public class hero2Controller : MonoBehaviour
 			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {
 				throwing = true;
    				anim.SetBool("throw", true);
-				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire(); 
-   				nextFire = Time.time + fireRate;
+				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();  
+				nextFire = Time.time + fireRate;
    				animDelay = Time.time + animTime;
    				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
+				controller.logger.onToolUse(projectilecode, lastLineNumberactive); 
    				if (facingRight) {
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
    				}
@@ -212,12 +214,15 @@ public class hero2Controller : MonoBehaviour
 	}
 	Vector3 RoundPosition(Vector3 position){
 		Transform lineAbove=null, lineBelow = null; 
+		int lineNumber = 0; 
 		foreach(GameObject line in lg.manager.lines){
+			lineNumber++; 
 			if (line.GetComponent<Transform>().position.y < position.y){
 				lineBelow = line.GetComponent<Transform>(); 
 				break; 
 			} else lineAbove = line.GetComponent<Transform>(); 
 		}
+		lastLineNumberactive = lineNumber; 
 		if (lineAbove == null || lineBelow == null){
 			return position; 
 		}

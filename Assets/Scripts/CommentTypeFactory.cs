@@ -91,7 +91,6 @@ public class DescriptionCommentFactory: CommentTypeFactory
     public DescriptionCommentFactory(XmlNode node, int line)
         :base(node, line)
     {
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_COMMENTER]++;
     }
     public override void ApplyScript(GameObject obj)
     {
@@ -143,7 +142,6 @@ public class CodeCommentFactory: CommentTypeFactory
     public CodeCommentFactory(XmlNode node, int line)
         :base(node, line)
     {
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
     }
     public override void ApplyScript(GameObject obj)
     {
