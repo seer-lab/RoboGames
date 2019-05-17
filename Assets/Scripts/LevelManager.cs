@@ -332,6 +332,7 @@ public class LevelManager
         allComments.AddRange(robotONincorrectComments);
         allComments.AddRange(robotONcorrectUncomments);
         allComments.AddRange(robotONincorrectUncomments);
+        allComments.AddRange(roboBUGcomments);
         foreach (GameObject comment in allComments)
         {
             comment thisComment = comment.GetComponent<comment>();
