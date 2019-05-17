@@ -32,7 +32,6 @@ public class Breakpoint : Tools {
 			if (!activated) {
 				GetComponent<AudioSource>().clip = sound[0];
 				GetComponent<AudioSource>().Play();
-				Logger.printLogFile(stringLib.LOG_BREAKPOINT_ON, this.transform.position);
 			}
 			activated = true;
 			anim.SetTrigger("Complete");
@@ -41,7 +40,6 @@ public class Breakpoint : Tools {
         }
 		else if (activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Debug.Log("activated");
-			Logger.printLogFile(stringLib.LOG_BREAKPOINT_ACTIVATED, this.transform.position);
 			GetComponent<AudioSource>().clip = sound[1];
 			GetComponent<AudioSource>().Play();
 			output.Text.text = values;
@@ -50,7 +48,7 @@ public class Breakpoint : Tools {
 				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
 					if (tools[i] > 0) {
                         // Must be called from level generator, not ToolSelectorObject
-						// lg.floatingTextOnPlayer("New Tools!");
+						lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);
 					}
 					selectedTool.toolCounts[i] += tools[i];
 				}

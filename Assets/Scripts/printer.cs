@@ -19,7 +19,6 @@ public class printer : Tools {
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
-			Logger.printLogFile(stringLib.LOG_PRINTED, this.transform.position);
 			Destroy(collidingObj.gameObject);
 			if (displaytext.Contains("$err$")){
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 

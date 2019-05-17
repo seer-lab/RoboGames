@@ -23,16 +23,13 @@ public class FireButton : MonoBehaviour
     }
     void UpdateLook(){
         GetComponent<Image>().color = GlobalState.StringLib.COLORS[code];
-        GameObject.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[code]);
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[code]);
     }
     void Update(){
         if (code != tool.projectilecode && tool.projectilecode >= 0){
             code = tool.projectilecode; 
             UpdateLook();
         }
-        if (Input.GetKeyDown("left ctrl")  || Input.GetKeyDown("right ctrl"))
-            GetComponent<Animator>().SetTrigger("Fire");
-
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
             this.transform.parent.GetComponent<Canvas>().enabled = true;
         }
@@ -42,6 +39,9 @@ public class FireButton : MonoBehaviour
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
             return; 
         hero.ThrowTool(); 
+        
+    }
+    public void Fire(){
         GetComponent<Animator>().SetTrigger("Fire");
         StartCoroutine(onFire());
     }

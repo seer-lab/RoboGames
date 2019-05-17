@@ -29,7 +29,6 @@ public class projectile2 : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.GetType() == typeof(EdgeCollider2D)) {
 			string sMessage = this.name + stringLib.LOG_TOOL_WASTED;
-			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(gameObject);
 		}
 	}

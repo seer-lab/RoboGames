@@ -23,7 +23,6 @@ public class warper : Tools
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
 			string sMessage = stringLib.LOG_WARPED + Filename;
-			Logger.printLogFile(sMessage, this.transform.position);
 			Destroy(collidingObj.gameObject);
             if (!toolgiven)
             {

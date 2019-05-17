@@ -42,7 +42,7 @@ public class CharacterSelect : MonoBehaviour
             GlobalState.Character = names[indexOfSelected]; 
             StartCoroutine(LoadGame()); 
         }
-        StopAllCoroutines(); 
+        else StopAllCoroutines(); 
         characters[indexOfSelected].DeselectCharacter(); 
         indexOfSelected = index; 
         Debug.Log("Index of Selected: " + indexOfSelected); 

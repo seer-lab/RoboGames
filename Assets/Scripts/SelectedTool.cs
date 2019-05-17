@@ -38,7 +38,7 @@ public class SelectedTool : MonoBehaviour
 	private Color toolOffColor = new Color(.3f, .3f, .3f);
 	private LevelGenerator lg;
 	private bool[] taskComplete = new bool[stateLib.NUMBER_OF_TOOLS];
-
+    private bool isBugActive = false;
     SidebarController sidebar; 
 	private string displayString = "";
 
@@ -55,6 +55,12 @@ public class SelectedTool : MonoBehaviour
         InitializeToolLabels();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
 	}
+    public bool CheckAllToolsUsed(){
+        for (int i = 0; i < toolCounts.Length; i++){
+            if (toolCounts[i] > 0) return false; 
+        }
+        return true; 
+    }
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
@@ -80,9 +86,8 @@ public class SelectedTool : MonoBehaviour
             if (toolCounts[i] + bonusTools[i] > 0)
             {
                 if(i!= stateLib.TOOL_HINTER){
-
-                
-                    if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
+             
+                    if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i] || (i == 0 && GlobalState.GameMode == "bug" && toolCounts[i] != 0))
                     {
                         toolIcons[i].GetComponent<Image>().enabled = true;
                         toolLabels[i].GetComponent<Text>().enabled = true; 
@@ -90,12 +95,14 @@ public class SelectedTool : MonoBehaviour
                         //Debug.Log("Updating Icons");
                     }
                     isLosing = false;
+                    noRemainingActivators = false; 
                     if (projectilecode == stateLib.PROJECTILE_CODE_NO_TOOLS)
                     {
                         projectilecode = i;
                     }
                 }
             }
+            
         }
     }
 
@@ -221,6 +228,7 @@ public class SelectedTool : MonoBehaviour
                 Debug.Log(toolCounts[projectilecode]);
                 toolLabels[projectilecode].GetComponent<Text>().color = Color.red;
                 toolLabels[projectilecode].GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_OUT_OF_TOOLS;
+                if (GlobalState.GameMode == "on")
                 isLosing = true;
             }
 

@@ -1,3 +1,4 @@
+using System;
 //**************************************************//
 // Class Name: Logger
 // Class Description: Class which stores log data on the filesystem. Anonymous collection of this data
@@ -11,68 +12,74 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
-public class Logger : MonoBehaviour {
+public class Logger
+{
 
-	public GameObject codescreen;
+    string id;
+    bool failed;
 
-	private int currentstate;
-	private hero2Controller hc;
-	private LevelGenerator lg;
-	private StreamWriter output;
+    int timeStart, timeEnd, totalTime;
+    DateTime time;
 
-	//.................................>8.......................................
-	// Use this for initialization
-	void Start() {
-		lg = codescreen.GetComponent<LevelGenerator>();
-		currentstate = stateLib.GAMESTATE_INITIAL_COMIC;
-		output = new StreamWriter(stringLib.TOOL_STATELOGFILE, false);
-		output.WriteLine("NewState, PreviousState#, Time, CurrentLevel");
-		output.Close();
-		output = new StreamWriter(stringLib.TOOL_LOGFILE, false);
-		output.WriteLine("Tool, Location, Time");
-		output.Close();
-	}
+    int[] toolUse = new int[stateLib.NUMBER_OF_TOOLS];
+	string[] linesUsed = new string[stateLib.NUMBER_OF_TOOLS]; 
+	bool hasWritten = false; 
 
-	//.................................>8.......................................
-	// Update is called once per frame
-	void Update() {
-		if (currentstate != GlobalState.GameState) {
-			output = new StreamWriter(stringLib.TOOL_STATELOGFILE, true);
-			switch(GlobalState.GameState) {
-				case stateLib.GAMESTATE_MENU:
-					output.WriteLine("MenuAccessed, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
-					break;
-				case stateLib.GAMESTATE_IN_GAME:
-					output.WriteLine("LevelBegin, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
-					break;
-				case stateLib.GAMESTATE_LEVEL_WIN:
-					output.WriteLine("LevelComplete, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
-					break;
-				case stateLib.GAMESTATE_LEVEL_LOSE:
-					output.WriteLine("LevelFailed, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
-					break;
-				case stateLib.GAMESTATE_GAME_END:
-					output.WriteLine("GameFinished, " + currentstate + ", " + Time.time + ", " + GlobalState.CurrentONLevel);
-					break;
-				default:
-					break;
-			}
-			output.Close();
-			currentstate = GlobalState.GameState;
+    public Logger()
+    {
+        timeStart = DateTime.Now.Second;
+        failed = false;
+		for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
+			linesUsed[i] = ""; 
+    }
+    public void onGameEnd()
+    {
+		if(hasWritten){
+			return; 
 		}
-}
+        timeEnd = DateTime.Now.Second;
+        totalTime = timeEnd - timeStart;
+        if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_LOSE)
+        {
+            failed = true;
+        }
+		hasWritten = true; 
+        WriteLog();
+    }
+    public void onToolUse(int index, int lineNumber)
+    {
+        toolUse[index]++;
+		linesUsed[index] += lineNumber.ToString() + ' '; 
+    }
+    public void WriteLog()
+    {
+        using (StreamWriter sw = File.AppendText(Application.dataPath.Replace("/Assets","") + "/Logging/" + id + GlobalState.CurrentONLevel.Replace(".xml", "") + ".txt"))
+        {
+            if (!failed) sw.WriteLine("Passed Level");
+            else sw.WriteLine("Failed Level");
+            sw.WriteLine(totalTime.ToString() + " Seconds");
+            for (int i = 0; i < GlobalState.level.Tasks.Length; i++)
+            {
+                if (GlobalState.level.Tasks[i] > 0)
+                {
+                    if (GlobalState.GameMode == "on")
+                        sw.WriteLine(GlobalState.StringLib.namesON[i] + " Tool Use: ");
+                    else
+                        sw.WriteLine(GlobalState.StringLib.namesBug[i] + " Tool Use: ");
 
-//.................................>8.......................................
-public static void printLogFile(string sMessage, Vector3 objectPosition) {
-	int position = (int)((stateLib.GAMESETTING_INITIAL_LINE_Y - objectPosition.y) / stateLib.GAMESETTING_LINE_SPACING);
-	StreamWriter sw = new StreamWriter(stringLib.TOOL_LOGFILE, true);
-	sMessage = sMessage + position.ToString() + ", " + Time.time.ToString();
-	sw.WriteLine(sMessage);
-	sw.Close();
-}
-//.................................>8.......................................
-
+                    sw.WriteLine("\tRequired Tasks: " + GlobalState.level.Tasks[i]);
+                    sw.WriteLine("\tCompleted Tasks: " + GlobalState.level.CompletedTasks[i]);
+                    sw.WriteLine("\tTimes Tool Used: " + toolUse[i]);
+					sw.WriteLine("\tLines Used: " + linesUsed[i]); 
+                    sw.WriteLine();
+                }
+            }
+            sw.WriteLine("--------------------------------------------------------");
+            sw.Close();
+        }
+    }
 
 }

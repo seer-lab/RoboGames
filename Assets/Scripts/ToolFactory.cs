@@ -350,14 +350,17 @@ public class CommentFactory: ToolFactory
                 factory = new BugCommentFactory(childnode, lineNumber);
                 factory.ApplyScript(newComment);
                 Entity = factory.Entity;
+                 GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_COMMENTER]++;
                 break;
             case "description": 
                 factory = new DescriptionCommentFactory(childnode, lineNumber);
                 factory.ApplyScript(newComment);
                 Entity = factory.Entity;
+                GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_COMMENTER]++;
                 break;
             case "code":
                 factory = new CodeCommentFactory(childnode, lineNumber);
+                 GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
                 factory.ApplyScript(newComment);
                 Entity = factory.Entity;
                 break;

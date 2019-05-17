@@ -182,7 +182,7 @@ public class OldMenu : MonoBehaviour
                         Application.Quit();
                         break;
                     case stateLib.GAMEMENU_RESUME_GAME:
-                        GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
+                        GlobalState.GameState = stateLib.GAMESTATE_IN_GAME; 
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         GlobalState.IsResume = false; 
                         SceneManager.UnloadSceneAsync("MainMenu");
@@ -326,9 +326,12 @@ public class OldMenu : MonoBehaviour
 
                         break;
                     case 1:
-                         m2switch(false);
-                        flushButtonColor();
-                        GlobalState.GameState = stateLib.GAMESTATE_MENU;
+                        InitializeGlobals(); 
+                        GlobalState.GameMode = stringLib.GAME_MODE_BUG;
+                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                        GlobalState.IsResume = false; 
+                        GlobalState.CurrentONLevel = "tut1.xml";
+                        SceneManager.LoadScene("CharacterSelect");  
                         break;
                 }
                 m2switch(false);
