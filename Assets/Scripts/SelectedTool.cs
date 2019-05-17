@@ -80,8 +80,7 @@ public class SelectedTool : MonoBehaviour
             if (toolCounts[i] + bonusTools[i] > 0)
             {
                 if(i!= stateLib.TOOL_HINTER){
-
-                
+             
                     if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i] || (i == 0 && GlobalState.GameMode == "bug" && toolCounts[i] != 0))
                     {
                         toolIcons[i].GetComponent<Image>().enabled = true;

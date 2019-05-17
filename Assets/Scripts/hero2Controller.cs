@@ -113,9 +113,11 @@ public class hero2Controller : MonoBehaviour
 			anim.SetBool("facingRight", facingRight);
 
 			if (this.GetComponent<SpriteRenderer>().flipX == facingRight && GlobalState.Character == "Boy"){
-				float offset = 0.5f; 
+				float offset = 0.8f; 
 				Transform pos = this.GetComponent<Transform>(); 
+				Transform newTool = this.transform.Find("NewTool").GetComponent<Transform>(); 
 				if (!facingRight) offset*= -1; 
+				newTool.position = new Vector3(newTool.position.x - offset,newTool.position.y,newTool.position.z); 
 				pos.position = new Vector3(pos.position.x + offset, pos.position.y, pos.position.z); 
 			}
 			this.GetComponent<SpriteRenderer>().flipX = !facingRight;
@@ -171,6 +173,7 @@ public class hero2Controller : MonoBehaviour
 			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {
 				throwing = true;
    				anim.SetBool("throw", true);
+				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire(); 
    				nextFire = Time.time + fireRate;
    				animDelay = Time.time + animTime;
    				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);

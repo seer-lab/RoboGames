@@ -30,7 +30,6 @@ public class GenericBug : Tools {
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
-			Logger.printLogFile(stringLib.LOG_BUG_FOUND, this.transform.position);
 			this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
 			anim.SetBool("Dying", true);
