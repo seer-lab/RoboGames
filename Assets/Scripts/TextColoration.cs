@@ -105,7 +105,7 @@ public class TextColoration {
 	
 	mComment = rgxComment.Match(sText);
 	while (mComment.Success) {
-		Debug.Log("Value: " + mComment.Value + " t/f:" + mComment.Value.IndexOf("#"));
+		//Debug.Log("Value: " + mComment.Value + " t/f:" + mComment.Value.IndexOf("#"));
 		if(mComment.Value.Contains("'''") && mComment.Value.Contains("#") && false){
 			mComment = mComment.NextMatch();
 			continue;

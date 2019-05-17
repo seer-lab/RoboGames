@@ -365,7 +365,8 @@ public class OldMenu : MonoBehaviour
 
                 levels.Clear();
                 passed.Clear();
-                lfile = GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                Debug.Log("OldMenu.cs Update() path: " + lfile);
                 sr = File.OpenText(lfile);
                 string line;
                 while ((line = sr.ReadLine()) != null)
