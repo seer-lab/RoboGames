@@ -1,0 +1,57 @@
+<level>
+<description>The Robot Priority-Targeting System is almost repaired.
+It needs to use coordinates in 3 dimensions to be operational.
+Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the variables.
+&lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; &lt;color=#ffff00ff&gt;output&lt;/color&gt;.
+Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
+Use the BUGCATCHER to identify the incorrect calculation.</description>
+<next-level></next-level>
+<introtext>This is the last level!
+Can you figure out where the last bug is?</introtext>
+<endtext>You did it! You've won!</endtext>
+<timelimit>300</timelimit>
+<tools>
+<tool name="printer" count="20" enabled="true"/>
+<tool name="warper" count="1" enabled="true"/>
+<tool name="breakpointer" count="3" enabled="true"/>
+</tools>
+<code language="c++">struct target{
+    string name[30];
+    int x, y, z;
+};
+
+//Robot Targeting Systems Prioritizer
+//Uses Closer function to calculate Closest target
+//targets[] ts contains a list of 3 targets
+//returns the closest target
+target FirstPriority(threatID id){
+    //id.getThreat(i) returns the ith threat in an unsorted list
+    //id.toString(i) prints a string representation of the ith threat
+    <breakpoint text="id = [t1,t2,t3]"></breakpoint>int num_of_threats = id.Count;
+    <breakpoint text="id = [t1,t2,t3]
+num_of_threats = 3"></breakpoint>
+    <breakpoint text="id = [t1,t2,t3]
+num_of_threats = 3"></breakpoint>target t1 = id.getThreat(1);
+
+    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>target t2 = id.getThreat(2);
+
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50"></breakpoint>target t3 = id.getThreat(3);
+
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75"></breakpoint>target closest = Closer(t1, t2);
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75
+closest = t1"></breakpoint>closest = Closer(closest, t3);
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75
+closest = t3"></breakpoint>return closest;
+    
+}
+<warp tool="1,0,0,0,0,0" file="L4Closer.xml">target Closer(target t1, target t2);
+</warp>
+</code>
+</level>

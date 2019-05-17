@@ -34,7 +34,7 @@ public class LevelFactory
         level.CodeNodes = levelnode.ChildNodes;
         //level.Language = "c++";
         level.Language = XMLReader.GetLanguage(doc);
-        Debug.Log(level.Language);
+        //Debug.Log(level.Language);
         string innerXMLstring = XMLReader.convertOuterToInnerXML(String.Join("\n", level.Tags), level.Language);
         level.Code = innerXMLstring.Split('\n');
 
@@ -75,7 +75,7 @@ public class LevelFactory
             level.Time = 9001; 
         }
         // next level
-        level.NextLevel = GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
+        level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
         // intro text
         level.IntroText = XMLReader.GetIntroText(doc);
         // end text

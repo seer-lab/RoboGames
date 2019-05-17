@@ -1,0 +1,33 @@
+<level>
+<code language="c++">
+<warp line="44" file="level3.xml">Return;</warp>
+
+{"aliceblue",240,248,255},
+{"blue",0,0,255},
+{"bluelight",173,216,230},
+{"bluemedium",0,0,205},
+{"cadet",95,158,160},
+{"cobalt",61,89,171},
+{"cornflower",100,149,237},
+{"cerulean",5,184,204},
+{"dodgerblue",30,144,255},
+{"indigo",8,46,84},
+{"manganeseblue",3,168,158},
+{"midnightblue",25,25,112},
+{"navy",0,0,128},
+{"peacock",51,161,201},
+{"powderblue",176,224,230},
+{"royalblue",65,105,225},
+{"slateblue",106,90,205},
+{"slatebluedark",72,61,139},
+{"slatebluelight",132,112,255},
+{"slatebluemedium",123,104,238},
+{"skyblue",135,206,235},
+{"skybluedeep",0,191,255},
+{"skybluelight",135,206,250},
+{"steelblue",70,130,180},
+{"steelbluelight",176,196,222},
+{"turquoiseblue",0,199,140},
+{"ultramarine",18,10,143}
+</code>
+</level>

@@ -1,0 +1,26 @@
+<level>
+<description>You also have access to the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
+You can use it on white text to see if that code affects the bug.
+Check the functions below using the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
+The error will remain if you comment out non-buggy code.
+Use the BUGCATCHER tool to catch the bug when you find it.</description>
+<code language="c++">void function1(){
+    //do some stuff
+	
+<comment type="robobug" groupid="1" size="3" text="$err$Error in doMoreStuff function!
+(it hasn't been commented out yet)">doStuff(x);
+    doMoreStuff(x);
+    doAllStuff(x);</comment>
+    	
+    <comment type="robobug" groupid="2" size="3" text="$err$Error in doMoreStuff function!
+(it hasn't been commented out yet)">doStuff(y);
+    doMoreStuff(y);
+    doAllStuff(y);</comment>
+    	
+    <comment type="robobug" size="3" groupid="3" tool="999,0,0,0,0,0" text="No Errors Found!">doStuff(z);
+    $bug$doMoreStuff(z);
+    doAllStuff(z);</comment>
+    return;
+}
+</code>
+</level>

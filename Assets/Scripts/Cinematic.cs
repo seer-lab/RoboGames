@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class Cinematic : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Cinematic : MonoBehaviour
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
-        Debug.Log(SceneManager.sceneCount);
+        //Debug.Log(SceneManager.sceneCount);
     }
     IEnumerator LoadGame(){
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
@@ -59,7 +60,10 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel()
     {
-        factory = new LevelFactory(GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel);
+        string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
+        //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
+        Debug.Log("Cinematics.cs UpdateLevel() path: " + filepath);
+        factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
     private void UpdateLevel(string file)
@@ -171,7 +175,7 @@ public class Cinematic : MonoBehaviour
                 objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                UpdateLevel(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+                UpdateLevel(Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
                 StartCoroutine(LoadGame()); 

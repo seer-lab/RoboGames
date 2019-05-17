@@ -385,8 +385,8 @@ public class LevelManager
     {
         levels.Clear();
         passed.Clear();
-        string lfile = GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-        
+        string lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+        Debug.Log("LevelManager.cs SaveGame() path: " + lfile);
         StreamReader sr = File.OpenText(lfile);
         string line;
         while ((line = sr.ReadLine()) != null)
@@ -397,7 +397,7 @@ public class LevelManager
         }
         sr.Close();
         passed[levels.IndexOf(GlobalState.CurrentONLevel)] = "1";
-        StreamWriter sw = File.CreateText(GlobalState.GameMode + "leveldata" + filepath + "levels.txt");
+        StreamWriter sw = File.CreateText(Application.streamingAssetsPath+"/"+GlobalState.GameMode + "leveldata" + filepath + "levels.txt");
         for (int i = 0; i < levels.Count; i++)
         {
             sw.WriteLine(levels[i] + " " + passed[i]);

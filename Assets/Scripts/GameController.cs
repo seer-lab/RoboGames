@@ -160,8 +160,10 @@ public class GameController : MonoBehaviour, ITimeUser
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         GlobalState.IsDark = true; 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-        Debug.Log(GlobalState.CurrentONLevel);
-        factory = new LevelFactory(GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+        //Debug.Log(GlobalState.CurrentONLevel);
+        string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
+         Debug.Log("GameController.cs Start() path: " + filepath);
+        factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
