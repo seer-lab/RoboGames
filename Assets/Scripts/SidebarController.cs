@@ -66,7 +66,7 @@ public class SidebarController : MonoBehaviour
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
         {
             // @TODO: figure out if theyre done or not and put it in the expression
-            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? new Color(0, 0.6f, 0.2f, 1) : Color.white;
+            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? new Color(0, 0.6f, 0.2f, 1) : (GlobalState.IsDark ? Color.white : Color.black); 
         }
     }
     public void ToggleDark()
@@ -86,10 +86,11 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
 
+        
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
         {
             // @TODO: figure out if theyre done or not and put it in the expression
-            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? Color.green : Color.white;
+            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? Color.green : (GlobalState.IsDark ? Color.white : Color.black); 
         }
     }
     // Update is called once per frame

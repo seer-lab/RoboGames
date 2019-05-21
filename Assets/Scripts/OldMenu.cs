@@ -316,7 +316,7 @@ public class OldMenu : MonoBehaviour
                         break;
                     case 2:
                         GlobalState.GameState = stateLib.GAMESTATE_MENU;
-                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                        m2buttons[2].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         m2switch(false);
                         option = 2;
                         break;
