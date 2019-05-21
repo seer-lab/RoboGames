@@ -36,11 +36,13 @@ public class warper : Tools
                     selectedTool.toolCounts[i] += tools[i];                    Debug.Log(i + ": " + tools[i]);
                 }
             }
-            string filepath = Application.streamingAssetsPath + "/" + GlobalState.GameMode + "leveldata/" + Filename;
-            
-            // Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-            // filepath = Path.Combine(filepath,  GlobalState.FilePath + Filename);
+            //string filepath = Application.streamingAssetsPath + "/" + GlobalState.GameMode + "leveldata/" + Filename;
+            string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            filepath = Path.Combine(filepath,Filename);
             //factory = new LevelFactory(filepath);
+            if(filepath.Equals('/')){
+                filepath = filepath.Remove(0);
+            }
             GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(filepath, WarpToLine);
            
 		}

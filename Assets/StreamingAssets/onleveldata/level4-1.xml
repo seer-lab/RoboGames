@@ -33,7 +33,7 @@ int main {
 	if (birthyear &lt;= year){
 <comment type="code" correct="false" size="1" groupid="5" style="single">// y = true;</comment>
 <comment type="code" correct="false" size="1" groupid="5" style="single">	// y = true;</comment>
-<comment type="code" correct="true" size="1" groupid="5" style="single">		// y = true;</comment>
+<comment type="code" correct="true" size="1" groupid="5" style="single">		// <variable-color groupid="0">y</variable-color> = true;</comment>
 	}
 	else{
 <comment type="code" correct="false" size="1" groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
