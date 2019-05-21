@@ -185,8 +185,8 @@ public class Cinematic : MonoBehaviour
                 objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-                filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+                
+              string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");  filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
                 UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
