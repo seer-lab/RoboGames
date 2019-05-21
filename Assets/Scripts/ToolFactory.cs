@@ -183,7 +183,7 @@ public class RenamerFactory : ToolFactory
 
         Regex rgx = new Regex(@"(^| |\>)(" + tool.oldname + ")(;| )");
         GlobalState.level.Code[tool.Index] = rgx.Replace(GlobalState.level.Code[tool.Index], "$1" + stringLibrary.node_color_rename + tool.oldname + stringLib.CLOSE_COLOR_TAG + "$3");
-        Debug.Log("property text = " + tool.innertext);
+        //Debug.Log("property text = " + tool.innertext);
         return tool; 
     }
     public override GameObject GetGameObject()
@@ -299,7 +299,7 @@ public class VariableColorFactory: ToolFactory
         tool.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
         tool.Index = lineNumber;
         tool.oldname = childnode.InnerText;
-        Debug.Log("oldname for new variable object = " + tool.oldname);
+        //Debug.Log("oldname for new variable object = " + tool.oldname);
         Regex varrgx = new Regex(@"(^| |\t|\>)(" + tool.oldname + ")(;| )");
         GlobalState.level.Code[tool.Index] = varrgx.Replace(GlobalState.level.Code[tool.Index], "$1" + stringLibrary.node_color_rename + tool.oldname + stringLib.CLOSE_COLOR_TAG + "$3");
         varrgx = new Regex("(.*)(" + stringLibrary.node_color_rename + ")(\\w)(</color>)(.*)");

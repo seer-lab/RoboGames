@@ -17,7 +17,7 @@ public static class XMLReader {
   }
 
   public static int GetLineCount(XmlDocument doc) {
-    Debug.Log("Line count for this level is: " + GetOuterXML(doc).Length);
+    //Debug.Log("Line count for this level is: " + GetOuterXML(doc).Length);
     return GetOuterXML(doc).Length;
   }
 
@@ -180,12 +180,15 @@ public static class XMLReader {
 		string sTail		= "";
 		string sPretagText	= "";
 		XmlDocument doc = new XmlDocument();
-		Regex rgxTail = new Regex("(<.*>)(.*)(</.*>)");
+		Regex rgxTail = new Regex(@"[<][^>]*[>]");
 		Match m = rgxTail.Match(outerXml);
 		while (m.Success){
-			outerXml = outerXml.Replace(m.Value, rgxTail.Replace(m.Value, "$2"));
+      string tmpT = rgxTail.Replace(m.Value, "");
+      string tmp = outerXml.Replace(m.Value, rgxTail.Replace(m.Value, ""));
+			outerXml = tmp;
 			m = rgxTail.Match(outerXml);
 		}
+    //Debug.Log(outerXml);
 		
 		//multiline check
 		Regex rgxMulti = new Regex("(<comment.*>)((.|\n)*)(</comment>)");

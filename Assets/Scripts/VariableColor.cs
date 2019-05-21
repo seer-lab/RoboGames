@@ -35,6 +35,10 @@ public class VariableColor : Tools {
     public override void Initialize()
     {
         textColoration = new TextColoration(); 
+        Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+        rgx = new Regex(@"\b" + oldname+@"\b");
+        GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"<color=#ff00ffff>" + oldname +"</color>");
+        lg.DrawInnerXmlLinesToScreen();
     }
 
     //.................................>8.......................................
@@ -45,26 +49,31 @@ public class VariableColor : Tools {
                 doneUpdating = true;
 
 				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
-                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
-				rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
+                //GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
+                rgx = new Regex(@"\b" + correct+@"\b");
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], oldname);
+
+                rgx = new Regex(@"\b" + oldname+@"\b");
+                //rgx = new Regex(@"(?:^|\W)"+oldname+@"(?:$|\W)");
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], correct);
                 textColoration.ColorizeText(GlobalState.level.Code[index], GlobalState.level.Language);
                 lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
+                Debug.Log("Code will now change from " + oldname + " " + correct);
             }
             else if (CorrectRenameObject.GetComponent<rename>().answered && doneUpdating && !doneFlashing) {
                 if (flashCounter % 100 == 0) {
 
-					Regex rgx = new Regex(@"(^| |\t|\>)("+correct+")(;| )");
-                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+oldname+"$3");
-					
+					//Regex rgx = new Regex(@"(?:^|\W)"+correct+@"(?:$|\W)");
+                    Regex rgx = new Regex(@"\b" + correct+@"\b");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], oldname);
                     lg.DrawInnerXmlLinesToScreen();
                 }
                 else if (flashCounter % 50 == 0) {
 
-					Regex rgx = new Regex(@"(^| |\t|\>)("+oldname+")(;| )");
-                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index],"$1"+correct+"$3");
-					
+					//Regex rgx = new Regex(@"(?:^|\W)"+oldname+@"(?:$|\W)");
+                    Regex rgx = new Regex(@"\b" + oldname+@"\b");
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], correct);
                     lg.DrawInnerXmlLinesToScreen(false);
                 }
                 flashCounter--;
