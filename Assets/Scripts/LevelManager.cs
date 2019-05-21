@@ -73,7 +73,7 @@ public class LevelManager
     /// </summary>
     public void DestroyInstances()
     {
-        // Destroy objects
+        // Destroy objectsc
         foreach (GameObject line in lines)
         {
             GameObject.Destroy(line);

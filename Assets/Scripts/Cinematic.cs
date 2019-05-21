@@ -30,12 +30,20 @@ public class Cinematic : MonoBehaviour
         objs = new List<GameObject>();
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
+        if (!GlobalState.IsDark)
+        {
+            GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
+            transform.Find("PressEnter").GetComponent<Text>().color = Color.black; 
+            transform.Find("Title").GetComponent<Text>().color = Color.black; 
+        }
+
         //Debug.Log(SceneManager.sceneCount);
     }
-    IEnumerator LoadGame(){
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
-        yield return new WaitForSecondsRealtime(1f); 
+    IEnumerator LoadGame()
+    {
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene("newgame");
 
     }
@@ -60,7 +68,7 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel()
     {
-        string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
+        string filepath = Application.streamingAssetsPath + "/" + GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
         //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
         Debug.Log("Cinematics.cs UpdateLevel() path: " + filepath);
         factory = new LevelFactory(filepath);
@@ -81,7 +89,8 @@ public class Cinematic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             SceneManager.LoadScene("MainMenu");
         }
@@ -102,13 +111,13 @@ public class Cinematic : MonoBehaviour
                 }
             }
             prompt1.GetComponent<Text>().text = introtext;
-            if ((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 Destroy(objs[0]);
                 cinerun = false;
                 objs = new List<GameObject>();
-                StartCoroutine(LoadGame()); 
+                StartCoroutine(LoadGame());
             }
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN)
@@ -124,7 +133,7 @@ public class Cinematic : MonoBehaviour
 
             prompt1.GetComponent<Text>().text = endtext;
 
-            if ((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 // RobotON 2, don't always want tutorials to run comics.
                 // Read in the levels.txt and grab the top one.
@@ -175,10 +184,10 @@ public class Cinematic : MonoBehaviour
                 objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                UpdateLevel(Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+                UpdateLevel(Application.streamingAssetsPath + "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
-                StartCoroutine(LoadGame()); 
+                StartCoroutine(LoadGame());
             }
         }
         else
