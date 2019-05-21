@@ -55,19 +55,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BackButton.cs" />
-     <Compile Include="Assets\Banner.cs" />
-     <Compile Include="Assets\CharacterSelect.cs" />
-     <Compile Include="Assets\ClickableMenu.cs" />
-     <Compile Include="Assets\Fade.cs" />
-     <Compile Include="Assets\FireButton.cs" />
+     <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
+     <Compile Include="Assets\Scripts\Banner.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\BugComment.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
+     <Compile Include="Assets\Scripts\CharacterSelect.cs" />
      <Compile Include="Assets\Scripts\Checklist.cs" />
      <Compile Include="Assets\Scripts\Cinematic.cs" />
+     <Compile Include="Assets\Scripts\ClickableMenu.cs" />
      <Compile Include="Assets\Scripts\CodeFormater.cs" />
      <Compile Include="Assets\Scripts\CodeProperties.cs" />
      <Compile Include="Assets\Scripts\Comic.cs" />
@@ -78,6 +76,8 @@
      <Compile Include="Assets\Scripts\credits.cs" />
      <Compile Include="Assets\Scripts\CreditsController.cs" />
      <Compile Include="Assets\Scripts\databasehelper.cs" />
+     <Compile Include="Assets\Scripts\Fade.cs" />
+     <Compile Include="Assets\Scripts\FireButton.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
@@ -113,6 +113,7 @@
      <Compile Include="Assets\Scripts\TextColoration.cs" />
      <Compile Include="Assets\Scripts\TimeController.cs" />
      <Compile Include="Assets\Scripts\TimeDisplayController.cs" />
+     <Compile Include="Assets\Scripts\TitleController.cs" />
      <Compile Include="Assets\Scripts\ToolFactory.cs" />
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
@@ -121,7 +122,6 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\TitleController.cs" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level3.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2a.xml" />

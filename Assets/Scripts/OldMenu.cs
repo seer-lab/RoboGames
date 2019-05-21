@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI; 
 using System.IO;
 
 public class OldMenu : MonoBehaviour
@@ -22,12 +23,12 @@ public class OldMenu : MonoBehaviour
     public string filepath;
     public List<string> levels;
     public List<string> passed;
-    public GameObject codescreen;
+    public GameObject background;
     public GameObject cinematic;
     public GameObject[] buttons = new GameObject[5];
     public GameObject[] buttontext = new GameObject[5];
-    public GameObject[] m2buttons = new GameObject[2];
-    public GameObject[] m2buttontext = new GameObject[2];
+    public GameObject[] m2buttons = new GameObject[3];
+    public GameObject[] m2buttontext = new GameObject[3];
     public GameObject[] m2arrows = new GameObject[2];
     public GameObject menu2;
     public Sprite bluebutton;
@@ -58,12 +59,13 @@ public class OldMenu : MonoBehaviour
         }
         buttontext[stateLib.GAMEMENU_NEW_GAME].GetComponent<TextMesh>().text = "New Game";
         buttontext[stateLib.GAMEMENU_LOAD_GAME].GetComponent<TextMesh>().text = "Load Game";
-        buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Sound Options";
+        buttontext[stateLib.GAMEMENU_SOUND_OPTIONS].GetComponent<TextMesh>().text = "Options";
         buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
         buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         m2switch(false);
-       
+        GlobalState.IsDark = !GlobalState.IsDark; 
+        ToggleTheme(); 
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
     }
 
@@ -91,7 +93,7 @@ public class OldMenu : MonoBehaviour
     private void InitializeGlobals(){
         GlobalState.IsPlaying = false; 
             if (GlobalState.CurrentONLevel == null){
-                GlobalState.CurrentONLevel = "level0.xml";
+                GlobalState.CurrentONLevel = "level0.xml";    
             }
             else GlobalState.IsPlaying = true; 
             GlobalState.CurrentBUGLevel = "level0.xml";
@@ -99,6 +101,23 @@ public class OldMenu : MonoBehaviour
             GlobalState.level = null;
             GlobalState.Character = "Robot";
             GlobalState.StringLib = new stringLib();
+    }
+    private void ToggleTheme(){
+        GlobalState.IsDark = !GlobalState.IsDark; 
+        
+        if (GlobalState.IsDark){
+            this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-2");
+            menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-4"); 
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_dark"); 
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoDark"); 
+        }
+        else {
+            this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-9"); 
+            menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-8"); 
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light"); 
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoLight"); 
+        }
+
     }
     //.................................>8.......................................
     // Update is called once per frame
@@ -175,7 +194,8 @@ public class OldMenu : MonoBehaviour
                         option = 0;
                         m2switch(true);
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
-                        m2buttontext[1].GetComponent<TextMesh>().text = "Back";
+                        m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Back"; 
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
                         postToDatabase.Start();
@@ -265,19 +285,20 @@ public class OldMenu : MonoBehaviour
             }
 
         }
+
         //
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
         {
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                option = 0;
+                m2buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                option = (option-1< 0)? option = 2 : option-1;
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                option = 1;
+                m2buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                option = (option+1)%3;
             }
             if ((entered||Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {   
@@ -289,7 +310,11 @@ public class OldMenu : MonoBehaviour
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + ((soundon) ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         AudioListener.volume = (soundon) ? 1 : 0;
                         break;
-                    case 1:
+                    case 1: 
+                        ToggleTheme(); 
+                        m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
+                        break;
+                    case 2:
                         GlobalState.GameState = stateLib.GAMESTATE_MENU;
                         m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         m2switch(false);
@@ -412,9 +437,20 @@ public class OldMenu : MonoBehaviour
         if (on)
         {
             menu2.GetComponent<SpriteRenderer>().enabled = true;
-            foreach (GameObject button in m2buttons)
+            for(int i = 0; i < m2buttons.Length; i++)
             {
-                button.GetComponent<SpriteRenderer>().enabled = true;
+                if (i > 1 && GlobalState.GameState != stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
+                    break; 
+                m2buttons[i].GetComponent<SpriteRenderer>().enabled = true;
+            }
+            if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS){
+                Transform trans = menu2.GetComponent<Transform>(); 
+                trans.position = new Vector3(trans.position.x, -0.7f, trans.position.z); 
+                trans.localScale = new Vector3(trans.localScale.x, 1f, trans.localScale.z); 
+            }else {
+                Transform trans = menu2.GetComponent<Transform>(); 
+                trans.position = new Vector3(trans.position.x, 0, trans.position.z); 
+                trans.localScale = new Vector3(trans.localScale.x, 0.8f, trans.localScale.z); 
             }
         }
         else

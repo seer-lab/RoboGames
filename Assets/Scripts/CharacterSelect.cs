@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System; 
 using UnityEngine;
+using UnityEngine.UI; 
 using UnityEngine.SceneManagement; 
 public class CharacterSelect : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class CharacterSelect : MonoBehaviour
     string[] names; 
     void Start()
     {
+        if (!GlobalState.IsDark){
+            GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light"); 
+            transform.Find("Title").GetComponent<Text>().color = Color.black; 
+        }
         disk = this.transform.GetChild(0).gameObject; 
         names = new String[]{"Robot", "Boy", "Girl"};
         xPositions = new float[NUM_CHARACTERS]; 
