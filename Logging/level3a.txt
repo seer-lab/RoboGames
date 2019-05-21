@@ -1,0 +1,21 @@
+Passed Level
+-40 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 5 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 14 
+
+Warper Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 21 
+
+--------------------------------------------------------

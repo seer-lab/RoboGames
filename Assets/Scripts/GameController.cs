@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     BackButton backButton; 
+
+    public Logger logger; 
     bool winning = false;
 
     /// <summary>
@@ -50,8 +52,8 @@ public class GameController : MonoBehaviour, ITimeUser
     private void CheckLose()
     {
         if ((selectedTool.isLosing && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-            || (selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0 && 
-            selectedTool.noRemainingActivators))
+            || ((selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0 && 
+            selectedTool.noRemainingActivators) || selectedTool.CheckAllToolsUsed()))
         {
             StartCoroutine(Lose());
         }
@@ -80,6 +82,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     public void Victory()
     {
+        //logger.onGameEnd(); 
         GlobalState.IsPlaying = false;
         GlobalState.CurrentONLevel = "level5";
         GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
@@ -94,6 +97,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
+        logger.onGameEnd(); 
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -104,7 +108,9 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Lose()
     {
         CheckWin(); 
-        yield return new WaitForSecondsRealtime(1.4f); 
+        do {
+            yield return new WaitForSecondsRealtime(1.4f); 
+        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
@@ -119,12 +125,16 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
+        do {
         yield return new WaitForSecondsRealtime(2.2f);
+        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         //if the end of the level string is empty then there is no anticipated next level. 
         if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath )
         {
-            lg.manager.SaveGame();
+            //lg.manager.SaveGame();
+
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
@@ -166,6 +176,7 @@ public class GameController : MonoBehaviour, ITimeUser
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
+        logger = new Logger(); 
         
     }
     /// <summary>

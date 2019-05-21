@@ -82,6 +82,10 @@ public class Cinematic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            GlobalState.GameState = stateLib.GAMESTATE_MENU;
+            SceneManager.LoadScene("MainMenu");
+        }
         if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
         {
             if (!cinerun)

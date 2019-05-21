@@ -29,11 +29,6 @@ public partial class LevelGenerator : MonoBehaviour {
 	// Stores the level text, the lines of code the player sees.
 	public GameObject leveltext;
 
-    //This isn't necessary but will be addressed during the merge of 
-    //RoboBug into RobotON. 
-	public GameObject bugobject;
-    public GameObject prizeobject;
-
     public GameObject lineobject;
 	GameObject hero;
 
@@ -49,13 +44,11 @@ public partial class LevelGenerator : MonoBehaviour {
     private BackgroundController background; 
 
 	// Player has been notified of less than 30 seconds remaining on the clock.
-	private bool isTimerAlarmTriggered;
 	private bool winning;
 	private bool storedDefaultPlayArea = false;
 	private bool initialresize = false;
 
     CodeProperties properties; 
-	private string codetext;
 
     public LevelManager manager; 
 
@@ -71,7 +64,6 @@ public partial class LevelGenerator : MonoBehaviour {
             GlobalState.level.Tasks[i] = 0;
             GlobalState.level.CompletedTasks[i] = 0;
 		}
-		isTimerAlarmTriggered = false;
 		winning = false;
         manager = new LevelManager(properties);
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();

@@ -14,7 +14,6 @@ public class BugComment : comment
         {
             isAnswered = true; 
             anim.SetTrigger("Complete");
-            Logger.printLogFile(stringLib.LOG_COMMENT_ON, this.transform.position);
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
             //blocktext = blocktext.Substring("<color=#00ff00ff>/**/</color>".Length, blocktext.Length- "<color=#00ff00ff>/**/</color>".Length);

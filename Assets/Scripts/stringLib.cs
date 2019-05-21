@@ -112,6 +112,8 @@ public class stringLib
 
 	public Color[] COLORS= new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
         Color.cyan, Color.blue, Color.blue};
+	public string[] namesON = new string[]{"Activator", "Question", "Renamer", "Commenter", "Uncommenter", "Helper", "Hinter"};
+	public string[] namesBug = new string[] {"Bug Catcher", "Printer", "Warper", "Commenter", "Breakpointer", "Helper", "Hinter"};
 	public const string START_LEVEL_FILE                    = "level0-1.xml";
 
 	public string comic_level_zero							= "tut1.xml";
