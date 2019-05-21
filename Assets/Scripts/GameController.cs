@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -165,8 +165,10 @@ public class GameController : MonoBehaviour, ITimeUser
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         //Debug.Log(GlobalState.CurrentONLevel);
-        string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
-         Debug.Log("GameController.cs Start() path: " + filepath);
+        //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();

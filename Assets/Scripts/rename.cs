@@ -91,13 +91,14 @@ public class rename : Tools {
 
 					int iter = 0;
 					Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*?)(</color>)(.*)");
-					GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
+					// /GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 					foreach(string s in GlobalState.level.Code) {
 						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
-						GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
 						if(GlobalState.level.Code[iter].Contains(oldname) && !hasHappened){
 							GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
 							hasHappened = true;
+						}else{
+							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
 						}
 						iter += 1;
 					}

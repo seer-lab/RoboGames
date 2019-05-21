@@ -1,8 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System; 
+using System.IO;
 using UnityEngine;
 
 
@@ -74,8 +75,11 @@ public class LevelFactory
         {
             level.Time = 9001; 
         }
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
         // next level
-        level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);
+        //level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);        
+        level.NextLevel = filepath;
         // intro text
         level.IntroText = XMLReader.GetIntroText(doc);
         // end text

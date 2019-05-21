@@ -21,7 +21,7 @@ public class CorrectUncomment : comment
             GetComponent<AudioSource>().Play();
             GlobalState.level.CompletedTasks[4]++;
             selectedTool.bonusTools[stateLib.TOOL_CONTROL_FLOW]++;
-            string sNewText = textColoration.DecolorizeText(blocktext);
+            string sNewText = textColoration.DecolorizeText(GlobalState.level.Code[index]);
             Debug.Log(blocktext);
             string tempDecolText = sNewText;
             string[] sNewParts = sNewText.Split('\n');
