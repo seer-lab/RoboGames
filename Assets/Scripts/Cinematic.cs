@@ -60,9 +60,10 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel()
     {
-        string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
+        //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
         //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
-        Debug.Log("Cinematics.cs UpdateLevel() path: " + filepath);
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
@@ -171,7 +172,9 @@ public class Cinematic : MonoBehaviour
                 objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                UpdateLevel(Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel);
+                string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+                UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
                 StartCoroutine(LoadGame()); 
