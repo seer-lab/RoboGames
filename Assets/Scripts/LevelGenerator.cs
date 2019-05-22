@@ -468,11 +468,11 @@ public partial class LevelGenerator : MonoBehaviour {
     // Description: Transform the play area to correspond to a new text size.
     //************************************************************************//
     public void TransformTextSize(int nTextSizeConst = -1) {
-
+        int[] sizes = new int[]{stateLib.TEXT_SIZE_VERY_LARGE, stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE};
         if (nTextSizeConst == -1){
             nTextSizeConst = leveltext.GetComponent<TextMesh>().fontSize;
         }
-
+        nTextSizeConst = sizes[GlobalState.TextSize]; 
 		hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
         leveltext.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f, leveltext.transform.position.y, leveltext.transform.position.z);
 		switch (nTextSizeConst) {
