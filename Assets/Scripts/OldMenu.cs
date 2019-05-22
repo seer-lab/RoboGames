@@ -486,6 +486,10 @@ public class OldMenu : MonoBehaviour
                 trans.localScale = new Vector3(trans.localScale.x, 0.8f, trans.localScale.z); 
                 Transform button = m2buttons[0].GetComponent<Transform>(); 
                 button.position = new Vector3(button.position.x, 0.82f, button.position.z); 
+                for (int i = 1; i < m2buttons.Length; i++){
+                    Transform thisButton = m2buttons[i].GetComponent<Transform>(); 
+                    thisButton.position = new Vector3(thisButton.position.x, thisButton.position.y - 0.7f, thisButton.position.z); 
+                }
             }
         }
         else

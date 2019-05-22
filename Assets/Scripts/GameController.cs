@@ -110,13 +110,18 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         CheckWin(); 
         do {
-            yield return new WaitForSecondsRealtime(1.4f); 
+            yield return new WaitForSecondsRealtime(2f); 
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
             yield return new WaitForSecondsRealtime(1f); 
-            GameOver();  
+            if (winning){
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(); 
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+            }
+            else GameOver();  
         }
     }
     /// <summary>

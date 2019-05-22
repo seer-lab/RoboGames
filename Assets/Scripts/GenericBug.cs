@@ -32,9 +32,10 @@ public class GenericBug : Tools {
     }
 	IEnumerator GlitchText(){		
 		TextMesh text = GetComponent<TextMesh>(); 
+		if (!GlobalState.IsDark) text.color = Color.black; 
 		text.text = GlobalState.level.Code[index]; 
 		GetComponent<MeshRenderer>().enabled = true; 
-		text.fontSize = stateLib.TEXT_SIZE_NORMAL; 
+		text.fontSize = new int[]{stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE}[GlobalState.TextSize]; 
 		GlobalState.level.Code[index] = " "; 
 		lg.DrawInnerXmlLinesToScreen(); 
 		text.font = Resources.Load<Font>("Fonts/HACKED"); 
