@@ -35,7 +35,7 @@ public class question : Tools {
 	private string input = "";
 
 	public Animator anim; 
-	TouchScreenKeyboard keyboard;
+	//TouchScreenKeyboard keyboard;
 	public bool IsAnswerd {
 		get{
 			return answered;
@@ -56,12 +56,14 @@ public class question : Tools {
     // Update is called once per frame
     void Update() {
 		if (answering) {
-			
+			/*
 			if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer){
 				keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, false, true);
 			}
+			*/
+
 			// Added escape option to return to game
-			else if ((keyboard != null && keyboard.status == TouchScreenKeyboard.Status.LostFocus) || Input.GetKeyDown(KeyCode.Escape)) {
+			 if (/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.LostFocus) ||*/ Input.GetKeyDown(KeyCode.Escape)) {
 				// Increment number of tool uses
 				if (selectedTool.toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] != 999)
 				{
@@ -74,14 +76,15 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
-			else if (((keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;
+				/*
 				if (keyboard != null ){
 					input = keyboard.text;
 				}
-			
+				*/
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
 					// Incorrect Answer
 					answered = false;

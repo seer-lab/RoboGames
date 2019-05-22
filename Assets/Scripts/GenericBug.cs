@@ -20,6 +20,9 @@ public class GenericBug : Tools {
     public bool Finished { get; set; }
 	public Animator anim;
 
+	public string answer; 
+
+
     public override void Initialize()
     {
         IsDead = false;
@@ -27,18 +30,39 @@ public class GenericBug : Tools {
         this.GetComponent<Renderer>().enabled = false;
         anim = GetComponent<Animator>();
     }
+	IEnumerator GlitchText(){		
+		TextMesh text = GetComponent<TextMesh>(); 
+		text.text = GlobalState.level.Code[index]; 
+		GetComponent<MeshRenderer>().enabled = true; 
+		text.fontSize = stateLib.TEXT_SIZE_NORMAL; 
+		GlobalState.level.Code[index] = " "; 
+		lg.DrawInnerXmlLinesToScreen(); 
+		text.font = Resources.Load<Font>("Fonts/HACKED"); 
+		yield return new WaitForSeconds(0.12f); 
+		text.font = Resources.Load<Font>("Fonts/CFGlitchCity-Regular"); 
+		yield return new WaitForSeconds(0.12f); 
+		TextColoration color = new TextColoration(); 
+		text.text = color.ColorizeText(answer, GlobalState.level.Language);  
+		yield return new WaitForSeconds(0.1f); 
+		text.font = Resources.Load<Font>("Fonts/HACKED"); 
+		yield return new WaitForSeconds(0.1f); 
+		text.font = Resources.Load<Font>("Fonts/Inconsolata"); 
+
+	}
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
-			this.GetComponent<Renderer>().enabled = true;
+
+			//this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
-			anim.SetBool("Dying", true);
-			GetComponent<AudioSource>().Play();
+			//anim.SetBool("Dying", true);
+			//GetComponent<AudioSource>().Play();
 			IsDead = true;
 			lg.numberOfBugsRemaining--;
             GlobalState.level.CompletedTasks[0]++;
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+			StartCoroutine(GlitchText()); 
 		}
 	}
 

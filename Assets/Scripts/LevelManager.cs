@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Text.RegularExpressions;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO; 
@@ -160,16 +161,20 @@ public class LevelManager
     }
     public GameObject CreateBug(XmlNode childnode, int lineNumber, int column = 0)
     {
-        int bugsize = 1;
-        int col = column; 
+        Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))"); 
+        string answer = ansRgx.Match(GlobalState.level.Code[lineNumber]).Value; 
+        Debug.Log("Answer: "  + answer);
+        //int bugsize = 1;
+        //int col = column; 
         //RoboBug Implementation 
         GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
-        GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift + col * properties.fontwidth + (bugsize - 1), properties.initialLineY - (lineNumber + 0.5f * (bugsize - 1) * properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
+        GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift, properties.initialLineY - (lineNumber + 0.5f  * properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
         //levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);
-        //Debug.Log(properties.bugXshif + col * properties.fontwidth);
-        levelBug.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f + col * properties.fontwidth, properties.initialLineY - (lineNumber)*0.99f, 0);
         GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
         propertyHandler.Index = lineNumber;
+        propertyHandler.answer = answer; 
+        Debug.Log("$bug" + answer + "$");
+        GlobalState.level.Code[lineNumber] =GlobalState.level.Code[lineNumber].Replace("$bug" + answer + "$", ""); 
         GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
         bugs.Add(levelBug);
         GlobalState.level.Tasks[0]++;
@@ -359,7 +364,7 @@ public class LevelManager
             beacon.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - beacon.GetComponent<beacon>().Index * properties.linespacing + properties.lineOffset + 0.4f, 1);
         }
         foreach (GameObject bug in bugs){
-            bug.transform.position = new Vector3(bug.transform.position.x, properties.initialLineY - (bug.GetComponent<GenericBug>().Index)*properties.linespacing, 0);
+            bug.transform.position = new Vector3(properties.bugXshift, properties.initialLineY - (bug.GetComponent<GenericBug>().Index)*properties.linespacing + 0.1f, 0);
         }
         foreach(GameObject breakpoint in roboBUGbreakpoints){
             breakpoint.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - breakpoint.GetComponent<Breakpoint>().Index*properties.linespacing, 1); 

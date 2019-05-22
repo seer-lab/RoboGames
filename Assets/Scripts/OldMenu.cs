@@ -48,6 +48,7 @@ public class OldMenu : MonoBehaviour
     int selectedIndex = -1; 
     int textOption = GlobalState.TextSize; 
     string[] textsizes; 
+    int[] fontSizes; 
     bool entered = false;
 
     //.................................>8.......................................
@@ -65,7 +66,8 @@ public class OldMenu : MonoBehaviour
         buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
         buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-        textsizes = new string[]{"Small", "Normal", "Large", "Very Large"}; 
+        textsizes = new string[]{"Small", "Normal", "Large", "Large++"}; 
+        fontSizes = new int[] {stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE}; 
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark; 
         ToggleTheme(); 
@@ -199,6 +201,7 @@ public class OldMenu : MonoBehaviour
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                         m2buttontext[2].GetComponent<TextMesh>().text = textsizes[textOption]; 
+                        m2buttontext[2].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
@@ -297,7 +300,7 @@ public class OldMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 m2buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                option = (option-1< 0)? option = 2 : option-1;
+                option = (option-1< 0)? option = 3 : option-1;
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -321,6 +324,7 @@ public class OldMenu : MonoBehaviour
                     case 2:
                         textOption = (textOption + 1)%textsizes.Length; 
                         m2buttontext[2].GetComponent<TextMesh>().text = textsizes[textOption]; 
+                        m2buttontext[2].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
                         GlobalState.TextSize = textOption;
                         break;
                     case 3: 
@@ -468,10 +472,14 @@ public class OldMenu : MonoBehaviour
             }
             if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS){
                 Transform trans = menu2.GetComponent<Transform>(); 
-                trans.position = new Vector3(trans.position.x, -1.7f, trans.position.z); 
+                trans.position = new Vector3(trans.position.x, -0.9f, trans.position.z); 
                 trans.localScale = new Vector3(trans.localScale.x, 1.2f, trans.localScale.z); 
                 Transform button = m2buttons[0].GetComponent<Transform>(); 
                 button.position = new Vector3(button.position.x, 0.42f, button.position.z); 
+                for (int i = 0; i < m2buttons.Length; i++){
+                    Transform thisButton = m2buttons[i].GetComponent<Transform>(); 
+                    thisButton.position = new Vector3(thisButton.position.x, thisButton.position.y + 0.7f, thisButton.position.z); 
+                }
             }else {
                 Transform trans = menu2.GetComponent<Transform>(); 
                 trans.position = new Vector3(trans.position.x, 0, trans.position.z); 
