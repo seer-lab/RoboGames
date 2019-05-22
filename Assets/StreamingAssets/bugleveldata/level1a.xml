@@ -20,7 +20,7 @@ Congratulations!</endtext>
 float avgForce(int forces[], int numOfForces){
                
     int sum=0;
-    bool$bug$ avgf;
+    $bug   float avgf$bool avgf;
 	//to do: rest of algorithm
 }
 </code>

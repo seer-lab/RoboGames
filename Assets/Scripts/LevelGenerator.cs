@@ -178,23 +178,22 @@ public partial class LevelGenerator : MonoBehaviour {
 			foreach(XmlNode childNode in codenode.ChildNodes)
 			{
                 
-                if (childNode.InnerText.Contains("$bug$"))
+                if (childNode.InnerText.Contains("$bug"))
                 {
                     string[] lines = childNode.InnerText.Split('\n');
                     int row = 0, col = 0;
                     for (int i = 0; i < lines.Length; i++)
                     {
-                        if (lines[i].Contains("$bug$"))
+                        if (lines[i].Contains("$bug"))
                         {
                             row = indexOf + i;
-                            col = lines[i].IndexOf("$bug$");
-                            GlobalState.level.Code[row] = lines[i].Replace("$bug$", "");
-                            TextColoration color = new TextColoration();
-                            GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
+                            
                         }
                     }
-                    childNode.InnerText = childNode.InnerText.Replace("$bug$", "");
-                    manager.CreateBug(childNode, row, col);
+                    manager.CreateBug(childNode, row);
+                    TextColoration color = new TextColoration();
+                     GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
+                     DrawInnerXmlLinesToScreen();
                 }
                 manager.CreateLevelObject(childNode, indexOf);
                 
