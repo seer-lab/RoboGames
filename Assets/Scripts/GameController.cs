@@ -187,9 +187,6 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             sidebar.ToggleSidebar(); 
         }
-        else if (Input.GetKeyDown(KeyCode.X) && !Output.IsAnswering){
-            lg.TransformTextSize(); 
-        }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
             //SaveGameState();
@@ -232,6 +229,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (firstUpdate && !GlobalState.IsResume){
             firstUpdate = false; 
             SetTheme(); 
+            lg.TransformTextSize(); 
         }
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
