@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     BackButton backButton; 
+    bool firstUpdate = true; 
 
     public Logger logger; 
     bool winning = false;
@@ -109,13 +110,18 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         CheckWin(); 
         do {
-            yield return new WaitForSecondsRealtime(1.4f); 
+            yield return new WaitForSecondsRealtime(2f); 
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
             yield return new WaitForSecondsRealtime(1f); 
-            GameOver();  
+            if (winning){
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(); 
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+            }
+            else GameOver();  
         }
     }
     /// <summary>
@@ -129,9 +135,9 @@ public class GameController : MonoBehaviour, ITimeUser
         yield return new WaitForSecondsRealtime(2.2f);
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         //if the end of the level string is empty then there is no anticipated next level. 
-        if (GlobalState.level.NextLevel != GlobalState.GameMode + "leveldata" + GlobalState.FilePath )
+        Debug.Log(GlobalState.level.NextLevel);
+        if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
-            //lg.manager.SaveGame();
 
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(); 
@@ -162,7 +168,6 @@ public class GameController : MonoBehaviour, ITimeUser
     void Start()
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
-        GlobalState.IsDark = true; 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         //Debug.Log(GlobalState.CurrentONLevel);
         //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
@@ -177,28 +182,21 @@ public class GameController : MonoBehaviour, ITimeUser
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
         logger = new Logger(); 
-        
     }
     /// <summary>
     /// Handles operations regaserding the UI of the game. 
     /// </summary>
     private void HandleInterface()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !Output.IsAnswering)
-        {
-            ToggleTheme(); 
-        }
-        else if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
+        if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
             sidebar.ToggleSidebar(); 
-        }
-        else if (Input.GetKeyDown(KeyCode.X) && !Output.IsAnswering){
-            lg.TransformTextSize(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
             //SaveGameState();
             GlobalState.IsResume = true; 
+            firstUpdate = true; 
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
         }
@@ -207,30 +205,37 @@ public class GameController : MonoBehaviour, ITimeUser
     /// Triggers all elements with the Toggle theme capability to 
     /// update their theme. 
     /// </summary>
-    private void ToggleTheme()
+    private void SetTheme()
     {
-        GlobalState.IsDark = !GlobalState.IsDark; 
-        if (GlobalState.IsDark)
-        {
-            lg.ToggleDark();
-            sidebar.ToggleDark();
-            output.ToggleDark();
-            background.ToggleDark(); 
-            backButton.ToggleColor();
-        }
-        else
+        if (!GlobalState.IsDark)
         {
             lg.ToggleLight();
             sidebar.ToggleLight();
             output.ToggleLight();
             background.ToggleLight(); 
             backButton.ToggleColor();
+            GlobalState.level.ToggleLight(); 
+            lg.DrawInnerXmlLinesToScreen(); 
+        } 
+        else {
+            lg.ToggleDark();
+            sidebar.ToggleDark();
+            output.ToggleDark();
+            background.ToggleDark(); 
+            backButton.ToggleColor();
+            GlobalState.level.ToggleDark(); 
+            lg.DrawInnerXmlLinesToScreen(); 
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (firstUpdate && !GlobalState.IsResume){
+            firstUpdate = false; 
+            SetTheme(); 
+            lg.TransformTextSize(); 
+        }
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             CheckWin();

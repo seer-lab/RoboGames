@@ -325,8 +325,8 @@ public class SelectedTool : MonoBehaviour
             outputtext.GetComponent<Text>().text = stringLib.INTERFACE_TASK_COMPLETE;
             outputtext.GetComponent<AudioSource>().Play();
 		}
-		else if (GlobalState.level.Tasks[nToolCode] != GlobalState.level.Tasks[nToolCode]) {
-            toolLabels[nToolCode].GetComponent<Text>().color = GlobalState.IsDark == false ? Color.white : Color.black;
+		else if (GlobalState.level.Tasks[nToolCode] != GlobalState.level.CompletedTasks[nToolCode]) {
+            toolLabels[nToolCode].GetComponent<Text>().color = (GlobalState.IsDark) ? Color.white: Color.black;
 		}
 	}
 

@@ -70,6 +70,7 @@ public partial class LevelGenerator : MonoBehaviour {
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         BuildLevel(); 
+
 	}
     /// <summary>
     /// Essentially Generates the Level Visually.
@@ -154,7 +155,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
 				lineNumbers[x-1] = lineNumber;
 			}
-            string lineN = "<color=#ffffffff>" + lineNumbers[x-1] + stringLib.CLOSE_COLOR_TAG;   
+            string lineN = lineNumbers[x-1];   
             //string lineN = lineNumbers[x-1];
 			drawCode += lineN + "\t" + GlobalState.level.Code[x-1];
 			drawCode += "\n";
@@ -177,23 +178,22 @@ public partial class LevelGenerator : MonoBehaviour {
 			foreach(XmlNode childNode in codenode.ChildNodes)
 			{
                 
-                if (childNode.InnerText.Contains("$bug$"))
+                if (childNode.InnerText.Contains("$bug"))
                 {
                     string[] lines = childNode.InnerText.Split('\n');
                     int row = 0, col = 0;
                     for (int i = 0; i < lines.Length; i++)
                     {
-                        if (lines[i].Contains("$bug$"))
+                        if (lines[i].Contains("$bug"))
                         {
                             row = indexOf + i;
-                            col = lines[i].IndexOf("$bug$");
-                            GlobalState.level.Code[row] = lines[i].Replace("$bug$", "");
-                            TextColoration color = new TextColoration();
-                            GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
+                            
                         }
                     }
-                    childNode.InnerText = childNode.InnerText.Replace("$bug$", "");
-                    manager.CreateBug(childNode, row, col);
+                    manager.CreateBug(childNode, row);
+                    TextColoration color = new TextColoration();
+                     GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
+                     DrawInnerXmlLinesToScreen();
                 }
                 manager.CreateLevelObject(childNode, indexOf);
                 
@@ -467,11 +467,11 @@ public partial class LevelGenerator : MonoBehaviour {
     // Description: Transform the play area to correspond to a new text size.
     //************************************************************************//
     public void TransformTextSize(int nTextSizeConst = -1) {
-
+        int[] sizes = new int[]{stateLib.TEXT_SIZE_VERY_LARGE, stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE};
         if (nTextSizeConst == -1){
             nTextSizeConst = leveltext.GetComponent<TextMesh>().fontSize;
         }
-
+        nTextSizeConst = sizes[GlobalState.TextSize]; 
 		hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
         leveltext.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f, leveltext.transform.position.y, leveltext.transform.position.z);
 		switch (nTextSizeConst) {

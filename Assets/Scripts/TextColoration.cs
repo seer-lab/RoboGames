@@ -10,7 +10,6 @@ using System;
 
 public class TextColoration {
 
-  public stringLib stringLibrary = new stringLib();
 
   public string ColorizeText(string sText, string language) {
 
@@ -69,13 +68,13 @@ public class TextColoration {
 	
     while (mInclude.Success) {
 
-      sText = sText.Replace(mInclude.Value, stringLibrary.syntax_color_include + mInclude.Value + stringLib.CLOSE_COLOR_TAG);
+      sText = sText.Replace(mInclude.Value, GlobalState.StringLib.syntax_color_include + mInclude.Value + stringLib.CLOSE_COLOR_TAG);
 	  mInclude = mInclude.NextMatch();
     }
     mKeyword = rgxKeyword.Match(sText);
 	while (mKeyword.Success){
 
-		sText = sText.Replace(mKeyword.Value, stringLibrary.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
+		sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 		
 		//Debug.Log("key result " + sText);
 
@@ -85,16 +84,16 @@ public class TextColoration {
 
 		//find ints 
 	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
-	sText = intrgx.Replace(sText, stringLibrary.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
+	sText = intrgx.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
 			Regex ifs = new Regex(@"(if(?!<\/color>)(?<!<color=#.{8}))"); 
-		sText = ifs.Replace(sText, stringLibrary.syntax_color_keyword + "if" + stringLib.CLOSE_COLOR_TAG); 
+		sText = ifs.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "if" + stringLib.CLOSE_COLOR_TAG); 
 		Regex elsergx = new Regex(@"(else(?!<\/color>)(?<!<color=#.{8}))"); 
-		sText = elsergx.Replace(sText, stringLibrary.syntax_color_keyword + "else" + stringLib.CLOSE_COLOR_TAG);
+		sText = elsergx.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "else" + stringLib.CLOSE_COLOR_TAG);
     mStringLiteral = rgxStringLiteral.Match(sText);
 	while (mStringLiteral.Success)
 	{
 		string cleanedstring = DecolorizeText(mStringLiteral.Value);
-      sText = sText.Replace(mStringLiteral.Value, stringLibrary.syntax_color_string + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+      sText = sText.Replace(mStringLiteral.Value, GlobalState.StringLib.syntax_color_string + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 	  mStringLiteral = mStringLiteral.NextMatch();
 	}
 
@@ -112,7 +111,7 @@ public class TextColoration {
 
 		}else{
 			string cleanedstring = DecolorizeText(mComment.Value);
-			sText = sText.Replace(mComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			sText = sText.Replace(mComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mComment = mComment.NextMatch();
 		}
 	}
@@ -125,7 +124,7 @@ public class TextColoration {
 
     mKeyword = rgxKeyword.Match(sText);
 		while (mKeyword.Success){
-			sText = sText.Replace(mKeyword.Value, stringLibrary.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
+			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 			//Debug.Log("key result " + sText);
 			mKeyword = mKeyword.NextMatch();
 		}
@@ -137,7 +136,7 @@ public class TextColoration {
 		//First Comments
 		while(mBlockComment.Success){
 			string cleanedstring = DecolorizeText(mBlockComment.Value);
-			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			break;
 		}
 
@@ -148,7 +147,7 @@ public class TextColoration {
 		//Block Comments
 		while(mBlockComment.Success){
 			string cleanedstring = DecolorizeText(mBlockComment.Value);
-			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mBlockComment=mBlockComment.NextMatch();
 		}
 }else if(language.Equals("c++") || language.Equals("c") ||language.Equals("c#")|| language.Equals("java")){
@@ -159,7 +158,7 @@ public class TextColoration {
 
 		while(mBlockComment.Success){
 			string cleanedstring = DecolorizeText(mBlockComment.Value);
-			sText = sText.Replace(mBlockComment.Value, stringLibrary.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mBlockComment=mBlockComment.NextMatch();
 		}
 
@@ -196,10 +195,10 @@ public class TextColoration {
 	//fix ampersands stuck in color tags
   Regex amprgx = new Regex(@"(?s)(&)(<\/color>)");
 	sText = amprgx.Replace(sText, "$2$1");
-    //Debug.Log("ColorizeText processedString: " + sText);
+    Debug.Log("ColorizeText processedString: " + sText);
 
 		// Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
-		// sText = colorLine.Replace(sText, '\n' + stringLibrary.syntax_color_keyword);
+		// sText = colorLine.Replace(sText, '\n' + GlobalState.StringLib.syntax_color_keyword);
     return sText;
   }
 
@@ -227,24 +226,24 @@ public class TextColoration {
 				break;
 
 				case stateLib.TOOL_PRINTER_OR_QUESTION:
-				if (sLine.IndexOf(stringLibrary.node_color_print) != -1) return stringLibrary.node_color_print;
-				else if (sLine.IndexOf(stringLibrary.node_color_question) != -1) return stringLibrary.node_color_question;
+				if (sLine.IndexOf(GlobalState.StringLib.node_color_print) != -1) return GlobalState.StringLib.node_color_print;
+				else if (sLine.IndexOf(GlobalState.StringLib.node_color_question) != -1) return GlobalState.StringLib.node_color_question;
 				break;
 
 				case stateLib.TOOL_WARPER_OR_RENAMER:
-				if (sLine.IndexOf(stringLibrary.node_color_warp) != -1) return stringLibrary.node_color_warp;
-				else if (sLine.IndexOf(stringLibrary.node_color_rename) != -1) return stringLibrary.node_color_rename;
+				if (sLine.IndexOf(GlobalState.StringLib.node_color_warp) != -1) return GlobalState.StringLib.node_color_warp;
+				else if (sLine.IndexOf(GlobalState.StringLib.node_color_rename) != -1) return GlobalState.StringLib.node_color_rename;
 				break;
 
 				case stateLib.TOOL_COMMENTER:
-				if (sLine.IndexOf(stringLibrary.node_color_correct_comment) == -1 && sLine != "") return stringLibrary.node_color_correct_comment;
-				else if (sLine.IndexOf(stringLibrary.node_color_incorrect_comment) == -1 && sLine != "") return stringLibrary.node_color_incorrect_comment;
-				else if (sLine.IndexOf(stringLibrary.node_color_comment) == -1 && sLine != "") return stringLibrary.node_color_comment;
+				if (sLine.IndexOf(GlobalState.StringLib.node_color_correct_comment) == -1 && sLine != "") return GlobalState.StringLib.node_color_correct_comment;
+				else if (sLine.IndexOf(GlobalState.StringLib.node_color_incorrect_comment) == -1 && sLine != "") return GlobalState.StringLib.node_color_incorrect_comment;
+				else if (sLine.IndexOf(GlobalState.StringLib.node_color_comment) == -1 && sLine != "") return GlobalState.StringLib.node_color_comment;
 				break;
 
 				case stateLib.TOOL_CONTROL_FLOW:
-				if (sLine.IndexOf(stringLibrary.node_color_uncomment) != -1) return stringLibrary.node_color_uncomment;
-				else if (sLine.IndexOf(stringLibrary.node_color_incorrect_uncomment) != -1) return stringLibrary.node_color_incorrect_uncomment;
+				if (sLine.IndexOf(GlobalState.StringLib.node_color_uncomment) != -1) return GlobalState.StringLib.node_color_uncomment;
+				else if (sLine.IndexOf(GlobalState.StringLib.node_color_incorrect_uncomment) != -1) return GlobalState.StringLib.node_color_incorrect_uncomment;
 				break;
 				case stateLib.TOOL_HELPER:
 				break;
@@ -260,19 +259,19 @@ public class TextColoration {
 		string sReturn = "";
 		switch (node.Name) {
 			case stringLib.NODE_NAME_PRINT:
-			sReturn = stringLibrary.node_color_print + node.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = GlobalState.StringLib.node_color_print + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_WARP:
-			sReturn = stringLibrary.node_color_warp + node.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = GlobalState.StringLib.node_color_warp + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_RENAME:
-			sReturn = stringLibrary.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = GlobalState.StringLib.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_QUESTION:
-			sReturn = stringLibrary.node_color_question + node.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = GlobalState.StringLib.node_color_question + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_VARIABLE_COLOR:
-			sReturn = stringLibrary.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
+			sReturn = GlobalState.StringLib.node_color_rename + node.InnerText + stringLib.CLOSE_COLOR_TAG;
 			break;
 			case stringLib.NODE_NAME_COMMENT: {
 				string commentStyle;
@@ -333,12 +332,12 @@ public class TextColoration {
 							// multiple lines using single-line commenting style
 							sReturn = "";
 							for (int i = 0 ; i < sNewParts.Length ; i++) {
-								sReturn += stringLibrary.node_color_uncomment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+								sReturn += GlobalState.StringLib.node_color_uncomment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 								sReturn += "\n";
 							}
 						}
 						else {
-							sReturn = stringLibrary.node_color_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+							sReturn = GlobalState.StringLib.node_color_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 						}
 						break;
 						case "false":
@@ -346,12 +345,12 @@ public class TextColoration {
 							// multiple lines using single-line commenting style.
 							sReturn = "";
 							for (int i = 0 ; i < sNewParts.Length ; i++) {
-								sReturn += stringLibrary.node_color_incorrect_uncomment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+								sReturn += GlobalState.StringLib.node_color_incorrect_uncomment + commentOpenSymbol + sNewParts[i] + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 								sReturn += "\n";
 							}
 						}
 						else {
-							sReturn = stringLibrary.node_color_incorrect_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+							sReturn = GlobalState.StringLib.node_color_incorrect_uncomment + commentOpenSymbol + node.InnerText + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 						}
 						break;
 						default:
@@ -359,7 +358,7 @@ public class TextColoration {
 					}
 					break;
 					case "robobug":
-					sReturn = node.InnerText + stringLibrary.node_color_comment + commentOpenSymbol + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
+					sReturn = node.InnerText + GlobalState.StringLib.node_color_comment + commentOpenSymbol + commentCloseSymbol + stringLib.CLOSE_COLOR_TAG;
 					break;
 					default:
 					break;

@@ -25,7 +25,7 @@ void Swap(int num1, int num2){
     int temp = 0;
     temp = num1;
     num1 = num2;
-    temp =$bug$ num2;
+    temp =$bug   num2 = temp$ num2;
     <print text="5
 5" col="4" tool="1,0,0,0,0,0">cout &lt;&lt; num1, "\n", num2;
 </print>

@@ -1,13 +1,12 @@
 <level>
-<next-level>level2-2.xml</next-level>
+<next-level>level2-1b.xml</next-level>
 <description>If Only...</description>
 <introtext>Sometimes you don't always want code to run.
 "IF" Statements give you the power of choice!</introtext>
 <endtext>Excellent!
-Now you know how "if" statements work!</endtext>
+You're getting the hang of how "if" statements work!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="activator" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
@@ -26,19 +25,6 @@ int main {
 	else{
 <beacon flow-order="1" />		i--; //reduce i by 1
 	}
-	//when you want multiple conditions, you can use ELSE IF
-	if (25 &lt; 20){
-<beacon flow-order="" />		i = 0;	
-	}
-	else if (25 &lt; 30){
-<beacon flow-order="2" />		i++;
-	}
-	else{
-<beacon flow-order="" />		i--;
-	}
-	//which of these will be true?
-	<comment type="code" correct="false" size="1" groupid="1">//bool correct = i == 0;</comment>
-	<comment type="code" correct="true" size="1" groupid="1">//bool correct = i == 1;</comment>
 }
 </code>
 </level>

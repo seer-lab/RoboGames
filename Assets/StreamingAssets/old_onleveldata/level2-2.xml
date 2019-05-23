@@ -1,0 +1,57 @@
+<level>
+<next-level>level2-3.xml</next-level>
+<description>Ifs, Ands, Or Buts</description>
+<introtext>If statements conditions can be tricky.
+You need to use logic to figure them out!</introtext>
+<endtext>Fantastic!
+Solving those puzzles was only logical!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="activator" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	int var1 = 0;
+	int var2 = 0;
+	int var3 = 0;
+	/*NOT (!) means to take the opposite result of the expression
+	for example, !(2 > 3) is true because 2 is NOT greater than 3*/
+	
+	if (!(9 &lt; 1)){
+<beacon flow-order="0" />		var1 = 5;
+	}
+	//AND (&amp;&amp;) means that both expressions must be true
+	else if (1 &lt; 2 &amp;&amp; 4 &lt; 3){
+<beacon flow-order="" />		var1 = 10;
+	}
+	//OR (||) means that either expression can be true
+	if (2 == 0 || 2 &lt;= 2){
+<beacon flow-order="1" />		var2 = 5;
+	}
+	else if (10 &lt; 20 &amp;&amp; 2 &gt; 10){
+<beacon flow-order="" />		var2 = 10;
+	}
+	//you can combine these to make more complicated conditions
+	//remember, order of operations applies!
+	if (5 &gt; 6 &amp;&amp; (1 &gt; 2 || 2 == 3)){
+<beacon flow-order="" />		var3 = 5;
+	}
+	else if (2 == 3 || (1 &gt; 0 &amp;&amp; 3 &lt; 4)){
+<beacon flow-order="2" />		var3 = 10;
+	}
+	//Can you choose the false condition and avoid the error below?
+	<comment type="code" correct="false" size="1" groupid="1">// if (!(var3 == 10 &amp;&amp; var3 == 5)){</comment>
+	<comment type="code" correct="false" size="1" groupid="1">// if (var1 == 5 || (var1 &gt; 9 &amp;&amp; var1 &lt; 9)){</comment>
+	<comment type="code" correct="true" size="1" groupid="1">// if (!(5 &lt;= var2 &amp;&amp; var2 &lt; 6)){</comment>
+		//An error has occurred!
+		throw "The program fails!";
+	}
+	else{
+		return 0;
+	}
+}
+</code>
+</level>
