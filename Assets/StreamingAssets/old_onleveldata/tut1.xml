@@ -1,0 +1,39 @@
+<level>
+<description>Try all the Tools out!</description>
+<nextlevel></nextlevel>
+<introtext>Prototype Level!</introtext>
+<endtext>You beat the Prototype!</endtext>
+<time>1000</time>
+<tools>
+<enabled count="2">0</enabled>
+<enabled count="1">1</enabled>
+<enabled count="1">2</enabled>
+<enabled count="1">3</enabled>
+<enabled count="1">4</enabled>
+</tools>
+<code>void main(){
+<badcomment size="1" righttext = "This program is a prototype!">    This program calculates pi.
+</badcomment>
+<oncomment size="1">    This program is a prototype!
+</oncomment>
+<beacon actnums="0"></beacon>    
+    string my_word = "hello there!";
+    int <oncheck text="What is my_number?
+Type your answer:
+	" answer="2">my_number = 2</oncheck>
+    if (my_number &lt;= 1){
+<beacon actnums=""></beacon>	    my_number = 0;
+    }
+    else{
+<beacon actnums="1"></beacon>        my_number = 10;
+    }
+    bool <rename text="Choose a name for this variable:
+
+	" correct="2" names="mystr,myint,mybool">varname</rename>;
+	<uncom size="1">mybool = true;</uncom>&#xD;
+	<baduncom size="1" righttext="mybool = true;">mybool is true;</baduncom>
+	//test
+	#test
+}
+</code>
+</level>

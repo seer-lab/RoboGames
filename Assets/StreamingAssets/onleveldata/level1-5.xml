@@ -1,5 +1,5 @@
 <level>
-<next-level>level2-0.xml</next-level>
+<next-level>level1-5b.xml</next-level>
 <description>Put the Output</description>
 <introtext>You're almost to the end!
 Can you output the right answers?</introtext>
@@ -26,17 +26,6 @@ int main {
 	string part2 = "world";
 	cout &lt;&lt; <question text="What will be the output?
 	Type your answer: " answer="hello world">part1 + part2;</question>
-	<comment type="description" correct="true" size="1" groupid="3">Combining strings and integers is a bit trickier.</comment>
-	string rank = "agent 00";
-	int number = 7;
-	cout &lt;&lt; <question text="What will be the output?
-	Type your answer: " answer="agent 007">rank &lt;&lt; number;</question>
-	<comment type="description" correct="false" size="1" groupid="1">Programming problems always have exactly 1 solution.</comment>
-	<comment type="description" correct="true" size="1" groupid="1">There are often many ways to solve a programming problem!</comment>
-	<comment type="description" correct="true" size="1" groupid="2">PRINTF can be used to output like cout.</comment>
-	cout &lt;&lt; "hello world";
-	printf("hello world");
-	<comment type="description" correct="true" size="1" groupid="5">The above two lines of code do the same thing</comment>
 }
 </code>
 </level>

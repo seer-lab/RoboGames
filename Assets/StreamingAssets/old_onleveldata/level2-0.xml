@@ -1,0 +1,28 @@
+<level>
+<next-level>level2-1.xml</next-level>
+<description>New Tools Available!</description>
+<introtext>You've got some new tools to learn:
+Beacon Activators and Uncommenters!</introtext>
+<endtext>Congratulations! 
+You've got 2 new tools to use!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="activator" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	//Beacons must be activated in the order the code reaches them.
+	//Throw the grey Beacon Activator tool to the left.
+	<beacon flow-order="0" /> //activate this first!
+	<beacon flow-order="1" /> //activate this second!
+	//The red Uncommenter tool is used to change code comments into real code.
+	<comment type="code" correct="true" size="1" groupid="1">//cout &lt;&lt; "Hello world!" </comment>
+	//Beware: Not all code comments are correct. Be careful what you uncomment!
+	<comment type="code" correct="false" size="1" groupid="2">//return0 </comment>
+	<comment type="code" correct="true" size="1" groupid="2">//return 0;</comment>
+}
+</code>
+</level>
