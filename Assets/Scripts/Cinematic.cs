@@ -1,4 +1,6 @@
 
+using System;
+using System.Transactions;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -16,29 +18,116 @@ public class Cinematic : MonoBehaviour
     // This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
     public string endtext = "Winner!\nLevel End Placeholder!";
     public GameObject prompt1, prompt2;
-    public GameObject[] cinebugs = new GameObject[6];
+    public GameObject[] stars = new GameObject[5];
 
     private bool cinerun = false;
     private float delaytime = 0f;
     private float delay = 0.1f;
-    private List<GameObject> objs;
+
+    int score; 
+    bool shownCharacter = false; 
+
 
     //.................................>8.......................................
     // Use this for initialization
     void Start()
     {
-        objs = new List<GameObject>();
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
+        score = 5; 
+        for (int i = 0; i < GlobalState.toolUse.Length; i++){
+            score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
+        } 
+        if (score <= 0) score = 1; 
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
             transform.Find("PressEnter").GetComponent<Text>().color = Color.black; 
             transform.Find("Title").GetComponent<Text>().color = Color.black; 
         }
+        foreach (GameObject star in stars){
+            star.GetComponent<Image>().enabled = false; 
+            star.GetComponent<Animator>().enabled = false; 
+        }
 
         //Debug.Log(SceneManager.sceneCount);
+    }
+    IEnumerator ShowCharacter(){
+        GameObject player = transform.Find(GlobalState.Character).gameObject; 
+        player.GetComponent<Animator>().SetTrigger("isRunning"); 
+        Image image = player.GetComponent<Image>(); 
+        while(image.color.a < 1){
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.05f); 
+            yield return null; 
+        }
+    }
+    IEnumerator AnimateStars(){
+
+        foreach (GameObject star in stars){
+            star.GetComponent<Image>().enabled = true; 
+            star.GetComponent<Animator>().enabled = true; 
+            yield return new WaitForSecondsRealtime(0.2f); 
+        }
+        for (int i = 0; i < score; i++){
+            stars[i].GetComponent<Animator>().SetBool("isComplete", true); 
+            yield return new WaitForSecondsRealtime(0.1f); 
+        }
+        if (score == 0){
+            float[] speeds = new float[]{0.3f, 0.5f, 1f, 0.5f, 0.3f}; 
+            while(stars[0].transform.position.y > -13){
+                for (int i = 0; i < stars.Length; i++){
+                    stars[i].transform.position = new Vector3(stars[i].transform.position.x, stars[i].transform.position.y - speeds[i], stars[i].transform.position.z); 
+                }
+                yield return new WaitForSeconds(0.15f); 
+            }
+        }
+    }
+    IEnumerator FadeFailStars(){
+        while(stars[score].GetComponent<Image>().color.a > 0){
+            for (int i = score; i < stars.Length; i++){
+                Image image = stars[i].GetComponent<Image>(); 
+                image.color = new Color(image.color.r, image.color.b, image.color.g, image.color.a - 0.05f); 
+            }
+            yield return null; 
+        }
+    }
+    IEnumerator FadeInResults(){
+        CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>(); 
+        while(canvas.alpha < 1){
+            canvas.alpha += 0.05f; 
+            yield return null; 
+        }
+    }
+    IEnumerator PushResults(){
+        StartCoroutine(FadeInResults()); 
+        if (score < stars.Length) StartCoroutine(FadeFailStars()); 
+        float[] speeds = new float[]{1.3f,1.1f, 0.9f, 0.7f, 0.5f}; 
+        float[] xPositions = new float[]{-300,-200,-100,0,100};
+        float[] xdifs = new float[score]; 
+        for (int i = 0; i < xdifs.Length; i++){
+            xdifs[i] = xPositions[i] - stars[i].GetComponent<RectTransform>().localPosition.x; 
+        }
+        float frames = 20f; 
+        float scaleDif = -0.5f; 
+        int framecount = 0; 
+        while(stars[score-1].GetComponent<RectTransform>().localPosition.y > -130f){
+            for (int i = 0; i < score; i++){
+                RectTransform transform = stars[i].GetComponent<RectTransform>(); 
+                if (transform.localScale.x > 0.5f){
+                    transform.localScale = new Vector3(transform.localScale.x + scaleDif/frames, transform.localScale.y + scaleDif/frames, transform.localScale.z); 
+                }
+                if (Math.Abs(transform.localPosition.x - xPositions[i]) > 1){
+                    transform.localPosition = new Vector3(transform.localPosition.x + xdifs[i]/frames, transform.localPosition.y, transform.localPosition.z); 
+                }
+                if (transform.localPosition.y > -130f && framecount > 10){
+                    float ydif = -130f - transform.localPosition.y; 
+                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + (ydif*speeds[i])/frames, transform.localPosition.z); 
+                }
+            }
+            framecount++; 
+            yield return null; 
+        }
     }
     IEnumerator LoadGame()
     {
@@ -102,22 +191,23 @@ public class Cinematic : MonoBehaviour
                 cinerun = true;
                 if (GlobalState.GameMode != stringLib.GAME_MODE_ON)
                 {
-                    GameObject bug = (GameObject)Instantiate(cinebugs[2]);
-                    objs.Add(bug);
                 }
                 else
                 {
-                    GameObject rob = (GameObject)Instantiate(cinebugs[3]);
-                    objs.Add(rob);
+
                 }
             }
+
+            if(!shownCharacter){
+                shownCharacter = true; 
+                StartCoroutine(ShowCharacter()); 
+            }
+            
             prompt1.GetComponent<Text>().text = introtext;
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
-                Destroy(objs[0]);
                 cinerun = false;
-                objs = new List<GameObject>();
                 StartCoroutine(LoadGame());
             }
         }
@@ -126,12 +216,8 @@ public class Cinematic : MonoBehaviour
             if (!cinerun)
             {
                 cinerun = true;
-                GameObject bug = (GameObject)Instantiate(cinebugs[3]);
-                objs.Add(bug);
-                bug = (GameObject)Instantiate(cinebugs[0]);
-                objs.Add(bug);
             }
-
+            StartCoroutine(AnimateStars()); 
             prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
@@ -149,40 +235,34 @@ public class Cinematic : MonoBehaviour
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
+                StartCoroutine(PushResults()); 
                 //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);
-                Destroy(objs[1]);
-                Destroy(objs[0]);
                 cinerun = false;
-                objs = new List<GameObject>();
 
             }
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_LOSE)
         {
+            score = 0; 
+            StartCoroutine(AnimateStars()); 
             if (!cinerun)
             {
                 cinerun = true;
-                GameObject bug = (GameObject)Instantiate(cinebugs[4]);
-                objs.Add(bug);
             }
             prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
             prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
             {
-                Destroy(objs[0]);
                 prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
                 cinerun = false;
-                objs = new List<GameObject>();
                 GlobalState.GameState = stateLib.GAMESTATE_MENU;
             }
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
-                Destroy(objs[0]);
                 prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 
                 cinerun = false;
-                objs = new List<GameObject>();
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
                 
@@ -190,7 +270,6 @@ public class Cinematic : MonoBehaviour
                 UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
-                StartCoroutine(LoadGame());
             }
         }
         else
