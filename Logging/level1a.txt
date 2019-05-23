@@ -196,3 +196,66 @@ Bug Catcher Tool Use:
 	Lines Used: 9 
 
 --------------------------------------------------------
+Failed Level
+4 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 9 
+
+--------------------------------------------------------
+Failed Level
+3 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+--------------------------------------------------------
+Failed Level
+6 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 7 
+
+--------------------------------------------------------
+Failed Level
+3 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+--------------------------------------------------------
