@@ -1,5 +1,5 @@
 <level>
-<next-level>level4-2.xml</next-level>
+<next-level>level4-1b.xml</next-level>
 <description>Not Your Style</description>
 <introtext>Good code style is very helpful.
 Clean code by RENAMING and UNCOMMENTING.</introtext>
@@ -21,29 +21,10 @@ int main {
 	if (year &gt;= 2000){
 <comment type="code" correct="true" size="1" groupid="3">		//cout &lt;&lt; "It's the 21st century!";</comment>
 	}
-	//Read the code below, then choose the right names and correctly styled code.
-<comment type="code" correct="true" size="1" groupid="4" style="single">	//int birthyear;</comment>
-<comment type="code" correct="false" size="1" groupid="4" style="single">		//int birthyear;</comment>
-	bool <variable-rename text="Choose a name for this variable: " options="century_21st,afternoon,valid_input,time_of_birth" correct="valid_input" groupid="0">y</variable-rename> = false;
-	cout &lt;&lt; "Enter your birth year:";
-	while( <variable-color groupid="0">y</variable-color> == false){
-<comment type="code" correct="true" size="1" groupid="8" style="single">//		cin &gt;&gt; birthyear;</comment>
-<comment type="code" correct="false" size="1" groupid="8" style="multi">//	cin &gt;&gt; birthyear;</comment>
+	else {
+		<comment type="code" correct="false" size="1" groupid="9" style="single">	//cout &lt;&lt; "What year is it?!"</comment>
+		<comment type="code" correct="true" size="1" groupid="9" style="single">//cout &lt;&lt; "What year is it?!"</comment>	
 	}
-	if (birthyear &lt;= year){
-<comment type="code" correct="false" size="1" groupid="5" style="single">// y = true;</comment>
-<comment type="code" correct="false" size="1" groupid="5" style="single">	// y = true;</comment>
-<comment type="code" correct="true" size="1" groupid="5" style="single">		// <variable-color groupid="0">y</variable-color> = true;</comment>
-	}
-	else{
-<comment type="code" correct="false" size="1" groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
-<comment type="code" correct="false" size="1" groupid="9" style="single">	  //cout &lt;&lt; "Enter a valid year:"</comment>
-<comment type="code" correct="true" size="1" groupid="9" style="single">		 //cout &lt;&lt; "Enter a valid year:"</comment>		
-	}
-}
-	int <variable-rename text="Choose a name for this variable: " options="temperature,time,age,date" correct="age" groupid="1">x</variable-rename> = year - birthyear;
-<comment type="code" correct="false" size="1" groupid="7" style="single">//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
-<comment type="code" correct="true" size="1" groupid="7" style="single">	//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
 }
 </code>
 </level>
