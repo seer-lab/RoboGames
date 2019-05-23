@@ -23,13 +23,12 @@ public class Logger
 
     int timeStart, timeEnd, totalTime;
     DateTime time;
-
-    int[] toolUse = new int[stateLib.NUMBER_OF_TOOLS];
 	string[] linesUsed = new string[stateLib.NUMBER_OF_TOOLS]; 
 	bool hasWritten = false; 
 
     public Logger()
     {
+        GlobalState.toolUse = new int[stateLib.NUMBER_OF_TOOLS];
         timeStart = DateTime.Now.Second;
         failed = false;
 		for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
@@ -51,7 +50,7 @@ public class Logger
     }
     public void onToolUse(int index, int lineNumber)
     {
-        toolUse[index]++;
+        GlobalState.toolUse[index]++;
 		linesUsed[index] += lineNumber.ToString() + ' '; 
     }
     public void WriteLog()
@@ -72,7 +71,7 @@ public class Logger
 
                     sw.WriteLine("\tRequired Tasks: " + GlobalState.level.Tasks[i]);
                     sw.WriteLine("\tCompleted Tasks: " + GlobalState.level.CompletedTasks[i]);
-                    sw.WriteLine("\tTimes Tool Used: " + toolUse[i]);
+                    sw.WriteLine("\tTimes Tool Used: " + GlobalState.toolUse[i]);
 					sw.WriteLine("\tLines Used: " + linesUsed[i]); 
                     sw.WriteLine();
                 }

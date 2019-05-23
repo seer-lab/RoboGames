@@ -35,7 +35,11 @@ public class Cinematic : MonoBehaviour
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
-        score = 4; 
+        score = 5; 
+        for (int i = 0; i < GlobalState.toolUse.Length; i++){
+            score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
+        } 
+        if (score <= 0) score = 1; 
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
