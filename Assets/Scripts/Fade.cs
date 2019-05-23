@@ -10,7 +10,7 @@ public class Fade : MonoBehaviour
        screen = GetComponent<CanvasGroup>();
    }
    public void onFadeOut(){
-       screen.alpha = 0; 
+       //screen.alpha = 0; 
        StartCoroutine(DoFade(false));
    }
    public void onFadeIn(){
@@ -21,9 +21,9 @@ public class Fade : MonoBehaviour
         float step = 0.05f; 
         if (fadeIn)
             step = -step; 
-        while ((fadeIn && screen.alpha > 0.05) || (!fadeIn && screen.alpha < 1f)){
+        while ((fadeIn && screen.alpha > 0) || (!fadeIn && screen.alpha < 1f)){
             screen.alpha += step;
-            yield return new WaitForSeconds(0.05f);
+            yield return null;
         }
     }
 }
