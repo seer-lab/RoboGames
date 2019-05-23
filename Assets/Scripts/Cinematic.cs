@@ -25,6 +25,7 @@ public class Cinematic : MonoBehaviour
     private float delay = 0.1f;
 
     int score; 
+    bool shownCharacter = false; 
 
 
     //.................................>8.......................................
@@ -34,7 +35,7 @@ public class Cinematic : MonoBehaviour
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
-        score = 5; 
+        score = 4; 
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
@@ -48,7 +49,17 @@ public class Cinematic : MonoBehaviour
 
         //Debug.Log(SceneManager.sceneCount);
     }
+    IEnumerator ShowCharacter(){
+        GameObject player = transform.Find(GlobalState.Character).gameObject; 
+        player.GetComponent<Animator>().SetTrigger("isRunning"); 
+        Image image = player.GetComponent<Image>(); 
+        while(image.color.a < 1){
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.05f); 
+            yield return null; 
+        }
+    }
     IEnumerator AnimateStars(){
+
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = true; 
             star.GetComponent<Animator>().enabled = true; 
@@ -77,7 +88,15 @@ public class Cinematic : MonoBehaviour
             yield return null; 
         }
     }
+    IEnumerator FadeInResults(){
+        CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>(); 
+        while(canvas.alpha < 1){
+            canvas.alpha += 0.05f; 
+            yield return null; 
+        }
+    }
     IEnumerator PushResults(){
+        StartCoroutine(FadeInResults()); 
         if (score < stars.Length) StartCoroutine(FadeFailStars()); 
         float[] speeds = new float[]{1.3f,1.1f, 0.9f, 0.7f, 0.5f}; 
         float[] xPositions = new float[]{-300,-200,-100,0,100};
@@ -174,6 +193,12 @@ public class Cinematic : MonoBehaviour
 
                 }
             }
+
+            if(!shownCharacter){
+                shownCharacter = true; 
+                StartCoroutine(ShowCharacter()); 
+            }
+            
             prompt1.GetComponent<Text>().text = introtext;
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
