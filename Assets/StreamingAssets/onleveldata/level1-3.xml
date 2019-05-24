@@ -13,16 +13,16 @@ STRINGS and OUTPUT</introtext>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;
 using namespace std;
-<comment type="description" correct="true" size="1" groupid="0">Don't forget to put these at the start of your programs!</comment>
-<comment type="description" correct="true" size="1" groupid="2">Input and output operations come from LIBRARIES that you add to your code.</comment>
-<comment type="description" correct="true" size="1" groupid="10">Recall that COUT is used to print out variables.</comment>
+<comment type="description" correct="true"  groupid="0">Don't forget to put these at the start of your programs!</comment>
+<comment type="description" correct="true"  groupid="2">Input and output operations come from LIBRARIES that you add to your code.</comment>
+<comment type="description" correct="true"  groupid="10">Recall that COUT is used to print out variables.</comment>
 
 int main {
-	<comment type="description" correct="true" size="1" groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
+	<comment type="description" correct="true"  groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
 	string truth = "programming is awesome!";
 	
-	<comment type="description" correct="false" size="1" groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
-	<comment type="description" correct="true" size="1" groupid="1" hint="Woah this is a hint as well">If you reassign a value to a variable, its old value disappears!</comment>
+	<comment type="description" correct="false"  groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
+	<comment type="description" correct="true"  groupid="1" hint="Woah this is a hint as well">If you reassign a value to a variable, its old value disappears!</comment>
 	
 	string mystring = "this is the old value";
 	mystring = "new value";

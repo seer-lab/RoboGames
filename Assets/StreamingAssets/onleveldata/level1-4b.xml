@@ -16,17 +16,17 @@ You've made it through some tricky stuff!</endtext>
 using namespace std;
 int main {
 	
-	<comment type="description" correct="true" size="1" groupid="0">You have to pay attention to variable types!</comment>
+	<comment type="description" correct="true"  groupid="0">You have to pay attention to variable types!</comment>
 	int a = 4;
 	int b = 3;
 	int <question text="What is the value of c?
 	Type your answer: " answer="1">c = a/b;</question>
-	<comment type="description" correct="true" size="1" groupid="3" style="multi">TYPECASTING is a way to change one variable type into another
+	<comment type="description" correct="true"  groupid="3" style="multi">TYPECASTING is a way to change one variable type into another
 	You can use typecasting to change integers into float numbers.</comment>
-	<comment type="description" correct="true" size="1" groupid="4">For instance, (float)a will change 4 into 4.0</comment>
+	<comment type="description" correct="true"  groupid="4">For instance, (float)a will change 4 into 4.0</comment>
 	
-	<comment type="description" correct="false" size="1" groupid="2">float(c) would change c into 1.3 because it's 4/3</comment>
-    <comment type="description" correct="true" size="1" groupid="2">float(c) would change c into 1.0, because the division isn't recalculated</comment>
+	<comment type="description" correct="false"  groupid="2">float(c) would change c into 1.3 because it's 4/3</comment>
+    <comment type="description" correct="true"  groupid="2">float(c) would change c into 1.0, because the division isn't recalculated</comment>
 	
 	int d = 5;
 	int e = 2;

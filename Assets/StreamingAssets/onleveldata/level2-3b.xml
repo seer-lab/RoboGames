@@ -19,7 +19,7 @@ int main {
 	var1 = 1;
 	var2 = 2;
 	
-	<comment type="description" correct="true" size="1" groupid="3">Follow the code using the variable values to see what happens!</comment>	
+	<comment type="description" correct="true"  groupid="3">Follow the code using the variable values to see what happens!</comment>	
 	if ((var1+var2)/2 &lt; 10){
 <beacon flow-order="0" />		if (var1 / 2 == 1){
 <beacon flow-order="" />			var3 = 1;

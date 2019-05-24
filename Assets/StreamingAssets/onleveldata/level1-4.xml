@@ -15,18 +15,18 @@ You've made it through some tricky stuff!</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	<comment type="description" correct="true" size="1" groupid="0">FLOAT variables store numbers with decimal points.</comment>
+	<comment type="description" correct="true"  groupid="0">FLOAT variables store numbers with decimal points.</comment>
 	float half = 0.5;
 	float three = 3.0;
 	
 	<question text="What is the value of sum?
 	Type your answer: " answer="3.5">float sum = half + three;</question>
-	<comment type="description" size="1" correct="true" groupid="1" style="multi">If you try to assign a float to an integer
+	<comment type="description"  correct="true" groupid="1" style="multi">If you try to assign a float to an integer
 	the decimal and following numbers are erased</comment>
 	int <question text="What is the value of int_sum?
 	Type your answer: " answer="3">int_sum = half + three;</question>
 	
-	<comment type="description" size="1" correct="true" groupid="2" style="multi">You can also assign integer values to float variables
+	<comment type="description"  correct="true" groupid="2" style="multi">You can also assign integer values to float variables
 	Remember, floats always have a decimal point, even if it's 0!</comment>
 	float <question text="What is the value of new_three?
 	Type your answer: " answer="3.0">new_three = int_sum;</question>
