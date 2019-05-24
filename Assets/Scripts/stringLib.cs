@@ -61,7 +61,7 @@ public class stringLib
 	public const string TOOL_NAME_2_ROBOBUG				= "warper";
 	public const string TOOL_NAME_2_ROBOTON				= "namer";
 	public const string TOOL_NAME_3								= "commenter";
-	public const string TOOL_NAME_4								= "controlflow";
+	public const string TOOL_NAME_4								= "uncommentor";
 	public const string TOOL_NAME_5								= "helper";
 	public const string TOOL_NAME_6								= "hinter";
 

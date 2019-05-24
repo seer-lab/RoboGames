@@ -241,7 +241,7 @@ public class TextColoration {
 				else if (sLine.IndexOf(GlobalState.StringLib.node_color_comment) == -1 && sLine != "") return GlobalState.StringLib.node_color_comment;
 				break;
 
-				case stateLib.TOOL_CONTROL_FLOW:
+				case stateLib.TOOL_UNCOMMENTER:
 				if (sLine.IndexOf(GlobalState.StringLib.node_color_uncomment) != -1) return GlobalState.StringLib.node_color_uncomment;
 				else if (sLine.IndexOf(GlobalState.StringLib.node_color_incorrect_uncomment) != -1) return GlobalState.StringLib.node_color_incorrect_uncomment;
 				break;

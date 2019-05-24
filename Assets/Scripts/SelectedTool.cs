@@ -151,9 +151,9 @@ public class SelectedTool : MonoBehaviour
                 refreshToolList();
                 toolIcons[stateLib.TOOL_COMMENTER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
-            case stateLib.TOOL_CONTROL_FLOW:
+            case stateLib.TOOL_UNCOMMENTER:
                 refreshToolList();
-                toolIcons[stateLib.TOOL_CONTROL_FLOW].GetComponent<Animator>().SetBool("enabled", true); 
+                toolIcons[stateLib.TOOL_UNCOMMENTER].GetComponent<Animator>().SetBool("enabled", true); 
                 break;
             case stateLib.TOOL_HELPER:
                 refreshToolList();
@@ -290,11 +290,11 @@ public class SelectedTool : MonoBehaviour
 	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_COMMENTER]) + ReplaceBonusText(stateLib.TOOL_COMMENTER) + "]";
 
 	  }
-	  if (toolCounts[stateLib.TOOL_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CONTROL_FLOW] > 0) {
-	    CheckTaskComplete(stateLib.TOOL_CONTROL_FLOW);
+	  if (toolCounts[stateLib.TOOL_UNCOMMENTER] + bonusTools[stateLib.TOOL_UNCOMMENTER] > 0) {
+	    CheckTaskComplete(stateLib.TOOL_UNCOMMENTER);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
-	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_CONTROL_FLOW].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_CONTROL_FLOW]) + ReplaceBonusText(stateLib.TOOL_CONTROL_FLOW) + "]";
+	    toolLabels[stateLib.TOOL_UNCOMMENTER].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
+	    toolLabels[stateLib.TOOL_UNCOMMENTER].GetComponent<Text>().text += ReplaceTextInfinite(toolCounts[stateLib.TOOL_UNCOMMENTER]) + ReplaceBonusText(stateLib.TOOL_UNCOMMENTER) + "]";
 	  }
 	  if (toolCounts[stateLib.TOOL_HELPER] + bonusTools[stateLib.TOOL_HELPER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_HELPER);

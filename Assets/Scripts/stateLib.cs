@@ -20,7 +20,7 @@ public static class stateLib
 	public const int TOOL_PRINTER_OR_QUESTION                  = 1;
 	public const int TOOL_WARPER_OR_RENAMER                    = 2;
 	public const int TOOL_COMMENTER                            = 3;
-	public const int TOOL_CONTROL_FLOW                         = 4;
+	public const int TOOL_UNCOMMENTER                         = 4;
 	public const int TOOL_HELPER                               = 5;
 	public const int TOOL_HINTER								=6;
 

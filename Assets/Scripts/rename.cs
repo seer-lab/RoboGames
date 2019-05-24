@@ -38,11 +38,41 @@ public class rename : Tools {
 
 	private int selection = 0;
 	private bool hasHappened = false;
+	private bool isChecked = false;
 
     public override void Initialize()
     {
 		if (answered)GetComponent<SpriteRenderer>().sprite = renSpriteOn;
         else GetComponent<SpriteRenderer>().sprite = renSpriteOff;
+		int i = 0;
+		bool startMultiComments= false;
+		bool endMultiComments= false;
+
+
+		foreach(string s in GlobalState.level.Code){
+			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
+			Regex rgxT = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
+			Regex rgxTh = new Regex(@"<color=#00ff00ff>[\s\S]*?<\/color>");
+
+			if(s.Contains("/*") || s.Contains("/**")){
+				startMultiComments = true;
+			}else if(s.Contains("*/") || s.Contains("**/")){
+				endMultiComments = true;
+			}else if(startMultiComments && endMultiComments){
+				startMultiComments = false;
+				endMultiComments = false;
+			}
+
+			if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
+				&& !s.Contains("<color=#00ff00ff>") && !startMultiComments && !endMultiComments){
+				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+			}else if(rgxTh.IsMatch(s)){
+				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+			}else if(startMultiComments){
+				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+			}
+			i++;
+		}
     }
 
 	//.................................>8.......................................
@@ -91,14 +121,28 @@ public class rename : Tools {
 
 					int iter = 0;
 					Regex rgx = new Regex(@"(?s)(.*)(<color=#ff00ffff>)(.*?)(</color>)(.*)");
+					Regex rgxT = new Regex(@"(?s)(.*)(<color=#ff00ff00>)(.*?)(</color>)(.*)");
+					Regex tmp = new Regex(@"\v"+oldname+"\v");
 					// /GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 					foreach(string s in GlobalState.level.Code) {
-						rgx = new Regex(@"([^a-zA-Z0-9])("+oldname+@")([^a-zA-Z0-9])");
-						if(GlobalState.level.Code[iter].Contains(oldname) && !hasHappened){
-							GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
-							hasHappened = true;
+						rgx = new Regex(@"\b"+oldname+@"\b");
+						// if(rgx.IsMatch(GlobalState.level.Code[iter]) && !hasHappened){
+						// 	GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
+						// 	hasHappened = true;
+						// }else if(tmp.IsMatch(GlobalState.level.Code[iter])){
+						// 	GlobalState.level.Code[iter] = tmp.Replace(GlobalState.level.Code[iter],"<color=#ff00ffff>"+correct + "</color>");
+						// }else{
+						// 	if(!tmp.IsMatch(GlobalState.level.Code[iter])){
+						// 		GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"\v"+correct + "\v");
+						// 	}
+						// }
+						if(rgx.IsMatch(s) && !rgxT.IsMatch(s)){
+							//GlobalState.level.Code[iter] = GlobalState.level.Code[iter].Replace(oldname,correct);
+							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],correct);
+						}else if(tmp.IsMatch(s)){
+							GlobalState.level.Code[iter] = tmp.Replace(GlobalState.level.Code[iter], "<color=#ff00ffff>"+correct + "</color>");
 						}else{
-							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"$1"+correct+"$3");
+							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"\v"+correct + "\v");
 						}
 						iter += 1;
 					}
