@@ -24,7 +24,7 @@ public class CorrectUncomment : comment
             string sNewText = textColoration.DecolorizeText(GlobalState.level.Code[index]);
             Debug.Log(blocktext);
             string tempDecolText = sNewText;
-            string[] sNewParts = sNewText.Split('\n');
+            string[] sNewParts = blocktext.Split('\n');
             if (sNewParts.Length == 1)
             {
                 // Single line
@@ -83,21 +83,19 @@ public class CorrectUncomment : comment
                 string commentOpenSymbol = "/*";
                 string commentCloseSymbol = "*/"; //TODO: Modularize
 
+                Regex tmp = new Regex(@"\v(.+?)\v");
+                if(tmp.IsMatch(GlobalState.level.Code[index])){
+                    GlobalState.level.Code[index] = tmp.Replace(GlobalState.level.Code[index],"<color=#ff00ffff>" + tmp.Match(GlobalState.level.Code[index]) + "</color>" );
+                }
+
                 sNewParts[0] = sNewParts[0].Replace(GlobalState.StringLib.node_color_correct_comment, "");
                 sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(commentCloseSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(stringLib.CLOSE_COLOR_TAG, "");
 
-                // Regex tmp = new Regex(@"\v(.+?)\v");
-                // if(tmp.IsMatch(sNewText)){
-                //     //Debug.Log(tmp.Match(sNewText));
-                //     sNewText = tmp.Replace(sNewText,"<color=#ff00ffff>" + tmp.Match(sNewText) + "</color>" );
-                //     Debug.Log(sNewText);
-                // }
 
                 GlobalState.level.Code[index] = textColoration.ColorizeText(sNewParts[0], language);
                 GlobalState.level.Code[index + sNewParts.Length - 1] = textColoration.ColorizeText(sNewParts[sNewParts.Length - 1], language);
-
 
 
             }

@@ -57,10 +57,7 @@ public class rename : Tools {
 			if(s.Contains("/*") || s.Contains("/**")){
 				startMultiComments = true;
 			}else if(s.Contains("*/") || s.Contains("**/")){
-				endMultiComments = true;
-			}else if(startMultiComments && endMultiComments){
 				startMultiComments = false;
-				endMultiComments = false;
 			}
 
 			if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
