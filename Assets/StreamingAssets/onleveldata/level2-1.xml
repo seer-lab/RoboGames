@@ -7,7 +7,7 @@
 You're getting the hang of how "if" statements work!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;

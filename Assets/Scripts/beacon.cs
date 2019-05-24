@@ -64,7 +64,7 @@ public class beacon : Tools {
 				audioCorrect.Play();
 				GlobalState.level.CompletedTasks[0]++;
 				// Award 1 extra use of the tool.
-				selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+				selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
 				actcounter++;
 				//GetComponent<SpriteRenderer>().sprite = progressbeacon;
 				anim.SetBool("IsActive", true); 

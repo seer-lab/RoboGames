@@ -279,7 +279,7 @@ public class BeaconFactory: ToolFactory
     public override GameObject GetGameObject()
     {
         GameObject beacon = GameObject.Instantiate(Resources.Load<GameObject>(path + "beacon"));
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
         tool = beacon.GetComponent<beacon>();
         GetScript();
         return beacon; 

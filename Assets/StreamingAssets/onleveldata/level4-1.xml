@@ -9,7 +9,7 @@ You've aced the indentations!</endtext>
 <tools>
 <tool name="namer" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
-<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;

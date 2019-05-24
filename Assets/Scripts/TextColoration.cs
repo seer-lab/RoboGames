@@ -222,7 +222,7 @@ public class TextColoration {
 				continue;
 			}
 			switch(toolCheck) {
-				case stateLib.TOOL_CATCHER_OR_ACTIVATOR:
+				case stateLib.TOOL_CATCHER_OR_CONTROL_FLOW:
 				break;
 
 				case stateLib.TOOL_PRINTER_OR_QUESTION:

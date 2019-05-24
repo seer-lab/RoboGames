@@ -381,10 +381,10 @@ public partial class LevelGenerator : MonoBehaviour {
             switch (tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value)
             {
                 case "catcher":
-                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                    toolnum = stateLib.TOOL_CATCHER_OR_CONTROL_FLOW;
                     break;
-                case "activator":
-                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                case "controlflow":
+                    toolnum = stateLib.TOOL_CATCHER_OR_CONTROL_FLOW;
                     break;
                 case "printer":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
