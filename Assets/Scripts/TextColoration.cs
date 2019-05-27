@@ -195,7 +195,7 @@ public class TextColoration {
 	//fix ampersands stuck in color tags
   Regex amprgx = new Regex(@"(?s)(&)(<\/color>)");
 	sText = amprgx.Replace(sText, "$2$1");
-    Debug.Log("ColorizeText processedString: " + sText);
+    //Debug.Log("ColorizeText processedString: " + sText);
 
 		// Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
 		// sText = colorLine.Replace(sText, '\n' + GlobalState.StringLib.syntax_color_keyword);
@@ -222,7 +222,7 @@ public class TextColoration {
 				continue;
 			}
 			switch(toolCheck) {
-				case stateLib.TOOL_CATCHER_OR_ACTIVATOR:
+				case stateLib.TOOL_CATCHER_OR_CONTROL_FLOW:
 				break;
 
 				case stateLib.TOOL_PRINTER_OR_QUESTION:
@@ -241,7 +241,7 @@ public class TextColoration {
 				else if (sLine.IndexOf(GlobalState.StringLib.node_color_comment) == -1 && sLine != "") return GlobalState.StringLib.node_color_comment;
 				break;
 
-				case stateLib.TOOL_CONTROL_FLOW:
+				case stateLib.TOOL_UNCOMMENTER:
 				if (sLine.IndexOf(GlobalState.StringLib.node_color_uncomment) != -1) return GlobalState.StringLib.node_color_uncomment;
 				else if (sLine.IndexOf(GlobalState.StringLib.node_color_incorrect_uncomment) != -1) return GlobalState.StringLib.node_color_incorrect_uncomment;
 				break;

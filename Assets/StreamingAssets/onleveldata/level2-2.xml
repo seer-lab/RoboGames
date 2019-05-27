@@ -7,7 +7,7 @@ You need to use logic to figure them out!</introtext>
 Solving that puzzle was only logical!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
@@ -16,17 +16,17 @@ using namespace std;
 int main {
 	int var1 = 0;
 	int var2 = 0;
-	<comment type="description" size="1" correct="true" groupid="0" style="multi">NOT (!) means to take the opposite result of the expression
+	<comment type="description"  correct="true" groupid="0" style="multi">NOT (!) means to take the opposite result of the expression
 	for example, !(2 > 3) is true because 2 is NOT greater than 3</comment>
 	
 	if (!(9 &lt; 1)){
 <beacon flow-order="0" />		var1 = 5;
 	}
-	<comment type="description" correct="true" size="1" groupid="1">AND (&amp;&amp;) means that both expressions must be true</comment>
+	<comment type="description" correct="true"  groupid="1">AND (&amp;&amp;) means that both expressions must be true</comment>
 	else if (1 &lt; 2 &amp;&amp; 4 &lt; 3){
 <beacon flow-order="" />		var1 = 10;
 	}
-	<comment type="description" correct="true" size="1" groupid="2">OR (||) means that either expression can be true</comment>
+	<comment type="description" correct="true"  groupid="2">OR (||) means that either expression can be true</comment>
 	if (2 == 0 || 2 &lt;= 2){
 <beacon flow-order="1" />		var2 = 5;
 	}

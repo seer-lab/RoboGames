@@ -7,7 +7,7 @@ Can you keep track?</introtext>
 You're doing great with the loops!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
@@ -16,8 +16,8 @@ You're doing great with the loops!</endtext>
 using namespace std;
 int main {
 	string text = "hello";
-	<comment type="description" correct="false" size="1" groupid="2">Loops always run multiple times no matter what you do!</comment>
-	<comment type="description" correct="true" size="1" groupid="2">Loops only run while the condition is true, which may mean they never run!</comment>
+	<comment type="description" correct="false"  groupid="2">Loops always run multiple times no matter what you do!</comment>
+	<comment type="description" correct="true"  groupid="2">Loops only run while the condition is true, which may mean they never run!</comment>
 	for (int i = 0; i &lt; 0; i--){
 <beacon flow-order="" />		text += "c";
 	}

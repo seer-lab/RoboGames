@@ -297,7 +297,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                 // Colorize all multi-comment line numbers red
                                 for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
                                 {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_UNCOMMENTER]++;
 
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
@@ -317,7 +317,7 @@ public partial class LevelGenerator : MonoBehaviour {
                                 // Colorize all multi-comment line numbers red
                                 for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
                                 {
-                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_CONTROL_FLOW]++;
+                                    GlobalState.level.TaskOnLine[thisObject.GetComponent<comment>().Index + j, stateLib.TOOL_UNCOMMENTER]++;
                                 }
                                 // Resize the hitbox for this comment to cover all lines (if multi-line comment)
                                 float yPos = (properties.textscale * (thisObject.GetComponent<comment>().size - 1) > 0) ? properties.textscale * (thisObject.GetComponent<comment>().size - 1) : 1.0f;
@@ -353,15 +353,15 @@ public partial class LevelGenerator : MonoBehaviour {
 				}
 			}
 
-			foreach (GameObject variablecolor in manager.robotONvariablecolors) {
-				foreach (GameObject rename in manager.robotONrenamers) {
-					if (variablecolor.GetComponent<VariableColor>().groupid == rename.GetComponent<rename>().groupid) {
-						variablecolor.GetComponent<VariableColor>().CorrectRenameObject = rename;
-						variablecolor.GetComponent<VariableColor>().correct = rename.GetComponent<rename>().correct;
-						break;
-					}
-				}
-			}
+			// foreach (GameObject variablecolor in manager.robotONvariablecolors) {
+			// 	foreach (GameObject rename in manager.robotONrenamers) {
+			// 		if (variablecolor.GetComponent<VariableColor>().groupid == rename.GetComponent<rename>().groupid) {
+			// 			variablecolor.GetComponent<VariableColor>().CorrectRenameObject = rename;
+			// 			variablecolor.GetComponent<VariableColor>().correct = rename.GetComponent<rename>().correct;
+			// 			break;
+			// 		}
+			// 	}
+			// }
 			// ]--
 		}
 	}
@@ -381,16 +381,16 @@ public partial class LevelGenerator : MonoBehaviour {
             switch (tool.Attributes[stringLib.XML_ATTRIBUTE_NAME].Value)
             {
                 case "catcher":
-                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                    toolnum = stateLib.TOOL_CATCHER_OR_CONTROL_FLOW;
                     break;
-                case "activator":
-                    toolnum = stateLib.TOOL_CATCHER_OR_ACTIVATOR;
+                case "controlflow":
+                    toolnum = stateLib.TOOL_CATCHER_OR_CONTROL_FLOW;
                     break;
                 case "printer":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
                     break;
                 case "breakpointer":
-                    toolnum=stateLib.TOOL_CONTROL_FLOW; 
+                    toolnum=stateLib.TOOL_UNCOMMENTER; 
                     break;
                 case "checker":
                     toolnum = stateLib.TOOL_PRINTER_OR_QUESTION;
@@ -404,8 +404,8 @@ public partial class LevelGenerator : MonoBehaviour {
                 case "commenter":
                     toolnum = stateLib.TOOL_COMMENTER;
                     break;
-                case "controlflow":
-                    toolnum = stateLib.TOOL_CONTROL_FLOW;
+                case "uncommenter":
+                    toolnum = stateLib.TOOL_UNCOMMENTER;
                     break;
                 case "hint":
                     toolnum = stateLib.TOOL_HINTER;

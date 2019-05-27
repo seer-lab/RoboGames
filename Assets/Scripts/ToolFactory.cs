@@ -162,7 +162,7 @@ public class RenamerFactory : ToolFactory
         stringLib stringLibrary = new stringLib(); 
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
         tool.correct = childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value;
-        tool.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
+        //tool.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
         try
         {
             tool.oldname = childnode.Attributes[stringLib.XML_ATTRIBUTE_OLDNAME].Value;
@@ -224,7 +224,7 @@ public class BreakpointFactory: ToolFactory
     public override GameObject GetGameObject()
     {
         GameObject newBreakpoint = GameObject.Instantiate(Resources.Load<GameObject>(path + "breakpoint"));
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
+        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_UNCOMMENTER]++;
         tool = newBreakpoint.GetComponent<Breakpoint>();
         GetScript();
         return newBreakpoint; 
@@ -279,7 +279,7 @@ public class BeaconFactory: ToolFactory
     public override GameObject GetGameObject()
     {
         GameObject beacon = GameObject.Instantiate(Resources.Load<GameObject>(path + "beacon"));
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
         tool = beacon.GetComponent<beacon>();
         GetScript();
         return beacon; 
@@ -360,7 +360,7 @@ public class CommentFactory: ToolFactory
                 break;
             case "code":
                 factory = new CodeCommentFactory(childnode, lineNumber);
-                 GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CONTROL_FLOW]++;
+                 GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_UNCOMMENTER]++;
                 factory.ApplyScript(newComment);
                 Entity = factory.Entity;
                 break;

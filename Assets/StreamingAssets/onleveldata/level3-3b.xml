@@ -14,13 +14,13 @@ You've aced the loops!</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	<comment type="description" correct="true" size="1" groupid="10">You may want to use loops for things other than counting</comment>
+	<comment type="description" correct="true"  groupid="10">You may want to use loops for things other than counting</comment>
 	string input = "";
 	string inventory = "";
 	
-	<comment type="description" correct="false" size="1" groupid="0">The code below never works.</comment>
-	<comment type="description" correct="false" size="1" groupid="0">The code below adds the word 'exit' to the inventory.</comment>
-	<comment type="description" correct="true" size="1" groupid="0">The code below gets user input repeatedly and 
+	<comment type="description" correct="false"  groupid="0">The code below never works.</comment>
+	<comment type="description" correct="false"  groupid="0">The code below adds the word 'exit' to the inventory.</comment>
+	<comment type="description" correct="true"  groupid="0">The code below gets user input repeatedly and 
 	adds it to the inventory until the user is done.</comment>
 	
 	while (input != "exit"){
@@ -29,11 +29,11 @@ int main {
 	Type your answer: " answer="exit">input;</question>
 		inventory += " " + input;
 	}
-	<comment type="description" correct="true" size="1" groupid="2">You have to make sure your loop stops at some point 
+	<comment type="description" correct="true"  groupid="2">You have to make sure your loop stops at some point 
 	or your program will run forever.</comment>
 	
-	<comment type="description" correct="false" size="1" groupid="3">The code below is correct.</comment>
-	<comment type="description" correct="true" size="1" groupid="3">The code below has an INFINITE LOOP!</comment>
+	<comment type="description" correct="false"  groupid="3">The code below is correct.</comment>
+	<comment type="description" correct="true"  groupid="3">The code below has an INFINITE LOOP!</comment>
 	
 	int i = 0;
 	while (0 &lt; 5){

@@ -62,7 +62,7 @@ public class GenericBug : Tools {
 			lg.numberOfBugsRemaining--;
             GlobalState.level.CompletedTasks[0]++;
 			// Award 1 extra use of the tool.
-			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
 			StartCoroutine(GlitchText()); 
 		}
 	}

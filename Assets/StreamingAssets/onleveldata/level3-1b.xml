@@ -1,5 +1,5 @@
 <level>
-<next-level>level3-1b.xml</next-level>
+<next-level>level3-2.xml</next-level>
 <description>Loop-the-loop</description>
 <introtext>Sometimes you want to run code many times.
 Introducing the use of loops!</introtext>
@@ -7,20 +7,20 @@ Introducing the use of loops!</introtext>
 Now you know about loops!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-<comment type="description" size="1" correct="true" groupid="1" style="multi">FOR loops run for a fixed number of iterations.
+<comment type="description"  correct="true" groupid="1" style="multi">FOR loops run for a fixed number of iterations.
 They consist of three parts:</comment>
-<comment type="description" correct="true" size="1" groupid="2">	Initialization,</comment>
-<comment type="description" correct="true" size="1" groupid="3">	Condition, </comment>
-<comment type="description" correct="true" size="1" groupid="4">	and the Change per iteration</comment>
+<comment type="description" correct="true"  groupid="2">	Initialization,</comment>
+<comment type="description" correct="true"  groupid="3">	Condition, </comment>
+<comment type="description" correct="true"  groupid="4">	and the Change per iteration</comment>
 
-<comment type="description" correct="true" size="1" groupid="5">This loop will be identical to the last level's!</comment>
+<comment type="description" correct="true"  groupid="5">This loop will be identical to the last level's!</comment>
 	for (int j = 0; j &lt; 3; j++){
 		<beacon flow-order="0,1,2" />		cout &lt;&lt; "This loop has run " &lt;&lt; j &lt;&lt; " times!" &lt;&lt; endl;
 	}

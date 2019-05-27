@@ -7,7 +7,7 @@ Just follow the control flow through the program!</introtext>
 You're mastering the art of control flow!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
-<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
@@ -15,8 +15,8 @@ You're mastering the art of control flow!</endtext>
 using namespace std;
 int main {
 	int fingers = 3;
-	<comment type="description" correct="true" size="1" groupid="3">Instead of using lots of else-ifs, you can use a switch</comment>
-	<comment type="description" correct="true" size="1" groupid="4">the 'case' chosen is the one that matches the switch parameter</comment>
+	<comment type="description" correct="true"  groupid="3">Instead of using lots of else-ifs, you can use a switch</comment>
+	<comment type="description" correct="true"  groupid="4">the 'case' chosen is the one that matches the switch parameter</comment>
 	switch(fingers){
 <beacon flow-order="" />		case 1: cout &lt;&lt; "One finger is raised"; break;
 <beacon flow-order="" />		case 2: cout &lt;&lt; "Two fingers are raised"; break;
@@ -24,7 +24,7 @@ int main {
 <beacon flow-order="" />		case 4: cout &lt;&lt; "Four fingers are raised"; break;
 <beacon flow-order="" />		case default: cout &lt;&lt; "Not a valid number of fingers"; break;
 	}
-	<comment type="description" correct="true" size="1" groupid="3">You can have If statements inside each other.</comment>
+	<comment type="description" correct="true"  groupid="3">You can have If statements inside each other.</comment>
 	int var1 = 2;
 	int var2 = 0;
 	if ((var1+var2)/2 &lt; 10){

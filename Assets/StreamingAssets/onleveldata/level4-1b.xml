@@ -9,7 +9,7 @@ You've aced the indentations!</endtext>
 <tools>
 <tool name="namer" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
-<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;
@@ -18,30 +18,30 @@ int main {
 
 	//Read the code below, then choose the right names and correctly styled code.
 	
-<comment type="code" correct="true" size="1" groupid="4" style="single">	//int birthyear;</comment>
-<comment type="code" correct="false" size="1" groupid="4" style="single">		//int birthyear;</comment>
+<comment type="code" correct="true"  groupid="4" style="single">	//int birthyear;</comment>
+<comment type="code" correct="false"  groupid="4" style="single">		//int birthyear;</comment>
 
-	bool <variable-rename text="Choose a name for this variable: " options="century_21st,afternoon,valid_input,time_of_birth" correct="valid_input" groupid="0">y</variable-rename> = false;
+	bool <variable-rename text="Choose a name for this variable: " options="century_21st,afternoon,valid_input,time_of_birth" correct="valid_input">y</variable-rename> = false;
 	cout &lt;&lt; "Enter your birth year:";
-	while( <variable-color groupid="0">y</variable-color> == false){
-<comment type="code" correct="true" size="1" groupid="8" style="single">//		cin &gt;&gt; birthyear;</comment>
-<comment type="code" correct="false" size="1" groupid="8" style="multi">//	cin &gt;&gt; birthyear;</comment>
+	while( y == false){
+<comment type="code" correct="true"  groupid="8" style="single">//		cin &gt;&gt; birthyear;</comment>
+<comment type="code" correct="false"  groupid="8" style="multi">//	cin &gt;&gt; birthyear;</comment>
 	}
 	
 	if (birthyear &lt;= year){
-<comment type="code" correct="false" size="1" groupid="5" style="single">// y = true;</comment>
-<comment type="code" correct="false" size="1" groupid="5" style="single">	// y = true;</comment>
-<comment type="code" correct="true" size="1" groupid="5" style="single">		// <variable-color groupid="0">y</variable-color> = true;</comment>
+<comment type="code" correct="false"  groupid="5" style="single">// y = true;</comment>
+<comment type="code" correct="false"  groupid="5" style="single">	// y = true;</comment>
+<comment type="code" correct="true"  groupid="5" style="single">		// y = true;</comment>
 	}
 	else{
-<comment type="code" correct="false" size="1" groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
-<comment type="code" correct="false" size="1" groupid="9" style="single">	  					//cout &lt;&lt; "Enter a valid year:"</comment>
-<comment type="code" correct="true" size="1" groupid="9" style="single">		 //cout &lt;&lt; "Enter a valid year:"</comment>		
+<comment type="code" correct="false"  groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
+<comment type="code" correct="false"  groupid="9" style="single">	  					//cout &lt;&lt; "Enter a valid year:"</comment>
+<comment type="code" correct="true"  groupid="9" style="single">		 //cout &lt;&lt; "Enter a valid year:"</comment>		
 	}
 	
-	int <variable-rename text="Choose a name for this variable: " options="temperature,time,age,date" correct="age" groupid="1">x</variable-rename> = year - birthyear;
-<comment type="code" correct="false" size="1" groupid="7" style="single">//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
-<comment type="code" correct="true" size="1" groupid="7" style="single">	//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
+	int <variable-rename text="Choose a name for this variable: " options="temperature,time,age,date" correct="age">x</variable-rename> = year - birthyear;
+<comment type="code" correct="false"  groupid="7" style="single">//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
+<comment type="code" correct="true"  groupid="7" style="single">	//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
 }
 </code>
 </level>

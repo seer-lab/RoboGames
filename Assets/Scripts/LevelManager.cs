@@ -175,7 +175,7 @@ public class LevelManager
         propertyHandler.answer = answer; 
         Debug.Log("$bug" + answer + "$");
         GlobalState.level.Code[lineNumber] =GlobalState.level.Code[lineNumber].Replace("$bug" + answer + "$", ""); 
-        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_ACTIVATOR]++;
+        GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
         bugs.Add(levelBug);
         GlobalState.level.Tasks[0]++;
         //numberOfBugsRemaining++;
