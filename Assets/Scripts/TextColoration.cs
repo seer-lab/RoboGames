@@ -195,7 +195,7 @@ public class TextColoration {
 	//fix ampersands stuck in color tags
   Regex amprgx = new Regex(@"(?s)(&)(<\/color>)");
 	sText = amprgx.Replace(sText, "$2$1");
-    Debug.Log("ColorizeText processedString: " + sText);
+    //Debug.Log("ColorizeText processedString: " + sText);
 
 		// Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
 		// sText = colorLine.Replace(sText, '\n' + GlobalState.StringLib.syntax_color_keyword);

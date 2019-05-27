@@ -8,7 +8,7 @@ Are you ready for the final test?</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="namer" enabled="true" count="unlimited"/>
-<tool name="uncommentor" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;

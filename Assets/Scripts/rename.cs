@@ -60,6 +60,7 @@ public class rename : Tools {
 				startMultiComments = false;
 			}
 
+
 			if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
 				&& !s.Contains("<color=#00ff00ff>") && !startMultiComments && !endMultiComments){
 				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
@@ -67,6 +68,8 @@ public class rename : Tools {
 				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 			}else if(startMultiComments){
 				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+			}else if(rgxO.IsMatch(s)){
+				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 			}
 			i++;
 		}
