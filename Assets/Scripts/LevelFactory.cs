@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System; 
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 
 public class LevelFactory 
@@ -51,8 +52,18 @@ public class LevelFactory
     }
     private void BuildFromCurrent(string filename)
     {
+
         level = GlobalState.level;
-        XmlDocument doc = XMLReader.ReadFile(filename);
+        XmlDocument doc = null;
+
+        if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor){
+            Debug.Log("LevelFactory: BuildFromCurrent() WINDOWS");
+            doc = XMLReader.ReadFile(filename);
+        }else if(Application.platform == RuntimePlatform.WebGLPlayer){
+            doc = new XmlDocument();
+            doc.LoadXml(filename);
+            Debug.Log("LevelFactory: BuildFromCurrent() WEBGL");
+        }
         BuildFile(doc, filename); 
 
     }
@@ -61,7 +72,19 @@ public class LevelFactory
     {
         level.Tasks = new int[5];
         level.CompletedTasks = new int[5];
+
         XmlDocument doc = XMLReader.ReadFile(filename);
+        string filepath ="";
+        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            Debug.Log("LevelFactory: BuildLevel() WINDOWS");
+            doc = XMLReader.ReadFile(filename);
+        #endif
+
+        #if UNITY_WEBGL
+            doc = new XmlDocument();
+            doc.LoadXml(filename);
+            Debug.Log("LevelFactory: BuildLevel() WEBGL");
+        #endif
 
         BuildFile(doc, filename); 
         // time
@@ -75,8 +98,18 @@ public class LevelFactory
         {
             level.Time = 9001; 
         }
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
+
+        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
+            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + XMLReader.GetNextLevel(doc);
+            Debug.Log("Cinematics: UpdateLevel() WEBGL");
+        #endif
+
         // next level
         //level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);        
         level.NextLevel = filepath;

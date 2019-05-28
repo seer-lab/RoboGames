@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.Networking;
 
 public class Cinematic : MonoBehaviour
 {
@@ -148,6 +149,29 @@ public class Cinematic : MonoBehaviour
         prompt1.GetComponent<Text>().color = Color.white;
         prompt2.GetComponent<Text>().color = Color.white;
     }
+
+    string webdata;
+
+    IEnumerator GetXMLFromServer(string url, Action<string> callback){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log("Error Occured insided LevelFactory from GetXMLFromServer()");
+            Debug.Log(www.error);
+        }else{
+            string data = www.downloadHandler.text;
+            Debug.Log(data);
+            if(callback!=null){
+                callback(data);
+            }
+        }
+        yield return new WaitForSecondsRealtime(1.0f);
+    }
+
+    private void ResponseCallback(string data){
+        webdata = data;
+    }
+
     private void UpdateText()
     {
         if (GlobalState.level == null)
@@ -159,10 +183,21 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel()
     {
-        //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
-        //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        string filepath ="";
+        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
+            string url = "localhost:8080/" + filepath;
+            StartCoroutine(GetXMLFromServer(url, ResponseCallback));
+            Debug.Log("Cinematics: UpdateLevel() WEBGL");
+            filepath = webdata;
+        #endif
+
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
@@ -267,8 +302,21 @@ public class Cinematic : MonoBehaviour
                 cinerun = false;
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                
-              string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");  filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+
+                string filepath ="";
+                #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                    filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+                    Debug.Log("Cinematics: Update() WINDOWS");
+                #endif
+
+                #if UNITY_WEBGL
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
+                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath, ResponseCallback));
+                    Debug.Log("Cinematics: Update() WEBGL");
+                    filepath = webdata;
+                #endif
+
                 UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");

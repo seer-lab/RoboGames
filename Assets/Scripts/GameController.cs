@@ -1,10 +1,12 @@
 using System.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Xml; 
 using System.IO; 
 using UnityEngine;
+using UnityEngine.Networking;
 
 /// <summary>
 /// Oversees the Game Logic such as winning, losing, picking which level to Load. 
@@ -22,6 +24,27 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger; 
     bool winning = false;
+
+
+        string webdata;
+
+    IEnumerator GetXMLFromServer(string url, Action<string> callback = null){
+        UnityWebRequest www = new UnityWebRequest(url);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log("Error Occured insided LevelFactory from GetXMLFromServer()");
+            Debug.Log(www.error);
+        }else{
+            if(callback!=null){
+                callback(www.downloadHandler.text);
+            }
+        }
+    }
+
+    private void ResponseCallback(string data){
+        webdata = data;
+    }
 
     /// <summary>
     /// Checks if the game meets the win condition. 
@@ -154,6 +177,16 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
+        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            Debug.Log("GameController: WarpLevel() WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file, ResponseCallback));
+            file = webdata;
+            Debug.Log("GameController: WarpLevel() WEBGL");
+        #endif
+
         factory = new LevelFactory(file, true);
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
@@ -168,11 +201,21 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-        //Debug.Log(GlobalState.CurrentONLevel);
-        //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-        //Debug.Log("GameController.cs Start() path: " + filepath);
+
+        string filepath ="";
+        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("GameController: Start() WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath, ResponseCallback));
+            filepath = webdata;
+            Debug.Log("GameController: Start() WEBGL");
+        #endif
+
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
