@@ -1,0 +1,31 @@
+<level>
+<next-level>level1-3b.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>String Theory</description>
+<introtext>Here's a chance to work with
+STRINGS and OUTPUT</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
+</tools>
+<code language="python">
+
+<comment type="description" correct="true"  groupid="2">Python requires no additional Libraries for Standard Output/Input.</comment>
+<comment type="description" correct="true"  groupid="10">Recall that PRINT is used to print out variables.</comment>
+
+<comment type="description" correct="true"  groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
+truth = "programming is awesome!";
+	
+<comment type="description" correct="false"  groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
+<comment type="description" correct="true"  groupid="1" hint="Woah this is a hint as well">If you reassign a value to a variable, its old value disappears!</comment>
+	
+mystring = "this is the old value";
+mystring = "new value";
+print(<question text="What is the value of mystring?
+	Type your answer: " answer="new value">mystring)</question>
+
+</code>
+<hint type="description">This is a hint</hint>
+</level>

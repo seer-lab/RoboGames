@@ -1,0 +1,22 @@
+<level>
+<next-level>level1-3c.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>String Theory</description>
+<introtext>Here's a chance to work with
+STRINGS and OUTPUT</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
+</tools>
+<code language="python">
+my_variable = True
+print(<question text="What does this code output?
+Type your answer: " answer="true">my_variable)</question>
+<comment type="description" correct="false"  groupid="2">The computer psychically determines what variable type was entered.</comment>
+<comment type="description" correct="true"  groupid="2">Keyboard input is a string; You may need to convert it to other types!</comment>
+
+</code>
+<hint type="description">This is a hint</hint>
+</level>
