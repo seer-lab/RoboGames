@@ -1,0 +1,36 @@
+<level>
+<next-level>level3-3b.xml</next-level>
+<description>While on the Subject</description>
+<introtext>While loops work quite differently
+Make sure you check conditions!</introtext>
+<endtext>Splendid!
+You're mastering the loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description" correct="true"  groupid="10">as you saw earlier, while loops can imitate for loops</comment>
+i = 0;
+text = "1";
+while (i &lt; 5):
+	text += "0"
+<beacon flow-order="0,1,2,3,4" />	i+= 1
+	
+print(<question text="What does the text contain now?
+	Type your answer: " answer="100000">text)</question>
+# while loops continue if the condition is true
+	<comment type="description" correct="true"  groupid="1">If the condition is false before the loop starts, it NEVER runs.</comment>
+word = "hello";
+i=0
+while (i &lt; 0):
+<beacon flow-order="" />	word += "o"
+	i+=1
+	
+<beacon flow-order="5" />	# pay close attention to how the words change!
+	print(<question text="What is the word now?
+	Type your answer: " answer="hello">word)</question>
+</code>
+</level>

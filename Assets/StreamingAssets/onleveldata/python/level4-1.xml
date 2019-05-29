@@ -1,0 +1,27 @@
+<level>
+<next-level>level4-1b.xml</next-level>
+<description>Not Your Style</description>
+<introtext>Good code style is very helpful.
+Clean code by RENAMING and UNCOMMENTING.</introtext>
+<endtext>Stylish!
+You've aced the indentations!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description" correct="true"  groupid="0">Proper indentation helps you to see where the code fits.</comment>
+<comment type="code" correct="true"  groupid="1" style="single"># year = 2016;</comment>
+<comment type="description" correct="true"  groupid="2">You should have an indent inside each new if statement, loop, or function.</comment>
+if (year &gt;= 2000):
+<comment type="code" correct="true"  groupid="3">	#print("It's the 21st century!")</comment>
+	
+else :
+<comment type="code" correct="true"  groupid="9" style="single">	//cout &lt;&lt; "What year is it?!"</comment>
+<comment type="code" correct="false"  groupid="9" style="single">//cout &lt;&lt; "What year is it?!"</comment>	
+	
+
+</code>
+</level>

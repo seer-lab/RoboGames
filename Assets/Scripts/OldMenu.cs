@@ -34,7 +34,7 @@ public class OldMenu : MonoBehaviour
     public Sprite bluebutton;
     public Sprite greenbutton;
 
-
+    int optionPage = 0; 
     private bool soundon = true;
     private float delaytime = 0f;
     private float delay = 0.1f;
@@ -198,11 +198,19 @@ public class OldMenu : MonoBehaviour
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
                         m2switch(true);
+                        if (optionPage == 0){
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
-                        m2buttontext[2].GetComponent<TextMesh>().text = textsizes[textOption]; 
-                        m2buttontext[2].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Next"; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back";
+                        }
+                        else if (optionPage == 1){
+                        m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption]; 
+                        m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
+                        m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous"; 
+                        m2buttontext[3].GetComponent<TextMesh>().text = "Back"; 
+                        }
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
                         postToDatabase.Start();
@@ -313,19 +321,42 @@ public class OldMenu : MonoBehaviour
                 switch (option)
                 {
                     case 0:
+                        if (optionPage > 0){
+                            textOption = (textOption + 1)%textsizes.Length; 
+                        m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption]; 
+                        m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
+                        GlobalState.TextSize = textOption;
+                        break;
+                        }
                         soundon = !soundon;
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + ((soundon) ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         AudioListener.volume = (soundon) ? 1 : 0;
                         break;
                     case 1: 
+                        if (optionPage> 0){
+                            m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "Python": "C++";
+                            GlobalState.Language = (GlobalState.Language == "c++") ? "python": "c++";    
+                            break;                     
+                        }
                         ToggleTheme(); 
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                         break;
                     case 2:
-                        textOption = (textOption + 1)%textsizes.Length; 
-                        m2buttontext[2].GetComponent<TextMesh>().text = textsizes[textOption]; 
-                        m2buttontext[2].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
-                        GlobalState.TextSize = textOption;
+                        if (optionPage == 0)optionPage++; 
+                        else optionPage = 0; 
+                        if (optionPage == 0){
+                        m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
+                        m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Next"; 
+                        m2buttontext[3].GetComponent<TextMesh>().text = "Back";
+                        }
+                        else if (optionPage == 1){
+                        m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption]; 
+                        m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
+                        m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous"; 
+                        m2buttontext[3].GetComponent<TextMesh>().text = "Back"; 
+                        }
                         break;
                     case 3: 
                         GlobalState.GameState = stateLib.GAMESTATE_MENU;
