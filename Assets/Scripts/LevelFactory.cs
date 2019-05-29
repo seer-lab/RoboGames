@@ -99,18 +99,9 @@ public class LevelFactory
         {
             level.Time = 9001; 
         }
-
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-            filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
-            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
-        #endif
-
-        #if UNITY_WEBGL
-            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + XMLReader.GetNextLevel(doc);
-            Debug.Log("Cinematics: UpdateLevel() WEBGL");
-        #endif
-
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
+        filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
         // next level
         //level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);        
         level.NextLevel = filepath;

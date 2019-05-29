@@ -155,7 +155,6 @@ public class GameController : MonoBehaviour, ITimeUser
         Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
-
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
@@ -196,21 +195,13 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-
-        string filepath ="";
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-            Debug.Log("GameController: Start() WINDOWS");
-        #endif
-
-        #if UNITY_WEBGL
-            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            filepath = webdata;
-            Debug.Log("GameController: Start() WEBGL");
-        #endif
-
+        //Debug.Log(GlobalState.CurrentONLevel);
+        //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
+        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        
+        //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();

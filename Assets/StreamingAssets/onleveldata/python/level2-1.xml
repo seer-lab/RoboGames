@@ -1,0 +1,27 @@
+<level>
+<next-level>level2-1b.xml</next-level>
+<description>If Only...</description>
+<introtext>Sometimes you don't always want code to run.
+"IF" Statements give you the power of choice!</introtext>
+<endtext>Excellent!
+You're getting the hang of how "if" statements work!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+i = 0;
+# code in an IF statement is only run IF the condition is true
+if (2 &gt; 1):
+<beacon flow-order="0" />	i+= 1 #increase i by 1
+	
+# when the condition is false, code in an ELSE block runs instead
+if (10 &lt; 5):
+<beacon flow-order="" />	i+= 1	
+
+else:
+<beacon flow-order="1" />	i-= 1 #reduce i by 1
+	
+
+</code>
+</level>

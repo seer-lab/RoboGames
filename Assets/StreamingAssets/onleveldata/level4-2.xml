@@ -11,7 +11,7 @@ Are you ready for the final test?</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++">#include &lt;iostream&gt;
+<code language="python">#include &lt;iostream&gt;
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {

@@ -1,0 +1,22 @@
+<level>
+<next-level>level4-2b.xml</next-level>
+<description>Syntax Rox</description>
+<introtext>Style conventions define clean written code.
+Follow the instructions to fix the style.</introtext>
+<endtext>Well done!
+Are you ready for the final test?</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description" correct="true"  groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
+<comment type="code" correct="false"  groupid="0" style="multi">'''print(cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!"'''</comment>
+<comment type="code" correct="true" size="3" groupid="0" style="multi">'''print("Hello, how are you today?, end='') 
+print("I hope you are having a most fantastic day!")'''</comment>	
+<comment type="description" correct="true"  groupid="1">Do not put multiple statements on a single line.</comment>
+
+</code>
+</level>
