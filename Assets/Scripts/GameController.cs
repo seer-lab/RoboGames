@@ -28,22 +28,17 @@ public class GameController : MonoBehaviour, ITimeUser
 
         string webdata;
 
-    IEnumerator GetXMLFromServer(string url, Action<string> callback = null){
-        UnityWebRequest www = new UnityWebRequest(url);
-        yield return www.SendWebRequest();
-
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
-            Debug.Log("Error Occured insided LevelFactory from GetXMLFromServer()");
             Debug.Log(www.error);
         }else{
-            if(callback!=null){
-                callback(www.downloadHandler.text);
-            }
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
         }
-    }
-
-    private void ResponseCallback(string data){
-        webdata = data;
+        yield return new WaitForSeconds(0.5f);
     }
 
     /// <summary>
@@ -177,12 +172,12 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
-        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             Debug.Log("GameController: WarpLevel() WINDOWS");
         #endif
 
         #if UNITY_WEBGL
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file, ResponseCallback));
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file));
             file = webdata;
             Debug.Log("GameController: WarpLevel() WEBGL");
         #endif
@@ -203,7 +198,7 @@ public class GameController : MonoBehaviour, ITimeUser
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 
         string filepath ="";
-        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
             Debug.Log("GameController: Start() WINDOWS");
@@ -211,7 +206,7 @@ public class GameController : MonoBehaviour, ITimeUser
 
         #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath, ResponseCallback));
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
             filepath = webdata;
             Debug.Log("GameController: Start() WEBGL");
         #endif

@@ -195,4 +195,5 @@ public class stringLib
 	public float LEFT_CODESCREEN_X_COORDINATE              = -10;
 
 	public const string SERVER_URL									= "localhost:8080/";	
+	public const int DOWNLOAD_TIME								= 100;
 }

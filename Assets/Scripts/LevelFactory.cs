@@ -55,15 +55,16 @@ public class LevelFactory
 
         level = GlobalState.level;
         XmlDocument doc = null;
+        // #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+        //     Debug.Log("LevelFactory: BuildFromCurrent() WINDOWS");
+        //     doc = XMLReader.ReadFile(filename);
+        // #endif
 
-        if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor){
-            Debug.Log("LevelFactory: BuildFromCurrent() WINDOWS");
-            doc = XMLReader.ReadFile(filename);
-        }else if(Application.platform == RuntimePlatform.WebGLPlayer){
+        // #if UNITY_WEBGL
             doc = new XmlDocument();
             doc.LoadXml(filename);
             Debug.Log("LevelFactory: BuildFromCurrent() WEBGL");
-        }
+        // #endif
         BuildFile(doc, filename); 
 
     }
@@ -73,9 +74,9 @@ public class LevelFactory
         level.Tasks = new int[5];
         level.CompletedTasks = new int[5];
 
-        XmlDocument doc = XMLReader.ReadFile(filename);
+        XmlDocument doc = null;
         string filepath ="";
-        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             Debug.Log("LevelFactory: BuildLevel() WINDOWS");
             doc = XMLReader.ReadFile(filename);
         #endif
@@ -99,7 +100,7 @@ public class LevelFactory
             level.Time = 9001; 
         }
 
-        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
             Debug.Log("Cinematics: UpdateLevel() WINDOWS");

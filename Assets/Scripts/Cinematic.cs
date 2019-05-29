@@ -152,26 +152,18 @@ public class Cinematic : MonoBehaviour
 
     string webdata;
 
-    IEnumerator GetXMLFromServer(string url, Action<string> callback){
+    IEnumerator GetXMLFromServer(string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
-            Debug.Log("Error Occured insided LevelFactory from GetXMLFromServer()");
             Debug.Log(www.error);
         }else{
-            string data = www.downloadHandler.text;
-            Debug.Log(data);
-            if(callback!=null){
-                callback(data);
-            }
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
         }
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSeconds(0.5f);
     }
-
-    private void ResponseCallback(string data){
-        webdata = data;
-    }
-
     private void UpdateText()
     {
         if (GlobalState.level == null)
@@ -184,16 +176,16 @@ public class Cinematic : MonoBehaviour
     private void UpdateLevel()
     {
         string filepath ="";
-        #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
             Debug.Log("Cinematics: UpdateLevel() WINDOWS");
         #endif
-
+        
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
         #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
-            string url = "localhost:8080/" + filepath;
-            StartCoroutine(GetXMLFromServer(url, ResponseCallback));
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
             Debug.Log("Cinematics: UpdateLevel() WEBGL");
             filepath = webdata;
         #endif
@@ -203,13 +195,31 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel(string file)
     {
-        string[] temp = file.Split('\\');
+        string[] temp = file.Split('/');
         for (int i = 0; i < temp.Length; i++)
         {
             Debug.Log(temp[i]);
         }
         GlobalState.CurrentONLevel = temp[temp.Length - 1];
-        factory = new LevelFactory(file);
+
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            filepath = file;
+            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
+        #endif
+        
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("Cinematics: UpdateLevel() WEBGL");
+            filepath = webdata;
+        #endif
+
+
+        factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
     //.................................>8.......................................
@@ -312,7 +322,7 @@ public class Cinematic : MonoBehaviour
 
                 #if UNITY_WEBGL
                     filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + GlobalState.CurrentONLevel;
-                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath, ResponseCallback));
+                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
                     Debug.Log("Cinematics: Update() WEBGL");
                     filepath = webdata;
                 #endif
