@@ -3,7 +3,7 @@ $Boy: Something is up my phone isn't working!?
 $Robot: Bzzz!
 $Boy $Girl: Ahhh the Robot is alive!
 $Robot: Beep Boop. 
-4Girl: I think it's trying to say Something. 
+$Girl : I think it's trying to say Something. 
 $Robot: ...
 $Robot: Greetings Humanoids. 
 $Boy: It can speak! My name is ____ and the other voice is _____ we created you, I appologize for the setting the power seems to have gone out. 

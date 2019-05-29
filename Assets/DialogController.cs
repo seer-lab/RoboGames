@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.Video; 
+using UnityEngine.SceneManagement; 
 using System.IO; 
 
 public class DialogController : MonoBehaviour
@@ -23,19 +24,24 @@ public class DialogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && !started){
+        if (!player.isPlaying && Time.timeSinceLevelLoad > 1 && !started){
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
             started = true; 
         }
-        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && Input.GetKeyDown(KeyCode.Return)){
+        else if (!player.isPlaying && Time.timeSinceLevelLoad > 1 && Input.GetKeyDown(KeyCode.Return)){
             NextDialog(); 
         }
         else if(player.isPlaying && Input.GetKeyDown(KeyCode.Return)){
-            player.Stop(); 
+            EndScene(); 
         }
     }
     void EndScene(){
-
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+        StartCoroutine(WaitForSwitchScene()); 
+    }
+    IEnumerator WaitForSwitchScene(){
+        yield return new WaitForSeconds(1f); 
+        SceneManager.LoadScene("CharacterSelect"); 
     }
     void NextDialog(){
         if (index +1 == lines.Count){
@@ -74,35 +80,18 @@ public class DialogController : MonoBehaviour
                 else{
                     actorOrder.Add("Robot"); 
                 }
-                line = line.Remove(0,line.IndexOf(':')); 
+                line = line.Remove(0,line.IndexOf(':')+1); 
                 lines.Add(line); 
             }
         }
     }
-    IEnumerator ShowText(GameObject dialog){
-        Text text = dialog.transform.GetChild(0).GetComponent<Text>(); 
-        int charIndex = 0; 
-        while(charIndex < text.text.Length){
-            text.text += lines[index][charIndex];
-            charIndex++; 
-            yield return null;  
-        }
-    }
-    IEnumerator HideText(GameObject dialog){
-        Text text = dialog.transform.GetChild(0).GetComponent<Text>(); 
-        int charIndex = text.text.Length-1; 
-        while(charIndex >= 0){
-            text.text = text.text.Substring(0,charIndex);
-            charIndex--; 
-            yield return null;  
-        }
-    }
+
     IEnumerator HideDialog(GameObject dialog){
         //Initialization
         RectTransform transformm = dialog.GetComponent<RectTransform>(); 
         Image image = dialog.GetComponent<Image>(); 
         CanvasGroup canvas = dialog.GetComponent<CanvasGroup>(); 
-        StartCoroutine(HideText(dialog)); 
+        
         transform.localScale = new Vector3(1,1,1); 
         //image.color = new Color(image.color.r, image.color.g, image.color.b, 1); 
         canvas.alpha = 1; 
@@ -112,13 +101,14 @@ public class DialogController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x - (0.25f/frames), transform.localScale.y - (0.25f/frames), transform.localScale.z - (0.25f/frames)); 
             yield return null; 
         }
+        dialog.transform.GetChild(0).GetComponent<Text>().text = ""; 
     }
     IEnumerator ShowDialog(GameObject dialog){
         //Initialization
         RectTransform transformm = dialog.GetComponent<RectTransform>(); 
         Image image = dialog.GetComponent<Image>(); 
         CanvasGroup canvas = dialog.GetComponent<CanvasGroup>(); 
-        StartCoroutine(ShowText(dialog)); 
+        dialog.transform.GetChild(0).GetComponent<Text>().text = lines[index];  
         //Initialize values 
         transform.localScale = new Vector3(0,0,0); 
         canvas.alpha = 0;    //over push the animation
