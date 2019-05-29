@@ -390,7 +390,7 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.IsResume = false; 
                 
-                        SceneManager.LoadScene("CharacterSelect");  
+                        SceneManager.LoadScene("IntroScene");  
 
                         break;
                     case 1:
