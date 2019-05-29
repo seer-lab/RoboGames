@@ -143,6 +143,7 @@
      <None Include="Assets\StreamingAssets\bugleveldata\L3Oranges.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level4-3 original variablecolors.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\python\level4-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-5.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\demo.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-1.xml" />
@@ -201,6 +202,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level3-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-0b.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\python\level4-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level2-1.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\rename.xml" />

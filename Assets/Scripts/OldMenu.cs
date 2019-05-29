@@ -201,14 +201,14 @@ public class OldMenu : MonoBehaviour
                         if (optionPage == 0){
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
-                        m2buttontext[2].GetComponent<TextMesh>().text = "Next Settings"; 
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Next"; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         }
                         else if (optionPage == 1){
                         m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption]; 
                         m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
                         m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
-                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous Settings"; 
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous"; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back"; 
                         }
                         break;
@@ -347,14 +347,14 @@ public class OldMenu : MonoBehaviour
                         if (optionPage == 0){
                         m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
-                        m2buttontext[2].GetComponent<TextMesh>().text = "Next Settings"; 
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Next"; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         }
                         else if (optionPage == 1){
                         m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption]; 
                         m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption]; 
                         m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
-                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous Settings"; 
+                        m2buttontext[2].GetComponent<TextMesh>().text = "Previous"; 
                         m2buttontext[3].GetComponent<TextMesh>().text = "Back"; 
                         }
                         break;
