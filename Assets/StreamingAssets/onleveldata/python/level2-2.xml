@@ -1,0 +1,35 @@
+<level>
+<next-level>level2-2b.xml</next-level>
+<description>Ifs, Ands, Or Buts</description>
+<introtext>If statements conditions can be tricky.
+You need to use logic to figure them out!</introtext>
+<endtext>Fantastic!
+Solving that puzzle was only logical!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+var1 = 0;
+var2 = 0;
+<comment type="description"  correct="true" groupid="0" style="multi">NOT (!) means to take the opposite result of the expression
+for example, !(2 > 3) is true because 2 is NOT greater than 3</comment>
+	
+if (!(9 &lt; 1)):
+<beacon flow-order="0" />	var1 = 5
+	
+<comment type="description" correct="true"  groupid="1">AND means that both expressions must be true</comment>
+elif (1 &lt; 2 and 4 &lt; 3):
+<beacon flow-order="" />	var1 = 10;
+	
+<comment type="description" correct="true"  groupid="2">OR  means that either expression can be true</comment>
+if (2 == 0 or 2 &lt;= 2):
+<beacon flow-order="1" />	var2 = 5;
+	
+elif (10 &lt; 20 and 2 &gt; 10):
+<beacon flow-order="" />	var2 = 10;
+	
+
+</code>
+</level>

@@ -137,7 +137,6 @@ public class GameController : MonoBehaviour, ITimeUser
         Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
-
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
@@ -171,7 +170,9 @@ public class GameController : MonoBehaviour, ITimeUser
         //Debug.Log(GlobalState.CurrentONLevel);
         //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
         filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();

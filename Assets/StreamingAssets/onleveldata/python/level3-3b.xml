@@ -1,0 +1,32 @@
+<level>
+<next-level>level4-0.xml</next-level>
+<description>While on the Subject</description>
+<introtext>While loops work quite differently
+Make sure you check conditions!</introtext>
+<endtext>Splendid!
+You've aced the loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description" correct="true"  groupid="10">as you saw earlier, while loops can imitate for loops</comment>
+i = 0
+text = "1"
+while (i &lt; 5):
+	text += "0"
+<beacon flow-order="0,1,2,3,4" />	i+=1
+	
+<comment type="description" correct="true"  groupid="2">You have to make sure your loop stops at some point 
+or your program will run forever.</comment>
+	
+<comment type="description" correct="false"  groupid="3">The code below is correct.</comment>
+<comment type="description" correct="true"  groupid="3">The code below has an INFINITE LOOP!</comment>
+	
+i = 0
+while (0 &lt; 5):
+	i+=1
+	
+</code>
+</level>

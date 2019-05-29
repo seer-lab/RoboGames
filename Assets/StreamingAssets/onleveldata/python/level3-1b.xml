@@ -1,0 +1,26 @@
+<level>
+<next-level>level3-2.xml</next-level>
+<description>Loop-the-loop</description>
+<introtext>Sometimes you want to run code many times.
+Introducing the use of loops!</introtext>
+<endtext>Sweet!
+Now you know about loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description"  correct="true" groupid="1" style="multi">FOR loops run for a fixed number of iterations.
+In Python they run through an iterable datatype.</comment>
+<comment type="description" correct="true"  groupid="2">	Range produces a list of numbers from 0 to the parameter.</comment>
+<comment type="description" correct="true"  groupid="3">	Range can also take a starting index. </comment>
+<comment type="description" correct="true"  groupid="4">	The variable will be each value in the iterable till it runs out of items.</comment>
+
+<comment type="description" correct="true"  groupid="5">This loop will be identical to the last level's!</comment>
+for j in range(3):
+	<beacon flow-order="0,1,2" />   print("This loop has run, j, "times!")
+	
+
+</code>
+</level>

@@ -10,12 +10,12 @@ Let's find out how to speak in C++!</introtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
-<code language="python">int main {
-	<comment type="description" correct="true" groupid="0">Code begins to run in the MAIN function.</comment>
-	<comment type="description" correct="true" groupid="1">COUT will make a program print text to the screen.</comment>
-	print( <question text="What will get printed?
-	Type your answer: " answer="hello world">"hello world")</question>
-}
+<code language="python">
+<comment type="description" correct="true" groupid="0">Code begins to run in the MAIN function.</comment>
+<comment type="description" correct="true" groupid="1">COUT will make a program print text to the screen.</comment>
+print( <question text="What will get printed?
+Type your answer: " answer="hello world">"hello world")</question>
+
 </code>
 <hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 
 testing the output of the program</hint>

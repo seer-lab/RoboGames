@@ -76,6 +76,7 @@ public class LevelFactory
             level.Time = 9001; 
         }
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
         filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
         // next level
         //level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);        

@@ -161,8 +161,11 @@ public class Cinematic : MonoBehaviour
     {
         //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
         //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
+
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
         filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        Debug.Log(filepath); 
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }

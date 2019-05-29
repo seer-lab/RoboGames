@@ -11,7 +11,7 @@ You've mastered data types and variables!</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++">
+<code language="python">
 <comment type="description" correct="true"  groupid="3">Combining strings and integers is a bit trickier.</comment>
 rank = "agent 00"
 number = 7;
