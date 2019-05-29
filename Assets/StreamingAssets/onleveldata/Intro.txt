@@ -1,0 +1,14 @@
+$Girl: The power went out!
+$Boy: Something is up my phone isn't working!?
+$Robot: Bzzz!
+$Boy $Girl: Ahhh the Robot is alive!
+$Robot: Beep Boop. 
+$Girl : I think it's trying to say Something. 
+$Robot: ...
+$Robot: Greetings Humanoids. 
+$Boy: It can speak! My name is ____ and the other voice is _____ we created you, I appologize for the setting the power seems to have gone out. 
+$Robot: It seems as though this power outage is due to a malicious hacker. 
+$Girl: Don't tell me it's Black Hat again. 
+$Boy: Probably, however he is a second too late, our Robot can help us get into some tech and turn them back on!
+$Girl: That's right lets get started!
+$Robot: As you wish. 
