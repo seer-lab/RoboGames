@@ -494,8 +494,9 @@ public class OldMenu : MonoBehaviour
                     for(int i = 0; i < leveldata.Length - 1; i++){
                         Debug.Log(leveldata[i]);
                         string[] tmp = leveldata[i].Split(' ');
+                        string[] tmpTwo = tmp[1].Split('\r');
                         levels.Add(tmp[0]);
-                        passed.Add(tmp[1]);
+                        passed.Add(tmpTwo[0]);
                     }
                     Debug.Log("OldMenu: Update() WEBGL");
                 #endif

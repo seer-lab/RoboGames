@@ -178,9 +178,24 @@ public class Cinematic : MonoBehaviour
         //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
         //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
 
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
+        #endif
+
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("Cinematics: UpdateLevel() WEBGL");
+            filepath = webdata;
+        #endif
+        
         Debug.Log(filepath); 
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();

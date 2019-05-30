@@ -195,12 +195,24 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-        //Debug.Log(GlobalState.CurrentONLevel);
-        //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-        
+
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("GameController: Start() WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" ;
+            if (GlobalState.Language == "python") filepath +="python/";
+            filepath+= GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            filepath = webdata;
+            Debug.Log("GameController: Start() WEBGL");
+        #endif
+
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
