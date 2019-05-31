@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator GetXMLFromServer(string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        //System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }else{

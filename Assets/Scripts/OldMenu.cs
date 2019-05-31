@@ -57,7 +57,7 @@ public class OldMenu : MonoBehaviour
     IEnumerator GetXMLFromServer(string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        //System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }else{
@@ -487,12 +487,24 @@ public class OldMenu : MonoBehaviour
 
                 #if UNITY_WEBGL
                     filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-                    filepath = webdata;
+                    //StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+                    //filepath = webdata;
+
+                    UnityWebRequest www = UnityWebRequest.Get(stringLib.SERVER_URL + filepath);
+                    www.SendWebRequest();
+                    Console.WriteLine("Download intiated in OldMenu Line 495");        
+                    if(www.isNetworkError || www.isHttpError){
+                        Debug.Log(www.error);
+                    }else{
+                        //Debug.Log(www.downloadHandler.text);
+                        filepath = www.downloadHandler.text;
+                    }
 
                     string[] leveldata = filepath.Split('\n');
                     for(int i = 0; i < leveldata.Length - 1; i++){
+                        Console.WriteLine(leveldata[i]);
                         Debug.Log(leveldata[i]);
+                        Console.WriteLine("Managing Level line 507");
                         string[] tmp = leveldata[i].Split(' ');
                         string[] tmpTwo = tmp[1].Split('\r');
                         levels.Add(tmp[0]);

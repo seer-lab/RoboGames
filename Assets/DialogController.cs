@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.Video; 
 using UnityEngine.SceneManagement; 
+using UnityEngine.Networking;
+using System;
 using System.IO; 
 
 public class DialogController : MonoBehaviour
@@ -63,27 +65,69 @@ public class DialogController : MonoBehaviour
         else if (name == "Girl") return girlDialog; 
         else return botDialog; 
     }
+
+        string webdata;
+
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        //System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }else{
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
     void ReadFile(){
-        string filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/Intro.txt");
+        string filepath ="";
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
-        using (StreamReader reader = new StreamReader(filepath)){
-            while(!reader.EndOfStream){
-                string line = reader.ReadLine(); 
-                if (line.Contains("$Boy")){
-                    actorOrder.Add("Boy"); 
-                    line = line.Remove(0,line.IndexOf(':')); 
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameObject+"leveldata/Intro.txt");
+            
+            using (StreamReader reader = new StreamReader(filepath)){
+                while(!reader.EndOfStream){
+                    string line = reader.ReadLine(); 
+                    if (line.Contains("$Boy")){
+                        actorOrder.Add("Boy"); 
+                        line = line.Remove(0,line.IndexOf(':')); 
+                    }
+                    else if (line.Contains("$Girl")){
+                        actorOrder.Add("Girl"); 
+                    }
+                    else{
+                        actorOrder.Add("Robot"); 
+                    }
+                    line = line.Remove(0,line.IndexOf(':')+1); 
+                    lines.Add(line); 
                 }
-                else if (line.Contains("$Girl")){
+            }
+            Console.Writeline"DialogController: ReadFile() WINDOWS");
+
+        #endif
+
+        #if UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/Intro.txt";
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+
+            String[] linesS = webdata.Split('\n');
+            for(int i = 0; i < linesS.Length - 1; i++){
+                String[] scriptLines = linesS[i].Split('\r');
+                if(scriptLines[0].Contains("$Boy")){
+                    actorOrder.Add("Boy");
+                    scriptLines[0] = scriptLines[0].Remove(0, scriptLines[0].IndexOf(':'));
+                }else if (scriptLines[0].Contains("$Girl")){
                     actorOrder.Add("Girl"); 
-                }
-                else{
+                }else{
                     actorOrder.Add("Robot"); 
                 }
-                line = line.Remove(0,line.IndexOf(':')+1); 
-                lines.Add(line); 
+                scriptLines[0] = scriptLines[0].Remove(0,scriptLines[0].IndexOf(':')+1); 
+                lines.Add(scriptLines[0]);
             }
-        }
+            Debug.Log("DialogController: ReadFile() WEBGL");
+        #endif
     }
 
     IEnumerator HideDialog(GameObject dialog){

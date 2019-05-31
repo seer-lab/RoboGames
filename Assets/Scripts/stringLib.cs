@@ -194,6 +194,6 @@ public class stringLib
 	public string syntax_color_include					    = "<color=#e6005cff>";
 	public float LEFT_CODESCREEN_X_COORDINATE              = -10;
 
-	public const string SERVER_URL									= "localhost:8080/";	
+	public const string SERVER_URL									= "http://10.121.80.65:8080/";	
 	public const int DOWNLOAD_TIME								= 200;
 }
