@@ -61,6 +61,7 @@ public class LevelFactory
         #endif
 
         #if UNITY_WEBGL
+            Debug.Log("Build Current "+ filename);
             doc = new XmlDocument();
             doc.LoadXml(filename);
             Debug.Log("LevelFactory: BuildFromCurrent() WEBGL");
@@ -83,6 +84,7 @@ public class LevelFactory
 
         #if UNITY_WEBGL
             doc = new XmlDocument();
+            Debug.Log("Build Level "+ filename);
             doc.LoadXml(filename);
             Debug.Log("LevelFactory: BuildLevel() WEBGL");
         #endif

@@ -7,6 +7,7 @@ using System.Xml;
 using System.IO; 
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Oversees the Game Logic such as winning, losing, picking which level to Load. 
@@ -24,14 +25,17 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger; 
     bool winning = false;
+    string webdata;
 
-
-        string webdata;
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
 
     IEnumerator GetXMLFromServer(string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
-        //System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }else{
@@ -175,10 +179,15 @@ public class GameController : MonoBehaviour, ITimeUser
             Debug.Log("GameController: WarpLevel() WINDOWS");
         #endif
 
-        #if UNITY_WEBGL
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file));
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            webdata =GetData(stringLib.SERVER_URL + file);
+            Debug.Log("GameController: Warp() WEBGL");
             file = webdata;
-            Debug.Log("GameController: WarpLevel() WEBGL");
+        #elif UNITY_WEBGL
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file));
+            Debug.Log("GameController: Warp() WEBGL AND WINDOWS");
+            file = webdata;
         #endif
 
         factory = new LevelFactory(file, true);
@@ -204,13 +213,21 @@ public class GameController : MonoBehaviour, ITimeUser
             Debug.Log("GameController: Start() WINDOWS");
         #endif
 
-        #if UNITY_WEBGL
-            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" ;
-            if (GlobalState.Language == "python") filepath +="python/";
-            filepath+= GlobalState.CurrentONLevel;
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            filepath = webdata;
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            webdata =GetData(stringLib.SERVER_URL + filepath);
             Debug.Log("GameController: Start() WEBGL");
+            filepath = webdata;
+        #elif UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("GameController: Start() WEBGL AND WINDOWS");
+            filepath = webdata;
         #endif
 
         //Debug.Log("GameController.cs Start() path: " + filepath);
