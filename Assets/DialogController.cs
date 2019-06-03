@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using System;
 using System.IO; 
+using System.Runtime.InteropServices;
 
 public class DialogController : MonoBehaviour
 {
@@ -17,15 +18,44 @@ public class DialogController : MonoBehaviour
     bool started = false; 
     int index = 0; 
     // Start is called before the first frame update
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
+
+    IEnumerator GetVideoFile(string url){
+        yield return null;
+    }
     void Start()
     {
+        string filepathON ="";
+        string filepathBug = "";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
-        if (GlobalState.GameMode == "bug"){
-            player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
-            girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
-            boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
-            botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
-        }
+        #if UNITY_WEBGL                    
+            filepathON = "StreamingAssets/IntroScene.mp4";
+            filepathBug = "StreamingAssets/RoboBugIntro.mp4";
+            Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
+
+            if (GlobalState.GameMode == "bug"){
+                player.url = stringLib.SERVER_URL + filepathBug;
+                //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
+                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+            }else{
+                player.url = stringLib.SERVER_URL + filepathON;
+                //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
+            }
+            
+        #else
+            if (GlobalState.GameMode == "bug"){
+                player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
+                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+            }
+        #endif
         ReadFile(); 
     }
     // Update is called once per frame
@@ -76,7 +106,7 @@ public class DialogController : MonoBehaviour
     IEnumerator GetXMLFromServer(string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
-        //System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }else{
@@ -115,10 +145,18 @@ public class DialogController : MonoBehaviour
 
         #endif
 
-        #if UNITY_WEBGL
-            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/Intro.txt";
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + "onleveldata/Intro" + bug +".txt";
+            webdata = GetData(stringLib.SERVER_URL + filepath);
+            Debug.Log("DialogController: ReadFile() WEBGL");
 
+        #elif UNITY_WEBGL && UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + "onleveldata/Intro" + bug +".txt";
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("DialogController: ReadFile() WEBGL AND WINDOWS");
+        #endif
+
+        #if UNITY_WEBGL
             String[] linesS = webdata.Split('\n');
             for(int i = 0; i < linesS.Length - 1; i++){
                 String[] scriptLines = linesS[i].Split('\r');

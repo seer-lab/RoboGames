@@ -110,7 +110,7 @@ public class LevelFactory
         #endif
 
         #if UNITY_WEBGL
-            filepath = "StreamingAssets/" + GlobalState.GameMode + "leveldata";
+            filepath = "StreamingAssets/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
             filepath+= XMLReader.GetNextLevel(doc);
             Debug.Log("LevelFactory: BuildLevel() WEBGL");

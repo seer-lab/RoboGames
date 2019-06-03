@@ -120,7 +120,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        logger.onGameEnd(); 
+        //logger.onGameEnd(); 
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             if (winning){
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(); 
+            //logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
             }
             else GameOver();  
@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(); 
+            //logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
