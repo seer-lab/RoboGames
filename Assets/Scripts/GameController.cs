@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     BackButton backButton; 
+    EnergyController EnergyController; 
     bool firstUpdate = true; 
 
     public Logger logger; 
@@ -74,9 +75,8 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckLose()
     {
-        if ((selectedTool.isLosing && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-            || ((selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0 && 
-            selectedTool.noRemainingActivators) || selectedTool.CheckAllToolsUsed()))
+        if ((EnergyController.currentEnergy <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_ON)
+            || (EnergyController.currentEnergy <= 0|| selectedTool.CheckAllToolsUsed()))
         {
             StartCoroutine(Lose());
         }
@@ -194,6 +194,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
         lg.WarpPlayer(line); 
+        lg.manager.ResizeObjects(); 
     }
     void Awake(){
         GameObject hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
@@ -229,7 +230,7 @@ public class GameController : MonoBehaviour, ITimeUser
             Debug.Log("GameController: Start() WEBGL AND WINDOWS");
             filepath = webdata;
         #endif
-
+        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();

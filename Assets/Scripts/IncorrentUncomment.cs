@@ -61,5 +61,6 @@ public class IncorrentUncomment : comment
 			Destroy(collidingObj.gameObject);
 			selectedTool.outputtext.GetComponent<Text>().text = "There are errors with the selected code; \nfigure out what the mistake is, then \nuncomment the correct solution.";
 		}
+        hero.onFail();
     }
 }

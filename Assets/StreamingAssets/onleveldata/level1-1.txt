@@ -1,0 +1,4 @@
+BlackHatOffice
+#Boy: 300 200 0
+$Boy: It looks like they figured out how to reverse my bugs. 
+$Boy: Not to worry, I'll just need to prepare something to get in their way. 

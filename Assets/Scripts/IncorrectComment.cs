@@ -12,6 +12,7 @@ public class IncorrectComment : comment
         {
             Destroy(collidingObj.gameObject);
             selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
+            hero.onFail(); 
         }
     }
     public override void UpdateProtocol(){

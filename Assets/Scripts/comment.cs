@@ -71,6 +71,7 @@ public abstract class comment : Tools {
 
 
 	void OnTriggerEnter2D(Collider2D collidingObj) {
+        
         OnTriggerProtocol(collidingObj); 
 	}
     protected abstract void OnTriggerProtocol(Collider2D collidingObj); 

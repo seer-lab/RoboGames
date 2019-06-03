@@ -55,6 +55,9 @@ public class Breakpoint : Tools {
 			}
 			Destroy(collidingObj.gameObject); 
 		}
+		else if (collidingObj.name.Contains("projectile")){
+			hero.onFail();
+		}
 	}
 
 	//.................................>8.......................................
