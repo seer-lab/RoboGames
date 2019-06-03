@@ -230,7 +230,6 @@ public class GameController : MonoBehaviour, ITimeUser
             Debug.Log("GameController: Start() WEBGL AND WINDOWS");
             filepath = webdata;
         #endif
-        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
@@ -240,6 +239,7 @@ public class GameController : MonoBehaviour, ITimeUser
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
         logger = new Logger(); 
+        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
     }
     /// <summary>
     /// Handles operations regaserding the UI of the game. 
