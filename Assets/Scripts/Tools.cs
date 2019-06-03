@@ -16,6 +16,8 @@ public class Tools : MonoBehaviour
     protected LevelGenerator lg;
     public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
     protected bool toolgiven = false; 
+
+    protected hero2Controller hero; 
     public int Index
     {
         get
@@ -42,6 +44,7 @@ public class Tools : MonoBehaviour
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
         language = GlobalState.level.Language; 
+        hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
         Initialize(); 
     }
     /// <summary>

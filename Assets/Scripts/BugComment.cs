@@ -50,6 +50,9 @@ public class BugComment : comment
             }
 
         }
+        else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
+			hero.onFail();
+		}
     }
     public override void UpdateProtocol(){
         if (output.Text.text == "" && isAnswered){

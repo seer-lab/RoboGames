@@ -127,6 +127,7 @@ public class question : Tools {
 					else {
                         selectedTool.outputtext.GetComponent<Text>().text = "Try again. Make sure to check for spelling \nerrors and read the directions carefully.";
 					}
+					hero.onFail();
 				}
 				else {
 					anim.SetTrigger("Complete");
@@ -179,6 +180,9 @@ public class question : Tools {
 			audioPrompt.Play();
 			answering = true;
             Output.IsAnswering = true;
+		}
+		else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_ACTIVATOR){
+			hero.onFail();
 		}
 	}
 

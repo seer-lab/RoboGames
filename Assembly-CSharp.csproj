@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DialogController.cs" />
+     <Compile Include="Assets\EnergyController.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
