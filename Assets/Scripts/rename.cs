@@ -185,6 +185,9 @@ public class rename : Tools {
 			answering = true;
             Output.IsAnswering = true;
 		}
+		else if (collidingObj.name.Contains("projectile")){
+			hero.onFail();
+		}
 	}
 
 	//.................................>8.......................................

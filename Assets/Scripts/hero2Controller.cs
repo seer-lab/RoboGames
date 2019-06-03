@@ -50,11 +50,13 @@ public class hero2Controller : MonoBehaviour
 	private float verticalMovement = 1f; 
 	private bool isMovingX = false; 
 	private bool reachedPosition = true; 
+	EnergyController energyController; 
 	private FireButton fire; 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
 		codescreen = GameObject.Find("CodeScreen");
+		energyController = GameObject.Find("Energy").GetComponent<EnergyController>();
 		fire = GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>();
 		selectedTool = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").gameObject;
 		projectiles[0] = Resources.Load<GameObject>("Prefabs/projectileBug").GetComponent<Rigidbody2D>();
@@ -72,6 +74,9 @@ public class hero2Controller : MonoBehaviour
 		if (facingRight && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("left")){
 			//this.GetComponent<SpriteRenderer>().flipX = true; 
 		}
+	}
+	public void onFail(){
+		energyController.onFail(projectilecode); 
 	}
 	//.................................>8.......................................
 	void FixedUpdate() {
@@ -174,6 +179,7 @@ public class hero2Controller : MonoBehaviour
 			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {
 				throwing = true;
    				anim.SetBool("throw", true);
+				energyController.onThrow(projectilecode); 
 				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();  
 				nextFire = Time.time + fireRate;
    				animDelay = Time.time + animTime;

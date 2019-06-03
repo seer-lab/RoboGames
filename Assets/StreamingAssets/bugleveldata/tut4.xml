@@ -18,7 +18,7 @@ Use the BUGCATCHER tool to catch the bug when you find it.</description>
     doAllStuff(y);</comment>
     	
     <comment type="robobug" size="3" groupid="3" tool="999,0,0,0,0,0" text="No Errors Found!">doStuff(z);
-    $bug$doMoreStuff(z);
+    $bug $doMoreStuff(z);
     doAllStuff(z);</comment>
     return;
 }

@@ -135,6 +135,9 @@ public class CorrectUncomment : comment
             lg.DrawInnerXmlLinesToScreen();
             isCommented = true;
         }
+        else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_DEBUG){
+			hero.onFail();
+		}
     
     }
     public override void UpdateProtocol()

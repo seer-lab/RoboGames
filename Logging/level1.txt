@@ -61,3 +61,129 @@ Bug Catcher Tool Use:
 	Lines Used: 16 
 
 --------------------------------------------------------
+Passed Level
+9 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+10 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+6 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+6 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+-39 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+5 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+5 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+9 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+-50 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+-52 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------
+Passed Level
+9 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+--------------------------------------------------------

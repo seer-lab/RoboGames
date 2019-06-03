@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DialogController.cs" />
+     <Compile Include="Assets\EnergyController.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
@@ -124,12 +125,14 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
+     <Compile Include="Assets\TransitionController.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-3c.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level3.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\level1-1.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2a.xml" />
@@ -272,6 +275,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-3.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\StreamingAssets\old_onleveldata\original level0-1.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tut2.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Whites.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-4.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
