@@ -157,6 +157,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
         lg.WarpPlayer(line); 
+        lg.manager.ResizeObjects(); 
     }
     void Awake(){
         GameObject hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 

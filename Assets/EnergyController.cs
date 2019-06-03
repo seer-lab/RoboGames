@@ -62,7 +62,7 @@ public class EnergyController : MonoBehaviour
                 if (tools.toolCounts[i] > 0){
                     if (tools.toolCounts[i] < 999)
                         throwEnergy[i] /= (float)tools.toolCounts[i]; 
-                    else throwEnergy[i] /= GlobalState.level.Tasks[i];
+                    else throwEnergy[i] /= (GlobalState.level.Tasks[i] + 5);
                 }
                 else if (i < 5){
                     throwEnergy[i] /= (GlobalState.level.Tasks[i] + 10);

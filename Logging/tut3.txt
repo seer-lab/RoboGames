@@ -19,3 +19,75 @@ Commenter Tool Use:
 	Lines Used: 12 
 
 --------------------------------------------------------
+Failed Level
+13 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 12 
+
+--------------------------------------------------------
+Failed Level
+-42 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 12 
+
+--------------------------------------------------------
+Failed Level
+5 Seconds
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Passed Level
+-50 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

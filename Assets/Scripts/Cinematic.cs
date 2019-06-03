@@ -42,6 +42,7 @@ public class Cinematic : MonoBehaviour
             } 
             if (score <= 0) score = 1; 
         }
+        GlobalState.TotalEnergy += 4*score; 
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
