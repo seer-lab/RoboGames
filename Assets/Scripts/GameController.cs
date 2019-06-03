@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     BackButton backButton; 
+    EnergyController EnergyController; 
     bool firstUpdate = true; 
 
     public Logger logger; 
@@ -52,9 +53,8 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckLose()
     {
-        if ((selectedTool.isLosing && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-            || ((selectedTool.toolCounts[0] <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_BUG && GlobalState.level.Tasks[0]>0 && 
-            selectedTool.noRemainingActivators) || selectedTool.CheckAllToolsUsed()))
+        if ((EnergyController.currentEnergy <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_ON)
+            || (EnergyController.currentEnergy <= 0|| selectedTool.CheckAllToolsUsed()))
         {
             StartCoroutine(Lose());
         }
@@ -172,7 +172,7 @@ public class GameController : MonoBehaviour, ITimeUser
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
         if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
         filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-        
+        EnergyController= GameObject.Find("Energy").GetComponent<EnergyController>();
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();

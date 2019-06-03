@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class EnergyController : MonoBehaviour
 {
+    GameObject energyBar; 
     float initialEnergy;
-    float currentEnergy;
+    public float currentEnergy;
     Text indicator;
     float[] throwEnergy = new float[stateLib.NUMBER_OF_TOOLS];
     SelectedTool tools;
     bool initial = true;
+    float initialScale; 
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +21,8 @@ public class EnergyController : MonoBehaviour
         currentEnergy = initialEnergy;
         indicator = transform.GetChild(0).GetComponent<Text>();
         tools = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
-
-
+        energyBar = transform.GetChild(1).gameObject; 
+        initialScale = energyBar.GetComponent<RectTransform>().localScale.x; 
     }
     public void onThrow(int projectileCode)
     {
@@ -30,12 +32,17 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy = 0;
         }
-        print(currentEnergy);
-        indicator.text = (currentEnergy / initialEnergy).ToString() + '%';
+        if (currentEnergy > 0 )
+            indicator.text = (currentEnergy / initialEnergy).ToString() + '%';
+        else indicator.text = "0%"; 
+        energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*((currentEnergy / initialEnergy)), 1, 1); 
     }
     public void onFail(int projectileCode){
         currentEnergy-= throwEnergy[projectileCode];
-        indicator.text = (currentEnergy / initialEnergy).ToString() + '%'; 
+        if (currentEnergy> 0)
+            indicator.text = (currentEnergy / initialEnergy).ToString() + '%'; 
+        else indicator.text = "0%"; 
+        energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*(currentEnergy / initialEnergy), 1, 1); 
     }
     // Update is called once per frame
     void Update()
