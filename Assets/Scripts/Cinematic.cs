@@ -135,7 +135,21 @@ public class Cinematic : MonoBehaviour
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
         yield return new WaitForSecondsRealtime(1f);
-        SceneManager.LoadScene("newgame");
+        string filepath; 
+        if (GlobalState.GameMode == "on"){
+            string file = "onleveldata/" + GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
+            filepath = Path.Combine(Application.streamingAssetsPath, file); 
+        }
+        else{
+            string file =  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
+            Debug.Log(file); 
+            filepath = Path.Combine(Application.streamingAssetsPath, file); 
+            
+        }
+        if (File.Exists(filepath)){
+            SceneManager.LoadScene("Transition"); 
+        }
+        else SceneManager.LoadScene("newgame");
 
     }
     public void ToggleLight()
