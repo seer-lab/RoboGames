@@ -7,6 +7,8 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.Networking;
+using System.Runtime.InteropServices;
 
 public class Cinematic : MonoBehaviour
 {
@@ -27,6 +29,12 @@ public class Cinematic : MonoBehaviour
     int score; 
     bool shownCharacter = false; 
 
+    string webdata;
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
 
     //.................................>8.......................................
     // Use this for initialization
@@ -163,6 +171,19 @@ public class Cinematic : MonoBehaviour
         prompt1.GetComponent<Text>().color = Color.white;
         prompt2.GetComponent<Text>().color = Color.white;
     }
+
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }else{
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
     private void UpdateText()
     {
         if (GlobalState.level == null)
@@ -177,22 +198,70 @@ public class Cinematic : MonoBehaviour
         //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
         //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
 
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
+        #endif
+
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            webdata =GetData(stringLib.SERVER_URL + filepath);
+            Debug.Log("Cinematics: UpdateLevel() WEBGL");
+            filepath = webdata;
+        #elif UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("Cinematics: UpdateLevel() WEBGL AND WINDOWS");
+            filepath = webdata;
+        #endif
+        
         Debug.Log(filepath); 
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
     private void UpdateLevel(string file)
     {
-        string[] temp = file.Split('\\');
+        string[] temp = file.Split('/');
         for (int i = 0; i < temp.Length; i++)
         {
             Debug.Log(temp[i]);
         }
         GlobalState.CurrentONLevel = temp[temp.Length - 1];
-        factory = new LevelFactory(file);
+
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            filepath = file;
+            Debug.Log("Cinematics: UpdateLevel(string file) WINDOWS");
+        #endif
+        
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            webdata =GetData(stringLib.SERVER_URL + filepath);
+            Debug.Log("Cinematics: UpdateLevel(string file) WEBGL");
+            filepath = webdata;
+        #elif UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("Cinematics: UpdateLevel(string file) WEBGL AND WINDOWS");
+            filepath = webdata;
+        #endif
+
+        factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
     //.................................>8.......................................
@@ -285,8 +354,30 @@ public class Cinematic : MonoBehaviour
                 cinerun = false;
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-                
-              string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");  filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+
+                string filepath ="";
+                #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                    if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+                    filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+                    Debug.Log("Cinematics: Update() WINDOWS");
+                #endif
+
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+                    if (GlobalState.Language == "python") filepath += "python/";
+                    filepath+=GlobalState.CurrentONLevel;
+                    webdata =GetData(stringLib.SERVER_URL + filepath);
+                    Debug.Log("Cinematics: Update() WEBGL");
+                    filepath = webdata;
+                #elif UNITY_WEBGL
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+                    if (GlobalState.Language == "python") filepath += "python/";
+                    filepath+=GlobalState.CurrentONLevel;
+                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+                    Debug.Log("Cinematics: Update() WEBGL AND WINDOWS");
+                    filepath = webdata;
+                #endif
                 UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");

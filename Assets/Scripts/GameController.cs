@@ -1,10 +1,13 @@
 using System.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Xml; 
 using System.IO; 
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Oversees the Game Logic such as winning, losing, picking which level to Load. 
@@ -23,6 +26,25 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger; 
     bool winning = false;
+    string webdata;
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
+
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }else{
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
 
     /// <summary>
     /// Checks if the game meets the win condition. 
@@ -98,7 +120,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        logger.onGameEnd(); 
+        //logger.onGameEnd(); 
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -117,7 +139,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             if (winning){
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(); 
+            //logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
             }
             else GameOver();  
@@ -138,7 +160,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(); 
+            //logger.onGameEnd(); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
@@ -153,6 +175,21 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            Debug.Log("GameController: WarpLevel() WINDOWS");
+        #endif
+
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            webdata =GetData(stringLib.SERVER_URL + file);
+            Debug.Log("GameController: Warp() WEBGL");
+            file = webdata;
+        #elif UNITY_WEBGL
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file));
+            Debug.Log("GameController: Warp() WEBGL AND WINDOWS");
+            file = webdata;
+        #endif
+
         factory = new LevelFactory(file, true);
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
@@ -168,12 +205,32 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-        //Debug.Log(GlobalState.CurrentONLevel);
-        //string filepath = Application.streamingAssetsPath + "\\" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + GlobalState.CurrentONLevel;
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
-        filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-        EnergyController= GameObject.Find("Energy").GetComponent<EnergyController>();
+
+        string filepath ="";
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            Debug.Log("GameController: Start() WINDOWS");
+        #endif
+
+        //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            webdata =GetData(stringLib.SERVER_URL + filepath);
+            Debug.Log("GameController: Start() WEBGL");
+            filepath = webdata;
+        #elif UNITY_WEBGL
+            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+            if (GlobalState.Language == "python") filepath += "python/";
+            filepath+=GlobalState.CurrentONLevel;
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            Debug.Log("GameController: Start() WEBGL AND WINDOWS");
+            filepath = webdata;
+        #endif
+        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
         //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();

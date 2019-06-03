@@ -14,7 +14,15 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
+        string filepath ="";
+        player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        #if UNITY_WEBGL                    
+            filepath = "StreamingAssets/TitleSequence.mp4";
+            player.url = stringLib.SERVER_URL + filepath;
+            Debug.Log("TitleController Start() WEBGL");
+        #else
+            player.clip = Resources.Load<VideoClip>("Video/TitleSequence.mp4");
+        #endif
         robot = this.transform.GetChild(0).GetComponent<Animator>(); 
         girl = this.transform.GetChild(1).GetComponent<Animator>(); 
         boy = this.transform.GetChild(2).GetComponent<Animator>(); 
