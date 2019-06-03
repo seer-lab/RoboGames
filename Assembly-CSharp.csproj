@@ -254,6 +254,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\level2-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Cyans.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level4-0.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\IntroBug.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level4-3.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\StreamingAssets\bugleveldata\level3b.xml" />

@@ -20,9 +20,14 @@ public class DialogController : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        if (GlobalState.GameMode == "bug"){
+            player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
+            girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
+            boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
+            botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+        }
         ReadFile(); 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -81,7 +86,9 @@ public class DialogController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
     void ReadFile(){
-        string filepath ="";
+        string bug = ""; 
+        if( GlobalState.GameMode == "bug") bug = "bug"; 
+        string filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/Intro" + bug +".txt");
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL

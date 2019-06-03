@@ -1,0 +1,14 @@
+$Girl: Our Systems are down!
+$Boy: How is that possible?!
+$Robot: It seems our systems contain a large number of bugs causing errors and bringing down the systems down. 
+$Boy $Girl: But they were working just fine a moment ago?!
+$Robot: Did you check your edge cases?
+$Boy: Of course I did! Hmph. 
+$Girl: There has to be an outside source. 
+$Girl: ...
+$Girl: It's probably Black Hat again. 
+$Robot: How can you be sure?
+$Boy: An "inconspicuous office" did open right beside us. 
+$Robot: Shouldn't that mean we don't need to suspect it? 
+$Girl: That's what they want us to think, let's get to work! 
+$Robot: Humans are confusing...
