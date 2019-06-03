@@ -122,7 +122,7 @@ public class DialogController : MonoBehaviour
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameObject+"leveldata/Intro.txt");
+            filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/Intro" + bug +".txt");
             
             using (StreamReader reader = new StreamReader(filepath)){
                 while(!reader.EndOfStream){
@@ -141,7 +141,6 @@ public class DialogController : MonoBehaviour
                     lines.Add(line); 
                 }
             }
-            Console.Writeline"DialogController: ReadFile() WINDOWS");
 
         #endif
 
