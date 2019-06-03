@@ -36,13 +36,19 @@ public class warper : Tools
                     selectedTool.toolCounts[i] += tools[i];                    Debug.Log(i + ": " + tools[i]);
                 }
             }
-            //string filepath = Application.streamingAssetsPath + "/" + GlobalState.GameMode + "leveldata/" + Filename;
-            string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-            filepath = Path.Combine(filepath,Filename);
+
+            string filepath = "";
+            #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+                filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                filepath = Path.Combine(filepath,Filename);
+                Debug.Log("warper: OnTriggerEnter2D() WINDOWS");
+            #endif
+
+            #if UNITY_WEBGL
+                filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + Filename;
+                Debug.Log("warper: OnTriggerEnter2D() WEBGL");
+            #endif
             //factory = new LevelFactory(filepath);
-            if(filepath.Equals('/')){
-                filepath = filepath.Remove(0);
-            }
             GameObject.Find("Main Camera").GetComponent<GameController>().WarpLevel(filepath, WarpToLine);
            
 		}

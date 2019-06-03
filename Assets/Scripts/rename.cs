@@ -53,6 +53,8 @@ public class rename : Tools {
 			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
 			Regex rgxT = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
 			Regex rgxTh = new Regex(@"<color=#00ff00ff>[\s\S]*?<\/color>");
+			//https://stackoverflow.com/questions/171480/regex-grabbing-values-between-quotation-marks
+			Regex rgxF = new Regex("\"(.*?)\"");
 
 			if(s.Contains("/*") || s.Contains("/**")){
 				startMultiComments = true;
@@ -61,7 +63,10 @@ public class rename : Tools {
 			}
 
 
-			if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
+			if(rgxF.IsMatch(s)){
+				i++;
+				continue;
+			}else if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
 				&& !s.Contains("<color=#00ff00ff>") && !startMultiComments && !endMultiComments){
 				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 			}else if(rgxTh.IsMatch(s)){

@@ -15,7 +15,10 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using System; 
 using System.IO;
+using System.Runtime.InteropServices;
 
 public class OldMenu : MonoBehaviour
 {
@@ -50,7 +53,31 @@ public class OldMenu : MonoBehaviour
     string[] textsizes;
     int[] fontSizes;
     bool entered = false;
+    bool isDONE = false;
+    string webdata;
 
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
+
+
+    IEnumerator GetXMLFromServer(string url) {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if (www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }else {
+            //Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator LoadWEB(string url) {
+        yield return StartCoroutine(GetXMLFromServer(url));
+    }
     //.................................>8.......................................
     // Use this for initialization
     void Start()
@@ -139,6 +166,7 @@ public class OldMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
         if (!GlobalState.IsResume)
         {
@@ -473,29 +501,50 @@ public class OldMenu : MonoBehaviour
                 levels.Clear();
                 passed.Clear();
                 //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-                filepath = Path.Combine(filepath, "levels.txt");
-                lfile = filepath;
-                if (lfile.Equals('/'))
-                {
-                    lfile = lfile.Remove(0);
-                }
-                //Debug.Log("OldMenu.cs Update() path: " + lfile);
-                sr = File.OpenText(lfile);
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] data = line.Split(' ');
-                    levels.Add(data[0]);
-                    passed.Add(data[1]);
-                }
-                sr.Close();
+                string filepath ="";
+                #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                    filepath = Path.Combine(filepath, "levels.txt");
+                    Debug.Log("OldMenu: Update() WINDOWS");
+
+                    sr = File.OpenText(filepath);
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(' ');
+                        levels.Add(data[0]);
+                        passed.Add(data[1]);
+                    }
+                    sr.Close();
+                #endif
+
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
+                    Console.WriteLine(stringLib.SERVER_URL + filepath);
+                    webdata = GetData(stringLib.SERVER_URL + filepath);
+                #elif UNITY_WEBGL  
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
+                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+                    Console.WriteLine(stringLib.SERVER_URL + filepath);
+                #endif
+
+                #if UNITY_WEBGL                    
+                    filepath = webdata;
+                    string[] leveldata = filepath.Split('\n');
+                    for (int i = 0; i < leveldata.Length - 1; i++) {
+                        string[] tmp = leveldata[i].Split(' ');
+                        string[] tmpTwo = tmp[1].Split('\r');
+                        levels.Add(tmp[0]);
+                        passed.Add(tmpTwo[0]);
+                    }
+                    Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
+                #endif
 
                 GlobalState.GameState = -1;
                 option = 0;
                 m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
-                m2buttontext[1].GetComponent<TextMesh>().text = "Back";
+                m2buttontext[1].GetComponent<TextMesh>().text = "Back";           
             }
         }
         else
