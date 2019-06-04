@@ -18,6 +18,14 @@ public class EnergyController : MonoBehaviour
     float initialScale; 
     float initialY; 
     float positionCompensation = 220f; 
+
+    public float[] percentPerUse(){
+        float[] percent = new float[throwEnergy.Length]; 
+        for (int i = 0; i < percent.Length; i++){
+            percent[i] = (throwEnergy[i]/initialEnergy)*100f; 
+        }
+        return percent; 
+    }
     // Start is called before the first frame update
     void Start()
     {
