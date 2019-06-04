@@ -19,6 +19,8 @@ using UnityEngine.Networking;
 using System; 
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using UnityEngine.Analytics;
 
 public class OldMenu : MonoBehaviour
 {
@@ -75,6 +77,52 @@ public class OldMenu : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+[System.Serializable]
+    public class JsonObjectNewUser{
+        public string name;
+        public JsonObjectNewUser(string name){
+            this.name = name;
+        }
+    }
+
+    // IEnumerator PostToDB(string url, JsonObjectNewUser jsonData) {
+    //     string tmp = JsonUtility.ToJson(jsonData);
+    //     Debug.Log(tmp);
+    //     using (UnityWebRequest www = UnityWebRequest.Post(url, tmp))
+    //     {
+    //         www.method = UnityWebRequest.kHttpVerbPOST;
+    //         www.SetRequestHeader("Content-Type", "application/json");
+    //         //www.SetRequestHeader("Accept", "application/json");
+
+    //         yield return www.SendWebRequest();
+
+    //         if (www.isNetworkError || www.isHttpError)
+    //         {
+    //             Debug.Log(www.error);
+    //         }
+    //         else
+    //         {
+    //             Debug.Log("Form upload complete!");
+    //         }
+    //     }
+    // }
+
+    IEnumerator Post(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Accept", "*");
+
+        yield return request.SendWebRequest();
+
+        Debug.Log("Status Code: " + request.responseCode);
+    }
+
+
+
     IEnumerator LoadWEB(string url) {
         yield return StartCoroutine(GetXMLFromServer(url));
     }
@@ -99,7 +147,11 @@ public class OldMenu : MonoBehaviour
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
+        GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
+        string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"}";
+        StartCoroutine(Post(stringLib.DB_URL, json));
+
     }
 
     public void onClick(int index)

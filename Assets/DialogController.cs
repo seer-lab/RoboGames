@@ -24,9 +24,6 @@ public class DialogController : MonoBehaviour
         private static extern string GetData(string url);
     #endif
 
-    IEnumerator GetVideoFile(string url){
-        yield return null;
-    }
     void Start()
     {
         string filepathON ="";
@@ -48,7 +45,9 @@ public class DialogController : MonoBehaviour
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
             }
             
-        #else
+        #endif
+
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
                 player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
