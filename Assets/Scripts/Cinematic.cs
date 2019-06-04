@@ -150,7 +150,7 @@ public class Cinematic : MonoBehaviour
             filepath = Path.Combine(Application.streamingAssetsPath, file); 
         }
         else{
-            string file =  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
+            string file = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
             Debug.Log(file); 
             filepath = Path.Combine(Application.streamingAssetsPath, file); 
             
@@ -229,7 +229,7 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel(string file)
     {
-        string[] temp = file.Split('/');
+        string[] temp = file.Split('\\');
         for (int i = 0; i < temp.Length; i++)
         {
             Debug.Log(temp[i]);

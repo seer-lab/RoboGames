@@ -32,10 +32,14 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy = 0;
         }
-        if (currentEnergy > 0 )
-            indicator.text = (currentEnergy / initialEnergy).ToString() + '%';
-        else indicator.text = "0%"; 
-        energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*((currentEnergy / initialEnergy)), 1, 1); 
+        if (currentEnergy > 0 ){
+            indicator.text = ((int)(currentEnergy*100f / initialEnergy)).ToString() + '%';
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*((currentEnergy / initialEnergy)), 1, 1);
+        } 
+        else {
+            indicator.text = "0%"; 
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1); 
+        }
     }
     public void onFail(int projectileCode){
         currentEnergy-= throwEnergy[projectileCode];
