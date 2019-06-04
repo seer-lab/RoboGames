@@ -93,11 +93,13 @@ public class EnergyController : MonoBehaviour
         }
         if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME && !hidden){
             energyBar.GetComponent<Image>().enabled = false; 
+            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false; 
             indicator.text = ""; 
             hidden = true; 
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && hidden){
             energyBar.GetComponent<Image>().enabled = true; 
+            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false; 
             if (currentEnergy > 0)
                 indicator.text = ((int)(currentEnergy*100f / initialEnergy)).ToString() + '%'; 
             else indicator.text = "0%"; 
