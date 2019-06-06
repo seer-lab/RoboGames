@@ -118,7 +118,7 @@ public class OldMenu : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        Debug.Log("Status Code: " + request.responseCode);
+        //Debug.Log("Status Code: " + request.responseCode);
     }
 
 

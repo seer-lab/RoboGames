@@ -104,7 +104,7 @@ public class Logger
 
         jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
         jsonObj +="]}]}";
-        Debug.Log(jsonObj);
+        //Debug.Log(jsonObj);
         //Upload(url, jsonObj);
         #endif
 

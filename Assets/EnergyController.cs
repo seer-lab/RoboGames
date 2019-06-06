@@ -78,7 +78,7 @@ public class EnergyController : MonoBehaviour
                     totalCounts++; 
                 }
             } 
-            Debug.Log(totalCounts); 
+            //Debug.Log(totalCounts); 
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
             {
                 throwEnergy[i] = (100f/((float)totalCounts));

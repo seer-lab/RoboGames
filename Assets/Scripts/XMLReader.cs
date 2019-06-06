@@ -60,7 +60,7 @@ public static class XMLReader {
   public static string GetLevelDescription(XmlDocument doc) {
     foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
       if (xmlnode.Name == stringLib.NODE_NAME_DESCRIPTION) {
-        Debug.Log(xmlnode.InnerText);
+        //Debug.Log(xmlnode.InnerText);
         return xmlnode.InnerText;
       }
     }

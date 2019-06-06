@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour, ITimeUser
         www.SendWebRequest();
         System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
-            Debug.Log(www.error);
+            Debug.Log("Error at WEB: " + www.error);
         }else{
             Debug.Log(www.downloadHandler.text);
             webdata = www.downloadHandler.text;
@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour, ITimeUser
 
     IEnumerator Put(string url, string bodyJsonString)
     {
-        Debug.Log(url);
+        //Debug.Log(url);
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
         UnityWebRequest request = UnityWebRequest.Put(url, myData);
         request.SetRequestHeader("Content-Type", "application/json");
@@ -249,10 +249,9 @@ public class GameController : MonoBehaviour, ITimeUser
             if (GlobalState.Language == "python") filepath += "python/";
             filepath+=GlobalState.CurrentONLevel;
             StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            Debug.Log("GameController: Start() WEBGL AND WINDOWS");
+            //Debug.Log("GameController: Start() WEBGL AND WINDOWS");
             filepath = webdata;
         #endif
-        //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
