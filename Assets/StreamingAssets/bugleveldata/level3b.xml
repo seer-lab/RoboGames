@@ -108,7 +108,7 @@ out of bounds.">{"alizarincrimson",227,38,54},
 
 <comment size="3" type="robobug" groupid="4" text="No errors found" tool="1,0,0,0,0,0">{"black",0,0,0},
 {"ivoryblack",41,36,33},
-{"lampblack",46,71,-$bug{"lampblack",46,71,59}$59}</comment>
+{"lampblack",46,71,- $bug {"lampblack",46,71,59}$59}</comment>
 
 <comment size="28" type="robobug" groupid="5" text="$err$Blue color value 
 out of bounds">{"chartreuse",127,255,0},
