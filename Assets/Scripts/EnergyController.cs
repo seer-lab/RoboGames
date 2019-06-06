@@ -62,7 +62,7 @@ public class EnergyController : MonoBehaviour
     public void onFail(int projectileCode){
         currentEnergy-= throwEnergy[projectileCode];
         if (currentEnergy> 0)
-            indicator.text = (currentEnergy / initialEnergy).ToString() + '%'; 
+            indicator.text = ((int)(currentEnergy*100f / initialEnergy)).ToString() + '%'; 
         else indicator.text = "0%"; 
         energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*(currentEnergy / initialEnergy), 1, 1); 
         energyBarTrans.position = new Vector3(energyBarTrans.position.x, initialY + positionCompensation*((initialEnergy -currentEnergy) / initialEnergy), 0 ); 

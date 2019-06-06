@@ -61,11 +61,11 @@ public class DialogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.isPlaying && Time.timeSinceLevelLoad > 1 && !started){
+        if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && !started){
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
             started = true; 
         }
-        else if (!player.isPlaying && Time.timeSinceLevelLoad > 1 && Input.GetKeyDown(KeyCode.Return)){
+        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && Input.GetKeyDown(KeyCode.Return)){
             NextDialog(); 
         }
         else if(player.isPlaying && Input.GetKeyDown(KeyCode.Return)){
