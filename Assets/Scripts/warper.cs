@@ -19,15 +19,8 @@ public class warper : Tools
 {
 	public string Filename { get; set; }
 	public string WarpToLine { get; set; }
-    AudioClip warpSound; 
-
-    public override void Initialize(){
-        warpSound = Resources.Load<AudioClip>("Sound/Triggers/warp"); 
-    }
-
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
-            audioSource.PlayOneShot(warpSound); 
 			string sMessage = stringLib.LOG_WARPED + Filename;
 			Destroy(collidingObj.gameObject);
             if (!toolgiven)
@@ -60,7 +53,6 @@ public class warper : Tools
 		}
         else{
             //hero.onFail(); 
-            audioSource.PlayOneShot(wrong); 
         }
 	}
 }

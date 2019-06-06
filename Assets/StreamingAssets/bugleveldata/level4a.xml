@@ -31,7 +31,7 @@ target Closer(target t1, target t2){
     if (xdif + ydif &lt; 0){
         return t1;
     }
-    else if (xdif + ydif $bug   else if (xdif + ydif == 0$= 0){
+    else if (xdif + ydif $bug   else if (xdif + ydif == 0){$= 0){
         return t2;
     }
 }
