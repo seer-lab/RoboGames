@@ -22,7 +22,10 @@ public class EnergyController : MonoBehaviour
     public float[] percentPerUse(){
         float[] percent = new float[throwEnergy.Length]; 
         for (int i = 0; i < percent.Length; i++){
-            percent[i] = (throwEnergy[i]/initialEnergy)*100f; 
+            if (GlobalState.GameMode == "bug" && i == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW){
+                percent[i] = 99f;                 
+            }
+            else percent[i] = (throwEnergy[i]/initialEnergy)*100f; 
         }
         return percent; 
     }

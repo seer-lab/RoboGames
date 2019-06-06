@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using System.Text.RegularExpressions; 
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,8 +9,16 @@ using UnityEngine;
 public class BugComment : comment
 {
     bool isAnswered = false; 
+    void CleanBlocktext(){
+        if (blocktext.Contains("$bug")){
+            Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))"); 
+            string answer = ansRgx.Match(blocktext).Value;
+            blocktext = blocktext.Replace("$bug" + answer + "$",""); 
+        }   
+    }
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
+        CleanBlocktext(); 
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isAnswered)
         {
             isAnswered = true; 
