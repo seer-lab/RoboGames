@@ -44,7 +44,7 @@ public class Breakpoint : Tools {
 			output.Text.text = values;
 			if (!toolgiven) {
 				toolgiven = true;
-				for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++) {
+				for (int i = 0; i < tools.Length; i++) {
 					if (tools[i] > 0) {
                         // Must be called from level generator, not ToolSelectorObject
 						lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);

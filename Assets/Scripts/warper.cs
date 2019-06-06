@@ -59,7 +59,7 @@ public class warper : Tools
            
 		}
         else{
-            hero.onFail(); 
+            //hero.onFail(); 
             audioSource.PlayOneShot(wrong); 
         }
 	}

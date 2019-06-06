@@ -19,7 +19,7 @@ target Closer(target t1, target t2){
 t2.x = 100, t2.y = 0"></breakpoint>int xdif = t1.x - t2.x;
     <breakpoint text="t1.x = 75, t1.y = 100
 t2.x = 100, t2.y = 0
-xdif = -25"></breakpoint>    int ydif =$bug   t1.y - t2.y$ t1.y - t2.x;
+xdif = -25"></breakpoint>    int ydif =$bug  int ydif = t1.y - t2.y$ t1.y - t2.x;
     <breakpoint text="t1.x = 75, t1.y = 100
 t2.x = 100, t2.y = 0
 xdif = -25
