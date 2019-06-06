@@ -53,7 +53,9 @@ public class GenericBug : Tools {
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
-
+		 	foreach(GameObject comment in lg.manager.roboBUGcomments){
+				 comment.GetComponent<BugComment>().Uncomment(); 
+			 }
 			//this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
 			//anim.SetBool("Dying", true);

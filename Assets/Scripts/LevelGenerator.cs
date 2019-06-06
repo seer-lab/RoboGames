@@ -29,7 +29,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
     public GameObject lineobject;
 	GameObject hero;
-    AudioClip newTool; 
+    AudioClip newTool, warped; 
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 
@@ -54,6 +54,7 @@ public partial class LevelGenerator : MonoBehaviour {
 	private void Start() { 
         hero = GameObject.Find("Hero");
         newTool = Resources.Load<AudioClip>("Sound/Triggers/NewTool"); 
+        warped = Resources.Load<AudioClip>("Sound/Triggers/warp"); 
         toolprompt = hero.transform.GetChild(0).gameObject;
         properties = new CodeProperties(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
@@ -77,6 +78,7 @@ public partial class LevelGenerator : MonoBehaviour {
     /// </summary>
     public void BuildLevel(bool warp = false)
     {
+        if (warp) GetComponent<AudioSource>().PlayOneShot(warped); 
         manager.SetTitle();
         ResetLevel(warp);
         CreateLevelLines(GlobalState.level.LineCount);
