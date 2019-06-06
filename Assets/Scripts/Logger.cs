@@ -11,8 +11,10 @@ using System;
 //**************************************************//
 
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.IO;
 
 public class Logger
@@ -26,6 +28,21 @@ public class Logger
 	string[] linesUsed = new string[stateLib.NUMBER_OF_TOOLS]; 
 	bool hasWritten = false; 
 
+    public string jsonObj = "";
+
+    IEnumerator Post(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Accept", "*");
+
+        yield return request.SendWebRequest();
+
+        Debug.Log("Status Code: " + request.responseCode);
+    }
     public Logger()
     {
         GlobalState.toolUse = new int[stateLib.NUMBER_OF_TOOLS];
@@ -55,6 +72,43 @@ public class Logger
     }
     public void WriteLog()
     {
+        #if UNITY_WEBGL
+            jsonObj = "{ \"levels\":[{ \"name\": \"" + GlobalState.CurrentONLevel + "\" ";
+            jsonObj += ", \"time\": \"" + totalTime.ToString() + "\" ";
+            jsonObj += ", \"progress\": \"";   
+
+        if(!failed){
+            jsonObj += "Passed\", \"tools\":[";
+        }else{
+            jsonObj += "Failed\", \"tools\":[";
+        }
+
+        for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
+            if(GlobalState.level.Tasks[i] > 0){
+                if(GlobalState.GameMode == "on"){
+                    jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesON[i] + "\",";
+                }else{
+                    jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesBug[i] + "\",";
+                }
+
+                jsonObj += "\"reqTask\": \"" + GlobalState.level.Tasks[i] + "\",";
+                jsonObj += "\"compTask\": \"" + GlobalState.level.CompletedTasks[i] + "\",";
+                jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";
+                jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"}";
+
+                if(!(GlobalState.level.Tasks.Length - 1 == i)){
+                    jsonObj += ", ";
+                }
+            }
+        }
+
+        jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
+        jsonObj +="]}]}";
+        //Debug.Log(jsonObj);
+        //Upload(url, jsonObj);
+        #endif
+
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
         using (StreamWriter sw = File.AppendText(Application.dataPath.Replace("/Assets","") + "/Logging/" + id + GlobalState.CurrentONLevel.Replace(".xml", "") + ".txt"))
         {
             if (!failed) sw.WriteLine("Passed Level");
@@ -79,6 +133,7 @@ public class Logger
             sw.WriteLine("--------------------------------------------------------");
             sw.Close();
         }
+        #endif
     }
 
 }

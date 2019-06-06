@@ -1,29 +1,25 @@
 using UnityEngine;
+using UnityEngine.Networking;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
-public class WWWFormImage : MonoBehaviour {
 
-	public string databaseURL= "http://www.my-server.com/cgi-bin/screenshot.pl";
+public class databaseHelper: MonoBehaviour{
+    IEnumerator Upload(string url, string data){
+        
+        using (UnityWebRequest www = UnityWebRequest.Post(url, data)){
+            yield return www.SendWebRequest();
 
-	// Use this for initialization
-	void Start () {
-		StartCoroutine(sendDataToDatabase());
-	}
+            if(www.isNetworkError || www.isHttpError){
+                Debug.Log(www.error);
+            }else{
+                Debug.Log("Form upload");
+            }
+        }
+    }
 
-	IEnumerator sendDataToDatabase() {
-		// Create a Web Form
-		WWWForm form = new WWWForm();
-		form.AddField("frameCount", Time.frameCount.ToString());
-		//form.AddBinaryData("fileUpload", bytes, "screenShot.png", "image/png");
-
-		// Upload to a cgi script
-		WWW w = new WWW(databaseURL, form);
-		yield return w;
-		if (!string.IsNullOrEmpty(w.error)) {
-			print(w.error);
-		}
-		else {
-			print("Finished Uploading");
-		}
+	public void uploadLogs(string url, string data){
+		StartCoroutine(Upload(url, data));
 	}
 }

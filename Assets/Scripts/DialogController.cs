@@ -24,9 +24,6 @@ public class DialogController : MonoBehaviour
         private static extern string GetData(string url);
     #endif
 
-    IEnumerator GetVideoFile(string url){
-        yield return null;
-    }
     void Start()
     {
         string filepathON ="";
@@ -35,7 +32,7 @@ public class DialogController : MonoBehaviour
         #if UNITY_WEBGL                    
             filepathON = "StreamingAssets/IntroScene.mp4";
             filepathBug = "StreamingAssets/RoboBugIntro.mp4";
-            Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
+            //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
 
             if (GlobalState.GameMode == "bug"){
                 player.url = stringLib.SERVER_URL + filepathBug;
@@ -48,7 +45,9 @@ public class DialogController : MonoBehaviour
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
             }
             
-        #else
+        #endif
+
+        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
                 player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
@@ -110,7 +109,7 @@ public class DialogController : MonoBehaviour
         if(www.isNetworkError || www.isHttpError){
             Debug.Log(www.error);
         }else{
-            Debug.Log(www.downloadHandler.text);
+            //Debug.Log(www.downloadHandler.text);
             webdata = www.downloadHandler.text;
         }
         yield return new WaitForSeconds(0.5f);
@@ -152,7 +151,7 @@ public class DialogController : MonoBehaviour
         #elif UNITY_WEBGL && UNITY_EDITOR
             filepath = "StreamingAssets" + "/" + "onleveldata/Intro" + bug +".txt";
             StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            Debug.Log("DialogController: ReadFile() WEBGL AND WINDOWS");
+            //Debug.Log("DialogController: ReadFile() WEBGL AND WINDOWS");
         #endif
 
         #if UNITY_WEBGL
@@ -170,7 +169,7 @@ public class DialogController : MonoBehaviour
                 scriptLines[0] = scriptLines[0].Remove(0,scriptLines[0].IndexOf(':')+1); 
                 lines.Add(scriptLines[0]);
             }
-            Debug.Log("DialogController: ReadFile() WEBGL");
+            //Debug.Log("DialogController: ReadFile() WEBGL");
         #endif
     }
 
