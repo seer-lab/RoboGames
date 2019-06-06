@@ -18,7 +18,6 @@ using UnityEngine.UI;
 public class Breakpoint : Tools {
 
 	public string values;
-	public AudioClip[] sound = new AudioClip[2];
 
 	Animator anim; 
 	private bool activated = false;
@@ -30,7 +29,7 @@ public class Breakpoint : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
         if (!activated && collidingObj.name == stringLib.PROJECTILE_DEBUG) {
 			if (!activated) {
-				GetComponent<AudioSource>().clip = sound[0];
+				GetComponent<AudioSource>().clip = correct;
 				GetComponent<AudioSource>().Play();
 			}
 			activated = true;
@@ -40,7 +39,7 @@ public class Breakpoint : Tools {
         }
 		else if (activated && collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Debug.Log("activated");
-			GetComponent<AudioSource>().clip = sound[1];
+			GetComponent<AudioSource>().clip = correct;
 			GetComponent<AudioSource>().Play();
 			output.Text.text = values;
 			if (!toolgiven) {
@@ -57,6 +56,7 @@ public class Breakpoint : Tools {
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();
+			audioSource.PlayOneShot(wrong); 
 		}
 	}
 

@@ -11,6 +11,7 @@ public class CorrectComment : comment
         {
             //GetComponent<SpriteRenderer>().sprite = descSpriteOn;
             isCommented = true;
+            audioSource.PlayOneShot(correct); 
             anim.SetTrigger("Complete");
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
@@ -75,6 +76,7 @@ public class CorrectComment : comment
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
 			hero.onFail();
+            audioSource.PlayOneShot(wrong); 
 		}
     }
 }

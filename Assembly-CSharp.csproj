@@ -55,8 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DialogController.cs" />
-     <Compile Include="Assets\EnergyController.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
@@ -78,6 +76,8 @@
      <Compile Include="Assets\Scripts\credits.cs" />
      <Compile Include="Assets\Scripts\CreditsController.cs" />
      <Compile Include="Assets\Scripts\databasehelper.cs" />
+     <Compile Include="Assets\Scripts\DialogController.cs" />
+     <Compile Include="Assets\Scripts\EnergyController.cs" />
      <Compile Include="Assets\Scripts\Fade.cs" />
      <Compile Include="Assets\Scripts\FireButton.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
@@ -119,13 +119,13 @@
      <Compile Include="Assets\Scripts\ToolFactory.cs" />
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
+     <Compile Include="Assets\Scripts\TransitionController.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\WebHelper.cs" />
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\TransitionController.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />

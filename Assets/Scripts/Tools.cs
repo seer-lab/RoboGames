@@ -17,6 +17,8 @@ public class Tools : MonoBehaviour
     public int[] tools = new int[stateLib.NUMBER_OF_TOOLS];
     protected bool toolgiven = false; 
 
+    protected AudioSource audioSource; 
+    protected AudioClip correct, wrong; 
     protected hero2Controller hero; 
     public int Index
     {
@@ -45,6 +47,9 @@ public class Tools : MonoBehaviour
         selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
         language = GlobalState.level.Language; 
         hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
+        audioSource = this.GetComponent<AudioSource>(); 
+        correct = Resources.Load<AudioClip>("Sound/Triggers/correct"); 
+        wrong = Resources.Load<AudioClip>("Sound/Triggers/wrong"); 
         Initialize(); 
     }
     /// <summary>
