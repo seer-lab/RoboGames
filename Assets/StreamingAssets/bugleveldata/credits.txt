@@ -4,8 +4,7 @@ Created by: Michael Miljanovic
 
 under supervision of Dr. Jeremy Bradbury
 
-in SQRLab, University of Ontario
-Institute of Technology
+in SQRLab, Ontario Tech University
 http://www.sqrlab.ca
 
 Playtesters

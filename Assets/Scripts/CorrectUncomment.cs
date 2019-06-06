@@ -15,6 +15,7 @@ public class CorrectUncomment : comment
         //TODO NOTE: This section is a bit of a mess and needs cleaning ^_^
         if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !isCommented)
         {
+            audioSource.PlayOneShot(correct); 
             anim.SetTrigger("Complete");
             GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
             Destroy(collidingObj.gameObject);
@@ -137,6 +138,7 @@ public class CorrectUncomment : comment
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_DEBUG){
 			hero.onFail();
+            audioSource.PlayOneShot(wrong); 
 		}
     
     }

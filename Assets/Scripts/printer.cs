@@ -24,7 +24,7 @@ public class printer : Tools {
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 
             }
 			else output.Text.text = displaytext;
-			GetComponent<AudioSource>().Play();
+			audioSource.PlayOneShot(correct); 
             GlobalState.level.CompletedTasks[1]++;
 			if (!toolgiven) {
 				toolgiven = true;
@@ -39,6 +39,7 @@ public class printer : Tools {
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();
+			audioSource.PlayOneShot(wrong); 
 		}
 	}
 

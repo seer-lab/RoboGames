@@ -21,8 +21,6 @@ public partial class LevelGenerator : MonoBehaviour {
 	// Lines of code stored in an array. innerXmlLines is the colorized text from NodeToColorString(), outerXmlLnes is the line with the tags.
 	public string[] lineNumbers;
 
-    public AudioClip warpSound; 
-
 	// Stores the icons for each tool.
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
 
@@ -31,7 +29,7 @@ public partial class LevelGenerator : MonoBehaviour {
 
     public GameObject lineobject;
 	GameObject hero;
-
+    AudioClip newTool, warped; 
 	public Sprite whiteCodescreen;
 	public Sprite blackCodescreen;
 
@@ -55,6 +53,8 @@ public partial class LevelGenerator : MonoBehaviour {
 	// Use this for initialization
 	private void Start() { 
         hero = GameObject.Find("Hero");
+        newTool = Resources.Load<AudioClip>("Sound/Triggers/NewTool"); 
+        warped = Resources.Load<AudioClip>("Sound/Triggers/warp"); 
         toolprompt = hero.transform.GetChild(0).gameObject;
         properties = new CodeProperties(); 
 		GlobalState.GameState 					 = stateLib.GAMESTATE_IN_GAME;
@@ -78,6 +78,7 @@ public partial class LevelGenerator : MonoBehaviour {
     /// </summary>
     public void BuildLevel(bool warp = false)
     {
+        if (warp) GetComponent<AudioSource>().PlayOneShot(warped); 
         manager.SetTitle();
         ResetLevel(warp);
         CreateLevelLines(GlobalState.level.LineCount);
@@ -115,8 +116,6 @@ public partial class LevelGenerator : MonoBehaviour {
         if (warpToLine == null)
             warpToLine = "0";
         hero.transform.position = (warpToLine != "") ? new Vector3(-8, properties.initialLineY - (int.Parse(warpToLine) - 1) * properties.linespacing, 1) : hero.transform.position;
-        GetComponent<AudioSource>().clip = warpSound;
-        GetComponent<AudioSource>().Play();
     }
 
     /// <summary>
@@ -602,6 +601,8 @@ public partial class LevelGenerator : MonoBehaviour {
         hero.transform.Find("NewTool").GetComponent<SpriteRenderer>().color = color; 
 	    Animator anim = hero.transform.Find("NewTool").GetComponent<Animator>(); 
 	    anim.SetTrigger("onNewTool");
+        GetComponent<AudioSource>().PlayOneShot(newTool, 0.5f); 
+        
     }
 
 //.................................>8.......................................

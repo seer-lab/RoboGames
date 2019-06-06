@@ -50,6 +50,7 @@ public class Cinematic : MonoBehaviour
                 score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
             } 
             if (score <= 0) score = 1; 
+            if (score > 5) score = 5; 
         }
         originalEnergy = GlobalState.TotalEnergy; 
         GlobalState.TotalEnergy += 4*score; 

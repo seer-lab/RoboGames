@@ -1,47 +1,51 @@
 ﻿using System.Xml.Linq;
-using System.Text.RegularExpressions; 
+using System.Text.RegularExpressions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BugComment : comment
 {
-    bool isAnswered = false; 
-    void CleanBlocktext(){
-        if (blocktext.Contains("$bug")){
-            Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))"); 
+    bool isAnswered = false;
+    void CleanBlocktext()
+    {
+        if (blocktext.Contains("$bug"))
+        {
+            Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))");
             string answer = ansRgx.Match(blocktext).Value;
-            blocktext = blocktext.Replace("$bug" + answer + "$",""); 
-        }   
+            blocktext = blocktext.Replace("$bug" + answer + "$", "");
+        }
     }
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
-        CleanBlocktext(); 
+        CleanBlocktext();
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isAnswered)
         {
-            isAnswered = true; 
+            isAnswered = true;
+            audioSource.PlayOneShot(correct);
             anim.SetTrigger("Complete");
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
             //blocktext = blocktext.Substring("<color=#00ff00ff>/**/</color>".Length, blocktext.Length- "<color=#00ff00ff>/**/</color>".Length);
             string value = "<color=#00ff00ff>/*" + blocktext + "*/</color>";
-            
+
             string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
             {
                 GlobalState.level.Code[index + i] = text[i];
             }
-            
+
             lg.DrawInnerXmlLinesToScreen();
 
             // CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
             // 																	  blocktext.Replace("/**/","") +
             // 																	  " */" + stringLib.CLOSE_COLOR_TAG);
 
-            if (errmsg.Contains("$err$")){
-                output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", ""); 
+            if (errmsg.Contains("$err$"))
+            {
+                output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", "");
             }
             else output.Text.text = errmsg;
             resetTime = Time.time + timeDelay;
@@ -59,23 +63,44 @@ public class BugComment : comment
             }
 
         }
-        else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
-			hero.onFail();
-		}
+        else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT)
+        {
+            hero.onFail();
+            audioSource.PlayOneShot(wrong);
+        }
     }
-    public override void UpdateProtocol(){
-        if (output.Text.text == "" && isAnswered){
+    public void Uncomment()
+    {
+        if(isAnswered){
             anim.SetTrigger("isBug");
-            string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language); 
-            value = "<color=#00ff00ff>/**/</color>" + value; 
+            output.Text.text = "";
+            string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language);
+            value = "<color=#00ff00ff>/**/</color>"  + value;
             string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
             {
                 GlobalState.level.Code[index + i] = text[i];
             }
-            
+
             lg.DrawInnerXmlLinesToScreen();
-            isAnswered = false; 
+            isAnswered = false;
+        }
+    }
+    public override void UpdateProtocol()
+    {
+        if (output.Text.text == "" && isAnswered)
+        {
+            anim.SetTrigger("isBug");
+            string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language);
+            value = "<color=#00ff00ff>/**/</color>" + value;
+            string[] text = value.Split('\n');
+            for (int i = 0; i < text.Length; i++)
+            {
+                GlobalState.level.Code[index + i] = text[i];
+            }
+
+            lg.DrawInnerXmlLinesToScreen();
+            isAnswered = false;
         }
     }
 }

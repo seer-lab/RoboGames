@@ -16,8 +16,8 @@ public class EnergyController : MonoBehaviour
     bool initial = true;
     bool hidden = false; 
     float initialScale; 
-    float initialY; 
-    float positionCompensation = 220f; 
+    float initialX; 
+    float positionCompensation = 160f; 
 
     public float[] percentPerUse(){
         float[] percent = new float[throwEnergy.Length]; 
@@ -38,7 +38,7 @@ public class EnergyController : MonoBehaviour
         tools = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
         energyBar = transform.GetChild(1).gameObject; 
         energyBarTrans = energyBar.GetComponent<RectTransform>(); 
-        initialY = energyBarTrans.position.y; 
+        initialX = energyBarTrans.position.x; 
         initialScale = energyBar.GetComponent<RectTransform>().localScale.x; 
     }
     public void onThrow(int projectileCode)
@@ -52,7 +52,7 @@ public class EnergyController : MonoBehaviour
         if (currentEnergy > 0 ){
             indicator.text = ((int)(currentEnergy*100f / initialEnergy)).ToString() + '%';
             energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*((currentEnergy / initialEnergy)), 1, 1);
-            energyBarTrans.position = new Vector3(energyBarTrans.position.x, initialY + positionCompensation*((initialEnergy-currentEnergy) / initialEnergy), 0 ); 
+            energyBarTrans.position = new Vector3(initialX + positionCompensation*((initialEnergy-currentEnergy) / initialEnergy), energyBarTrans.position.y, 0 ); 
         } 
         else {
             indicator.text = "0%"; 
@@ -62,10 +62,10 @@ public class EnergyController : MonoBehaviour
     public void onFail(int projectileCode){
         currentEnergy-= throwEnergy[projectileCode];
         if (currentEnergy> 0)
-            indicator.text = (currentEnergy / initialEnergy).ToString() + '%'; 
+            indicator.text = ((int)(currentEnergy*100f / initialEnergy)).ToString() + '%'; 
         else indicator.text = "0%"; 
         energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale*(currentEnergy / initialEnergy), 1, 1); 
-        energyBarTrans.position = new Vector3(energyBarTrans.position.x, initialY + positionCompensation*((initialEnergy -currentEnergy) / initialEnergy), 0 ); 
+        energyBarTrans.position = new Vector3(initialX + positionCompensation*((initialEnergy-currentEnergy) / initialEnergy), energyBarTrans.position.y, 0 ); 
     }
     // Update is called once per frame
     void Update()

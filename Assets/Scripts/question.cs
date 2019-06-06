@@ -177,12 +177,14 @@ public class question : Tools {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
             selectedTool.outputtext.GetComponent<Text>().text = displaytext;
-			audioPrompt.Play();
+			audioSource.PlayOneShot(correct); 
 			answering = true;
             Output.IsAnswering = true;
+
 		}
 		else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_ACTIVATOR){
 			hero.onFail();
+			audioSource.PlayOneShot(wrong); 
 		}
 	}
 

@@ -52,9 +52,13 @@ public class hero2Controller : MonoBehaviour
 	private bool reachedPosition = true; 
 	EnergyController energyController; 
 	private FireButton fire; 
+
+	private AudioClip throwTool; 
+	AudioSource audioSource; 
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+		audioSource = this.GetComponent<AudioSource>(); 
 		codescreen = GameObject.Find("CodeScreen");
 		energyController = GameObject.Find("Energy").GetComponent<EnergyController>();
 		fire = GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>();
@@ -66,6 +70,7 @@ public class hero2Controller : MonoBehaviour
 		projectiles[4] =  Resources.Load<GameObject>("Prefabs/projectileDebug").GetComponent<Rigidbody2D>();
 		projectiles[5] =  Resources.Load<GameObject>("Prefabs/projectileHelp").GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
+		throwTool = Resources.Load<AudioClip>("Sound/Triggers/throw");  
 		climbTime = 0f;
 		lg = codescreen.GetComponent<LevelGenerator>();
 		controller = Camera.main.GetComponent<GameController>(); 
@@ -178,6 +183,7 @@ public class hero2Controller : MonoBehaviour
 			   projectilecode >= 0 &&
 			   selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0) {
 				throwing = true;
+				audioSource.PlayOneShot(throwTool, 2f); 
    				anim.SetBool("throw", true);
 				energyController.onThrow(projectilecode); 
 				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();  

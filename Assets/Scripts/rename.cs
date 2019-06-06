@@ -184,9 +184,11 @@ public class rename : Tools {
 			audioPrompt.Play();
 			answering = true;
             Output.IsAnswering = true;
+			audioSource.PlayOneShot(base.correct); 
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();
+			audioSource.PlayOneShot(wrong);
 		}
 	}
 

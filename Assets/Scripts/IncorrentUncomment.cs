@@ -59,6 +59,7 @@ public class IncorrentUncomment : comment
         Debug.Log(collidingObj.name);
         if (collidingObj.name == stringLib.PROJECTILE_DEBUG && !doneUpdating) {
 			Destroy(collidingObj.gameObject);
+            audioSource.PlayOneShot(wrong); 
 			selectedTool.outputtext.GetComponent<Text>().text = "There are errors with the selected code; \nfigure out what the mistake is, then \nuncomment the correct solution.";
 		}
         hero.onFail();
