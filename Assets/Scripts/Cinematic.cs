@@ -21,12 +21,13 @@ public class Cinematic : MonoBehaviour
     public string endtext = "Winner!\nLevel End Placeholder!";
     public GameObject prompt1, prompt2;
     public GameObject[] stars = new GameObject[5];
-
+    float originalEnergy; 
     private bool cinerun = false;
     private float delaytime = 0f;
     private float delay = 0.1f;
 
     int score; 
+
     bool shownCharacter = false; 
 
     string webdata;
@@ -50,6 +51,7 @@ public class Cinematic : MonoBehaviour
             } 
             if (score <= 0) score = 1; 
         }
+        originalEnergy = GlobalState.TotalEnergy; 
         GlobalState.TotalEnergy += 4*score; 
         if (!GlobalState.IsDark)
         {
@@ -104,11 +106,30 @@ public class Cinematic : MonoBehaviour
         }
     }
     IEnumerator FadeInResults(){
-        CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>(); 
+        CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
+        CanvasGroup energyCanvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();  
+        energyCanvas.GetComponent<Text>().text = "Total Energy: " + originalEnergy.ToString(); 
         while(canvas.alpha < 1){
             canvas.alpha += 0.05f; 
+            energyCanvas.alpha += 0.05f; 
             yield return null; 
         }
+        StartCoroutine(ShowBonusEnergy()); 
+    }
+    IEnumerator ShowBonusEnergy(){
+        Text field = transform.Find("Energy").gameObject.GetComponent<Text>(); 
+        float dif = GlobalState.TotalEnergy - originalEnergy; 
+        int frames = 30; 
+        float count = originalEnergy; 
+        yield return new WaitForSecondsRealtime(0.5f); 
+        for (int i = 1; i <= 30; i++)
+        {
+            count += dif/(float)frames; 
+            field.text = "Total Energy: " +((int)count).ToString(); 
+            field.color = new Color(field.color.r, field.color.g + 0.05f, field.color.b); 
+            yield return null; 
+        }
+
     }
     IEnumerator PushResults(){
         StartCoroutine(FadeInResults()); 
@@ -144,15 +165,15 @@ public class Cinematic : MonoBehaviour
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
         yield return new WaitForSecondsRealtime(1f);
-        string filepath = ""; 
-        // if (GlobalState.GameMode == "on"){
-        //     string file = "onleveldata/" + GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
-        //     filepath = Path.Combine(Application.streamingAssetsPath, file); 
-        // }
-        // else{
-        //     string file =  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
-        //     Debug.Log(file); 
-        //     filepath = Path.Combine(Application.streamingAssetsPath, file); 
+        string filepath; 
+        if (GlobalState.GameMode == "on"){
+            string file = "onleveldata/" + GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
+            filepath = Path.Combine(Application.streamingAssetsPath, file); 
+        }
+        else{
+            string file = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
+            Debug.Log(file); 
+            filepath = Path.Combine(Application.streamingAssetsPath, file); 
             
         // }
         if (File.Exists(filepath)){
@@ -229,7 +250,7 @@ public class Cinematic : MonoBehaviour
     }
     private void UpdateLevel(string file)
     {
-        string[] temp = file.Split('/');
+        string[] temp = file.Split('\\');
         for (int i = 0; i < temp.Length; i++)
         {
             Debug.Log(temp[i]);

@@ -39,6 +39,7 @@ public class SidebarController : MonoBehaviour
     {
         LoadPanels();
         stringLibrary = new stringLib(); 
+        levelDescriptor.GetComponent<Text>().text = GlobalState.level.Description; 
     }
     public void ToggleSidebar()
     {
