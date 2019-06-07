@@ -116,6 +116,16 @@ public class OldMenu : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");
 
+        /**
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+         */
+        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
+        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
+        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
 
         //Debug.Log("Status Code: " + request.responseCode);
