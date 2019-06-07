@@ -27,7 +27,7 @@ public class Cinematic : MonoBehaviour
     private float delay = 0.1f;
 
     int score; 
-
+    bool updatedLevel = false; 
     bool shownCharacter = false; 
 
     string webdata;
@@ -173,7 +173,6 @@ public class Cinematic : MonoBehaviour
         }
         else{
             string file = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
-            Debug.Log(file); 
             filepath = Path.Combine(Application.streamingAssetsPath, file); 
             
         }
@@ -246,6 +245,7 @@ public class Cinematic : MonoBehaviour
         #endif
         
         Debug.Log(filepath); 
+        updatedLevel = true; 
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
@@ -282,7 +282,7 @@ public class Cinematic : MonoBehaviour
             Debug.Log("Cinematics: UpdateLevel(string file) WEBGL AND WINDOWS");
             filepath = webdata;
         #endif
-
+        updatedLevel = true; 
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
@@ -293,6 +293,8 @@ public class Cinematic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
+            GlobalState.IsResume = true; 
+            if (!updatedLevel)UpdateLevel(GlobalState.level.NextLevel); 
             SceneManager.LoadScene("MainMenu");
         }
         if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)

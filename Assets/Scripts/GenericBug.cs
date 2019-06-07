@@ -21,16 +21,19 @@ public class GenericBug : Tools {
 	public Animator anim;
 
 	public string answer; 
+	AudioClip glitch; 
 
 
     public override void Initialize()
     {
+		glitch = Resources.Load<AudioClip>("Sound/Triggers/Glitch"); 
         IsDead = false;
         Finished = false; 
         this.GetComponent<Renderer>().enabled = false;
         anim = GetComponent<Animator>();
     }
 	IEnumerator GlitchText(){		
+		audioSource.PlayOneShot(glitch, 0.5f); 
 		TextMesh text = GetComponent<TextMesh>(); 
 		if (!GlobalState.IsDark) text.color = Color.black; 
 		text.text = GlobalState.level.Code[index]; 
