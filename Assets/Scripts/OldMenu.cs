@@ -141,6 +141,10 @@ public class OldMenu : MonoBehaviour
     void Start()
     {
         Screen.orientation = ScreenOrientation.Landscape;
+        if (SceneManager.sceneCount > 1){
+            GetComponent<AudioSource>().Stop(); 
+            GetComponent<AudioListener>().enabled = false; 
+        }
         if (!GlobalState.IsResume)
         {
             InitializeGlobals();
@@ -164,7 +168,9 @@ public class OldMenu : MonoBehaviour
         StartCoroutine(Post(stringLib.DB_URL + "BUG", json));
 
     }
+    void Awake(){
 
+    }
     public void onClick(int index)
     {
         if (GlobalState.IsResume && index == 4)
@@ -324,7 +330,11 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         GlobalState.IsResume = false;
-                        SceneManager.UnloadSceneAsync("MainMenu");
+                        if (SceneManager.sceneCount > 1)
+                            SceneManager.UnloadSceneAsync("MainMenu");
+                        else {
+                            SceneManager.LoadScene("newgame"); 
+                        }
                         break;
                     default:
                         break;
