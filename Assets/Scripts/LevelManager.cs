@@ -163,10 +163,6 @@ public class LevelManager
     {
         Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))"); 
         string answer = ansRgx.Match(GlobalState.level.Code[lineNumber]).Value; 
-        Debug.Log("Answer: "  + answer);
-        //int bugsize = 1;
-        //int col = column; 
-        //RoboBug Implementation 
         GameObject bugObject = Resources.Load<GameObject>("Prefabs/bug");
         GameObject levelBug = GameObject.Instantiate(bugObject, new Vector3(properties.bugXshift, properties.initialLineY - (lineNumber + 0.5f  * properties.linespacing + 0.4f), 0f), bugObject.transform.rotation);
         //levelBug.transform.localScale += new Vector3(properties.bugscale * (bugsize - 1), properties.bugscale * (bugsize - 1), 0);

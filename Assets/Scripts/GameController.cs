@@ -233,6 +233,7 @@ public class GameController : MonoBehaviour, ITimeUser
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
             filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            filepath = filepath.Replace(" ", ""); 
             Debug.Log("GameController: Start() WINDOWS");
         #endif
 
