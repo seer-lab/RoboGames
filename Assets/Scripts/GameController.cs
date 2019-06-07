@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Xml; 
 using System.IO; 
 using UnityEngine;
+using System.Text;
 using UnityEngine.Networking;
 using System.Runtime.InteropServices;
 
@@ -38,12 +39,21 @@ public class GameController : MonoBehaviour, ITimeUser
         www.SendWebRequest();
         System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if(www.isNetworkError || www.isHttpError){
-            Debug.Log(www.error);
+            Debug.Log("Error at WEB: " + www.error);
         }else{
             Debug.Log(www.downloadHandler.text);
             webdata = www.downloadHandler.text;
         }
         yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator Put(string url, string bodyJsonString)
+    {
+        //Debug.Log(url);
+        byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
+        UnityWebRequest request = UnityWebRequest.Put(url, myData);
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
     }
 
     /// <summary>
@@ -120,7 +130,11 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        //logger.onGameEnd(); 
+        logger.onGameEnd();
+        #if UNITY_WEBGL
+            string json = logger.jsonObj;
+            StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+        #endif
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -139,7 +153,11 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             if (winning){
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            //logger.onGameEnd(); 
+            logger.onGameEnd();
+            #if UNITY_WEBGL
+                string json = logger.jsonObj;
+                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+            #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
             }
             else GameOver();  
@@ -160,7 +178,11 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            //logger.onGameEnd(); 
+            logger.onGameEnd();
+            #if UNITY_WEBGL
+                string json = logger.jsonObj;
+                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+            #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
@@ -227,10 +249,9 @@ public class GameController : MonoBehaviour, ITimeUser
             if (GlobalState.Language == "python") filepath += "python/";
             filepath+=GlobalState.CurrentONLevel;
             StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            Debug.Log("GameController: Start() WEBGL AND WINDOWS");
+            //Debug.Log("GameController: Start() WEBGL AND WINDOWS");
             filepath = webdata;
         #endif
-        //Debug.Log("GameController.cs Start() path: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();

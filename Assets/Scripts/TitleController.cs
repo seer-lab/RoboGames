@@ -19,7 +19,7 @@ public class TitleController : MonoBehaviour
         #if UNITY_WEBGL                    
             filepath = "StreamingAssets/TitleSequence.mp4";
             player.url = stringLib.SERVER_URL + filepath;
-            Debug.Log("TitleController Start() WEBGL");
+            //Debug.Log("TitleController Start() WEBGL");
         #endif
         robot = this.transform.GetChild(0).GetComponent<Animator>(); 
         girl = this.transform.GetChild(1).GetComponent<Animator>(); 

@@ -44,7 +44,11 @@ public class LevelFactory
         level.TaskOnLine = new int[level.LineCount, stateLib.NUMBER_OF_TOOLS];
 
         level.NodeList = XMLReader.GetToolNodes(doc);
-        level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
+        #if UNITY_WEBGL
+            level.FileName = GlobalState.CurrentONLevel;
+        #else
+            level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
+        #endif
         level.Failure_Level = XMLReader.GetFailureLevel(doc);
 
         level.Description = XMLReader.GetLevelDescription(doc); 
@@ -63,8 +67,8 @@ public class LevelFactory
         #endif
 
         #if UNITY_WEBGL
-            Debug.Log("Build Current "+ filename);
             doc = new XmlDocument();
+            doc.PreserveWhitespace = true;
             doc.LoadXml(filename);
             Debug.Log("LevelFactory: BuildFromCurrent() WEBGL");
         #endif
@@ -80,15 +84,16 @@ public class LevelFactory
         XmlDocument doc = null;
         string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            Debug.Log("LevelFactory: BuildLevel() WINDOWS");
+            //Debug.Log("LevelFactory: BuildLevel() WINDOWS");
             doc = XMLReader.ReadFile(filename);
         #endif
 
         #if UNITY_WEBGL
             doc = new XmlDocument();
             Debug.Log("Build Level "+ filename);
+            doc.PreserveWhitespace = true;
             doc.LoadXml(filename);
-            Debug.Log("LevelFactory: BuildLevel() WEBGL");
+            //Debug.Log("LevelFactory: BuildLevel() WEBGL");
         #endif
 
         BuildFile(doc, filename); 
@@ -104,23 +109,9 @@ public class LevelFactory
             level.Time = 9001; 
         }
 
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-            if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python"); 
-            filepath = Path.Combine(filepath, XMLReader.GetNextLevel(doc));
-            Debug.Log("LevelFactory: BuildLevel() WINDOWS");
-        #endif
-
-        #if UNITY_WEBGL
-            filepath = "StreamingAssets/" + GlobalState.GameMode + "leveldata/";
-            if (GlobalState.Language == "python") filepath += "python/";
-            filepath+= XMLReader.GetNextLevel(doc);
-            Debug.Log("LevelFactory: BuildLevel() WEBGL");
-        #endif
-
         // next level
         //level.NextLevel =Application.streamingAssetsPath+ "/" + GlobalState.GameMode + "leveldata" + GlobalState.FilePath + XMLReader.GetNextLevel(doc);        
-        level.NextLevel = filepath;
+        level.NextLevel = XMLReader.GetNextLevel(doc);
         // intro text
         level.IntroText = XMLReader.GetIntroText(doc);
         // end text

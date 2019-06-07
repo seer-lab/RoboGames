@@ -23,4 +23,6 @@ public static class GlobalState
     public static string FilePath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
     public static Level level; 
 
+    public static long sessionID {get; set;}
+
 }
