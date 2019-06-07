@@ -150,7 +150,8 @@ public class OldMenu : MonoBehaviour
         GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
         string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"}";
-        StartCoroutine(Post(stringLib.DB_URL, json));
+        StartCoroutine(Post(stringLib.DB_URL + "ON", json));
+        StartCoroutine(Post(stringLib.DB_URL + "BUG", json));
 
     }
 

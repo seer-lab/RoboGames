@@ -133,7 +133,7 @@ public class GameController : MonoBehaviour, ITimeUser
         logger.onGameEnd();
         #if UNITY_WEBGL
             string json = logger.jsonObj;
-            StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+            StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
         #endif
         SceneManager.LoadScene("Cinematic"); 
     }
@@ -156,7 +156,7 @@ public class GameController : MonoBehaviour, ITimeUser
             logger.onGameEnd();
             #if UNITY_WEBGL
                 string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+                StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
             #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
             }
@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour, ITimeUser
             logger.onGameEnd();
             #if UNITY_WEBGL
                 string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+                StartCoroutine(Put(stringLib.DB_URL +GlobalState.GameMode.ToUpper()+"/" + GlobalState.sessionID.ToString(), json));
             #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
