@@ -55,6 +55,11 @@ public class GameController : MonoBehaviour, ITimeUser
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
         UnityWebRequest request = UnityWebRequest.Put(url, myData);
         request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Accept", "*");
+        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
+        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
+        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
     }
 
@@ -136,7 +141,7 @@ public class GameController : MonoBehaviour, ITimeUser
         logger.onGameEnd();
         #if UNITY_WEBGL
             string json = logger.jsonObj;
-            StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+            StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
         #endif
         SceneManager.LoadScene("Cinematic"); 
     }
@@ -165,7 +170,7 @@ public class GameController : MonoBehaviour, ITimeUser
             logger.onGameEnd();
             #if UNITY_WEBGL
                 string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+                StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
             #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
             }
@@ -190,7 +195,7 @@ public class GameController : MonoBehaviour, ITimeUser
             logger.onGameEnd();
             #if UNITY_WEBGL
                 string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL + "/" + GlobalState.sessionID.ToString(), json));
+                StartCoroutine(Put(stringLib.DB_URL +GlobalState.GameMode.ToUpper()+"/" + GlobalState.sessionID.ToString(), json));
             #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }

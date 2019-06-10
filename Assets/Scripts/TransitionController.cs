@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO; 
 using UnityEngine.SceneManagement; 
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using System.Runtime.InteropServices;
+using UnityEngine.Networking;
+using System.Text;
+using System;
 
 public class TransitionController : MonoBehaviour
 {
@@ -14,6 +18,23 @@ public class TransitionController : MonoBehaviour
     bool started = false; 
     string image; 
     int index = 0; 
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
+    string webdata;
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }else{
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
     // Start is called before the first frame update
     void Start()   
     {
@@ -73,47 +94,103 @@ public class TransitionController : MonoBehaviour
     }
     void ReadFile(){
         string bug = "on"; 
-        if( GlobalState.GameMode == "bug") bug = "bug"; 
-        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
+        if( GlobalState.GameMode == "bug") bug = "bug";
+        string filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/"+GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            filepath ="StreamingAssets/onleveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+            filepath = GetData(stringLib.SERVER_URL + filepath);
+        #else
+            filepath ="StreamingAssets/onleveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+            filepath =webdata;
+        #endif
+
+
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
-        bool positionLine = false; 
-        using (StreamReader reader = new StreamReader(filepath)){
-            image = reader.ReadLine(); 
-            while(!reader.EndOfStream){
-                string line = reader.ReadLine(); 
-                if (line.Contains("$Boy")){
-                    actorOrder.Add("Boy"); 
-                    line = line.Remove(0,line.IndexOf(':')); 
+        bool positionLine = false;
+
+        #if UNITY_WEBGL
+            byte[] byteArr = Encoding.ASCII.GetBytes(filepath);
+            MemoryStream stream = new MemoryStream(byteArr);
+
+            using (StreamReader reader = new StreamReader(stream)){
+                image = reader.ReadLine(); 
+                while(!reader.EndOfStream){
+                    string line = reader.ReadLine(); 
+                    if (line.Contains("$Boy")){
+                        actorOrder.Add("Boy"); 
+                        line = line.Remove(0,line.IndexOf(':')); 
+                    }
+                    else if (line.Contains("$Girl")){
+                        actorOrder.Add("Girl"); 
+                    }
+                    else if (line.Contains("$Robot")){
+                        actorOrder.Add("Robot"); 
+                    }
+                    else if (line.Contains("#Boy:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Girl:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Robot")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    if (!positionLine){
+                        line = line.Remove(0,line.IndexOf(':')+1); 
+                        lines.Add(line);
+                    }
+                    else positionLine = false; 
                 }
-                else if (line.Contains("$Girl")){
-                    actorOrder.Add("Girl"); 
-                }
-                else if (line.Contains("$Robot")){
-                    actorOrder.Add("Robot"); 
-                }
-                else if (line.Contains("#Boy:")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                else if (line.Contains("#Girl:")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                else if (line.Contains("#Robot")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                if (!positionLine){
-                    line = line.Remove(0,line.IndexOf(':')+1); 
-                    lines.Add(line);
-                }
-                else positionLine = false; 
             }
-        }
+
+
+
+        #else
+            using (StreamReader reader = new StreamReader(filepath)){
+                image = reader.ReadLine(); 
+                while(!reader.EndOfStream){
+                    string line = reader.ReadLine(); 
+                    if (line.Contains("$Boy")){
+                        actorOrder.Add("Boy"); 
+                        line = line.Remove(0,line.IndexOf(':')); 
+                    }
+                    else if (line.Contains("$Girl")){
+                        actorOrder.Add("Girl"); 
+                    }
+                    else if (line.Contains("$Robot")){
+                        actorOrder.Add("Robot"); 
+                    }
+                    else if (line.Contains("#Boy:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Girl:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Robot")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    if (!positionLine){
+                        line = line.Remove(0,line.IndexOf(':')+1); 
+                        lines.Add(line);
+                    }
+                    else positionLine = false; 
+                }
+            }
+        #endif
     }
 
     IEnumerator HideDialog(GameObject dialog){

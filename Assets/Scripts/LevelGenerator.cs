@@ -69,6 +69,7 @@ public partial class LevelGenerator : MonoBehaviour {
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
+        GlobalState.correctLine = new string[stateLib.NUMBER_OF_TOOLS];
         BuildLevel(); 
 
 	}
