@@ -23,7 +23,7 @@ int[] SetPriority(int priorities[], int numOfTargets){
 	</print>
     <print text="5" col="4">cout &lt;&lt; numOfTargets;
 	</print>
-    for(int i = 0; i$bug   for(int i = 0; i < numOfTargets-1; i++)$ &lt;= numOfTargets; i++){
+    for(int i = 0; i$bug for(int i = 0; i &lt; numOfTargets-1; i++)$ &lt;= numOfTargets; i++){
         if (priorities[i]&gt;priorities[i+1]){
             Swap(priorities[i],priorities[i+1]);
         }
