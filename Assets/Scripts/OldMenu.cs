@@ -49,7 +49,7 @@ public class OldMenu : MonoBehaviour
     private StreamReader sr;
     private string windowsFilepath = @"\";
     private string unixFilepath = @"/";
-
+    bool firstOption = true; 
     int selectedIndex = -1;
     int textOption = GlobalState.TextSize;
     string[] textsizes;
@@ -156,7 +156,7 @@ public class OldMenu : MonoBehaviour
         buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
         buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-        textsizes = new string[] { "Small", "Normal", "Large", "Large++" };
+        textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
@@ -462,6 +462,7 @@ public class OldMenu : MonoBehaviour
                         else optionPage = 0;
                         if (optionPage == 0)
                         {
+                            m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize; 
                             m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                             m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                             m2buttontext[2].GetComponent<TextMesh>().text = "Next";
@@ -626,7 +627,16 @@ public class OldMenu : MonoBehaviour
         }
     }
 
-
+    private void ResetM2(){
+        m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize; 
+         Transform trans = menu2.GetComponent<Transform>();
+                trans.position = new Vector3(trans.position.x, 0, trans.position.z);
+                trans.localScale = new Vector3(trans.localScale.x, 0.8f, trans.localScale.z);
+                Transform button = m2buttons[0].GetComponent<Transform>();
+                button.position = new Vector3(button.position.x, 0.82f, button.position.z);
+                button = m2buttons[1].GetComponent<Transform>();
+                button.position = new Vector3(button.position.x, -0.945f, button.position.z);
+    }
     //.................................>8.......................................
     //************************************************************************//
     // Method: private void m2switch(bool on)
@@ -647,30 +657,34 @@ public class OldMenu : MonoBehaviour
             }
             if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
             {
+                
                 Transform trans = menu2.GetComponent<Transform>();
                 trans.position = new Vector3(trans.position.x, -0.9f, trans.position.z);
                 trans.localScale = new Vector3(trans.localScale.x, 1.2f, trans.localScale.z);
                 Transform button = m2buttons[0].GetComponent<Transform>();
                 button.position = new Vector3(button.position.x, 0.42f, button.position.z);
-                for (int i = 0; i < m2buttons.Length; i++)
+                for (int i = 0; i <2; i++)
                 {
                     Transform thisButton = m2buttons[i].GetComponent<Transform>();
                     thisButton.position = new Vector3(thisButton.position.x, thisButton.position.y + 0.7f, thisButton.position.z);
                 }
+                if (firstOption){
+                    firstOption = false; 
+                for (int i = 2; i < 4 ; i++)
+                {
+                    Transform thisButton = m2buttons[i].GetComponent<Transform>();
+                    thisButton.position = new Vector3(thisButton.position.x, thisButton.position.y + 0.7f, thisButton.position.z);
+                }
+                }
             }
             else
             {
-                Transform trans = menu2.GetComponent<Transform>();
-                trans.position = new Vector3(trans.position.x, 0, trans.position.z);
-                trans.localScale = new Vector3(trans.localScale.x, 0.8f, trans.localScale.z);
-                Transform button = m2buttons[0].GetComponent<Transform>();
-                button.position = new Vector3(button.position.x, 0.82f, button.position.z);
-                button = m2buttons[1].GetComponent<Transform>();
-                button.position = new Vector3(button.position.x, -0.945f, button.position.z);
+               ResetM2(); 
             }
         }
         else
         {
+            ResetM2(); 
             menu2.GetComponent<SpriteRenderer>().enabled = false;
             foreach (GameObject button in m2buttons)
             {
@@ -696,6 +710,7 @@ public class OldMenu : MonoBehaviour
     public void flushButtonColor()
     {
         m2buttons[0].GetComponent<SpriteRenderer>().sprite = bluebutton;
+        m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize; 
         m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
         option = 0;
         buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;

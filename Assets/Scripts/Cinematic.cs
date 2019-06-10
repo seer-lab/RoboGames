@@ -254,17 +254,13 @@ public class Cinematic : MonoBehaviour
     private void UpdateLevel(string file)
     {
         string[] temp = file.Split('\\');
-        for (int i = 0; i < temp.Length; i++)
-        {
-            Debug.Log(temp[i]);
-        }
         GlobalState.CurrentONLevel = temp[temp.Length - 1];
 
         string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
-            filepath = Path.Combine(filepath, file);
+            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
             //filepath = file;
             Debug.Log("Cinematics: UpdateLevel(string file) WINDOWS");
         #endif
@@ -319,7 +315,7 @@ public class Cinematic : MonoBehaviour
             }
             
             prompt1.GetComponent<Text>().text = introtext;
-            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButton(0)) && delaytime < Time.time)
             {
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 cinerun = false;
@@ -335,7 +331,7 @@ public class Cinematic : MonoBehaviour
             StartCoroutine(AnimateStars()); 
             prompt1.GetComponent<Text>().text = endtext;
 
-            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
             {
                 // RobotON 2, don't always want tutorials to run comics.
                 // Read in the levels.txt and grab the top one.
@@ -373,7 +369,7 @@ public class Cinematic : MonoBehaviour
                 cinerun = false;
                 GlobalState.GameState = stateLib.GAMESTATE_MENU;
             }
-            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
             {
                 prompt2.GetComponent<Text>().text = stringLib.CONTINUE_TEXT;
 

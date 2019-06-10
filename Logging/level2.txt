@@ -178,3 +178,18 @@ Printer Tool Use:
 	Lines Used: 7 9 13 15 18 
 
 --------------------------------------------------------
+Passed Level
+36 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 11 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 4
+	Times Tool Used: 4
+	Lines Used: 9 15 18 13 
+
+--------------------------------------------------------
