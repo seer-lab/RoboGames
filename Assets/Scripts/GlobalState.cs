@@ -22,9 +22,7 @@ public static class GlobalState
     public static int TextSize = 1; 
     public static string FilePath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
     public static Level level; 
-
     public static long sessionID {get; set;}
-
     public static string jsonStates{get; set;}
-
+    public static string[] correctLine {get; set;}
 }

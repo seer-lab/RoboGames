@@ -110,7 +110,7 @@ public class Logger
                 }else{
                     jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesBug[i] + "\",";
                 }
-
+                jsonObj += "\"correctLine\": \"" + GlobalState.correctLine[i] + "\",";
                 jsonObj += "\"reqTask\": \"" + GlobalState.level.Tasks[i] + "\",";
                 jsonObj += "\"compTask\": \"" + GlobalState.level.CompletedTasks[i] + "\",";
                 jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";

@@ -31,7 +31,9 @@ public class PrinterFactory : ToolFactory
     public PrinterFactory(XmlNode node, int line)
         :base(node, line)
     {
-        tool = new printer(); 
+        tool = new printer();
+        int lineS = line + 1;
+        GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
     }
     public override Tools GetScript()
     {
@@ -67,7 +69,9 @@ public class WarperFactory: ToolFactory
     public WarperFactory(XmlNode node, int line)
         :base(node, line)
     {
-        tool = new warper(); 
+        tool = new warper();
+        int lineS = line + 1;
+        GlobalState.correctLine[stateLib.TOOL_WARPER_OR_RENAMER] += lineS.ToString() + " "; 
     }
     public override Tools GetScript()
     {
@@ -126,7 +130,9 @@ public class QuestionFactory: ToolFactory
         :base(node, line)
     {
         tool = new question();
-        stringLibrary = new stringLib(); 
+        stringLibrary = new stringLib();
+        int lineS = line + 1;
+        GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " "; 
     }
     public override Tools GetScript()
     {
@@ -155,7 +161,9 @@ public class RenamerFactory : ToolFactory
     public RenamerFactory(XmlNode node, int lineNumber)
         :base(node, lineNumber)
     {
-        tool = new rename(); 
+        tool = new rename();
+        int lineS = lineNumber + 1;
+        GlobalState.correctLine[stateLib.TOOL_WARPER_OR_RENAMER] += lineS.ToString() + " "; 
     }
     public override Tools GetScript()
     {
@@ -202,7 +210,9 @@ public class BreakpointFactory: ToolFactory
     public BreakpointFactory(XmlNode node, int line)
         :base(node, line)
     {
-        tool = new Breakpoint(); 
+        tool = new Breakpoint();
+        int lineS = line + 1;
+        GlobalState.correctLine[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] += lineS.ToString() + " "; 
     }
     public override Tools GetScript()
     {
@@ -260,7 +270,9 @@ public class BeaconFactory: ToolFactory
     public BeaconFactory(XmlNode node, int line)
         :base(node, line)
     {
-        tool = new beacon(); 
+        tool = new beacon();
+        int lineS = line + 1; 
+        GlobalState.correctLine[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW ] += lineS.ToString() + " ";
     }
     public override Tools GetScript()
     {
@@ -291,7 +303,7 @@ public class VariableColorFactory: ToolFactory
     public VariableColorFactory(XmlNode node, int line)
         :base(node, line)
     {
-        tool = new VariableColor(); 
+        tool = new VariableColor();
     }
     public override Tools GetScript()
     {
@@ -321,6 +333,8 @@ public class CommentFactory: ToolFactory
     public CommentFactory(XmlNode node, int line)
         :base(node, line)
     {
+        int lineS = line + 1;
+        GlobalState.correctLine[stateLib.TOOL_COMMENTER ] += lineS.ToString() + " ";
 
     }
     public override Tools GetScript()
