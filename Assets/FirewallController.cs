@@ -19,8 +19,9 @@ public class FirewallController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collidingObj){
         if (collidingObj.name == "Hero"){
-            collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage); 
+            if (collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage))
+                GetComponent<AudioSource>().Play(); 
         }
     }
-    
+
 }
