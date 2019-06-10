@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour, ITimeUser
     SelectedTool selectedTool; 
     BackgroundController background; 
     BackButton backButton; 
+    bool calledDead = false; 
+    GameObject hero; 
     EnergyController EnergyController; 
     bool firstUpdate = true; 
 
@@ -76,6 +78,7 @@ public class GameController : MonoBehaviour, ITimeUser
                 winning = true; 
             if (winning)
             {
+                StopCoroutine(Lose()); 
                 StartCoroutine(Win()); 
             }
         }
@@ -145,6 +148,10 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Lose()
     {
         CheckWin(); 
+        if (!calledDead){
+            hero.GetComponent<Animator>().SetTrigger("Dead"); 
+            calledDead = true; 
+        }
         do {
             yield return new WaitForSecondsRealtime(2.7f); 
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
@@ -219,7 +226,7 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.manager.ResizeObjects(); 
     }
     void Awake(){
-        GameObject hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+        hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
         hero.name = "Hero"; 
     }
     // Start is called before the first frame update

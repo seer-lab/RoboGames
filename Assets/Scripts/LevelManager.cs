@@ -371,7 +371,7 @@ public class LevelManager
         }
         foreach (GameObject beacon in robotONbeacons)
         {
-            beacon.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY - beacon.GetComponent<beacon>().Index * properties.linespacing + properties.lineOffset + 0.4f, 1);
+            beacon.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - beacon.GetComponent<beacon>().Index * properties.linespacing, 1);
         }
         foreach (GameObject bug in bugs){
             bug.transform.position = new Vector3(properties.bugXshift, properties.initialLineY - (bug.GetComponent<GenericBug>().Index)*properties.linespacing + 0.1f, 0);
@@ -384,7 +384,7 @@ public class LevelManager
             varcolor.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
         }
         foreach (GameObject firewall in firewalls){
-            firewall.transform.position = new Vector3(properties.initialLineX + 1f, properties.initialLineY  - firewall.GetComponent<FirewallController>().Index *properties.linespacing - 0.2f, 1); 
+            firewall.transform.position = new Vector3(properties.initialLineX + 0.5f, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET  - firewall.GetComponent<FirewallController>().Index *properties.linespacing, 1); 
             if (GlobalState.TextSize == 3) {
 				firewall.transform.position += new Vector3(2.4f, 0, 0);
 				firewall.transform.localScale += new Vector3(0.8f, 0, 0);
