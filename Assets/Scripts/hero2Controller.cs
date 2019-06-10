@@ -52,7 +52,7 @@ public class hero2Controller : MonoBehaviour
 	private bool reachedPosition = true; 
 	EnergyController energyController; 
 	private FireButton fire; 
-
+	bool canTakeDamage = true; 
 	private AudioClip throwTool; 
 	AudioSource audioSource; 
 	//.................................>8.......................................
@@ -82,6 +82,25 @@ public class hero2Controller : MonoBehaviour
 	}
 	public void onFail(){
 		energyController.onFail(projectilecode); 
+	}
+	IEnumerator DamageDelay(){
+		canTakeDamage = false; 
+		float seconds = 2f; 
+		int blinks = 3; 
+
+		for (int i = 0; i < blinks; i++){
+			GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f); 
+			yield return new WaitForSecondsRealtime(seconds/(blinks*2)); 
+			GetComponent<SpriteRenderer>().color = new Color(1,1,1); 
+			yield return new WaitForSecondsRealtime(seconds/(blinks*2)); 
+		}
+		canTakeDamage = true; 
+	}
+	public void onTakeDamange(float damage){
+		if (canTakeDamage){
+			energyController.onDamange(damage); 
+			StartCoroutine(DamageDelay()); 
+		}
 	}
 	//.................................>8.......................................
 	void FixedUpdate() {

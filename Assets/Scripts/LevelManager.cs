@@ -27,7 +27,7 @@ public class LevelManager
     public List<GameObject> roboBUGwarps;
     public List<GameObject> bugs;
     public List<GameObject> roboBUGcomments;
-
+    public List<GameObject> firewalls; 
 
     public List<GameObject> robotONcorrectComments;
     public List<GameObject> robotONincorrectComments;
@@ -67,6 +67,7 @@ public class LevelManager
         robotONvariablecolors = new List<GameObject>();
         robotONcorrectComments = new List<GameObject>();
         robotONquestions = new List<GameObject>();
+        firewalls = new List<GameObject>(); 
     }
 
     /// <summary>
@@ -131,6 +132,9 @@ public class LevelManager
         {
             GameObject.Destroy(roboBUGprize);
         }
+        foreach(GameObject firewall in firewalls){
+            GameObject.Destroy(firewall); 
+        }
         /*
         if (levelBug)
         {
@@ -157,7 +161,7 @@ public class LevelManager
         roboBUGprizes = new List<GameObject>();
         roboBugPrint = new List<GameObject>();
         roboBUGwarps = new List<GameObject>(); 
-        
+        firewalls = new List<GameObject>(); 
     }
     public GameObject CreateBug(XmlNode childnode, int lineNumber, int column = 0)
     {
@@ -176,6 +180,16 @@ public class LevelManager
         GlobalState.level.Tasks[0]++;
         //numberOfBugsRemaining++;
         return levelBug;
+    }
+    public GameObject CreateFirewall(XmlNode childNode, int lineNumber, int column = 0){
+        GameObject firewall = Resources.Load<GameObject>("Prefabs/Firewall"); 
+        firewall = GameObject.Instantiate(firewall); 
+        firewall.GetComponent<FirewallController>().Index = lineNumber; 
+        firewall.GetComponent<FirewallController>().Damage = 10; 
+        firewalls.Add(firewall); 
+        GlobalState.level.Code[lineNumber] = GlobalState.level.Code[lineNumber].Replace("$firewall$", ""); 
+
+        return firewall; 
     }
 
     public GameObject CreateHint(XmlNode childNode, int lineNumber){
@@ -368,6 +382,9 @@ public class LevelManager
         foreach (GameObject varcolor in robotONvariablecolors)
         {
             varcolor.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
+        }
+        foreach (GameObject firewall in firewalls){
+            firewall.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY  - firewall.GetComponent<FirewallController>().Index *properties.linespacing - 0.2f, 1); 
         }
     
     }
