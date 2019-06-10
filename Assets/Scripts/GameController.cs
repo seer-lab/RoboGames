@@ -295,6 +295,10 @@ public class GameController : MonoBehaviour, ITimeUser
             firstUpdate = true; 
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+            CodeProperties properties = new CodeProperties(); 
+            hero.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0); 
+            hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
+            hero.GetComponent<Rigidbody2D>().gravityScale = 0; 
         }
     }
     /// <summary>
