@@ -486,7 +486,8 @@ public partial class LevelGenerator : MonoBehaviour {
             nTextSizeConst = leveltext.GetComponent<TextMesh>().fontSize;
         }
         nTextSizeConst = sizes[GlobalState.TextSize]; 
-		hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
+		//hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
+        hero.GetComponent<Rigidbody2D>().gravityScale = 1; 
         leveltext.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+0.5f, leveltext.transform.position.y, leveltext.transform.position.z);
 		switch (nTextSizeConst) {
 			case stateLib.TEXT_SIZE_SMALL:
