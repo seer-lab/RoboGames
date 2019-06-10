@@ -1,0 +1,15 @@
+Failed Level
+-40 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 11
+	Lines Used: 6 6 6 6 6 6 6 6 6 6 6 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 6
+	Lines Used: 6 6 6 6 6 6 
+
+--------------------------------------------------------
