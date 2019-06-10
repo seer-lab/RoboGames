@@ -95,12 +95,12 @@ public class TransitionController : MonoBehaviour
     void ReadFile(){
         string bug = "on"; 
         if( GlobalState.GameMode == "bug") bug = "bug";
-        string filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/"+GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
+        string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
         #if UNITY_WEBGL && !UNITY_EDITOR
-            filepath ="StreamingAssets/onleveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+            filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
             filepath = GetData(stringLib.SERVER_URL + filepath);
-        #else
-            filepath ="StreamingAssets/onleveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+        #elif UNITY_WEBGL
+            filepath ="StreamingAssets/"+ GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
             StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
             filepath =webdata;
         #endif
@@ -154,7 +154,9 @@ public class TransitionController : MonoBehaviour
 
 
         #else
+            Debug.Log(filepath); 
             using (StreamReader reader = new StreamReader(filepath)){
+                
                 image = reader.ReadLine(); 
                 while(!reader.EndOfStream){
                     string line = reader.ReadLine(); 

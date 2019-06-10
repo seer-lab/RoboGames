@@ -157,24 +157,26 @@ public class GameController : MonoBehaviour, ITimeUser
         do {
             yield return new WaitForSecondsRealtime(2.7f); 
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
-        if (!calledDead){
-            hero.GetComponent<Animator>().SetTrigger("Dead"); 
-            calledDead = true; 
-        }
-        yield return new WaitForSecondsRealtime(1.5f); 
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+
         if (!winning)
         {
-            if (winning){
-                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd();
-            #if UNITY_WEBGL
-                string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
-            #endif
-            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+            if (!calledDead){
+                hero.GetComponent<Animator>().SetTrigger("Dead"); 
+                calledDead = true; 
             }
-            else GameOver();  
+            yield return new WaitForSecondsRealtime(1.5f); 
+            GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+            GameOver();  
+        }
+        else{
+                Debug.Log("This weird function runs??"); 
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+                logger.onGameEnd();
+                #if UNITY_WEBGL
+                    string json = logger.jsonObj;
+                    StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
+                #endif
+                SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
     }
     /// <summary>
