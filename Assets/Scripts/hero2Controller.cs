@@ -96,11 +96,13 @@ public class hero2Controller : MonoBehaviour
 		}
 		canTakeDamage = true; 
 	}
-	public void onTakeDamange(float damage){
+	public bool onTakeDamange(float damage){
 		if (canTakeDamage){
 			energyController.onDamange(damage); 
 			StartCoroutine(DamageDelay()); 
+			return true; 
 		}
+		return false; 
 	}
 	//.................................>8.......................................
 	void FixedUpdate() {
