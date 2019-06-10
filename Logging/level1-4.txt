@@ -28,3 +28,18 @@ Commenter Tool Use:
 	Lines Misplayed: 5 
 
 --------------------------------------------------------
+Failed Level
+20 Seconds
+Question Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 11
+	Lines Used: 5 5 5 5 5 5 5 5 5 5 5 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

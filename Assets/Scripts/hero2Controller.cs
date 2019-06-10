@@ -271,7 +271,9 @@ public class hero2Controller : MonoBehaviour
 	}
 	//.................................>8.......................................
 	void Update() {
-		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME) {
+		if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && 
+			!anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Die")
+			&& !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Dead")) {
 			AudioSource ad = GetComponent<AudioSource>();
 			if (!walkloop && (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Mouse X") != 0f) &&
 			Input.GetMouseButton(0)&&

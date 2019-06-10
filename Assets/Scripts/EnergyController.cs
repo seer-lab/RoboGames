@@ -76,10 +76,15 @@ public class EnergyController : MonoBehaviour
     }
     void updateBar()
     {
-        if (currentEnergy > 0)
+        if (currentEnergy > 0){
             indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-        else indicator.text = "0%";
-        energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * (currentEnergy / initialEnergy), 1, 1);
+                    energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * (currentEnergy / initialEnergy), 1, 1);
+                    
+        }
+        else{
+            indicator.text = "0%";
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
+        }
         energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
     }
     // Update is called once per frame
