@@ -58,3 +58,18 @@ Commenter Tool Use:
 	Lines Used: 3 2 4 6 9 
 
 --------------------------------------------------------
+Failed Level
+8 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 5
+	Lines Used: 2 3 4 3 3 
+
+Commenter Tool Use: 
+	Required Tasks: 5
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

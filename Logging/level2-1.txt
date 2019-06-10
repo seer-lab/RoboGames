@@ -88,3 +88,12 @@ Activator Tool Use:
 	Lines Used: 2 2 2 2 2 2 2 2 2 
 
 --------------------------------------------------------
+Passed Level
+16 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 8 15 
+
+--------------------------------------------------------

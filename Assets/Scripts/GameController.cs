@@ -148,13 +148,15 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Lose()
     {
         CheckWin(); 
+
+        do {
+            yield return new WaitForSecondsRealtime(2.7f); 
+        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         if (!calledDead){
             hero.GetComponent<Animator>().SetTrigger("Dead"); 
             calledDead = true; 
         }
-        do {
-            yield return new WaitForSecondsRealtime(2.7f); 
-        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
+        yield return new WaitForSecondsRealtime(1.5f); 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         if (!winning)
         {
