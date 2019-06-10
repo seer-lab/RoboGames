@@ -384,7 +384,11 @@ public class LevelManager
             varcolor.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
         }
         foreach (GameObject firewall in firewalls){
-            firewall.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY  - firewall.GetComponent<FirewallController>().Index *properties.linespacing - 0.2f, 1); 
+            firewall.transform.position = new Vector3(properties.initialLineX + 1f, properties.initialLineY  - firewall.GetComponent<FirewallController>().Index *properties.linespacing - 0.2f, 1); 
+            if (GlobalState.TextSize == 3) {
+				firewall.transform.position += new Vector3(2.4f, 0, 0);
+				firewall.transform.localScale += new Vector3(0.8f, 0, 0);
+			}
         }
     
     }

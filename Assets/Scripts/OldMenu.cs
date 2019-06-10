@@ -146,7 +146,7 @@ public class OldMenu : MonoBehaviour
         buttontext[stateLib.GAMEMENU_EXIT_GAME].GetComponent<TextMesh>().text = "Exit Game";
         buttontext[stateLib.GAMEMENU_RESUME_GAME].GetComponent<TextMesh>().text = "Resume Game";
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-        textsizes = new string[] { "Small", "Normal", "Large", "Large++" };
+        textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
