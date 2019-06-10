@@ -53,6 +53,9 @@ public class hero2Controller : MonoBehaviour
 	EnergyController energyController; 
 	private FireButton fire; 
 
+	int timeStart, timeEnd, totalTime, timeCurrent;
+    DateTime time;
+
 	private AudioClip throwTool; 
 	AudioSource audioSource; 
 	//.................................>8.......................................
@@ -73,7 +76,8 @@ public class hero2Controller : MonoBehaviour
 		throwTool = Resources.Load<AudioClip>("Sound/Triggers/throw");  
 		climbTime = 0f;
 		lg = codescreen.GetComponent<LevelGenerator>();
-		controller = Camera.main.GetComponent<GameController>(); 
+		controller = Camera.main.GetComponent<GameController>();
+		timeStart = DateTime.Now.Second;
 	}
 	void Flip(){
 		if (facingRight && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("left")){
@@ -185,12 +189,15 @@ public class hero2Controller : MonoBehaviour
 				throwing = true;
 				audioSource.PlayOneShot(throwTool, 2f); 
    				anim.SetBool("throw", true);
+				float currentEnergy = energyController.currentEnergy;
 				energyController.onThrow(projectilecode); 
 				GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();  
 				nextFire = Time.time + fireRate;
    				animDelay = Time.time + animTime;
    				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
-				controller.logger.onToolUse(projectilecode, lastLineNumberactive); 
+				controller.logger.onToolUse(projectilecode, lastLineNumberactive);
+				timeCurrent = DateTime.Now.Second - timeStart;
+				controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, currentEnergy,energyController.currentEnergy, true, timeCurrent); 
    				if (facingRight) {
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
    				}
