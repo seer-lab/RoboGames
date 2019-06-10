@@ -70,6 +70,26 @@ public class Logger
         GlobalState.toolUse[index]++;
 		linesUsed[index] += lineNumber.ToString() + ' '; 
     }
+
+    public void onStateChangeJson(int projectileCode, int lineNumber, float energy, float currentEnergy, bool progress, int time){
+        if(GlobalState.jsonStates == null || GlobalState.jsonStates == ""){
+            GlobalState.jsonStates += "\"states\":[{";
+        }else{
+            GlobalState.jsonStates += ",{";
+        }
+
+        GlobalState.jsonStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
+        GlobalState.jsonStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
+
+        if(GlobalState.GameMode == "on"){
+            GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[projectileCode] + "\",";
+        }else{
+            GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
+        }
+        GlobalState.jsonStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonStates += "\"progress\":\"" + progress.ToString() + "\",";
+        GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\"}";
+    }
     public void WriteLog()
     {
         #if UNITY_WEBGL
@@ -90,7 +110,7 @@ public class Logger
                 }else{
                     jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesBug[i] + "\",";
                 }
-
+                jsonObj += "\"correctLine\": \"" + GlobalState.correctLine[i] + "\",";
                 jsonObj += "\"reqTask\": \"" + GlobalState.level.Tasks[i] + "\",";
                 jsonObj += "\"compTask\": \"" + GlobalState.level.CompletedTasks[i] + "\",";
                 jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";
@@ -103,9 +123,10 @@ public class Logger
         }
 
         jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
-        jsonObj +="]}]}";
-        //Debug.Log(jsonObj);
+        jsonObj +="]," + GlobalState.jsonStates + "]}]}";
+        Debug.Log(jsonObj);
         //Upload(url, jsonObj);
+        GlobalState.jsonStates = null;
         #endif
 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
