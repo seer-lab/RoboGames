@@ -28,7 +28,7 @@ public class Logger
 	string[] linesUsed = new string[stateLib.NUMBER_OF_TOOLS]; 
 	bool hasWritten = false; 
 
-    public string jsonObj = "";
+    private string jsonObj = "";
 
     IEnumerator Post(string url, string bodyJsonString)
     {
@@ -125,6 +125,10 @@ public class Logger
         jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
         jsonObj +="]," + GlobalState.jsonStates + "]}]}";
         Debug.Log(jsonObj);
+
+        databaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+        databaseHelper.i.jsonData = jsonObj;
+        databaseHelper.i.PutToDataBase();
         //Upload(url, jsonObj);
         GlobalState.jsonStates = null;
         #endif

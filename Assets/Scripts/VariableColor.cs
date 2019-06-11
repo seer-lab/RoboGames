@@ -23,7 +23,7 @@ public class VariableColor : Tools {
     public int groupid = -1;
     public string innertext = "";
 	public string oldname;
-    public string correct = "";
+    public string correctWord = "";
     public GameObject CorrectRenameObject;
 
     private bool doneUpdating;
@@ -50,22 +50,22 @@ public class VariableColor : Tools {
 
 				Regex rgx = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
                 //GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
-                rgx = new Regex(@"\b" + correct+@"\b");
+                rgx = new Regex(@"\b" + this.correctWord+@"\b");
                 GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], oldname);
 
                 rgx = new Regex(@"\b" + oldname+@"\b");
                 //rgx = new Regex(@"(?:^|\W)"+oldname+@"(?:$|\W)");
-                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], correct);
+                GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], this.correctWord);
                 textColoration.ColorizeText(GlobalState.level.Code[index], GlobalState.level.Language);
                 lg.DrawInnerXmlLinesToScreen();
                 flashCounter = 200;
-                Debug.Log("Code will now change from " + oldname + " " + correct);
+                Debug.Log("Code will now change from " + oldname + " " + this.correctWord);
             }
             else if (CorrectRenameObject.GetComponent<rename>().answered && doneUpdating && !doneFlashing) {
                 if (flashCounter % 100 == 0) {
 
 					//Regex rgx = new Regex(@"(?:^|\W)"+correct+@"(?:$|\W)");
-                    Regex rgx = new Regex(@"\b" + correct+@"\b");
+                    Regex rgx = new Regex(@"\b" + this.correctWord+@"\b");
                     GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], oldname);
                     lg.DrawInnerXmlLinesToScreen();
                 }
@@ -73,7 +73,7 @@ public class VariableColor : Tools {
 
 					//Regex rgx = new Regex(@"(?:^|\W)"+oldname+@"(?:$|\W)");
                     Regex rgx = new Regex(@"\b" + oldname+@"\b");
-                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], correct);
+                    GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], this.correctWord);
                     lg.DrawInnerXmlLinesToScreen(false);
                 }
                 flashCounter--;

@@ -181,7 +181,7 @@ public partial class LevelGenerator : MonoBehaviour {
                 if (childNode.InnerText.Contains("$bug"))
                 {
                     string[] lines = childNode.InnerText.Split('\n');
-                    int row = 0, col = 0;
+                    int row = 0;
                     for (int i = 0; i < lines.Length; i++)
                     {
                         if (lines[i].Contains("$bug"))
@@ -217,7 +217,7 @@ public partial class LevelGenerator : MonoBehaviour {
                             manager.CreateHint(childs,tmp);
                         }
                     }catch(Exception e){
-                        //Debug.LogError(e.Message);
+                        Debug.Log(e.Message);
                     }
                     indexOf++;
                 }

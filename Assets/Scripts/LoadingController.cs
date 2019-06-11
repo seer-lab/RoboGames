@@ -17,7 +17,7 @@ public class LoadingController : MonoBehaviour
     {
         
         AsyncOperation async = SceneManager.LoadSceneAsync("newgame");
-        while (console.position.y < 550);
+        while (console.position.y < 550)
         {
             if (async.progress > 0.8f)
                 yield return new WaitForSecondsRealtime(0.1f);

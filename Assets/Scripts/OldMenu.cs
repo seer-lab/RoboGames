@@ -55,87 +55,7 @@ public class OldMenu : MonoBehaviour
     string[] textsizes;
     int[] fontSizes;
     bool entered = false;
-    bool isDONE = false;
-    string webdata;
 
-    #if UNITY_WEBGL && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern string GetData(string url);
-    #endif
-
-
-    IEnumerator GetXMLFromServer(string url) {
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
-        if (www.isNetworkError || www.isHttpError) {
-            Debug.Log(www.error);
-        }else {
-            //Debug.Log(www.downloadHandler.text);
-            webdata = www.downloadHandler.text;
-        }
-        yield return new WaitForSeconds(0.5f);
-    }
-
-[System.Serializable]
-    public class JsonObjectNewUser{
-        public string name;
-        public JsonObjectNewUser(string name){
-            this.name = name;
-        }
-    }
-
-    // IEnumerator PostToDB(string url, JsonObjectNewUser jsonData) {
-    //     string tmp = JsonUtility.ToJson(jsonData);
-    //     Debug.Log(tmp);
-    //     using (UnityWebRequest www = UnityWebRequest.Post(url, tmp))
-    //     {
-    //         www.method = UnityWebRequest.kHttpVerbPOST;
-    //         www.SetRequestHeader("Content-Type", "application/json");
-    //         //www.SetRequestHeader("Accept", "application/json");
-
-    //         yield return www.SendWebRequest();
-
-    //         if (www.isNetworkError || www.isHttpError)
-    //         {
-    //             Debug.Log(www.error);
-    //         }
-    //         else
-    //         {
-    //             Debug.Log("Form upload complete!");
-    //         }
-    //     }
-    // }
-
-    IEnumerator Post(string url, string bodyJsonString)
-    {
-        var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Accept", "*");
-
-        /**
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Origin": "*",
-         */
-        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
-        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
-        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
-        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
-        yield return request.SendWebRequest();
-
-        //Debug.Log("Status Code: " + request.responseCode);
-    }
-
-
-
-    IEnumerator LoadWEB(string url) {
-        yield return StartCoroutine(GetXMLFromServer(url));
-    }
     //.................................>8.......................................
     // Use this for initialization
     void Start()
@@ -164,11 +84,14 @@ public class OldMenu : MonoBehaviour
         GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
         string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"}";
-        StartCoroutine(Post(stringLib.DB_URL + "ON", json));
-        StartCoroutine(Post(stringLib.DB_URL + "BUG", json));
 
-    }
-    void Awake(){
+        databaseHelper.i.url = stringLib.DB_URL + "ON";
+        databaseHelper.i.jsonData = json;
+        databaseHelper.i.PostToDataBase();
+
+        databaseHelper.i.url = stringLib.DB_URL + "BUG";
+        databaseHelper.i.jsonData = json;
+        databaseHelper.i.PostToDataBase();
 
     }
     public void onClick(int index)
@@ -323,7 +246,6 @@ public class OldMenu : MonoBehaviour
                         }
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
-                        postToDatabase.Start();
                         Application.Quit();
                         break;
                     case stateLib.GAMEMENU_RESUME_GAME:
@@ -592,18 +514,11 @@ public class OldMenu : MonoBehaviour
                     sr.Close();
                 #endif
 
-                #if UNITY_WEBGL && !UNITY_EDITOR
+                #if UNITY_WEBGL            
                     filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-                    Console.WriteLine(stringLib.SERVER_URL + filepath);
-                    webdata = GetData(stringLib.SERVER_URL + filepath);
-                #elif UNITY_WEBGL  
-                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-                    Console.WriteLine(stringLib.SERVER_URL + filepath);
-                #endif
-
-                #if UNITY_WEBGL                    
-                    filepath = webdata;
+                    WebHelper.i.url = stringLib.SERVER_URL + filepath;
+                    WebHelper.i.GetWebDataFromWeb();
+                    filepath = WebHelper.i.webData;
                     string[] leveldata = filepath.Split('\n');
                     for (int i = 0; i < leveldata.Length - 1; i++) {
                         string[] tmp = leveldata[i].Split(' ');
