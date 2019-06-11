@@ -1,0 +1,21 @@
+Passed Level
+40 Seconds
+Activator Tool Use: 
+	Required Tasks: 5
+	Completed Tasks: 5
+	Times Tool Used: 5
+	Lines Used: 9 9 13 13 13 
+
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 2
+	Lines Used: 15 15 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 8 7 
+
+--------------------------------------------------------

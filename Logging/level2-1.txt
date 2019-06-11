@@ -1,0 +1,99 @@
+Failed Level
+35 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 6
+	Lines Used: 8 8 8 13 12 15 
+
+--------------------------------------------------------
+Passed Level
+19 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 4
+	Lines Used: 8 12 8 15 
+
+--------------------------------------------------------
+Failed Level
+27 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+16 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 4
+	Lines Used: 8 8 8 8 
+
+--------------------------------------------------------
+Failed Level
+12 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 10
+	Lines Used: 2 2 2 2 2 2 2 2 2 2 
+
+--------------------------------------------------------
+Failed Level
+19 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 8
+	Lines Used: 6 6 6 6 6 6 6 7 
+
+--------------------------------------------------------
+Failed Level
+15 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 7
+	Lines Used: 4 4 4 4 4 4 4 
+
+--------------------------------------------------------
+Failed Level
+-29 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 7
+	Lines Used: 5 5 5 5 5 5 5 
+
+--------------------------------------------------------
+Failed Level
+15 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 7
+	Lines Used: 5 5 5 5 5 5 5 
+
+--------------------------------------------------------
+Failed Level
+9 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 9
+	Lines Used: 2 2 2 2 2 2 2 2 2 
+
+--------------------------------------------------------
+Passed Level
+16 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 8 15 
+
+--------------------------------------------------------
