@@ -6,8 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class databaseHelper: MonoBehaviour{
-    public static databaseHelper i;
+public class DatabaseHelper: MonoBehaviour{
+    public static DatabaseHelper i;
 
 
     public string url {get; set;}

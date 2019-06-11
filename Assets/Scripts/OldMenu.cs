@@ -85,13 +85,13 @@ public class OldMenu : MonoBehaviour
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
         string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"}";
 
-        databaseHelper.i.url = stringLib.DB_URL + "ON";
-        databaseHelper.i.jsonData = json;
-        databaseHelper.i.PostToDataBase();
+        DatabaseHelper.i.url = stringLib.DB_URL + "ON";
+        DatabaseHelper.i.jsonData = json;
+        DatabaseHelper.i.PostToDataBase();
 
-        databaseHelper.i.url = stringLib.DB_URL + "BUG";
-        databaseHelper.i.jsonData = json;
-        databaseHelper.i.PostToDataBase();
+        DatabaseHelper.i.url = stringLib.DB_URL + "BUG";
+        DatabaseHelper.i.jsonData = json;
+        DatabaseHelper.i.PostToDataBase();
 
     }
     public void onClick(int index)

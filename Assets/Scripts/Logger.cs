@@ -126,9 +126,9 @@ public class Logger
         jsonObj +="]," + GlobalState.jsonStates + "]}]}";
         Debug.Log(jsonObj);
 
-        databaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
-        databaseHelper.i.jsonData = jsonObj;
-        databaseHelper.i.PutToDataBase();
+        DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+        DatabaseHelper.i.jsonData = jsonObj;
+        DatabaseHelper.i.PutToDataBase();
         //Upload(url, jsonObj);
         GlobalState.jsonStates = null;
         #endif
