@@ -195,18 +195,8 @@ public partial class LevelGenerator : MonoBehaviour {
                      GlobalState.level.Code[row] = color.ColorizeText(GlobalState.level.Code[row], GlobalState.level.Language);
                      DrawInnerXmlLinesToScreen();
                 }
-                if (childNode.InnerText.Contains("$firewall$")){
-                    string[] lines = childNode.InnerText.Split('\n');
-                    int row = 0, col = 0;
-                    for (int i = 0; i < lines.Length; i++)
-                    {
-                        if (lines[i].Contains("$firewall$"))
-                        {
-                            row = indexOf + i;
-                            col = lines[i].IndexOf("$firewall$"); 
-                        }
-                    }
-                    manager.CreateFirewall(childNode, row, col);
+                if (childNode.InnerText.Contains("$O")){
+                    manager.CreateObstacle(childNode, indexOf); 
 
                 }
                 manager.CreateLevelObject(childNode, indexOf);
@@ -366,17 +356,6 @@ public partial class LevelGenerator : MonoBehaviour {
 					}
 				}
 			}
-
-			// foreach (GameObject variablecolor in manager.robotONvariablecolors) {
-			// 	foreach (GameObject rename in manager.robotONrenamers) {
-			// 		if (variablecolor.GetComponent<VariableColor>().groupid == rename.GetComponent<rename>().groupid) {
-			// 			variablecolor.GetComponent<VariableColor>().CorrectRenameObject = rename;
-			// 			variablecolor.GetComponent<VariableColor>().correct = rename.GetComponent<rename>().correct;
-			// 			break;
-			// 		}
-			// 	}
-			// }
-			// ]--
 		}
 	}
 
