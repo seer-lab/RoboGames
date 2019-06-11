@@ -1,0 +1,757 @@
+
+LICENSE SYSTEM [2019610 16:6:10] Next license update check is after 2019-06-11T14:28:12
+
+Built from '2019.1/staging' branch; Version is '2019.1.0f2 (292b93d75a2c) revision 2698131'; Using compiler version '191627012'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'en' Physical Memory: 8083 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+[Package Manager] Server::Start -- Port 61352 was selected
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Unity.exe
+-quit
+-batchmode
+-logFile
+stdout.log
+-projectPath
+C:\Users\Ibrahim\Desktop\RobotON
+-executeMethod
+WebGLBuilder.build
+Successfully changed project path to: C:\Users\Ibrahim\Desktop\RobotON
+C:/Users/Ibrahim/Desktop/RobotON
+Using Asset Import Pipeline V1.
+DisplayProgressbar: Unity Package Manager
+Loading GUID <-> Path mappings...0.000144 seconds
+Loading Asset Database...0.032819 seconds
+AssetDatabase consistency checks...0.094869 seconds
+[Package Manager] Done resolving packages in 0.43s seconds
+[Package Manager] Registering 39 packages:
+[Package Manager]  * Package :  com.unity.ads@2.0.8
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.ads@2.0.8)
+[Package Manager]  * Package :  com.unity.analytics@3.3.2
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.analytics@3.3.2)
+[Package Manager]  * Package :  com.unity.collab-proxy@1.2.16
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.collab-proxy@1.2.16)
+[Package Manager]  * Package :  com.unity.package-manager-ui@2.1.2
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.package-manager-ui)
+[Package Manager]  * Package :  com.unity.purchasing@2.0.6
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.purchasing@2.0.6)
+[Package Manager]  * Package :  com.unity.textmeshpro@2.0.0
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.textmeshpro@2.0.0)
+[Package Manager]  * Package :  com.unity.timeline@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.timeline)
+[Package Manager]  * Package :  com.unity.xr.legacyinputhelpers@2.0.2
+    (location: C:\Users\Ibrahim\Desktop\RobotON\Library\PackageCache\com.unity.xr.legacyinputhelpers@2.0.2)
+[Package Manager]  * Package :  com.unity.modules.ai@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ai)
+[Package Manager]  * Package :  com.unity.modules.animation@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.animation)
+[Package Manager]  * Package :  com.unity.modules.assetbundle@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.assetbundle)
+[Package Manager]  * Package :  com.unity.modules.audio@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.audio)
+[Package Manager]  * Package :  com.unity.modules.cloth@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.cloth)
+[Package Manager]  * Package :  com.unity.modules.director@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.director)
+[Package Manager]  * Package :  com.unity.modules.imageconversion@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imageconversion)
+[Package Manager]  * Package :  com.unity.modules.imgui@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imgui)
+[Package Manager]  * Package :  com.unity.modules.jsonserialize@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.jsonserialize)
+[Package Manager]  * Package :  com.unity.modules.particlesystem@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.particlesystem)
+[Package Manager]  * Package :  com.unity.modules.physics@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics)
+[Package Manager]  * Package :  com.unity.modules.physics2d@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics2d)
+[Package Manager]  * Package :  com.unity.modules.screencapture@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.screencapture)
+[Package Manager]  * Package :  com.unity.modules.terrain@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrain)
+[Package Manager]  * Package :  com.unity.modules.terrainphysics@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrainphysics)
+[Package Manager]  * Package :  com.unity.modules.tilemap@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.tilemap)
+[Package Manager]  * Package :  com.unity.modules.ui@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ui)
+[Package Manager]  * Package :  com.unity.modules.uielements@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.uielements)
+[Package Manager]  * Package :  com.unity.modules.umbra@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.umbra)
+[Package Manager]  * Package :  com.unity.modules.unityanalytics@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unityanalytics)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequest@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequest)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestassetbundle@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestassetbundle)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestaudio@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestaudio)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequesttexture@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequesttexture)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestwww@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestwww)
+[Package Manager]  * Package :  com.unity.modules.vehicles@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vehicles)
+[Package Manager]  * Package :  com.unity.modules.video@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.video)
+[Package Manager]  * Package :  com.unity.modules.vr@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vr)
+[Package Manager]  * Package :  com.unity.modules.wind@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.wind)
+[Package Manager]  * Package :  com.unity.modules.xr@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.xr)
+[Package Manager]  * Package :  com.unity.ugui@1.0.0
+    (location: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.ugui)
+[Package Manager] Done registering packages in 0.02s seconds
+Refreshing native plugins compatible for Editor in 67.43 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2019.1.0f2 (292b93d75a2c)
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 520 (ID=0x1916)
+    Vendor:   
+    VRAM:     2148 MB
+    Driver:   22.20.16.4799
+[EnlightenBakeManager] m_Clear = false;
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Pass '' has no vertex shader
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Pass 'Flip_RGBARect_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Setting to default shader.
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56552
+Begin MonoManager ReloadAssembly
+Initializing Extension Manager v2019.1.0 for Unity v2019.1.0f2
+Registering precompiled unity dll's ...
+Register platform support module: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Register platform support module: C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\AndroidPlayer/UnityEditor.Android.Extensions.dll
+Registered in 0.003051 seconds.
+Registering platform support modules:
+Registered platform support modules in: 0.129923s.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Native extension for OSXStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.34 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.934 seconds
+Registering precompiled user dll's ...
+Registered in 0.123775 seconds.
+Platform modules already initialized, skipping
+Begin MonoManager ReloadAssembly
+Initializing Extension Manager v2019.1.0 for Unity v2019.1.0f2
+Registering platform support modules:
+Registered platform support modules in: 0.0990622s.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Native extension for OSXStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.38 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.651 seconds
+Platform modules already initialized, skipping
+[ScriptCompilation] Recompiling all scripts because: Reload of assemblies failed, assemblies are invalid or forced recompiled
+- Starting compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Starting compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Starting compile Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Starting compile Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Starting compile Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll
+- Finished compile Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+- Starting compile Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+- Starting compile Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll
+- Finished compile Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+- Finished compile Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll
+Begin MonoManager ReloadAssembly
+Initializing Extension Manager v2019.1.0 for Unity v2019.1.0f2
+Registering platform support modules:
+Registered platform support modules in: 0.0987717s.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Native extension for OSXStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.83 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.671 seconds
+Platform modules already initialized, skipping
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+Assets\Scripts\TimeDisplayController.cs(10,17): warning CS0108: 'TimeDisplayController.audio' hides inherited member 'Component.audio'. Use the new keyword if hiding was intended.
+Assets\Scripts\BackgroundController.cs(9,20): warning CS0108: 'BackgroundController.light' hides inherited member 'Component.light'. Use the new keyword if hiding was intended.
+Assets\Scripts\VariableColor.cs(26,19): warning CS0108: 'VariableColor.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\rename.cs(23,16): warning CS0108: 'rename.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\LoadingController.cs(20,41): warning CS0642: Possible mistaken empty statement
+Assets\Scripts\Menu.cs(161,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(195,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(203,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(206,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(214,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(225,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(231,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(239,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(251,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(259,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(303,4): warning CS0162: Unreachable code detected
+Assets\Scripts\question.cs(142,13): warning CS0219: The variable 'sOpenCommentSymbol' is assigned but its value is never used
+Assets\Scripts\question.cs(143,13): warning CS0219: The variable 'sCloseCommentSymbol' is assigned but its value is never used
+Assets\Scripts\ToolFactory.cs(179,26): warning CS0168: The variable 'ex' is declared but never used
+Assets\Scripts\LevelFactory.cs(107,25): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\LevelFactory.cs(85,16): warning CS0219: The variable 'filepath' is assigned but its value is never used
+Assets\Scripts\TransitionController.cs(96,16): warning CS0219: The variable 'bug' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(184,34): warning CS0219: The variable 'col' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(229,38): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\XMLReader.cs(179,10): warning CS0219: The variable 'sHead' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(180,10): warning CS0219: The variable 'sTail' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(181,10): warning CS0219: The variable 'sPretagText' is assigned but its value is never used
+Assets\Scripts\SelectedTool.cs(41,18): warning CS0414: The field 'SelectedTool.isBugActive' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(28,14): warning CS0414: The field 'Camera2.laststate' is assigned but its value is never used
+Assets\Scripts\beacon.cs(29,6): warning CS0414: The field 'beacon.flashCounter' is assigned but its value is never used
+Assets\Scripts\rename.cs(34,15): warning CS0414: The field 'rename.colorOnce' is assigned but its value is never used
+Assets\Scripts\rename.cs(40,15): warning CS0414: The field 'rename.hasHappened' is assigned but its value is never used
+Assets\Scripts\rename.cs(41,15): warning CS0414: The field 'rename.isChecked' is assigned but its value is never used
+Assets\Scripts\TransitionController.cs(18,10): warning CS0414: The field 'TransitionController.started' is assigned but its value is never used
+Assets\Scripts\Comic.cs(28,17): warning CS0414: The field 'Comic.credtext' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(29,14): warning CS0414: The field 'Camera2.trackmax' is assigned but its value is never used
+Assets\Scripts\OldMenu.cs(58,10): warning CS0414: The field 'OldMenu.isDONE' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(45,15): warning CS0414: The field 'LevelGenerator.winning' is assigned but its value is never used
+Reloading assemblies after script compilation.
+Begin MonoManager ReloadAssembly
+Initializing Extension Manager v2019.1.0 for Unity v2019.1.0f2
+Registering platform support modules:
+Registered platform support modules in: 0.0596707s.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Native extension for OSXStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.37 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.321 seconds
+Platform modules already initialized, skipping
+Validating Project structure ... 0.024453 seconds.
+Refresh: detecting if any assets need to be imported or removed ...
+Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+
+Refresh Completed time: 0.241171s
+	Asset Scan time: 0.057085s
+	Asset Hashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Scripting) time: 0.000000s (count: 0)
+	Post Processs Assets (Scripting) time: 0.000000s
+	Asset Rehashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Non Scripting) time: 0.000000s (count: 0)
+	Post Process Assets (Non Scripting) time: 0.000000s
+	Dependent Assets to Import Queue time: 0.000000s
+
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Pass '' has no vertex shader
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Pass 'Flip_RGBARect_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Setting to default shader.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Warming cache for 2405 main assets: 0.012732 seconds elapsed
+Initializing Unity extensions:
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/TestRunner/portable/nunit.framework.dll'  GUID: 405b9b51bb344a128608d968297df79c
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/GUISystem/Standalone/UnityEngine.UI.dll'  GUID: f70555f144d8491a825f0804e09c671c
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'  GUID: f5f67c52d1564df4a8936ccd202a3bd8
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll'  GUID: 53ebcfaa2e1e4e2dbc85882cd5a73fa1
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll'  GUID: 4ba2329b63d54f0187bcaa12486b1b0f
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll'  GUID: 80a3616ca19596e4da0f10f14d241e9f
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll'  GUID: 4113173d5e95493ab8765d7b08371de4
+ 'C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll'  GUID: 4b3fa4bde7f1451a8218c03ee6a8ded8
+Unloading 721 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 150.4 MB.
+System memory in use after: 149.0 MB.
+
+Unloading 195 unused Assets to reduce memory usage. Loaded Objects now: 1313.
+Total: 4.439800 ms (FindLiveObjects: 0.414300 ms CreateObjectMapping: 0.036500 ms MarkObjects: 2.652100 ms  DeleteObjects: 1.336000 ms)
+
+Refreshing native plugins compatible for Editor in 3.85 ms, found 0 plugins.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Pass 'Flip_RGBARect_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeOSX' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeAndroid' - Setting to default shader.
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Pass 'RGBAExternal_To_RGBA' has no vertex shader
+WARNING: Shader Unsupported: 'Hidden/VideoDecodeML' - Setting to default shader.
+Updating ProjectSettings/UnityConnectSettings.asset - GUID: 0000000000000000a100000000000000...
+ done. [Time: 44.542900 ms] 
+Refreshing native plugins compatible for Editor in 0.88 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+[ScriptCompilation] Recompiling all scripts because: Recompiling scripts for player build.
+BuildPlayer: start building target 20
+- Starting compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Starting compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Finished compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Finished compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp.dll
+Assets\Scripts\VariableColor.cs(26,19): warning CS0108: 'VariableColor.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\rename.cs(23,16): warning CS0108: 'rename.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\LevelFactory.cs(107,25): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\LevelFactory.cs(85,16): warning CS0219: The variable 'filepath' is assigned but its value is never used
+Assets\Scripts\LoadingController.cs(20,41): warning CS0642: Possible mistaken empty statement
+Assets\Scripts\Menu.cs(161,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(195,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(203,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(206,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(214,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(225,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(231,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(239,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(251,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(259,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(303,4): warning CS0162: Unreachable code detected
+Assets\Scripts\LevelGenerator.cs(184,34): warning CS0219: The variable 'col' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(229,38): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\question.cs(142,13): warning CS0219: The variable 'sOpenCommentSymbol' is assigned but its value is never used
+Assets\Scripts\question.cs(143,13): warning CS0219: The variable 'sCloseCommentSymbol' is assigned but its value is never used
+Assets\Scripts\ToolFactory.cs(179,26): warning CS0168: The variable 'ex' is declared but never used
+Assets\Scripts\TransitionController.cs(96,16): warning CS0219: The variable 'bug' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(179,10): warning CS0219: The variable 'sHead' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(180,10): warning CS0219: The variable 'sTail' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(181,10): warning CS0219: The variable 'sPretagText' is assigned but its value is never used
+Assets\Scripts\beacon.cs(29,6): warning CS0414: The field 'beacon.flashCounter' is assigned but its value is never used
+Assets\Scripts\TransitionController.cs(18,10): warning CS0414: The field 'TransitionController.started' is assigned but its value is never used
+Assets\Scripts\OldMenu.cs(58,10): warning CS0414: The field 'OldMenu.isDONE' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(45,15): warning CS0414: The field 'LevelGenerator.winning' is assigned but its value is never used
+Assets\Scripts\rename.cs(41,15): warning CS0414: The field 'rename.isChecked' is assigned but its value is never used
+Assets\Scripts\rename.cs(40,15): warning CS0414: The field 'rename.hasHappened' is assigned but its value is never used
+Assets\Scripts\rename.cs(34,15): warning CS0414: The field 'rename.colorOnce' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(28,14): warning CS0414: The field 'Camera2.laststate' is assigned but its value is never used
+Assets\Scripts\SelectedTool.cs(41,18): warning CS0414: The field 'SelectedTool.isBugActive' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(29,14): warning CS0414: The field 'Camera2.trackmax' is assigned but its value is never used
+Assets\Scripts\Comic.cs(28,17): warning CS0414: The field 'Comic.credtext' is assigned but its value is never used
+Library\PackageCache\com.unity.analytics@3.3.2\DataPrivacy\DataPrivacyButton.cs(28,13): warning CS0618: 'Application.ExternalEval(string)' is obsolete: 'Application.ExternalEval is deprecated. See https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html for alternatives.'
+DisplayProgressbar: Building Player
+Opening scene 'Assets/TitleScene.unity'
+Load scene 'Assets/TitleScene.unity' time: 0.021500 ms 
+Unloading 33 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 143.1 MB.
+System memory in use after: 142.9 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 1431.
+Total: 11.243200 ms (FindLiveObjects: 0.850900 ms CreateObjectMapping: 0.077000 ms MarkObjects: 9.947900 ms  DeleteObjects: 0.362100 ms)
+
+Script attached to 'VideoController' in scene 'Assets/TitleScene.unity' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Opening scene 'Assets/MainMenu.unity'
+Load scene 'Assets/MainMenu.unity' time: 1.899200 ms 
+Unloading 1095 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 0.66 GB.
+System memory in use after: 0.61 GB.
+
+Unloading 2704 unused Assets to reduce memory usage. Loaded Objects now: 1615.
+Total: 139.597800 ms (FindLiveObjects: 8.194100 ms CreateObjectMapping: 0.262900 ms MarkObjects: 43.125800 ms  DeleteObjects: 88.008500 ms)
+
+Opening scene 'Assets/newgame.unity'
+Load scene 'Assets/newgame.unity' time: 0.018500 ms 
+LightmapEditorSettings: switching bake backend from 1 to 0.
+Unloading 15 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 159.5 MB.
+System memory in use after: 159.6 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1674.
+Total: 9.297300 ms (FindLiveObjects: 0.432400 ms CreateObjectMapping: 0.041800 ms MarkObjects: 8.347000 ms  DeleteObjects: 0.472200 ms)
+
+Opening scene 'Assets/Cinematic.unity'
+Load scene 'Assets/Cinematic.unity' time: 0.040800 ms 
+Unloading 315 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 160.0 MB.
+System memory in use after: 152.8 MB.
+
+Unloading 342 unused Assets to reduce memory usage. Loaded Objects now: 1606.
+Total: 8.508300 ms (FindLiveObjects: 0.434200 ms CreateObjectMapping: 0.048700 ms MarkObjects: 5.257800 ms  DeleteObjects: 2.766900 ms)
+
+Opening scene 'Assets/CharacterSelect.unity'
+Load scene 'Assets/CharacterSelect.unity' time: 0.013700 ms 
+Unloading 156 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 152.7 MB.
+System memory in use after: 152.8 MB.
+
+Unloading 93 unused Assets to reduce memory usage. Loaded Objects now: 1580.
+Total: 6.399700 ms (FindLiveObjects: 0.440900 ms CreateObjectMapping: 0.053700 ms MarkObjects: 5.506900 ms  DeleteObjects: 0.397400 ms)
+
+Opening scene 'Assets/IntroScene.unity'
+Load scene 'Assets/IntroScene.unity' time: 0.012600 ms 
+Unloading 85 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 152.5 MB.
+System memory in use after: 152.4 MB.
+
+Unloading 131 unused Assets to reduce memory usage. Loaded Objects now: 1423.
+Total: 6.402800 ms (FindLiveObjects: 0.434500 ms CreateObjectMapping: 0.050800 ms MarkObjects: 5.346700 ms  DeleteObjects: 0.570200 ms)
+
+Opening scene 'Assets/Transition.unity'
+Load scene 'Assets/Transition.unity' time: 0.012600 ms 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 152.1 MB.
+System memory in use after: 152.2 MB.
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1419.
+Total: 6.126100 ms (FindLiveObjects: 0.414500 ms CreateObjectMapping: 0.036800 ms MarkObjects: 5.642500 ms  DeleteObjects: 0.031400 ms)
+
+Opening scene 'Assets/Credits.unity'
+Load scene 'Assets/Credits.unity' time: 0.012400 ms 
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 149.4 MB.
+System memory in use after: 149.5 MB.
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 1437.
+Total: 5.819100 ms (FindLiveObjects: 0.384800 ms CreateObjectMapping: 0.051000 ms MarkObjects: 5.348200 ms  DeleteObjects: 0.034400 ms)
+
+
+
+Mono dependencies included in the build
+Dependency assembly - System.Diagnostics.StackTrace.dll
+Dependency assembly - System.Globalization.Extensions.dll
+Dependency assembly - System.Runtime.Serialization.Xml.dll
+Dependency assembly - System.Xml.XPath.XDocument.dll
+Dependency assembly - netstandard.dll
+Dependency assembly - Mono.Security.dll
+Dependency assembly - System.ComponentModel.Composition.dll
+Dependency assembly - System.Configuration.dll
+Dependency assembly - System.Core.dll
+Dependency assembly - System.Data.dll
+Dependency assembly - System.Drawing.dll
+Dependency assembly - System.EnterpriseServices.dll
+Dependency assembly - System.IO.Compression.FileSystem.dll
+Dependency assembly - System.IO.Compression.dll
+Dependency assembly - System.Net.Http.dll
+Dependency assembly - System.Numerics.dll
+Dependency assembly - System.Runtime.Serialization.dll
+Dependency assembly - System.ServiceModel.Internals.dll
+Dependency assembly - System.Transactions.dll
+Dependency assembly - System.Xml.Linq.dll
+Dependency assembly - System.Xml.dll
+Dependency assembly - System.dll
+Dependency assembly - mscorlib.dll
+Dependency assembly - UnityEngine.UI.dll
+Dependency assembly - Assembly-CSharp-firstpass.dll
+Dependency assembly - Assembly-CSharp.dll
+Dependency assembly - Unity.Analytics.DataPrivacy.dll
+Dependency assembly - Unity.TextMeshPro.dll
+Dependency assembly - Unity.Timeline.dll
+Dependency assembly - UnityEngine.SpatialTracking.dll
+Dependency assembly - UnityEngine.XR.LegacyInputHelpers.dll
+Dependency assembly - UnityEngine.Purchasing.dll
+
+Unloading 23 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 153.4 MB.
+System memory in use after: 153.5 MB.
+
+Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 1359.
+Total: 6.019500 ms (FindLiveObjects: 0.404500 ms CreateObjectMapping: 0.046900 ms MarkObjects: 5.315600 ms  DeleteObjects: 0.250800 ms)
+
+[EnlightenBakeManager] m_Clear = false;
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 148.8 MB.
+System memory in use after: 148.9 MB.
+
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 1367.
+Total: 6.431900 ms (FindLiveObjects: 0.433600 ms CreateObjectMapping: 0.072300 ms MarkObjects: 5.916200 ms  DeleteObjects: 0.008800 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 37a4 -> priority: 1 
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Pass '' has no vertex shader
+WARNING: Shader Unsupported: 'AR/TangoARRender' - Setting to default shader.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 150.6 MB.
+System memory in use after: 149.3 MB.
+
+Unloading 64 unused Assets to reduce memory usage. Loaded Objects now: 1359.
+Total: 7.294600 ms (FindLiveObjects: 0.397400 ms CreateObjectMapping: 0.034500 ms MarkObjects: 5.134900 ms  DeleteObjects: 1.726700 ms)
+
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Script attached to 'fp' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'Return' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'baduncom' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'commentblock' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'uncom' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'oncomment' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Script attached to 'badcomment' in scene '' is missing or no valid script is attached.
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+
+[C:\buildslave\unity\build\Runtime/Mono/ManagedMonoBehaviourRef.cpp line 180] 
+(Filename: Assets/Editor/WebGLBuilder.cs Line: 21)
+
+Unloading 1067 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 238.7 MB.
+System memory in use after: 233.9 MB.
+
+Unloading 1778 unused Assets to reduce memory usage. Loaded Objects now: 1367.
+Total: 20.847100 ms (FindLiveObjects: 0.957300 ms CreateObjectMapping: 0.213900 ms MarkObjects: 8.416200 ms  DeleteObjects: 11.258600 ms)
+
+
+***Player size statistics***
+Level 0 'Assets/TitleScene.unity' uses 1.0 MB compressed / 5.9 MB uncompressed.
+Level 1 'Assets/MainMenu.unity' uses 0 B compressed / 0 B uncompressed.
+Level 2 'Assets/newgame.unity' uses 52.1 KB compressed / 128.0 KB uncompressed.
+Level 3 'Assets/Cinematic.unity' uses 18.2 KB compressed / 128.0 KB uncompressed.
+Level 4 'Assets/CharacterSelect.unity' uses 0 B compressed / 0 B uncompressed.
+Level 5 'Assets/IntroScene.unity' uses 0 B compressed / 0 B uncompressed.
+Level 6 'Assets/Transition.unity' uses 0 B compressed / 0 B uncompressed.
+Level 7 'Assets/Credits.unity' uses 54.1 MB compressed / 473.2 MB uncompressed.
+Total compressed size 55.2 MB. Total uncompressed size 479.3 MB.
+DisplayProgressbar: Scripting
+DisplayProgressbar: Building Player
+Invoking UnityLinker with arguments: -out=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/tempStrip -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Core.xml" -x=C:/Users/Ibrahim/AppData/Local/Temp/tmp5134ed9d.tmp -x=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/TypesInScenes.xml -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Accessibility.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/AI.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Animation.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/AR.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/AssetBundle.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Audio.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Cloth.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Core.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/CrashReporting.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Director.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/FileSystemHttp.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/GameCenter.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Grid.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/HotReload.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/ImageConversion.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/IMGUI.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Input.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/JSONSerialize.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Localization.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/ParticleSystem.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/PerformanceReporting.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Physics.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Physics2D.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Profiler.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/ScreenCapture.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/SharedInternals.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/SpriteMask.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/SpriteShape.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Streaming.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/StyleSheets.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Substance.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Terrain.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/TerrainPhysics.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/TextCore.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/TextRendering.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Tilemap.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/TLS.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UI.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UIElements.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Umbra.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UNET.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityAnalytics.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityConnect.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityTestProtocol.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityWebRequest.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityWebRequestAssetBundle.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityWebRequestAudio.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityWebRequestTexture.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/UnityWebRequestWWW.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Vehicles.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/VFX.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Video.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/VR.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/WebGL.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/Wind.xml" -x="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/WebGLSupport/Whitelists/XR.xml" -d=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed --include-unity-root-assembly=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/Assembly-CSharp-firstpass.dll --include-unity-root-assembly=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/Assembly-CSharp.dll --include-unity-root-assembly=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/Unity.TextMeshPro.dll --include-unity-root-assembly=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed/UnityEngine.UI.dll --dotnetruntime=il2cpp --dotnetprofile=unityaot --use-editor-options --include-directory=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed --editor-settings-flag=Development --rule-set=Conservative
+C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\il2cpp\build/UnityLinker.exe exited after 7083 ms.
+C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\Tools/InternalCallRegistrationWriter/InternalCallRegistrationWriter.exe exited after 348 ms.
+DisplayProgressbar: Fetching assembly references
+DisplayProgressbar: Building Player
+Invoking il2cpp with arguments: --convert-to-cpp --emit-null-checks --enable-stacktrace --enable-array-bounds-check --dotnetprofile="unityaot" --compile-cpp --libil2cpp-static --platform="WebGL" --architecture="EmscriptenJavaScript" --configuration="Release" --outputpath="C:\Users\Ibrahim\Desktop\RobotON\Assets /../Temp/StagingArea/Data\Native\build.bc" --cachedirectory="C:\Users\Ibrahim\Desktop\RobotON\Assets\..\Library/il2cpp_cache" --compiler-flags="-Oz" --emit-method-map --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_AccessibilityModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_AIModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_AnimationModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ARModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_AssetBundleModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_AudioModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ClothModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_CoreModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_CrashReportingModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_DirectorModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_FileSystemHttpModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_GameCenterModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_GridModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_HotReloadModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ImageConversionModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_IMGUIModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_InputModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_JSONSerializeModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_LocalizationModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ParticleSystemModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_PerformanceReportingModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_Physics2DModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_PhysicsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ProfilerModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_ScreenCaptureModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_SharedInternalsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_SpriteMaskModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_SpriteShapeModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_StreamingModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_StyleSheetsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_SubstanceModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TerrainModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TerrainPhysicsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TextCoreModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TextRenderingModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TilemapModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_TLSModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UIElementsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UIModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UmbraModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UNETModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityAnalyticsModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityConnectModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityTestProtocolModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityWebRequestAssetBundleModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityWebRequestAudioModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityWebRequestModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityWebRequestTextureModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_UnityWebRequestWWWModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_VehiclesModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_VFXModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_VideoModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_VRModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_WebGLModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_WindModule_Dynamic.bc" --additional-libraries="C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\lib\modules\WebGLSupport_XRModule_Dynamic.bc" --profiler-report --map-file-parser="C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/Tools/MapFileParser/MapFileParser.exe" --directory=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/Managed --generatedcppdir=C:/Users/Ibrahim/Desktop/RobotON/Temp/StagingArea/Data/il2cppOutput 
+C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\il2cpp/build/il2cpp.exe exited after 220684 ms.
+DisplayProgressbar: Scripting
+Filename: "C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\Emscripten_Win\python\2.7.5.3_64bit\python.exe"
+Arguments: -E "C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\Emscripten\emcc" @"C:\Users\Ibrahim\Desktop\RobotON\Assets\..\Temp\emcc_arguments.resp"
+index: -1
+DisplayProgressbar: Files
+Exception: Invalid build file path: C:\Users\Ibrahim\Desktop\RobotON\Temp\StagingArea\Data\Output\Build.wasm.code.unityweb
+  at UnityEditor.WebGL.WebGlBuildPostprocessor.PostProcessBuildFile (System.String path, System.String fileType) [0x00022] in /Users/builduser/buildslave/unity/build/PlatformDependent/WebGL/Extensions/Unity.WebGL.extensions/BuildPostprocessor.cs:604 
+  at UnityEditor.WebGL.WebGlBuildPostprocessor.AssembleOutput (UnityEditor.Modules.BuildPostProcessArgs args) [0x001ac] in /Users/builduser/buildslave/unity/build/PlatformDependent/WebGL/Extensions/Unity.WebGL.extensions/BuildPostprocessor.cs:646 
+  at UnityEditor.WebGL.WebGlBuildPostprocessor.PostProcess (UnityEditor.Modules.BuildPostProcessArgs args) [0x002d0] in /Users/builduser/buildslave/unity/build/PlatformDependent/WebGL/Extensions/Unity.WebGL.extensions/BuildPostprocessor.cs:934 
+  at UnityEditor.Modules.DefaultBuildPostprocessor.PostProcess (UnityEditor.Modules.BuildPostProcessArgs args, UnityEditor.BuildProperties& outProperties) [0x00003] in C:\buildslave\unity\build\Editor\Mono\Modules\DefaultBuildPostprocessor.cs:27 
+  at UnityEditor.PostprocessBuildPlayer.Postprocess (UnityEditor.BuildTargetGroup targetGroup, UnityEditor.BuildTarget target, System.String installPath, System.String companyName, System.String productName, System.Int32 width, System.Int32 height, UnityEditor.BuildOptions options, UnityEditor.RuntimeClassRegistry usedClassRegistry, UnityEditor.Build.Reporting.BuildReport report) [0x000da] in C:\buildslave\unity\build\Editor\Mono\BuildPipeline\PostprocessBuildPlayer.cs:281 
+UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions, Boolean)
+UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:364)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:263)
+UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:246)
+UnityEditor.BuildPipeline:BuildPlayer(String[], String, BuildTarget, BuildOptions) (at C:\buildslave\unity\build\Editor\Mono\BuildPipeline.bindings.cs:241)
+WebGLBuilder:build() (at Assets\Editor\WebGLBuilder.cs:21)
+ 
+(Filename: /Users/builduser/buildslave/unity/build/PlatformDependent/WebGL/Extensions/Unity.WebGL.extensions/BuildPostprocessor.cs Line: 604)
+
+Unloading 64 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 152.1 MB.
+System memory in use after: 151.8 MB.
+
+Unloading 148 unused Assets to reduce memory usage. Loaded Objects now: 1372.
+Total: 194.520200 ms (FindLiveObjects: 25.010200 ms CreateObjectMapping: 1.606500 ms MarkObjects: 128.520900 ms  DeleteObjects: 39.373800 ms)
+
+Load scene 'Temp/__Backupscenes/0.backup' time: 1.783700 ms 
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 150.2 MB.
+System memory in use after: 150.2 MB.
+
+Unloading 0 unused Assets to reduce memory usage. Loaded Objects now: 1368.
+Total: 7.620400 ms (FindLiveObjects: 0.725000 ms CreateObjectMapping: 0.088500 ms MarkObjects: 6.786100 ms  DeleteObjects: 0.019500 ms)
+
+[ScriptCompilation] Recompiling all scripts because: Recompiling scripts for editor after player build.
+- Starting compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Starting compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll
+- Starting compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Starting compile Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.Timeline.dll
+- Starting compile Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.TextMeshPro.dll
+- Starting compile Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+- Finished compile Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll
+- Starting compile Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll
+- Finished compile Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll
+- Starting compile Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+- Starting compile Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+- Finished compile Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+- Finished compile Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll
+- Finished compile Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp.dll
+- Starting compile Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+- Finished compile Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+Assets\Scripts\TimeDisplayController.cs(10,17): warning CS0108: 'TimeDisplayController.audio' hides inherited member 'Component.audio'. Use the new keyword if hiding was intended.
+Assets\Scripts\BackgroundController.cs(9,20): warning CS0108: 'BackgroundController.light' hides inherited member 'Component.light'. Use the new keyword if hiding was intended.
+Assets\Scripts\VariableColor.cs(26,19): warning CS0108: 'VariableColor.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\rename.cs(23,16): warning CS0108: 'rename.correct' hides inherited member 'Tools.correct'. Use the new keyword if hiding was intended.
+Assets\Scripts\LevelFactory.cs(107,25): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\LevelFactory.cs(85,16): warning CS0219: The variable 'filepath' is assigned but its value is never used
+Assets\Scripts\LoadingController.cs(20,41): warning CS0642: Possible mistaken empty statement
+Assets\Scripts\LevelGenerator.cs(184,34): warning CS0219: The variable 'col' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(229,38): warning CS0168: The variable 'e' is declared but never used
+Assets\Scripts\Menu.cs(161,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(195,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(203,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(206,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(214,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(225,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(231,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(239,4): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(251,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(259,6): warning CS0162: Unreachable code detected
+Assets\Scripts\Menu.cs(303,4): warning CS0162: Unreachable code detected
+Assets\Scripts\question.cs(142,13): warning CS0219: The variable 'sOpenCommentSymbol' is assigned but its value is never used
+Assets\Scripts\question.cs(143,13): warning CS0219: The variable 'sCloseCommentSymbol' is assigned but its value is never used
+Assets\Scripts\ToolFactory.cs(179,26): warning CS0168: The variable 'ex' is declared but never used
+Assets\Scripts\TransitionController.cs(96,16): warning CS0219: The variable 'bug' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(179,10): warning CS0219: The variable 'sHead' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(180,10): warning CS0219: The variable 'sTail' is assigned but its value is never used
+Assets\Scripts\XMLReader.cs(181,10): warning CS0219: The variable 'sPretagText' is assigned but its value is never used
+Assets\Scripts\beacon.cs(29,6): warning CS0414: The field 'beacon.flashCounter' is assigned but its value is never used
+Assets\Scripts\LevelGenerator.cs(45,15): warning CS0414: The field 'LevelGenerator.winning' is assigned but its value is never used
+Assets\Scripts\rename.cs(41,15): warning CS0414: The field 'rename.isChecked' is assigned but its value is never used
+Assets\Scripts\SelectedTool.cs(41,18): warning CS0414: The field 'SelectedTool.isBugActive' is assigned but its value is never used
+Assets\Scripts\rename.cs(40,15): warning CS0414: The field 'rename.hasHappened' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(29,14): warning CS0414: The field 'Camera2.trackmax' is assigned but its value is never used
+Assets\Scripts\OldMenu.cs(58,10): warning CS0414: The field 'OldMenu.isDONE' is assigned but its value is never used
+Assets\Scripts\rename.cs(34,15): warning CS0414: The field 'rename.colorOnce' is assigned but its value is never used
+Assets\Scripts\Camera2.cs(28,14): warning CS0414: The field 'Camera2.laststate' is assigned but its value is never used
+Assets\Scripts\TransitionController.cs(18,10): warning CS0414: The field 'TransitionController.started' is assigned but its value is never used
+Assets\Scripts\Comic.cs(28,17): warning CS0414: The field 'Comic.credtext' is assigned but its value is never used
+Batchmode quit successfully invoked - shutting down!
+[Performance] CurlRequestCheck                                  :       28 samples, Peak.   391 us (13.0x), Avg.  30.1 us, Total. 841.9 us (0.0%)
+[Performance] PackageManager::RunRequestSynchronously           :        8 samples, Peak.  68.1 us (4.0x), Avg.  17.2 us, Total. 137.5 us (0.0%)
+[Performance] GUIView.RepaintAll.PlayerLoopController           :        4 samples, Peak.   349 us (4.0x), Avg.  87.8 us, Total. 351.3 us (0.0%)
+[Performance] SceneVisibilityState.ClearScene                   :        3 samples, Peak.   400 ns (1.2x), Avg.   333 ns, Total. 1000.0 ns (0.0%)
+[Performance] SceneVisibilityState::GameObjectChangedScene_Impl :       56 samples, Peak.   200 ns (5.6x), Avg.  35.7 ns, Total. 2.000 us (0.0%)
+Refresh: detecting if any assets need to be imported or removed ...
+Refreshing native plugins compatible for Editor in 17.72 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+
+Refresh Completed time: 0.289490s
+	Asset Scan time: 0.097120s
+	Asset Hashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Scripting) time: 0.000000s (count: 0)
+	Post Processs Assets (Scripting) time: 0.000000s
+	Asset Rehashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Non Scripting) time: 0.000000s (count: 0)
+	Post Process Assets (Non Scripting) time: 0.000000s
+	Dependent Assets to Import Queue time: 0.000000s
+
+Refresh: detecting if any assets need to be imported or removed ...
+Refreshing native plugins compatible for Editor in 0.90 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+
+Refresh Completed time: 0.134321s
+	Asset Scan time: 0.030814s
+	Asset Hashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Scripting) time: 0.000000s (count: 0)
+	Post Processs Assets (Scripting) time: 0.000000s
+	Asset Rehashing: 0.000000s [0 B, 0.000000 mb/s]
+	Asset Import (Non Scripting) time: 0.000000s (count: 0)
+	Post Process Assets (Non Scripting) time: 0.000000s
+	Dependent Assets to Import Queue time: 0.000000s
+
+[Package Manager] Server::Kill -- Server was shutdown
+Cleanup mono
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

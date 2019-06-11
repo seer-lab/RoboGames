@@ -7,9 +7,20 @@ using UnityEngine.Networking;
 
 public class WebHelper : MonoBehaviour
 {
-    private string url;
-    private string webData;
-    public string someData;
+    public static WebHelper i;
+    public string url {get; set;}
+    public string someData {get; set;}
+
+    public string webData {get; set;}
+
+    void Awake(){
+        if(!i){
+            i = this;
+            DontDestroyOnLoad(gameObject);
+        }else{
+            DestroyImmediate(gameObject);
+        }
+    }
 
     #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
@@ -29,25 +40,14 @@ public class WebHelper : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
     }
-    public WebHelper(string url){
-        this.url = url;
-    }
-
-    public string getUrl(){
-        return this.url;
-    }
-
     public string GetWebDataFromWeb(){
         #if UNITY_WEBGL && !UNITY_EDITOR
             this.webData = GetData(this.url); //Synchronous
-        #else
+        #elif UNITY_WEBGL
             StartCoroutine(GetXMLFromServer(this.url));
-            this.webData = someData;
+            this.webData = this.someData;
         #endif
-        return this.webData;
-    }
 
-    public string getWebData(){
         return this.webData;
     }
 }

@@ -29,39 +29,6 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger; 
     bool winning = false;
-    string webdata;
-
-    #if UNITY_WEBGL && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern string GetData(string url);
-    #endif
-
-    IEnumerator GetXMLFromServer(string url){
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
-        if(www.isNetworkError || www.isHttpError){
-            Debug.Log("Error at WEB: " + www.error);
-        }else{
-            Debug.Log(www.downloadHandler.text);
-            webdata = www.downloadHandler.text;
-        }
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    IEnumerator Put(string url, string bodyJsonString)
-    {
-        //Debug.Log(url);
-        byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
-        UnityWebRequest request = UnityWebRequest.Put(url, myData);
-        request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Accept", "*");
-        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
-        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
-        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
-        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
-        yield return request.SendWebRequest();
-    }
 
     /// <summary>
     /// Checks if the game meets the win condition. 
@@ -139,10 +106,6 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
         logger.onGameEnd();
-        #if UNITY_WEBGL
-            string json = logger.jsonObj;
-            StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
-        #endif
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -172,10 +135,6 @@ public class GameController : MonoBehaviour, ITimeUser
                 Debug.Log("This weird function runs??"); 
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
                 logger.onGameEnd();
-                #if UNITY_WEBGL
-                    string json = logger.jsonObj;
-                    StartCoroutine(Put(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString(), json));
-                #endif
                 SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
     }
@@ -195,10 +154,6 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd();
-            #if UNITY_WEBGL
-                string json = logger.jsonObj;
-                StartCoroutine(Put(stringLib.DB_URL +GlobalState.GameMode.ToUpper()+"/" + GlobalState.sessionID.ToString(), json));
-            #endif
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
@@ -218,14 +173,11 @@ public class GameController : MonoBehaviour, ITimeUser
         #endif
 
         //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
-        #if UNITY_WEBGL && !UNITY_EDITOR
-            webdata =GetData(stringLib.SERVER_URL + file);
-            Debug.Log("GameController: Warp() WEBGL");
-            file = webdata;
-        #elif UNITY_WEBGL
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + file));
-            Debug.Log("GameController: Warp() WEBGL AND WINDOWS");
-            file = webdata;
+
+        #if UNITY_WEBGL
+            WebHelper.i.url = stringLib.SERVER_URL + file;
+            WebHelper.i.GetWebDataFromWeb();
+            file = WebHelper.i.webData;
         #endif
 
         factory = new LevelFactory(file, true);
@@ -254,21 +206,16 @@ public class GameController : MonoBehaviour, ITimeUser
         #endif
 
         //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
-        #if UNITY_WEBGL && !UNITY_EDITOR
+        
+        #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
             filepath+=GlobalState.CurrentONLevel;
-            webdata =GetData(stringLib.SERVER_URL + filepath);
-            Debug.Log("GameController: Start() WEBGL");
-            filepath = webdata;
-        #elif UNITY_WEBGL
-            filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
-            if (GlobalState.Language == "python") filepath += "python/";
-            filepath+=GlobalState.CurrentONLevel;
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            //Debug.Log("GameController: Start() WEBGL AND WINDOWS");
-            filepath = webdata;
+            WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            WebHelper.i.GetWebDataFromWeb();
+            filepath = WebHelper.i.webData;
         #endif
+        
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();

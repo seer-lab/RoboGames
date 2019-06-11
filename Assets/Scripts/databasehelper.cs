@@ -1,25 +1,62 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
 
-public class databaseHelper: MonoBehaviour{
-    IEnumerator Upload(string url, string data){
-        
-        using (UnityWebRequest www = UnityWebRequest.Post(url, data)){
-            yield return www.SendWebRequest();
+public class DatabaseHelper: MonoBehaviour{
+    public static DatabaseHelper i;
 
-            if(www.isNetworkError || www.isHttpError){
-                Debug.Log(www.error);
-            }else{
-                Debug.Log("Form upload");
-            }
+
+    public string url {get; set;}
+    public string jsonData {get; set;}
+    void Awake(){
+        if(!i){
+            i = this;
+            DontDestroyOnLoad(gameObject);
+        }else{
+            DestroyImmediate(gameObject);
         }
     }
 
-	public void uploadLogs(string url, string data){
-		StartCoroutine(Upload(url, data));
-	}
+    IEnumerator PostToDB(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Accept", "*");
+        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
+        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
+        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
+        yield return request.SendWebRequest();
+
+        //Debug.Log("Status Code: " + request.responseCode);
+    }
+
+    IEnumerator Put(string url, string bodyJsonString)
+    {
+        //Debug.Log(url);
+        byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
+        UnityWebRequest request = UnityWebRequest.Put(url, myData);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Accept", "*");
+        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
+        request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+        request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
+        request.SetRequestHeader("Access-Control-Allow-Origin", "*");
+        yield return request.SendWebRequest();
+    }
+
+    public void PostToDataBase(){
+        StartCoroutine(PostToDB(url, jsonData));
+    }
+
+    public void PutToDataBase(){
+        StartCoroutine(Put(url, jsonData));
+    }
 }
