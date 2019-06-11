@@ -181,15 +181,15 @@ public class LevelManager
         //numberOfBugsRemaining++;
         return levelBug;
     }
-    public GameObject CreateFirewall(XmlNode childNode, int lineNumber, int column = 0){
-        GameObject firewall = Resources.Load<GameObject>("Prefabs/Firewall"); 
-        firewall = GameObject.Instantiate(firewall); 
-        firewall.GetComponent<FirewallController>().Index = lineNumber; 
-        firewall.GetComponent<FirewallController>().Damage = 10; 
-        firewalls.Add(firewall); 
-        GlobalState.level.Code[lineNumber] = GlobalState.level.Code[lineNumber].Replace("$firewall$", ""); 
-
-        return firewall; 
+    public GameObject CreateObstacle(XmlNode childNode, int lineNumber){
+        ObstacleFactory factory; 
+        if (childNode.InnerText.Contains("$OFirewall")){
+            factory = new FirewallFactory(childNode, lineNumber); 
+            GameObject obj = factory.GetGameObject(); 
+            firewalls.Add(obj); 
+            return obj; 
+        }
+        return null; 
     }
 
     public GameObject CreateHint(XmlNode childNode, int lineNumber){
@@ -206,8 +206,6 @@ public class LevelManager
         levelHint.GetComponent<HintCollider>().outmessage = childNode.Attributes["hint"].Value;
         return levelHint;
     }
-
-
     /// <summary>
     /// Creates a gameobject of the appropriate type using an XML node. 
     /// </summary>
@@ -296,24 +294,6 @@ public class LevelManager
                     roboBUGbreakpoints.Add(newbreakpoint);
                     return newbreakpoint;
                 }
-            case stringLib.NODE_NAME_PRIZE:
-                {
-                    int bugsize = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_SIZE].Value);
-                    //RoboBug Implementaiton 
-                    /*
-                    GameObject prizebug = GameObject.Instantiate(prizeobject, new Vector3(-9f + (bugsize - 1) * levelLineRatio, initialLineY - (lineNumber + 0.5f * (bugsize - 1)) * linespacing + 0.4f, 0f), transform.rotation);
-                    prizebug.transform.localScale += new Vector3(bugscale * (bugsize - 1), bugscale * (bugsize - 1), 0);
-                    PrizeBug propertyHandler = prizebug.GetComponent<PrizeBug>();
-                    string[] bonuses = childnode.Attributes[stringLib.XML_ATTRIBUTE_BONUSES].Value.Split(',');
-                    for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
-                    {
-                        propertyHandler.bonus[i] += int.Parse(bonuses[i]);
-                    }
-                    roboBUGprizes.Add(prizebug);
-                    return prizebug;
-                    */
-                    return null; 
-                }
             case stringLib.NODE_NAME_BEACON:
                 {
                     toolFactory = new BeaconFactory(childnode, lineNumber);
@@ -384,11 +364,7 @@ public class LevelManager
             varcolor.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - varcolor.GetComponent<VariableColor>().Index * properties.linespacing, 1);
         }
         foreach (GameObject firewall in firewalls){
-            firewall.transform.position = new Vector3(properties.initialLineX + 0.5f, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET  - firewall.GetComponent<FirewallController>().Index *properties.linespacing, 1); 
-            if (GlobalState.TextSize == 3) {
-				firewall.transform.position += new Vector3(2.4f, 0, 0);
-				firewall.transform.localScale += new Vector3(0.8f, 0, 0);
-			}
+            firewall.GetComponent<Firewall>().SetPosition(); 
         }
     
     }

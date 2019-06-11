@@ -97,3 +97,57 @@ Activator Tool Use:
 	Lines Used: 8 15 
 
 --------------------------------------------------------
+Failed Level
+-55 Seconds
+Activator Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Activator Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+5 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Failed Level
+4 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

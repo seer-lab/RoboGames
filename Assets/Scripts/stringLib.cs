@@ -65,6 +65,8 @@ public class stringLib
 	public const string TOOL_NAME_5								= "helper";
 	public const string TOOL_NAME_6								= "hinter";
 
+	public const string OBSTACLE_FIREWALL				="Firewall"; 
+
 	public const string CLOSE_COLOR_TAG 					= "</color>";
 
 	public const string NODE_NAME_CODE 						= "code";
