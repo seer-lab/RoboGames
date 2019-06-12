@@ -2,17 +2,6 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Diagnostics.SymbolStore;
 using System.Xml.Schema;
-//**************************************************//
-// Class Name: hero2Controller
-// Class Description: This class is the controller for the hero. It controls movement, throwing wrenches
-//                    and horizontal/vertical translation of the game avatar.
-// Methods:
-// 		void Start()
-//		void FixedUpdate()
-//		void Update()
-// Author: Michael Miljanovic
-// Date Last Modified: 6/1/2016
-//**************************************************//
 
 using UnityEngine;
 using System; 
@@ -25,6 +14,7 @@ public class hero2Controller : MonoBehaviour
 	public bool onWall = false;
 	public bool dropping = false;
 	public bool throwing = false;
+	public bool isMoving = false; 
 	public float maxSpeed = 10f;
 	public float climbSpeed = 10f;
 	public float dropDelay = 0.0f;
@@ -228,13 +218,14 @@ public class hero2Controller : MonoBehaviour
    				}
 			}
 	}
-	IEnumerator MoveToPosition(Vector3 position){
+	public IEnumerator MoveToPosition(Vector3 position){
+		isMoving = true; 
 		if (position.x > transform.position.x)
 			facingRight = true; 
 		else facingRight = false; 
 		anim.SetBool("facingRight", facingRight);
 		yield return new WaitForSecondsRealtime(0.2f);
-		if (Input.GetMouseButton(0)) {		
+		if (Input.GetMouseButton(0) || GlobalState.level.IsDemo) {		
 			reachedPosition = false; 
 			isMovingX = true; 
 
@@ -252,6 +243,7 @@ public class hero2Controller : MonoBehaviour
 			}
 			reachedPosition = true; 
 		}
+		isMoving = false; 
 	}
 	Vector3 RoundPosition(Vector3 position){
 		Transform lineAbove=null, lineBelow = null; 

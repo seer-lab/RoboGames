@@ -700,3 +700,39 @@ Commenter Tool Use:
 	Lines Used: 4 
 
 --------------------------------------------------------
+Passed Level
+-51 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+11 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+12 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Failed Level
+-43 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 10
+	Lines Used: 1 1 1 1 1 1 1 1 1 1 
+
+--------------------------------------------------------

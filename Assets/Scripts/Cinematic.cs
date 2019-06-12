@@ -180,6 +180,10 @@ public class Cinematic : MonoBehaviour
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition"); 
         }
+        else if (filepath.Contains("tutorial")){
+            Debug.Log("Tutorial");
+            SceneManager.LoadScene("TutorialDemo"); 
+        }
         else{ 
             Debug.Log("NewGame");
             SceneManager.LoadScene("newgame");

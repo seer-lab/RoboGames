@@ -202,7 +202,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.IsPlaying = false;
         if (GlobalState.CurrentONLevel == null)
         {
-            GlobalState.CurrentONLevel = "level0.xml";
+            GlobalState.CurrentONLevel = "tutorial0.xml";
         }
         else GlobalState.IsPlaying = true;
         GlobalState.CurrentBUGLevel = "level0.xml";

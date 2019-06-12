@@ -55,6 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DemoBotControl.cs" />
+     <Compile Include="Assets\DemoBoyControl.cs" />
+     <Compile Include="Assets\Scripts\Action.cs" />
+     <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
@@ -214,6 +218,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level2-1.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\rename.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial0.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\smalldemo.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3aReds.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-4.xml" />

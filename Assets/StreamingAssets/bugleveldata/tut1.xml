@@ -14,8 +14,9 @@ You can now use BUGCATCHERS!</endtext>
 </tools>
 <code language="c++">int Square(int x){
     //calculate the square of x
+	x = x * x;
     x = x + $bug$598439;
-    return x * x;
+    return x;
 }
 </code>
 </level>
