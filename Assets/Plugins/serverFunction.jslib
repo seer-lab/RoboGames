@@ -10,4 +10,12 @@ mergeInto(LibraryManager.library, {
     stringToUTF8(text, buffer, bufferSize);
     return buffer;
   },
+  
+  getCookies: function () {
+      var x = document.cookie;
+      var bufferSize = lengthBytesUTF8(x) + 1;
+      var buffer = _malloc(bufferSize);
+      stringToUTF8(x,buffer,bufferSize);
+      return buffer;
+  },
 });

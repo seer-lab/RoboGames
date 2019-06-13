@@ -25,6 +25,8 @@ public class WebHelper : MonoBehaviour
     #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern string GetData(string url);
+        [DllImport("__Internal")]
+        private static extern string getCookies();
     #endif
 
 
@@ -42,12 +44,22 @@ public class WebHelper : MonoBehaviour
     }
     public string GetWebDataFromWeb(){
         #if UNITY_WEBGL && !UNITY_EDITOR
+            Console.WriteLine("Download On the web");
             this.webData = GetData(this.url); //Synchronous
+            Console.WriteLine(this.webData);
         #elif UNITY_WEBGL
             StartCoroutine(GetXMLFromServer(this.url));
             this.webData = this.someData;
         #endif
 
         return this.webData;
+    }
+
+    public string grabCookies(){
+        string x = "";
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            x = getCookies();
+        #endif
+        return x;
     }
 }

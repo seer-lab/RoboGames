@@ -87,8 +87,29 @@ public class Logger
             GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
         }
         GlobalState.jsonStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonStates += "\"position\":\"" + progress.ToString() + "\",";
         GlobalState.jsonStates += "\"progress\":\"" + progress.ToString() + "\",";
         GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\"}";
+    }
+
+    public void onDamageStateJson(int projectileCode, int lineNumber, float energy, float currentEnergy, int time){
+        if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
+            GlobalState.jsonOStates += "\"states\":[{";
+        }else{
+            GlobalState.jsonOStates += ",{";
+        }
+
+        GlobalState.jsonOStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
+        GlobalState.jsonOStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
+
+        if(GlobalState.GameMode == "on"){
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[projectileCode] + "\",";
+        }else{
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
+        }
+        GlobalState.jsonOStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonOStates += "\"time\":\"" + time.ToString() + "\"}";
+
     }
     public void WriteLog()
     {

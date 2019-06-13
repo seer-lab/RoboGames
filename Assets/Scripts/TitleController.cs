@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Video; 
 using UnityEngine.UI; 
@@ -18,8 +19,11 @@ public class TitleController : MonoBehaviour
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         #if UNITY_WEBGL                    
             filepath = "StreamingAssets/TitleSequence.mp4";
+            //Console.WriteLine(stringLib.SERVER_URL + filepath);
             player.url = stringLib.SERVER_URL + filepath;
-            //Debug.Log("TitleController Start() WEBGL");
+            player.Pause();
+            player.Play();
+            Debug.Log("TitleController Start() WEBGL");
         #endif
         robot = this.transform.GetChild(0).GetComponent<Animator>(); 
         girl = this.transform.GetChild(1).GetComponent<Animator>(); 
