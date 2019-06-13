@@ -7,7 +7,7 @@ public class DemoBotControl : MonoBehaviour
     public List<Action> callstack; 
     private hero2Controller controller; 
     int indexOfAction = 0; 
-    int currentIndex = 0; 
+    int currentIndex = -1; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,10 @@ public class DemoBotControl : MonoBehaviour
         
         if (callstack.Count > 0 && currentIndex != indexOfAction){
             currentIndex = indexOfAction; 
-            StartCoroutine(controller.MoveToPosition(callstack[currentIndex].Position)); 
+            controller.reachedPosition = false; 
+            StartCoroutine(controller.MoveToPosition(controller.RoundPosition(callstack[currentIndex].Position))); 
         }
-        if (!controller.isMoving && Input.GetKeyDown(KeyCode.Return)){
+        if (Input.GetKeyDown(KeyCode.Return)){
             indexOfAction++; 
         }
         

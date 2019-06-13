@@ -57,6 +57,7 @@
   <ItemGroup>
      <Compile Include="Assets\DemoBotControl.cs" />
      <Compile Include="Assets\DemoBoyControl.cs" />
+     <Compile Include="Assets\GamePicker.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -134,6 +135,7 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
+     <Compile Include="Assets\SelectTitle.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />

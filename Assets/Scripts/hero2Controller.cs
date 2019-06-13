@@ -39,7 +39,7 @@ public class hero2Controller : MonoBehaviour
 	private int lastLineNumberactive; 
 	private float verticalMovement = 1f; 
 	private bool isMovingX = false; 
-	private bool reachedPosition = true; 
+	public bool reachedPosition = true; 
 	EnergyController energyController; 
 	private FireButton fire; 
 	bool canTakeDamage = true; 
@@ -105,7 +105,7 @@ public class hero2Controller : MonoBehaviour
 			//movement
 			float fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
 			fMoveVelocityVertical = Input.GetAxis("Vertical");
-			if (Input.GetMouseButton(0) && !reachedPosition) {
+			if ((Input.GetMouseButton(0) || GlobalState.level.IsDemo) && !reachedPosition) {
 				if (isMovingX)
 					fMoveVelocityHorizontal = (facingRight) ? 1f: -1f; 
 				else fMoveVelocityVertical = verticalMovement; 
@@ -228,7 +228,7 @@ public class hero2Controller : MonoBehaviour
 		if (Input.GetMouseButton(0) || GlobalState.level.IsDemo) {		
 			reachedPosition = false; 
 			isMovingX = true; 
-
+			Debug.Log("Pos :" + position.ToString());
 			while(Math.Abs(GetComponent<Transform>().localPosition.x-position.x) > 0.6f){
 				if (this.transform.position.x - position.x < 0) facingRight = true;
 				else facingRight = false; 
@@ -245,7 +245,7 @@ public class hero2Controller : MonoBehaviour
 		}
 		isMoving = false; 
 	}
-	Vector3 RoundPosition(Vector3 position){
+	public Vector3 RoundPosition(Vector3 position){
 		Transform lineAbove=null, lineBelow = null; 
 		int lineNumber = 0; 
 		foreach(GameObject line in lg.manager.lines){
