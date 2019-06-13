@@ -202,7 +202,9 @@ public class OldMenu : MonoBehaviour
         GlobalState.IsPlaying = false;
         if (GlobalState.CurrentONLevel == null)
         {
-            GlobalState.CurrentONLevel = "tutorial0.xml";
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+                GlobalState.CurrentONLevel = "level0.xml";
+            else GlobalState.CurrentBUGLevel = "tut1.xml"; 
         }
         else GlobalState.IsPlaying = true;
         GlobalState.CurrentBUGLevel = "level0.xml";
@@ -288,18 +290,64 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = -3;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
-                        m2switch(true);
-                        m2buttontext[0].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_ON;
-                        m2buttontext[1].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_BUG;
+                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                        SceneManager.LoadScene("CharacterSelect"); 
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
                         GlobalState.GameState = -4;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
+                        levels.Clear();
+                passed.Clear();
+                //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                string filepath ="";
+                #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                    filepath = Path.Combine(filepath, "levels.txt");
+                    Debug.Log("OldMenu: Update() WINDOWS");
+
+                    sr = File.OpenText(filepath);
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(' ');
+                        levels.Add(data[0]);
+                        passed.Add(data[1]);
+                    }
+                    sr.Close();
+                #endif
+
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
+                    Console.WriteLine(stringLib.SERVER_URL + filepath);
+                    webdata = GetData(stringLib.SERVER_URL + filepath);
+                #elif UNITY_WEBGL  
+                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
+                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
+                    Console.WriteLine(stringLib.SERVER_URL + filepath);
+                #endif
+
+                #if UNITY_WEBGL                    
+                    filepath = webdata;
+                    string[] leveldata = filepath.Split('\n');
+                    for (int i = 0; i < leveldata.Length - 1; i++) {
+                        string[] tmp = leveldata[i].Split(' ');
+                        string[] tmpTwo = tmp[1].Split('\r');
+                        levels.Add(tmp[0]);
+                        passed.Add(tmpTwo[0]);
+                    }
+                    Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
+                #endif
+
+                GlobalState.GameState = -1;
+                option = 0;
+                m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+                m2buttontext[1].GetComponent<TextMesh>().text = "Back";   
+                        GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU; 
                         m2switch(true);
-                        m2buttontext[0].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_ON;
-                        m2buttontext[1].GetComponent<TextMesh>().text = stringLib.GAME_ROBOT_BUG;
+
                         break;
                     case stateLib.GAMEMENU_SOUND_OPTIONS:
                         GlobalState.GameState = -2;
@@ -506,6 +554,7 @@ public class OldMenu : MonoBehaviour
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_NEWGAME)
         {
+
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -519,6 +568,10 @@ public class OldMenu : MonoBehaviour
             }
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
+                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                GlobalState.IsResume = false;
+
+                SceneManager.LoadScene("CharacterSelect");
                 entered = false;
                 switch (option)
                 {
@@ -562,63 +615,9 @@ public class OldMenu : MonoBehaviour
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
                 entered = false;
-                switch (option)
-                {
-                    case 0:
-                        GlobalState.GameMode = stringLib.GAME_MODE_ON;
-                        break;
-                    case 1:
-                        GlobalState.GameMode = stringLib.GAME_MODE_BUG;
-                        break;
-                }
+                
 
-                levels.Clear();
-                passed.Clear();
-                //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                string filepath ="";
-                #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-                    filepath = Path.Combine(filepath, "levels.txt");
-                    Debug.Log("OldMenu: Update() WINDOWS");
-
-                    sr = File.OpenText(filepath);
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        string[] data = line.Split(' ');
-                        levels.Add(data[0]);
-                        passed.Add(data[1]);
-                    }
-                    sr.Close();
-                #endif
-
-                #if UNITY_WEBGL && !UNITY_EDITOR
-                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-                    Console.WriteLine(stringLib.SERVER_URL + filepath);
-                    webdata = GetData(stringLib.SERVER_URL + filepath);
-                #elif UNITY_WEBGL  
-                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-                    StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-                    Console.WriteLine(stringLib.SERVER_URL + filepath);
-                #endif
-
-                #if UNITY_WEBGL                    
-                    filepath = webdata;
-                    string[] leveldata = filepath.Split('\n');
-                    for (int i = 0; i < leveldata.Length - 1; i++) {
-                        string[] tmp = leveldata[i].Split(' ');
-                        string[] tmpTwo = tmp[1].Split('\r');
-                        levels.Add(tmp[0]);
-                        passed.Add(tmpTwo[0]);
-                    }
-                    Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
-                #endif
-
-                GlobalState.GameState = -1;
-                option = 0;
-                m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
-                m2buttontext[1].GetComponent<TextMesh>().text = "Back";           
+                        
             }
         }
         else
