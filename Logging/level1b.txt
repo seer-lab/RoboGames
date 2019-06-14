@@ -142,3 +142,21 @@ Bug Catcher Tool Use:
 	Lines Used: 13 
 
 --------------------------------------------------------
+Passed Level
+11 Seconds
+Bug Catcher Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+--------------------------------------------------------
+Passed Level
+9 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+--------------------------------------------------------

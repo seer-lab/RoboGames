@@ -100,6 +100,7 @@ public class DescriptionCommentFactory: CommentTypeFactory
             propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
             Entity = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
             GlobalState.level.Tasks[3]++;
+            Debug.Log("Added Task"); 
             Initalize(propertyHandler); 
         }
         else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false")

@@ -17,6 +17,10 @@ public class LevelFactory
     public LevelFactory(string filename, bool warp = false)
     {
         level = new Level();
+        if (filename.Contains("tutorial")){
+            level.IsDemo = true; 
+        }
+        else level.IsDemo = false; 
         if (warp)
             BuildFromCurrent(filename); 
         else

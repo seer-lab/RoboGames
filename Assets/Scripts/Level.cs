@@ -12,6 +12,7 @@ public class Level
     public string NextLevel { get; set; }
     public string FileName { get; set; }
     public bool Warp { get; set; }
+    public bool IsDemo {get;set;}
     public string[] Code { get; set; }
     public string Description {get; set;}
     public string[] Tags { get; set; }

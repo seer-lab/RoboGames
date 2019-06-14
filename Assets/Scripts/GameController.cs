@@ -35,15 +35,17 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckWin()
     {
-        if (GlobalState.level != null)
+        if (GlobalState.level != null && !GlobalState.level.IsDemo)
         {
             winning = true;
             //Check if all the tasks have been completed. 
             for (int i = 0; i < 5; i++)
             {
+                //Debug.Log("task: " + GlobalState.level.Tasks[i] + " Completed: " + GlobalState.level.CompletedTasks[i]); 
                 if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     winning = false;
+
                 }
             }
             if (GlobalState.level.Tasks[0] != 0 && GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
@@ -60,8 +62,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckLose()
     {
-        if ((EnergyController.currentEnergy <= 0 && GlobalState.GameMode == stringLib.GAME_MODE_ON)
-            || (EnergyController.currentEnergy <= 0|| selectedTool.CheckAllToolsUsed()))
+        if (EnergyController.currentEnergy <= 0)
         {
             StartCoroutine(Lose());
         }
@@ -132,7 +133,6 @@ public class GameController : MonoBehaviour, ITimeUser
             GameOver();  
         }
         else{
-                Debug.Log("This weird function runs??"); 
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
                 logger.onGameEnd();
                 SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
@@ -187,7 +187,10 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.manager.ResizeObjects(); 
     }
     void Awake(){
-        hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+        if (GlobalState.level.IsDemo)
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
+        else 
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
         hero.name = "Hero"; 
     }
     // Start is called before the first frame update
