@@ -143,7 +143,6 @@ public class Menu : MonoBehaviour
                     submenu.LoadButtons(v); 
 				    break;
 				case stateLib.GAMEMENU_EXIT_GAME:
-				    postToDatabase.Start();
 				    Application.Quit();
 				    break;
 				case stateLib.GAMEMENU_RESUME_GAME:

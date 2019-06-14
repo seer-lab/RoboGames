@@ -178,6 +178,7 @@ public class RenamerFactory : ToolFactory
         }
         catch (Exception ex)
         {
+            Debug.Log(ex.Message);
             tool.oldname = childnode.InnerText;
         }
         tool.Index = lineNumber;

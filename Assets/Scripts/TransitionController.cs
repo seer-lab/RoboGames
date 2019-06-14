@@ -96,21 +96,17 @@ public class TransitionController : MonoBehaviour
         string bug = "on"; 
         if( GlobalState.GameMode == "bug") bug = "bug";
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
-        #if UNITY_WEBGL && !UNITY_EDITOR
-            filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            filepath = GetData(stringLib.SERVER_URL + filepath);
-        #elif UNITY_WEBGL
-            filepath ="StreamingAssets/"+ GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            filepath =webdata;
-        #endif
-
-
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         bool positionLine = false;
 
         #if UNITY_WEBGL
+
+            filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+            WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            WebHelper.i.GetWebDataFromWeb();
+            filepath = WebHelper.i.webData;
+
             byte[] byteArr = Encoding.ASCII.GetBytes(filepath);
             MemoryStream stream = new MemoryStream(byteArr);
 

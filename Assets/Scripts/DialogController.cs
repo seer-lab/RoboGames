@@ -100,24 +100,10 @@ public class DialogController : MonoBehaviour
         else return botDialog; 
     }
 
-        string webdata;
-
-    IEnumerator GetXMLFromServer(string url){
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
-        if(www.isNetworkError || www.isHttpError){
-            Debug.Log(www.error);
-        }else{
-            //Debug.Log(www.downloadHandler.text);
-            webdata = www.downloadHandler.text;
-        }
-        yield return new WaitForSeconds(0.5f);
-    }
     void ReadFile(){
         string bug = ""; 
         if( GlobalState.GameMode == "bug") bug = "bug"; 
-        string filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/Intro" + bug +".txt");
+        string filepath = "StreamingAssets/onleveldata/Intro" + bug + ".txt";
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
@@ -140,22 +126,14 @@ public class DialogController : MonoBehaviour
                     lines.Add(line); 
                 }
             }
-
-        #endif
-
-        #if UNITY_WEBGL && !UNITY_EDITOR
-            filepath = "StreamingAssets" + "/" + "onleveldata/Intro" + bug +".txt";
-            webdata = GetData(stringLib.SERVER_URL + filepath);
-            Debug.Log("DialogController: ReadFile() WEBGL");
-
-        #elif UNITY_WEBGL && UNITY_EDITOR
-            filepath = "StreamingAssets" + "/" + "onleveldata/Intro" + bug +".txt";
-            StartCoroutine(GetXMLFromServer(stringLib.SERVER_URL + filepath));
-            //Debug.Log("DialogController: ReadFile() WEBGL AND WINDOWS");
         #endif
 
         #if UNITY_WEBGL
-            String[] linesS = webdata.Split('\n');
+            WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            WebHelper.i.GetWebDataFromWeb();
+            filepath = WebHelper.i.webData;
+
+            String[] linesS = filepath.Split('\n');
             for(int i = 0; i < linesS.Length - 1; i++){
                 String[] scriptLines = linesS[i].Split('\r');
                 if(scriptLines[0].Contains("$Boy")){

@@ -86,7 +86,6 @@ public class LevelFactory
         level.CompletedTasks = new int[5];
 
         XmlDocument doc = null;
-        string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             //Debug.Log("LevelFactory: BuildLevel() WINDOWS");
             doc = XMLReader.ReadFile(filename);
@@ -110,6 +109,7 @@ public class LevelFactory
         }
         catch(Exception e)
         {
+            Debug.Log(e.Message);
             level.Time = 9001; 
         }
 

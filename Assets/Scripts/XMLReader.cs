@@ -175,10 +175,7 @@ public static class XMLReader {
   // StoreInnerXML() and StoreOuterXML() functionality was lost so I need a new way to handle Outer and Inner XML parsing.
   public static string convertOuterToInnerXML(string outerXml, string language) {
 	    TextColoration textColoration = new TextColoration();
-		string sReturn 	= "";
-		string sHead		= "";
-		string sTail		= "";
-		string sPretagText	= "";
+      string sReturn = "";
 		XmlDocument doc = new XmlDocument();
 		Regex rgxTail = new Regex(@"[<][^>]*[>]");
 		Match m = rgxTail.Match(outerXml);
