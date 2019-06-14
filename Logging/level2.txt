@@ -193,3 +193,18 @@ Printer Tool Use:
 	Lines Used: 9 15 18 13 
 
 --------------------------------------------------------
+Passed Level
+18 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 11 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 9 13 
+
+--------------------------------------------------------

@@ -114,15 +114,16 @@ public class DialogController : MonoBehaviour
                     string line = reader.ReadLine(); 
                     if (line.Contains("$Boy")){
                         actorOrder.Add("Boy"); 
-                        line = line.Remove(0,line.IndexOf(':')); 
+                        line = "Guy: " + line.Remove(0,line.IndexOf(':') + 1); 
                     }
                     else if (line.Contains("$Girl")){
                         actorOrder.Add("Girl"); 
+                        line = "Ivy: " + line.Remove(0,line.IndexOf(':')+1); 
                     }
                     else{
                         actorOrder.Add("Robot"); 
+                        line = "V.I." + line.Remove(0,line.IndexOf(':')+1); 
                     }
-                    line = line.Remove(0,line.IndexOf(':')+1); 
                     lines.Add(line); 
                 }
             }

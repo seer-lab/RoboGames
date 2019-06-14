@@ -1,54 +1,42 @@
 Passed Level
--34 Seconds
-Bug Catcher Tool Use: 
-	Required Tasks: 1
-	Completed Tasks: 1
-	Times Tool Used: 1
-	Lines Used: 14 
-
-Printer Tool Use: 
-	Required Tasks: 1
-	Completed Tasks: 1
-	Times Tool Used: 1
-	Lines Used: 20 
-
-Warper Tool Use: 
-	Required Tasks: 1
-	Completed Tasks: 0
-	Times Tool Used: 1
-	Lines Used: 25 
-
-Breakpointer Tool Use: 
-	Required Tasks: 3
-	Completed Tasks: 0
-	Times Tool Used: 0
-	Lines Used: 
-
---------------------------------------------------------
-Passed Level
--36 Seconds
+-18 Seconds
 Bug Fixer Tool Use: 
 	Required Tasks: 1
 	Completed Tasks: 1
 	Times Tool Used: 1
-	Lines Used: 14 
+	Lines Used: 92 
 
 Printer Tool Use: 
 	Required Tasks: 1
 	Completed Tasks: 1
 	Times Tool Used: 1
-	Lines Used: 20 
+	Lines Used: 5 
 
-Warper Tool Use: 
+Commenter Tool Use: 
+	Required Tasks: 6
+	Completed Tasks: 0
+	Times Tool Used: 4
+	Lines Used: 8 39 67 90 
+
+--------------------------------------------------------
+Passed Level
+21 Seconds
+Bug Fixer Tool Use: 
 	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 92 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 5 
+
+Commenter Tool Use: 
+	Required Tasks: 6
 	Completed Tasks: 0
 	Times Tool Used: 1
-	Lines Used: 25 
-
-Breakpointer Tool Use: 
-	Required Tasks: 3
-	Completed Tasks: 0
-	Times Tool Used: 0
-	Lines Used: 
+	Lines Used: 90 
 
 --------------------------------------------------------
