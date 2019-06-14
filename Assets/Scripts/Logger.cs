@@ -24,9 +24,10 @@ public class Logger
     bool failed;
 
     int timeStart, timeEnd, totalTime;
-    DateTime time;
+    DateTime time, startTime, endTime;
 	string[] linesUsed = new string[stateLib.NUMBER_OF_TOOLS]; 
-	bool hasWritten = false; 
+	bool hasWritten = false;
+    bool progress; 
 
     private string jsonObj = "";
 
@@ -51,8 +52,11 @@ public class Logger
 		for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
 			linesUsed[i] = ""; 
     }
-    public void onGameEnd()
+    public void onGameEnd(DateTime startTime, bool progress)
     {
+        this.startTime = startTime;
+        this.endTime = DateTime.Now;
+        this.progress = progress;
 		if(hasWritten){
 			return; 
 		}
@@ -71,7 +75,9 @@ public class Logger
 		linesUsed[index] += lineNumber.ToString() + ' '; 
     }
 
-    public void onStateChangeJson(int projectileCode, int lineNumber, float energy, float currentEnergy, bool progress, int time){
+    public void onStateChangeJson(int projectileCode, int lineNumber, Vector3 position, 
+                                    float energy, float currentEnergy, 
+                                    bool progress, int time){
         if(GlobalState.jsonStates == null || GlobalState.jsonStates == ""){
             GlobalState.jsonStates += "\"states\":[{";
         }else{
@@ -92,7 +98,7 @@ public class Logger
         GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\"}";
     }
 
-    public void onDamageStateJson(int projectileCode, int lineNumber, float energy, float currentEnergy, int time){
+    public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy, int time){
         if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
             GlobalState.jsonOStates += "\"states\":[{";
         }else{

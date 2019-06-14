@@ -88,7 +88,7 @@ public class OldMenu : MonoBehaviour
             //Create a sessionID and store it
             GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
             Debug.Log("Making Session ID: " + GlobalState.sessionID.ToString());
-            string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"}";
+            string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
             PlayerPrefs.SetFloat("sessionID", (float)GlobalState.sessionID);
 
             DatabaseHelper.i.url = stringLib.DB_URL + "ON/";
