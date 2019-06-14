@@ -77,7 +77,7 @@ public class DialogController : MonoBehaviour
     }
     IEnumerator WaitForSwitchScene(){
         yield return new WaitForSeconds(1f); 
-        SceneManager.LoadScene("CharacterSelect"); 
+        SceneManager.LoadScene("MainMenu"); 
     }
     void NextDialog(){
         if (index +1 == lines.Count){
