@@ -204,7 +204,7 @@ public class OldMenu : MonoBehaviour
         {
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
                 GlobalState.CurrentONLevel = "level0.xml";
-            else GlobalState.CurrentBUGLevel = "tut1.xml"; 
+            else GlobalState.CurrentONLevel = "tut1.xml"; 
         }
         else GlobalState.IsPlaying = true;
         GlobalState.CurrentBUGLevel = "level0.xml";
@@ -372,7 +372,7 @@ public class OldMenu : MonoBehaviour
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
                         postToDatabase.Start();
-                        Application.Quit();
+                        SceneManager.LoadScene("TitleScene"); 
                         break;
                     case stateLib.GAMEMENU_RESUME_GAME:
                         GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
@@ -572,30 +572,7 @@ public class OldMenu : MonoBehaviour
                 GlobalState.IsResume = false;
 
                 SceneManager.LoadScene("CharacterSelect");
-                entered = false;
-                switch (option)
-                {
-                    case 0:
-                        InitializeGlobals();
-                        GlobalState.GameMode = stringLib.GAME_MODE_ON;
-                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        GlobalState.IsResume = false;
-
-                        SceneManager.LoadScene("IntroScene");
-
-                        break;
-                    case 1:
-                        InitializeGlobals();
-                        GlobalState.GameMode = stringLib.GAME_MODE_BUG;
-                        GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        GlobalState.IsResume = false;
-                        GlobalState.CurrentONLevel = "tut1.xml";
-                        SceneManager.LoadScene("IntroScene");
-                        break;
-                }
-                m2switch(false);
-                gameon = true;
-                buttons[4].GetComponent<SpriteRenderer>().color = Color.white;
+                
 
             }
         }

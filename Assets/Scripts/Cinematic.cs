@@ -70,6 +70,7 @@ public class Cinematic : MonoBehaviour
     IEnumerator ShowCharacter(){
         GameObject player = transform.Find(GlobalState.Character).gameObject; 
         player.GetComponent<Animator>().SetTrigger("isRunning"); 
+        player.GetComponent<Animator>().SetBool("running", true); 
         Image image = player.GetComponent<Image>(); 
         while(image.color.a < 1){
             image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.05f); 
