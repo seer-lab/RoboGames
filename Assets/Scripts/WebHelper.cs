@@ -27,6 +27,8 @@ public class WebHelper : MonoBehaviour
         private static extern string GetData(string url);
         [DllImport("__Internal")]
         private static extern string getCookies();
+        [DllImport("__Internal")]
+        private static extern string setCookies(string name, string value);
     #endif
 
 
@@ -59,7 +61,15 @@ public class WebHelper : MonoBehaviour
         string x = "";
         #if UNITY_WEBGL && !UNITY_EDITOR
             x = getCookies();
+            Console.WriteLine("Cookies = " + x);
         #endif
         return x;
+    }
+
+    public void settingCookie(string name, string value){
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            Console.WriteLine("Cookie is set: "+ name + " = " + value);
+            setCookies(name, value);
+        #endif
     }
 }

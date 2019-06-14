@@ -93,7 +93,16 @@ public class OldMenu : MonoBehaviour
         DatabaseHelper.i.jsonData = json;
         DatabaseHelper.i.PostToDataBase();
 
+        Console.WriteLine("Setting Cookies");
+
+        try{
+        WebHelper.i.settingCookie("roboONBUG", GlobalState.sessionID.ToString());
+
+        Console.WriteLine("Grabbing Cookies");
         Console.WriteLine("Cookies: " + WebHelper.i.grabCookies());
+        }catch(Exception e){
+            Console.WriteLine(e.Message);
+        }
 
     }
     public void onClick(int index)
