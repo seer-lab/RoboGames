@@ -25,4 +25,6 @@ public static class GlobalState
     public static long sessionID {get; set;}
     public static string jsonStates{get; set;}
     public static string[] correctLine {get; set;}
+    public static string[] obstacleLine {get; set;}
+    public static string jsonOStates {get; set;}
 }

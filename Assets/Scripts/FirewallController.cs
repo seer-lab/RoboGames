@@ -18,12 +18,12 @@ public class FirewallController : MonoBehaviour
     void Update()
     {
         if (lastHero != null && GetComponent<BoxCollider2D>().IsTouching(lastHero)){
-            lastHero.GetComponent<hero2Controller>().onTakeDamange(Damage); 
+            lastHero.GetComponent<hero2Controller>().onTakeDamange(Damage, stateLib.OBSTACLE_FIREWALL); 
         }
     }
     void OnTriggerEnter2D(Collider2D collidingObj){
         if (collidingObj.name == "Hero"){
-            if (collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage))
+            if (collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage, stateLib.OBSTACLE_FIREWALL))
                 GetComponent<AudioSource>().Play(); 
             lastHero = collidingObj; 
         }

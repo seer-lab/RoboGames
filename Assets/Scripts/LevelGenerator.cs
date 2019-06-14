@@ -70,6 +70,7 @@ public partial class LevelGenerator : MonoBehaviour {
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         GlobalState.correctLine = new string[stateLib.NUMBER_OF_TOOLS];
+        GlobalState.obstacleLine= new string[stateLib.NUMBER_OF_OBSTACLE];
         BuildLevel(); 
 
 	}
@@ -225,22 +226,22 @@ public partial class LevelGenerator : MonoBehaviour {
 				}
                 
 			}
-            indexOf = 0;
-            int tmp = 0;
-            foreach (XmlNode node in GlobalState.level.LevelNode){
-                indexOf = 0;
-                foreach(XmlNode childs in node.ChildNodes){
-                    try{
-                        if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
-                            tmp = indexOf +childs.InnerText.Split('\n').Length;
-                            manager.CreateHint(childs,tmp);
-                        }
-                    }catch(Exception e){
-                        Debug.Log(e.Message);
-                    }
-                    indexOf++;
-                }
-            }
+            // indexOf = 0;
+            // int tmp = 0;
+            // foreach (XmlNode node in GlobalState.level.LevelNode){
+            //     indexOf = 0;
+            //     foreach(XmlNode childs in node.ChildNodes){
+            //         try{
+            //             if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
+            //                 tmp = indexOf +childs.InnerText.Split('\n').Length;
+            //                 manager.CreateHint(childs,tmp);
+            //             }
+            //         }catch(Exception e){
+            //             Debug.Log(e.Message);
+            //         }
+            //         indexOf++;
+            //     }
+            // }
             // These are counters to update the blocktext of each object
             int numberOfroboBUGcomments = 0;
             int numberOfrobotONcorrectComments = 0;

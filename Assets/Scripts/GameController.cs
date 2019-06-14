@@ -24,7 +24,8 @@ public class GameController : MonoBehaviour, ITimeUser
     BackButton backButton; 
     bool calledDead = false; 
     GameObject hero; 
-    EnergyController EnergyController; 
+    EnergyController EnergyController;
+    DateTime startDate, endDate; 
     bool firstUpdate = true; 
 
     public Logger logger; 
@@ -106,7 +107,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        logger.onGameEnd();
+        logger.onGameEnd(startDate, false);
         SceneManager.LoadScene("Cinematic"); 
     }
     /// <summary>
@@ -134,7 +135,7 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else{
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-                logger.onGameEnd();
+                logger.onGameEnd(startDate, false);
                 SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
     }
@@ -153,7 +154,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd();
+            logger.onGameEnd(startDate, true);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
         else
@@ -198,6 +199,8 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
+
+        startDate = DateTime.Now;
 
         string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL

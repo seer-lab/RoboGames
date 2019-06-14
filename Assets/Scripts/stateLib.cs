@@ -56,4 +56,8 @@ public static class stateLib
 	public const int TEXT_SIZE_LARGE													 = 30;
 	public const int TEXT_SIZE_NORMAL													 = 25;
 	public const int TEXT_SIZE_SMALL													 = 20;
+
+
+	public const int NUMBER_OF_OBSTACLE = 1;
+	public const int OBSTACLE_FIREWALL = 0;
 }

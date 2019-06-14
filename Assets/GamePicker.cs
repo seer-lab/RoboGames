@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Video;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 
@@ -9,9 +10,18 @@ public class GamePicker : MonoBehaviour
     public GameObject[] Items = new GameObject[2]; 
     SelectTitle[] titles = new SelectTitle[2]; 
     Fade fade; 
+    VideoPlayer player;
+
+    
     // Start is called before the first frame update
     void Start()
     {
+
+        player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
+        #if UNITY_WEBGL
+            player.url = stringLib.SERVER_URL + "StreamingAssets/Menu.mp4";
+        #endif
+
         indexSelcted = 0; 
         for (int i = 0; i < Items.Length; i++){
             titles[i] = Items[i].GetComponent<SelectTitle>(); 

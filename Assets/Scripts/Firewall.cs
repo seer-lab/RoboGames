@@ -24,7 +24,7 @@ public class Firewall : Obstacle
     {
         if (collidingObj.name == "Hero")
         {
-            if (collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage))
+            if (collidingObj.GetComponent<hero2Controller>().onTakeDamange(Damage, stateLib.OBSTACLE_FIREWALL))
                 GetComponent<AudioSource>().Play();
             lastHero = collidingObj;
         }
