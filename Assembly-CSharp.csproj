@@ -55,9 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DemoBotControl.cs" />
-     <Compile Include="Assets\DemoBoyControl.cs" />
-     <Compile Include="Assets\GamePicker.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -81,6 +78,8 @@
      <Compile Include="Assets\Scripts\credits.cs" />
      <Compile Include="Assets\Scripts\CreditsController.cs" />
      <Compile Include="Assets\Scripts\DatabaseHelper.cs" />
+     <Compile Include="Assets\Scripts\DemoBotControl.cs" />
+     <Compile Include="Assets\Scripts\DemoBoyControl.cs" />
      <Compile Include="Assets\Scripts\DialogController.cs" />
      <Compile Include="Assets\Scripts\EnergyController.cs" />
      <Compile Include="Assets\Scripts\Fade.cs" />
@@ -88,6 +87,7 @@
      <Compile Include="Assets\Scripts\Firewall.cs" />
      <Compile Include="Assets\Scripts\FirewallController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GamePicker.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
@@ -116,6 +116,7 @@
      <Compile Include="Assets\Scripts\rename.cs" />
      <Compile Include="Assets\Scripts\ResumeState.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
+     <Compile Include="Assets\Scripts\SelectTitle.cs" />
      <Compile Include="Assets\Scripts\SidebarController.cs" />
      <Compile Include="Assets\Scripts\stateLib.cs" />
      <Compile Include="Assets\Scripts\stringLib.cs" />
@@ -134,7 +135,6 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\SelectTitle.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />

@@ -15,7 +15,7 @@ public class CodeProperties
     public float lineOffset = -0.3f;
     // Used for Bugs, prizes, and resizing the play area
     public float levelLineRatio = 0.55f;
-    public float bugXshift = -9f;
+    public float bugXshift = 1.12444f;
     public float fontwidth = 0.15f;
     public float bugsize = 1f;
     public float bugscale = 1.5f;

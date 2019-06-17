@@ -19,6 +19,7 @@ public abstract class ToolFactory
         path = "Prefabs/";
         initialLineY = 3f; 
         linespacing = 0.825f; 
+        
     }
     public abstract Tools GetScript();
     public abstract GameObject GetGameObject(); 
@@ -178,7 +179,6 @@ public class RenamerFactory : ToolFactory
         }
         catch (Exception ex)
         {
-            Debug.Log(ex.Message);
             tool.oldname = childnode.InnerText;
         }
         tool.Index = lineNumber;

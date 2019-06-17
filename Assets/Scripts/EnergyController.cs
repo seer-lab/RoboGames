@@ -32,6 +32,19 @@ public class EnergyController : MonoBehaviour
         }
         return percent;
     }
+    public void ToggleEnergy()
+    {
+        energyBar.GetComponent<Image>().enabled = hidden;
+        energyBar.transform.GetChild(0).GetComponent<Image>().enabled = hidden;
+        indicator.enabled = hidden;
+        hidden = !hidden;
+    }
+    public void ToggleLight(){
+        indicator.color = Color.black; 
+    }
+    public void ToggleDark(){
+        indicator.color = Color.white; 
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -76,12 +89,14 @@ public class EnergyController : MonoBehaviour
     }
     void updateBar()
     {
-        if (currentEnergy > 0){
+        if (currentEnergy > 0)
+        {
             indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-                    energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * (currentEnergy / initialEnergy), 1, 1);
-                    
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * (currentEnergy / initialEnergy), 1, 1);
+
         }
-        else{
+        else
+        {
             indicator.text = "0%";
             energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
         }
