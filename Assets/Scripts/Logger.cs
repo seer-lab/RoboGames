@@ -31,19 +31,6 @@ public class Logger
 
     private string jsonObj = "";
 
-    IEnumerator Post(string url, string bodyJsonString)
-    {
-        var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Accept", "*");
-
-        yield return request.SendWebRequest();
-
-        Debug.Log("Status Code: " + request.responseCode);
-    }
     public Logger()
     {
         GlobalState.toolUse = new int[stateLib.NUMBER_OF_TOOLS];
@@ -92,29 +79,30 @@ public class Logger
         }else{
             GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
         }
-        GlobalState.jsonStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
-        GlobalState.jsonStates += "\"position\":\"" + progress.ToString() + "\",";
+
+        GlobalState.jsonStates += "\"position\":{ \"line\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
+        GlobalState.jsonStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
         GlobalState.jsonStates += "\"progress\":\"" + progress.ToString() + "\",";
-        GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\"}";
+        GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\",";
+        GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
     }
 
-    public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy, int time){
+    public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
         if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
-            GlobalState.jsonOStates += "\"states\":[{";
+            GlobalState.jsonOStates += "\"obstacalState\":[{";
         }else{
             GlobalState.jsonOStates += ",{";
         }
 
+        GlobalState.jsonOStates += "\"name\":\"" + GlobalState.StringLib.nameObstacle[obstacleCode] + "\",";
         GlobalState.jsonOStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
         GlobalState.jsonOStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
 
-        if(GlobalState.GameMode == "on"){
-            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[projectileCode] + "\",";
-        }else{
-            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
-        }
-        GlobalState.jsonOStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
-        GlobalState.jsonOStates += "\"time\":\"" + time.ToString() + "\"}";
+        GlobalState.jsonStates += "\"position\":{ \"line\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
+        GlobalState.jsonStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
+        GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
 
     }
     public void WriteLog()
@@ -125,11 +113,14 @@ public class Logger
             jsonObj += ", \"progress\": \"";   
 
         if(!failed){
-            jsonObj += "Passed\", \"tools\":[";
+            jsonObj += "Passed\"";
         }else{
-            jsonObj += "Failed\", \"tools\":[";
+            jsonObj += "Failed\"";
         }
 
+        jsonObj += ", \"timeStarted\": \"" + this.startTime.ToString() + "\" ";
+        jsonObj += ", \"timeEnded\": \"" + DateTime.Now.ToString() + "\" ";
+        jsonObj += ", \"tools\":[";
         for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
             if(GlobalState.level.Tasks[i] > 0){
                 if(GlobalState.GameMode == "on"){
@@ -148,9 +139,21 @@ public class Logger
                 }
             }
         }
-
         jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
-        jsonObj +="]," + GlobalState.jsonStates + "]}]}";
+        jsonObj +="]," + GlobalState.jsonStates + "], \"obstacle\": [";
+        for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
+            //if(GlobalState.obstacleLine[i] != null ||GlobalState.obstacleLine[i] != ""){
+                jsonObj+=  "{ \"name\": \"" + GlobalState.StringLib.nameObstacle[i] + "\",";
+                jsonObj +=  "\"line\": \"" + GlobalState.obstacleLine[i] + "\"},";
+            //}
+        }
+        jsonObj = jsonObj.Substring(0, jsonObj.Length - 1);
+
+        if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
+            jsonObj += "]}]}";
+        }else{
+            jsonObj += "],obstacalState\":[" + GlobalState.jsonOStates + "],}]}";
+        }
         Debug.Log(jsonObj);
 
         DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
