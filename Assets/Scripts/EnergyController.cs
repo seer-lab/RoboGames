@@ -18,7 +18,7 @@ public class EnergyController : MonoBehaviour
     float initialScale;
     float initialX;
     float positionCompensation = 160f;
-
+    bool toggle = false; 
     public float[] percentPerUse()
     {
         float[] percent = new float[throwEnergy.Length];
@@ -34,10 +34,17 @@ public class EnergyController : MonoBehaviour
     }
     public void ToggleEnergy()
     {
-        energyBar.GetComponent<Image>().enabled = hidden;
-        energyBar.transform.GetChild(0).GetComponent<Image>().enabled = hidden;
-        indicator.enabled = hidden;
-        hidden = !hidden;
+        toggle = !toggle; 
+        if (!toggle){
+            energyBar.GetComponent<Image>().enabled = true; 
+            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = true; 
+            indicator.enabled = true; 
+        }
+        else {
+            energyBar.GetComponent<Image>().enabled = false; 
+            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false; 
+            indicator.enabled = false; 
+        }
     }
     public void ToggleLight(){
         indicator.color = Color.black; 
@@ -140,7 +147,7 @@ public class EnergyController : MonoBehaviour
             indicator.text = "";
             hidden = true;
         }
-        else if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && hidden)
+        else if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && hidden && !toggle)
         {
             energyBar.GetComponent<Image>().enabled = true;
             energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false;
