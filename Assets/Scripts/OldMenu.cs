@@ -154,7 +154,7 @@ public class OldMenu : MonoBehaviour
             else GlobalState.CurrentONLevel = "tut1.xml";
         }
         else GlobalState.IsPlaying = true;
-        GlobalState.CurrentBUGLevel = "level0.xml";
+        GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel; 
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
         GlobalState.level = null;
         GlobalState.Character = "Robot";
@@ -310,6 +310,7 @@ public class OldMenu : MonoBehaviour
                         }
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
+                        GlobalState.CurrentONLevel = null; 
                         SceneManager.LoadScene("TitleScene");
                         break;
                     case stateLib.GAMEMENU_RESUME_GAME:
