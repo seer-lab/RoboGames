@@ -24,24 +24,34 @@ public class DialogController : MonoBehaviour
         private static extern string GetData(string url);
     #endif
 
+    private void FlipDialog(GameObject dialog){
+        dialog.GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
+        dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
+    }
     void Start()
     {
         string filepathON ="";
         string filepathBug = "";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        
         #if UNITY_WEBGL                    
             filepathON = "StreamingAssets/IntroScene.mp4";
             filepathBug = "StreamingAssets/RoboBugIntro.mp4";
             //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
-
+            
             if (GlobalState.GameMode == "bug"){
                 player.url = stringLib.SERVER_URL + filepathBug;
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
+                FlipDialog(boyDialog); 
+                FlipDialog(girlDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+                
             }else{
                 player.url = stringLib.SERVER_URL + filepathON;
+                FlipDialog(botDialog); 
+                FlipDialog(boyDialog); 
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
             }
             
@@ -50,9 +60,15 @@ public class DialogController : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
                 player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
-                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
-                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
+                FlipDialog(boyDialog); 
+                FlipDialog(girlDialog); 
+                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
+            }
+            else{
+                FlipDialog(boyDialog); 
+                FlipDialog(botDialog); 
             }
         #endif
         ReadFile(); 
@@ -64,10 +80,10 @@ public class DialogController : MonoBehaviour
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
             started = true; 
         }
-        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && Input.GetKeyDown(KeyCode.Return)){
+        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
             NextDialog(); 
         }
-        else if(player.isPlaying && Input.GetKeyDown(KeyCode.Return)){
+        else if(player.isPlaying &&( Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))){
             EndScene(); 
         }
     }
@@ -114,15 +130,16 @@ public class DialogController : MonoBehaviour
                     string line = reader.ReadLine(); 
                     if (line.Contains("$Boy")){
                         actorOrder.Add("Boy"); 
-                        line = line.Remove(0,line.IndexOf(':')); 
+                        line = "Guy: " + line.Remove(0,line.IndexOf(':') + 1); 
                     }
                     else if (line.Contains("$Girl")){
                         actorOrder.Add("Girl"); 
+                        line = "Ivy: " + line.Remove(0,line.IndexOf(':')+1); 
                     }
                     else{
                         actorOrder.Add("Robot"); 
+                        line = "V.I.: " + line.Remove(0,line.IndexOf(':')+1); 
                     }
-                    line = line.Remove(0,line.IndexOf(':')+1); 
                     lines.Add(line); 
                 }
             }

@@ -240,6 +240,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
             sidebar.ToggleSidebar(); 
+            EnergyController.ToggleEnergy(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
@@ -267,6 +268,7 @@ public class GameController : MonoBehaviour, ITimeUser
             output.ToggleLight();
             background.ToggleLight(); 
             backButton.ToggleColor();
+            EnergyController.ToggleLight(); 
             GlobalState.level.ToggleLight(); 
             lg.DrawInnerXmlLinesToScreen(); 
         } 
@@ -277,6 +279,7 @@ public class GameController : MonoBehaviour, ITimeUser
             background.ToggleDark(); 
             backButton.ToggleColor();
             GlobalState.level.ToggleDark(); 
+            EnergyController.ToggleDark(); 
             lg.DrawInnerXmlLinesToScreen(); 
         }
     }

@@ -99,12 +99,20 @@ public class Logger
         GlobalState.jsonOStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
         GlobalState.jsonOStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
 
+        if(GlobalState.GameMode == "on"){
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[obstacleCode] + "\",";
+        }else{
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[obstacleCode] + "\",";
+        }
+        GlobalState.jsonOStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
+        GlobalState.jsonOStates += "\"time\":\"" + time.ToString() + "\"}";
         GlobalState.jsonStates += "\"position\":{ \"line\":\"" + lineNumber.ToString() + "\",";
         GlobalState.jsonStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
         GlobalState.jsonStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
         GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
 
     }
+    
     public void WriteLog()
     {
         #if UNITY_WEBGL
