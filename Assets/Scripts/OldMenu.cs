@@ -82,17 +82,40 @@ public class OldMenu : MonoBehaviour
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
-        GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
-        string json = "{ \"name\": \"" + GlobalState.sessionID.ToString() + "\"}";
 
-        DatabaseHelper.i.url = stringLib.DB_URL + "ON";
-        DatabaseHelper.i.jsonData = json;
-        DatabaseHelper.i.PostToDataBase();
+        Debug.Log("Seeing if there is a previous session");
+        if(PlayerPrefs.GetFloat("sessionID") == 0){
+            //Create a sessionID and store it
+            GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
+            Debug.Log("Making Session ID: " + GlobalState.sessionID.ToString());
+            string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
+            PlayerPrefs.SetFloat("sessionID", (float)GlobalState.sessionID);
 
-        DatabaseHelper.i.url = stringLib.DB_URL + "BUG";
-        DatabaseHelper.i.jsonData = json;
-        DatabaseHelper.i.PostToDataBase();
+            DatabaseHelper.i.url = stringLib.DB_URL + "ON/";
+            DatabaseHelper.i.jsonData = json;
+            DatabaseHelper.i.PostToDataBase();
+
+            DatabaseHelper.i.url = stringLib.DB_URL + "BUG/";
+            DatabaseHelper.i.jsonData = json;
+            DatabaseHelper.i.PostToDataBase();
+
+        }else{
+            GlobalState.sessionID =(long)PlayerPrefs.GetFloat("sessionID");
+            Debug.Log("Found Session ID: " + GlobalState.sessionID.ToString());
+        }
+
+        // Console.WriteLine("Setting Cookies");
+
+        // try{
+        // WebHelper.i.settingCookie("roboONBUG", GlobalState.sessionID.ToString());
+
+        // Console.WriteLine("Grabbing Cookies");
+        // Console.WriteLine("Cookies: " + WebHelper.i.grabCookies());
+        // }catch(Exception e){
+        //     Console.WriteLine(e.Message);
+        // }
+
 
     }
     public void onClick(int index)

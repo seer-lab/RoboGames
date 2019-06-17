@@ -91,9 +91,12 @@ public class hero2Controller : MonoBehaviour
 		}
 		canTakeDamage = true; 
 	}
-	public bool onTakeDamange(float damage){
+	public bool onTakeDamange(float damage, int obstacleCode){
 		if (canTakeDamage){
-			energyController.onDamange(damage); 
+			float preEnergy = energyController.currentEnergy;
+			energyController.onDamange(damage);
+			float finEnergy = energyController.currentEnergy;
+			controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy, DateTime.Now.Second);
 			StartCoroutine(DamageDelay()); 
 			return true; 
 		}
@@ -209,7 +212,7 @@ public class hero2Controller : MonoBehaviour
    				Rigidbody2D newstar =(Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
 				controller.logger.onToolUse(projectilecode, lastLineNumberactive);
 				timeCurrent = DateTime.Now.Second - timeStart;
-				controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, currentEnergy,energyController.currentEnergy, true, timeCurrent); 
+				controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, RoundPosition(transform.position),currentEnergy,energyController.currentEnergy, true, timeCurrent); 
    				if (facingRight) {
    					newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
    				}

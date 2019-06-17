@@ -40,6 +40,7 @@ public class FirewallFactory: ObstacleFactory{
     public FirewallFactory(XmlNode node, int nodeLine)
         :base(node, nodeLine)
     {
+        GlobalState.obstacleLine[stateLib.OBSTACLE_FIREWALL] += nodeLine.ToString() + " ";
 
     }
     public override GameObject GetGameObject(){
