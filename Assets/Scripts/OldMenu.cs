@@ -395,10 +395,15 @@ public class OldMenu : MonoBehaviour
             }
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
-                entered = false;
+                
                 switch (option)
                 {
                     case 0:
+                        foreach (GameObject btn in m2buttons){
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        }
+                        m2buttons[0].GetComponent<SpriteRenderer>().sprite = greenbutton; 
+                        option = 0; 
                         if (optionPage > 0)
                         {
                             textOption = (textOption + 1) % textsizes.Length;
@@ -412,6 +417,11 @@ public class OldMenu : MonoBehaviour
                         AudioListener.volume = (soundon) ? 1 : 0;
                         break;
                     case 1:
+                        foreach (GameObject btn in m2buttons){
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        }
+                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = greenbutton; 
+                        option = 1; 
                         if (optionPage > 0)
                         {
                             m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "Python" : "C++";
@@ -440,6 +450,11 @@ public class OldMenu : MonoBehaviour
                             m2buttontext[2].GetComponent<TextMesh>().text = "Previous";
                             m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         }
+                        foreach (GameObject btn in m2buttons){
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        }
+                        m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton; 
+                        option = 2; 
                         break;
                     case 3:
                         GlobalState.GameState = stateLib.GAMESTATE_MENU;
@@ -448,6 +463,7 @@ public class OldMenu : MonoBehaviour
                         option = 2;
                         break;
                 }
+                entered = false;
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {

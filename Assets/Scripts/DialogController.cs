@@ -24,11 +24,16 @@ public class DialogController : MonoBehaviour
         private static extern string GetData(string url);
     #endif
 
+    private void FlipDialog(GameObject dialog){
+        dialog.GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
+        dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
+    }
     void Start()
     {
         string filepathON ="";
         string filepathBug = "";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        
         #if UNITY_WEBGL                    
             filepathON = "StreamingAssets/IntroScene.mp4";
             filepathBug = "StreamingAssets/RoboBugIntro.mp4";
@@ -39,9 +44,14 @@ public class DialogController : MonoBehaviour
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
+                FlipDialog(boyDialog); 
+                FlipDialog(girlDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+                
             }else{
                 player.url = stringLib.SERVER_URL + filepathON;
+                FlipDialog(botDialog); 
+                FlipDialog(boyDialog); 
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
             }
             
@@ -50,9 +60,15 @@ public class DialogController : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
                 player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
-                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
-                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
+                FlipDialog(boyDialog); 
+                FlipDialog(girlDialog); 
+                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
+            }
+            else{
+                FlipDialog(boyDialog); 
+                FlipDialog(botDialog); 
             }
         #endif
         ReadFile(); 
