@@ -109,14 +109,15 @@ public class Logger
         GlobalState.jsonOStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
 
         if(GlobalState.GameMode == "on"){
-            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[projectileCode] + "\",";
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[obstacleCode] + "\",";
         }else{
-            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
+            GlobalState.jsonOStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[obstacleCode] + "\",";
         }
         GlobalState.jsonOStates += "\"toolLine\":\"" + lineNumber.ToString() + "\",";
         GlobalState.jsonOStates += "\"time\":\"" + time.ToString() + "\"}";
 
     }
+    
     public void WriteLog()
     {
         #if UNITY_WEBGL
