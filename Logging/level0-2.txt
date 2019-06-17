@@ -358,3 +358,33 @@ Commenter Tool Use:
 	Lines Used: 6 
 
 --------------------------------------------------------
+Passed Level
+22 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 3 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+--------------------------------------------------------
+Passed Level
+-15 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 3 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 4
+	Lines Used: 3 3 3 6 
+
+--------------------------------------------------------
