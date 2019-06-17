@@ -11,6 +11,6 @@ of the tech around us! Let's see how exactly we can do that!</introtext>
 <code language="c++">//Welcome to the Codebase!     @1 We've made it into the code@
 //You may traverse this codebase freely!         @2 It looks like we have permission here@
 //Use tools to manipulate the code:            @3 oh you must be new, you can use arrow keys to move, or touch and hold a position to go to it.@
-<comment type="description" correct="true" groupid="0">Please comment me out!</comment>     @4 To use a tool click CNTRL, or the fire button on the bottom left of the screen@ !!!
+<comment type="description" correct="true" groupid="0">Please comment me out!</comment>  @4 lets try this@!!!
 </code>
 </level>
