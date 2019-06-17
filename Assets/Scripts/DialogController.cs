@@ -138,7 +138,7 @@ public class DialogController : MonoBehaviour
                     }
                     else{
                         actorOrder.Add("Robot"); 
-                        line = "V.I." + line.Remove(0,line.IndexOf(':')+1); 
+                        line = "V.I.: " + line.Remove(0,line.IndexOf(':')+1); 
                     }
                     lines.Add(line); 
                 }
