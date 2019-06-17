@@ -33,11 +33,11 @@ public class DialogController : MonoBehaviour
             filepathON = "StreamingAssets/IntroScene.mp4";
             filepathBug = "StreamingAssets/RoboBugIntro.mp4";
             //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
-
+            
             if (GlobalState.GameMode == "bug"){
                 player.url = stringLib.SERVER_URL + filepathBug;
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
             }else{
@@ -64,10 +64,10 @@ public class DialogController : MonoBehaviour
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
             started = true; 
         }
-        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && Input.GetKeyDown(KeyCode.Return)){
+        else if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
             NextDialog(); 
         }
-        else if(player.isPlaying && Input.GetKeyDown(KeyCode.Return)){
+        else if(player.isPlaying &&( Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))){
             EndScene(); 
         }
     }
