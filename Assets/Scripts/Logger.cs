@@ -134,14 +134,10 @@ public class Logger
                 jsonObj += "\"reqTask\": \"" + GlobalState.level.Tasks[i] + "\",";
                 jsonObj += "\"compTask\": \"" + GlobalState.level.CompletedTasks[i] + "\",";
                 jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";
-                jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"}";
-
-                if(!(GlobalState.level.Tasks.Length - 1 == i)){
-                    jsonObj += ", ";
-                }
+                jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"},";
             }
         }
-        jsonObj = jsonObj.Substring(0,jsonObj.Length-2);
+        jsonObj = jsonObj.Substring(0,jsonObj.Length-1);
         jsonObj +="]," + GlobalState.jsonStates + "], \"obstacle\": [";
         string obstacleJson = "";
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
