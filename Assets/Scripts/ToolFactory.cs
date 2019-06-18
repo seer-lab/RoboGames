@@ -34,7 +34,13 @@ public class PrinterFactory : ToolFactory
     {
         tool = new printer();
         int lineS = line + 1;
-        GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
+        try{
+            if(node.Attributes["text"].Value != null){
+                GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
+            }
+        }catch(Exception e){
+            Debug.Log(e.Message);
+        }
     }
     public override Tools GetScript()
     {
@@ -335,6 +341,13 @@ public class CommentFactory: ToolFactory
         :base(node, line)
     {
         int lineS = line + 1;
+        try{
+            if(node.Attributes["correct"].Value != "false"){
+                GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
+            }
+        }catch(Exception e){
+            Debug.Log(e.Message);
+        }
         GlobalState.correctLine[stateLib.TOOL_COMMENTER ] += lineS.ToString() + " ";
 
     }

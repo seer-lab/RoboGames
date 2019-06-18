@@ -199,4 +199,6 @@ public class stringLib
     public const string SERVER_URL = "http://127.0.0.1:8080/";
     public const string DB_URL = "http://127.0.0.1:3000/logs";
     public const int DOWNLOAD_TIME = 200;
+
+    public string[] nameObstacle = new string[] { "firewall" };
 }

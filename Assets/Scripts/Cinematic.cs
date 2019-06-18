@@ -356,24 +356,6 @@ public class Cinematic : MonoBehaviour
                 // Levels.txt, coding in menu.cs
 
                 string filepath ="";
-                #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-                    filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-                    if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
-                    filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-                    Debug.Log("Cinematics: Update() WINDOWS");
-                #endif
-
-                #if UNITY_WEBGL
-                    filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
-                    if (GlobalState.Language == "python") filepath += "python/";
-                    filepath+=GlobalState.CurrentONLevel;
-
-                    WebHelper.i.url = stringLib.SERVER_URL + filepath;
-                    WebHelper.i.GetWebDataFromWeb();
-                    filepath = WebHelper.i.webData;
-
-                #endif
-
                 UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
