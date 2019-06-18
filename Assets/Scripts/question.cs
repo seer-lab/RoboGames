@@ -33,7 +33,7 @@ public class question : Tools {
 	private bool answering = false;
 	private bool answered = false;
 	private string input = "";
-
+	bool demoCompleteAnswer = false; 
 	public Animator anim; 
 	//TouchScreenKeyboard keyboard;
 	public bool IsAnswerd {
@@ -164,6 +164,9 @@ public class question : Tools {
 				input = input.Substring(0,input.Length-1);
                 selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 			}
+			else if (GlobalState.level.IsDemo){
+				input = expected; 
+			}
 			else {
 				string inputString = Input.inputString;
 				input += inputString;
@@ -176,7 +179,10 @@ public class question : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
-            selectedTool.outputtext.GetComponent<Text>().text = displaytext;
+			if (GlobalState.level.IsDemo){
+				selectedTool.outputtext.GetComponent<Text>().text = displaytext + expected;
+			}
+            else selectedTool.outputtext.GetComponent<Text>().text = displaytext;
 			audioSource.PlayOneShot(correct); 
 			answering = true;
             Output.IsAnswering = true;

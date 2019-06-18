@@ -13,3 +13,18 @@ Commenter Tool Use:
 	Lines Used: 6 7 15 
 
 --------------------------------------------------------
+Passed Level
+30 Seconds
+Activator Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 3
+	Times Tool Used: 3
+	Lines Used: 11 19 20 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 3
+	Times Tool Used: 3
+	Lines Used: 6 7 15 
+
+--------------------------------------------------------

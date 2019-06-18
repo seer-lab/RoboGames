@@ -1,0 +1,114 @@
+Passed Level
+26 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+-31 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+-22 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+-28 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+27 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+2 Seconds
+--------------------------------------------------------
+Passed Level
+-1 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+2 Seconds
+--------------------------------------------------------
+Passed Level
+3 Seconds
+--------------------------------------------------------
+Passed Level
+25 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------

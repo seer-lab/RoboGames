@@ -175,6 +175,13 @@ public class rename : Tools {
 		}
 		
 	}
+	IEnumerator DemoPlay(){
+		selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
+		yield return new WaitForSecondsRealtime(0.2f); 
+		selection = selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
+		yield return new WaitForSecondsRealtime(0.2f); 
+		selection = options.IndexOf(correct); 
+	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -184,7 +191,8 @@ public class rename : Tools {
 			audioPrompt.Play();
 			answering = true;
             Output.IsAnswering = true;
-			audioSource.PlayOneShot(base.correct); 
+			audioSource.PlayOneShot(base.correct);
+			StartCoroutine(DemoPlay());  
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();

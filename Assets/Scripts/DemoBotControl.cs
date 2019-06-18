@@ -33,6 +33,9 @@ public class DemoBotControl : MonoBehaviour
             else if (callstack[currentIndex].Category == ActionType.Throw){
                 controller.ThrowTool(); 
             }
+            else if (callstack[currentIndex].Category == ActionType.SwitchTool){
+                controller.selectedTool.GetComponent<SelectedTool>().NextTool(); 
+            }
         }
         if(controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog){
             output.text.GetComponent<Text>().text = callstack[indexOfAction].text; 
