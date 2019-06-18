@@ -353,9 +353,8 @@ public class LevelManager
         {
             beacon.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - beacon.GetComponent<beacon>().Index * properties.linespacing, 1);
         }
-        foreach (GameObject bug in bugs){
-            Debug.Log(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE   +" - " + properties.bugXshift); 
-            bug.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + properties.bugXshift, properties.initialLineY - (bug.GetComponent<GenericBug>().Index)*properties.linespacing + 0.1f, 0);
+        foreach (GameObject bug in bugs){ 
+            bug.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + properties.bugXshift, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (bug.GetComponent<GenericBug>().Index)*properties.linespacing + 0.1f, 0);
         }
         foreach(GameObject breakpoint in roboBUGbreakpoints){
             breakpoint.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - breakpoint.GetComponent<Breakpoint>().Index*properties.linespacing, 1); 

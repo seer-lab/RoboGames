@@ -197,6 +197,7 @@ public class hero2Controller : MonoBehaviour
 		if (Time.time > nextFire &&
 			   !onWall &&
 			   !Output.IsAnswering &&
+			   energyController.currentEnergy > 0 &&
 			   GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
 			   GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
 			   projectilecode >= 0 &&

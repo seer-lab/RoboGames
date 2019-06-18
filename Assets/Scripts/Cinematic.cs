@@ -177,7 +177,7 @@ public class Cinematic : MonoBehaviour
         }
         else if (filepath.Contains("tutorial")){
             Debug.Log("Tutorial");
-            SceneManager.LoadScene("TutorialDemo"); 
+            SceneManager.LoadScene("newgame"); 
         }
         else{ 
             Debug.Log("NewGame");
