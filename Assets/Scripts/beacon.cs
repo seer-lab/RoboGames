@@ -36,7 +36,7 @@ public class beacon : Tools {
 	// Update is called once per frame
 	void Update() {
 		// All beacons complete
-		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0) {
+		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0 && !revOnce) {
 			revOnce = true;
 			//GetComponent<SpriteRenderer>().sprite = activebeacon;
 			anim.SetTrigger("Complete");
