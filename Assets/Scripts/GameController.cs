@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     private void CheckWin()
     {
-        if (GlobalState.level != null && !GlobalState.level.IsDemo)
+        if (GlobalState.level != null)
         {
             winning = true;
             //Check if all the tasks have been completed. 
