@@ -384,8 +384,11 @@ public class OldMenu : MonoBehaviour
                 {
                     case 0:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        GlobalState.CurrentONLevel = levels[levoption];
                         GlobalState.IsResume = false;
+                       
+                        if (SceneManager.sceneCount > 1)
+                            SceneManager.UnloadSceneAsync("newgame");
+                        GlobalState.CurrentONLevel = levels[levoption];
                         SceneManager.LoadScene("CharacterSelect");
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;

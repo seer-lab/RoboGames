@@ -75,12 +75,12 @@ public class SwitchFactory : ActionFactory
             int a= 0;  
             while ((a = text.IndexOf("???", a)) != -1)
             {
-                a += ("???").Length;
+                actions.Add(new Action(ActionType.SwitchTool, line, a));
+                a += ("???").Length;              
                 count++;
             }
             column = count; 
-            GlobalState.level.Code[line] = GlobalState.level.Code[line].Replace("???", "");
-            actions.Add(new Action(ActionType.SwitchTool, line, count));
+            GlobalState.level.Code[line] = GlobalState.level.Code[line].Replace("???", "");      
             return true;
         }
         return false;
@@ -100,9 +100,16 @@ public class FireFactory : ActionFactory
     {
         if (text.Contains("!!!"))
         {
-            column = text.IndexOf("!!!");
+            int count = 0;
+            int a= 0;  
+            while ((a = text.IndexOf("!!!", a)) != -1)
+            {
+                actions.Add(new Action(ActionType.Throw, line, a));
+                a += ("!!!").Length;
+                count++;
+            }
+            column = count;
             GlobalState.level.Code[line] = GlobalState.level.Code[line].Replace("!!!", "");
-            actions.Add(new Action(ActionType.Throw, line, column));
             return true;
         }
         return false;

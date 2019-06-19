@@ -45,7 +45,7 @@ public class Checklist : MonoBehaviour {
 					else 
 						GetComponent<Text>().text += "\n" +
 														GlobalState.StringLib.checklist_complete_color_tag +
-														"CATCH the bug in the code!✓" +
+														"FIX the bug in the code!✓" +
 														stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
@@ -58,7 +58,7 @@ public class Checklist : MonoBehaviour {
 					else 
 						GetComponent<Text>().text += "\n" +
 														GlobalState.StringLib.checklist_incomplete_activate_color_tag +
-														"CATCH" +
+														"FIX" +
 														stringLib.CLOSE_COLOR_TAG +
 														" the bug in the code!";
 				}

@@ -7,3 +7,45 @@ Activator Tool Use:
 	Lines Used: 6 7 
 
 --------------------------------------------------------
+Failed Level
+-32 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------
+Passed Level
+-34 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------

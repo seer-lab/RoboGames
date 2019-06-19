@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -183,28 +184,30 @@ public partial class LevelGenerator : MonoBehaviour
         ActionFactory factory;
         string[] lines = node.InnerText.Split('\n');
         int row = 0, col = 0;
+        List<Action> actions = new List<Action>(); 
         for (int i = 0; i < lines.Length; i++)
         {
             if (lines[i].Contains("@"))
             {
                 factory = new DialogFactory(node, line);
-                if (controller.callstack == null) controller.callstack = new List<Action>();
                 factory.HandleParams(lines[i], line + i); 
-                controller.callstack.AddRange(factory.GetActions());
+                actions.AddRange(factory.GetActions()); 
             }
             if (lines[i].Contains("???"))
             {
                 factory = new SwitchFactory(node, line);
-                if (controller.callstack == null) controller.callstack = new List<Action>();
                 factory.HandleParams(lines[i], line + i); 
-                controller.callstack.AddRange(factory.GetActions());
+                actions.AddRange(factory.GetActions()); 
             }
             if (lines[i].Contains("!!!"))
             {
                 factory = new FireFactory(node, line);
                  factory.HandleParams(lines[i], line + i); 
-                controller.callstack.AddRange(factory.GetActions());
+                actions.AddRange(factory.GetActions()); 
             }
+            if (controller.callstack == null) controller.callstack = new List<Action>(); 
+            controller.callstack.AddRange(actions.OrderBy(o => o.Column).ToList()); 
+            actions = new List<Action>(); 
         }
         DrawInnerXmlLinesToScreen();
     }
@@ -295,7 +298,9 @@ public partial class LevelGenerator : MonoBehaviour
                             TextColoration color = new TextColoration();
                             thisObject.GetComponent<BugComment>().blocktext = codenode.ChildNodes[i].InnerXml;
                             //Debug.Log(thisObject.GetComponent<BugComment>().blocktext);
+                            thisObject.GetComponent<BugComment>().CleanBlocktext(); 
                             string[] text = thisObject.GetComponent<BugComment>().blocktext.Split('\n');
+                            
                             GlobalState.level.Code[thisObject.GetComponent<BugComment>().Index] = "<color=#00ff00ff>/**/</color>" + color.ColorizeText(text[0], GlobalState.level.Language);
 
                             thisObject.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (thisObject.GetComponent<comment>().Index) * 0.99f, 0f);

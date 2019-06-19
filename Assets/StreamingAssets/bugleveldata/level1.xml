@@ -2,7 +2,7 @@
 <description>You fixed 2 of the 3 bugs. There is one left!
 Use "Code Tracing" to find it by reading the code line by line.
 Find the bug and throw the BUGCATCHER (CTRL) left to catch it!</description>
-<next-level>tut2.xml</next-level>
+<next-level>tutorial1.xml</next-level>
 <timelimit>150</timelimit>
 <introtext>Two bugs are already found.
 Can you find the last one?</introtext>

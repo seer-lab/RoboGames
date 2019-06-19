@@ -160,11 +160,13 @@
      <None Include="Assets\StreamingAssets\onleveldata\level1-5.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\demo.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-1.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial2.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-2.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\credits.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-3c.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level0-1.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial1.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-5.xml" />
@@ -215,6 +217,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\level2-0.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level3-3.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial0.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-0b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2.xml" />
@@ -225,6 +228,7 @@
      <None Include="Assets\StreamingAssets\bugleveldata\L3aReds.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-4.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-0.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial3.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-5b.xml" />
@@ -267,6 +271,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\tutorial3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level0-2.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3aBlues.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial4.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Cyans.xml" />
