@@ -8,9 +8,7 @@ You can use TAB to switch between tools.</description>
 &lt;color=#ff00ffff&gt;WARPERS&lt;/color&gt; help move through code
 &lt;color=#00ff00ff&gt;COMMENTERS&lt;/color&gt; identify if code is buggy.
 You will need both of these to succeed!</introtext>
-<endtext>You found the bug with a Divide-and-Conquer approach!
-Now two new tools are yours!
-Can you put them both to good use?</endtext>
+<endtext>Get Ready to Divide and Conquer!</endtext>
 <timelimit>1000</timelimit>
 <tools>
 <tool name="warper" enabled="true" count="unlimited"/>

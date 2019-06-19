@@ -130,3 +130,12 @@ Bug Fixer Tool Use:
 	Lines Used: 5 
 
 --------------------------------------------------------
+Passed Level
+-43 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------

@@ -8,8 +8,7 @@ Use a BUGCATCHER once you know where the bug is.</description>
 the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
 It can give more detailed feedback about variables.
 Combine it with the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool!</introtext>
-<endtext>Now you have all the tools you need.
-Time to find the final bugs!</endtext>
+<endtext>Now you should try to use Breakpoints!</endtext>
 <timelimit>1000</timelimit>
 <tools>
 <tool name="printer" enabled="true" count="unlimited"/>

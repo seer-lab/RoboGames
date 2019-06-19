@@ -1,7 +1,7 @@
 <level>
-<description>You must use the BUGCATCHER Tool to catch bugs.
+<description>You must use the BUGFIXER Tool to FIX bugs.
 Look at the code. Which line is incorrect? Go to that line.
-Press CTRL to throw the BUGCATCHER at the bug!</description>
+Press CTRL to throw the BUGFIXER at the bug!</description>
 <next-level>tut1.xml</next-level>
 <introtext>Welcome to RoboBug.</introtext>
 <endtext>Now its your turn to find the bug!</endtext>

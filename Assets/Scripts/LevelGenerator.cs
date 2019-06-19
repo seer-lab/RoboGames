@@ -205,7 +205,7 @@ public partial class LevelGenerator : MonoBehaviour
                  factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
-            if (controller.callstack == null) controller.callstack = new List<Action>(); 
+            if (controller.callstack == null && actions.Count > 0) controller.callstack = new List<Action>(); 
             controller.callstack.AddRange(actions.OrderBy(o => o.Column).ToList()); 
             actions = new List<Action>(); 
         }
