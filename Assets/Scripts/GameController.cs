@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour, ITimeUser
         yield return new WaitForSecondsRealtime(2.2f);
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         //if the end of the level string is empty then there is no anticipated next level. 
-        Debug.Log(GlobalState.level.NextLevel);
+        //Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;

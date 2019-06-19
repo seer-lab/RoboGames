@@ -87,7 +87,7 @@ public class Logger
         GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\",";
         GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
 
-        Debug.Log("State Change: " + GlobalState.jsonStates);
+        //Debug.Log("State Change: " + GlobalState.jsonStates);
     }
 
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
@@ -104,7 +104,7 @@ public class Logger
         GlobalState.jsonOStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
         GlobalState.jsonOStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
         GlobalState.jsonOStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
-        Debug.Log("Damage State Change: " + GlobalState.jsonOStates);
+        //Debug.Log("Damage State Change: " + GlobalState.jsonOStates);
     }
     
     public void WriteLog()
@@ -138,7 +138,7 @@ public class Logger
             }
         }
         jsonObj = jsonObj.Substring(0,jsonObj.Length-1);
-        jsonObj +="]," + GlobalState.jsonStates + "], \"obstacle\": [";
+        jsonObj +="]," + GlobalState.jsonStates + "], \"obstacal\": [";
         string obstacleJson = "";
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
             if(GlobalState.obstacleLine[i] == null ||GlobalState.obstacleLine[i] == ""){
@@ -148,12 +148,12 @@ public class Logger
             obstacleJson +=  "\"line\": \"" + GlobalState.obstacleLine[i] + "\"},";
         }
         if(obstacleJson != ""){
-            obstacleJson += obstacleJson.Substring(0, obstacleJson.Length - 1);
+            obstacleJson = obstacleJson.Substring(0, obstacleJson.Length - 1);
         }
         jsonObj += obstacleJson;
 
         if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
-            jsonObj += "]}]}";
+            jsonObj += "], \"obstacleState\":[]}]}";
         }else{
             jsonObj += "]," + GlobalState.jsonOStates + "]}]}";
         }
@@ -164,6 +164,7 @@ public class Logger
         DatabaseHelper.i.PutToDataBase();
         //Upload(url, jsonObj);
         GlobalState.jsonStates = null;
+        GlobalState.jsonOStates = null;
         #endif
 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL

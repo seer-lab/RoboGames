@@ -269,7 +269,7 @@ public class Cinematic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
-            GlobalState.IsResume = true; 
+            GlobalState.IsResume = false; 
             if (!updatedLevel)UpdateLevel(GlobalState.level.NextLevel); 
             SceneManager.LoadScene("MainMenu");
         }
