@@ -36,7 +36,7 @@ public class DialogController : MonoBehaviour
         
         #if UNITY_WEBGL                    
             filepathON = "StreamingAssets/IntroScene.mp4";
-            filepathBug = "StreamingAssets/RoboBugIntro.mp4";
+            filepathBug = "StreamingAssets/RoboBugIntro_1.mp4";
             //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
             
             if (GlobalState.GameMode == "bug"){
@@ -59,7 +59,7 @@ public class DialogController : MonoBehaviour
 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
-                player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro"); 
+                player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro_1"); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
                 FlipDialog(boyDialog); 
@@ -67,7 +67,7 @@ public class DialogController : MonoBehaviour
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
             }
             else{
-                FlipDialog(boyDialog); 
+                FlipDialog(girlDialog); 
                 FlipDialog(botDialog); 
             }
         #endif
