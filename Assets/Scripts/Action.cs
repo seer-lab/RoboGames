@@ -6,11 +6,11 @@ public enum ActionType{Dialog, Throw, SwitchTool}
 public class Action{
     Vector3 position;  
     public string text; 
-    int lineNumber, Column; 
+    public int lineNumber, Column; 
     CodeProperties properties; 
     public Vector3 Position {
         get{
-            return new Vector3(Column*0.2f - 10f, properties.initialLineY- properties.linespacing*lineNumber, 0); 
+            return new Vector3(Column*0.15f - 10f, properties.initialLineY- properties.linespacing*lineNumber, 0); 
         }
     }
     int projectileCode {get;set;} 

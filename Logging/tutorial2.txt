@@ -1,0 +1,144 @@
+Passed Level
+17 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Failed Level
+-32 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------
+Passed Level
+-34 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------
+Passed Level
+-12 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------
+Passed Level
+3 Seconds
+--------------------------------------------------------
+Passed Level
+3 Seconds
+--------------------------------------------------------
+Passed Level
+12 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+11 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+15 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 3
+	Lines Used: 7 6 7 
+
+--------------------------------------------------------
+Passed Level
+16 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+-48 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+-7 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------

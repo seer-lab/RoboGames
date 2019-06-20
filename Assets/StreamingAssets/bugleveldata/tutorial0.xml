@@ -1,0 +1,19 @@
+<level>
+<description>You must use the BUGFIXER Tool to FIX bugs.
+Look at the code. Which line is incorrect? Go to that line.
+Press CTRL to throw the BUGFIXER at the bug!</description>
+<next-level>tut1.xml</next-level>
+<introtext>Welcome to RoboBug.</introtext>
+<endtext>Now its your turn to find the bug!</endtext>
+<timelimit>1000</timelimit>
+<tools>
+<tool name="catcher" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">int Add(int a, int b){                             @We can use the bug catcher tool to catch bugs in the code!@
+    //calculate the square of x
+	int total = a + b;
+    total =$bug$ total - 1337;               @Something doesn't look right, lets use the bug catcher here!@ !!!
+    return total;
+}
+</code>
+</level>

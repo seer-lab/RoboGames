@@ -35,7 +35,7 @@ public class rename : Tools {
 	
 	public Sprite renSpriteOff;
 	public Sprite renSpriteOn;
-
+	bool entered = false; 
 	private int selection = 0;
 	private bool hasHappened = false;
 	private bool isChecked = false;
@@ -109,7 +109,7 @@ public class rename : Tools {
                 Output.IsAnswering = false;
 				output.Text.text = "";
 			}
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || entered)) {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;
@@ -175,6 +175,15 @@ public class rename : Tools {
 		}
 		
 	}
+	IEnumerator DemoPlay(){
+		selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
+		yield return new WaitForSecondsRealtime(0.2f); 
+		selection = selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
+		yield return new WaitForSecondsRealtime(0.2f); 
+		selection = options.IndexOf(correct); 
+		yield return new WaitForSecondsRealtime(2f); 
+		entered = true; 
+	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -184,7 +193,8 @@ public class rename : Tools {
 			audioPrompt.Play();
 			answering = true;
             Output.IsAnswering = true;
-			audioSource.PlayOneShot(base.correct); 
+			audioSource.PlayOneShot(base.correct);
+			StartCoroutine(DemoPlay());  
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();

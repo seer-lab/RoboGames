@@ -118,3 +118,198 @@ Commenter Tool Use:
 	Lines Used: 4 
 
 --------------------------------------------------------
+Passed Level
+-45 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+12 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+9 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+16 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+15 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+11 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+-50 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+2 Seconds
+--------------------------------------------------------
+Passed Level
+10 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+13 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+23 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+-49 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+3 Seconds
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+5 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+-54 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+6 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------

@@ -502,3 +502,21 @@ Bug Fixer Tool Use:
 	Lines Used: 4 4 4 4 4 
 
 --------------------------------------------------------
+Passed Level
+9 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+6 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------

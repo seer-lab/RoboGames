@@ -1,0 +1,123 @@
+Passed Level
+-28 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+28 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Failed Level
+12 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 2
+	Lines Used: 5 5 
+
+--------------------------------------------------------
+Passed Level
+-41 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------
+Passed Level
+3 Seconds
+--------------------------------------------------------
+Passed Level
+28 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------
+Passed Level
+-19 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+-32 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------
+Passed Level
+28 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------
