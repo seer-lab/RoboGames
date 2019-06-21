@@ -37,7 +37,7 @@ public class hero2Controller : MonoBehaviour
     private Animator anim;
     private LevelGenerator lg;
     private int lastLineNumberactive;
-    private float verticalMovement = 1f;
+    private float verticalMovement = 0.6f;
     private bool isMovingX = false;
     public bool reachedPosition = true;
     EnergyController energyController;
@@ -196,7 +196,7 @@ public class hero2Controller : MonoBehaviour
             //Physics2D.IgnoreLayerCollision(0, 8, onWall || dropping || Input.GetKey("fMoveVelocityVertical"));
             Physics2D.IgnoreLayerCollision(0, 8, onWall || dropping);
             //move up if on the wall, otherwise let gravity do the work
-            if (dropping)
+            if (dropping && !GlobalState.level.IsDemo)
             {
                 if (GetComponent<Rigidbody2D>().velocity.y == 0)
                 {

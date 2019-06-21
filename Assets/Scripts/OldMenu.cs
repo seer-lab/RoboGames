@@ -32,7 +32,7 @@ public class OldMenu : MonoBehaviour
     public GameObject cinematic;
     public GameObject[] buttons = new GameObject[5];
     public GameObject[] buttontext = new GameObject[5];
-    public GameObject[] m2buttons = new GameObject[3];
+    public GameObject[] m2buttons = new GameObject[3];    
     public GameObject[] m2buttontext = new GameObject[3];
     public GameObject[] m2arrows = new GameObject[2];
     public GameObject menu2;
