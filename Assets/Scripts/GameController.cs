@@ -256,6 +256,11 @@ public class GameController : MonoBehaviour, ITimeUser
             hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
             hero.GetComponent<Rigidbody2D>().gravityScale = 0; 
         }
+        else if (Input.GetKeyDown(KeyCode.Escape) && GlobalState.level.IsDemo){
+            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(startDate, true);
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+        }
     }
     /// <summary>
     /// Triggers all elements with the Toggle theme capability to 

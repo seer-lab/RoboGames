@@ -38,16 +38,19 @@ public class Cinematic : MonoBehaviour
         continuetext = stringLib.CONTINUE_TEXT;
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
-        score = 5; 
-        if (GlobalState.toolUse != null){
-            for (int i = 0; i < GlobalState.level.Tasks.Length; i++){
-                score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
-            } 
-            if (score <= 0) score = 1; 
-            if (score > 5) score = 5; 
+        score = -1; 
+        if (GlobalState.level != null && !GlobalState.level.IsDemo){
+            score = 5; 
+            if (GlobalState.toolUse != null){
+                for (int i = 0; i < GlobalState.level.Tasks.Length; i++){
+                    score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
+                } 
+                if (score <= 0) score = 1; 
+                if (score > 5) score = 5; 
+            }
+            originalEnergy = GlobalState.TotalEnergy; 
+            GlobalState.TotalEnergy += 4*score; 
         }
-        originalEnergy = GlobalState.TotalEnergy; 
-        GlobalState.TotalEnergy += 4*score; 
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
@@ -306,7 +309,8 @@ public class Cinematic : MonoBehaviour
             {
                 cinerun = true;
             }
-            StartCoroutine(AnimateStars()); 
+            if (score >= 0)
+                StartCoroutine(AnimateStars()); 
             prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
@@ -324,7 +328,8 @@ public class Cinematic : MonoBehaviour
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
-                StartCoroutine(PushResults()); 
+                if (score >= 0)
+                    StartCoroutine(PushResults()); 
                 //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);
                 cinerun = false;
 
