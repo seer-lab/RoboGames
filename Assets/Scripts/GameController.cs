@@ -188,20 +188,6 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.manager.ResizeObjects(); 
     }
     void Awake(){
-        if (GlobalState.level.IsDemo)
-            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
-        else 
-            hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
-        hero.name = "Hero"; 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
-        lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
-
-        startDate = DateTime.Now;
-
         string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
@@ -223,6 +209,22 @@ public class GameController : MonoBehaviour, ITimeUser
         #endif
         
         factory = new LevelFactory(filepath);
+        if (GlobalState.level.IsDemo || filepath.Contains("tutorial"))
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
+        else 
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+        Debug.Log("Awake Demo: " + (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")) + '\n' + filepath); 
+        hero.name = "Hero"; 
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
+        lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
+
+        startDate = DateTime.Now;
+
+        
         GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
@@ -242,7 +244,7 @@ public class GameController : MonoBehaviour, ITimeUser
             sidebar.ToggleSidebar(); 
             EnergyController.ToggleEnergy(); 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
+        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering && !GlobalState.level.IsDemo)
         {
             //SaveGameState();
             GlobalState.IsResume = true; 

@@ -16,7 +16,7 @@ int main {
 	int i = 0;
 	//code in an IF statement is only run IF the condition is true
 	if (2 &gt; 1){
-<beacon flow-order="0" />		i++; //increase i by 1 $OFirewall 20$
+<beacon flow-order="0" />		i++; //increase i by 1
 	}
 	//when the condition is false, code in an ELSE block runs instead
 	if (10 &lt; 5){

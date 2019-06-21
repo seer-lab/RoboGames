@@ -1,0 +1,21 @@
+<level>
+<next-level>level2-0b.xml</next-level>
+<description>New Tools Available!</description>
+<introtext>The Uncommenter!</introtext>
+<endtext>Take a shot at bringing Code back to life!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">//Uncommenting allows us to put potential code into action. 
+@It seems the programmer was confused with the boilerplate@
+<comment type="code" correct="false"  groupid="1">//#include &lt;iostream&gt; ; </comment>                               @This doesn't look correct@
+<comment type="code" correct="true"  groupid="1">//#include &lt;iostream&gt; </comment>                       @Let's Uncomment this because it looks Correct!@ !!!
+
+using namespace std;
+<comment type="code" correct="true"  groupid="2"> //int main() { </comment>                         @There's another one over here, this looks right@ !!!
+<comment type="code" correct="false"  groupid="2"> //int main { </comment>           
+    cout &lt;&lt; "Hello world!"; 
+}
+</code>
+</level>

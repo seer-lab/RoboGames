@@ -120,6 +120,9 @@ public class OldMenu : MonoBehaviour
                 DatabaseHelper.i.PostToDataBase();
             }
         }
+        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
+        }
 
     }
     public void onClick(int index)
@@ -173,14 +176,20 @@ public class OldMenu : MonoBehaviour
             this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-2");
             menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-4");
             background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_dark");
-            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoDark");
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoDark"); 
+            else 
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark"); 
         }
         else
         {
             this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-9");
             menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-8");
             background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
-            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoLight");
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoLight"); 
+            else 
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugLight"); 
         }
 
     }
@@ -388,8 +397,11 @@ public class OldMenu : MonoBehaviour
                 {
                     case 0:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        GlobalState.CurrentONLevel = levels[levoption];
                         GlobalState.IsResume = false;
+                       
+                        if (SceneManager.sceneCount > 1)
+                            SceneManager.UnloadSceneAsync("newgame");
+                        GlobalState.CurrentONLevel = levels[levoption];
                         SceneManager.LoadScene("CharacterSelect");
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;

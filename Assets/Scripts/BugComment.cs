@@ -9,7 +9,7 @@ using UnityEngine;
 public class BugComment : comment
 {
     bool isAnswered = false;
-    void CleanBlocktext()
+    public void CleanBlocktext()
     {
         if (blocktext.Contains("$bug"))
         {
@@ -17,7 +17,32 @@ public class BugComment : comment
             string answer = ansRgx.Match(blocktext).Value;
             blocktext = blocktext.Replace("$bug" + answer + "$", "");
         }
+        if (blocktext.Contains("@"))
+        {
+            Regex paramRgx = new Regex(@"((?<=\@).+(?=\@))");
+            Match match = paramRgx.Match(blocktext);
+            while (match.Success)
+            {
+                string value = match.Value;
+                blocktext = blocktext.Replace("@" + value + "@", "");
+                match = match.NextMatch();
+            }
+        }
+        if (blocktext.Contains("!!!"))
+        {
+            blocktext = blocktext.Replace("!!!", "");
+        }
+        if (blocktext.Contains("???"))
+        {
+            blocktext = blocktext.Replace("???", "");
+        }
+        string[] text = blocktext.Split('\n');
+        for (int i = 0; i < text.Length; i++)
+        {
+            GlobalState.level.Code[index + i] = text[i];
+        }
     }
+
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
         CleanBlocktext();
@@ -71,11 +96,12 @@ public class BugComment : comment
     }
     public void Uncomment()
     {
-        if(isAnswered){
+        if (isAnswered)
+        {
             anim.SetTrigger("isBug");
             output.Text.text = "";
             string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language);
-            value = "<color=#00ff00ff>/**/</color>"  + value;
+            value = "<color=#00ff00ff>/**/</color>" + value;
             string[] text = value.Split('\n');
             for (int i = 0; i < text.Length; i++)
             {
