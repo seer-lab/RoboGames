@@ -209,10 +209,14 @@ public class GameController : MonoBehaviour, ITimeUser
         // #endif
         
         //factory = new LevelFactory(filepath);
-        if (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial"))
+        if (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")){
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
-        else 
+            GlobalState.level.IsDemo = true;
+        }
+        else{ 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+            GlobalState.level.IsDemo = false;
+        }
         Debug.Log("Awake Demo: " + (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")) + '\n' + GlobalState.level.FileName); 
         hero.name = "Hero"; 
     }
