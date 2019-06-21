@@ -14,6 +14,7 @@ public class DemoBotControl : MonoBehaviour
     bool entered = false;
     float timeDelay;
     float enterDelay;
+    bool autoEnabled = true; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,15 @@ public class DemoBotControl : MonoBehaviour
         callstack = new List<Action>();
         timeDelay = 5f;
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
-        //StartCoroutine(AutoPlay()); 
+        StartCoroutine(AutoPlay()); 
     }
     IEnumerator AutoPlay()
     {
-        while (true)
+        yield return new WaitForSecondsRealtime(timeDelay); 
+        while (autoEnabled)
         {
-            yield return new WaitForSecondsRealtime(timeDelay);
             entered = true;
+            yield return new WaitForSecondsRealtime(timeDelay);
         }
     }
     void UpdateDelay(Action action)
@@ -38,6 +40,7 @@ public class DemoBotControl : MonoBehaviour
         else if (action.Category == ActionType.SwitchTool) timeDelay = 1.5f;
         else if (action.Category == ActionType.Throw) timeDelay = 2f;
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -62,7 +65,7 @@ public class DemoBotControl : MonoBehaviour
 
                 if (indexOfAction + 1 < callstack.Count)
                 {
-                    UpdateDelay(callstack[indexOfAction + 1]);
+                    UpdateDelay(callstack[indexOfAction]);
                 }
             }
             if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
@@ -74,13 +77,15 @@ public class DemoBotControl : MonoBehaviour
                 output.text.GetComponent<Text>().text = "";
             }
 
-            if ((Input.GetKeyDown(KeyCode.Return) || entered) && controller.reachedPosition)
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)|| entered) && controller.reachedPosition)
             {
                 entered = false;
                 indexOfAction++;
                 enterDelay = 1f;
             }
-
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
+                autoEnabled = false;
+            }
 
         }
         enterDelay -= Time.deltaTime;

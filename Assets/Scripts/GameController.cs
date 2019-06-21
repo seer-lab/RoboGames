@@ -234,17 +234,8 @@ public class GameController : MonoBehaviour, ITimeUser
         logger = new Logger(); 
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
     }
-    /// <summary>
-    /// Handles operations regaserding the UI of the game. 
-    /// </summary>
-    private void HandleInterface()
-    {
-        if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
-        {
-            sidebar.ToggleSidebar(); 
-            EnergyController.ToggleEnergy(); 
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering && !GlobalState.level.IsDemo)
+    public void Escape(){
+        if (!GlobalState.level.IsDemo)
         {
             //SaveGameState();
             GlobalState.IsResume = true; 
@@ -256,11 +247,27 @@ public class GameController : MonoBehaviour, ITimeUser
             hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
             hero.GetComponent<Rigidbody2D>().gravityScale = 0; 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && GlobalState.level.IsDemo){
+        else {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(startDate, true);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
         }
+    }
+    /// <summary>
+    /// Handles operations regaserding the UI of the game. 
+    /// </summary>
+    private void HandleInterface()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
+        {
+            sidebar.ToggleSidebar(); 
+            EnergyController.ToggleEnergy(); 
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
+        {
+            Escape(); 
+        }
+
     }
     /// <summary>
     /// Triggers all elements with the Toggle theme capability to 
