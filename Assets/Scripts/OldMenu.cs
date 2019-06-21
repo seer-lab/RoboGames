@@ -1,4 +1,4 @@
-﻿//**************************************************//
+//**************************************************//
 // Class Name: Menu
 // Class Description: This is the class for the menu, used for both games. This class gets called first.
 // Methods:
@@ -84,41 +84,45 @@ public class OldMenu : MonoBehaviour
         ToggleTheme();
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 
-        Debug.Log("Seeing if there is a previous session");
-        if(PlayerPrefs.GetFloat("sessionID") == 0){
+        String sessionID = PlayerPrefs.GetString("sessionID");
+        Debug.Log("STRING SESSIONID: " +sessionID);
+        if(sessionID == "" || sessionID == null){
             //Create a sessionID and store it
-            GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
-            Debug.Log("Making Session ID: " + GlobalState.sessionID.ToString());
+            if(GlobalState.sessionID == 0){
+                GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
+                Debug.Log("Making Session ID: " + GlobalState.sessionID);
+                PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
+            }else{
+                Debug.Log("Found Session ID: " + GlobalState.sessionID);
+            }
+
             string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
-            PlayerPrefs.SetFloat("sessionID", (float)GlobalState.sessionID);
 
-            DatabaseHelper.i.url = stringLib.DB_URL + "ON/";
-            DatabaseHelper.i.jsonData = json;
-            DatabaseHelper.i.PostToDataBase();
-
-            DatabaseHelper.i.url = stringLib.DB_URL + "BUG/";
+            DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
             DatabaseHelper.i.jsonData = json;
             DatabaseHelper.i.PostToDataBase();
 
         }else{
-            GlobalState.sessionID =(long)PlayerPrefs.GetFloat("sessionID");
-            Debug.Log("Found Session ID: " + GlobalState.sessionID.ToString());
+            if(GlobalState.sessionID == 0){
+                Debug.Log("STRING SESSIONID: " +sessionID);
+                GlobalState.sessionID =Convert.ToInt64(sessionID);
+            }
+            Debug.Log("Found Session ID: " + GlobalState.sessionID);
+
+            //Check if it does exits in the DB
+            WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+            WebHelper.i.GetWebDataFromWeb();
+            if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
+                Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
+                string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
+                DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
+                DatabaseHelper.i.jsonData = json;
+                DatabaseHelper.i.PostToDataBase();
+            }
         }
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
-
-        // Console.WriteLine("Setting Cookies");
-
-        // try{
-        // WebHelper.i.settingCookie("roboONBUG", GlobalState.sessionID.ToString());
-
-        // Console.WriteLine("Grabbing Cookies");
-        // Console.WriteLine("Cookies: " + WebHelper.i.grabCookies());
-        // }catch(Exception e){
-        //     Console.WriteLine(e.Message);
-        // }
-
 
     }
     public void onClick(int index)
@@ -397,6 +401,7 @@ public class OldMenu : MonoBehaviour
                        
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("newgame");
+                        GlobalState.level = null;
                         GlobalState.CurrentONLevel = levels[levoption];
                         SceneManager.LoadScene("CharacterSelect");
 

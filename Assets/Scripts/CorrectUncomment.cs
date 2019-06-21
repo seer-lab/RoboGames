@@ -52,7 +52,6 @@ public class CorrectUncomment : comment
             }
 
             tmpS = textColoration.DecolorizeText(tmpS);
-            Debug.Log(tmpS);
 
             string[] sNewParts = tmpS.Split('\n');
             if (sNewParts.Length == 1)

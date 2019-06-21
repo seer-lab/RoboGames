@@ -197,7 +197,7 @@ public class Cinematic : MonoBehaviour
 
     private void UpdateText()
     {
-        if (GlobalState.level == null)
+        if (GlobalState.level == null || GlobalState.level.FileName == GlobalState.CurrentONLevel)
         {
             UpdateLevel();
         }
