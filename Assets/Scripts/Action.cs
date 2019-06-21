@@ -10,17 +10,17 @@ public class Action{
     CodeProperties properties; 
     public Vector3 Position {
         get{
-            return new Vector3(Column*0.15f - 10f, properties.initialLineY- properties.linespacing*lineNumber, 0); 
+            return new Vector3(Column*0.15f - 10f, properties.initialLineY- properties.linespacing*lineNumber + stateLib.TOOLBOX_Y_OFFSET, 1); 
         }
     }
     int projectileCode {get;set;} 
     public ActionType Category {get;set;}
-    public Action(ActionType type, int row, int col, string dialog = "", int code = -1){
+    public Action(CodeProperties props, ActionType type, int row, int col, string dialog = "", int code = -1){
         Category = type; 
         projectileCode = code; 
         text = dialog; 
         lineNumber = row; 
-        properties = new CodeProperties(); 
+        properties = props; 
         Column = col; 
     }
     

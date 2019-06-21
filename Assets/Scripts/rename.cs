@@ -113,6 +113,7 @@ public class rename : Tools {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;
+				if (GlobalState.level.IsDemo) selection = options.IndexOf(correct); 
 				if (selection != options.IndexOf(correct)) {
 					answered = false;
 					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
@@ -177,12 +178,10 @@ public class rename : Tools {
 	}
 	IEnumerator DemoPlay(){
 		selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
-		yield return new WaitForSecondsRealtime(0.2f); 
+		yield return new WaitForSecondsRealtime(0.4f); 
 		selection = selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
-		yield return new WaitForSecondsRealtime(0.2f); 
+		yield return new WaitForSecondsRealtime(0.4f); 
 		selection = options.IndexOf(correct); 
-		yield return new WaitForSecondsRealtime(2f); 
-		entered = true; 
 	}
 
 	//.................................>8.......................................

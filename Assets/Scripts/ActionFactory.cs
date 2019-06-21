@@ -10,9 +10,10 @@ public abstract class ActionFactory
     protected int lineNumber, column;
     protected TextColoration color;
     protected List<Action> actions;
-    protected ActionFactory(XmlNode node, int nodeLine)
+    protected CodeProperties props; 
+    protected ActionFactory(XmlNode node, int nodeLine, CodeProperties properties)
     {
-        
+        this.props = properties; 
         color = new TextColoration();
         actions = new List<Action>();
         childnode = node;
@@ -37,8 +38,8 @@ public class DialogFactory : ActionFactory
 {
     int order = 0;
     string ans;
-    public DialogFactory(XmlNode node, int line)
-        : base(node, line)
+    public DialogFactory(XmlNode node, int line, CodeProperties props)
+        : base(node, line, props)
     {
     }
     public override bool HandleParams(string text, int line)
@@ -48,7 +49,7 @@ public class DialogFactory : ActionFactory
         string values = paramRgx.Match(text).Value;
         GlobalState.level.Code[line] = GlobalState.level.Code[line].Replace("@" + values + "@", "");
         column = text.IndexOf("@");
-        actions.Add(new Action(ActionType.Dialog, line, column, values));
+        actions.Add(new Action(props, ActionType.Dialog, line, column, values));
         return true;
     }
     public override List<Action> GetActions()
@@ -57,13 +58,13 @@ public class DialogFactory : ActionFactory
     }
     public override Action GetAction()
     {
-        return new Action(ActionType.Dialog, lineNumber, column, ans);
+        return new Action(props, ActionType.Dialog, lineNumber, column, ans);
     }
 }
 public class SwitchFactory : ActionFactory
 {
-    public SwitchFactory(XmlNode node, int line)
-        : base(node, line)
+    public SwitchFactory(XmlNode node, int line, CodeProperties props)
+        : base(node, line, props)
     {
 
     }
@@ -75,7 +76,7 @@ public class SwitchFactory : ActionFactory
             int a= 0;  
             while ((a = text.IndexOf("???", a)) != -1)
             {
-                actions.Add(new Action(ActionType.SwitchTool, line, a));
+                actions.Add(new Action(props, ActionType.SwitchTool, line, a));
                 a += ("???").Length;              
                 count++;
             }
@@ -86,13 +87,13 @@ public class SwitchFactory : ActionFactory
         return false;
     }
     public override Action GetAction(){
-        return new Action(ActionType.SwitchTool, lineNumber, column); 
+        return new Action(props, ActionType.SwitchTool, lineNumber, column); 
     }
 }
 public class FireFactory : ActionFactory
 {
-    public FireFactory(XmlNode node, int line)
-        : base(node, line)
+    public FireFactory(XmlNode node, int line, CodeProperties props)
+        : base(node, line, props)
     {
 
     }
@@ -104,7 +105,7 @@ public class FireFactory : ActionFactory
             int a= 0;  
             while ((a = text.IndexOf("!!!", a)) != -1)
             {
-                actions.Add(new Action(ActionType.Throw, line, a));
+                actions.Add(new Action(props, ActionType.Throw, line, a));
                 a += ("!!!").Length;
                 count++;
             }
@@ -120,6 +121,6 @@ public class FireFactory : ActionFactory
     }
     public override Action GetAction()
     {
-        return new Action(ActionType.Throw, lineNumber, column);
+        return new Action(props, ActionType.Throw, lineNumber, column);
     }
 }

@@ -121,3 +121,33 @@ Breakpointer Tool Use:
 	Lines Used: 5 
 
 --------------------------------------------------------
+Passed Level
+38 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+-24 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
