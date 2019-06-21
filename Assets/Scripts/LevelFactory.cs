@@ -93,7 +93,7 @@ public class LevelFactory
 
         #if UNITY_WEBGL
             doc = new XmlDocument();
-            Debug.Log("Build Level "+ filename);
+            //Debug.Log("Build Level "+ filename);
             doc.PreserveWhitespace = true;
             doc.LoadXml(filename);
             //Debug.Log("LevelFactory: BuildLevel() WEBGL");

@@ -29,27 +29,26 @@ public class DatabaseHelper: MonoBehaviour{
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");
-        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
         request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
         request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
 
-        //Debug.Log("Status Code: " + request.responseCode);
+        Debug.Log("Status Code: " + request.responseCode);
     }
 
     IEnumerator Put(string url, string bodyJsonString)
     {
-        //Debug.Log(url);
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
         UnityWebRequest request = UnityWebRequest.Put(url, myData);
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");
-        request.SetRequestHeader("Access-Control-Allow-Credentiald", "true");
+        request.SetRequestHeader("cache-control", "no-cache");
         request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
         request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
+        Debug.Log("Status Code: " + request.responseCode);
     }
 
     public void PostToDataBase(){

@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour, ITimeUser
         yield return new WaitForSecondsRealtime(2.2f);
         }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
         //if the end of the level string is empty then there is no anticipated next level. 
-        Debug.Log(GlobalState.level.NextLevel);
+        //Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
@@ -188,6 +188,7 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.manager.ResizeObjects(); 
     }
     void Awake(){
+<<<<<<< HEAD
     
         
         if (GlobalState.level.IsDemo){
@@ -196,6 +197,38 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+=======
+        // string filepath ="";
+        // #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+        //     filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+        //     if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
+        //     filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+        //     filepath = filepath.Replace(" ", ""); 
+        //     Debug.Log("GameController: Start() WINDOWS");
+        // #endif
+
+        // //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+        
+        // #if UNITY_WEBGL
+        //     filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+        //     if (GlobalState.Language == "python") filepath += "python/";
+        //     filepath+=GlobalState.CurrentONLevel;
+        //     WebHelper.i.url = stringLib.SERVER_URL + filepath;
+        //     WebHelper.i.GetWebDataFromWeb();
+        //     filepath = WebHelper.i.webData;
+        // #endif
+        
+        //factory = new LevelFactory(filepath);
+        if (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")){
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
+            GlobalState.level.IsDemo = true;
+        }
+        else{ 
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+            GlobalState.level.IsDemo = false;
+        }
+        Debug.Log("Awake Demo: " + (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")) + '\n' + GlobalState.level.FileName); 
+>>>>>>> 828989a251e86799e646f1f0ba4b14d5b7d2ca58
         hero.name = "Hero"; 
     }
     // Start is called before the first frame update
