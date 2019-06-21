@@ -202,14 +202,10 @@ public class Cinematic : MonoBehaviour
 
     private void UpdateText()
     {
-<<<<<<< HEAD
-        UpdateLevel(); 
-=======
         if (GlobalState.level == null || GlobalState.level.FileName == GlobalState.CurrentONLevel)
         {
             UpdateLevel();
         }
->>>>>>> 828989a251e86799e646f1f0ba4b14d5b7d2ca58
         introtext = GlobalState.level.IntroText;
         endtext = GlobalState.level.ExitText;
     }

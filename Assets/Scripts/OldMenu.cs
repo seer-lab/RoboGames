@@ -401,11 +401,7 @@ public class OldMenu : MonoBehaviour
                        
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("newgame");
-<<<<<<< HEAD
-                        GlobalState.level = null; 
-=======
                         GlobalState.level = null;
->>>>>>> 828989a251e86799e646f1f0ba4b14d5b7d2ca58
                         GlobalState.CurrentONLevel = levels[levoption];
                         SceneManager.LoadScene("CharacterSelect");
 

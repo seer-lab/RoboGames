@@ -23,7 +23,7 @@ public class DemoBotControl : MonoBehaviour
     {
         controller = this.GetComponent<hero2Controller>();
         callstack = new List<Action>();
-        timeDelay = 5f;
+        timeDelay = 0.5f;
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
         StartCoroutine(AutoPlay()); 
     }
@@ -64,21 +64,27 @@ public class DemoBotControl : MonoBehaviour
                 else if (callstack[currentIndex].Category == ActionType.Throw)
                 {
                     controller.ThrowTool();
-                    nextAction = true; 
+                    if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
+                        if (controller.projectilecode == 0 || controller.projectilecode == 3){
+                            nextAction = true; 
+                        }
+                    }
+                    else{
+                        if  (controller.projectilecode == 2)
+                            nextAction = true; 
+                    }
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
                     controller.selectedTool.GetComponent<SelectedTool>().NextTool();
                     nextAction = true; 
                 }
-                UpdateDelay(callstack[currentIndex]);
                 
             }
             if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
             {
                 output.text.GetComponent<Text>().text = callstack[currentIndex].text;
             }
-
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)|| entered) && controller.reachedPosition)
             {
                 entered = false;
