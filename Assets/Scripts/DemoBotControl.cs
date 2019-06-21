@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System.IO;
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class DemoBotControl : MonoBehaviour
     float timeDelay;
     float enterDelay;
     bool autoEnabled = true; 
+    bool nextAction = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +32,19 @@ public class DemoBotControl : MonoBehaviour
         yield return new WaitForSecondsRealtime(timeDelay); 
         while (autoEnabled)
         {
-            entered = true;
+            if (nextAction){
+                nextAction = false; 
+                entered = true; 
+            }
             yield return new WaitForSecondsRealtime(timeDelay);
         }
     }
     void UpdateDelay(Action action)
     {
-        if (action.Category == ActionType.Dialog) timeDelay = 5f;
-        else if (action.Category == ActionType.SwitchTool) timeDelay = 1.5f;
+        if (action.Category == ActionType.Dialog) timeDelay = 0f;
+        else if (action.Category == ActionType.SwitchTool) timeDelay = 0.5f;
         else if (action.Category == ActionType.Throw) timeDelay = 2f;
+        Debug.Log(timeDelay); 
     }
 
     // Update is called once per frame
@@ -46,8 +52,9 @@ public class DemoBotControl : MonoBehaviour
     {
         if (enterDelay < 0)
         {
-            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction)
+            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction && output.text.GetComponent<Text>().text == "" && controller.reachedPosition)
             {
+                
                 currentIndex = indexOfAction;
                 if (callstack[currentIndex].Category == ActionType.Dialog)
                 {
@@ -57,24 +64,19 @@ public class DemoBotControl : MonoBehaviour
                 else if (callstack[currentIndex].Category == ActionType.Throw)
                 {
                     controller.ThrowTool();
+                    nextAction = true; 
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
                     controller.selectedTool.GetComponent<SelectedTool>().NextTool();
+                    nextAction = true; 
                 }
-
-                if (indexOfAction + 1 < callstack.Count)
-                {
-                    UpdateDelay(callstack[indexOfAction]);
-                }
+                UpdateDelay(callstack[currentIndex]);
+                
             }
             if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
             {
-                output.text.GetComponent<Text>().text = callstack[indexOfAction].text;
-            }
-            if (output.text.GetComponent<Text>().text != "" && entered)
-            {
-                output.text.GetComponent<Text>().text = "";
+                output.text.GetComponent<Text>().text = callstack[currentIndex].text;
             }
 
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)|| entered) && controller.reachedPosition)
@@ -82,9 +84,10 @@ public class DemoBotControl : MonoBehaviour
                 entered = false;
                 indexOfAction++;
                 enterDelay = 1f;
+                output.text.GetComponent<Text>().text = "";
             }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
-                autoEnabled = false;
+                //autoEnabled = false;
             }
 
         }

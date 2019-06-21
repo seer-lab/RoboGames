@@ -76,7 +76,7 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
-			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;

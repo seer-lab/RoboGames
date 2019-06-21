@@ -189,19 +189,19 @@ public partial class LevelGenerator : MonoBehaviour
         {
             if (lines[i].Contains("@"))
             {
-                factory = new DialogFactory(node, line);
+                factory = new DialogFactory(node, line, properties);
                 factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
             if (lines[i].Contains("???"))
             {
-                factory = new SwitchFactory(node, line);
+                factory = new SwitchFactory(node, line, properties);
                 factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
             if (lines[i].Contains("!!!"))
             {
-                factory = new FireFactory(node, line);
+                factory = new FireFactory(node, line, properties);
                  factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
