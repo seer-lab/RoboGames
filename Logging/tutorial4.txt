@@ -121,3 +121,78 @@ Breakpointer Tool Use:
 	Lines Used: 5 
 
 --------------------------------------------------------
+Passed Level
+38 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+-24 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+-26 Seconds
+Renamer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 7 9 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 8 
+
+--------------------------------------------------------
+Passed Level
+21 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------
+Passed Level
+23 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 6 
+
+Breakpointer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 5 
+
+--------------------------------------------------------

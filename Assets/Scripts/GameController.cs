@@ -188,36 +188,14 @@ public class GameController : MonoBehaviour, ITimeUser
         lg.manager.ResizeObjects(); 
     }
     void Awake(){
-        // string filepath ="";
-        // #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-        //     filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
-        //     if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
-        //     filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-        //     filepath = filepath.Replace(" ", ""); 
-        //     Debug.Log("GameController: Start() WINDOWS");
-        // #endif
-
-        // //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
+    
         
-        // #if UNITY_WEBGL
-        //     filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
-        //     if (GlobalState.Language == "python") filepath += "python/";
-        //     filepath+=GlobalState.CurrentONLevel;
-        //     WebHelper.i.url = stringLib.SERVER_URL + filepath;
-        //     WebHelper.i.GetWebDataFromWeb();
-        //     filepath = WebHelper.i.webData;
-        // #endif
-        
-        //factory = new LevelFactory(filepath);
-        if (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")){
+        if (GlobalState.level.IsDemo){
+            GlobalState.level.IsDemo = true; 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
-            GlobalState.level.IsDemo = true;
         }
-        else{ 
+        else 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
-            GlobalState.level.IsDemo = false;
-        }
-        Debug.Log("Awake Demo: " + (GlobalState.level.IsDemo || GlobalState.level.FileName.Contains("tutorial")) + '\n' + GlobalState.level.FileName); 
         hero.name = "Hero"; 
     }
     // Start is called before the first frame update
@@ -238,17 +216,8 @@ public class GameController : MonoBehaviour, ITimeUser
         logger = new Logger(); 
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
     }
-    /// <summary>
-    /// Handles operations regaserding the UI of the game. 
-    /// </summary>
-    private void HandleInterface()
-    {
-        if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
-        {
-            sidebar.ToggleSidebar(); 
-            EnergyController.ToggleEnergy(); 
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering && !GlobalState.level.IsDemo)
+    public void Escape(){
+        if (!GlobalState.level.IsDemo)
         {
             //SaveGameState();
             GlobalState.IsResume = true; 
@@ -260,6 +229,27 @@ public class GameController : MonoBehaviour, ITimeUser
             hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
             hero.GetComponent<Rigidbody2D>().gravityScale = 0; 
         }
+        else {
+            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(startDate, true);
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+        }
+    }
+    /// <summary>
+    /// Handles operations regaserding the UI of the game. 
+    /// </summary>
+    private void HandleInterface()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
+        {
+            sidebar.ToggleSidebar(); 
+            EnergyController.ToggleEnergy(); 
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
+        {
+            Escape(); 
+        }
+
     }
     /// <summary>
     /// Triggers all elements with the Toggle theme capability to 

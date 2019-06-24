@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System.IO;
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -14,37 +15,46 @@ public class DemoBotControl : MonoBehaviour
     bool entered = false;
     float timeDelay;
     float enterDelay;
+    bool autoEnabled = true; 
+    bool nextAction = false; 
 
     // Start is called before the first frame update
     void Start()
     {
         controller = this.GetComponent<hero2Controller>();
         callstack = new List<Action>();
-        timeDelay = 5f;
+        timeDelay = 0.5f;
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
-        //StartCoroutine(AutoPlay()); 
+        StartCoroutine(AutoPlay()); 
     }
     IEnumerator AutoPlay()
     {
-        while (true)
+        yield return new WaitForSecondsRealtime(timeDelay); 
+        while (autoEnabled)
         {
+            if (nextAction){
+                nextAction = false; 
+                entered = true; 
+            }
             yield return new WaitForSecondsRealtime(timeDelay);
-            entered = true;
         }
     }
     void UpdateDelay(Action action)
     {
-        if (action.Category == ActionType.Dialog) timeDelay = 5f;
-        else if (action.Category == ActionType.SwitchTool) timeDelay = 1.5f;
+        if (action.Category == ActionType.Dialog) timeDelay = 0f;
+        else if (action.Category == ActionType.SwitchTool) timeDelay = 0.5f;
         else if (action.Category == ActionType.Throw) timeDelay = 2f;
+        Debug.Log(timeDelay); 
     }
+
     // Update is called once per frame
     void Update()
     {
         if (enterDelay < 0)
         {
-            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction)
+            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction && output.text.GetComponent<Text>().text == "" && controller.reachedPosition)
             {
+                
                 currentIndex = indexOfAction;
                 if (callstack[currentIndex].Category == ActionType.Dialog)
                 {
@@ -54,33 +64,37 @@ public class DemoBotControl : MonoBehaviour
                 else if (callstack[currentIndex].Category == ActionType.Throw)
                 {
                     controller.ThrowTool();
+                    if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
+                        if (controller.projectilecode == 0 || controller.projectilecode == 3 || controller.projectilecode == 4){
+                            nextAction = true; 
+                        }
+                    }
+                    else{
+                        if  (controller.projectilecode == 2 || controller.projectilecode == 4)
+                            nextAction = true; 
+                    }
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
                     controller.selectedTool.GetComponent<SelectedTool>().NextTool();
+                    nextAction = true; 
                 }
-
-                if (indexOfAction + 1 < callstack.Count)
-                {
-                    UpdateDelay(callstack[indexOfAction + 1]);
-                }
+                
             }
             if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
             {
-                output.text.GetComponent<Text>().text = callstack[indexOfAction].text;
+                output.text.GetComponent<Text>().text = callstack[currentIndex].text;
             }
-            if (output.text.GetComponent<Text>().text != "" && entered)
-            {
-                output.text.GetComponent<Text>().text = "";
-            }
-
-            if ((Input.GetKeyDown(KeyCode.Return) || entered) && controller.reachedPosition)
+            if ((Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)|| entered) && controller.reachedPosition)
             {
                 entered = false;
                 indexOfAction++;
-                enterDelay = 1.4f;
+                enterDelay = 1f;
+                output.text.GetComponent<Text>().text = "";
             }
-
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
+                //autoEnabled = false;
+            }
 
         }
         enterDelay -= Time.deltaTime;

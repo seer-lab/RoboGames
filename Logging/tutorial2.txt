@@ -142,3 +142,60 @@ Commenter Tool Use:
 	Lines Used: 4 8 12 
 
 --------------------------------------------------------
+Passed Level
+-39 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+27 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+16 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+-10 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 13 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 2 
+
+Commenter Tool Use: 
+	Required Tasks: 3
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 4 8 12 
+
+--------------------------------------------------------
+Passed Level
+7 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
