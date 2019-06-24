@@ -2,7 +2,7 @@
 <next-level>level1-5b.xml</next-level>
 <description>Put the Output</description>
 <introtext>You're almost to the end!
-Can you output the right answers?</introtext>
+We need to make sure the buttons work!</introtext>
 <endtext>Congratulations! 
 You've mastered data types and variables!</endtext>
 <timelimit>unlimited</timelimit>
@@ -18,9 +18,9 @@ int main {
 	<comment type="description" correct="true"  groupid="4">You can use CIN to read in data from the keyboard.</comment>
 	string input;
 	cin >> input;
-	//Let's suppose the user types in hello
+	//Let's suppose the user clicks the button labeled "button_1"
 	cout &lt;&lt; <question text="What would this code output?
-	Type your answer: " answer="hello">input;</question>
+	Type your answer: " answer="button_1">input;</question>
 	<comment type="description" correct="true"  groupid="0">Strings can be added together; this is called CONCATENATION</comment>
 	string part1 = "hello ";
 	string part2 = "world";

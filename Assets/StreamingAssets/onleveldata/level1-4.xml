@@ -1,8 +1,8 @@
 <level>
 <next-level>level1-4b.xml</next-level>
 <description>Do, or Do Not</description>
-<introtext>There are lots of ways to write faulty code.
-Be careful not to follow into a trap!</introtext>
+<introtext>Our monitor is missing sound!
+We'll need to turn that ON right away!</introtext>
 <endtext>Good show! 
 You've made it through some tricky stuff!</endtext>
 <failure_level>level1-1.xml</failure_level>
@@ -16,8 +16,8 @@ You've made it through some tricky stuff!</endtext>
 using namespace std;
 int main {
 	<comment type="description" correct="true"  groupid="0">FLOAT variables store numbers with decimal points.</comment>
-	float half = 0.5;
-	float three = 3.0;
+	float additional_volume = 0.5;
+	float current_volume = 3.0;
 	
 	<question text="What is the value of sum?
 	Type your answer: " answer="3.5">float sum = half + three;</question>
@@ -28,8 +28,8 @@ int main {
 	
 	<comment type="description"  correct="true" groupid="2" style="multi">You can also assign integer values to float variables
 	Remember, floats always have a decimal point, even if it's 0!</comment>
-	float <question text="What is the value of new_three?
-	Type your answer: " answer="3.0">new_three = int_sum;</question>
+	float <question text="What is the value of colume?
+	Type your answer: " answer="3.0">volume = int_sum;</question>
 }
 </code>
 </level>
