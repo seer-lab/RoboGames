@@ -249,7 +249,7 @@ public partial class LevelGenerator : MonoBehaviour
                 {
                     manager.CreateObstacle(childNode, indexOf);
                 }
-                Debug.Log("Is Demo: " + GlobalState.level.IsDemo);
+                //Debug.Log("Is Demo: " + GlobalState.level.IsDemo);
                 if (GlobalState.level.IsDemo)
                 {
                     HandleTutorialPrompts(childNode, indexOf);

@@ -202,7 +202,7 @@ public class Cinematic : MonoBehaviour
 
     private void UpdateText()
     {
-        if (GlobalState.level == null || GlobalState.level.FileName == GlobalState.CurrentONLevel)
+        if (GlobalState.level == null || GlobalState.level.FileName == GlobalState.CurrentONLevel||GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
         {
             UpdateLevel();
         }
