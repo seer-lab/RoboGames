@@ -86,7 +86,7 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
-        transform.Find("Indicate Hide").GetComponent<Text>().color = Color.white; 
+        transform.GetChild(0).transform.Find("Indicate Hide").GetComponent<Text>().color = Color.white; 
         
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
         {

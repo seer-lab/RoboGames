@@ -57,7 +57,7 @@ public class hero2Controller : MonoBehaviour
         codescreen = GameObject.Find("CodeScreen");
         energyController = GameObject.Find("Energy").GetComponent<EnergyController>();
         fire = GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>();
-        selectedTool = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").gameObject;
+        selectedTool = GameObject.Find("Sidebar").transform.GetChild(0).transform.Find("Sidebar Tool").gameObject;
         projectiles[0] = Resources.Load<GameObject>("Prefabs/projectileBug").GetComponent<Rigidbody2D>();
         projectiles[1] = Resources.Load<GameObject>("Prefabs/projectileActivator").GetComponent<Rigidbody2D>();
         projectiles[2] = Resources.Load<GameObject>("Prefabs/projectileWarp").GetComponent<Rigidbody2D>();
