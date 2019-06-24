@@ -98,9 +98,9 @@ public class OldMenu : MonoBehaviour
 
             string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
 
-            DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
-            DatabaseHelper.i.jsonData = json;
-            DatabaseHelper.i.PostToDataBase();
+            DatabaseHelperV2.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
+            DatabaseHelperV2.i.jsonData = json;
+            DatabaseHelperV2.i.PostToDataBase();
 
         }else{
             if(GlobalState.sessionID == 0){
@@ -115,9 +115,9 @@ public class OldMenu : MonoBehaviour
             if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
                 Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
                 string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
-                DatabaseHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
-                DatabaseHelper.i.jsonData = json;
-                DatabaseHelper.i.PostToDataBase();
+                DatabaseHelperV2.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
+                DatabaseHelperV2.i.jsonData = json;
+                DatabaseHelperV2.i.PostToDataBase();
             }
         }
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){

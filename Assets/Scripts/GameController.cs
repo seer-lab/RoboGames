@@ -194,8 +194,10 @@ public class GameController : MonoBehaviour, ITimeUser
             GlobalState.level.IsDemo = true; 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
         }
-        else 
+        else{
+            GlobalState.level.IsDemo = false; 
             hero = Instantiate(Resources.Load<GameObject>("Prefabs/Hero"+GlobalState.Character)); 
+        }
         hero.name = "Hero"; 
     }
     // Start is called before the first frame update
