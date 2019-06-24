@@ -28,4 +28,3 @@ public class BackButton : MonoBehaviour
         else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) GetComponent<Canvas>().enabled = false; 
     }
 }
-wi

@@ -1,5 +1,5 @@
 <level>
-<description>You must use the BUGCATCHER Tool to catch bugs.
+<description>You must use the BUGFIXER Tool to catch bugs.
 Look at the code. Which line is incorrect? Go to that line.
 Press CTRL to throw the BUGCATCHER at the bug!</description>
 <next-level>level1a.xml</next-level>

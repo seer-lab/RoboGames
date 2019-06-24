@@ -1,7 +1,7 @@
 <level>
 <description>You fixed the first bug! There are still more to find.
 Use "Code Tracing" to find it by reading the code line by line.
-Find a bug and throw the BUGCATCHER (CTRL) to catch it!</description>
+Find a bug and throw the BUGFIXER (CTRL) to catch it!</description>
 <next-level>level1.xml</next-level>
 <introtext>The calculator has a bit more code now.
 Can you find the next bug?</introtext>
