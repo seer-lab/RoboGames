@@ -1,8 +1,7 @@
 <level>
 <next-level>level3-3b.xml</next-level>
 <description>While on the Subject</description>
-<introtext>While loops work quite differently
-Make sure you check conditions!</introtext>
+<introtext>Finally, we need to decrypt our data! </introtext>
 <endtext>Splendid!
 You're mastering the loops!</endtext>
 <timelimit>unlimited</timelimit>

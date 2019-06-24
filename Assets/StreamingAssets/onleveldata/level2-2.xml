@@ -1,8 +1,8 @@
 <level>
 <next-level>level2-2b.xml</next-level>
 <description>Ifs, Ands, Or Buts</description>
-<introtext>If statements conditions can be tricky.
-You need to use logic to figure them out!</introtext>
+<introtext>The CPU's logical components
+need to be turned back ON!</introtext>
 <endtext>Fantastic!
 Solving that puzzle was only logical!</endtext>
 <timelimit>unlimited</timelimit>

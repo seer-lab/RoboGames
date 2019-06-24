@@ -1,8 +1,8 @@
 <level>
 <next-level></next-level>
 <description>Looking Good!</description>
-<introtext>This mysterious code isn't written well.
-Can you figure out what it does?</introtext>
+<introtext>This is where we can upload our script, 
+this is the last thing we need to turn ON!!</introtext>
 <endtext>Excellent!
 You've mastered code style!</endtext>
 <timelimit>unlimited</timelimit>
