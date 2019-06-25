@@ -33,6 +33,7 @@ public class SidebarController : MonoBehaviour
         {
             panels[i] = Resources.Load<Sprite>(path + (i + 2).ToString());
         }
+        panels[1] = Resources.Load<Sprite>(path + "3Main"); 
     }
     // Start is called before the first frame update
     void Start()
@@ -63,7 +64,8 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_dark);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_dark);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_dark);
-        transform.Find("Indicate Hide").GetComponent<Text>().color = Color.black; 
+        transform.GetChild(0).transform.Find("Indicate Hide").GetComponent<Text>().color = Color.black; 
+        transform.GetChild(0).transform.Find("Indicate Show").GetComponent<Text>().color = Color.black; 
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
         {
             // @TODO: figure out if theyre done or not and put it in the expression
@@ -86,8 +88,8 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_name_color_tag, stringLibrary.checklist_incomplete_name_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_comment_color_tag, stringLibrary.checklist_incomplete_comment_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
-        transform.Find("Indicate Hide").GetComponent<Text>().color = Color.white; 
-        
+        transform.GetChild(0).transform.Find("Indicate Hide").GetComponent<Text>().color = Color.white; 
+        transform.GetChild(0).transform.Find("Indicate Show").GetComponent<Text>().color = Color.white; 
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
         {
             // @TODO: figure out if theyre done or not and put it in the expression

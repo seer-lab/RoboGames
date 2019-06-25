@@ -1,19 +1,19 @@
 <level>
-<description>The Robot Priority Assigner is not working correctly.
+<description>The System Callstack Ordering is not working correctly.
 First, check out the Swap function to figure out what is wrong.
 Use the new &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool for clues.
-After using the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt;, use the BUGCATCHER to catch the bug.</description>
+After using the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt;, use the BUGFIXER to catch the bug.</description>
 <next-level>level2b.xml</next-level>
 <introtext>The first bug is in the SWAP function.
 Can you find it with the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool?</introtext>
 <endtext>The SWAP function is fixed!
-Time to look at the Priority Assigner.</endtext>
+Time to look at the System Callstack ordering.</endtext>
 <timelimit>150</timelimit>
 <tools>
 <tool name="printer" enabled="true" count="5"/>
 <enabled count="5">1</enabled>
 </tools>
-<code language="c++">//Robot Priority Swap Function
+<code language="c++">//System Callstack Ordering
 //This function swaps two numbers. For example, 
 //if a=5 and b=6, swap(a,b) changes them
 //to a=6 and b=5 

@@ -1,8 +1,8 @@
 <level>
 <next-level>level3-1b.xml</next-level>
 <description>Loop-the-loop</description>
-<introtext>Sometimes you want to run code many times.
-Introducing the use of loops!</introtext>
+<introtext>Our Computer is finally back up and running, 
+we need to get our system back up to put an end to this!</introtext>
 <endtext>Sweet!
 Now you know about loops!</endtext>
 <timelimit>unlimited</timelimit>

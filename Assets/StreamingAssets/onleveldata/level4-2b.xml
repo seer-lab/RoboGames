@@ -1,8 +1,8 @@
 <level>
 <next-level>level4-3.xml</next-level>
 <description>Syntax Rox</description>
-<introtext>Style conventions define clean written code.
-Follow the instructions to fix the style.</introtext>
+<introtext>It look's like we're in the logic of
+the server, lets make sure this is on!</introtext>
 <endtext>Well done!
 Are you ready for the final test?</endtext>
 <timelimit>unlimited</timelimit>

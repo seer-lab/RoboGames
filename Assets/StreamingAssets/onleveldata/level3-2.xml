@@ -1,8 +1,8 @@
 <level>
 <next-level>level3-2b.xml</next-level>
 <description>For Goodness' Sake!</description>
-<introtext>Loops will modify variables repeatedly.
-Can you keep track?</introtext>
+<introtext> Our System needs to be decompressed, 
+let's get our decompresser working to retrieve the real data!</introtext>
 <endtext>Nice work!
 You're doing great with the loops!</endtext>
 <timelimit>unlimited</timelimit>

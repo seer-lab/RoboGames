@@ -2,7 +2,8 @@
 <next-level>level1-3.xml</next-level>
 <failure_level>level1-1.xml</failure_level>
 <description>What's Your Type?</description>
-<introtext>Let's check out another kind of variable!</introtext>
+<introtext>It's important to check whether the monitor is asleep.
+We need to turn on the changing color capabilities</introtext>
 <endtext>Now you know all about variables!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
@@ -11,15 +12,15 @@
 </tools>
 <code language="c++">int main {
 	<comment type="description" correct="true"  groupid="0">BOOLEAN variables store either TRUE or FALSE.</comment>
-	bool coding_rocks = true;
+	bool is_off = true;
 	<comment type="description" correct="true"  groupid="1">You can use variables in expressions to create new variables:</comment>
 	bool <question text="What is the VALUE of coding_is_awesome?
-	Type your answer: " answer="true">coding_is_awesome = coding_rocks;</question>
+	Type your answer: " answer="true">is_sleep = is_off;</question>
 	<comment type="description" correct="true"  groupid="3">You can also use a variable to redefine itself!</comment>
-	int current_year = 2019;
-	How will we change the current_year for next year?
+	int current_color = 205;
+	How will we change the current_color for when the monitor changes color? 
 	<question text="What does current_year become?
-	Type your answer: " answer="2020">current_year = current_year + 1;</question>
+	Type your answer: " answer="215">current_year = current_year + 10;</question>
 	
 	<comment type="description" correct="false"  groupid="2">High school math is useless for programming.</comment>
 	<comment type="description" correct="true"  groupid="2">Order of operations is still true for C++ programs!</comment>
