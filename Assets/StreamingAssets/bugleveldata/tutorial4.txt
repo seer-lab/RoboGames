@@ -1,0 +1,10 @@
+ColorComputer
+#Girl: 500 200 0
+#Boy: -500 200 0
+$Girl: The Color is back, lets see if we can log in.
+$Girl: ...
+$Girl: Access Denied??
+$Boy: Hey look it signed in on my computer and I'm not even touching it?
+$Girl: What could be going on??
+$Boy: Our Signals are a mess?
+$Girl: Let's take a look at the router perhaps?

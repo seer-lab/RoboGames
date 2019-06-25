@@ -174,6 +174,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Blacks.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\tut1.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial0.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3c.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\credits.txt" />
@@ -181,6 +182,7 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Browns.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\credits.txt" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial4.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-3.xml" />
@@ -238,6 +240,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\tutorial2.xml" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\Intro.txt" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial1.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\level4b.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2.xml" />
@@ -265,6 +268,7 @@
      <None Include="Assets\StreamingAssets\bugleveldata\L4Closer.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-3.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial2.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\tut3.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level4-3.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Greys.xml" />

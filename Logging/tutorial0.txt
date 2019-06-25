@@ -583,3 +583,12 @@ Commenter Tool Use:
 	Lines Used: 
 
 --------------------------------------------------------
+Passed Level
+12 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
