@@ -134,7 +134,7 @@ public class TransitionController : MonoBehaviour
                         float[] pos = GetLinePosition(line); 
                         girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
                     }
-                    else if (line.Contains("#Robot")){
+                    else if (line.Contains("#Robot:")){
                         positionLine = true; 
                         float[] pos = GetLinePosition(line); 
                         botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
@@ -176,7 +176,7 @@ public class TransitionController : MonoBehaviour
                         float[] pos = GetLinePosition(line); 
                         girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
                     }
-                    else if (line.Contains("#Robot")){
+                    else if (line.Contains("#Robot:")){
                         positionLine = true; 
                         float[] pos = GetLinePosition(line); 
                         botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
@@ -213,7 +213,11 @@ public class TransitionController : MonoBehaviour
         RectTransform transformm = dialog.GetComponent<RectTransform>(); 
         Image image = dialog.GetComponent<Image>(); 
         CanvasGroup canvas = dialog.GetComponent<CanvasGroup>(); 
-        dialog.transform.GetChild(0).GetComponent<Text>().text = lines[index];  
+        string prefix; 
+        if (actorOrder[index] == "Girl") prefix = "Ivy:"; 
+        else if (actorOrder[index] == "Boy") prefix = "Guy:"; 
+        else prefix = "V.I:";
+        dialog.transform.GetChild(0).GetComponent<Text>().text = prefix + lines[index];  
         //Initialize values 
         transform.localScale = new Vector3(0,0,0); 
         canvas.alpha = 0;    //over push the animation

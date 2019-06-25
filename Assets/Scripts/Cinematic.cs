@@ -169,13 +169,13 @@ public class Cinematic : MonoBehaviour
         string filepath; 
         if (GlobalState.GameMode == "on"){
             string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            string file = "onleveldata/" + txtFile; 
-            filepath = Path.Combine(Application.streamingAssetsPath, file); 
+            filepath = Path.Combine(Application.streamingAssetsPath, txtFile); 
         }
         else{
             string file = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
             filepath = Path.Combine(Application.streamingAssetsPath, file); 
         }
+        Debug.Log(filepath); 
         if (File.Exists(filepath)){
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition"); 
