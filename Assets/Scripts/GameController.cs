@@ -193,8 +193,6 @@ public class GameController : MonoBehaviour, ITimeUser
     }
     void Awake()
     {
-
-
         if (GlobalState.level.IsDemo)
         {
             GlobalState.level.IsDemo = true;
