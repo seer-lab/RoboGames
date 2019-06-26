@@ -214,7 +214,7 @@ public class GameController : MonoBehaviour, ITimeUser
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
-        selectedTool = sidebar.transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
+        selectedTool = sidebar.transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
         logger = new Logger(); 
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
     }
@@ -244,8 +244,10 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
-            sidebar.ToggleSidebar(); 
-            EnergyController.ToggleEnergy(); 
+            sidebar.GetComponent<Animator>().SetBool("open", !sidebar.GetComponent<Animator>().GetBool("open")); 
+            EnergyController.GetComponent<Animator>().SetBool("open", !EnergyController.GetComponent<Animator>().GetBool("open")); 
+            //sidebar.ToggleSidebar(); 
+            //EnergyController.ToggleEnergy(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {

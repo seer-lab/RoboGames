@@ -1,7 +1,7 @@
 <level>
     <next-level>level1-1.xml</next-level>
     <description>Learning About Tools!</description>
-    <introtext>The Mech Suit is a complicated machine.
+    <introtext>The technology around us is fairly complicated.
         You need to make sure you know how it really works.</introtext>
     <endtext>You're ready to start looking at code!</endtext>
     <timelimit>unlimited</timelimit>

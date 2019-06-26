@@ -1,8 +1,8 @@
 <level>
 <next-level>level4-2.xml</next-level>
 <description>Not Your Style</description>
-<introtext>Good code style is very helpful.
-Clean code by RENAMING and UNCOMMENTING.</introtext>
+<introtext>We need to get our Server to accept
+input and output, can you turn them ON?</introtext>
 <endtext>Stylish!
 You've aced the indentations!</endtext>
 <timelimit>unlimited</timelimit>

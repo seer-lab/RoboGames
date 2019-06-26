@@ -1,7 +1,7 @@
 <level>
 <next-level>level4-0.xml</next-level>
 <description>While on the Subject</description>
-<introtext>While loops work quite differently
+<introtext>We're almost there just a few more things.
 Make sure you check conditions!</introtext>
 <endtext>Splendid!
 You've aced the loops!</endtext>

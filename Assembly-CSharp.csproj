@@ -174,6 +174,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Blacks.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\tut1.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial0.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3c.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\credits.txt" />
@@ -181,6 +182,7 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Browns.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\credits.txt" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial4.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-3.xml" />
@@ -231,12 +233,14 @@
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial3.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-1.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial4.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-5b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Reds.xml" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\tutorial2.xml" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\Intro.txt" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial1.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\level4b.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2.xml" />
@@ -250,6 +254,8 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level2-3.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level3a.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial3.txt" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial2.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-3-java.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level3-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-2.xml" />
@@ -262,11 +268,13 @@
      <None Include="Assets\StreamingAssets\bugleveldata\L4Closer.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level2-3.xml" />
+     <None Include="Assets\StreamingAssets\bugleveldata\tutorial2.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\tut3.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level4-3.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Greys.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level4-0.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial0.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Yellows.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\tutorial3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level0-2.xml" />
@@ -307,6 +315,7 @@
      <None Include="Assets\StreamingAssets\bugleveldata\L3Magentas.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level4c.xml" />
  <Reference Include="Unity.Timeline.Editor">
+<<<<<<< HEAD
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
@@ -338,6 +347,39 @@
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+=======
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Timeline">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.CollabProxy.Editor">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.SpatialTracking">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpatialTracking">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.DataPrivacy">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+ <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+>>>>>>> master
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -520,6 +562,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
+<<<<<<< HEAD
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
@@ -527,6 +570,15 @@
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+=======
+ <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.StandardEvents">
+ <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Tracker">
+ <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+>>>>>>> master
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

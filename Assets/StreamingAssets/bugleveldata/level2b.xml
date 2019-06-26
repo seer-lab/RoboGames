@@ -1,10 +1,10 @@
 <level>
-<description>The Robot Priority Assigner is not working correctly.
+<description>The System Callstack Ordering is not working correctly.
 The SetPriority function has a bug that is affecting the Assigner.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; to learn about the bug.
-Figure out where the bug is, then use the BUGCATCHER to catch it.</description>
+Figure out where the bug is, then use the BUGFIXER to catch it.</description>
 <next-level>level2.xml</next-level>
-<introtext>The Priority Assigner isn't working.
+<introtext>The System Callstack Ordering isn't working.
 Can you figure out what it's doing wrong?</introtext>
 <endtext>The boundary bug has been caught!
 Only one bug remains in the completed function.</endtext>
@@ -12,7 +12,7 @@ Only one bug remains in the completed function.</endtext>
 <tools>
 <tool name="printer" enabled="true" count="6"/>
 </tools>
-<code language="c++">//Robot Priority Assigner
+<code language="c++">//System Callstack Ordering
 //SetPriority sorts a priority element value in a list
 //Priorities is a list where all elements except the first are sorted
 //SetPriority returns the list where all elements are sorted

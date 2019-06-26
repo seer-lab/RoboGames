@@ -58,7 +58,7 @@ public class EnergyController : MonoBehaviour
         initialEnergy = GlobalState.TotalEnergy;
         currentEnergy = initialEnergy;
         indicator = transform.GetChild(0).GetComponent<Text>();
-        tools = GameObject.Find("Sidebar").transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
+        tools = GameObject.Find("Sidebar").transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
         energyBar = transform.GetChild(1).gameObject;
         energyBarTrans = energyBar.GetComponent<RectTransform>();
         initialX = energyBarTrans.position.x;

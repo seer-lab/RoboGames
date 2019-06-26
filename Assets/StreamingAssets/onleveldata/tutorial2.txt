@@ -1,0 +1,6 @@
+ComputerOn
+#Girl: 400 200 0
+#Boy: -400 200 0
+$Girl: Hey, the monitor is working!
+$Boy: That's incredible it really works!
+$Girl: Common, lets turn on this computer so we can put an end to this!

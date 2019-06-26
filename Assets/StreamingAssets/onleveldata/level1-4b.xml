@@ -1,8 +1,8 @@
 <level>
 <next-level>level1-5.xml</next-level>
 <description>Do, or Do Not</description>
-<introtext>There are lots of ways to write faulty code.
-Be careful not to follow into a trap!</introtext>
+<introtext>There are a few more parts of sound that
+needs to be turned on!</introtext>
 <endtext>Good show! 
 You've made it through some tricky stuff!</endtext>
 <failure_level>level1-1.xml</failure_level>

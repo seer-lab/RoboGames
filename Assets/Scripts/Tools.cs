@@ -44,7 +44,7 @@ public class Tools : MonoBehaviour
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
-        selectedTool = sidebar.gameObject.transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
+        selectedTool = sidebar.gameObject.transform.GetChild(0).transform.Find("Sidebar Tool").gameObject.GetComponent<SelectedTool>();
         language = GlobalState.level.Language; 
         hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
         audioSource = this.GetComponent<AudioSource>(); 

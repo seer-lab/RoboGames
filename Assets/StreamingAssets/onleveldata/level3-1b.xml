@@ -1,10 +1,10 @@
 <level>
 <next-level>level3-2.xml</next-level>
 <description>Loop-the-loop</description>
-<introtext>Sometimes you want to run code many times.
-Introducing the use of loops!</introtext>
+<introtext>Our storage recovery has a lot of data,
+we need a way to access it.</introtext>
 <endtext>Sweet!
-Now you know about loops!</endtext>
+We can use Loops to help us!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="controlflow" enabled="true" count="unlimited"/>
