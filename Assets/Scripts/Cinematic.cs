@@ -185,6 +185,7 @@ public class Cinematic : MonoBehaviour
             SceneManager.LoadScene("newgame"); 
         }
         else{ 
+            GlobalState.level.IsDemo = false; 
             Debug.Log("NewGame");
             SceneManager.LoadScene("newgame");
         }

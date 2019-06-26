@@ -54,10 +54,10 @@ public class GamePicker : MonoBehaviour
     void Update()
     {
         int currentIndex = indexSelcted; 
-        if (Input.GetKeyDown(KeyCode.RightArrow)){
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow)){
             indexSelcted ++; 
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)){
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow)){
             if (indexSelcted >0)
                 indexSelcted--; 
             else indexSelcted++; 

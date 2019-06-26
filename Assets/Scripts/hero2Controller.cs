@@ -118,7 +118,8 @@ public class hero2Controller : MonoBehaviour
             //movement
             float fMoveVelocityHorizontal = 0f;
 			fMoveVelocityVertical = 0f; 
-            if (!GlobalState.level.IsDemo)
+            if (!GlobalState.level.IsDemo && !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Die")
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Dead"))
             {
                 fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
                 fMoveVelocityVertical = Input.GetAxis("Vertical");
