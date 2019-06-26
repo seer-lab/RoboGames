@@ -196,8 +196,8 @@ public class stringLib
     public string syntax_color_include = "<color=#e6005cff>";
     public float LEFT_CODESCREEN_X_COORDINATE = -10;
 
-    public const string SERVER_URL = "http://127.0.0.1:8080/";
-    public const string DB_URL = "http://127.0.0.1:3000/logs";
+    public const string SERVER_URL = "http://199.212.33.5:8080/";
+    public const string DB_URL = "http://199.212.33.5:3000/logs";
     public const int DOWNLOAD_TIME = 200;
 
     public string[] nameObstacle = new string[] { "firewall" };

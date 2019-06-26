@@ -3,8 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using System.Xml; 
-using System.IO; 
+using System.Xml;
+using System.IO;
 using UnityEngine;
 using System.Text;
 using UnityEngine.Networking;
@@ -15,20 +15,20 @@ using System.Runtime.InteropServices;
 /// </summary>
 public class GameController : MonoBehaviour, ITimeUser
 {
-    LevelFactory factory; 
+    LevelFactory factory;
     LevelGenerator lg;
     Output output;
     SidebarController sidebar;
-    SelectedTool selectedTool; 
-    BackgroundController background; 
-    BackButton backButton; 
-    bool calledDead = false; 
-    GameObject hero; 
+    SelectedTool selectedTool;
+    BackgroundController background;
+    BackButton backButton;
+    bool calledDead = false;
+    GameObject hero;
     EnergyController EnergyController;
-    DateTime startDate, endDate; 
-    bool firstUpdate = true; 
+    DateTime startDate, endDate;
+    bool firstUpdate = true;
 
-    public Logger logger; 
+    public Logger logger;
     bool winning = false;
 
     /// <summary>
@@ -50,11 +50,11 @@ public class GameController : MonoBehaviour, ITimeUser
                 }
             }
             if (GlobalState.level.Tasks[0] != 0 && GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
-                winning = true; 
+                winning = true;
             if (winning)
             {
-                StopCoroutine(Lose()); 
-                StartCoroutine(Win()); 
+                StopCoroutine(Lose());
+                StartCoroutine(Win());
             }
         }
     }
@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// </summary>
     public void OnTimeFinish()
     {
-        GameOver(); 
+        GameOver();
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
         logger.onGameEnd(startDate, false);
-        SceneManager.LoadScene("Cinematic"); 
+        SceneManager.LoadScene("Cinematic");
     }
     /// <summary>
     /// Delays the Lose Operation to ensure the player isn't about to win 
@@ -117,26 +117,29 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Lose()
     {
-        CheckWin(); 
+        CheckWin();
 
-        do {
-            yield return new WaitForSecondsRealtime(2.7f); 
-        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
+        do
+        {
+            yield return new WaitForSecondsRealtime(2.7f);
+        } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
 
         if (!winning)
         {
-            if (!calledDead){
-                hero.GetComponent<Animator>().SetTrigger("Dead"); 
-                calledDead = true; 
+            if (!calledDead)
+            {
+                hero.GetComponent<Animator>().SetTrigger("Dead");
+                calledDead = true;
             }
-            yield return new WaitForSecondsRealtime(1.5f); 
-            GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
-            GameOver();  
+            yield return new WaitForSecondsRealtime(1.5f);
+            GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
+            GameOver();
         }
-        else{
-                GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-                logger.onGameEnd(startDate, false);
-                SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+        else
+        {
+            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
+            logger.onGameEnd(startDate, false);
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }
     /// <summary>
@@ -146,20 +149,21 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
-        do {
-        yield return new WaitForSecondsRealtime(2.2f);
-        }while(GlobalState.GameState != stateLib.GAMESTATE_IN_GAME); 
+        do
+        {
+            yield return new WaitForSecondsRealtime(2.2f);
+        } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
         //if the end of the level string is empty then there is no anticipated next level. 
         //Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(startDate, true);
-            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
         else
         {
-            Victory(); 
+            Victory();
         }
     }
     /// <summary>
@@ -169,30 +173,30 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <param name="line">line number to take the player</param>
     public void WarpLevel(string file, string line)
     {
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            Debug.Log("GameController: WarpLevel() WINDOWS");
-        #endif
+#if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+        Debug.Log("GameController: WarpLevel() WINDOWS");
+#endif
 
         //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
 
-        #if UNITY_WEBGL
+#if UNITY_WEBGL
             WebHelper.i.url = stringLib.SERVER_URL + file;
             WebHelper.i.GetWebDataFromWeb();
             file = WebHelper.i.webData;
-        #endif
+#endif
 
         factory = new LevelFactory(file, true);
         GlobalState.level = factory.GetLevel();
         lg.BuildLevel(true);
-        lg.WarpPlayer(line); 
-        lg.manager.ResizeObjects(); 
+        lg.WarpPlayer(line);
+        lg.manager.ResizeObjects();
     }
-    void Awake(){
-    
-        
-        if (GlobalState.level.IsDemo){
-            GlobalState.level.IsDemo = true; 
-            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot")); 
+    void Awake()
+    {
+        if (GlobalState.level.IsDemo)
+        {
+            GlobalState.level.IsDemo = true;
+            hero = Instantiate(Resources.Load<GameObject>("Prefabs/DemoRobot"));
         }
         else{
             GlobalState.level.IsDemo = false; 
@@ -203,38 +207,40 @@ public class GameController : MonoBehaviour, ITimeUser
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 
         startDate = DateTime.Now;
 
-        
+
         //GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
         output = GameObject.Find("OutputCanvas").transform.GetChild(0).gameObject.GetComponent<Output>();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
-        selectedTool = sidebar.transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
-        logger = new Logger(); 
-        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
+        selectedTool = sidebar.transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
+        logger = new Logger();
+        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>();
     }
-    public void Escape(){
+    public void Escape()
+    {
         if (!GlobalState.level.IsDemo)
         {
             //SaveGameState();
-            GlobalState.IsResume = true; 
-            firstUpdate = true; 
+            GlobalState.IsResume = true;
+            firstUpdate = true;
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
-            CodeProperties properties = new CodeProperties(); 
-            hero.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0); 
-            hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE+ 0.5f, properties.initialLineY, hero.transform.position.z);
-            hero.GetComponent<Rigidbody2D>().gravityScale = 0; 
+            CodeProperties properties = new CodeProperties();
+            hero.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+            hero.transform.position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + 0.5f, properties.initialLineY, hero.transform.position.z);
+            hero.GetComponent<Rigidbody2D>().gravityScale = 0;
         }
-        else {
+        else
+        {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(startDate, true);
-            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single); 
+            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }
     /// <summary>
@@ -244,14 +250,14 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
-            sidebar.GetComponent<Animator>().SetBool("open", !sidebar.GetComponent<Animator>().GetBool("open")); 
-            EnergyController.GetComponent<Animator>().SetBool("open", !EnergyController.GetComponent<Animator>().GetBool("open")); 
+            sidebar.GetComponent<Animator>().SetBool("open", !sidebar.GetComponent<Animator>().GetBool("open"));
+            EnergyController.GetComponent<Animator>().SetBool("open", !EnergyController.GetComponent<Animator>().GetBool("open"));
             //sidebar.ToggleSidebar(); 
             //EnergyController.ToggleEnergy(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
-            Escape(); 
+            Escape();
         }
 
     }
@@ -266,37 +272,39 @@ public class GameController : MonoBehaviour, ITimeUser
             lg.ToggleLight();
             sidebar.ToggleLight();
             output.ToggleLight();
-            background.ToggleLight(); 
+            background.ToggleLight();
             backButton.ToggleColor();
-            EnergyController.ToggleLight(); 
-            GlobalState.level.ToggleLight(); 
-            lg.DrawInnerXmlLinesToScreen(); 
-        } 
-        else {
+            EnergyController.ToggleLight();
+            GlobalState.level.ToggleLight();
+            lg.DrawInnerXmlLinesToScreen();
+        }
+        else
+        {
             lg.ToggleDark();
             sidebar.ToggleDark();
             output.ToggleDark();
-            background.ToggleDark(); 
+            background.ToggleDark();
             backButton.ToggleColor();
-            GlobalState.level.ToggleDark(); 
-            EnergyController.ToggleDark(); 
-            lg.DrawInnerXmlLinesToScreen(); 
+            GlobalState.level.ToggleDark();
+            EnergyController.ToggleDark();
+            lg.DrawInnerXmlLinesToScreen();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (firstUpdate && !GlobalState.IsResume){
-            firstUpdate = false; 
-            SetTheme(); 
-            lg.TransformTextSize(); 
+        if (firstUpdate && !GlobalState.IsResume)
+        {
+            firstUpdate = false;
+            SetTheme();
+            lg.TransformTextSize();
         }
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             CheckWin();
-            CheckLose(); 
-            HandleInterface(); 
+            CheckLose();
+            HandleInterface();
         }
     }
 }

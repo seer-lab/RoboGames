@@ -58,6 +58,7 @@
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
  <Reference Include="Unity.Timeline.Editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
@@ -91,36 +92,43 @@
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
 =======
  <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+=======
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+>>>>>>> master
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+<<<<<<< HEAD
  <HintPath>D:/RobotONDev/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+>>>>>>> master
+=======
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
 >>>>>>> master
  </Reference>
  <Reference Include="UnityEngine.AIModule">
@@ -305,6 +313,7 @@
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
@@ -314,12 +323,19 @@
  <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
 =======
  <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+=======
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+>>>>>>> master
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
+<<<<<<< HEAD
  <HintPath>D:/RobotONDev/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+>>>>>>> master
+=======
+ <HintPath>C:/Users/kashi/Documents/RobotON/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
 >>>>>>> master
  </Reference>
  <Reference Include="netstandard">

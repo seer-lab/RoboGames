@@ -43,8 +43,7 @@ public class DialogController : MonoBehaviour
                 player.url = stringLib.SERVER_URL + filepathBug;
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
-                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0); 
-                FlipDialog(boyDialog); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0);  
                 FlipDialog(girlDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
                 
@@ -62,7 +61,6 @@ public class DialogController : MonoBehaviour
                 player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro_1"); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
-                FlipDialog(boyDialog); 
                 FlipDialog(girlDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
             }
@@ -155,13 +153,14 @@ public class DialogController : MonoBehaviour
                 String[] scriptLines = linesS[i].Split('\r');
                 if(scriptLines[0].Contains("$Boy")){
                     actorOrder.Add("Boy");
-                    scriptLines[0] = scriptLines[0].Remove(0, scriptLines[0].IndexOf(':'));
+                    scriptLines[0] = "Guy: " + scriptLines[0].Remove(0, scriptLines[0].IndexOf(':'));
                 }else if (scriptLines[0].Contains("$Girl")){
                     actorOrder.Add("Girl"); 
+                    scriptLines[0] = "Ivy: " + scriptLines[0].Remove(0,scriptLines[0].IndexOf(':')+1); 
                 }else{
                     actorOrder.Add("Robot"); 
+                    scriptLines[0] = "V.I.: " + scriptLines[0].Remove(0,scriptLines[0].IndexOf(':')+1); 
                 }
-                scriptLines[0] = scriptLines[0].Remove(0,scriptLines[0].IndexOf(':')+1); 
                 lines.Add(scriptLines[0]);
             }
             //Debug.Log("DialogController: ReadFile() WEBGL");

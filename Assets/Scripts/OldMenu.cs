@@ -210,6 +210,16 @@ public class OldMenu : MonoBehaviour
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
+        if (GlobalState.GameState != stateLib.GAMESTATE_MENU){
+            foreach (GameObject button in buttons){
+                button.GetComponent<SpriteRenderer>().color = Color.grey; 
+            }
+        }
+        else {
+            foreach (GameObject button in buttons){
+                button.GetComponent<SpriteRenderer>().color = Color.white; 
+            }
+        }
         // ]-- End of "Resume Game" button behavior.
         // If we are in the menu, handle up and down arrows --[
         if (GlobalState.GameState == stateLib.GAMESTATE_MENU)
