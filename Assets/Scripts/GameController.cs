@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour, ITimeUser
     public Logger logger;
     bool winning = false;
 
+    float leftCodescreen; 
+
     /// <summary>
     /// Checks if the game meets the win condition. 
     /// </summary>
@@ -221,6 +223,7 @@ public class GameController : MonoBehaviour, ITimeUser
         selectedTool = sidebar.transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
         logger = new Logger();
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>();
+        leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE;
     }
     public void Escape()
     {
@@ -305,6 +308,10 @@ public class GameController : MonoBehaviour, ITimeUser
             CheckWin();
             CheckLose();
             HandleInterface();
+        }
+        if (leftCodescreen != GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE && GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
+            leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE; 
+            lg.DrawInnerXmlLinesToScreen(); 
         }
     }
 }

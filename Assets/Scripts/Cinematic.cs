@@ -167,20 +167,26 @@ public class Cinematic : MonoBehaviour
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
         yield return new WaitForSecondsRealtime(1f);
         string filepath; 
-        if (GlobalState.GameMode == "on"){
-            string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            filepath = Path.Combine(Application.streamingAssetsPath, txtFile); 
-        }
-        else{
-            string file = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt"; 
-            filepath = Path.Combine(Application.streamingAssetsPath, file); 
-        }
-        Debug.Log(filepath); 
-        if (File.Exists(filepath)){
+        bool isWeb = false; 
+        #if UNITY_EDITOR && !UNITY_WEBGL
+        string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+        filepath = Path.Combine(Application.streamingAssetsPath, txtFile); 
+        #elif UNITY_WEBGL
+        string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
+        filepath = stringLib.SERVER_URL +"StreamingAssets/" + GlobalState.GameMode + "leveldata/" + txtFile; 
+        WebHelper.i.url = filepath; 
+        WebHelper.i.GetWebDataFromWeb(); 
+        filepath = WebHelper.i.webData;
+        isWeb = true; 
+        Debug.Log("WebGl Filepath: " + filepath); 
+        #endif       
+        if (File.Exists(filepath) || isWeb){
+            if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true; 
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition"); 
         }
         else if (GlobalState.CurrentONLevel.Contains("tutorial")){
+            GlobalState.level.IsDemo = true;
             Debug.Log("Tutorial");
             SceneManager.LoadScene("newgame"); 
         }
@@ -278,7 +284,7 @@ public class Cinematic : MonoBehaviour
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
             GlobalState.IsResume = false; 
             if (!updatedLevel)UpdateLevel(GlobalState.level.NextLevel); 
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
         if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
         {

@@ -14,11 +14,11 @@ You've acquired a new tool!</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-                                                                                @We're back with a new Tool!@
-	<comment type="description" correct="true"  groupid="0">Use the Renamer tool on purple variable names to change them.</comment>                                                   @We can change the name of variables to better represent data!@ ??? !!!
-	int <variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter">i</variable-rename> = 0;                              @i tends to be used in for loops, but a counter would be more suitable@ ??? !!!
-	<comment type="description" correct="true"  groupid="3">Look at the code to get context clues about the variable's purpose.</comment>                                     @Context is important!@ ??? !!!
-	float <variable-rename text="Choose a name for this variable: " options="Epsilon,Googleplex,Delta,Pi" correct="Pi">x</variable-rename>;         @As a robot I prefer feasting on Pi!@ !!!
+                                                                                @We're back with a new tool!@
+	<comment type="description" correct="true"  groupid="0">Use the Renamer tool on purple variable names to change them.</comment>                                                   @We can change the name of variables to accurately describe data.@ ??? !!!
+	int <variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter">i</variable-rename> = 0;                              @A single letter doesn't tell us much, but maybe we can use it to count and call it counter.@ ??? !!!
+	<comment type="description" correct="true"  groupid="3">Look at the code to get context clues about the variable's purpose.</comment>                                     @Context is important! Otherwise, who knows what the variable should be named?@ ??? !!!
+	float <variable-rename text="Choose a name for this variable: " options="Epsilon,Googleplex,Delta,Pi" correct="Pi">x</variable-rename>;         @The line below says the value is 3.14... I know what that number is!@ !!!
 	x = 3.14;
 </code>
 </level>

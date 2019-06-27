@@ -10,7 +10,7 @@
         <tool name="commenter" enabled="true" count="unlimited"/>
         <tool name="checker" enabled="true" count="unlimited"/>
         </tools>
-    <code language="c++">//You can use the TAB button to switch between tools
+    <code language="c++">//You can use the TAB button to switch tools, or tap the tool you want to use
     //Press CTRL to use the active tool (shown on the right)
     <question text="What is 1+1? Type your answer: " answer="2">Use the CHECKER tool on yellow text and answer the question</question>
     //Be careful! Some commenter lines are false! Be careful not to activate them!

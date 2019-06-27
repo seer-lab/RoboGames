@@ -1,7 +1,7 @@
 ServerRecovery
 #Girl: 400 200 0
 #Boy: -400 200 0
-$Girl: All that's left is to turn on the server!
+$Girl: All that's left is to turn on the network server!
 $Boy: This is the last thing we need to do to get our systems back online.
 $Girl: This one's going to be tough.
 $Boy: Not to worry, we made it this far! We can totally do this. 
