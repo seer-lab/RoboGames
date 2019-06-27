@@ -286,6 +286,8 @@ public class hero2Controller : MonoBehaviour
                 else verticalMovement = -1f;
                 yield return null;
             }
+            if (GlobalState.level.IsDemo) facingRight = false; 
+            anim.SetBool("facingRight", facingRight);
             reachedPosition = true;
         }
         isMoving = false;
