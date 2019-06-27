@@ -11,6 +11,7 @@ public class CharacterSelect : MonoBehaviour
     public const int NUM_CHARACTERS = 3; 
     float[] xPositions; 
     public GameObject[] characterObjects = new GameObject[NUM_CHARACTERS]; 
+    public Text[] characterNames = new Text[NUM_CHARACTERS]; 
     Banner[] characters; 
     GameObject disk; 
     int indexOfSelected; 
@@ -47,7 +48,9 @@ public class CharacterSelect : MonoBehaviour
             GlobalState.Character = names[indexOfSelected]; 
             StartCoroutine(LoadGame()); 
         }
-        else StopAllCoroutines(); 
+        else {
+            StopAllCoroutines(); 
+        }
         characters[indexOfSelected].DeselectCharacter(); 
         indexOfSelected = index; 
         Debug.Log("Index of Selected: " + indexOfSelected); 
