@@ -8,9 +8,14 @@ public class Banner : MonoBehaviour
    public float fadeTime = 2f; 
    public int index; 
    Image glow; 
+   Text textName; 
    CharacterSelect select; 
+   bool isRunning = false; 
+   bool selected = false; 
    void Awake(){
        glow = GameObject.Find("Glow" + this.gameObject.name).GetComponent<Image>();
+       textName = GameObject.Find("Text" + this.gameObject.name).GetComponent<Text>(); 
+       textName.color = new Color(1,1,1,0); 
        glow.color = new Color(1,1,1,0);  
        select = this.transform.parent.GetComponent<CharacterSelect>(); 
        this.GetComponent<Button>().onClick.AddListener(onClick); 
@@ -19,19 +24,36 @@ public class Banner : MonoBehaviour
        select.SelectCharacter(index); 
    }
    public void SelectCharacter(){
+       selected = true; 
+       StopAllCoroutines(); 
        StartCoroutine(doFade(true)); 
    }
    public void DeselectCharacter(){
+       selected = false; 
+       StopAllCoroutines();
        StartCoroutine(doFade(false)); 
    }
    IEnumerator doFade(bool fadeIn){
+       isRunning = true; 
        float iterator = 1/((fadeTime)*20); 
        if (!fadeIn){
            iterator*=-1; 
        }
        while((fadeIn) ? glow.color.a < 1: glow.color.a > 0){
            glow.color = new Color(glow.color.r, glow.color.g, glow.color.b, glow.color.a + iterator); 
+           textName.color = new Color(textName.color.r, textName.color.g, textName.color.b, textName.color.a + iterator); 
            yield return null; 
+       }
+       isRunning = false; 
+   }
+   void Update(){
+       if (!isRunning && selected){
+            textName.color = new Color(1,1,1,1); 
+            glow.color = new Color(1,1,1,1); 
+       }
+       else if (!isRunning && !selected){
+           textName.color = new Color(1,1,1,0); 
+            glow.color = new Color(1,1,1,0); 
        }
    }
 }
