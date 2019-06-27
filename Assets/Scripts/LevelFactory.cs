@@ -16,11 +16,7 @@ public class LevelFactory
 
     public LevelFactory(string filename, bool warp = false)
     {
-        level = new Level();
-        if (filename.Contains("tutorial")){
-            level.IsDemo = true; 
-        }
-        else level.IsDemo = false; 
+        level = new Level(); 
         if (warp)
             BuildFromCurrent(filename); 
         else
@@ -56,8 +52,12 @@ public class LevelFactory
         level.Failure_Level = XMLReader.GetFailureLevel(doc);
 
         level.Description = XMLReader.GetLevelDescription(doc); 
-        //Hacking time
-        string tempFilename = "onleveldata//" + level.Failure_Level;
+
+        if (level.FileName.Contains("tutorial")){
+            level.IsDemo = true; 
+        }else{ 
+            level.IsDemo = false;
+        }
 
     }
     private void BuildFromCurrent(string filename)
