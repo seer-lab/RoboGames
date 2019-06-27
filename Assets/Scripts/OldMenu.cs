@@ -161,6 +161,7 @@ public class OldMenu : MonoBehaviour
             else GlobalState.CurrentONLevel = "tut1.xml";
         }
         else GlobalState.IsPlaying = true;
+        GlobalState.IsResume = false; 
         GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel; 
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
         GlobalState.level = null;
