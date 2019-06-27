@@ -8,9 +8,9 @@ of the tech around us! Let's see how exactly we can do that!</introtext>
 <tools>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++">//Welcome to the Codebase!     @1 We've made it into the code@
-//You may traverse this codebase freely!         @2 It looks like we have permission here@
-//Use tools to manipulate the code:            @3 oh you must be new, you can use arrow keys to move, or touch and hold a position to go to it.@
-<comment type="description" correct="true" groupid="0">Please comment me out!</comment>  @4 lets try this@!!!
+<code language="c++">//Welcome to the Codebase!     @We've made it into the code. Let's read carefully.@
+//You may traverse this codebase freely!         @We'll need to use some tools to fix up the code. You can see the Commenter is active on the right side of the screen; it can fix the green systems.@
+//Use tools to manipulate the code:            @You can use Arrow keys on your keyboard to move, or touch and hold a position on your mobile device to go there.@
+<comment type="description" correct="true" groupid="0">Please comment me out!</comment>  @Tapping the bottom left corner/pressing CTRL will use the active tool.@!!!
 </code>
 </level>

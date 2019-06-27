@@ -52,7 +52,7 @@ public class TransitionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)){
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
             NextDialog(); 
         }
     }

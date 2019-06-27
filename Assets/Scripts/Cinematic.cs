@@ -180,7 +180,6 @@ public class Cinematic : MonoBehaviour
         isWeb = true; 
         Debug.Log("WebGl Filepath: " + filepath); 
         #endif       
-        Debug.Log(filepath); 
         if (File.Exists(filepath) || isWeb){
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true; 
             Debug.Log("Transition");

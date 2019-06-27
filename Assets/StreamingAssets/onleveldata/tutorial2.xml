@@ -12,9 +12,9 @@ let's take a look at some tools that can help!</introtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	//Cereal Algorithm                                           @I do enjoy Cereal@
-	<beacon flow-order="0" /> AddCereal();        @Everyone knows that the Cereal goes in before the milk!@ !!!
-	<beacon flow-order="1" /> AddMilk();          @I just need to activate these in order@ !!!
+	//PowerON Algorithm                                           @Let's turn on the power.@
+	<beacon flow-order="0" /> PlugIn();        @We'll have to plug in the computer before turning on the power.@ !!!
+	<beacon flow-order="1" /> PowerButton();  @These have to be activated in the right order.@ !!!
 }
 </code>
 </level>
