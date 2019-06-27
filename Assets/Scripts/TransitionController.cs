@@ -52,7 +52,7 @@ public class TransitionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)){
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
             NextDialog(); 
         }
     }
@@ -62,6 +62,7 @@ public class TransitionController : MonoBehaviour
     }
     IEnumerator WaitForSwitchScene(){
         yield return new WaitForSeconds(1f); 
+        if (GlobalState.level.FileName.Contains("tutorial")) GlobalState.level.IsDemo = true; 
         SceneManager.LoadScene("newgame"); 
     }
     void NextDialog(){

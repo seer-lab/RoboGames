@@ -8,12 +8,12 @@
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">//Uncommenting allows us to put potential code into action. 
-@It seems the programmer was confused with the boilerplate@
-<comment type="code" correct="false"  groupid="1">//#include &lt;iostream&gt; ; </comment>                               @This doesn't look correct@
-<comment type="code" correct="true"  groupid="1">//#include &lt;iostream&gt; </comment>                       @Let's Uncomment this because it looks Correct!@ !!!
+@It seems the programmer was confused with the code setup.@
+<comment type="code" correct="false"  groupid="1">//#include &lt;iostream&gt; ; </comment>                               @This doesn't look correct; I'll ignore it.@
+<comment type="code" correct="true"  groupid="1">//#include &lt;iostream&gt; </comment>                       @Let's use the Uncommenter on this, because it looks correct!@ !!!
 
 using namespace std;
-<comment type="code" correct="true"  groupid="2"> //int main() { </comment>                         @There's another one over here, this looks right@ !!!
+<comment type="code" correct="true"  groupid="2"> //int main() { </comment>     @There's another one over here, this looks right to me.@ !!!
 <comment type="code" correct="false"  groupid="2"> //int main { </comment>           
     cout &lt;&lt; "Hello world!"; 
 }

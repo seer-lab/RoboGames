@@ -3,5 +3,5 @@ CPUOn
 #Boy: -400 200 0
 $Girl: The Computer is working!
 $Boy: Alright! We can now write a script to get everything else back online!
-$Girl: Hold your horses, we'll need to get our System Backup back on before we can do that.
-$Boy: You're right, let's hurry we have no time to lose!
+$Girl: Hold your horses, we'll need to get our System Backup back on before we can do that. If we don't, Black Hat could shut us down again in an insant!
+$Boy: You're right, let's hurry! We have no time to lose!

@@ -157,8 +157,10 @@ public class OldMenu : MonoBehaviour
         if (GlobalState.CurrentONLevel == null)
         {
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
-                GlobalState.CurrentONLevel = "level0.xml";
-            else GlobalState.CurrentONLevel = "tut1.xml";
+                GlobalState.CurrentONLevel = "tutorial0.xml";
+            else {
+                GlobalState.CurrentONLevel = "tutorial0.xml";
+            }
         }
         else GlobalState.IsPlaying = true;
         GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel; 
@@ -198,15 +200,7 @@ public class OldMenu : MonoBehaviour
     void Update()
     {
 
-        // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
-        if (!GlobalState.IsResume)
-        {
-            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
-        }
-        else
-        {
-            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
-        }
+        
         if (GlobalState.GameState != stateLib.GAMESTATE_MENU){
             foreach (GameObject button in buttons){
                 button.GetComponent<SpriteRenderer>().color = Color.grey; 
@@ -216,6 +210,16 @@ public class OldMenu : MonoBehaviour
             foreach (GameObject button in buttons){
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
+        }
+
+        // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
+        if (!GlobalState.IsResume)
+        {
+            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
+        }
+        else
+        {
+            buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
         // ]-- End of "Resume Game" button behavior.
         // If we are in the menu, handle up and down arrows --[

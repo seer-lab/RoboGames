@@ -7,4 +7,4 @@ $Robot: I'm equipped with the ability to bring us into the code, perhaps that wi
 $Girl: What! That's crazy!
 $Boy: You're kidding!
 $Robot: I believe our first order of business would be to turn on some sort of screen.
-$Girl: uh. I suppose?
+$Girl: Great idea! Let's do this!
