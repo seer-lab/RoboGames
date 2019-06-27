@@ -1,15 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-
-
-public class DatabaseHelper: MonoBehaviour{
-    public static DatabaseHelper i;
-
-
+public class DatabaseHelperV2 : MonoBehaviour
+{
+    public static DatabaseHelperV2 i;
     public string url {get; set;}
     public string jsonData {get; set;}
     void Awake(){
