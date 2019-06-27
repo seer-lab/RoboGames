@@ -4,21 +4,25 @@ You can use it on white text to see if that code affects the bug.
 Check the functions below using the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
 The error will remain if you comment out non-buggy code.
 Use the BUGCATCHER tool to catch the bug when you find it.</description>
-<code language="c++">void function1(){              @hm the bug can be in anyone of these function calls@
+<code language="c++">void function1(){              @The bug is somewhere here, but we don't have time to check every function one by one.@
     //do some stuff
-                                                                @Let's comment some of these out so we can determine where it is!@ ???
-<comment type="robobug" groupid="1" size="3" text="$err$bError in addAcessories function!
-(it hasn't been commented out yet)">doStuff(x);                                @This one?@ !!!
+	int x,y,z
+	cin &gt;&gt; int x;
+	cin &gt;&gt; int y;
+	cin &gt;&gt; int z;
+                                                                @Let's comment out some code to see if the same error persists.@ ???
+<comment type="robobug" groupid="1" size="3" text="$err$bError in addAccessories function!
+(it hasn't been commented out yet)">doStuff(x);                                @My commenter tool will prevent the code from being executed.@ !!!
     buildSnowball(x);                     
-    buildSnowball(x);</comment>
+    buildSnowball(y);</comment>
     	
-    <comment type="robobug" groupid="2" size="3" text="$err$Error in addAcessories function!
-(it hasn't been commented out yet)">doStuff(y);                                @This one has an addAcessories Function@ !!!
-    addAcessories(y);
-    addLimbls(y);</comment>
+    <comment type="robobug" groupid="2" size="3" text="$err$Error in addAccessories function!
+(it hasn't been commented out yet)">doStuff(y);                                @The error didn't go away, so the bug must be elsewhere.@ !!!
+    addAccessories(y);
+    addLimbs(y);</comment>
     	
-    <comment type="robobug" size="3" groupid="3" tool="999,0,0,0,0,0" text="No Errors Found!">doStuff(z);                   @This one has one too.@ !!!
-    $bug $addAcessories(z); @There were no errors when we commented this block, perhaps the error stems from this function call?@ ??? !!!
+    <comment type="robobug" size="3" groupid="3" tool="999,0,0,0,0,0" text="No Errors Found!">doStuff(z);                   @The message said addAccessories() has an error; is it here?@ !!!
+    $bug $addAcessories(z); @There were no errors when we commented this block. By process of elimination, the bug must be here.@ ??? !!!
     buildSnowball(z);</comment>
     return;
 }

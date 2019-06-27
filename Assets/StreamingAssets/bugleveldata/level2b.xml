@@ -1,10 +1,10 @@
 <level>
-<description>The System Callstack Ordering is not working correctly.
-The SetPriority function has a bug that is affecting the Assigner.
+<description>The System File Number Ordering is not working correctly.
+The InsertFile function has a bug that is affecting the system.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; to learn about the bug.
 Figure out where the bug is, then use the BUGFIXER to catch it.</description>
 <next-level>level2.xml</next-level>
-<introtext>The System Callstack Ordering isn't working.
+<introtext>The System File Number Ordering is not working correctly.
 Can you figure out what it's doing wrong?</introtext>
 <endtext>The boundary bug has been caught!
 Only one bug remains in the completed function.</endtext>
@@ -12,25 +12,25 @@ Only one bug remains in the completed function.</endtext>
 <tools>
 <tool name="printer" enabled="true" count="6"/>
 </tools>
-<code language="c++">//System Callstack Ordering
-//SetPriority sorts a priority element value in a list
-//Priorities is a list where all elements except the first are sorted
-//SetPriority returns the list where all elements are sorted
+<code language="c++">//File Number Ordering
+//InsertFile sorts a new file number into the directory
+//files is a list where all file number elements except the first are sorted
+//InsertFile returns the list where all elements are sorted, including the first
 //The list is sorted from biggest to smallest
 
-int[] SetPriority(int priorities[], int numOfTargets){
-    <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; priorities;
+int[] InsertFile(int files[], int numOfFiles){
+    <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; files;
 	</print>
-    <print text="5" col="4">cout &lt;&lt; numOfTargets;
+    <print text="5" col="4">cout &lt;&lt; numOfFiles;
 	</print>
-    for(int i = 0; i$bug for(int i = 0; i &lt; numOfTargets-1; i++)$ &lt;= numOfTargets; i++){
-        if (priorities[i]&gt;priorities[i+1]){
-            Swap(priorities[i],priorities[i+1]);
+    for(int i = 0; i$bug for(int i = 0; i &lt; numOfFiles-1; i++)$ &lt;= numOfFiles; i++){
+        if (files[i]&gt;files[i+1]){
+            Swap(files[i],files[i+1]);
         }
     }
-    <print text="$err$Out of Bounds Error." col="4" tool="1,0,0,0,0,0">cout &lt;&lt; priorities;
+    <print text="$err$Out of Bounds Error." col="4" tool="1,0,0,0,0,0">cout &lt;&lt; files;
 	</print>
-    return priorities; 
+    return files; 
 }
 </code>
 </level>

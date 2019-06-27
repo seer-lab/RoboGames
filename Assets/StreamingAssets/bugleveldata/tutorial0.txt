@@ -1,8 +1,8 @@
 ThermostatCold
 #Girl: 500 200 0
 #Boy: -500 200 0
-$Girl: Oh my goodness what is the temperature?
-$Boy: I think the thermostat is bugged too, it's -22 degrees. 
-$Girl: What!!! 
-$Girl: We need to fix that right away. 
+$Girl: Oh my goodness, it's boiling in here! How hot is it?
+$Boy: I think the thermostat is bugged, it says it's -22 degrees. 
+$Girl: What!!! That's impossible!
+$Girl: We need to fix that right away or we won't be in any condition to repair the rest of the code. 
 $Boy: I'm sure V.I can help us get into the code!
