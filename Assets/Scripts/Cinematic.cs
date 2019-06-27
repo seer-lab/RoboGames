@@ -167,20 +167,19 @@ public class Cinematic : MonoBehaviour
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
         yield return new WaitForSecondsRealtime(1f);
         string filepath; 
-        bool isWeb = false; 
+
         #if UNITY_EDITOR && !UNITY_WEBGL
         string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
         filepath = Path.Combine(Application.streamingAssetsPath, txtFile); 
-        #elif UNITY_WEBGL
+        #else
         string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
         filepath = stringLib.SERVER_URL +"StreamingAssets/" + GlobalState.GameMode + "leveldata/" + txtFile; 
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData;
-        isWeb = true; 
         Debug.Log("WebGl Filepath: " + filepath); 
         #endif       
-        if (File.Exists(filepath) || isWeb){
+        if (File.Exists(filepath) || filepath.Contains(".txt")){
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true; 
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition"); 
