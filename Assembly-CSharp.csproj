@@ -141,7 +141,6 @@
      <None Include="Assets\StreamingAssets\onleveldata\level3-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-3c.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level3.xml" />
-     <None Include="Assets\StreamingAssets\onleveldata\level1-1.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2a.xml" />

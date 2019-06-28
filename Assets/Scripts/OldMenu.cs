@@ -271,9 +271,10 @@ public class OldMenu : MonoBehaviour
                         option = 0;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 
-                        if (SceneManager.sceneCount > 1)
+                        if (SceneManager.sceneCount > 1){
                             SceneManager.UnloadSceneAsync("newgame");
-                        GlobalState.CurrentONLevel = levels[levoption];
+                            GlobalState.CurrentONLevel = "tutorial0.xml"; 
+                        }
                         SceneManager.LoadScene("CharacterSelect");
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:

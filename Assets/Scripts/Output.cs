@@ -19,7 +19,7 @@ public class Output : MonoBehaviour
 	public GameObject text, panel , enter;
 
 	private Animator anim;
-
+    public int narrator = 0; 
     public static bool IsAnswering { get; set; }
 
     Sprite[] panels = new Sprite[8];
@@ -61,6 +61,11 @@ public class Output : MonoBehaviour
 		anim.SetBool("Hiding", false);
         LoadPanels();
         IsAnswering = false; 
+        if (GlobalState.level.IsDemo){
+            narrator = 0; 
+        }
+        else if (GlobalState.Character == "Girl") narrator = 2; 
+        else narrator = 1;
 	}
 
 	//.................................>8.......................................
@@ -70,8 +75,9 @@ public class Output : MonoBehaviour
 		if (isText) {
 			anim.SetBool("Appearing", true);
 			anim.SetBool("Hiding", false);
+            anim.SetInteger("Character", narrator); 
 		}
-		else {
+		else if(!GlobalState.level.IsDemo) {
 			anim.SetBool("Appearing", false);
 			anim.SetBool("Hiding", true);
 		}
