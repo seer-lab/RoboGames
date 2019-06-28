@@ -31,20 +31,6 @@ public class WebHelper : MonoBehaviour
         private static extern string setCookies(string name, string value);
     #endif
 
-
-    IEnumerator WebRequest(String url){
-        WWW www = new WWW(url);
- 
-        while (!www.isDone)
-            yield return null;
- 
-        if (string.IsNullOrEmpty(www.error))
-          yield return www.text;
-        else
-          yield return www.error;
-
-    }
-
     IEnumerator GetXMLFromServer(string url) {
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
@@ -58,16 +44,16 @@ public class WebHelper : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
     public string GetWebDataFromWeb(){
-        #if UNITY_WEBGL && UNITY_EDITOR
-            Console.WriteLine("Download On the web");
-            IEnumerator e = WebRequest(url);
-            while(e.MoveNext()){
-                if(e.Current != null){
-                    Debug.Log(e.Current as string);
-                    this.webData = e.Current as string;
-                }
-            }
-            // this.webData = GetData(this.url); //Synchronous
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            // Console.WriteLine("Download On the web");
+            // IEnumerator e = WebRequest(url);
+            // while(e.MoveNext()){
+            //     if(e.Current != null){
+            //         Debug.Log(e.Current as string);
+            //         this.webData = e.Current as string;
+            //     }
+            // }
+            this.webData = GetData(this.url); //Synchronous
             // Console.WriteLine(this.webData);
         #elif UNITY_WEBGL
             StartCoroutine(GetXMLFromServer(this.url));

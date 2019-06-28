@@ -102,7 +102,6 @@ public class TransitionController : MonoBehaviour
         bool positionLine = false;
 
         #if UNITY_WEBGL
-
             filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
             WebHelper.i.GetWebDataFromWeb();
@@ -147,10 +146,7 @@ public class TransitionController : MonoBehaviour
                     else positionLine = false; 
                 }
             }
-
-
-
-        #else
+        #elif UNITY_EDITOR && ! UNITY_WEBGL
             Debug.Log(filepath); 
             using (StreamReader reader = new StreamReader(filepath)){
                 

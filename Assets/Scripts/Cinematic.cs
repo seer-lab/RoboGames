@@ -179,7 +179,7 @@ public class Cinematic : MonoBehaviour
         filepath = WebHelper.i.webData;
         Debug.Log("WebGl Filepath: " + filepath); 
         #endif       
-        if (File.Exists(filepath) || filepath.Contains(".txt")){
+        if (File.Exists(filepath) || !filepath.Contains("File not found!")){
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true; 
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition"); 

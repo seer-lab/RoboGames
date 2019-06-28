@@ -17,20 +17,4 @@ mergeInto(LibraryManager.library, {
     }
     return buffer;
   },
-  
-  getCookies: function () {
-      var x = document.cookie;
-      var decodedCookie = decodeURIComponent(x);
-      var bufferSize = lengthBytesUTF8(decodedCookie) + 1;
-      var buffer = _malloc(bufferSize);
-      stringToUTF8(decodedCookie,buffer,bufferSize);
-      return buffer;
-  },
-
-  setCookies: function(cname, cvalue){
-    var d = new Date();
-    d.setTime(d.getTime() + (24*60*60*1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = Pointer_stringify(cname) + "=" +Pointer_stringify(cvalue) + ";" + expires + ";";
-  },
 });
