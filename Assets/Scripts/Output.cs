@@ -20,6 +20,7 @@ public class Output : MonoBehaviour
 
 	private Animator anim;
     public int narrator = 0; 
+    int original = 0; 
     public static bool IsAnswering { get; set; }
 
     Sprite[] panels = new Sprite[8];
@@ -65,8 +66,17 @@ public class Output : MonoBehaviour
             narrator = 0; 
         }
         else if (GlobalState.Character == "Girl") narrator = 2; 
-        else narrator = 1;
+        else if (GlobalState.Character == "Boy") narrator = 1;
+        original = narrator; 
 	}
+    public void PlayCharacterOutput(string newText){
+        int value = 0; 
+        if (GlobalState.Character == "Boy") value = 2; 
+        else if (GlobalState.Character == "Girl") value = 1; 
+        narrator = value; 
+        anim.SetInteger("Character", value); 
+        text.GetComponent<Text>().text = newText; 
+    }
 
 	//.................................>8.......................................
 	// Update is called once per frame
@@ -83,6 +93,7 @@ public class Output : MonoBehaviour
 		}
 		if (( Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
 			text.GetComponent<Text>().text = "";
+            narrator = original; 
 		}
 	}
 

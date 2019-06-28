@@ -80,7 +80,21 @@ public class hero2Controller : MonoBehaviour
     }
     public void onFail()
     {
+        GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
         energyController.onFail(projectilecode);
+        StartCoroutine(DamageDelay()); 
+    }
+    IEnumerator RedFlinch(){
+        SpriteRenderer color = this.GetComponent<SpriteRenderer>(); 
+        float speed = 0.04f; 
+        while(color.color.g > 0.5f){
+            color.color = new Color(color.color.r, color.color.g - speed, color.color.b - speed); 
+            yield return null; 
+        }
+        while(color.color.g < 1){
+            color.color = new Color(color.color.r, color.color.g + speed, color.color.b + speed); 
+            yield return null; 
+        }
     }
     IEnumerator DamageDelay()
     {
@@ -105,6 +119,7 @@ public class hero2Controller : MonoBehaviour
             energyController.onDamange(damage);
             float finEnergy = energyController.currentEnergy;
             controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
+            GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
             StartCoroutine(DamageDelay());
             return true;
         }
