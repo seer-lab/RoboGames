@@ -91,3 +91,12 @@ Commenter Tool Use:
 	Lines Used: 
 
 --------------------------------------------------------
+Failed Level
+-13 Seconds
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
