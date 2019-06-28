@@ -15,6 +15,9 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
+            PlayerPrefs.DeleteAll();
+        }
         string filepath ="";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         #if UNITY_WEBGL                    

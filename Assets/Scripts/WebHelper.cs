@@ -31,7 +31,6 @@ public class WebHelper : MonoBehaviour
         private static extern string setCookies(string name, string value);
     #endif
 
-
     IEnumerator GetXMLFromServer(string url) {
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
@@ -46,9 +45,16 @@ public class WebHelper : MonoBehaviour
     }
     public string GetWebDataFromWeb(){
         #if UNITY_WEBGL && !UNITY_EDITOR
-            Console.WriteLine("Download On the web");
+            // Console.WriteLine("Download On the web");
+            // IEnumerator e = WebRequest(url);
+            // while(e.MoveNext()){
+            //     if(e.Current != null){
+            //         Debug.Log(e.Current as string);
+            //         this.webData = e.Current as string;
+            //     }
+            // }
             this.webData = GetData(this.url); //Synchronous
-            Console.WriteLine(this.webData);
+            // Console.WriteLine(this.webData);
         #elif UNITY_WEBGL
             StartCoroutine(GetXMLFromServer(this.url));
             this.webData = this.someData;
