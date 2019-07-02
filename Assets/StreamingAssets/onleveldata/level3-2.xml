@@ -26,7 +26,7 @@ int main {
 <beacon flow-order="2,3,4" />		text += "c";
 	}
 	cout &lt;&lt; <question text="What does the text contain now?
-	Type your answer: " answer="abbccc">text;</question>	
+	Type your answer: " options="abc,aaabbbccc,abccc,abbccc" answer="abbccc">text;</question>	
 }
 </code>
 </level>

@@ -146,6 +146,7 @@ public class QuestionFactory: ToolFactory
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
         tool.expected = childnode.Attributes[stringLib.XML_ATTRIBUTE_ANSWER].Value;
         tool.Index = lineNumber;
+        tool.options = childnode.Attributes[stringLib.XML_ATTRIBUTE_OPTIONS].Value.Split(','); 
         GlobalState.level.Tasks[1]++;
         Regex rgx = new Regex("(.*)(" + stringLibrary.node_color_question + ")(.*)(</color>)(.*)");
         string thisQuestionInnerText = rgx.Replace(GlobalState.level.Code[tool.Index], "$2$3$4");

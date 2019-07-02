@@ -22,7 +22,7 @@ public class Output : MonoBehaviour
     public int narrator = 0; 
     int original = 0; 
     public static bool IsAnswering { get; set; }
-
+    bool entered = false; 
     Sprite[] panels = new Sprite[8];
 
     private void LoadPanels()
@@ -33,7 +33,9 @@ public class Output : MonoBehaviour
             panels[i] = Resources.Load<Sprite>(path + (i + 2).ToString());
         }
     }
-
+    public void onEnter(){
+        entered = true; 
+    }
     public Text Text
     {
         get
@@ -91,9 +93,10 @@ public class Output : MonoBehaviour
 			anim.SetBool("Appearing", false);
 			anim.SetBool("Hiding", true);
 		}
-		if (( Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
+		if ((Input.GetKeyDown(KeyCode.Return)|| entered || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
 			text.GetComponent<Text>().text = "";
             narrator = original; 
+            entered = false; 
 		}
 	}
 
