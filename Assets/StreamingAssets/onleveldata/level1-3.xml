@@ -27,7 +27,7 @@ int main {
 	string mystring = "Using VGA";
 	mystring = "Using HDMI";
 	cout &lt;&lt; <question text="What is the value of mystring?
-	Type your answer: " options="Undefined,Using VGA,Using HDMI" answer="Using HDMI">mystring;</question>
+	Select your answer: " options="Undefined,Using VGA,Using HDMI" answer="Using HDMI">mystring;</question>
 }
 </code>
 <hint type="description">This is a hint</hint>

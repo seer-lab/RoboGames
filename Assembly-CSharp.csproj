@@ -55,7 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\HandControl.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -91,6 +90,7 @@
      <Compile Include="Assets\Scripts\GamePicker.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
+     <Compile Include="Assets\Scripts\HandControl.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\HintCollider.cs" />
      <Compile Include="Assets\Scripts\HintDispayController.cs" />
