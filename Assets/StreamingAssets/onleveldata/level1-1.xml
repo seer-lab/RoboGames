@@ -14,7 +14,7 @@ let's get some text to output!</introtext>
 	<comment type="description" correct="true" groupid="0">Code begins to run in the MAIN function.</comment>
 	<comment type="description" correct="true" groupid="1">COUT will make a program print text to the screen.</comment>
 	cout &lt;&lt; <question text="What will get printed?
-	Type your answer: " answer="hello world">"hello world";</question>
+	Type your answer: " options="hello,world,hello world" answer="hello world">"hello world";</question>
 }
 </code>
 <hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 

@@ -25,9 +25,9 @@ int main {
 	first_output = second_output;
 	second_output = temp;
 	cout &lt;&lt; <question text="What has first_output become?
-	Type your answer: " answer="tacos">first_output;</question>
+	Type your answer: " answer="HDMI">first_output;</question>
 	cout &lt;&lt; <question text="What has second_output become?
-	Type your answer: " answer="sandwich">second_output;</question>
+	Type your answer: " answer="VGA">second_output;</question>
 }
 </code>
 <hint type="description">This is a hint</hint>

@@ -20,7 +20,7 @@ int main {
 	int a = 4;
 	int b = 3;
 	int <question text="What is the value of c?
-	Type your answer: " answer="1">c = a/b;</question>
+	Type your answer: " options="0,1,1.3333" answer="1">c = a/b;</question>
 	<comment type="description" correct="true"  groupid="3" style="multi">TYPECASTING is a way to change one variable type into another
 	You can use typecasting to change integers into float numbers.</comment>
 	<comment type="description" correct="true"  groupid="4">For instance, (float)a will change 4 into 4.0</comment>
@@ -31,7 +31,7 @@ int main {
 	int d = 5;
 	int e = 2;
 	float <question text="What is the value of f?
-	Type your answer: " answer="2.5">f = (float)d/(float)e;</question>
+	Type your answer: " options="2,2.5,3" answer="2.5">f = (float)d/(float)e;</question>
 }
 </code>
 </level>

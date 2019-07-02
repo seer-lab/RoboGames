@@ -132,16 +132,6 @@ public class rename : Tools {
 					// /GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 					foreach(string s in GlobalState.level.Code) {
 						rgx = new Regex(@"\b"+oldname+@"\b");
-						// if(rgx.IsMatch(GlobalState.level.Code[iter]) && !hasHappened){
-						// 	GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
-						// 	hasHappened = true;
-						// }else if(tmp.IsMatch(GlobalState.level.Code[iter])){
-						// 	GlobalState.level.Code[iter] = tmp.Replace(GlobalState.level.Code[iter],"<color=#ff00ffff>"+correct + "</color>");
-						// }else{
-						// 	if(!tmp.IsMatch(GlobalState.level.Code[iter])){
-						// 		GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"\v"+correct + "\v");
-						// 	}
-						// }
 						if(rgx.IsMatch(s) && !rgxT.IsMatch(s)){
 							//GlobalState.level.Code[iter] = GlobalState.level.Code[iter].Replace(oldname,correct);
 							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],correct);

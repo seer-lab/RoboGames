@@ -21,11 +21,14 @@ public class question : Tools {
 
 	public string innertext;
 	public string expected;
+	public string[] options; 
 	// Expected could be a CSV of acceptable answers or just one accepted string. If it's a CSV we need to break that up into an array called expectedArray
 	public string[] expectedArray;
 
      public AudioSource audioPrompt;
      public AudioSource audioCorrect;
+
+	 private GameObject leftArrow, rightArrow; 
 	
   	public Sprite qSpriteOff;
 	public Sprite qSpriteOn;
@@ -33,8 +36,12 @@ public class question : Tools {
 	private bool answering = false;
 	private bool answered = false;
 	private string input = "";
+	private int optionsIndex = 0; 
 	bool demoCompleteAnswer = false; 
+	bool arrowShown = false; 
+
 	public Animator anim; 
+	int selectionCode = -1; 
 	//TouchScreenKeyboard keyboard;
 	public bool IsAnswerd {
 		get{
@@ -44,18 +51,36 @@ public class question : Tools {
 			answered =value;
 		}
 	}
-
+	public void OnRightArrowClick(){
+		selectionCode = stateLib.OUTPUT_RIGHT; 
+	}
+	public void OnLeftArrowClick(){
+		selectionCode = stateLib.OUTPUT_LEFT; 
+	}
+	public void OnEnterClick(){
+		selectionCode = stateLib.OUTPUT_ENTER; 
+	}
     public override void Initialize()
     {
 		if (IsAnswerd)GetComponent<SpriteRenderer>().sprite = qSpriteOn;
         else GetComponent<SpriteRenderer>().sprite = qSpriteOff;
         expectedArray = expected.Split(new String[] { ", ", "," }, StringSplitOptions.RemoveEmptyEntries);
 		anim = GetComponent<Animator>(); 
+		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
+		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject; 
     }
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
 		if (answering) {
+			if (!arrowShown){
+				rightArrow.GetComponent<Image>().enabled = true; 
+				leftArrow.GetComponent<Image>().enabled = true; 
+				arrowShown = true; 
+				rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
+				leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
+				output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+			}
 			/*
 			if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer){
 				keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, false, true);
@@ -76,16 +101,25 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
-			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
+				selectionCode = -1; 
                 Output.IsAnswering = false;
+				if (arrowShown){
+					rightArrow.GetComponent<Image>().enabled = false; 
+					leftArrow.GetComponent<Image>().enabled = false; 
+					arrowShown = false; 
+					rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
+					leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
+					output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+				}
 				/*
 				if (keyboard != null ){
 					input = keyboard.text;
 				}
 				*/
-				if (input != expected && Array.IndexOf(expectedArray, input) == -1) {
+				if (input != expected && Array.IndexOf(expectedArray, input) == -1 && !GlobalState.level.IsDemo) {
 					// Incorrect Answer
 					answered = false;
 					string lastInput = input;
@@ -130,6 +164,8 @@ public class question : Tools {
 					hero.onFail();
 				}
 				else {
+					input = expected; 
+					selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 					anim.SetTrigger("Complete");
 					// Correct Answer
 					GetComponent<SpriteRenderer>().sprite = qSpriteOn;
@@ -160,29 +196,51 @@ public class question : Tools {
 					//lg.DrawInnerXmlLinesToScreen();
 				}
 			}
-			else if (Input.GetKeyDown(KeyCode.Backspace) && input.Length-1 >= 0) {
-				input = input.Substring(0,input.Length-1);
-                selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
+			else if (Input.GetKeyDown(KeyCode.RightArrow) || selectionCode == stateLib.OUTPUT_RIGHT){
+				selectionCode = -1; 
+				optionsIndex = (optionsIndex +1 < options.Length) ? optionsIndex+1 : optionsIndex; 
+				input = options[optionsIndex]; 
+				selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
 			}
-			else if (GlobalState.level.IsDemo){
-				input = expected; 
+			else if (Input.GetKeyDown(KeyCode.LeftArrow) || selectionCode == stateLib.OUTPUT_LEFT){
+				selectionCode = -1; 
+				optionsIndex = (optionsIndex -1 >= 0) ? optionsIndex-1 : 0; 
+				input = options[optionsIndex]; 
+				selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
 			}
-			else {
-				string inputString = Input.inputString;
-				input += inputString;
-                selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
-			}
-		}
-	}
 
+		}
+		
+	}
+	IEnumerator DemoPlay(){
+		optionsIndex = (optionsIndex + 1 <= options.Length - 1) ? optionsIndex + 1 : options.Length - 1;
+		input = options[optionsIndex]; 
+		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
+		yield return new WaitForSecondsRealtime(0.4f); 
+		optionsIndex = optionsIndex = (optionsIndex + 1 <= options.Length - 1) ? optionsIndex + 1 : options.Length - 1;
+		input = options[optionsIndex]; 
+		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
+		yield return new WaitForSecondsRealtime(0.4f);
+		for (int i = 0; i < options.Length; i++){
+			if (options[i] == expected) {
+				optionsIndex = i; 
+				break; 
+			}
+		} 
+		input = options[optionsIndex]; 
+		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
+	}
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
+			Debug.Log(optionsIndex); 
+			input = options[optionsIndex];
 			if (GlobalState.level.IsDemo){
-				selectedTool.outputtext.GetComponent<Text>().text = displaytext + expected;				
+				selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
+				StartCoroutine(DemoPlay()); 				
 			}
-            else selectedTool.outputtext.GetComponent<Text>().text = displaytext;
+            else selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 			audioSource.PlayOneShot(correct); 
 			answering = true;
             Output.IsAnswering = true;
