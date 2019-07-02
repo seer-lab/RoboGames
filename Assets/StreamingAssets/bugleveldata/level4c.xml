@@ -1,5 +1,5 @@
 <level>
-<description>The Robot Priority-Targeting System has a new bug.
+<description>The Wireless Priority Signal System has a new bug.
 Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the variables.
 &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; data to observe behavior.
 Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
@@ -14,23 +14,23 @@ Time to put that &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool to use.<
 <tool name="breakpointer" count ="2" enabled="true"/>
 <tool name="warper" count="3" enabled="true"/>
 </tools>
-<code language="c++">struct target{
+<code language="c++">struct signal{
     string name[30];
     int x, y;
 };
 
-//Robot Targeting Systems Prioritizer
-//Uses Closer function to calculate Closest target
-//targets[] ts contains a list of 3 targets
-//returns the closest target
-target FirstPriority(targets[] ts){
+//Wireless Signal System Prioritizer
+//Uses Closer function to calculate Closest signal
+//signal[] ts contains a list of 3 signals
+//returns the closest signal
+signal FirstPriority(signal[] ts){
 
-    target t1 = ts[0];
-    target t2 = ts[1];
-    target t3 = ts[2];
+    signal t1 = ts[0];
+    signal t2 = ts[1];
+    signal t3 = ts[2];
     <breakpoint text="t1.x = 10, t1.y = 40
 t2.x = 75, t2.y = 50
-t3.x = 255, t3.y = 75"></breakpoint>target closest = Closer(t1,t2);
+t3.x = 255, t3.y = 75"></breakpoint>signal closest = Closer(t1,t2);
     <breakpoint text="t1.x = 75, t1.y = 40
 t2.x = 75, t2.y = 50
 t3.x = 255, t3.y = 75
@@ -40,7 +40,7 @@ t2.x = 255, t2.y = 50
 t3.x = 255, t3.y = 75
 closest = t3" tool="0,0,1,0,0,0"></breakpoint>return closest;
 }
-<warp file="L4cCloser.xml" tool="1,0,0,0,0,0">target Closer(target t1, target t2);
+<warp file="L4cCloser.xml" tool="1,0,0,0,0,0">signal Closer(signal t1, target t2);
 </warp>
 </code>
 </level>

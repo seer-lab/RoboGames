@@ -2,17 +2,17 @@
 <description>Now you can use Code Tracing in the Closer function.
 Use what you have learned from the breakpoints to identify the bug.
 Use the BUGCATCHER when you have found the bug.</description>
-<code language="c++">struct target{
+<code language="c++">struct signal{
     string name[30];
     int x, y;
 };
 
-//Robot Targeting Systems Closeness Calculator
-//Identifies Closer of two targets based on coordinates
+//Wireless Signal System Closeness Calculator
+//Identifies the Closer of two signals based on coordinates
 //Uses (X,Y) 2 dimensional coordinates and calculates the difference
-//NOTE: Robot is located at (0,0)
-//E.g. (50,25) is closer to Robot than (25,75)
-target Closer(target t1, target t2){
+//NOTE: Origin is located at (0,0)
+//E.g. (50,25) is closer to the origin than (25,75)
+signal Closer(signal t1, signal t2){
 
     int xdif $bug   int xdif = t1.x - t2.x$= t1.x = t2.x;
     int ydif = t1.y - t2.y;

@@ -58,7 +58,7 @@ public class EnergyController : MonoBehaviour
         initialEnergy = GlobalState.TotalEnergy;
         currentEnergy = initialEnergy;
         indicator = transform.GetChild(0).GetComponent<Text>();
-        tools = GameObject.Find("Sidebar").transform.GetChild(0).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
+        tools = GameObject.Find("Sidebar").transform.GetChild(2).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
         energyBar = transform.GetChild(1).gameObject;
         energyBarTrans = energyBar.GetComponent<RectTransform>();
         initialX = energyBarTrans.position.x;
@@ -72,17 +72,7 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy = 0;
         }
-        if (currentEnergy > 0)
-        {
-            indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((currentEnergy / initialEnergy)), 1, 1);
-            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
-        }
-        else
-        {
-            indicator.text = "0%";
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
-        }
+        updateBar(); 
     }
     public void onFail(int projectileCode)
     {
@@ -99,15 +89,18 @@ public class EnergyController : MonoBehaviour
         if (currentEnergy > 0)
         {
             indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * (currentEnergy / initialEnergy), 1, 1);
-
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((currentEnergy / initialEnergy)), 1, 1);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
         }
         else
         {
             indicator.text = "0%";
             energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
         }
-        energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+    }
+    void LateUpdate(){
+        if (currentEnergy> 0)
+         energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
     }
     // Update is called once per frame
     void Update()

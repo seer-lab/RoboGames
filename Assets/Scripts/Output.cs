@@ -19,7 +19,8 @@ public class Output : MonoBehaviour
 	public GameObject text, panel , enter;
 
 	private Animator anim;
-
+    public int narrator = 0; 
+    int original = 0; 
     public static bool IsAnswering { get; set; }
 
     Sprite[] panels = new Sprite[8];
@@ -61,7 +62,21 @@ public class Output : MonoBehaviour
 		anim.SetBool("Hiding", false);
         LoadPanels();
         IsAnswering = false; 
+        if (GlobalState.level.IsDemo){
+            narrator = 0; 
+        }
+        else if (GlobalState.Character == "Girl") narrator = 2; 
+        else if (GlobalState.Character == "Boy") narrator = 1;
+        original = narrator; 
 	}
+    public void PlayCharacterOutput(string newText){
+        int value = 0; 
+        if (GlobalState.Character == "Boy") value = 2; 
+        else if (GlobalState.Character == "Girl") value = 1; 
+        narrator = value; 
+        anim.SetInteger("Character", value); 
+        text.GetComponent<Text>().text = newText; 
+    }
 
 	//.................................>8.......................................
 	// Update is called once per frame
@@ -70,13 +85,15 @@ public class Output : MonoBehaviour
 		if (isText) {
 			anim.SetBool("Appearing", true);
 			anim.SetBool("Hiding", false);
+            anim.SetInteger("Character", narrator); 
 		}
-		else {
+		else if(!GlobalState.level.IsDemo) {
 			anim.SetBool("Appearing", false);
 			anim.SetBool("Hiding", true);
 		}
 		if (( Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
 			text.GetComponent<Text>().text = "";
+            narrator = original; 
 		}
 	}
 

@@ -2,7 +2,7 @@ BWComputer
 #Girl: 500 200 0
 #Boy: -500 200 0
 $Girl: I'm glad we were able to find that bug!
-$Boy: Yeh that could have been incredibly dangerous!
-$Girl: There seems to be another problem already though.
-$Boy: Our Screens are all black and white!
-$Boy: I guess we should look into our colour system...
+$Boy: That was really frustrating, but we finally sorted things out!
+$Girl: There seems to be another problem already though: look!
+$Boy: Our screens are all black and white!
+$Boy: I guess we better look into our colour systems...

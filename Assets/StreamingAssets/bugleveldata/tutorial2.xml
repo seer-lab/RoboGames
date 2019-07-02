@@ -15,8 +15,8 @@ You will need both of these to succeed!</introtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++">void main(){                                               @Warping into functions would be useful to see issues within them!@
-    <warp file="tutorial3.xml" col="4">snowmanBuilder();</warp>          @Let's Give it a go here!@  ??? !!!
+<code language="c++">void main(){                                               @Warping into functions is useful to see issues within them!@
+    <warp file="tutorial3.xml" col="4">snowmanBuilder();</warp>          @We haven't found any bugs yet, but maybe there's one inside here.@  ??? !!!
 	return;
 }
 </code>

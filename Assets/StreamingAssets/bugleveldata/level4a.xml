@@ -1,6 +1,6 @@
 <level>
-<description>The Robot Priority-Targeting System is malfunctioning.
-It calculates the closest of two objects using coordinates.
+<description>The Wireless Signal System is malfunctioning.
+It calculates the closest of two signals using coordinates.
 Use Code Tracing to see how the Closer calculation works.
 Use the BUGCATCHER to identify the bug.</description>
 <next-level>level4b.xml</next-level>
@@ -13,11 +13,11 @@ Don't forget how that function worked.</endtext>
 <tools>
 <tool name="catcher" count="1" enabled="true"/>
 </tools>
-<code language="c++">//Robot Targeting Systems Closeness Calculator
-//Identifies Closer of two targets based on coordinates
+<code language="c++">//Wireless Signal System Closeness Calculator
+//Identifies the Closer of two signals based on coordinates
 //Uses (X,Y) 2 dimensional coordinates and calculates the difference
-//NOTE: Robot is located at (0,0)
-//E.g. (50,25) is closer to Robot than (25,75)
+//NOTE: Origin is located at (0,0)
+//E.g. (50,25) is closer to the origin than (25,75)
 
 struct target{
     string name[30];

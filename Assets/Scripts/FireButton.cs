@@ -38,7 +38,8 @@ public class FireButton : MonoBehaviour
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
             return; 
-        hero.ThrowTool(); 
+        if (!GlobalState.level.IsDemo)
+            hero.ThrowTool(); 
         
     }
     public void Fire(){
