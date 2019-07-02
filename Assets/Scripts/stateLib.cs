@@ -60,4 +60,7 @@ public static class stateLib
 
 	public const int NUMBER_OF_OBSTACLE = 1;
 	public const int OBSTACLE_FIREWALL = 0;
+	public const int OUTPUT_ENTER = 0; 
+	public const int OUTPUT_RIGHT = 1; 
+	public const int OUTPUT_LEFT = 2; 
 }

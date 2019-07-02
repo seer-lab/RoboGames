@@ -15,13 +15,13 @@
 	<comment type="description" correct="true" groupid="3">INTEGER variables store positive or negative numbers.</comment>
 	int color_blue = 255;
 	<comment type="description"  correct="true" groupid="7" style="multi">int refers to the type (integer)
-	colorBlue is the name of the variable; that's how we reference it later
+	color_blue is the name of the variable; that's how we reference it later
 	255 is the value of the variable</comment>
 	<comment type="description"  correct="true" groupid="5" style="multi">Variables stay in memory until they are changed.
 	You can reference the variables later using their names.
 	When you run the code, you can print out those variables using COUT</comment>
-	cout &lt;&lt; <question text="What is current_year?
-	Type your answer: " answer="255">color_blue;</question>
+	cout &lt;&lt; <question text="What is color_blue?
+	Type your answer: " options="0,255,Blue,100" answer="255">color_blue;</question>
 }
 </code>
 </level>

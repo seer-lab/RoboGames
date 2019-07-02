@@ -32,14 +32,15 @@ public class rename : Tools {
 	private bool answering = false;
 	private bool decolorOnce = false;
 	private bool colorOnce = false;
-	
+	private GameObject leftArrow, rightArrow; 
 	public Sprite renSpriteOff;
 	public Sprite renSpriteOn;
 	bool entered = false; 
 	private int selection = 0;
 	private bool hasHappened = false;
 	private bool isChecked = false;
-
+	bool arrowShown = false; 
+	int selectionCode = -1; 
     public override void Initialize()
     {
 		if (answered)GetComponent<SpriteRenderer>().sprite = renSpriteOn;
@@ -47,7 +48,8 @@ public class rename : Tools {
 		int i = 0;
 		bool startMultiComments= false;
 		bool endMultiComments= false;
-
+		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
+		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject;
 
 		foreach(string s in GlobalState.level.Code){
 			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
@@ -79,23 +81,37 @@ public class rename : Tools {
 			i++;
 		}
     }
-
+	public void OnRightArrowClick(){
+		selectionCode = stateLib.OUTPUT_RIGHT; 
+	}
+	public void OnLeftArrowClick(){
+		selectionCode = stateLib.OUTPUT_LEFT; 
+	}
+	public void OnEnterClick(){
+		selectionCode = stateLib.OUTPUT_ENTER; 
+	}
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
 		if (answering) {
 			// Handle left and right arrows --[
 			if (selection == 0) {
-				output.Text.text = displaytext + "   " + options[selection] + " →";
+				output.Text.text = displaytext + "   " + options[selection];
 			}
 			else if (selection == options.Count-1) {
-                output.Text.text = displaytext + "← " + options[selection];
+                output.Text.text = displaytext + "  " + options[selection];
 			}
 			else {
-                output.Text.text = displaytext + "← " + options[selection] + " →";
+                output.Text.text = displaytext + "  " + options[selection];
 			}
-			// ]-- End of handling arrows
-
+			if (!arrowShown){
+				rightArrow.GetComponent<Image>().enabled = true; 
+				leftArrow.GetComponent<Image>().enabled = true; 
+				arrowShown = true; 
+				rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
+				leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
+				output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+			}
 			// Handle input --[
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
@@ -109,14 +125,23 @@ public class rename : Tools {
                 Output.IsAnswering = false;
 				output.Text.text = "";
 			}
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || entered)) {
+			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || entered|| selectionCode == stateLib.OUTPUT_ENTER)) {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;
+				if (arrowShown){
+					rightArrow.GetComponent<Image>().enabled = false; 
+					leftArrow.GetComponent<Image>().enabled = false; 
+					arrowShown = false; 
+					rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
+					leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
+					output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+				}
 				if (GlobalState.level.IsDemo) selection = options.IndexOf(correct); 
 				if (selection != options.IndexOf(correct)) {
 					answered = false;
 					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
+					selectionCode = -1; 
 				}
 				else {
 					// Award 1 extra use of the tool.
@@ -132,16 +157,6 @@ public class rename : Tools {
 					// /GlobalState.level.Code[index] = rgx.Replace(GlobalState.level.Code[index], "$1$3$5");
 					foreach(string s in GlobalState.level.Code) {
 						rgx = new Regex(@"\b"+oldname+@"\b");
-						// if(rgx.IsMatch(GlobalState.level.Code[iter]) && !hasHappened){
-						// 	GlobalState.level.Code[iter]=GlobalState.level.Code[iter].Replace(oldname,correct);
-						// 	hasHappened = true;
-						// }else if(tmp.IsMatch(GlobalState.level.Code[iter])){
-						// 	GlobalState.level.Code[iter] = tmp.Replace(GlobalState.level.Code[iter],"<color=#ff00ffff>"+correct + "</color>");
-						// }else{
-						// 	if(!tmp.IsMatch(GlobalState.level.Code[iter])){
-						// 		GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],"\v"+correct + "\v");
-						// 	}
-						// }
 						if(rgx.IsMatch(s) && !rgxT.IsMatch(s)){
 							//GlobalState.level.Code[iter] = GlobalState.level.Code[iter].Replace(oldname,correct);
 							GlobalState.level.Code[iter] = rgx.Replace(GlobalState.level.Code[iter],correct);
@@ -158,14 +173,17 @@ public class rename : Tools {
 					lg.renamegroupidCounter++;
                     GlobalState.level.CompletedTasks[2]++;
                     lg.DrawInnerXmlLinesToScreen();
+					selectionCode = -1; 
 
 				}
 			}
-			else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+			else if (Input.GetKeyDown(KeyCode.RightArrow) || selectionCode == stateLib.OUTPUT_RIGHT) {
 				selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
+				selectionCode = -1; 
 			}
-			else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+			else if (Input.GetKeyDown(KeyCode.LeftArrow)|| selectionCode == stateLib.OUTPUT_LEFT) {
 				selection = (selection - 1 >= 0) ? selection - 1 : 0;
+				selectionCode = -1; 
 			}
 			// ]-- End of input handling
 		}
@@ -193,7 +211,10 @@ public class rename : Tools {
 			answering = true;
             Output.IsAnswering = true;
 			audioSource.PlayOneShot(base.correct);
-			StartCoroutine(DemoPlay());  
+			if (GlobalState.level.IsDemo){
+				StartCoroutine(DemoPlay());
+			}
+			  
 		}
 		else if (collidingObj.name.Contains("projectile")){
 			hero.onFail();
