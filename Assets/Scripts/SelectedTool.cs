@@ -25,7 +25,7 @@ public class SelectedTool : MonoBehaviour
 	public GameObject toolprompt;
 	public GameObject toolAvailableTools;
 	public GameObject levelDescription;
-  public GameObject outputtext;
+    public GameObject outputtext;
 	public GameObject[] toolIcons = new GameObject[stateLib.NUMBER_OF_TOOLS];
 
 	// Determine if the player has lost the game.
@@ -68,7 +68,8 @@ public class SelectedTool : MonoBehaviour
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
     }
     public void onClick(int index){
-        NextTool(index); 
+        if (!GlobalState.level.IsDemo)
+            NextTool(index); 
     }
     private void CheckLosing()
     {

@@ -457,3 +457,27 @@ Commenter Tool Use:
 	Lines Used: 
 
 --------------------------------------------------------
+Passed Level
+45 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 4 10 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+3 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

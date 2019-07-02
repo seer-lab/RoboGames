@@ -1,5 +1,5 @@
 <level>
-<description>The Computer Simulation Model is bugged!
+<description>The Temperature Calculator is bugged!
 Although the code is incomplete, there is already a problem.
 Use "Code Tracing" to find it by reading the code line by line.</description>
 <next-level>level1b.xml</next-level>
@@ -12,15 +12,17 @@ Congratulations!</endtext>
 <tools>
 <tool name="catcher" enabled="true" count="1"/>
 </tools>
-<code language="c++">//Robot Average Force Calculator
-//To Find average of forces acting on the body in one dimension 
+<code language="c++">//Temperature Average Calculator
+//To Find average of temperatures from points in the room
 //Input : Integer numbers (any unit of measurement)  
-//Output: Floating Point Average force on body (same units); 
+//Output: Floating Point Average temperature in room (same units);
 
-float avgForce(int forces[], int numOfForces){
+float avgTemp(int temps[], int numOfTemps){
                
     int sum=0;
-    $bug   float avgf$bool avgf;
+	//temperature total
+    $bug   float avgT$bool avgT;
+	//temperature average
 	//to do: rest of algorithm
 }
 </code>

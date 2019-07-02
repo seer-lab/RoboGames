@@ -180,7 +180,7 @@ public class question : Tools {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
 			Destroy(collidingObj.gameObject);
 			if (GlobalState.level.IsDemo){
-				selectedTool.outputtext.GetComponent<Text>().text = displaytext + expected;
+				selectedTool.outputtext.GetComponent<Text>().text = displaytext + expected;				
 			}
             else selectedTool.outputtext.GetComponent<Text>().text = displaytext;
 			audioSource.PlayOneShot(correct); 

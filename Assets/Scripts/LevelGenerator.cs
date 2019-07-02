@@ -310,9 +310,11 @@ public partial class LevelGenerator : MonoBehaviour
                         case "description":
                             if (codenode.ChildNodes[i].Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "true")
                             {
+                                
                                 // Correct Comment
                                 thisObject = manager.robotONcorrectComments[numberOfrobotONcorrectComments];
                                 thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
+                                thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                                 // Colorize all multi-comment line numbers green
                                 for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
@@ -331,7 +333,7 @@ public partial class LevelGenerator : MonoBehaviour
                                 // Incorrect comment
                                 thisObject = manager.robotONincorrectComments[numberOfrobotONincorrectComments];
                                 thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
-
+                                thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
 
                                 // Colorize all multi-comment line numbers green
@@ -353,7 +355,7 @@ public partial class LevelGenerator : MonoBehaviour
                                 // Correct Uncomment
                                 thisObject = manager.robotONcorrectUncomments[numberOfrobotONcorrectUncomments];
                                 thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
-
+                                thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                                 // Colorize all multi-comment line numbers red
                                 for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)
@@ -374,6 +376,7 @@ public partial class LevelGenerator : MonoBehaviour
                                 // Incorrect Uncomment
                                 thisObject = manager.robotONincorrectUncomments[numberOfrobotONincorrectUncomments];
                                 thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
+                                thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                                 // Colorize all multi-comment line numbers red
                                 for (int j = 1; j < thisObject.GetComponent<comment>().size; j++)

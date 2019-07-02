@@ -163,9 +163,10 @@ public class TextColoration {
 		}
 
 }
-
+/* 
+		
 	//Debug.Log("Pre-cleaning text = " + sText);
-	
+	*/
 	//Decolorize tags stuck inside words
   Regex inrgx = new Regex(@"(?s)(\w)(<color=#.{8}>)([^<]*)(<\/color>)");
 	sText = inrgx.Replace(sText, "$1$3");

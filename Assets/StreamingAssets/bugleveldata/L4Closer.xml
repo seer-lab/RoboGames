@@ -1,11 +1,12 @@
 <level>
 <description>You should now have an idea of what is wrong.
 Go to that line and use the BUGCATCHER and win!</description>
-<code language="c++">//Robot Targeting Systems Closeness Calculator
-//Identifies Closer of two targets based on coordinates
-//Uses (X,Y,Z) 3 dimensional coordinates and calculates the difference
-//NOTE: Robot is located at (0,0)
-//E.g. (25,75,0) is closer to Robot than (50,25,100)
+<code language="c++">//Wireless Signal System Closeness Calculator
+//Identifies the Closer of two signals based on coordinates
+//Uses (X,Y) 2 dimensional coordinates and calculates the difference
+//NOTE: Origin is located at (0,0)
+//E.g. (50,25) is closer to the origin than (25,75)
+
 target Closer(target t1, target t2){
     int xdif,ydif,zdif = 0;
 	xdif=xdif-t$bug   xdif-=(t2.x-t1.x)$1.x+t2.x;

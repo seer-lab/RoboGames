@@ -199,3 +199,21 @@ Activator Tool Use:
 	Lines Used: 
 
 --------------------------------------------------------
+Passed Level
+17 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------
+Passed Level
+13 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 6 7 
+
+--------------------------------------------------------

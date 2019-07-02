@@ -1,46 +1,46 @@
 <level>
-<description>The System Callstack Ordering is ready for debugging.
+<description>The System File Number Ordering is ready for debugging.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool to check the priorities array.
 Figure out where the bug is and use the BUGFIXER to catch it.</description>
 <next-level>tutorial2.xml</next-level>
-<introtext>The final version of the Assigner sorts all numbers.
+<introtext>The final version of the Ordering sorts all numbers.
 Can you figure out what is wrong this time?</introtext>
 <endtext>All the bugs have been found.
-You've fixed the System Callstack Ordering!</endtext>
+You've fixed the System File Ordering!</endtext>
 <timelimit>180</timelimit>
 <tools>
 <tool name="printer" enabled="true" count="10"/>
 </tools>
-<code language="c++">//Robot Priority Assigner
-//PrioritizeAll sorts an unsorted list of elements
-//None of the priorities list needs to be sorted
-//PrioritizeAll returns the sorted list from largest to smallest
+<code language="c++">//File Number Ordering
+//OrderAll sorts an unsorted list of file number elements
+//None of the file numbers in the list are in order
+//OrderAll returns the sorted list from largest to smallest
 
-int[] OrderAll(int calls[], int numOfTargets){  
-    <print text="[32,22,43,99,5]" col="4">cout &lt;&lt; priorities;
+int[] OrderAll(int files[], int numOfFiles){  
+    <print text="[32,22,43,99,5]" col="4">cout &lt;&lt; files;
 	</print>
-    <print text="5" col="4">cout &lt;&lt; numOfTargets;
+    <print text="5" col="4">cout &lt;&lt; numOfFiles;
 	</print>
     int i=1,$bug   int i = 1, j = 0;$j=1;
-    while (i&lt;numOfTargets){
+    while (i&lt;numOfFiles){
         <print text="[32,22,43,99,5]
 [32,99,22,43,5]
 [32,99,43,22,5]
-[32,99,43,22,5]" col="4" tool="1,0,0,0,0,0">cout &lt;&lt; calls;</print>
-        while (j&lt;numOfTargets){
+[32,99,43,22,5]" col="4" tool="1,0,0,0,0,0">cout &lt;&lt; files;</print>
+        while (j&lt;numOfFiles){
             <print text="[32,22,43,99,5]
 [32,99,43,22,5]
 [32,99,43,22,5]
 [32,99,43,22,5]
 [32,99,43,22,5]
-..." col="4">cout &lt;&lt; priorities;</print>
-            if (priorities[i]&gt;priorities[j]){   
-                swap(priorities[i],priorities[j]); 
-                <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; calls;</print>				
+..." col="4">cout &lt;&lt; files;</print>
+            if (files[i]&gt;files[j]){   
+                swap(files[i],files[j]); 
+                <print text="[32,99,43,22,5]" col="4">cout &lt;&lt; files;</print>				
             } j++;  
         } i++; j=i+1; 
     }  
-    return priorities; 
+    return files; 
 }
 </code>
 </level>

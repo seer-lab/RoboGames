@@ -1,5 +1,5 @@
 <level>
-<description>The Robot Priority-Targeting System is almost repaired.
+<description>The Wireless Priority Signal System is almost repaired.
 It needs to use coordinates in 3 dimensions to be operational.
 Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the variables.
 &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; &lt;color=#ffff00ff&gt;output&lt;/color&gt;.
@@ -20,27 +20,26 @@ Can you figure out where the last bug is?</introtext>
     int x, y, z;
 };
 
-//Robot Targeting Systems Prioritizer
-//Uses Closer function to calculate Closest target
-//targets[] ts contains a list of 3 targets
-//returns the closest target
-target FirstPriority(threatID id){
-    //id.getThreat(i) returns the ith threat in an unsorted list
-    //id.toString(i) prints a string representation of the ith threat
+//Wireless Signal System Prioritizer
+//Uses Closer function to calculate Closest signal
+//signal[] ts contains a list of 3 signals
+//returns the closest signal
+signal FirstPriority(SignalID id){
+    //id.getCoords(i) returns the coordinates of signal i
     <breakpoint text="id = [t1,t2,t3]"></breakpoint>int num_of_threats = id.Count;
     <breakpoint text="id = [t1,t2,t3]
 num_of_threats = 3"></breakpoint>
     <breakpoint text="id = [t1,t2,t3]
-num_of_threats = 3"></breakpoint>target t1 = id.getThreat(1);
+num_of_threats = 3"></breakpoint>signal t1 = id.getCoords(1);
 
-    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>target t2 = id.getThreat(2);
+    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>signal t2 = id.getCoords(2);
 
     <breakpoint text="t1.x,y,z = 100,50,50
-t2.x,y,z = 50,51,50"></breakpoint>target t3 = id.getThreat(3);
+t2.x,y,z = 50,51,50"></breakpoint>signal t3 = id.getCoords(3);
 
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50
-t3.x,y,z = 255,0,75"></breakpoint>target closest = Closer(t1, t2);
+t3.x,y,z = 255,0,75"></breakpoint>signal closest = Closer(t1, t2);
     <breakpoint text="t1.x,y,z = 100,50,50
 t2.x,y,z = 50,51,50
 t3.x,y,z = 255,0,75
@@ -51,7 +50,7 @@ t3.x,y,z = 255,0,75
 closest = t3"></breakpoint>return closest;
     
 }
-<warp tool="1,0,0,0,0,0" file="L4Closer.xml">target Closer(target t1, target t2);
+<warp tool="1,0,0,0,0,0" file="L4Closer.xml">signal Closer(signal t1, signal t2);
 </warp>
 </code>
 </level>

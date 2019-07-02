@@ -11,19 +11,19 @@ The calculator is almost fixed!</endtext>
 <tools>
 <tool name="catcher" enabled="true" count="1"/>
 </tools>
-<code language="c++">//Robot Average Force Calculator
-//To Find average of forces acting on the body in one dimension 
+<code language="c++">//Temperature Average Calculator
+//To Find average of temperatures from points in the room
 //Input : Integer numbers (any unit of measurement)  
-//Output: Floating Point Average force on body (same units);  
-float avgForce(int forces[], int numOfForces){
+//Output: Floating Point Average temperature in room (same units);
+float avgTemp(int temps[], int numOfTemps){
                
     int sum=0;
     int i;
-    float avgf;
+    float avgT;
                  
-    for (i=0;i&lt;numOfForces;i++) 
+    for (i=0;i&lt;numOfTemps;i++) 
     { 
-        sum += $bug      sum+=(int)avgf$avgf;
+        total += $bug      sum += avgT$avgT;
     }    
     //to do : rest of algorithm	
 }
