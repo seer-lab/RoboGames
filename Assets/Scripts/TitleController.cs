@@ -16,6 +16,11 @@ public class TitleController : MonoBehaviour
     void Start()
     {
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
+
+            String sessionID = PlayerPrefs.GetString("sessionID");
+            if(sessionID != ""|| sessionID != null){
+                GlobalState.sessionID = Convert.ToInt64(sessionID);
+            }
             PlayerPrefs.DeleteAll();
         }
         string filepath ="";
