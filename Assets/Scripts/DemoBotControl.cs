@@ -81,7 +81,7 @@ public class DemoBotControl : MonoBehaviour
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
-                    controller.selectedTool.GetComponent<SelectedTool>().NextTool();
+                    //controller.selectedTool.GetComponent<SelectedTool>().NextTool();
                     nextAction = true; 
                 }
                 
@@ -96,8 +96,14 @@ public class DemoBotControl : MonoBehaviour
                 indexOfAction++;
                 enterDelay = 1f;
                 output.text.GetComponent<Text>().text = "";
-                if (indexOfAction < callstack.Count)
-                    handControl.HandleAction(callstack[indexOfAction], controller.projectilecode); 
+                if (indexOfAction < callstack.Count){
+                    
+                    if (callstack[indexOfAction].Category == ActionType.SwitchTool){
+                         controller.selectedTool.GetComponent<SelectedTool>().NextTool();
+                    }
+                    handControl.HandleAction(callstack[indexOfAction], controller.selectedTool.GetComponent<SelectedTool>().projectilecode); 
+                     
+                }
             }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
                 //autoEnabled = false;

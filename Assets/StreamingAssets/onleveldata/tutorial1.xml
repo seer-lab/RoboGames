@@ -19,7 +19,7 @@ int AnSwEr = 9 + 10;                            @ Let's try out our Activator to
 <comment type="description" correct="false" groupid="0">The answer above was two thousand.</comment>                              @This doesn't seem correct.@
 <comment type="description" correct="true" groupid="0">The answer above was nineteen.</comment>               @This line looks right.@ !!! 
                                                             @There's only one more question!@ !!!
-                                                                       @Oops we used a tool when we didn't need to. Be careful to make sure the energy at the top right doesn't reach 0. We may lose progress if we do!@
+                                                @Oops we used a tool when we didn't need to. Be careful to make sure the energy at the top right doesn't reach 0. We may lose progress if we do.@
 <question text="What is the value of 'answer': " answer="21"> AnSwEr = AnSwEr + 2 </question>                                 @Since the [AnSwEr] has changed here, it has a different value.@               !!!
 </code>
 </level>

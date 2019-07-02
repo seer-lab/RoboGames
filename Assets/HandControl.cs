@@ -11,18 +11,20 @@ public class HandControl : MonoBehaviour
     void Start(){
         handPos = this.GetComponent<Transform>(); 
         for (int i = 2; i < 2 + 5; i++){
+            Debug.Log(GameObject.Find("Sidebar").transform.GetChild(2).transform.GetChild(i).name + " : " + (i-2).ToString()); 
             sidebarPositions[i-2] = GameObject.Find("Sidebar").transform.GetChild(2).transform.GetChild(i).GetComponent<RectTransform>(); 
         }
     }
     IEnumerator MoveToPosition(Vector3 position){
+        Debug.Log("Mouse Position: " + position.ToString()); 
         float speed = 30f; 
         float distX = (position.x - transform.position.x)/speed; 
         float distY = (position.y - transform.position.y)/speed; 
-        while(Math.Abs(handPos.position.x - position.x) > 0.2f && Math.Abs(handPos.position.y - position.y) > 0.2f){
-            if (Math.Abs(handPos.position.x - position.x) > 0.2f){
+        while(Math.Abs(position.x - handPos.position.x) > 0.1f || Math.Abs(position.y - handPos.position.y) > 0.1f){
+            if (Math.Abs(position.x - handPos.position.x) > 0.1f){
                 handPos.position = new Vector3(handPos.position.x + distX, handPos.position.y, handPos.position.z); 
             }
-            if (Math.Abs(handPos.position.y - position.y) > 0.2f){
+            if (Math.Abs(position.y - handPos.position.y) > 0.1f){
                 handPos.position = new Vector3(handPos.position.x, handPos.position.y + distY, handPos.position.z); 
             }
             yield return null; 
@@ -30,16 +32,17 @@ public class HandControl : MonoBehaviour
     }
     public void HandleAction(Action action, int projectileCode = -1){
         if (action.Category == ActionType.Dialog){
-            StartCoroutine(MoveToPosition(action.Position)); 
+            StartCoroutine(MoveToPosition(new Vector3(action.Position.x, action.Position.y - 0.5f, 1))); 
         }
         else if (action.Category == ActionType.Throw){
-            StartCoroutine(MoveToPosition(Camera.main.ScreenToWorldPoint(new Vector3(10,10,1)))); 
+            Debug.Log("Throw Mouse"); 
+            StartCoroutine(MoveToPosition(Camera.main.ScreenToWorldPoint(new Vector3(30,30,1)))); 
         }
         else if (action.Category == ActionType.SwitchTool){
-            var worldCorners = new Vector3[4];
-            
-            sidebarPositions[(projectileCode + 1 < sidebarPositions.Length) ? projectileCode +1 : 0].GetWorldCorners(worldCorners); 
-            StartCoroutine(MoveToPosition(Camera.main.ScreenToWorldPoint(new Vector3(worldCorners[0].x, worldCorners[0].y, 1)))); 
+            Debug.Log("Projectile Code: " + projectileCode);
+            var worldCorners = new Vector3[4];           
+            sidebarPositions[projectileCode-1].GetWorldCorners(worldCorners);
+            StartCoroutine(MoveToPosition(new Vector3(worldCorners[1].x, worldCorners[2].y - 0.5f, worldCorners[0].z))); 
         }
     }
 }
