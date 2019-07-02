@@ -138,7 +138,11 @@ public class Logger
             }
         }
         jsonObj = jsonObj.Substring(0,jsonObj.Length-1);
-        jsonObj +="]," + GlobalState.jsonStates + "], \"obstacal\": [";
+        if(!GlobalState.level.FileName.Contains("tutorial")){
+            jsonObj +="]," + GlobalState.jsonStates + "], \"obstacal\": [";
+        }else{
+            jsonObj += GlobalState.jsonStates + "], \"obstacal\": [";
+        }
         string obstacleJson = "";
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
             if(GlobalState.obstacleLine[i] == null ||GlobalState.obstacleLine[i] == ""){
