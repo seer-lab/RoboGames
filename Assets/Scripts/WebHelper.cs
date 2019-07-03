@@ -33,6 +33,7 @@ public class WebHelper : MonoBehaviour
         System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
+            someData = "File not found!";
         }else {
             //Debug.Log(www.downloadHandler.text);
             someData = www.downloadHandler.text;

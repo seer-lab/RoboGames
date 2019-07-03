@@ -15,6 +15,7 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(SystemInfo.operatingSystem);
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
             String sessionID = PlayerPrefs.GetString("sessionID");
