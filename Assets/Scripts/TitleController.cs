@@ -21,6 +21,7 @@ public class TitleController : MonoBehaviour
 
             if(PlayerPrefs.HasKey("sessionID")){
                 String sessionID = PlayerPrefs.GetString("sessionID");
+                Debug.Log("MAC SessionID: " + sessionID);
                 if(sessionID != ""|| sessionID != null){
                 //GlobalState.sessionID = Convert.ToInt64(sessionID);
                 //Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
