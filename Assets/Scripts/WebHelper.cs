@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -40,6 +40,17 @@ public class WebHelper : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
     }
+
+    IEnumerator GetMovieFromServer(string filename,string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError){
+            Debug.Log(url + " ERROR: " + www.error);
+        }else{
+            File.WriteAllBytes(Application.persistentDataPath + "/" + filename, www.downloadHandler.data);
+        }
+    }
     public string GetWebDataFromWeb(){
         #if UNITY_WEBGL && !UNITY_EDITOR
             // Console.WriteLine("Download On the web");
@@ -58,5 +69,11 @@ public class WebHelper : MonoBehaviour
         #endif
 
         return this.webData;
+    }
+
+    public void GetMovieDataFromWeb(string filename){
+
+        StartCoroutine(GetMovieFromServer(filename,stringLib.SERVER_URL + "StreamingAssets/" + filename ));
+
     }
 }

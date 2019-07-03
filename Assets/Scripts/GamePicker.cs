@@ -19,7 +19,7 @@ public class GamePicker : MonoBehaviour
 
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
         #if UNITY_WEBGL
-            player.url = stringLib.SERVER_URL + "StreamingAssets/Menu.mp4";
+            player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_INTRO_MENU;
         #endif
 
         indexSelcted = 0; 

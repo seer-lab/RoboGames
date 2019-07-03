@@ -40,7 +40,7 @@ public class DialogController : MonoBehaviour
             //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
             
             if (GlobalState.GameMode == "bug"){
-                player.url = stringLib.SERVER_URL + filepathBug;
+                player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_BUG;
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0);  
@@ -48,7 +48,7 @@ public class DialogController : MonoBehaviour
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
                 
             }else{
-                player.url = stringLib.SERVER_URL + filepathON;
+                player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_ON;
                 FlipDialog(botDialog); 
                 FlipDialog(boyDialog); 
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);

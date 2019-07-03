@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Video; 
 using UnityEngine.UI; 
@@ -19,19 +20,29 @@ public class TitleController : MonoBehaviour
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
             String sessionID = PlayerPrefs.GetString("sessionID");
+            Debug.Log("TitleController SessionID");
             if(sessionID != ""|| sessionID != null){
                 GlobalState.sessionID = Convert.ToInt64(sessionID);
+                Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
             }
             PlayerPrefs.DeleteAll();
         }
-        string filepath ="";
+        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_INTRO);
+        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
+        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_BUG);
+        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_ON);
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         #if UNITY_WEBGL                    
-            filepath = "StreamingAssets/TitleSequence.mp4";
             //Console.WriteLine(stringLib.SERVER_URL + filepath);
-            player.url = stringLib.SERVER_URL + filepath;
-            player.Pause();
-            player.Play();
+            if(File.Exists(Application.persistentDataPath + "/" + stringLib.MOVIE_INTRO)){
+                try{
+                    player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_INTRO;
+                }catch(Exception e){
+                    Debug.Log(e.Message);
+                }
+            }else{
+                player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO;
+            }  
             Debug.Log("TitleController Start() WEBGL");
         #endif
         robot = this.transform.GetChild(0).GetComponent<Animator>(); 
