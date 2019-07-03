@@ -50,7 +50,7 @@ public class SidebarController : MonoBehaviour
         upArrow = Resources.Load<Sprite>("Sprites/arrowUp"); 
         stringLibrary = new stringLib(); 
         levelDescriptor.GetComponent<Text>().text = GlobalState.level.Description;
-        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
+        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS") || GlobalState.HideToolTips){
             transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
             transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = "";  
         }
