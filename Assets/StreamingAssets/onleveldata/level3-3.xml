@@ -5,7 +5,7 @@
 <endtext>Splendid!
 You're mastering the loops!</endtext>
 <timelimit>unlimited</timelimit>
-<tools>
+<tools>`
 <tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
@@ -22,7 +22,7 @@ int main {
 <beacon flow-order="0,1,2,3,4" />		i++;
 	}
 	cout &lt;&lt; <question text="What does the text contain now?
-	Type your answer: " options="0000,10000,100000,1000000" answer="100000">text;</question>
+	Select your answer: " options="0000,10000,100000,1000000" answer="100000">text;</question>
 	//while loops continue if the condition is true
 	<comment type="description" correct="true"  groupid="1">If the condition is false before the loop starts, it NEVER runs.</comment>
 	string word = "hello";
@@ -33,6 +33,6 @@ int main {
 	}
 <beacon flow-order="5" />		//pay close attention to how the words change!
 	cout &lt;&lt; <question text="What is the word now?
-	Type your answer: " options="00000,hello,helloo,hellooo" answer="hello">word;</question>
+	Select your answer: " options="00000,hello,helloo,hellooo" answer="hello">word;</question>
 </code>
 </level>

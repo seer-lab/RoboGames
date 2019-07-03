@@ -281,7 +281,6 @@ public class hero2Controller : MonoBehaviour
             facingRight = true;
         else facingRight = false;
         anim.SetBool("facingRight", facingRight);
-        yield return new WaitForSecondsRealtime(0.2f);
         if (Input.GetMouseButton(0) || GlobalState.level.IsDemo)
         {
             reachedPosition = false;

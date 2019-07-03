@@ -16,7 +16,7 @@ using namespace std;
 int main {
 	bool hd_on = true;
 	cout &lt;&lt; <question text="What does this code output?
-	Type your answer: " option="true, false" answer="true">hd_on;</question>
+	Select your answer: " option="true, false" answer="true">hd_on;</question>
 	<comment type="description" correct="false"  groupid="2">The computer psychically determines what variable type was entered.</comment>
     <comment type="description" correct="true"  groupid="2">Keyboard input is a string; You may need to convert it to other types!</comment>
 }

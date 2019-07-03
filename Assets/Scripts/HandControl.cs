@@ -41,8 +41,8 @@ public class HandControl : MonoBehaviour
         else if (action.Category == ActionType.SwitchTool){
             Debug.Log("Projectile Code: " + projectileCode);
             var worldCorners = new Vector3[4];           
-            sidebarPositions[projectileCode-1].GetWorldCorners(worldCorners);
-            StartCoroutine(MoveToPosition(new Vector3(worldCorners[1].x, worldCorners[2].y - 0.5f, worldCorners[0].z))); 
+            sidebarPositions[projectileCode].GetWorldCorners(worldCorners);
+            StartCoroutine(MoveToPosition(new Vector3(worldCorners[1].x + 0.5f, worldCorners[2].y - 1f, worldCorners[0].z))); 
         }
     }
 }

@@ -20,12 +20,12 @@ int main {
 	cin >> input;
 	//Let's suppose someone types in "button_1"
 	cout &lt;&lt; <question text="What would this code output?
-	Type your answer: " options="cin,input,button_1" answer="button_1">input;</question>
+	Select your answer: " options="cin,input,button_1" answer="button_1">input;</question>
 	<comment type="description" correct="true" groupid="0">Strings can be added together; this is called CONCATENATION</comment>
 	string part1 = "hello ";
 	string part2 = "world";
 	cout &lt;&lt; <question text="What will be the output?
-	Type your answer: " options="hello world,hellowrold,hello + world" answer="hello world">part1 + part2;</question>
+	Select your answer: " options="hello world,hellowrold,hello + world" answer="hello world">part1 + part2;</question>
 }
 </code>
 </level>

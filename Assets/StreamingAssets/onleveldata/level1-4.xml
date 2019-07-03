@@ -20,16 +20,16 @@ int main {
 	float current_volume = 3.0;
 	
 	<question text="What is the value of sum?
-	Type your answer: " options="3,3.5,4" answer="3.5">float sum = half + three;</question>
+	Select your answer: " options="3,3.5,4" answer="3.5">float sum = half + three;</question>
 	<comment type="description"  correct="true" groupid="1" style="multi">If you try to assign a float to an integer
 	the decimal and following numbers are erased</comment>
 	int <question text="What is the value of int_sum?
-	Type your answer: " options="3,3.5,4" answer="3">int_sum = half + three;</question>
+	Select your answer: " options="3,3.5,4" answer="3">int_sum = half + three;</question>
 	
 	<comment type="description"  correct="true" groupid="2" style="multi">You can also assign integer values to float variables
 	Remember, floats always have a decimal point, even if it's 0!</comment>
 	float <question text="What is the value of column?
-	Type your answer: " options="3,3.0" answer="3.0">volume = int_sum;</question>
+	Select your answer: " options="3,3.0" answer="3.0">volume = int_sum;</question>
 }
 </code>
 </level>

@@ -47,13 +47,13 @@ public class Output : MonoBehaviour
     public void ToggleLight()
     {
         Text.color = Color.black;
-        enter.GetComponent<Text>().color = Color.black;
+        enter.transform.GetChild(0).GetComponent<Text>().color = Color.black;
         panel.GetComponent<Image>().sprite = panels[5]; 
     }
     public void ToggleDark()
     {
         Text.color = Color.white;
-        enter.GetComponent<Text>().color = Color.white;
+        enter.transform.GetChild(0).GetComponent<Text>().color = Color.black;
         panel.GetComponent<Image>().sprite = panels[3]; 
     }
 	//.................................>8.......................................
