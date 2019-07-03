@@ -19,11 +19,12 @@ public class TitleController : MonoBehaviour
         Debug.Log(SystemInfo.operatingSystem);
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
-            String sessionID = PlayerPrefs.GetString("sessionID");
-            Debug.Log("TitleController SessionID");
-            if(sessionID != ""|| sessionID != null){
-                GlobalState.sessionID = Convert.ToInt64(sessionID);
-                Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
+            if(PlayerPrefs.HasKey("sessionID")){
+                String sessionID = PlayerPrefs.GetString("sessionID");
+                if(sessionID != ""|| sessionID != null){
+                //GlobalState.sessionID = Convert.ToInt64(sessionID);
+                //Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
+                }
             }
             PlayerPrefs.DeleteAll();
         }
