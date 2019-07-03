@@ -13,18 +13,22 @@ public class SidebarController : MonoBehaviour
     public GameObject[] tools = new GameObject[6]; 
     public GameObject checklist, tool, timer, hint;
     private Sprite[] panels = new Sprite[8];
+    EnergyController EnergyController; 
+    Image ToggleArrow, toggleTool; 
+    Sprite downArrow, upArrow; 
     private stringLib stringLibrary;
     bool active = true; 
     public bool isActive
     {
         get
         {
-            return active; 
+            return true; 
         }
     }
     public void NextTool()
     {
-        tool.GetComponent<SelectedTool>().NextTool(); 
+        if (!active)
+            tool.GetComponent<SelectedTool>().NextTool(); 
     }
     private void LoadPanels()
     {
@@ -39,13 +43,41 @@ public class SidebarController : MonoBehaviour
     void Start()
     {
         LoadPanels();
+        EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>(); 
+        ToggleArrow = transform.GetChild(2).transform.Find("ToggleSidebar").GetComponent<Image>(); 
+        toggleTool = transform.GetChild(2).transform.Find("Toggle Tool").GetComponent<Image>(); 
+        downArrow = Resources.Load<Sprite>("Sprites/arrowDown"); 
+        upArrow = Resources.Load<Sprite>("Sprites/arrowUp"); 
         stringLibrary = new stringLib(); 
-        levelDescriptor.GetComponent<Text>().text = GlobalState.level.Description; 
+        levelDescriptor.GetComponent<Text>().text = GlobalState.level.Description;
+        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS") || GlobalState.HideToolTips){
+            transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
+            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = "";  
+        }
+    }
+    IEnumerator FadeToolToggler(bool fadeIn){
+        float frames = 20f; 
+        float difA = 1/frames; 
+        if (!fadeIn) difA*=-1; 
+        CanvasGroup canvas = toggleTool.GetComponent<CanvasGroup>(); 
+        while((canvas.alpha < 1 && fadeIn) || canvas.alpha > 0 && !fadeIn){
+            canvas.alpha += difA; 
+            yield return null; 
+        }
     }
     public void ToggleSidebar()
     {
-        active = !active;
-        this.GetComponent<Canvas>().enabled = active; 
+        if (!GlobalState.level.IsDemo){
+            StopCoroutine(FadeToolToggler(!active)); 
+            active = !active;
+            this.GetComponent<Animator>().SetBool("open", !this.GetComponent<Animator>().GetBool("open"));
+            EnergyController.GetComponent<Animator>().SetBool("open", !EnergyController.GetComponent<Animator>().GetBool("open"));
+            if (active){
+                ToggleArrow.sprite = downArrow; 
+            }
+            else ToggleArrow.sprite = upArrow;
+            StartCoroutine(FadeToolToggler(!active)); 
+        } 
     }
     public void ToggleLight()
     {
@@ -71,6 +103,7 @@ public class SidebarController : MonoBehaviour
             // @TODO: figure out if theyre done or not and put it in the expression
             tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? new Color(0, 0.6f, 0.2f, 1) : (GlobalState.IsDark ? Color.white : Color.black); 
         }
+        ToggleArrow.color = Color.black; 
     }
     public void ToggleDark()
     {
@@ -95,12 +128,13 @@ public class SidebarController : MonoBehaviour
             // @TODO: figure out if theyre done or not and put it in the expression
             tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? Color.green : (GlobalState.IsDark ? Color.white : Color.black); 
         }
+        ToggleArrow.color = Color.white; 
     }
     // Update is called once per frame
     void Update()
     {
-        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && this.GetComponent<Canvas>().enabled != active){
-            this.GetComponent<Canvas>().enabled = active;
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
+            this.GetComponent<Canvas>().enabled = true;
         }
         else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) GetComponent<Canvas>().enabled = false; 
     }

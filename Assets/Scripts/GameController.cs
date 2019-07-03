@@ -253,10 +253,7 @@ public class GameController : MonoBehaviour, ITimeUser
     {
         if (Input.GetKeyDown(KeyCode.C) && !Output.IsAnswering)
         {
-            sidebar.GetComponent<Animator>().SetBool("open", !sidebar.GetComponent<Animator>().GetBool("open"));
-            EnergyController.GetComponent<Animator>().SetBool("open", !EnergyController.GetComponent<Animator>().GetBool("open"));
-            //sidebar.ToggleSidebar(); 
-            //EnergyController.ToggleEnergy(); 
+            sidebar.ToggleSidebar(); 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && !Output.IsAnswering)
         {
