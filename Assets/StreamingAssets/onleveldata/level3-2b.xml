@@ -24,7 +24,7 @@ int main {
 <beacon flow-order="0,1,2,3" />		text += i;
 	}
 	cout &lt;&lt; <question text="What does the text contain now?
-	Type your answer: " options="0123,1234,hello0123,hello1234" answer="hello1234">text;</question>	
+	Select your answer: " options="0123,1234,hello0123,hello1234" answer="hello1234">text;</question>	
 	
 	
 	int sum = 0;
@@ -32,7 +32,7 @@ int main {
 <beacon flow-order="4,5,6,7" />		sum += i;
 	} 
 	cout &lt;&lt; <question text="What is the value of sum?
-	Type your answer: " options="20,30,50,75" answer="50">sum;</question>
+	Select your answer: " options="20,30,50,75" answer="50">sum;</question>
 }
 </code>
 </level>

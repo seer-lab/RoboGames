@@ -468,22 +468,17 @@ public class OldMenu : MonoBehaviour
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                         break;
                     case 2:
-                        if (optionPage == 0) optionPage++;
-                        else optionPage = 0;
-                        if (optionPage == 0)
-                        {
-                            m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize;
-                            m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
-                            m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
-                            m2buttontext[2].GetComponent<TextMesh>().text = "Next";
-                            m2buttontext[3].GetComponent<TextMesh>().text = "Back";
+                        if (optionPage == 1){
+                            GlobalState.HideToolTips = !GlobalState.HideToolTips; 
+                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips)? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG: GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
                         }
-                        else if (optionPage == 1)
+                        else 
                         {
+                            optionPage = 1;
                             m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption];
                             m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption];
                             m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
-                            m2buttontext[2].GetComponent<TextMesh>().text = "Previous";
+                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips)? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG: GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
                             m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         }
                         foreach (GameObject btn in m2buttons){
@@ -493,11 +488,27 @@ public class OldMenu : MonoBehaviour
                         option = 2; 
                         break;
                     case 3:
-                        GlobalState.GameState = stateLib.GAMESTATE_MENU;
-                        m2buttons[3].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                        m2switch(false);
-                        option = 2;
-                        break;
+                        if (optionPage == 0){
+                            GlobalState.GameState = stateLib.GAMESTATE_MENU;
+                            m2buttons[3].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                            m2switch(false);
+                            option = 2;
+                            break;
+                        }
+                        else {
+                            optionPage = 0; 
+                            m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize;
+                            m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
+                            m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
+                            m2buttontext[2].GetComponent<TextMesh>().text = "Next";
+                            m2buttontext[3].GetComponent<TextMesh>().text = "Back";
+                            foreach (GameObject btn in m2buttons){
+                                btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                            }
+                            m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton; 
+                            option = 2; 
+                            break;
+                        }
                 }
                 entered = false;
             }

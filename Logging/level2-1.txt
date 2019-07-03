@@ -178,3 +178,12 @@ Activator Tool Use:
 	Lines Used: 8 15 
 
 --------------------------------------------------------
+Failed Level
+22 Seconds
+Activator Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 8
+	Lines Used: 8 8 8 8 8 8 8 12 
+
+--------------------------------------------------------

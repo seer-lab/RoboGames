@@ -19,7 +19,7 @@ int main {
 	string rank = "agent 00";
 	int number = 7;
 	cout &lt;&lt; <question text="What will be the output?
-	Type your answer: " options="agent7,agent007,agent 007" answer="agent 007">rank &lt;&lt; number;</question>
+	Select your answer: " options="agent7,agent007,agent 007" answer="agent 007">rank &lt;&lt; number;</question>
 	
 	<comment type="description" correct="false"  groupid="1">Programming problems always have exactly 1 solution.</comment>
 	<comment type="description" correct="true"  groupid="1">There are often many ways to solve a programming problem!</comment>

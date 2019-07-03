@@ -56,6 +56,9 @@ public class Logger
 		hasWritten = true; 
         WriteLog();
     }
+    public int SecondsToCompleteLevel(){
+        return timeEnd - timeStart; 
+    }
     public void onToolUse(int index, int lineNumber)
     {
         GlobalState.toolUse[index]++;

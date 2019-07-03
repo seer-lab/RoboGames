@@ -21,7 +21,7 @@
 	You can reference the variables later using their names.
 	When you run the code, you can print out those variables using COUT</comment>
 	cout &lt;&lt; <question text="What is color_blue?
-	Type your answer: " options="0,255,Blue,100" answer="255">color_blue;</question>
+	Select your answer: " options="0,255,Blue,100" answer="255">color_blue;</question>
 }
 </code>
 </level>

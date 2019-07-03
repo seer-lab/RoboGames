@@ -20,6 +20,12 @@ public class FireButton : MonoBehaviour
         icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         code = tool.projectilecode; 
         UpdateLook();
+        if (GlobalState.HideToolTips){
+            transform.parent.GetChild(1).GetComponent<Text>().text =""; 
+        }
+        else if (SystemInfo.operatingSystem.Contains("Mac")){
+            transform.parent.GetChild(1).GetComponent<Text>().text = "Control"; 
+        }
     }
     void UpdateLook(){
         GetComponent<Image>().color = GlobalState.StringLib.COLORS[code];
