@@ -544,3 +544,18 @@ Bug Fixer Tool Use:
 	Lines Used: 5 
 
 --------------------------------------------------------
+Passed Level
+6 Seconds
+Question Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
