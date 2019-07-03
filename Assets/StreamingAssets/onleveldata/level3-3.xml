@@ -5,7 +5,7 @@
 <endtext>Splendid!
 You're mastering the loops!</endtext>
 <timelimit>unlimited</timelimit>
-<tools>
+<tools>`
 <tool name="controlflow" enabled="true" count="unlimited"/>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
