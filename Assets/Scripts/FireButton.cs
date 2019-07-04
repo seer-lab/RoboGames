@@ -20,7 +20,7 @@ public class FireButton : MonoBehaviour
         icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         code = tool.projectilecode; 
         UpdateLook();
-        if (GlobalState.HideToolTips){
+        if (GlobalState.HideToolTips || SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
             transform.parent.GetChild(1).GetComponent<Text>().text =""; 
         }
         else if (SystemInfo.operatingSystem.Contains("Mac")){

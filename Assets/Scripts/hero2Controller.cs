@@ -128,7 +128,7 @@ public class hero2Controller : MonoBehaviour
     //.................................>8.......................................
     void FixedUpdate()
     {
-        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && !Output.IsAnswering)
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && (!Output.IsAnswering || GlobalState.level.IsDemo))
         {
             //movement
             float fMoveVelocityHorizontal = 0f;
@@ -236,7 +236,7 @@ public class hero2Controller : MonoBehaviour
                 }
             }
         }
-        else if (Output.IsAnswering)
+        else if (Output.IsAnswering && !GlobalState.level.IsDemo)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
@@ -245,7 +245,7 @@ public class hero2Controller : MonoBehaviour
     {
         if (Time.time > nextFire &&
                !onWall &&
-               !Output.IsAnswering &&
+               (!Output.IsAnswering || GlobalState.level.IsDemo) &&
                energyController.currentEnergy > 0 &&
                GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
                GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
