@@ -69,6 +69,7 @@ public class hero2Controller : MonoBehaviour
         lg = codescreen.GetComponent<LevelGenerator>();
         controller = Camera.main.GetComponent<GameController>();
         timeStart = DateTime.Now.Second;
+        maxSpeed = GlobalState.Stats.Speed; 
     }
     bool CheckClick(){
         return !EventSystem.current.IsPointerOverGameObject(0); 

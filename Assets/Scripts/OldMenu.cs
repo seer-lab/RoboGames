@@ -157,11 +157,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.IsPlaying = false;
         if (GlobalState.CurrentONLevel == null)
         {
-            if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
-                GlobalState.CurrentONLevel = "tutorial0.xml";
-            else {
-                GlobalState.CurrentONLevel = "tutorial0.xml";
-            }
+            GlobalState.CurrentONLevel = "tutorial0.xml";
         }
         else GlobalState.IsPlaying = true;
         GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel; 
@@ -169,6 +165,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.level = null;
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
+        GlobalState.Stats = new CharacterStats(true); 
 
     }
     private void ToggleTheme()
