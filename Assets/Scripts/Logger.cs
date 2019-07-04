@@ -56,8 +56,14 @@ public class Logger
 		hasWritten = true; 
         WriteLog();
     }
+    public int CalculateTimeBonus(){
+        int value = (GlobalState.level.Code.Length*3)/SecondsToCompleteLevel(); 
+        Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
+        if (value > 5) value = 5; 
+        return value; 
+    }
     public int SecondsToCompleteLevel(){
-        return timeEnd - timeStart; 
+        return totalTime; 
     }
     public void onToolUse(int index, int lineNumber)
     {

@@ -95,7 +95,7 @@ public class DemoBotControl : MonoBehaviour
                 entered = false;
                 indexOfAction++;
                 enterDelay = 1f;
-                output.text.GetComponent<Text>().text = "";
+                //output.text.GetComponent<Text>().text = "";
                 if (indexOfAction < callstack.Count){
                     
                     if (callstack[indexOfAction].Category == ActionType.SwitchTool){

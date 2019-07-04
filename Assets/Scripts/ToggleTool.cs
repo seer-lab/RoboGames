@@ -21,7 +21,8 @@ public class ToggleTool : MonoBehaviour
     {
         if (currentIndex != tool.projectilecode){
             currentIndex = tool.projectilecode; 
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[currentIndex]); 
+            if (currentIndex>= 0 && currentIndex < icons.Length)
+                GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[currentIndex]); 
         }
     }
 }

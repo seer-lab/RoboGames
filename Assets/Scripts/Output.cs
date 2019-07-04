@@ -69,6 +69,9 @@ public class Output : MonoBehaviour
         }
         else if (GlobalState.Character == "Girl") narrator = 2; 
         else if (GlobalState.Character == "Boy") narrator = 1;
+        else{
+            narrator = Random.Range(1,3); 
+        }
         original = narrator; 
 	}
     public void PlayCharacterOutput(string newText){
@@ -94,7 +97,8 @@ public class Output : MonoBehaviour
 			anim.SetBool("Hiding", true);
 		}
 		if ((Input.GetKeyDown(KeyCode.Return)|| entered || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
-			text.GetComponent<Text>().text = "";
+			if (!GlobalState.level.IsDemo)
+                text.GetComponent<Text>().text = "";
             narrator = original; 
             entered = false; 
 		}

@@ -119,6 +119,7 @@
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\SelectTitle.cs" />
      <Compile Include="Assets\Scripts\SidebarController.cs" />
+     <Compile Include="Assets\Scripts\SparkController.cs" />
      <Compile Include="Assets\Scripts\stateLib.cs" />
      <Compile Include="Assets\Scripts\stringLib.cs" />
      <Compile Include="Assets\Scripts\Submenu.cs" />
@@ -126,6 +127,7 @@
      <Compile Include="Assets\Scripts\TimeController.cs" />
      <Compile Include="Assets\Scripts\TimeDisplayController.cs" />
      <Compile Include="Assets\Scripts\TitleController.cs" />
+     <Compile Include="Assets\Scripts\ToggleTool.cs" />
      <Compile Include="Assets\Scripts\ToolFactory.cs" />
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
@@ -136,7 +138,6 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\ToggleTool.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />

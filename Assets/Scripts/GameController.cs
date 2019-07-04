@@ -140,7 +140,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, false);
+            logger.onGameEnd(startDate, false); 
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }
@@ -161,6 +161,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
             logger.onGameEnd(startDate, true);
+            GlobalState.timeBonus = logger.CalculateTimeBonus();
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
         else
