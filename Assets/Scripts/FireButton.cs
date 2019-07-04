@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 
 public class FireButton : MonoBehaviour
@@ -10,6 +11,7 @@ public class FireButton : MonoBehaviour
     public GameObject toolObject; 
     private SelectedTool tool; 
     private bool isFiring; 
+    bool mouseOver = false; 
     public bool IsFiring{get{
         return isFiring; 
     }}
@@ -44,6 +46,7 @@ public class FireButton : MonoBehaviour
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
             return; 
+        GameObject.Find("Hero").GetComponent<hero2Controller>().StopCoroutine("MoveToPosition"); 
         if (!GlobalState.level.IsDemo)
             hero.ThrowTool(); 
         
