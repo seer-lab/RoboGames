@@ -5,9 +5,9 @@ public class CharacterStats{
     public int Energy{get;set;}
     public CharacterStats(bool reset = false){
         if (reset){
-            FreeFall = false; 
-            Speed = StatLib.speeds[0]; 
-            ProjectileTime = StatLib.projectileDistance[0]; 
+            FreeFall = true; 
+            Speed = StatLib.speeds[StatLib.speeds.Length-2]; 
+            ProjectileTime = StatLib.projectileDistance[StatLib.projectileDistance.Length-1]; 
             Energy = StatLib.energyLevels[0]; 
         }
     }

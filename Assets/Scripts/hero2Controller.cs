@@ -293,6 +293,7 @@ public class hero2Controller : MonoBehaviour
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;
                 else facingRight = false;
+                Debug.Log("Moving X");
                 yield return null;
             }
             isMovingX = false;
@@ -301,6 +302,7 @@ public class hero2Controller : MonoBehaviour
                 if (GetComponent<Transform>().localPosition.y - position.y < 0)
                     verticalMovement = 0.5f;
                 else verticalMovement = -1f;
+                Debug.Log("Moving Y");
                 yield return null;
             }
             if (GlobalState.level.IsDemo) facingRight = false; 
@@ -308,7 +310,8 @@ public class hero2Controller : MonoBehaviour
             reachedPosition = true;
         }
         isMoving = false;
-        HandleMouseMovement(); 
+        if (!GlobalState.level.IsDemo)
+            HandleMouseMovement(); 
     }
     void HandleMouseMovement(){
         if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo)
