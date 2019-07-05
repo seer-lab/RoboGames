@@ -29,28 +29,34 @@ public class TitleController : MonoBehaviour
             }
             PlayerPrefs.DeleteAll();
         }
-        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_INTRO);
-        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
-        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_BUG);
-        WebHelper.i.GetMovieDataFromWeb(stringLib.MOVIE_ON);
+        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
+        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
+        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
+        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_ON);
+
+        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO);
+        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO_MENU);
+        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_ON);
+        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_BUG);
+        
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
-        #if UNITY_WEBGL                    
-            //Console.WriteLine(stringLib.SERVER_URL + filepath);
-            if(File.Exists(Application.persistentDataPath + "/" + stringLib.MOVIE_INTRO)){
-                try{
-                    player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_INTRO;
-                }catch(Exception e){
-                    Debug.Log(e.Message);
-                }
-            }else{
+        #if UNITY_WEBGL && !UNITY_EDITOR     
+            String url = GlobalState.URL_MOVIE;          
+            Debug.Log("URL : " + url + " Movie: " + stringLib.MOVIE_INTRO);
+            if(url == "" || url == null){
+                Debug.Log("Playing Movie from Server");
                 player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO;
-            }  
-            Debug.Log("TitleController Start() WEBGL");
+            }else{
+                Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
+                player.url = url;
+            }
         #endif
         robot = this.transform.GetChild(0).GetComponent<Animator>(); 
         girl = this.transform.GetChild(1).GetComponent<Animator>(); 
         boy = this.transform.GetChild(2).GetComponent<Animator>(); 
         text = this.transform.GetChild(3).GetComponent<Text>(); 
+
+
     }   
 
     IEnumerator ShowCharacters(){

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -25,6 +26,10 @@ public class WebHelper : MonoBehaviour
     #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern string GetData(string url);
+        [DllImport("__Internal")]
+        private static extern string GetUrlFromIndexedDB(string str);
+        [DllImport("__Internal")]
+        private static extern void SaveVideoInIndexedDB(string path, string filename);
     #endif
 
     IEnumerator GetXMLFromServer(string url) {
@@ -71,9 +76,35 @@ public class WebHelper : MonoBehaviour
         return this.webData;
     }
 
-    public void GetMovieDataFromWeb(string filename){
+    public void SaveMovieDataFromWeb(string filename){
+        //StartCoroutine(GetMovieFromServer(filename,stringLib.SERVER_URL + "StreamingAssets/" + filename ));
+        //Get the URL from INDEXEDDB
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            SaveVideoInIndexedDB(stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + filename, filename);
+        #endif
+    }
 
-        StartCoroutine(GetMovieFromServer(filename,stringLib.SERVER_URL + "StreamingAssets/" + filename ));
+    public void RequestMovieFromIndexedDB(string filename){
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            webData = "";
+            GetUrlFromIndexedDB(filename);
+        #endif
+    }
 
+    void SetMovieIndexedDBURL(string filename){
+        String[] webdata = filename.Split(' ');
+        if(webdata[1] == stringLib.MOVIE_INTRO){
+            GlobalState.URL_MOVIE = webdata[0];
+            Debug.Log("Intro Movie Saved! : " + GlobalState.URL_MOVIE);
+        }else if(webdata[1] == stringLib.MOVIE_INTRO_MENU){
+            GlobalState.URL_MOVIE_MENU = webdata[0];
+            Debug.Log("Intro Menu Movie Saved! : " + GlobalState.URL_MOVIE_MENU);
+        }else if(webdata[1] == stringLib.MOVIE_ON){
+            GlobalState.URL_MOVIE_ON = webdata[0];
+            Debug.Log("ON Movie Saved! : " + GlobalState.URL_MOVIE_ON);
+        }else if(webdata[1] == stringLib.MOVIE_BUG){
+            GlobalState.URL_MOVIE_BUG = webdata[0];
+            Debug.Log("BUG Movie Saved! : " + GlobalState.URL_MOVIE_BUG);
+        }
     }
 }

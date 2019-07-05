@@ -19,28 +19,32 @@ public class DialogController : MonoBehaviour
     int index = 0; 
     // Start is called before the first frame update
 
-    #if UNITY_WEBGL && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern string GetData(string url);
-    #endif
-
     private void FlipDialog(GameObject dialog){
         dialog.GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
         dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
     }
     void Start()
     {
-        string filepathON ="";
-        string filepathBug = "";
+        // string filepathON ="";
+        // string filepathBug = "";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         
-        #if UNITY_WEBGL                    
-            filepathON = "StreamingAssets/IntroScene.mp4";
-            filepathBug = "StreamingAssets/RoboBugIntro_1.mp4";
+        #if UNITY_WEBGL && !UNITY_EDITOR                    
+            // filepathON = "StreamingAssets/IntroScene.mp4";
+            // filepathBug = "StreamingAssets/RoboBugIntro_1.mp4";
             //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
             
             if (GlobalState.GameMode == "bug"){
-                player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_BUG;
+                SetVideo(stringLib.MOVIE_BUG);
+                // String url = WebHelper.i.GetMovieFromIndexDB(stringLib.MOVIE_BUG);
+                // Debug.Log("URL : " + url);
+                // if(!url.Contains("ERROR") || url.Contains("") && url.Length > 0){
+                //     Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
+                //     player.url = url;
+                // }else{
+                //     Debug.Log("Playing Movie from Server");
+                //     player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_BUG;
+                // } 
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0);  
@@ -48,7 +52,7 @@ public class DialogController : MonoBehaviour
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
                 
             }else{
-                player.url = Application.persistentDataPath + "/" + stringLib.MOVIE_ON;
+                SetVideo(stringLib.MOVIE_ON);
                 FlipDialog(botDialog); 
                 FlipDialog(boyDialog); 
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
@@ -207,6 +211,26 @@ public class DialogController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x - (1/frames), transform.localScale.y - (1/frames), transform.localScale.z - (1/frames)); 
             yield return null; 
         }
+    }
 
+    void SetVideo(string filename){
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            String url = ""; 
+            if(GlobalState.GameMode == "bug"){
+                url = GlobalState.URL_MOVIE_BUG;
+            }else{
+                url = GlobalState.URL_MOVIE_ON;
+            }            
+            Debug.Log("URL : " + url + " Movie: " + filename);
+
+        
+            if(url == "" || url == null){
+                Debug.Log("Playing Movie from Server");
+                player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + filename;
+            }else{
+                Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
+                player.url = url;
+            }
+        #endif
     }
 }
