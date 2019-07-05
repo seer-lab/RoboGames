@@ -46,7 +46,7 @@ public class FireButton : MonoBehaviour
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
             return; 
-        GameObject.Find("Hero").GetComponent<hero2Controller>().StopCoroutine("MoveToPosition"); 
+        //GameObject.Find("Hero").GetComponent<hero2Controller>().StopCoroutine("MoveToPosition"); 
         if (!GlobalState.level.IsDemo)
             hero.ThrowTool(); 
         
