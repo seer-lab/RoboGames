@@ -108,12 +108,13 @@ mergeInto(LibraryManager.library, {
         transaction.objectStore("Videos").get(jStr).onsuccess = function (event) {              
           var videoFile = event.target.result;
           var URL = window.URL || window.webkitURL;
-          var videoURL = URL.createObjectURL(videoFile);
-          console.log("VIDEO URL " + videoURL);
-          var binaryData = [];
-          binaryData.push(videoURL);
-          var vUrl = window.URL.createObjectURL(new Blob(binaryData, {type: "video/mp4"}));
-          SendMessage('GameObject', 'SetMovieIndexedDBURL', vUrl + " " + jStr);
+          try{
+            videoURL = (window.URL ? URL : webkitURL).createObjectURL(videoFile);
+          }catch(e){
+            console.log("Your Browser doesnt support createObjectURL!");
+            videoURL = "";
+          }
+          SendMessage('GameObject', 'SetMovieIndexedDBURL', videoURL + " " + jStr);
         }
       };
     });

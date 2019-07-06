@@ -16,6 +16,12 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
+        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
+        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
+        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_ON);
+
         Debug.Log(SystemInfo.operatingSystem);
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
@@ -29,15 +35,6 @@ public class TitleController : MonoBehaviour
             }
             PlayerPrefs.DeleteAll();
         }
-        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
-        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
-        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
-        WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_ON);
-
-        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO);
-        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO_MENU);
-        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_ON);
-        WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_BUG);
         
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         #if UNITY_WEBGL && !UNITY_EDITOR     
@@ -56,6 +53,10 @@ public class TitleController : MonoBehaviour
         boy = this.transform.GetChild(2).GetComponent<Animator>(); 
         text = this.transform.GetChild(3).GetComponent<Text>(); 
 
+        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO);
+        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO_MENU);
+        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_ON);
+        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_BUG);
 
     }   
 
