@@ -196,12 +196,14 @@ public class stringLib
     public string syntax_color_include = "<color=#e6005cff>";
     public float LEFT_CODESCREEN_X_COORDINATE = -10;
 
-    public const string SERVER_URL = "http://199.212.33.5:8080/";
+    public const string SERVER_URL = "http://127.0.0.1:8080/";
     public const string DB_URL = "http://199.212.33.5:3000/logs";
     public const int DOWNLOAD_TIME = 200;
 
     public string[] nameObstacle = new string[] { "firewall" };
     public const string STREAMING_ASSETS = "StreamingAssets/";
+    public const string ASSETS_BUNDLE = "AssetBundles/";
+    public const string VIDEO_FILE = "videofiles";
     public const string MOVIE_INTRO = "TitleSequence.mp4";
     public const string MOVIE_INTRO_MENU = "Menu.mp4";
     public const string MOVIE_ON = "IntroScene.mp4";

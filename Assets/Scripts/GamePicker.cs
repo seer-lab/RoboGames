@@ -19,16 +19,17 @@ public class GamePicker : MonoBehaviour
     {
 
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
+        player.clip = WebHelper.i.assetBundle.LoadAsset<VideoClip>("RoboBugIntro_1.mp4");
         #if UNITY_WEBGL && !UNITY_EDITOR     
-            String url = GlobalState.URL_MOVIE_MENU;          
-            Debug.Log("URL : " + url + " Movie: " + stringLib.MOVIE_INTRO_MENU);
-            if(url == "" || url == null){
-                Debug.Log("Playing Movie from Server");
-                player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO_MENU;
-            }else{
-                Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
-                player.url = url;
-            }
+            // String url = GlobalState.URL_MOVIE_MENU;          
+            // Debug.Log("URL : " + url + " Movie: " + stringLib.MOVIE_INTRO_MENU);
+            // if(url == "" || url == null){
+            //     Debug.Log("Playing Movie from Server");
+            //     player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO_MENU;
+            // }else{
+            //     Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
+            //     player.url = url;
+            // }
         #endif
 
         indexSelcted = 0; 

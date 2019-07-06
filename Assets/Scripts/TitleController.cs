@@ -16,7 +16,7 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        WebHelper.i.DownloadVideoAssetBundle(stringLib.SERVER_URL + stringLib.ASSETS_BUNDLE + stringLib.VIDEO_FILE);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);

@@ -13,6 +13,7 @@ public class WebHelper : MonoBehaviour
     public string someData {get; set;}
 
     public string webData {get; set;}
+    public AssetBundle assetBundle {get; set;}
 
     void Awake(){
         if(!i){
@@ -54,6 +55,17 @@ public class WebHelper : MonoBehaviour
             Debug.Log(url + " ERROR: " + www.error);
         }else{
             File.WriteAllBytes(Application.persistentDataPath + "/" + filename, www.downloadHandler.data);
+        }
+    }
+
+    IEnumerator GetAssetBundlesM(string url){
+        Debug.Log("URI PORTS " + url );
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
+        yield return request.Send();
+        assetBundle = DownloadHandlerAssetBundle.GetContent(request);
+
+        if(request.isNetworkError || request.isHttpError){
+            Debug.Log(request.error);
         }
     }
     public string GetWebDataFromWeb(){
@@ -106,5 +118,9 @@ public class WebHelper : MonoBehaviour
             GlobalState.URL_MOVIE_BUG = webdata[0];
             Debug.Log("BUG Movie Saved! : " + GlobalState.URL_MOVIE_BUG);
         }
+    }
+
+    public void DownloadVideoAssetBundle(string url){
+        StartCoroutine(GetAssetBundlesM(url));
     }
 }
