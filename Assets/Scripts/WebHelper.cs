@@ -59,13 +59,35 @@ public class WebHelper : MonoBehaviour
     }
 
     IEnumerator GetAssetBundlesM(string url){
-        Debug.Log("URI PORTS " + url );
+        //Debug.Log("URI PORTS " + url );
+        // WWW www = WWW.LoadFromCacheOrDownload(url, 0);
+
+        // while(!www.isDone){
+        //     Debug.Log("Progress: " + www.progress);
+        //     yield return null;
+        // }
+
+        // if(www.error == null){
+        //     assetBundle = www.assetBundle;
+        //     Debug.Log("Success");
+        // }else{
+        //     Debug.Log(www.error);
+        // }
+
+
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
-        yield return request.Send();
-        assetBundle = DownloadHandlerAssetBundle.GetContent(request);
+        yield return request.SendWebRequest();
+        
+        while(!request.isDone){
+            Debug.Log("Progress :" + request.downloadProgress);
+            yield return null;
+        }
 
         if(request.isNetworkError || request.isHttpError){
             Debug.Log(request.error);
+        }else{
+            Debug.Log("Download Success!");
+            assetBundle = DownloadHandlerAssetBundle.GetContent(request);
         }
     }
     public string GetWebDataFromWeb(){
@@ -121,6 +143,20 @@ public class WebHelper : MonoBehaviour
     }
 
     public void DownloadVideoAssetBundle(string url){
-        StartCoroutine(GetAssetBundlesM(url));
+        Caching.compressionEnabled = false;
+        Caching.ClearCache();
+        StartCoroutine(GetVideos(url));
+    
     }
+
+    IEnumerator GetVideos(string url){
+        yield return GetAssetBundlesM(url);
+
+        if(!assetBundle){
+            Debug.Log("Asset Bundle with URL " + url + " failed");
+            yield break;
+        }
+    }
+
 }
+

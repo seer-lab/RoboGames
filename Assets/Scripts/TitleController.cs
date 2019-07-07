@@ -16,13 +16,15 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WebHelper.i.DownloadVideoAssetBundle(stringLib.SERVER_URL + stringLib.ASSETS_BUNDLE + stringLib.VIDEO_FILE);
+        WebHelper.i.DownloadVideoAssetBundle(stringLib.SERVER_URL + stringLib.ASSETS_BUNDLE + "menu");
+        //Debug.Log("file:///" + Application.dataPath + "/AssetBundles/StandAlone Windows/menu");
+        //WebHelper.i.DownloadVideoAssetBundle("file:///" + Application.dataPath + "AssetBundles/StandAlone Windows/menu");
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_ON);
 
-        Debug.Log(SystemInfo.operatingSystem);
+        //Debug.Log(SystemInfo.operatingSystem);
         if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
             if(PlayerPrefs.HasKey("sessionID")){
