@@ -9,7 +9,7 @@ public class EnergyController : MonoBehaviour
     GameObject energyBar;
     RectTransform energyBarTrans;
     float initialEnergy;
-    public float currentEnergy;
+    public float currentEnergy, displayEnergy, originalEnergy;
     Text indicator;
     float[] throwEnergy = new float[stateLib.NUMBER_OF_TOOLS];
     SelectedTool tools;
@@ -28,7 +28,7 @@ public class EnergyController : MonoBehaviour
             {
                 percent[i] = 99f;
             }
-            else percent[i] = (throwEnergy[i] / initialEnergy) * 100f;
+            else percent[i] = (throwEnergy[i] / initialEnergy) * (float)GlobalState.Stats.Energy;
         }
         return percent;
     }
@@ -55,14 +55,21 @@ public class EnergyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialEnergy = GlobalState.TotalEnergy;
-        currentEnergy = initialEnergy;
+        originalEnergy = GlobalState.Stats.Energy;
+        currentEnergy = originalEnergy;
         indicator = transform.GetChild(0).GetComponent<Text>();
         tools = GameObject.Find("Sidebar").transform.GetChild(2).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
-        energyBar = transform.GetChild(1).gameObject;
-        energyBarTrans = energyBar.GetComponent<RectTransform>();
+        SelectBar(); 
         initialX = energyBarTrans.position.x;
         initialScale = energyBar.GetComponent<RectTransform>().localScale.x;
+        if (energyBar.name == transform.GetChild(1).gameObject.name){
+            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = false; 
+            transform.GetChild(2).transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false; 
+        }
+        else {
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((displayEnergy / initialEnergy)), 1, 1);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+        }
     }
     public void onThrow(int projectileCode)
     {
@@ -84,13 +91,29 @@ public class EnergyController : MonoBehaviour
         currentEnergy -= damage;
         updateBar();
     }
+    void SelectBar(){
+        Debug.Log("Current Energy: " + currentEnergy); 
+        if (currentEnergy - 100 > 0){
+            energyBar = transform.GetChild(2).gameObject; 
+            energyBarTrans = energyBar.GetComponent<RectTransform>(); 
+            displayEnergy = currentEnergy -100; 
+            initialEnergy = originalEnergy -100; 
+        }
+        else {
+            energyBar = transform.GetChild(1).gameObject; 
+            energyBarTrans = energyBar.GetComponent<RectTransform>(); 
+            displayEnergy = currentEnergy; 
+            initialEnergy = 100; 
+        }
+    }
     void updateBar()
     {
+        SelectBar(); 
         if (currentEnergy > 0)
         {
-            indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((currentEnergy / initialEnergy)), 1, 1);
-            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+            indicator.text = ((int)(currentEnergy * GlobalState.Stats.Energy / originalEnergy)).ToString() + '%';
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((displayEnergy / initialEnergy)), 1, 1);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
         }
         else
         {
@@ -118,7 +141,7 @@ public class EnergyController : MonoBehaviour
             //Debug.Log(totalCounts); 
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
             {
-                throwEnergy[i] = (100f / ((float)totalCounts));
+                throwEnergy[i] = ( (float)GlobalState.Stats.Energy / ((float)totalCounts));
                 if (tools.toolCounts[i] > 0)
                 {
                     if (tools.toolCounts[i] < 999)
@@ -145,7 +168,7 @@ public class EnergyController : MonoBehaviour
             energyBar.GetComponent<Image>().enabled = true;
             energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false;
             if (currentEnergy > 0)
-                indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
+                indicator.text = ((int)(currentEnergy *  (float)GlobalState.Stats.Energy / originalEnergy)).ToString() + '%';
             else indicator.text = "0%";
             hidden = false;
         }
