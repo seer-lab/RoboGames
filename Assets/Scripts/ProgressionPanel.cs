@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 using UnityEngine.UI; 
 
 
@@ -18,6 +19,15 @@ public class ProgressionPanel : MonoBehaviour
             starterText[i] = buttons[i].transform.GetChild(0).GetComponent<Text>().text; 
         }
         UpdateValues(); 
+    }
+    public void EndScene(){
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
+        StartCoroutine(WaitForSwitchScene()); 
+    }
+    IEnumerator WaitForSwitchScene(){
+        yield return new WaitForSeconds(1f); 
+        if (GlobalState.level.FileName.Contains("tutorial")) GlobalState.level.IsDemo = true; 
+        SceneManager.LoadScene("newgame"); 
     }
     public void OnUpgradeSpeed(){
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1; 

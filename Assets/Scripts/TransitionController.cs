@@ -62,8 +62,13 @@ public class TransitionController : MonoBehaviour
     }
     IEnumerator WaitForSwitchScene(){
         yield return new WaitForSeconds(1f); 
-        if (GlobalState.level.FileName.Contains("tutorial")) GlobalState.level.IsDemo = true; 
-        SceneManager.LoadScene("newgame"); 
+        if (GlobalState.level.FileName.Contains("tutorial")) {
+            GlobalState.level.IsDemo = true; 
+            if (GlobalState.Stats.Points > 0)
+                SceneManager.LoadScene("Progression");
+            else SceneManager.LoadScene("newgame");  
+        }
+        else SceneManager.LoadScene("newgame"); 
     }
     void NextDialog(){
         if (index +1 == lines.Count){
