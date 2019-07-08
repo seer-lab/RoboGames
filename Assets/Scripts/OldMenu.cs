@@ -199,7 +199,15 @@ public class OldMenu : MonoBehaviour
     void Update()
     {
 
-        
+        if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
+             GlobalState.Stats.GrantPower(); 
+            Debug.Log("All Powers Maxed Out!"); 
+             Debug.Log("Freefall: " + GlobalState.Stats.FreeFall.ToString() 
+            +"\n Speed: " + GlobalState.Stats.Speed.ToString()
+            + "\n ProjecTime: " + GlobalState.Stats.ProjectileTime.ToString()
+             + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
+             +"\n Points: " + GlobalState.Stats.Points.ToString()); 
+        }
         if (GlobalState.GameState != stateLib.GAMESTATE_MENU){
             foreach (GameObject button in buttons){
                 button.GetComponent<SpriteRenderer>().color = Color.grey; 

@@ -9,15 +9,15 @@ public class EnergyController : MonoBehaviour
     GameObject energyBar;
     RectTransform energyBarTrans;
     float initialEnergy;
-    public float currentEnergy;
+    public float currentEnergy, displayEnergy, originalEnergy;
     Text indicator;
     float[] throwEnergy = new float[stateLib.NUMBER_OF_TOOLS];
     SelectedTool tools;
     bool initial = true;
     bool hidden = false;
     float initialScale;
-    float initialX;
-    float positionCompensation = 160f;
+    float initialX, topBar, bottomBar;
+    float positionCompensation = 150f;
     bool toggle = false; 
     public float[] percentPerUse()
     {
@@ -28,7 +28,7 @@ public class EnergyController : MonoBehaviour
             {
                 percent[i] = 99f;
             }
-            else percent[i] = (throwEnergy[i] / initialEnergy) * 100f;
+            else percent[i] = (throwEnergy[i] / initialEnergy) * (float)GlobalState.Stats.Energy;
         }
         return percent;
     }
@@ -55,14 +55,24 @@ public class EnergyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialEnergy = GlobalState.TotalEnergy;
-        currentEnergy = initialEnergy;
+        originalEnergy = GlobalState.Stats.Energy;
+        currentEnergy = originalEnergy;
         indicator = transform.GetChild(0).GetComponent<Text>();
+        indicator.text = originalEnergy.ToString() + "%"; 
         tools = GameObject.Find("Sidebar").transform.GetChild(2).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
-        energyBar = transform.GetChild(1).gameObject;
-        energyBarTrans = energyBar.GetComponent<RectTransform>();
-        initialX = energyBarTrans.position.x;
+        topBar = transform.GetChild(2).gameObject.GetComponent<RectTransform>().position.x;
+        bottomBar = transform.GetChild(1).gameObject.GetComponent<RectTransform>().position.x;  
+        SelectBar(); 
         initialScale = energyBar.GetComponent<RectTransform>().localScale.x;
+        updateBar(); 
+        if (energyBar.name == transform.GetChild(1).gameObject.name){
+            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = false; 
+            transform.GetChild(2).transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false; 
+        }
+        else {
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((displayEnergy / initialEnergy)), 1, 1);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+        }
     }
     public void onThrow(int projectileCode)
     {
@@ -84,13 +94,31 @@ public class EnergyController : MonoBehaviour
         currentEnergy -= damage;
         updateBar();
     }
+    void SelectBar(){
+        if (currentEnergy - 100 >= 0){
+            energyBar = transform.GetChild(2).gameObject; 
+            energyBarTrans = energyBar.GetComponent<RectTransform>(); 
+            displayEnergy = currentEnergy -100; 
+            initialEnergy = 100; 
+            initialX = topBar;
+            Debug.Log(initialX); 
+        }
+        else {
+            energyBar = transform.GetChild(1).gameObject; 
+            energyBarTrans = energyBar.GetComponent<RectTransform>(); 
+            displayEnergy = currentEnergy; 
+            initialEnergy = 100; 
+            initialX = bottomBar;
+        }
+    }
     void updateBar()
     {
+        SelectBar(); 
         if (currentEnergy > 0)
         {
-            indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((currentEnergy / initialEnergy)), 1, 1);
-            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+            indicator.text = ((int)(currentEnergy * GlobalState.Stats.Energy / originalEnergy)).ToString() + '%';
+            energyBar.GetComponent<RectTransform>().localScale = new Vector3(initialScale * ((displayEnergy / initialEnergy)), 1, 1);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
         }
         else
         {
@@ -100,7 +128,7 @@ public class EnergyController : MonoBehaviour
     }
     void LateUpdate(){
         if (currentEnergy> 0)
-         energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - currentEnergy) / initialEnergy), energyBarTrans.position.y, 0);
+            energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
     }
     // Update is called once per frame
     void Update()
@@ -118,7 +146,7 @@ public class EnergyController : MonoBehaviour
             //Debug.Log(totalCounts); 
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
             {
-                throwEnergy[i] = (100f / ((float)totalCounts));
+                throwEnergy[i] = ( (float)GlobalState.Stats.Energy / ((float)totalCounts));
                 if (tools.toolCounts[i] > 0)
                 {
                     if (tools.toolCounts[i] < 999)
@@ -135,17 +163,23 @@ public class EnergyController : MonoBehaviour
         }
         if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME && !hidden)
         {
-            energyBar.GetComponent<Image>().enabled = false;
-            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            transform.GetChild(1).gameObject.GetComponent<Image>().enabled = false;
+            transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = false;
+            transform.GetChild(2).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            
             indicator.text = "";
             hidden = true;
         }
         else if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && hidden && !toggle)
         {
-            energyBar.GetComponent<Image>().enabled = true;
-            energyBar.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            transform.GetChild(1).gameObject.GetComponent<Image>().enabled = true;
+            transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = true;
+            transform.GetChild(2).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            
             if (currentEnergy > 0)
-                indicator.text = ((int)(currentEnergy * 100f / initialEnergy)).ToString() + '%';
+                indicator.text = ((int)(currentEnergy * GlobalState.Stats.Energy / originalEnergy)).ToString() + '%';
             else indicator.text = "0%";
             hidden = false;
         }

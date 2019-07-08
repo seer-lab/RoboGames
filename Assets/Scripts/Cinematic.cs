@@ -48,8 +48,8 @@ public class Cinematic : MonoBehaviour
                 if (score <= 0) score = 1; 
                 if (score > 5) score = 5; 
             }
-            originalEnergy = GlobalState.TotalEnergy; 
-            GlobalState.TotalEnergy += 4*score + GlobalState.timeBonus; 
+            originalEnergy = GlobalState.Stats.Points; 
+            GlobalState.Stats.Points += 4*score + GlobalState.timeBonus; 
         }
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
@@ -127,7 +127,7 @@ public class Cinematic : MonoBehaviour
             StartCoroutine(ShowTimeBonus()); 
         }
         Text field = transform.Find("Energy").gameObject.GetComponent<Text>(); 
-        float dif = GlobalState.TotalEnergy - originalEnergy - GlobalState.timeBonus; 
+        float dif = GlobalState.Stats.Points - originalEnergy - GlobalState.timeBonus; 
         int frames = 30; 
         float count = originalEnergy; 
         yield return new WaitForSecondsRealtime(0.5f); 
@@ -180,7 +180,7 @@ public class Cinematic : MonoBehaviour
         while(GlobalState.timeBonus > 0){
             GlobalState.timeBonus--; 
             bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
-            field.text = "Total Energy: " +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.TotalEnergy - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
+            field.text = "Total Points: " +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
             yield return new WaitForSecondsRealtime(0.12f); 
         } 
 
@@ -212,7 +212,7 @@ public class Cinematic : MonoBehaviour
         else if (GlobalState.CurrentONLevel.Contains("tutorial")){
             GlobalState.level.IsDemo = true;
             Debug.Log("Tutorial");
-            SceneManager.LoadScene("newgame"); 
+            SceneManager.LoadScene("Progression"); 
         }
         else{ 
             GlobalState.level.IsDemo = false; 

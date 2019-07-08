@@ -140,7 +140,15 @@ public class hero2Controller : MonoBehaviour
             && !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Dead"))
             {
                 fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
-                fMoveVelocityVertical = Input.GetAxis("Vertical");
+                if (GlobalState.Stats.FreeFall){
+                    fMoveVelocityVertical = Input.GetAxis("Vertical");
+                }
+                else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
+                    fMoveVelocityVertical = -0.6f; 
+                }
+                else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)){
+                    fMoveVelocityVertical = 0.6f; 
+                }
             }
             if ((Input.GetMouseButton(0) || GlobalState.level.IsDemo) && !reachedPosition)
             {
@@ -213,7 +221,7 @@ public class hero2Controller : MonoBehaviour
             }
 
             //Physics2D.IgnoreLayerCollision(0, 8, onWall || dropping || Input.GetKey("fMoveVelocityVertical"));
-            Physics2D.IgnoreLayerCollision(0, 8, onWall || dropping);
+            Physics2D.IgnoreLayerCollision(0, 8, (onWall || dropping));
             //move up if on the wall, otherwise let gravity do the work
             if (dropping && !GlobalState.level.IsDemo)
             {
@@ -293,7 +301,6 @@ public class hero2Controller : MonoBehaviour
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;
                 else facingRight = false;
-                Debug.Log("Moving X");
                 yield return null;
             }
             isMovingX = false;
@@ -302,7 +309,6 @@ public class hero2Controller : MonoBehaviour
                 if (GetComponent<Transform>().localPosition.y - position.y < 0)
                     verticalMovement = 0.5f;
                 else verticalMovement = -1f;
-                Debug.Log("Moving Y");
                 yield return null;
             }
             if (GlobalState.level.IsDemo) facingRight = false; 

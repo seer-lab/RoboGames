@@ -79,3 +79,21 @@ Commenter Tool Use:
 	Lines Used: 4 
 
 --------------------------------------------------------
+Failed Level
+14 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 7
+	Lines Used: 2 2 2 2 2 2 2 
+
+--------------------------------------------------------
+Passed Level
+-53 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
