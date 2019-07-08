@@ -201,4 +201,12 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const int DOWNLOAD_TIME = 200;
 
     public string[] nameObstacle = new string[] { "firewall" };
+    public const string STREAMING_ASSETS = "StreamingAssets/";
+    public const string ASSETS_BUNDLE = "AssetBundles/";
+    public const string VIDEO_FILE = "videofiles";
+    public const string MOVIE_INTRO = "TitleSequence.mp4";
+    public const string MOVIE_INTRO_MENU = "Menu.mp4";
+    public const string MOVIE_ON = "IntroScene.mp4";
+    public const string MOVIE_BUG = "RoboBugIntro_1.mp4";
+
 }
