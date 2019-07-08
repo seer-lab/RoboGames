@@ -328,3 +328,18 @@ Commenter Tool Use:
 	Lines Used: 2 3 
 
 --------------------------------------------------------
+Failed Level
+-33 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 18
+	Lines Used: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

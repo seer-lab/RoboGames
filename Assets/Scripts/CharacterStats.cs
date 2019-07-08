@@ -10,7 +10,7 @@ public class CharacterStats{
             FreeFall = false; 
             Speed = StatLib.speeds[0]; 
             ProjectileTime = StatLib.projectileDistance[0]; 
-            Energy = StatLib.energyLevels[0]; 
+            Energy = StatLib.energyLevels[2]; 
             Points = 0; 
         }
     }

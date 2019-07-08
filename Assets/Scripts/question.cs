@@ -73,7 +73,7 @@ public class question : Tools {
     // Update is called once per frame
     void Update() {
 		if (answering) {
-			if (!arrowShown){
+			if (!arrowShown && !GlobalState.level.IsDemo){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
 				arrowShown = true; 
@@ -106,7 +106,7 @@ public class question : Tools {
 				answering = false;
 				selectionCode = -1; 
                 Output.IsAnswering = false;
-				if (arrowShown){
+				if (arrowShown && !GlobalState.level.IsDemo){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
 					arrowShown = false; 

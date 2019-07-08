@@ -104,7 +104,7 @@ public class rename : Tools {
 			else {
                 output.Text.text = displaytext + "  " + options[selection];
 			}
-			if (!arrowShown){
+			if (!arrowShown && !GlobalState.level.IsDemo){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
 				arrowShown = true; 
@@ -129,7 +129,7 @@ public class rename : Tools {
 				answered = true;
 				answering = false;
                 Output.IsAnswering = false;
-				if (arrowShown){
+				if (arrowShown && !GlobalState.level.IsDemo){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
 					arrowShown = false; 

@@ -17,7 +17,7 @@ public class EnergyController : MonoBehaviour
     bool hidden = false;
     float initialScale;
     float initialX, topBar, bottomBar;
-    float positionCompensation = 150f;
+    float positionCompensation = 120f;
     bool toggle = false; 
     public float[] percentPerUse()
     {
@@ -28,7 +28,7 @@ public class EnergyController : MonoBehaviour
             {
                 percent[i] = 99f;
             }
-            else percent[i] = (throwEnergy[i] / initialEnergy) * (float)GlobalState.Stats.Energy;
+            else percent[i] = (int)(((float)throwEnergy[i] / (float)originalEnergy) * (float)GlobalState.Stats.Energy) -1;
         }
         return percent;
     }
@@ -146,7 +146,7 @@ public class EnergyController : MonoBehaviour
             //Debug.Log(totalCounts); 
             for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
             {
-                throwEnergy[i] = ( (float)GlobalState.Stats.Energy / ((float)totalCounts));
+                throwEnergy[i] = ( 100f / ((float)totalCounts));
                 if (tools.toolCounts[i] > 0)
                 {
                     if (tools.toolCounts[i] < 999)

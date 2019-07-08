@@ -211,7 +211,7 @@ public class Cinematic : MonoBehaviour
         else if (GlobalState.CurrentONLevel.Contains("tutorial")){
             GlobalState.level.IsDemo = true;
             Debug.Log("Tutorial");
-            SceneManager.LoadScene("Progression"); 
+            SceneManager.LoadScene("newgame"); 
         }
         else{ 
             GlobalState.level.IsDemo = false; 
