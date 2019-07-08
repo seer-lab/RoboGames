@@ -1,3 +1,4 @@
+using System.Diagnostics;
 public class CharacterStats{
     public bool FreeFall{get;set;}
     public float Speed {get;set;}
@@ -9,9 +10,14 @@ public class CharacterStats{
             FreeFall = false; 
             Speed = StatLib.speeds[0]; 
             ProjectileTime = StatLib.projectileDistance[0]; 
-            Energy = StatLib.energyLevels[2]; 
+            Energy = StatLib.energyLevels[0]; 
             Points = 0; 
         }
+    }
+    public void GrantPower(){
+        GlobalState.Stats.Speed = StatLib.speeds[3]; 
+        GlobalState.Stats.ProjectileTime = StatLib.projectileDistance[4]; 
+        GlobalState.Stats.Energy = StatLib.energyLevels[4]; 
     }
 
 }

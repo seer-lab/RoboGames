@@ -102,7 +102,7 @@ public class stringLib
     public const string XML_ATTRIBUTE_TYPE = "type";
     public const string XML_ATTRIBUTE_CORRECT = "correct";
     public const string XML_ATTRIBUTE_ANSWER = "answer";
-    public const string XML_ATTRIBUTE_OPTIONS = "options";
+public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_BONUSES = "bonuses";
     public const string XML_ATTRIBUTE_FLOWORDER = "flow-order";
     public const string XML_ATTRIBUTE_NAME = "name";
