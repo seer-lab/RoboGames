@@ -17,8 +17,6 @@ public class TitleController : MonoBehaviour
     void Start()
     {
         WebHelper.i.DownloadVideoAssetBundle(stringLib.SERVER_URL + stringLib.ASSETS_BUNDLE + "menu");
-        //Debug.Log("file:///" + Application.dataPath + "/AssetBundles/StandAlone Windows/menu");
-        //WebHelper.i.DownloadVideoAssetBundle("file:///" + Application.dataPath + "AssetBundles/StandAlone Windows/menu");
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
         // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
@@ -31,7 +29,7 @@ public class TitleController : MonoBehaviour
                 String sessionID = PlayerPrefs.GetString("sessionID");
                 Debug.Log("MAC SessionID: " + sessionID);
                 if(sessionID != ""|| sessionID != null){
-                //GlobalState.sessionID = Convert.ToInt64(sessionID);
+                    GlobalState.sessionID = Convert.ToInt64(sessionID);
                 //Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
                 }
             }
