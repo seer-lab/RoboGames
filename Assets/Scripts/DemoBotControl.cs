@@ -56,7 +56,7 @@ public class DemoBotControl : MonoBehaviour
     {
         if (enterDelay < 0)
         {
-            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction && output.text.GetComponent<Text>().text == "" && controller.reachedPosition)
+            if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction && controller.reachedPosition)
             {
                 
                 currentIndex = indexOfAction;
@@ -95,7 +95,7 @@ public class DemoBotControl : MonoBehaviour
                 entered = false;
                 indexOfAction++;
                 enterDelay = 1f;
-                output.text.GetComponent<Text>().text = "";
+                //output.text.GetComponent<Text>().text = "";
                 if (indexOfAction < callstack.Count){
                     
                     if (callstack[indexOfAction].Category == ActionType.SwitchTool){

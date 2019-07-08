@@ -2,7 +2,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Diagnostics.SymbolStore;
 using System.Xml.Schema;
-
+using UnityEngine.EventSystems; 
 using UnityEngine;
 using System;
 using System.Collections;
@@ -46,7 +46,6 @@ public class hero2Controller : MonoBehaviour
 
     int timeStart, timeEnd, totalTime, timeCurrent;
     DateTime time;
-
     private AudioClip throwTool;
     AudioSource audioSource;
     //.................................>8.......................................
@@ -70,6 +69,10 @@ public class hero2Controller : MonoBehaviour
         lg = codescreen.GetComponent<LevelGenerator>();
         controller = Camera.main.GetComponent<GameController>();
         timeStart = DateTime.Now.Second;
+        maxSpeed = GlobalState.Stats.Speed; 
+    }
+    bool CheckClick(){
+        return !EventSystem.current.IsPointerOverGameObject(0); 
     }
     void Flip()
     {
@@ -128,7 +131,7 @@ public class hero2Controller : MonoBehaviour
     //.................................>8.......................................
     void FixedUpdate()
     {
-        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && !Output.IsAnswering)
+        if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && (!Output.IsAnswering || GlobalState.level.IsDemo))
         {
             //movement
             float fMoveVelocityHorizontal = 0f;
@@ -236,7 +239,7 @@ public class hero2Controller : MonoBehaviour
                 }
             }
         }
-        else if (Output.IsAnswering)
+        else if (Output.IsAnswering && !GlobalState.level.IsDemo)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
@@ -245,7 +248,7 @@ public class hero2Controller : MonoBehaviour
     {
         if (Time.time > nextFire &&
                !onWall &&
-               !Output.IsAnswering &&
+               (!Output.IsAnswering || GlobalState.level.IsDemo) &&
                energyController.currentEnergy > 0 &&
                GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
                GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
@@ -290,6 +293,7 @@ public class hero2Controller : MonoBehaviour
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;
                 else facingRight = false;
+                Debug.Log("Moving X");
                 yield return null;
             }
             isMovingX = false;
@@ -298,6 +302,7 @@ public class hero2Controller : MonoBehaviour
                 if (GetComponent<Transform>().localPosition.y - position.y < 0)
                     verticalMovement = 0.5f;
                 else verticalMovement = -1f;
+                Debug.Log("Moving Y");
                 yield return null;
             }
             if (GlobalState.level.IsDemo) facingRight = false; 
@@ -305,6 +310,21 @@ public class hero2Controller : MonoBehaviour
             reachedPosition = true;
         }
         isMoving = false;
+        if (!GlobalState.level.IsDemo)
+            HandleMouseMovement(); 
+    }
+    void HandleMouseMovement(){
+        if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo)
+            {
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 screenPos = Input.mousePosition; 
+                Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
+                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
+                    && !fire.IsFiring && !(Math.Abs(GetComponent<Transform>().localPosition.x - pos.x) < 0.6f) && Math.Abs(GetComponent<Transform>().localPosition.y - pos.y) < 0.6f)
+                {
+                    StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                }
+            }
     }
     public Vector3 RoundPosition(Vector3 position)
     {
@@ -357,7 +377,7 @@ public class hero2Controller : MonoBehaviour
             {
                 ThrowTool();
             }
-            if (Input.GetMouseButtonDown(0) && !GlobalState.level.IsDemo)
+            if (Input.GetMouseButtonDown(0) && CheckClick() && !GlobalState.level.IsDemo)
             {
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;

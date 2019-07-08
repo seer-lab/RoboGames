@@ -28,7 +28,7 @@ public class Cinematic : MonoBehaviour
     int score; 
     bool updatedLevel = false; 
     bool shownCharacter = false; 
-
+    bool hasTimeBonus = false; 
     string webdata;
 
     //.................................>8.......................................
@@ -49,7 +49,7 @@ public class Cinematic : MonoBehaviour
                 if (score > 5) score = 5; 
             }
             originalEnergy = GlobalState.TotalEnergy; 
-            GlobalState.TotalEnergy += 4*score; 
+            GlobalState.TotalEnergy += 4*score + GlobalState.timeBonus; 
         }
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
@@ -62,6 +62,9 @@ public class Cinematic : MonoBehaviour
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = false; 
             star.GetComponent<Animator>().enabled = false; 
+        }
+        if (GlobalState.timeBonus > 0){
+            hasTimeBonus = true; 
         }
 
         //Debug.Log(SceneManager.sceneCount);
@@ -107,6 +110,7 @@ public class Cinematic : MonoBehaviour
         }
     }
     IEnumerator FadeInResults(){
+        
         CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
         CanvasGroup energyCanvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();  
         energyCanvas.GetComponent<Text>().text = "Total Energy: " + originalEnergy.ToString(); 
@@ -118,8 +122,12 @@ public class Cinematic : MonoBehaviour
         StartCoroutine(ShowBonusEnergy()); 
     }
     IEnumerator ShowBonusEnergy(){
+        Debug.Log("Time Bonus: " + GlobalState.timeBonus); 
+        if (hasTimeBonus){
+            StartCoroutine(ShowTimeBonus()); 
+        }
         Text field = transform.Find("Energy").gameObject.GetComponent<Text>(); 
-        float dif = GlobalState.TotalEnergy - originalEnergy; 
+        float dif = GlobalState.TotalEnergy - originalEnergy - GlobalState.timeBonus; 
         int frames = 30; 
         float count = originalEnergy; 
         yield return new WaitForSecondsRealtime(0.5f); 
@@ -160,7 +168,22 @@ public class Cinematic : MonoBehaviour
             }
             framecount++; 
             yield return null; 
-        }
+        } 
+    }
+    IEnumerator ShowTimeBonus(){
+        transform.Find("Time").GetComponent<Animator>().SetTrigger("ShowTime"); 
+        Text bonus = transform.Find("Time").transform.GetChild(0).GetComponent<Text>(); 
+        string starterText = bonus.text; 
+        Text field = transform.Find("Energy").gameObject.GetComponent<Text>();
+        bonus.text+= GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
+        yield return new WaitForSecondsRealtime(1.3f + 1f/GlobalState.timeBonus); 
+        while(GlobalState.timeBonus > 0){
+            GlobalState.timeBonus--; 
+            bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
+            field.text = "Total Energy: " +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.TotalEnergy - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
+            yield return new WaitForSecondsRealtime(0.12f); 
+        } 
+
     }
     IEnumerator LoadGame()
     {
@@ -325,16 +348,6 @@ public class Cinematic : MonoBehaviour
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
             {
-                // RobotON 2, don't always want tutorials to run comics.
-                // Read in the levels.txt and grab the top one.
-                if (GlobalState.CurrentONLevel.StartsWith("tut") && GlobalState.GameMode == stringLib.GAME_MODE_BUG)
-                {
-                    // GlobalState.GameState = stateLib.GAMESTATE_STAGE_COMIC;
-                }
-                else
-                {
-                    GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                }
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
