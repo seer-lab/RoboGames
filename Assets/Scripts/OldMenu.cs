@@ -702,21 +702,29 @@ public class OldMenu : MonoBehaviour
         if(GlobalState.DebugMode){
             filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
         }else{
-            filepath = stringLib.DB_URL + "logs"  + GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
+            filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
         WebHelper.i.url =filepath;
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
+        int webHolder = 0;
+
         string [] leveldata;
         if(GlobalState.DebugMode){
             leveldata = filepath.Split('\n');
         }else{
+            filepath = filepath.Substring(1,filepath.Length - 2);
             leveldata = filepath.Split(',');
+            webHolder = 1;
         }
-        for (int i = 0; i < leveldata.Length - 1; i++) {
+
+        Debug.Log(filepath);
+
+        for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
+            Debug.Log(tmp[0] + " : " + tmpTwo[0]);
             levels.Add(tmp[0]);
             passed.Add(tmpTwo[0]);
         }
