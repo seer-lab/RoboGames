@@ -13,6 +13,7 @@ public static class GlobalState
     public static bool IsResume {get;set;}
     public static bool HideToolTips = false; 
     public static string CurrentONLevel { get; set; }
+    public static int CurrentLevelPoints {get;set;}
     public static string Language ="c++"; 
     public static string CurrentBUGLevel { get; set; }
     public static string GameMode { get; set; }

@@ -171,9 +171,18 @@ public class SelectedTool : MonoBehaviour
     }
     private void InitializeToolLabels()
     {
+        string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "comment", "breakpointer"}; 
+        string[] onIcons = new string[]{"beacon", "question", "uncommenter", "comment", "renamer"}; 
+
         for (int i = 0; i < toolIcons.Length; i++)
         {
             toolLabels[i] = toolIcons[i].transform.GetChild(0).gameObject;
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON && i < onIcons.Length){
+                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + onIcons[i]); 
+            }
+            else if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && i < bugIcons.Length){
+                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + bugIcons[i]); 
+            }
         }
     }
 

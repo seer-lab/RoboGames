@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.CurrentONLevel = "level5";
         GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene("IntroScene");
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class GameController : MonoBehaviour, ITimeUser
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 
         startDate = DateTime.Now;
-
+        GlobalState.CurrentLevelPoints = 0; 
 
         //GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
