@@ -707,7 +707,13 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.url =filepath;
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
-        string[] leveldata = filepath.Split('\n');
+
+        string [] leveldata;
+        if(GlobalState.DebugMode){
+            leveldata = filepath.Split('\n');
+        }else{
+            leveldata = filepath.Split(',');
+        }
         for (int i = 0; i < leveldata.Length - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
