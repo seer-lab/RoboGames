@@ -55,7 +55,6 @@ public class SidebarController : MonoBehaviour
             transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
             transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = "";  
         }
-        MoveTools();
     }
     IEnumerator FadeToolToggler(bool fadeIn){
         float frames = 20f; 

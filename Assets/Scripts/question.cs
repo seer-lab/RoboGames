@@ -165,6 +165,7 @@ public class question : Tools {
 				}
 				else {
 					input = expected; 
+					GlobalState.CurrentLevelPoints+= stateLib.POINTS_QUESTION; 
 					selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 					anim.SetTrigger("Complete");
 					// Correct Answer

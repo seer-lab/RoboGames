@@ -131,7 +131,7 @@ public class CorrectUncomment : comment
                 }
 
             }
-
+            GlobalState.CurrentLevelPoints+= stateLib.POINTS_UNCOMMENT; 
             lg.DrawInnerXmlLinesToScreen();
             isCommented = true;
         }

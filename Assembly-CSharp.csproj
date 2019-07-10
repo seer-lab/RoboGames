@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ScoreText.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -267,7 +268,6 @@
      <None Include="Assets\StreamingAssets\old_onleveldata\level3-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-2.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-     <None Include="Assets\StreamingAssets\onleveldata\tut1.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1.xml" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-1.xml" />
