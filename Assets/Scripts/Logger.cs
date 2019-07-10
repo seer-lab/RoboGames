@@ -37,7 +37,9 @@ public class Logger
         timeStart = DateTime.Now.Second;
         failed = false;
 		for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
-			linesUsed[i] = ""; 
+			linesUsed[i] = "";
+
+         
     }
     public void onGameEnd(DateTime startTime, bool progress)
     {

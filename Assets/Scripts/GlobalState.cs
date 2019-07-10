@@ -21,10 +21,13 @@ public static class GlobalState
     public static bool IsDark = true; 
     public static int[] toolUse; 
     public static int TextSize = 1; 
+    public static bool soundon;
     public static string FilePath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
     public static Level level; 
     public static int timeBonus = 0; 
     public static long sessionID {get; set;}
+    public static int positionalID{get;set;}
+    public static string currentLevelID{get; set;}
     public static string jsonStates{get; set;}
     public static string[] correctLine {get; set;}
     public static string[] obstacleLine {get; set;}

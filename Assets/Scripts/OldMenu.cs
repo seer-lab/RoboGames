@@ -79,19 +79,32 @@ public class OldMenu : MonoBehaviour
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
+        GrabUserPrefs();
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 
+
+        //Checks for users previous settings such as sessionID, or any menu preferences
         String sessionID = PlayerPrefs.GetString("sessionID");
-        Debug.Log("STRING SESSIONID: " +sessionID);
+        //Checks for sessionID, if there is, grab that and the menu preferences
         if(sessionID == "" || sessionID == null){
             //Create a sessionID and store it
             if(GlobalState.sessionID == 0){
                 GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
                 Debug.Log("Making Session ID: " + GlobalState.sessionID);
                 PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
+                PlayerPrefs.SetString("language", GlobalState.Language);
+                PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
+                int sounds = soundon ? 1 : 0;
+                PlayerPrefs.SetInt("soundon", sounds);
+                int themes = GlobalState.IsDark ? 1 : 0;
+                PlayerPrefs.SetInt("themes", themes);
+                int toolsTips = GlobalState.HideToolTips ? 1: 0;
+                PlayerPrefs.SetInt("tooltips", toolsTips);
+                PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
+
             }else{
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
             }
@@ -120,6 +133,7 @@ public class OldMenu : MonoBehaviour
                 DatabaseHelperV2.i.PostToDataBase();
             }
         }
+
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
@@ -421,7 +435,7 @@ public class OldMenu : MonoBehaviour
 
         }
 
-        //
+        //TODO , When the user update the menu prefs, it should be saved
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
         {
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
@@ -719,16 +733,40 @@ public class OldMenu : MonoBehaviour
             webHolder = 1;
         }
 
-        Debug.Log(filepath);
+        //Debug.Log(filepath);
 
         for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
-            Debug.Log(tmp[0] + " : " + tmpTwo[0]);
+            //Debug.Log(tmp[0] + " : " + tmpTwo[0]);
             levels.Add(tmp[0]);
             passed.Add(tmpTwo[0]);
         }
     #endif
 
+    }
+
+    public void GrabUserPrefs(){
+        //Grab the Menu Preference
+        //First Check if it exist
+        if(PlayerPrefs.HasKey("language")){
+            GlobalState.Language = PlayerPrefs.GetString("language", "c++");
+        }
+        if(PlayerPrefs.HasKey("textsize")){
+            GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
+        }
+        if(PlayerPrefs.HasKey("soundon")){
+            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+        }
+        if(PlayerPrefs.HasKey("themes")){
+            GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
+        }
+        if(PlayerPrefs.HasKey("tooltips")){
+            GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
+        }
+        //TODO Create an api that returns the amount of level, then put that as the default
+        if(PlayerPrefs.HasKey("positionalID")){
+            GlobalState.positionalID = PlayerPrefs.GetInt("positonalID");
+        }
     }
 }
