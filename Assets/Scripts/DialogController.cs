@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Runtime.Versioning;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
@@ -63,13 +64,16 @@ public class DialogController : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (GlobalState.GameMode == "bug"){
                 if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
-                    player.clip = Resources.Load<VideoClip>("Video/RobotONEnding"); 
+                    player.clip = Resources.Load<VideoClip>("Video/RoboBugEnding"); 
                 }
                 else player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro_1"); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
                 FlipDialog(girlDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
+            }
+            else if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
+                player.clip = Resources.Load<VideoClip>("Video/RobotONEnding");
             }
             else{
                 FlipDialog(girlDialog); 
@@ -126,8 +130,10 @@ public class DialogController : MonoBehaviour
 
     void ReadFile(){
         string bug = ""; 
+        string prefix = "Intro"; 
         if( GlobalState.GameMode == "bug") bug = "bug"; 
-        string filepath = "StreamingAssets/onleveldata/Intro" + bug + ".txt";
+        if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END) prefix = "Ending"; 
+        string filepath = "StreamingAssets/onleveldata/" + prefix + bug + ".txt";
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL

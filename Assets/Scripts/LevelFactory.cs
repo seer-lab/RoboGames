@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -50,6 +51,9 @@ public class LevelFactory
             level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
         #endif
         level.Failure_Level = XMLReader.GetFailureLevel(doc);
+        if (level.Failure_Level == null || level.Failure_Level == ""){
+            level.Failure_Level = filename.Split('/').ToList().Last(); 
+        }
 
         level.Description = XMLReader.GetLevelDescription(doc); 
 
