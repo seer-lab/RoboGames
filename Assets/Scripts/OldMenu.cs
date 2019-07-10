@@ -95,15 +95,7 @@ public class OldMenu : MonoBehaviour
                 GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
                 Debug.Log("Making Session ID: " + GlobalState.sessionID);
                 PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
-                PlayerPrefs.SetString("language", GlobalState.Language);
-                PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
-                int sounds = soundon ? 1 : 0;
-                PlayerPrefs.SetInt("soundon", sounds);
-                int themes = GlobalState.IsDark ? 1 : 0;
-                PlayerPrefs.SetInt("themes", themes);
-                int toolsTips = GlobalState.HideToolTips ? 1: 0;
-                PlayerPrefs.SetInt("tooltips", toolsTips);
-                PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
+                SetUserPrefs();
 
             }else{
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
@@ -180,6 +172,9 @@ public class OldMenu : MonoBehaviour
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
         GlobalState.Stats = new CharacterStats(true); 
+        GrabUserPrefs();
+        textOption = GlobalState.TextSize;
+        soundon = GlobalState.soundon;
 
     }
     private void ToggleTheme()
@@ -435,7 +430,7 @@ public class OldMenu : MonoBehaviour
 
         }
 
-        //TODO , When the user update the menu prefs, it should be saved
+        //TODO Add the new global state variable
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
         {
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
@@ -530,6 +525,8 @@ public class OldMenu : MonoBehaviour
                             break;
                         }
                 }
+                GlobalState.soundon = soundon;
+                SetUserPrefs();
                 entered = false;
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -744,6 +741,18 @@ public class OldMenu : MonoBehaviour
         }
     #endif
 
+    }
+
+    public void SetUserPrefs(){
+        PlayerPrefs.SetString("language", GlobalState.Language);
+        PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
+        int sounds = soundon ? 1 : 0;
+        PlayerPrefs.SetInt("soundon", sounds);
+        int themes = GlobalState.IsDark ? 1 : 0;
+        PlayerPrefs.SetInt("themes", themes);
+        int toolsTips = GlobalState.HideToolTips ? 1: 0;
+        PlayerPrefs.SetInt("tooltips", toolsTips);
+        PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
     }
 
     public void GrabUserPrefs(){
