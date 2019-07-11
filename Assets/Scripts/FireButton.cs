@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,8 +30,8 @@ public class FireButton : MonoBehaviour
         }
     }
     void UpdateLook(){
-        GetComponent<Image>().color = GlobalState.StringLib.COLORS[code];
-        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[code]);
+        GetComponent<Image>().color = new Color(GlobalState.StringLib.COLORS[code].r, GlobalState.StringLib.COLORS[code].g, GlobalState.StringLib.COLORS[code].b, 0.55f);
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + ((GlobalState.GameMode == stringLib.GAME_MODE_ON) ? GlobalState.StringLib.onIcons[code] : GlobalState.StringLib.bugIcons[code]));
     }
     void Update(){
         if (code != tool.projectilecode && tool.projectilecode >= 0){
