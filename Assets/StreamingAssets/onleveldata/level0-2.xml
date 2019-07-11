@@ -11,7 +11,7 @@
         <tool name="checker" enabled="true" count="unlimited"/>
         </tools>
     <code language="c++">//You can use the TAB button to switch tools, or tap the tool you want to use
-    //Press CONTROL to use the active tool (shown on the right)
+    //Press Control to use the active tool (shown on the right)
     <question text="What is 1+1? Select your answer: " options="0,1,2" answer="2">Use the CHECKER tool on yellow text and answer the question</question>
     //Be careful! Some commenter lines are false! Be careful not to activate them!
     <comment type="description" correct="false" groupid="0">Learning how to read programs is a waste of time.</comment>

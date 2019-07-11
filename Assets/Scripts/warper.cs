@@ -21,6 +21,7 @@ public class warper : Tools
 	public string WarpToLine { get; set; }
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_WARP) {
+            GlobalState.CurrentLevelPoints+= stateLib.POINTS_WARPER; 
 			string sMessage = stringLib.LOG_WARPED + Filename;
 			Destroy(collidingObj.gameObject);
             if (!toolgiven)

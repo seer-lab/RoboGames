@@ -118,6 +118,7 @@
      <Compile Include="Assets\Scripts\question.cs" />
      <Compile Include="Assets\Scripts\rename.cs" />
      <Compile Include="Assets\Scripts\ResumeState.cs" />
+     <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\SelectTitle.cs" />
      <Compile Include="Assets\Scripts\SidebarController.cs" />
@@ -176,6 +177,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-5.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-2.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\EndingBug.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level3-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\L3Blacks.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\tut1.xml" />
@@ -236,6 +238,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\level1-4.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-0.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial3.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\Ending.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0-2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\tutorial4.txt" />
@@ -265,7 +268,6 @@
      <None Include="Assets\StreamingAssets\old_onleveldata\level3-1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-2.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-     <None Include="Assets\StreamingAssets\onleveldata\tut1.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1.xml" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-1.xml" />

@@ -17,6 +17,7 @@ using UnityEngine.UI;
 
 public class beacon : Tools {
 	public int actcounter = 0;
+	private bool hasSelected; 
 	public bool revOnce = false;
 	public List<int> flowOrder;
 
@@ -29,6 +30,7 @@ public class beacon : Tools {
 	int flashCounter = 0;
 
 	public override void Initialize(){
+		hasSelected = false; 
 		anim = GetComponent<Animator>();
 		activateBeacon = Resources.Load<AudioClip>("Sound/Triggers/activateBeacon");  
 	}
@@ -61,6 +63,10 @@ public class beacon : Tools {
 				ResetAllBeacons();
 			}
 			else {
+				if (!hasSelected){
+					GlobalState.CurrentLevelPoints+= stateLib.POINTS_BEACON; 
+					hasSelected = true; 
+				}
 				// Correct Selection
 				audioSource.PlayOneShot(activateBeacon, 2f); 
 				GlobalState.level.CompletedTasks[0]++;

@@ -28,8 +28,9 @@ public class Cinematic : MonoBehaviour
     int score; 
     bool updatedLevel = false; 
     bool shownCharacter = false; 
-    bool hasTimeBonus = false; 
+    bool hasTimeBonus = true; 
     string webdata;
+    int maxScore; 
 
     //.................................>8.......................................
     // Use this for initialization
@@ -40,17 +41,22 @@ public class Cinematic : MonoBehaviour
         
         score = -1; 
         if (GlobalState.level != null && !GlobalState.level.IsDemo){
-            score = 5; 
-            if (GlobalState.toolUse != null){
-                for (int i = 0; i < GlobalState.level.Tasks.Length; i++){
-                    score -= GlobalState.toolUse[i] - GlobalState.level.Tasks[i]; 
-                } 
-                if (score <= 0) score = 1; 
-                if (score > 5) score = 5; 
-            }
+            score = GlobalState.CurrentLevelPoints; 
             originalEnergy = GlobalState.Stats.Points; 
-            GlobalState.Stats.Points += 4*score + GlobalState.timeBonus; 
+            GlobalState.Stats.Points += score + GlobalState.timeBonus; 
+            maxScore = 0; 
+        int[] pointArr; 
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
+            pointArr = new int[]{stateLib.POINTS_BEACON, stateLib.POINTS_QUESTION, stateLib.POINTS_RENAMER ,stateLib.POINTS_COMMENT, stateLib.POINTS_UNCOMMENT}; 
         }
+        else {
+            pointArr = new int[]{stateLib.POINTS_CATCHER, stateLib.POINTS_CHECKER, stateLib.POINTS_WARPER, stateLib.POINTS_COMMENT, stateLib.POINTS_BREAKPOINT}; 
+        }
+        for (int i= 0; i < pointArr.Length; i++){
+            maxScore += GlobalState.level.Tasks[i] * pointArr[i]; 
+        }
+        }
+        
         UpdateText();
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
         if (!GlobalState.IsDark)
@@ -62,9 +68,6 @@ public class Cinematic : MonoBehaviour
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = false; 
             star.GetComponent<Animator>().enabled = false; 
-        }
-        if (GlobalState.timeBonus > 0){
-            hasTimeBonus = true; 
         }
 
         //Debug.Log(SceneManager.sceneCount);
@@ -80,13 +83,16 @@ public class Cinematic : MonoBehaviour
         }
     }
     IEnumerator AnimateStars(){
-
+        
+        int value = (int)(((float)score/(float)maxScore)*5f); 
+        if (score == 0) value =0; 
+        else if (value <= 0) value = 1; 
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = true; 
             star.GetComponent<Animator>().enabled = true; 
             yield return new WaitForSecondsRealtime(0.2f); 
         }
-        for (int i = 0; i < score; i++){
+        for (int i = 0; i < value; i++){
             stars[i].GetComponent<Animator>().SetBool("isComplete", true); 
             yield return new WaitForSecondsRealtime(0.1f); 
         }
@@ -111,22 +117,36 @@ public class Cinematic : MonoBehaviour
     }
     IEnumerator FadeInResults(){
         
-        CanvasGroup canvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
-        CanvasGroup energyCanvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();  
-        energyCanvas.GetComponent<Text>().text = "Total Energy: " + originalEnergy.ToString(); 
+        CanvasGroup canvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();
+        CanvasGroup energyCanvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
+        energyCanvas.GetComponent<Text>().text = stringLib.POINTS_PREFIX + originalEnergy.ToString();
+        canvas.GetComponent<Text>().text = "Level Points: " + score.ToString(); 
         while(canvas.alpha < 1){
-            canvas.alpha += 0.05f; 
-            energyCanvas.alpha += 0.05f; 
+            canvas.alpha += 0.02f; 
             yield return null; 
         }
         StartCoroutine(ShowBonusEnergy()); 
+        yield return new WaitForSecondsRealtime(0.5f); 
+        while(energyCanvas.alpha < 1){
+            energyCanvas.alpha += 0.02f; 
+            yield return null; 
+        }
+    }
+    IEnumerator FadeOutResults(){
+        CanvasGroup timer = transform.Find("Time").GetComponent<CanvasGroup>(); 
+        CanvasGroup level = transform.Find("Energy").GetComponent<CanvasGroup>(); 
+        while(timer.alpha > 0){
+            timer.alpha -= 0.05f; 
+            level.alpha -= 0.05f; 
+            yield return null; 
+        }
     }
     IEnumerator ShowBonusEnergy(){
-        Debug.Log("Time Bonus: " + GlobalState.timeBonus); 
         if (hasTimeBonus){
             StartCoroutine(ShowTimeBonus()); 
+            hasTimeBonus = false; 
         }
-        Text field = transform.Find("Energy").gameObject.GetComponent<Text>(); 
+        Text field = transform.Find("void main").gameObject.GetComponent<Text>(); 
         float dif = GlobalState.Stats.Points - originalEnergy - GlobalState.timeBonus; 
         int frames = 30; 
         float count = originalEnergy; 
@@ -134,11 +154,10 @@ public class Cinematic : MonoBehaviour
         for (int i = 1; i <= 30; i++)
         {
             count += dif/(float)frames; 
-            field.text = "Total Energy: " +((int)count).ToString(); 
+            field.text = stringLib.POINTS_PREFIX +((int)count).ToString(); 
             field.color = new Color(field.color.r, field.color.g + 0.05f, field.color.b); 
             yield return null; 
         }
-
     }
     IEnumerator PushResults(){
         StartCoroutine(FadeInResults()); 
@@ -173,14 +192,14 @@ public class Cinematic : MonoBehaviour
     IEnumerator ShowTimeBonus(){
         transform.Find("Time").GetComponent<Animator>().SetTrigger("ShowTime"); 
         Text bonus = transform.Find("Time").transform.GetChild(0).GetComponent<Text>(); 
-        string starterText = bonus.text; 
-        Text field = transform.Find("Energy").gameObject.GetComponent<Text>();
-        bonus.text+= GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
+        string starterText = "Time Bonus: "; 
+        Text field = transform.Find("void main").gameObject.GetComponent<Text>();
+        bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
         yield return new WaitForSecondsRealtime(1.3f + 1f/GlobalState.timeBonus); 
         while(GlobalState.timeBonus > 0){
             GlobalState.timeBonus--; 
             bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
-            field.text = "Total Points: " +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
+            field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
             yield return new WaitForSecondsRealtime(0.12f); 
         } 
 
@@ -212,7 +231,7 @@ public class Cinematic : MonoBehaviour
         else if (GlobalState.CurrentONLevel.Contains("tutorial")){
             GlobalState.level.IsDemo = true;
             Debug.Log("Tutorial");
-            SceneManager.LoadScene("Progression"); 
+            SceneManager.LoadScene("newgame"); 
         }
         else{ 
             GlobalState.level.IsDemo = false; 
@@ -342,8 +361,8 @@ public class Cinematic : MonoBehaviour
             {
                 cinerun = true;
             }
-            if (score >= 0)
-                StartCoroutine(AnimateStars()); 
+            if (score > 0)
+                StartCoroutine(FadeInResults()); 
             prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
@@ -351,8 +370,10 @@ public class Cinematic : MonoBehaviour
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
-                if (score >= 0)
-                    StartCoroutine(PushResults()); 
+                if (score > 0){
+                    StartCoroutine(FadeOutResults()); 
+                    StartCoroutine(AnimateStars()); 
+                }
                 //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);
                 cinerun = false;
 

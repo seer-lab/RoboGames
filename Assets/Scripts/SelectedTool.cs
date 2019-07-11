@@ -1,3 +1,4 @@
+
 //**************************************************//
 // Class Name: SelectedTool
 // Class Description: Controller for the sidebar tools
@@ -42,6 +43,8 @@ public class SelectedTool : MonoBehaviour
     SidebarController sidebar; 
 	private string displayString = "";
     EnergyController energy; 
+    Vector3[] positions; 
+    bool firstUpdate = true; 
 
 	//.................................>8.......................................
 	// Use this for initialization
@@ -56,7 +59,20 @@ public class SelectedTool : MonoBehaviour
         InitializeToolLabels();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
         energy = GameObject.Find("Energy").GetComponent<EnergyController>();
+        positions = new Vector3[toolIcons.Length]; 
+        for (int i = 0; i < positions.Length; i++){
+            positions[i] = toolIcons[i].GetComponent<RectTransform>().position;  
+        }
 	}
+    private void MoveTools(){
+        int counter = 0; 
+        for (int i = 0; i < positions.Length; i++){
+            if (toolIcons[i].GetComponent<Image>().enabled){
+                toolIcons[i].GetComponent<RectTransform>().localPosition = positions[counter]; 
+                counter++; 
+            }
+        }
+    }
     public bool CheckAllToolsUsed(){
         for (int i = 0; i < toolCounts.Length; i++){
             if (toolCounts[i] > 0) return false; 
@@ -107,6 +123,7 @@ public class SelectedTool : MonoBehaviour
             }
             
         }
+        MoveTools(); 
     }
 
     private void HandleThrows()
@@ -171,9 +188,18 @@ public class SelectedTool : MonoBehaviour
     }
     private void InitializeToolLabels()
     {
+        string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "comment", "breakpointer"}; 
+        string[] onIcons = new string[]{"beacon", "question", "uncommenter", "comment", "renamer"}; 
+
         for (int i = 0; i < toolIcons.Length; i++)
         {
             toolLabels[i] = toolIcons[i].transform.GetChild(0).gameObject;
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON && i < onIcons.Length){
+                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + onIcons[i]); 
+            }
+            else if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && i < bugIcons.Length){
+                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + bugIcons[i]); 
+            }
         }
     }
 
@@ -182,6 +208,14 @@ public class SelectedTool : MonoBehaviour
     void Update() {
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
+            if (firstUpdate){
+                positions = new Vector3[toolIcons.Length]; 
+        for (int i = 0; i < positions.Length; i++){
+            positions[i] = toolIcons[i].GetComponent<RectTransform>().localPosition;  
+            Debug.Log(positions[i]); 
+        }
+        firstUpdate = false; 
+            }
             SetDisplayText();
             CheckLosing();
             CheckAvailableTools();

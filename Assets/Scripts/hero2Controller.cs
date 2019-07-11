@@ -69,7 +69,10 @@ public class hero2Controller : MonoBehaviour
         lg = codescreen.GetComponent<LevelGenerator>();
         controller = Camera.main.GetComponent<GameController>();
         timeStart = DateTime.Now.Second;
-        maxSpeed = GlobalState.Stats.Speed; 
+        if (GlobalState.level.IsDemo)
+            maxSpeed = 10f; 
+        else
+            maxSpeed = GlobalState.Stats.Speed; 
     }
     bool CheckClick(){
         return !EventSystem.current.IsPointerOverGameObject(0); 
@@ -202,6 +205,10 @@ public class hero2Controller : MonoBehaviour
             }
             this.GetComponent<SpriteRenderer>().flipX = !facingRight;
 
+            if (Time.time > dropDelay && !GlobalState.Stats.FreeFall && !GlobalState.level.IsDemo && dropping){
+                fMoveVelocityVertical = 0; 
+                reachedPosition = true; 
+            }   
             //code for falling down through platforms
             if (fMoveVelocityVertical < 0 && !onWall && !dropping)
             {
@@ -304,7 +311,7 @@ public class hero2Controller : MonoBehaviour
                 yield return null;
             }
             isMovingX = false;
-            while (Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 0.6f)
+            while (Math.Abs(GetComponent<Transform>().localPosition.y - position.y) > 0.6f && !reachedPosition)
             {
                 if (GetComponent<Transform>().localPosition.y - position.y < 0)
                     verticalMovement = 0.5f;
