@@ -40,6 +40,7 @@ public class Cinematic : MonoBehaviour
         
         
         score = -1; 
+        if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0; 
         if (GlobalState.level != null && !GlobalState.level.IsDemo){
             score = GlobalState.CurrentLevelPoints; 
             originalEnergy = GlobalState.Stats.Points; 

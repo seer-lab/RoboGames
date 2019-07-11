@@ -101,7 +101,6 @@ public class EnergyController : MonoBehaviour
             displayEnergy = currentEnergy -100; 
             initialEnergy = 100; 
             initialX = topBar;
-            Debug.Log(initialX); 
         }
         else {
             energyBar = transform.GetChild(1).gameObject; 
@@ -123,7 +122,8 @@ public class EnergyController : MonoBehaviour
         else
         {
             indicator.text = stringLib.ENERGY_PREFIX + "0%";
-            energyBar.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
+            transform.GetChild(1).gameObject.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
+            transform.GetChild(2).gameObject.GetComponent<RectTransform>().localScale = new Vector3(0, 1, 1);
         }
     }
     void LateUpdate(){

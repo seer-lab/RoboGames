@@ -5,13 +5,11 @@ using  UnityEngine.UI;
 
 public class ToggleTool : MonoBehaviour
 {
-    string[] icons; 
     int currentIndex; 
     SelectedTool tool; 
     // Start is called before the first frame update
     void Start()
     {
-        icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         currentIndex = 0; 
         tool = transform.parent.Find("Sidebar Tool").GetComponent<SelectedTool>(); 
     }
@@ -21,8 +19,8 @@ public class ToggleTool : MonoBehaviour
     {
         if (currentIndex != tool.projectilecode){
             currentIndex = tool.projectilecode; 
-            if (currentIndex>= 0 && currentIndex < icons.Length)
-                GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[currentIndex]); 
+            if (currentIndex>= 0 && currentIndex < GlobalState.StringLib.onIcons.Length)
+                GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + ((GlobalState.GameMode == stringLib.GAME_MODE_ON) ? GlobalState.StringLib.onIcons[currentIndex] : GlobalState.StringLib.bugIcons[currentIndex]));
         }
     }
 }

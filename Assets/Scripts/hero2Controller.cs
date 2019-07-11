@@ -408,6 +408,19 @@ public class hero2Controller : MonoBehaviour
             {
                 StopAllCoroutines();
             }
+            else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
+                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
+                    && !fire.IsFiring)
+                {
+                    GameObject obj = EventSystem.current.currentSelectedGameObject;
+                    if (obj == null){
+                        //Debug.Log(obj.ToString()); 
+                        StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                    }
+                }
+            }
             if (Time.time > animDelay)
             {
                 anim.SetBool("throw", false);
