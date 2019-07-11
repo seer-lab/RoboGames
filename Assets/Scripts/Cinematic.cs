@@ -28,7 +28,7 @@ public class Cinematic : MonoBehaviour
     int score; 
     bool updatedLevel = false; 
     bool shownCharacter = false; 
-    bool hasTimeBonus = false; 
+    bool hasTimeBonus = true; 
     string webdata;
     int maxScore; 
 
@@ -69,9 +69,6 @@ public class Cinematic : MonoBehaviour
             star.GetComponent<Image>().enabled = false; 
             star.GetComponent<Animator>().enabled = false; 
         }
-        if (GlobalState.timeBonus > 0){
-            hasTimeBonus = true; 
-        }
 
         //Debug.Log(SceneManager.sceneCount);
     }
@@ -90,7 +87,6 @@ public class Cinematic : MonoBehaviour
         int value = (int)(((float)score/(float)maxScore)*5f); 
         if (score == 0) value =0; 
         else if (value <= 0) value = 1; 
-        Debug.Log("Value: " + value + "\nmaxScore: " + maxScore); 
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = true; 
             star.GetComponent<Animator>().enabled = true; 
@@ -148,6 +144,7 @@ public class Cinematic : MonoBehaviour
     IEnumerator ShowBonusEnergy(){
         if (hasTimeBonus){
             StartCoroutine(ShowTimeBonus()); 
+            hasTimeBonus = false; 
         }
         Text field = transform.Find("void main").gameObject.GetComponent<Text>(); 
         float dif = GlobalState.Stats.Points - originalEnergy - GlobalState.timeBonus; 
@@ -364,7 +361,8 @@ public class Cinematic : MonoBehaviour
             {
                 cinerun = true;
             }
-            StartCoroutine(FadeInResults()); 
+            if (score > 0)
+                StartCoroutine(FadeInResults()); 
             prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)
