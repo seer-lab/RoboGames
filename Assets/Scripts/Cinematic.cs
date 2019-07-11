@@ -88,7 +88,8 @@ public class Cinematic : MonoBehaviour
     IEnumerator AnimateStars(){
         
         int value = (int)(((float)score/(float)maxScore)*5f); 
-        if (value <= 0) value = 1; 
+        if (score == 0) value =0; 
+        else if (value <= 0) value = 1; 
         Debug.Log("Value: " + value + "\nmaxScore: " + maxScore); 
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = true; 
