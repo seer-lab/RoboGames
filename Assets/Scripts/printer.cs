@@ -20,6 +20,7 @@ public class printer : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Destroy(collidingObj.gameObject);
+			GlobalState.CurrentLevelPoints+= stateLib.POINTS_CHECKER; 
 			if (displaytext.Contains("$err$")){
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 
             }

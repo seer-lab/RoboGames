@@ -31,6 +31,7 @@ public class Breakpoint : Tools {
 			if (!activated) {
 				GetComponent<AudioSource>().clip = correct;
 				GetComponent<AudioSource>().Play();
+				GlobalState.CurrentLevelPoints+= stateLib.POINTS_BREAKPOINT;
 			}
 			activated = true;
 			anim.SetTrigger("Complete");

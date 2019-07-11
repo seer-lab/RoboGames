@@ -55,7 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ScoreText.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -119,6 +118,7 @@
      <Compile Include="Assets\Scripts\question.cs" />
      <Compile Include="Assets\Scripts\rename.cs" />
      <Compile Include="Assets\Scripts\ResumeState.cs" />
+     <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\SelectTitle.cs" />
      <Compile Include="Assets\Scripts\SidebarController.cs" />

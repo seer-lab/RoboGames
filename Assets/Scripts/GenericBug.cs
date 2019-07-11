@@ -61,8 +61,7 @@ public class GenericBug : Tools {
 			 }
 			//this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
-			//anim.SetBool("Dying", true);
-			//GetComponent<AudioSource>().Play();
+			GlobalState.CurrentLevelPoints += stateLib.POINTS_CATCHER; 
 			IsDead = true;
 			lg.numberOfBugsRemaining--;
             GlobalState.level.CompletedTasks[0]++;
