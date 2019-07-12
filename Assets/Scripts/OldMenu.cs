@@ -109,7 +109,7 @@ public class OldMenu : MonoBehaviour
 
         }else{
             if(GlobalState.sessionID == 0){
-                Debug.Log("STRING SESSIONID: " +sessionID);
+                //Debug.Log("STRING SESSIONID: " +sessionID);
                 GlobalState.sessionID =Convert.ToInt64(sessionID);
             }
             Debug.Log("Found Session ID: " + GlobalState.sessionID);
@@ -273,13 +273,11 @@ public class OldMenu : MonoBehaviour
             // When we press Return (Enter Key), take us to the sub-menus
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
-                Debug.Log("Option: " + option);
                 entered = false;
                 switch (option)
                 {
                     case stateLib.GAMEMENU_NEW_GAME:
                         // Select between RobotON or RoboBUG.
-                        Debug.Log("New Game");
                         GlobalState.GameState = -3;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
@@ -430,7 +428,6 @@ public class OldMenu : MonoBehaviour
 
         }
 
-        //TODO Add the new global state variable
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
         {
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
@@ -695,7 +692,6 @@ public class OldMenu : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, "levels.txt");
-            Debug.Log("OldMenu: Update() WINDOWS");
 
             sr = File.OpenText(filepath);
             string line;
@@ -730,12 +726,10 @@ public class OldMenu : MonoBehaviour
             webHolder = 1;
         }
 
-        //Debug.Log(filepath);
 
         for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
-            //Debug.Log(tmp[0] + " : " + tmpTwo[0]);
             levels.Add(tmp[0]);
             passed.Add(tmpTwo[0]);
         }
@@ -775,7 +769,11 @@ public class OldMenu : MonoBehaviour
         }
         //TODO Create an api that returns the amount of level, then put that as the default
         if(PlayerPrefs.HasKey("positionalID")){
-            GlobalState.positionalID = PlayerPrefs.GetInt("positonalID");
+            WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
+            WebHelper.i.GetWebDataFromWeb();
+            int posID = Convert.ToInt32(WebHelper.i.webData);
+            //Debug.Log("posID: " + posID);
+            GlobalState.positionalID = PlayerPrefs.GetInt("positonalID", posID);
         }
     }
 }
