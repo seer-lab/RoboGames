@@ -1,8 +1,8 @@
 <level>
 <next-level>level2-3.xml</next-level>
 <description>Ifs, Ands, Or Buts</description>
-<introtext>If statements conditions can be tricky.
-You need to use logic to figure them out!</introtext>
+<introtext>The CPU's logical components can be Tricky.
+You need to use your own logic to figure them out!</introtext>
 <endtext>Fantastic!
 If only everyone was as awesome as you!</endtext>
 <timelimit>unlimited</timelimit>
@@ -12,24 +12,24 @@ If only everyone was as awesome as you!</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-myvar = 0;
-<comment type="description" correct="true"  groupid="4">you can combine boolean statements to make more complicated conditions</comment>
-<comment type="description" correct="true"  groupid="2">remember, order of operations applies!</comment>
-if (5 &gt; 6 and (1 &gt; 2 or 2 == 3)):
-<beacon flow-order="" />	myvar = 5;
-
-elif (2 == 3 or (1 &gt; 0 and 3 &lt; 4)):
-<beacon flow-order="0" />	myvar = 10;
+	myvar = 0;
+	<comment type="description" correct="true"  groupid="4">you can combine boolean statements to make more complicated conditions</comment>
+	<comment type="description" correct="true"  groupid="2">remember, order of operations applies!</comment>
+	if (5 &gt; 6 and (1 &gt; 2 or 2 == 3)):
+<beacon flow-order="" />		myvar = 5
 	
-<comment type="description" correct="true"  groupid="3">Can you choose the false condition and avoid the error below?</comment>
-<comment type="code" correct="false"  groupid="1"># if (!(myvar == 10 and myvar == 5)):</comment>
-<comment type="code" correct="false"  groupid="1"># if (myvar &lt; 5 || (myvar &gt; 9 and myvar &lt; 9)):</comment>
-<comment type="code" correct="true"  groupid="1"># if (not(5 &lt;= myvar and myvar &lt; 11)):</comment>
-	//An error has occurred!
-	throw "The program fails!";
+	elif (2 == 3 or (1 &gt; 0 and 3 &lt; 4)):
+<beacon flow-order="0" />		myvar = 10
 	
-else:
-	return 0
+	<comment type="description" correct="true"  groupid="3">Can you choose the false condition and avoid the error below?</comment>
+	<comment type="code" correct="false"  groupid="1"># if (!(myvar == 10 and myvar == 5)):</comment>
+	<comment type="code" correct="false"  groupid="1"># if (myvar &lt; 5 or (myvar &gt; 9 and myvar &lt; 9)):</comment>
+	<comment type="code" correct="true"  groupid="1"># if (!(5 &lt;= myvar and myvar &lt; 11)):</comment>
+		#An error has occurred!
+		raise Exception("The program fails!")
+	
+	else:
+		return 0
 	
 
 </code>

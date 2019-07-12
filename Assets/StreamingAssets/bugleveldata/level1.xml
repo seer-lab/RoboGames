@@ -27,7 +27,7 @@ float avgTemp(int temps[], int numOfTemps){
         sum+=temps[i]; 
     }  
 	avgT= float(sum/numOfTemps);  
-    avgT++$bug   avgf += 1$; 
+    avgT++$bug   $; 
     return avgT;    
 }
 </code>

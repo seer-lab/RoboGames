@@ -76,7 +76,9 @@ public class Logger
         return value; 
     }
     public int SecondsToCompleteLevel(){
-        return totalTime; 
+        if (totalTime > 0)
+            return totalTime; 
+        return 1; 
     }
     public void onToolUse(int index, int lineNumber)
     {

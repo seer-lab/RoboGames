@@ -178,3 +178,18 @@ Printer Tool Use:
 	Lines Used: 6 13 
 
 --------------------------------------------------------
+Failed Level
+-37 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 11 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 2
+	Times Tool Used: 3
+	Lines Used: 6 6 13 
+
+--------------------------------------------------------

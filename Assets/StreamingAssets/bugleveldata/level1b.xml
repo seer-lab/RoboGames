@@ -24,7 +24,7 @@ float avgTemp(int temps[], int numOfTemps){
                  
     for (i=0;i&lt;numOfTemps;i++) 
     { 
-        total += $bug      sum += avgT$avgT;
+        total += $bug      sum += temps[i]$avgT;
     }    
     //to do : rest of algorithm	
 }

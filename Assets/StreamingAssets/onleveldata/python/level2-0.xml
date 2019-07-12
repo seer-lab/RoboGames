@@ -9,14 +9,11 @@ You've got your first new tool to use!</endtext>
 <tools>
 <tool name="controlflow" enabled="true" count="unlimited"/>
 </tools>
-<code language="python">#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
-using namespace std;
-int main {
-# Beacons must be activated in the order the code reaches them.
-# Throw the grey Beacon Activator tool to the left.
-<beacon flow-order="0" /> # activate this first!
-<beacon flow-order="1" /> # activate this second!
+<code language="python">
+	#Beacons must be activated in the order the code reaches them.
+	#Throw the grey Beacon Activator tool to the left.
+	<beacon flow-order="0" /> #activate this first!
+	<beacon flow-order="1" /> #activate this second!
 
 </code>
 </level>

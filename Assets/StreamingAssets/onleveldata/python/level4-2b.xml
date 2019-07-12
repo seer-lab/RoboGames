@@ -1,8 +1,8 @@
 <level>
 <next-level>level4-3.xml</next-level>
 <description>Syntax Rox</description>
-<introtext>Style conventions define clean written code.
-Follow the instructions to fix the style.</introtext>
+<introtext>It look's like we're in the logic of
+the server, lets make sure this is on!</introtext>
 <endtext>Well done!
 Are you ready for the final test?</endtext>
 <timelimit>unlimited</timelimit>
@@ -11,25 +11,27 @@ Are you ready for the final test?</endtext>
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-# test your skills on the following code:
-<variable-rename text="Choose a name for this variable: " options="string,user_input,program,document" correct="user_input">z</variable-rename>
-<variable-rename text="Choose a name for this variable: " options="items,string,integers,title" correct="items">array</variable-rename> = [None]*3
-i = 0
+	#test your skills on the following code:
+	<variable-rename text="Choose a name for this variable: " options="string,user_input,program,document" correct="user_input">z</variable-rename> = ""
+	<variable-rename text="Choose a name for this variable: " options="items,string,integers,title" correct="items">array</variable-rename> = []
+	i = 0
 <comment type="code" correct="false"  groupid="4" style="multi">''' while(i &lt; 3
-	):''' </comment>
+	)''' </comment>
 <comment type="code" correct="false"  groupid="4" style="single">		#while(i &lt; 3):</comment>
 <comment type="code" correct="true"  groupid="4" style="single">	# while(i &lt; 3):</comment>
-<comment type="code" correct="false"  groupid="5" style="single">#     print("Enter item number", i,"then press enter on the keyboard.")</comment>
-<comment type="code" correct="true"  groupid="5" style="multi">'''		print("Enter item number ",i,end='')
-	print( " then press enter on the keyboard.")'''/comment>
-	<variable-color groupid="2">z</variable-color> = input()
-	<variable-color groupid="3">array</variable-color>[i] = <variable-color groupid="2">z</variable-color>
+<comment type="code" correct="false"  groupid="5" style="single">#		print("Enter item number " + i + " then press enter on the keyboard.")</comment>
+<comment type="code" correct="true"  groupid="5" style="multi">'''		print("Enter item number " + i)
+		print(" then press enter on the keyboard.")'''</comment>
+		<variable-color groupid="2">z</variable-color> = input()
+		<variable-color groupid="3">array</variable-color>.append(<variable-color groupid="2">z</variable-color>)
+		i += 1
 	
-<comment type="code" correct="false"  groupid="6" style="single"># 	for i in range(3):</comment>
-<comment type="code" correct="true"  groupid="6" style="single"># for i in range(3):</comment>
-<comment type="code" correct="false"  groupid="7" style="single">#		print("Item number", i ,"was saved as " , array[i], "in the database.")</comment>
-<comment type="code" correct="true"  groupid="7" style="multi">'''		print("Item number", i, "was saved as ", end='')
-		print( array[i], "in the database.")'''</comment>	
+	<comment type="code" correct="false"  groupid="6" style="single"># 		for (i in range(0,3)):</comment>
+<comment type="code" correct="true"  groupid="6" style="single">#	for (i in range(0,3)):</comment>
+<comment type="code" correct="false"  groupid="7" style="single">#		print("Item number " + i + " was saved as " + array[i] + " in the database.")</comment>
+<comment type="code" correct="true"  groupid="7" style="multi">'''		print("Item number " + i + " was saved as ")
+		print(array[i] + " in the database.")'''</comment>	
 	
+
 </code>
 </level>

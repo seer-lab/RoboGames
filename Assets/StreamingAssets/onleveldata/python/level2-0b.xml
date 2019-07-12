@@ -9,11 +9,11 @@ You've got 2 new tools to use!</endtext>
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-# The blue Uncommenter tool is used to change code comments into real code.
-<comment type="code" correct="true"  groupid="1"># print("Hello world!") </comment>
-# Beware: Not all code comments are correct. Be careful what you uncomment!
-<comment type="code" correct="false"  groupid="2">#return0 </comment>
-<comment type="code" correct="true"  groupid="2">#return 0</comment>
-
+	#The blue Uncommenter tool is used to change code comments into real code.
+	<comment type="code" correct="true"  groupid="1">#print("Hello world!") </comment>
+	#Beware: Not all code comments are correct. Be careful what you uncomment!
+	<comment type="code" correct="false"  groupid="2">#return0 </comment>
+	<comment type="code" correct="true"  groupid="2">#return 0;</comment>
+}
 </code>
 </level>

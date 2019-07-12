@@ -1,4 +1,5 @@
 
+using System.Linq;
 //**************************************************//
 // Class Name: SelectedTool
 // Class Description: Controller for the sidebar tools
@@ -59,18 +60,16 @@ public class SelectedTool : MonoBehaviour
         InitializeToolLabels();
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
         energy = GameObject.Find("Energy").GetComponent<EnergyController>();
-        positions = new Vector3[toolIcons.Length]; 
-        for (int i = 0; i < positions.Length; i++){
-            positions[i] = toolIcons[i].GetComponent<RectTransform>().position;  
-        }
 	}
     private void MoveTools(){
         int counter = 0; 
+        //Debug.Log("--------------------------------------------------------");
         for (int i = 0; i < positions.Length; i++){
             if (toolIcons[i].GetComponent<Image>().enabled){
+                //Debug.Log(toolIcons[i].name + " " + positions[counter].ToString()) ;
                 toolIcons[i].GetComponent<RectTransform>().localPosition = positions[counter]; 
                 counter++; 
-            }
+            }//else Debug.Log( positions[counter].ToString()); 
         }
     }
     public bool CheckAllToolsUsed(){
@@ -192,10 +191,11 @@ public class SelectedTool : MonoBehaviour
         {
             toolLabels[i] = toolIcons[i].transform.GetChild(0).gameObject;
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON && i < GlobalState.StringLib.onIcons.Length){
-                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + GlobalState.StringLib.onIcons[i]); 
+                toolIcons[i].GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("Sprites/icons/" + GlobalState.StringLib.onIcons[i]); 
+
             }
             else if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && i < GlobalState.StringLib.bugIcons.Length){
-                toolIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + GlobalState.StringLib.bugIcons[i]); 
+                toolIcons[i].GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("Sprites/icons/" + GlobalState.StringLib.bugIcons[i]); 
             }
         }
     }
@@ -210,6 +210,7 @@ public class SelectedTool : MonoBehaviour
         for (int i = 0; i < positions.Length; i++){
             positions[i] = toolIcons[i].GetComponent<RectTransform>().localPosition;  
         }
+         positions = positions.ToList().OrderBy(e => e.y).Reverse().ToArray(); 
         firstUpdate = false; 
             }
             SetDisplayText();
@@ -229,8 +230,6 @@ public class SelectedTool : MonoBehaviour
 	public void NextTool(int index = -1) {
         int notoolcount = 0;
         // Turn this tool's color to the toolOff color.
-        //print("projectilecode is " + projectilecode.ToString());
-        //toolIcons[projectilecode].GetComponent<Image>().color = toolOffColor;
         toolIcons[projectilecode].GetComponent<Animator>().SetBool("enabled", false);
 
         //Check if its the hinter tool and if it is ignore the next statement

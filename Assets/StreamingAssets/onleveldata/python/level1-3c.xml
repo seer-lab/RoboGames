@@ -2,30 +2,30 @@
 <next-level>level1-4.xml</next-level>
 <failure_level>level1-1.xml</failure_level>
 <description>String Theory</description>
-<introtext>Here's a chance to work with
-STRINGS and OUTPUT</introtext>
-<endtext>Your skills are OUT of this world!</endtext>
+<introtext>We need our menu to switch between both
+VGA and HDMI, can you turn them both ON?</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="commenter" enabled="true" count="8"/>
 <tool name="checker" enabled="true" count="5"/>
 </tools>
 <code language="python">
-<comment type="description" correct="true"  groupid="3">You may want to SWAP 2 variables so that they have the other's value.</comment>
-# For example, when variable1 = "hello" and variable2 = "goodbye",
-# a successful swap will have variable1 = "goodbye" and variable2 = "hello"
-<comment type="description" correct="true"  groupid="3">You need a third temporary (temp) variable in order to make a SWAP.</comment>
-# Try keeping track of which variable has which value:
-lunch = "sandwich"
-dinner = "tacos"
-temp = lunch
-lunch = dinner
-dinner = temp
-print(<question text="What has lunch become?
-	Type your answer: " answer="tacos">lunch)</question>
-print(<question text="What has dinner become?
-	Type your answer: " answer="sandwich">dinner)</question>
-
+	<comment type="description" correct="true"  groupid="3">You may want to SWAP 2 variables so that they have the other's value.</comment>
+	#For example, when variable1 = "hello" and variable2 = "goodbye",
+	#a successful swap will have variable1 = "goodbye" and variable2 = "hello"
+	<comment type="description" correct="true"  groupid="3">You need a third temporary (temp) variable in order to make a SWAP.</comment>
+	#Try keeping track of which variable has which value:
+	first_output = "VGA";
+	second_output = "HDMI";
+	temp = first_output;
+	first_output = second_output;
+	second_output = temp;
+	print(<question text="What has first_output become?
+	Select your answer: " answer="HDMI">first_output</question>)
+	print(<question text="What has second_output become?
+	Select your answer: " answer="VGA">second_output</question>)
+}
 </code>
 <hint type="description">This is a hint</hint>
 </level>

@@ -2,7 +2,7 @@
 <next-level>level1-5b.xml</next-level>
 <description>Put the Output</description>
 <introtext>You're almost to the end!
-Can you output the right answers?</introtext>
+We need to make sure the buttons work!</introtext>
 <endtext>Congratulations! 
 You've mastered data types and variables!</endtext>
 <timelimit>unlimited</timelimit>
@@ -12,16 +12,16 @@ You've mastered data types and variables!</endtext>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-<comment type="description" correct="true"  groupid="4">You can use input() to read in data from the keyboard.</comment>
-	input = input()
-	//Let's suppose the user types in hello
+	<comment type="description" correct="true"  groupid="4">You can use input() to read in data from the keyboard.</comment>
+	txt = input("Enter text here")
+	#Let's suppose someone types in "button_1"
 	print(<question text="What would this code output?
-	Type your answer: " answer="hello">input)</question>
-	<comment type="description" correct="true"  groupid="0">Strings can be added together; this is called CONCATENATION</comment>
-	part1 = "hello "
-	spart2 = "world"
+	Select your answer: " options="Enter Text Here,input,button_1" answer="button_1">txt;</question>
+	<comment type="description" correct="true" groupid="0">Strings can be added together; this is called CONCATENATION</comment>
+	part1 = "hello ";
+	part2 = "world";
 	print(<question text="What will be the output?
-	Type your answer: " answer="hello world">part1 + part2)</question>
-
+	Select your answer: " options="hello world,hellowrold,hello + world" answer="hello world">part1 + part2</question>)
+}
 </code>
 </level>

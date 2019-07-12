@@ -103,3 +103,24 @@ Commenter Tool Use:
 	Lines Used: 90 
 
 --------------------------------------------------------
+Passed Level
+-7 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 92 
+
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 5 
+
+Commenter Tool Use: 
+	Required Tasks: 6
+	Completed Tasks: 0
+	Times Tool Used: 3
+	Lines Used: 8 67 90 
+
+--------------------------------------------------------
