@@ -4,6 +4,7 @@ It calculates the closest of two signals using coordinates.
 Use Code Tracing to see how the Closer calculation works.
 Use the BUGCATCHER to identify the bug.</description>
 <next-level>level4b.xml</next-level>
+<failure_level>Null</failure_level>
 <introtext>The Closeness Calculator has a bug inside.
 Use CODE TRACING to find the bug, but pay attention!
 You will see this code again in the future!</introtext>

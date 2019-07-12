@@ -4,6 +4,7 @@ You can use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel from 
 Use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool on any line of &lt;color=#ff00ffff&gt;purple&lt;/color&gt; text.
 You can use TAB to switch between tools.</description>
 <next-level>level3a.xml</next-level>
+<failure_level>Null</failure_level>
 <introtext>There are two new tools to learn:
 &lt;color=#ff00ffff&gt;WARPERS&lt;/color&gt; help move through code
 &lt;color=#00ff00ff&gt;COMMENTERS&lt;/color&gt; identify if code is buggy.

@@ -209,7 +209,6 @@ public class SelectedTool : MonoBehaviour
                 positions = new Vector3[toolIcons.Length]; 
         for (int i = 0; i < positions.Length; i++){
             positions[i] = toolIcons[i].GetComponent<RectTransform>().localPosition;  
-            Debug.Log(positions[i]); 
         }
         firstUpdate = false; 
             }

@@ -6,6 +6,7 @@ Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the v
 Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
 Use the BUGCATCHER to identify the incorrect calculation.</description>
 <next-level></next-level>
+<failure_level>level4a.xml</failure_level>
 <introtext>This is the last level!
 Can you figure out where the last bug is?</introtext>
 <endtext>You did it! You've won!</endtext>

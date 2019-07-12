@@ -1,6 +1,7 @@
 <level>
 <next-level>level4-2b.xml</next-level>
 <description>Syntax Rox</description>
+<failure_level>level4-1.xml</failure_level>
 <introtext>I can't even tell where we are in this mess, 
 do you think you can clean this up?</introtext>
 <endtext>Well done!
