@@ -7,3 +7,30 @@ Renamer Tool Use:
 	Lines Used: 4 13 22 22 22 22 24 30 42 42 48 52 52 62 
 
 --------------------------------------------------------
+Passed Level
+-13 Seconds
+Renamer Tool Use: 
+	Required Tasks: 9
+	Completed Tasks: 9
+	Times Tool Used: 11
+	Lines Used: 4 13 22 24 30 30 42 42 48 52 62 
+
+--------------------------------------------------------
+Passed Level
+21 Seconds
+Renamer Tool Use: 
+	Required Tasks: 9
+	Completed Tasks: 9
+	Times Tool Used: 12
+	Lines Used: 4 13 22 22 24 30 42 48 52 52 63 62 
+
+--------------------------------------------------------
+Passed Level
+8 Seconds
+Renamer Tool Use: 
+	Required Tasks: 9
+	Completed Tasks: 9
+	Times Tool Used: 10
+	Lines Used: 4 13 22 22 24 30 42 48 52 62 
+
+--------------------------------------------------------

@@ -22,7 +22,7 @@ int[] OrderAll(int files[], int numOfFiles){
 	</print>
     <print text="5" col="4">cout &lt;&lt; numOfFiles;
 	</print>
-    int i=1,$bug   int i = 1, j = 0;$j=1;
+    int i=1,$bug   int i = 0, j = 0;$j=1;
     while (i&lt;numOfFiles){
         <print text="[32,22,43,99,5]
 [32,99,22,43,5]

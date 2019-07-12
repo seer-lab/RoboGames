@@ -40,3 +40,45 @@ Breakpointer Tool Use:
 	Lines Used: 
 
 --------------------------------------------------------
+Failed Level
+-12 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 10 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 25 
+
+Breakpointer Tool Use: 
+	Required Tasks: 8
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Passed Level
+-46 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 9 
+
+Warper Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 25 
+
+Breakpointer Tool Use: 
+	Required Tasks: 8
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------

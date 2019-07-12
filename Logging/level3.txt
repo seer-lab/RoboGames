@@ -1,0 +1,48 @@
+Failed Level
+18 Seconds
+Printer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 3
+	Lines Used: 13 14 18 
+
+Warper Tool Use: 
+	Required Tasks: 11
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+Commenter Tool Use: 
+	Required Tasks: 5
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Passed Level
+0 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 16 
+
+Printer Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 14 
+
+Warper Tool Use: 
+	Required Tasks: 24
+	Completed Tasks: 0
+	Times Tool Used: 5
+	Lines Used: 45 2 2 2 43 
+
+Commenter Tool Use: 
+	Required Tasks: 10
+	Completed Tasks: 0
+	Times Tool Used: 4
+	Lines Used: 18 27 34 40 
+
+--------------------------------------------------------
