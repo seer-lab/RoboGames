@@ -19,11 +19,13 @@ public class Output : MonoBehaviour
 	public GameObject text, panel , enter;
 
 	private Animator anim;
+    private string enterText; 
     public int narrator = 0; 
     int original = 0; 
     public static bool IsAnswering { get; set; }
     bool entered = false; 
     Sprite[] panels = new Sprite[8];
+    DemoBotControl demoBot; 
 
     private void LoadPanels()
     {
@@ -65,7 +67,9 @@ public class Output : MonoBehaviour
         LoadPanels();
         if (GlobalState.level.IsDemo) {
             enter.GetComponent<Image>().enabled = false; 
+            enterText = enter.transform.GetChild(0).GetComponent<Text>().text;
             enter.transform.GetChild(0).GetComponent<Text>().text =""; 
+            demoBot = GameObject.Find("Hero").GetComponent<DemoBotControl>(); 
         }
         IsAnswering = false; 
         if (GlobalState.level.IsDemo){
@@ -77,6 +81,7 @@ public class Output : MonoBehaviour
             narrator = Random.Range(1,3); 
         }
         original = narrator; 
+            
 	}
     public void PlayCharacterOutput(string newText){
         int value = 0; 
@@ -106,6 +111,17 @@ public class Output : MonoBehaviour
             narrator = original; 
             entered = false; 
 		}
+        if (GlobalState.level.IsDemo){
+            if (demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){
+                enter.GetComponent<Image>().enabled = true; 
+                enter.transform.GetChild(0).GetComponent<Text>().text =enterText; 
+            }
+            else {
+                enter.GetComponent<Image>().enabled = false; 
+                enter.transform.GetChild(0).GetComponent<Text>().text =""; 
+            }
+        }
+        
 	}
 
 	//.................................>8.......................................

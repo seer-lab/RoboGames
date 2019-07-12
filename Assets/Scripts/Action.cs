@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using UnityEngine; 
 
-public enum ActionType{Dialog, Throw, SwitchTool}
+public enum ActionType{Dialog, Throw, SwitchTool, Output}
 public class Action{
     Vector3 position;  
     public string text; 

@@ -11,11 +11,13 @@ public class DemoBotControl : MonoBehaviour
     private hero2Controller controller;
     private Output output;
     int indexOfAction = 0;
-    int currentIndex = -1;
+    public int currentIndex = -1;
     bool entered = false;
     float timeDelay;
     float enterDelay;
     bool autoEnabled = true; 
+    //Next Action is true when the game should auto complete, false when after the 
+    //action the game should wait for the player to add input.
     bool nextAction = false; 
     GameObject hand; 
     HandControl handControl; 
@@ -50,7 +52,9 @@ public class DemoBotControl : MonoBehaviour
         else if (action.Category == ActionType.Throw) timeDelay = 2f;
         Debug.Log(timeDelay); 
     }
-
+    public void InsertOptionAction(int projectilecode){
+        callstack.Insert(currentIndex+1, new Action(new CodeProperties(), ActionType.Output, controller.projectilecode,0));
+    }
     // Update is called once per frame
     void Update()
     {
@@ -77,12 +81,19 @@ public class DemoBotControl : MonoBehaviour
                     else{
                         if  (controller.projectilecode == 2 || controller.projectilecode == 4)
                             nextAction = true; 
+                         
                     }
+                    nextAction = true; 
+ 
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
                     //controller.selectedTool.GetComponent<SelectedTool>().NextTool();
                     nextAction = true; 
+                }
+                else if (callstack[currentIndex].Category == ActionType.Output){
+                    handControl.HandleAction(callstack[currentIndex]); 
+                    enterDelay+= 3f; 
                 }
                 
             }
@@ -95,14 +106,12 @@ public class DemoBotControl : MonoBehaviour
                 entered = false;
                 indexOfAction++;
                 enterDelay = 1f;
-                //output.text.GetComponent<Text>().text = "";
                 if (indexOfAction < callstack.Count){
                     
                     if (callstack[indexOfAction].Category == ActionType.SwitchTool){
                          controller.selectedTool.GetComponent<SelectedTool>().NextTool();
                     }
                     handControl.HandleAction(callstack[indexOfAction], controller.selectedTool.GetComponent<SelectedTool>().projectilecode); 
-                     
                 }
             }
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){

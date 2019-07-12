@@ -104,13 +104,15 @@ public class rename : Tools {
 			else {
                 output.Text.text = displaytext + "  " + options[selection];
 			}
-			if (!arrowShown && !GlobalState.level.IsDemo){
+			if (!arrowShown){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
 				arrowShown = true; 
-				rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
-				leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
-				output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+				if (!GlobalState.level.IsDemo){
+					rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
+					leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
+					output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+				}
 			}
 			// Handle input --[
 			if (Input.GetKeyDown(KeyCode.Escape))
@@ -130,13 +132,15 @@ public class rename : Tools {
 				answering = false;
 				GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 
                 Output.IsAnswering = false;
-				if (arrowShown && !GlobalState.level.IsDemo){
+				if (arrowShown){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
 					arrowShown = false; 
-					rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
-					leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
-					output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+					if (!GlobalState.level.IsDemo){
+						rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
+						leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
+						output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+					}
 				}
 				if (GlobalState.level.IsDemo) selection = options.IndexOf(correct); 
 				if (selection != options.IndexOf(correct)) {
@@ -196,11 +200,18 @@ public class rename : Tools {
 		
 	}
 	IEnumerator DemoPlay(){
-		selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
-		yield return new WaitForSecondsRealtime(0.4f); 
-		selection = selection = (selection + 1 <= options.Count - 1) ? selection + 1 : options.Count - 1;
-		yield return new WaitForSecondsRealtime(0.4f); 
-		selection = options.IndexOf(correct); 
+		for (int i = 0; i < options.Count; i++){
+			yield return new WaitForSecondsRealtime(0.4f);
+			selection = i; 
+			if (options[i] == correct) {
+				break; 
+			}
+		} 
+		while(!Input.GetKeyDown(KeyCode.Return) || !Input.GetMouseButtonDown(0)){
+			yield return null; 
+		}
+		output.Text.text = ""; 
+		entered = true; 
 	}
 
 	//.................................>8.......................................
@@ -213,6 +224,7 @@ public class rename : Tools {
             Output.IsAnswering = true;
 			audioSource.PlayOneShot(base.correct);
 			if (GlobalState.level.IsDemo){
+				hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_WARPER_OR_RENAMER); 
 				StartCoroutine(DemoPlay());
 			}
 			  
