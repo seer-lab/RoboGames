@@ -75,7 +75,7 @@ public class hero2Controller : MonoBehaviour
             maxSpeed = GlobalState.Stats.Speed; 
     }
     bool CheckClick(){
-        return !EventSystem.current.IsPointerOverGameObject(0); 
+        return EventSystem.current.currentSelectedGameObject == null;  
     }
     void Flip()
     {
@@ -390,19 +390,36 @@ public class hero2Controller : MonoBehaviour
             {
                 ThrowTool();
             }
-            if (Input.GetMouseButtonDown(0) && CheckClick() && !GlobalState.level.IsDemo)
+            if (Input.GetMouseButtonDown(0) && !GlobalState.level.IsDemo)
             {
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
                 if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
                     && !fire.IsFiring)
                 {
-                    StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                    GameObject obj = EventSystem.current.currentSelectedGameObject;
+                    if (obj == null){
+                        //Debug.Log(obj.ToString()); 
+                        StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                    }
                 }
             }
             else if (Input.GetMouseButtonUp(0) && !GlobalState.level.IsDemo)
             {
                 StopAllCoroutines();
+            }
+            else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
+                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
+                    && !fire.IsFiring)
+                {
+                    GameObject obj = EventSystem.current.currentSelectedGameObject;
+                    if (obj == null){
+                        //Debug.Log(obj.ToString()); 
+                        StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                    }
+                }
             }
             if (Time.time > animDelay)
             {

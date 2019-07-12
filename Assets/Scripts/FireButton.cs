@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class FireButton : MonoBehaviour
 {
-    string[] icons; 
     hero2Controller hero; 
     public GameObject toolObject; 
     private SelectedTool tool; 
@@ -19,7 +18,6 @@ public class FireButton : MonoBehaviour
     void Start(){
         hero = GameObject.Find("Hero").GetComponent<hero2Controller>(); 
         tool = toolObject.GetComponent<SelectedTool>(); 
-        icons = new string[]{"bugcatcher", "activator","warp","comment", "breakpoint","help", "help"};
         code = tool.projectilecode; 
         UpdateLook();
         if (GlobalState.HideToolTips || SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
@@ -31,7 +29,7 @@ public class FireButton : MonoBehaviour
     }
     void UpdateLook(){
         GetComponent<Image>().color = GlobalState.StringLib.COLORS[code];
-        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + icons[code]);
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + ((GlobalState.GameMode == stringLib.GAME_MODE_ON) ? GlobalState.StringLib.onIcons[code] : GlobalState.StringLib.bugIcons[code]));
     }
     void Update(){
         if (code != tool.projectilecode && tool.projectilecode >= 0){

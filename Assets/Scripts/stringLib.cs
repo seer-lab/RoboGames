@@ -200,6 +200,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string DB_URL = "http://127.0.0.1:3000/logs";
     public const string CURRENT_LEVEL = "currentlevel/";
     public const int DOWNLOAD_TIME = 200;
+    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "comment", "breakpointer"}; 
+    public string[] onIcons = new string[]{"beacon", "question", "uncommenter", "comment", "renamer"}; 
 
     public string[] nameObstacle = new string[] { "firewall" };
     public const string STREAMING_ASSETS = "StreamingAssets/";

@@ -73,22 +73,19 @@ public class question : Tools {
     // Update is called once per frame
     void Update() {
 		if (answering) {
-			if (!arrowShown && !GlobalState.level.IsDemo){
+			if (!arrowShown){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
 				arrowShown = true; 
-				rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
-				leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
-				output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+				if (!GlobalState.level.IsDemo){
+					rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
+					leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick); 
+					output.enter.GetComponent<Button>().onClick.AddListener(OnEnterClick); 
+				}
 			}
-			/*
-			if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer){
-				keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, false, true);
-			}
-			*/
 
 			// Added escape option to return to game
-			 if (/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.LostFocus) ||*/ Input.GetKeyDown(KeyCode.Escape)) {
+			 if ( Input.GetKeyDown(KeyCode.Escape)) {
 				// Increment number of tool uses
 				if (selectedTool.toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] != 999)
 				{
@@ -101,24 +98,21 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
-			else if ((/*(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done)|| */ demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			else if (( demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
 				selectionCode = -1; 
                 Output.IsAnswering = false;
-				if (arrowShown && !GlobalState.level.IsDemo){
+				if (arrowShown){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
 					arrowShown = false; 
-					rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
-					leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
-					output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+					if (!GlobalState.level.IsDemo){
+						rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
+						leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick); 
+						output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
+					}
 				}
-				/*
-				if (keyboard != null ){
-					input = keyboard.text;
-				}
-				*/
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1 && !GlobalState.level.IsDemo) {
 					// Incorrect Answer
 					answered = false;
@@ -193,8 +187,6 @@ public class question : Tools {
 						}
 
 					}
-					//lg.innerXmlLines[index] = lg.innerXmlLines[index].Replace(innertext, newtext + "\t\t" + lg.stringLibrary.node_color_comment + sOpenCommentSymbol + input + sCloseCommentSymbol + stringLib.CLOSE_COLOR_TAG);
-					//lg.DrawInnerXmlLinesToScreen();
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.RightArrow) || selectionCode == stateLib.OUTPUT_RIGHT){
@@ -214,22 +206,22 @@ public class question : Tools {
 		
 	}
 	IEnumerator DemoPlay(){
-		optionsIndex = (optionsIndex + 1 <= options.Length - 1) ? optionsIndex + 1 : options.Length - 1;
-		input = options[optionsIndex]; 
-		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
-		yield return new WaitForSecondsRealtime(0.4f); 
-		optionsIndex = optionsIndex = (optionsIndex + 1 <= options.Length - 1) ? optionsIndex + 1 : options.Length - 1;
-		input = options[optionsIndex]; 
-		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
-		yield return new WaitForSecondsRealtime(0.4f);
 		for (int i = 0; i < options.Length; i++){
+			yield return new WaitForSecondsRealtime(0.4f);
 			if (options[i] == expected) {
 				optionsIndex = i; 
 				break; 
 			}
+			input = options[i]; 
+			selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
 		} 
 		input = options[optionsIndex]; 
 		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
+		while(!Input.GetKeyDown(KeyCode.Return) || !Input.GetMouseButtonDown(0)){
+			yield return null; 
+		}
+		output.Text.text = ""; 
+		demoCompleteAnswer = true; 
 	}
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
@@ -238,6 +230,7 @@ public class question : Tools {
 			Debug.Log(optionsIndex); 
 			input = options[optionsIndex];
 			if (GlobalState.level.IsDemo){
+				hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_PRINTER_OR_QUESTION); 
 				selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 				StartCoroutine(DemoPlay()); 				
 			}
