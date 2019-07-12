@@ -41,14 +41,14 @@ public class Logger
 
         startLogging();
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb();
-        GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
+        //WebHelper.i.GetWebDataFromWeb();
+        //GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
 
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb();
-        GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
+        //WebHelper.i.GetWebDataFromWeb();
+        //GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
 
-        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
+        //Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
 
          
     }
@@ -108,8 +108,7 @@ public class Logger
         GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\",";
         GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}}";
         
-        sendDatatoDB(GlobalState.jsonStates, 
-                        stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
+        //sendDatatoDB(GlobalState.jsonStates, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
         GlobalState.jsonStates = "";
     }
 
@@ -129,7 +128,7 @@ public class Logger
         GlobalState.jsonOStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
         Debug.Log("Damage State Change: " + GlobalState.jsonOStates);
 
-        sendDatatoDB(GlobalState.jsonOStates, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
+        //sendDatatoDB(GlobalState.jsonOStates, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
         GlobalState.jsonOStates = "";
     }
     
@@ -137,14 +136,14 @@ public class Logger
     {
         #if UNITY_WEBGL
         jsonObj = "{\"timeEnded\":\"" + DateTime.Now.ToString() + "\"}";
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
+        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
 
         if(!failed){
             jsonObj = "{\"progress\":\"Passed\"}";
         }else{
             jsonObj = "{\"progress\":\"Failed\"}";
         }
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
 
         
         for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
@@ -162,7 +161,7 @@ public class Logger
                 jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"}}";
             }
             if(jsonObj != "" && !jsonObj.Equals( "{\"tools\":")){
-                sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
+                //sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
             }
             jsonObj = "";
         }
@@ -176,7 +175,7 @@ public class Logger
             obstacleJson +=  "\"line\": \"" + GlobalState.obstacleLine[i] + "\"}";
 
             if(obstacleJson != "{\"obstacal\":"){
-                sendDatatoDB(obstacleJson, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+                //sendDatatoDB(obstacleJson, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
             }
             obstacleJson = "";
         }   
@@ -224,7 +223,7 @@ public class Logger
 
         string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
         Debug.Log(url);
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
+        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
 
     }
 
