@@ -2,26 +2,23 @@
 <next-level>level1-2b.xml</next-level>
 <failure_level>level1-1.xml</failure_level>
 <description>What's Your Type?</description>
-<introtext>A program saves information using VARIABLES.</introtext>
-<endtext>Alphanumeric!</endtext>
+<introtext>Color in our monitor needs to be represented with a number!</introtext>
+<endtext>Alphanumeric! You saved information using VARIABLES!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="3"/>
 </tools>
-<code language="python">int main {
+<code language="python">
 	<comment type="description" correct="true" groupid="6">Variables are how you store information in a program.</comment>
-	<comment type="description" correct="true" groupid="4">Python will guess the TYPE of information being stored.</comment>
-	<comment type="description" correct="true" groupid="3">INTEGER variables store positive or negative numbers.</comment>
-	current_year = 2019
-	<comment type="description"  correct="true" groupid="7" style="multi">
-	current_year is the name of the variable; that's how we reference it later
-	2019 is the value of the variable</comment>
+	color_blue = 255
+	<comment type="description"  correct="true" groupid="7" style="multi">color_blue is the name of the variable; that's how we reference it later
+	255 is the value of the variable</comment>
 	<comment type="description"  correct="true" groupid="5" style="multi">Variables stay in memory until they are changed.
 	You can reference the variables later using their names.
-	When you run the code, you can print out those variables using COUT</comment>
-	print( <question text="What is current_year?
-	Type your answer: " answer="2019">current_year)</question>
-}
+	When you run the code, you can output those variables using print</comment>
+	print(<question text="What is color_blue?
+	Select your answer: " options="0,255,Blue,100" answer="255">color_blue</question>)
+
 </code>
 </level>

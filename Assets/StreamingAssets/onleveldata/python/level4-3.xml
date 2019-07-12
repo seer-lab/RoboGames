@@ -1,8 +1,8 @@
 <level>
 <next-level></next-level>
 <description>Looking Good!</description>
-<introtext>This mysterious code isn't written well.
-Can you figure out what it does?</introtext>
+<introtext>This is where we can upload our script, 
+this is the last thing we need to turn ON!!</introtext>
 <endtext>Excellent!
 You've mastered code style!</endtext>
 <timelimit>unlimited</timelimit>
@@ -10,60 +10,61 @@ You've mastered code style!</endtext>
 <tool name="namer" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-<variable-rename text="Choose a name for this variable: " options="sum,production,dollars_per_year,num_of_factories" correct="num_of_factories">A_CONSTANT</variable-rename> = 3
+<variable-rename text="Choose a name for this variable: " options="sum,production,dollars_per_year,num_of_factories" correct="num_of_factories">A_CONSTANT</variable-rename> = 3;
 
-int main {
-	int <variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factories">a</variable-rename> [ A_CONSTANT];
-    cout &lt;&lt; "This program displays a graph showing\n";
-	cout &lt;&lt; "production for each factory in the company.\n";
-    <variable-color groupid="2">functionA</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>);
-    <variable-color groupid="4">functionB</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>);
-    <variable-color groupid="5">functionC</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>);
-    return 0;
-}
+def main:
+	<variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factories">a</variable-rename> = [];
+    print("This program displays a graph showing\n")
+	print("production for each factory in the company.\n")
+    <variable-color groupid="2">functionA</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>)
+    <variable-color groupid="4">functionB</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>)
+    <variable-color groupid="5">functionC</variable-color>(<variable-color groupid="1">a</variable-color>, <variable-color groupid="0">A_CONSTANT</variable-color>)
+    return 0
 
-void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction">functionA</variable-rename> (int <variable-color groupid="1">a</variable-color>[], int <variable-color groupid="0">A_CONSTANT</variable-color>)
-{
-    for (int <variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factory_number">someNumber</variable-rename> = 1;<variable-color groupid="3">someNumber</variable-color> &lt;= <variable-color groupid="0">A_CONSTANT</variable-color>; <variable-color groupid="3">someNumber</variable-color>)
-    {
-        cout &lt;&lt; endl &lt;&lt; "Enter production data for plant number ";
-		cout &lt;&lt; <variable-color groupid="3">someNumber</variable-color> &lt;&lt; endl;
-        <variable-color groupid="4">functionD</variable-color>(<variable-color groupid="1">a</variable-color>[<variable-color groupid="3">someNumber</variable-color> - 1]);}}
 
-void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="InputUnits">functionD</variable-rename> (int&amp; sum)
-{
-    cout &lt;&lt; "Enter number of units produced by each department.\n" 
-	cout &lt;&lt; "Append a negative number to the end of the list.\n";
-    sum = 0; int next;
-    cin >> next;
-    while (next >= 0) {
-    sum = sum + next;
-    cin >> next;
-    } cout &lt;&lt; "Total = " &lt;&lt; sum &lt;&lt; endl;
-}
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="GetProduction">functionA</variable-rename> (int <variable-color groupid="1">a</variable-color>[], int <variable-color groupid="0">A_CONSTANT</variable-color>):
 
-void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="ThousandsOfUnits">functionB</variable-rename> (int <variable-color groupid="1">a</variable-color>[], int <variable-color groupid="0">A_CONSTANT</variable-color>)
-{
-for (int index = 0; index &lt; <variable-color groupid="0">A_CONSTANT</variable-color>; index++)
+    for (<variable-rename text="Choose a name for this variable: " options="sum,factories,dollars_per_year,factory_number,prices" correct="factory_number">someNumber</variable-rename> in range (0, <variable-color groupid="0">A_CONSTANT</variable-color>))
+    
+        print(endl &lt;&lt; "Enter production data for plant number ")
+		print(<variable-color groupid="3">someNumber</variable-color> &lt;&lt; endl)
+        <variable-color groupid="4">functionD</variable-color>(<variable-color groupid="1">a</variable-color>[<variable-color groupid="3">someNumber</variable-color> - 1])
+
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="InputUnits">functionD</variable-rename> (sum):
+
+    print("Enter number of units produced by each department.\n") 
+	print("Append a negative number to the end of the list.\n")
+    sum = 0
+    next = input()
+    while (next >= 0): 
+		sum = sum + int(next)
+		next = input()
+    print("Total = " + sum)
+
+
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="ThousandsOfUnits">functionB</variable-rename> (<variable-color groupid="1">a</variable-color>[], int <variable-color groupid="0">A_CONSTANT</variable-color>):
+
+for (int index = 0; index &lt; <variable-color groupid="0">A_CONSTANT</variable-color>; index++):
     <variable-color groupid="1">a</variable-color>[Index] = <variable-color groupid="6">functionE</variable-color>(a[Index]/1000.0);
-}
 
-int <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="Round">functionE</variable-rename> (double number) {
-return static_cast&lt;int&gt;(floor(number + 0.5));
-}
 
-void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintFactories">functionC</variable-rename> (const int <variable-color groupid="1">a</variable-color>[], int <variable-color groupid="1">A_CONSTANT</variable-color>)
-{
-    cout &lt;&lt; "\nUnits produced in thousands of units:\n";
-    for (int someNumber = 1; someNumber &lt;= <variable-color groupid="0">A_CONSTANT</variable-color>; someNumber++)
-    {
-        cout &lt;&lt; "Factory #" &lt;&lt; <variable-color groupid="3">someNumber</variable-color> &lt;&lt; " ";
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="Round">functionE</variable-rename> (number):
+	return int(number + 0.5)
+
+
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintFactories">functionC</variable-rename> (<variable-color groupid="1">a</variable-color>[], int <variable-color groupid="1">A_CONSTANT</variable-color>)
+
+    print("\nUnits produced in thousands of units:\n";
+    for (someNumber in range(0,<variable-color groupid="0">A_CONSTANT</variable-color>)):
+    
+        print("Factory #" &lt;&lt; <variable-color groupid="3">someNumber</variable-color> + " ")
         <variable-color groupid="8">functionF</variable-color>(<variable-color groupid="1">a</variable-color>[<variable-color groupid="3">someNumber</variable-color> - 1]);
-        cout &lt;&lt; endl;
-    }
-}
-void <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintStars">functionF</variable-rename> (int n) {
-    for (int count = 1; count &lt;= n; count++) cout &lt;&lt; "*";
-}
+        print(endl)
+    
+
+def <variable-rename text="Choose a name for this variable: " options="ThousandsOfUnits,Round,PrintStars,GetProduction,InputUnits,PrintFactories" correct="PrintStars">functionF</variable-rename> (n):
+    for (i in range(0,n)): 
+		print("*")
+
 </code>
 </level>

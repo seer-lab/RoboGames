@@ -1,8 +1,8 @@
 <level>
-<next-level>level1-4b.xml</next-level>
+<next-level>level1-5.xml</next-level>
 <description>Do, or Do Not</description>
-<introtext>There are lots of ways to write faulty code.
-Be careful not to follow into a trap!</introtext>
+<introtext>Our monitor is missing sound!
+We'll need to turn that ON right away!</introtext>
 <endtext>Good show! 
 You've made it through some tricky stuff!</endtext>
 <failure_level>level1-1.xml</failure_level>
@@ -12,21 +12,21 @@ You've made it through some tricky stuff!</endtext>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-<comment type="description" correct="true"  groupid="0">FLOAT variables store numbers with decimal points.</comment>
-half = 0.5
-three = 3.0
+	<comment type="description" correct="true"  groupid="0">FLOATing point numbers (floats) are any that have decimal points.</comment>
+	additional_volume = 0.5;
+	current_volume = 3.0;
 	
-<question text="What is the value of sum?
-Type your answer: " answer="3.5">sum = half + three</question>
-<comment type="description"  correct="true" groupid="1" style="multi">If you try to assign a float to an integer
-the decimal and following numbers are erased</comment>
-<question text="What is the value of int_sum?
-Type your answer: " answer="3">int_sum = (int)(half + three)</question>
+	<question text="What is the value of sum?
+	Select your answer: " options="3,3.5,4" answer="3.5">sum = half + three;</question>
+	<comment type="description"  correct="true" groupid="1" style="multi">If you try to CAST a float to an integer
+	the decimal and following numbers are erased</comment>
+	<question text="What is the value of int_sum?
+	Select your answer: " options="3,3.5,4" answer="3">int(int_sum) = half + three;</question>
 	
-<comment type="description"  correct="true" groupid="2" style="multi">You can also assign integer values to float variables
-Remember, floats always have a decimal point, even if it's 0!</comment>
-<question text="What is the value of new_three?
-Type your answer: " answer="3.0">new_three = (float)int_sum;</question>
+	<comment type="description"  correct="true" groupid="2" style="multi">You can also CAST an integer to a float
+	Remember, floats always have a decimal point, even if it's 0!</comment>
+	<question text="What is the value of column?
+	Select your answer: " options="3,3.0" answer="3.0">volume = float(int_sum)</question>
 
 </code>
 </level>

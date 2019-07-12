@@ -1,0 +1,30 @@
+<level>
+<description>You fixed 2 of the 3 bugs. There is one left!
+Use "Code Tracing" to find it by reading the code line by line.
+Find the bug and throw the BUGFIXER (CTRL) left to catch it!</description>
+<next-level>tutorial1.xml</next-level>
+<timelimit>150</timelimit>
+<introtext>Two bugs are already found.
+Can you find the last one?</introtext>
+<endtext>You did it! 
+The calculator works!</endtext>
+<tools>
+<tool name="catcher" enabled="true" count="1"/>
+</tools>
+<code language="c++">#Temperature Average Calculator
+#To Find average of temperatures from points in the room
+#Input : Integer numbers (any unit of measurement)  
+#Output: Floating Point Average temperature in room (same units)
+def avgTemp(temps, numOfTemps):
+               
+    sum=0
+                 
+    for (i in range(0,numOfTemps)): 
+        sum+=temps[i] 
+      
+	avgT= sum/numOfTemps
+    avgT++$bug   $ 
+    return avgT    
+
+</code>
+</level>

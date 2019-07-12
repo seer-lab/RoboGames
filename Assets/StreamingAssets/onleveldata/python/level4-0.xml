@@ -11,10 +11,9 @@ You've acquired a new tool!</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-<comment type="description" correct="true"  groupid="0">Use the Renamer tool on purple variable names to change them.</comment>
-<variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter">i</variable-rename> = 0
-<comment type="description" correct="true"  groupid="3">Look at the code to get context clues about the variable's purpose.</comment>
-<variable-rename text="Choose a name for this variable: " options="temperature,age,number_of_presidents,year" correct="year">x</variable-rename>
-x = 2016
+	<comment type="description" correct="true"  groupid="0">Use the Renamer tool on purple variable names to change them.</comment>
+	<variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter">i</variable-rename> = 0
+	<comment type="description" correct="true"  groupid="3">Look at the code to get context clues about the variable's purpose.</comment>
+	<variable-rename text="Choose a name for this variable: " options="temperature,age,number_of_presidents,year" correct="year">x = 2019</variable-rename>
 </code>
 </level>
