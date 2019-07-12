@@ -1,0 +1,47 @@
+<level>
+<description>There is a new problem with the Closer function.
+Use the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool to learn about the bug.
+Check the output before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
+Use the BUGCATCHER to identify the incorrect calculation.</description>
+<next-level>level4c.xml</next-level>
+<introtext>There is a new bug in the Closer function.
+Before searching for it, look at the Prioritizer code
+and observe the behavior of the variables.</introtext>
+<endtext>You're doing well! 2 bugs remain.</endtext>
+<timelimit>180</timelimit>
+<tools>
+<tool name="printer" count="9" enabled="true"/>
+</tools>
+<code language="python">class signal:
+    def __init__(name,x,y):
+		self.name = name
+		self.x = x
+		self.y = y
+
+#Wireless Signal System Prioritizer
+#Uses Closer function to calculate Closest signal
+#ts is a list of 2 signals
+#returns the closest signal
+def FirstPriority(ts){
+
+    t1 = ts[0]
+	t2 = ts[1]
+    closest = Closer(t1,t2)
+
+	<print text="t1.x = 75
+t1.y = 100">print(t1)
+</print>
+<print text="t2.x = 100
+t2.y = 0">    print(t2)
+</print>
+<print text="closest = t1" tool="0,0,1,0,0,0">    print(closest)
+	</print>
+
+	return closest
+
+<warp file="L4bCloser.xml" tool="1,3,0,0,1,0">def Closer(signal t1, signal t2):
+</warp>
+
+
+</code>
+</level>

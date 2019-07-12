@@ -26,7 +26,7 @@ public class EnergyController : MonoBehaviour
         {
             if (GlobalState.GameMode == "bug" && i == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW)
             {
-                percent[i] = 99f;
+                percent[i] = GlobalState.Stats.Energy;
             }
             else percent[i] = (int)(((float)throwEnergy[i] / (float)originalEnergy) * (float)GlobalState.Stats.Energy) -1;
         }

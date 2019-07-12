@@ -4,6 +4,7 @@ First, check out the Swap function to figure out what is wrong.
 Use the new &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool for clues.
 After using the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt;, use the BUGFIXER to catch the bug.</description>
 <next-level>level2b.xml</next-level>
+<failure_level>level2a.xml</failure_level>
 <introtext>The first bug is in the SWAP function.
 Can you find it with the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool?</introtext>
 <endtext>The SWAP function is fixed!

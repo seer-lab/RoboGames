@@ -98,7 +98,7 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
-			else if (( demoCompleteAnswer|| Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
+			else if (( demoCompleteAnswer|| (Input.GetMouseButtonDown(0) && GlobalState.level.IsDemo) || Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
 				selectionCode = -1; 

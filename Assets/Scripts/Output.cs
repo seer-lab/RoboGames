@@ -112,7 +112,7 @@ public class Output : MonoBehaviour
             entered = false; 
 		}
         if (GlobalState.level.IsDemo){
-            if (demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){
+            if (demoBot.currentIndex >= 0 && demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){
                 enter.GetComponent<Image>().enabled = true; 
                 enter.transform.GetChild(0).GetComponent<Text>().text =enterText; 
             }

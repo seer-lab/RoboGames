@@ -4,6 +4,7 @@ It can enable &lt;color=#ff0000ff&gt;breakpoints&lt;/color&gt; that can check th
 Set a &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; where you notice the faded "B", then &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; it.
 Use a BUGCATCHER once you know where the bug is.</description>
 <next-level>level4a.xml</next-level>
+<failure_level>Null</failure_level>
 <introtext>One last tool to learn: 
 the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
 It can give more detailed feedback about variables.

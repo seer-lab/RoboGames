@@ -4,6 +4,7 @@ The &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; will print output if you use it
 Use the BUGCATCHER to catch the bug once you know where it is.
 You can use TAB to switch between tools.</description>
 <next-level>level2a.xml</next-level>
+<failure_level>Null</failure_level>
 <introtext>Time to learn a new tool: 
 &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;.
 They can show you output from the code.</introtext>

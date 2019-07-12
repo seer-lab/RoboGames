@@ -1,0 +1,83 @@
+<level>
+<description>One of the colors in the Color Database is invalid.
+Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors don't affect the bug.
+Then, use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel to the affected color groups.
+Check the RGB values and use the BUGCATCHER to catch the bug.</description>
+<next-level>tutorial4.xml</next-level>
+<introtext>One bug remains, but it is well hidden.
+You'll have to comment code to Divide-and-Conquer.
+Can you combine all your tools to find it?</introtext>
+<endtext>Fantastic! All the bugs have been found.
+The Database is fully functional once again!</endtext>
+<timelimit>300</timelimit>
+<tools>
+<tool name="printer" count="2" enabled="true"/>
+</tools>
+<code language="python"># Color Database
+#Loads database of colors and sub-categories of colors
+#matches color RGB values with English names
+#IMPORTANT NOTE: color values range from 000 to 255
+
+class color:
+    def __init__(name,r,g,b):
+		self.name = name
+		self.r = r
+		self.g = g
+		self.b = b
+
+def LoadColors(cm, db):
+
+    cm.initialize()
+    <print text="$err$A red color value
+in the database
+is out of bounds" tool="0,0,0,6,0,0">db.checkColors()
+
+	</print>
+	
+    <comment type="robobug" groupid="1" size="3" text="$err$A red color value
+in the database
+is out of bounds">cm.Whites = db.getWhites()
+    cm.Greys = db.getGreys()
+    cm.Blacks = db.getBlacks()</comment>
+    <warp file="L3Whites.xml">cm.Whites</warp>
+
+    <warp file="L3Greys.xml">cm.Greys</warp>
+
+    <warp file="L3Blacks.xml">cm.Blacks</warp>
+	
+    <comment size="2" type="robobug" groupid="2" text="$err$A red color value
+in the database
+is out of bounds.">cm.Reds = db.getReds()
+    cm.Browns = db.getBrowns()</comment>
+	 
+    <warp file="L3Reds.xml">cm.Reds</warp>
+    
+    <warp file="L3Browns.xml">cm.Browns</warp>
+	
+    <comment size="2" type="robobug" groupid="3" text="$err$A red color value
+in the database
+is out of bounds.">cm.Oranges = db.getOranges()
+    cm.Yellows = db.getYellows()</comment>
+	 
+    <warp file="L3Oranges.xml">cm.Oranges</warp>
+    <warp file="L3Yellows.xml">cm.Yellows</warp>
+	
+    <comment size="2" type="robobug" groupid="4" text="Database contains no errors" tool="1,0,4,0,0,0">cm.Greens = db.getGreens()
+    cm.Cyans = db.getCyans()</comment>
+	 
+    <warp file="L3Greens.xml">cm.Greens</warp>
+
+    <warp file="L3Cyans.xml">cm.Cyans</warp>
+	
+    <comment size="2" type="robobug" groupid="5" text="$err$A red color value
+in the database
+is out of bounds">cm.Blues = db.getBlues()
+    cm.Magentas = db.getMagentas()
+	</comment>
+	 
+    <warp file="L3Blues.xml">cm.Blues</warp>
+
+    <warp file="L3Magentas.xml">cm.Magentas</warp>
+
+</code>
+</level>

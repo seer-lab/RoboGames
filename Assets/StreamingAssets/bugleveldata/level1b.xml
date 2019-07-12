@@ -3,6 +3,7 @@
 Use "Code Tracing" to find it by reading the code line by line.
 Find a bug and throw the BUGFIXER (CTRL) to catch it!</description>
 <next-level>level1.xml</next-level>
+<failure_level>level1a.xml</failure_level>
 <introtext>The calculator has a bit more code now.
 Can you find the next bug?</introtext>
 <endtext>Another bug found.
@@ -23,7 +24,7 @@ float avgTemp(int temps[], int numOfTemps){
                  
     for (i=0;i&lt;numOfTemps;i++) 
     { 
-        total += $bug      sum += avgT$avgT;
+        total += $bug      sum += temps[i]$avgT;
     }    
     //to do : rest of algorithm	
 }

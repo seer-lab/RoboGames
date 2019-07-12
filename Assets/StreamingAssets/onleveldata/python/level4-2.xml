@@ -1,8 +1,8 @@
 <level>
 <next-level>level4-2b.xml</next-level>
 <description>Syntax Rox</description>
-<introtext>Style conventions define clean written code.
-Follow the instructions to fix the style.</introtext>
+<introtext>I can't even tell where we are in this mess, 
+do you think you can clean this up?</introtext>
 <endtext>Well done!
 Are you ready for the final test?</endtext>
 <timelimit>unlimited</timelimit>
@@ -12,11 +12,24 @@ Are you ready for the final test?</endtext>
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-<comment type="description" correct="true"  groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
-<comment type="code" correct="false"  groupid="0" style="multi">'''print(cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!"'''</comment>
-<comment type="code" correct="true" size="3" groupid="0" style="multi">'''print("Hello, how are you today?, end='') 
-print("I hope you are having a most fantastic day!")'''</comment>	
-<comment type="description" correct="true"  groupid="1">Do not put multiple statements on a single line.</comment>
+	<comment type="description" correct="true"  groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
+	<comment type="code" correct="false"  groupid="0" style="multi">'''	print("Hello, how are you today? I hope you are having a most fantastic day!"'''</comment>
+	<comment type="code" correct="true" size="3" groupid="0" style="multi">'''	print("Hello, how are you today?") 
+	print("I hope you are having a most fantastic day!"'''</comment>	
+	<comment type="description" correct="true"  groupid="1">Do not put multiple statements on a single line.</comment>
+	string <variable-rename text="Choose a name for this variable: " options="author,company,greeting,month" correct="greeting">x</variable-rename>;
+	<comment type="code" correct="false"  groupid="1" style="multi">''' 	x = "Good day!", print(greeting)''' </comment>
+	<comment type="code" correct="true" size="3" groupid="1" style="multi">'''	x = "Good day!" 
+	print(x)'''</comment>
+	<comment type="description" correct="true"  groupid="2">Parentheses should be placed in a consistent manner.</comment>
+	int <variable-rename text="Choose a name for this variable: " options="time,counter,salary,temperature" correct="counter">i</variable-rename> = 0
+<comment type="code" correct="false"  groupid="2" style="multi">	'''while(i &lt; 5]
+	'''</comment>
+<comment type="code" correct="true"  groupid="2" style="single">	#while(i &lt; 5):</comment>
+		cout &lt;&lt; i;
+		i++;
+<comment type="code" correct="true"  groupid="3" style="multi">'''		if (i % 2 == 0):
+			print(i + " is even!")'''</comment>
 
 </code>
 </level>

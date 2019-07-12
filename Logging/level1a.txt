@@ -430,3 +430,39 @@ Bug Fixer Tool Use:
 	Lines Used: 10 
 
 --------------------------------------------------------
+Passed Level
+4 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 10 
+
+--------------------------------------------------------
+Failed Level
+-14 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 1 
+
+--------------------------------------------------------
+Failed Level
+8 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 8 
+
+--------------------------------------------------------
+Passed Level
+3 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 10 
+
+--------------------------------------------------------

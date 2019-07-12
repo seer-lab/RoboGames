@@ -3,6 +3,7 @@
 Use "Code Tracing" to find it by reading the code line by line.
 Find the bug and throw the BUGFIXER (CTRL) left to catch it!</description>
 <next-level>tutorial1.xml</next-level>
+<failure_level>level1a.xml</failure_level>
 <timelimit>150</timelimit>
 <introtext>Two bugs are already found.
 Can you find the last one?</introtext>
@@ -26,7 +27,7 @@ float avgTemp(int temps[], int numOfTemps){
         sum+=temps[i]; 
     }  
 	avgT= float(sum/numOfTemps);  
-    avgT++$bug   avgf += 1$; 
+    avgT++$bug   $; 
     return avgT;    
 }
 </code>

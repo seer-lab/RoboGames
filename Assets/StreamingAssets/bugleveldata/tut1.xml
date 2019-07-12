@@ -3,6 +3,7 @@
 Look at the code. Which line is incorrect? Go to that line.
 Press CTRL to throw the BUGCATCHER at the bug!</description>
 <next-level>level1a.xml</next-level>
+<failure_level>Null</failure_level>
 <introtext>Finding bugs requires CODE TRACING.
 This requires you to manually read the code
 and try to understand it to find the bug.</introtext>

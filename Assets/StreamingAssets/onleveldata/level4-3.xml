@@ -1,6 +1,7 @@
 <level>
 <next-level></next-level>
 <description>Looking Good!</description>
+<failure_level>level4-1.xml</failure_level>
 <introtext>This is where we can upload our script, 
 this is the last thing we need to turn ON!!</introtext>
 <endtext>Excellent!
