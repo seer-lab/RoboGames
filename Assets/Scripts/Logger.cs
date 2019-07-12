@@ -159,7 +159,7 @@ public class Logger
                 jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";
                 jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"}}";
             }
-            if(jsonObj != "" || jsonObj.Length != 10){
+            if(jsonObj != "" && !jsonObj.Equals( "{\"tools\":")){
                 sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
             }
             jsonObj = "";
@@ -173,7 +173,9 @@ public class Logger
             obstacleJson+=  "{ \"name\": \"" + GlobalState.StringLib.nameObstacle[i] + "\",";
             obstacleJson +=  "\"line\": \"" + GlobalState.obstacleLine[i] + "\"}";
 
-            sendDatatoDB(obstacleJson, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            if(obstacleJson != "{\"obstacal\":"){
+                sendDatatoDB(obstacleJson, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            }
             obstacleJson = "";
         }   
         GlobalState.jsonStates = null;
