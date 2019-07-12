@@ -127,7 +127,7 @@ public class rename : Tools {
                 Output.IsAnswering = false;
 				output.Text.text = "";
 			}
-			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || entered|| selectionCode == stateLib.OUTPUT_ENTER)) {
+			if ((Input.GetKeyDown(KeyCode.Return) ||  (Input.GetMouseButtonDown(0) && GlobalState.level.IsDemo)||Input.GetKeyDown(KeyCode.KeypadEnter) || entered|| selectionCode == stateLib.OUTPUT_ENTER)) {
 				answered = true;
 				answering = false;
 				GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 

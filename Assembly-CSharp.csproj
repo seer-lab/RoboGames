@@ -152,7 +152,6 @@
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-1b.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level2a.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level1b.xml" />
-     <None Include="Assets\StreamingAssets\onleveldata\level1.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-3c.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level1-3.xml" />

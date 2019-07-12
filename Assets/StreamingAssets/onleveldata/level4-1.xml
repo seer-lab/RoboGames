@@ -1,6 +1,7 @@
 <level>
 <next-level>level4-1b.xml</next-level>
 <description>Not Your Style</description>
+<failure_level>Null</failure_level>
 <introtext>We're almost able to deploy our fix!
 All we need to do is get our server running.</introtext>
 <endtext>Stylish!

@@ -1,5 +1,6 @@
 <level>
 <next-level>level3-1b.xml</next-level>
+<failure_level>Null</failure_level>
 <description>Loop-the-loop</description>
 <introtext>Our Computer is finally back up and running, 
 we need to get our system back up to put an end to this!</introtext>

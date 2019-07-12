@@ -159,6 +159,7 @@ public class Cinematic : MonoBehaviour
             field.color = new Color(field.color.r, field.color.g + 0.05f, field.color.b); 
             yield return null; 
         }
+        field.text = stringLib.POINTS_PREFIX + (GlobalState.Stats.Points - GlobalState.timeBonus).ToString(); 
     }
     IEnumerator PushResults(){
         StartCoroutine(FadeInResults()); 
@@ -295,7 +296,8 @@ public class Cinematic : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
-            filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
+            filepath = Path.Combine(filepath, file);
+            Debug.Log("Cinematics: UpdateLevel(string file) WINDOWS");
         #endif
         
 
@@ -397,8 +399,12 @@ public class Cinematic : MonoBehaviour
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
 
-                string filepath ="";
-                UpdateLevel(filepath);
+                string filepath = GlobalState.level.Failure_Level;
+                Debug.Log("FailureLevel: " + filepath);
+                if (filepath == "Null")
+                    UpdateLevel(); 
+                else
+                    UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 //Debug.Log("LoadingScreen");
             }
