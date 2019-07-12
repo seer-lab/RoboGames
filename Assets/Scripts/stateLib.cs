@@ -63,4 +63,13 @@ public static class stateLib
 	public const int OUTPUT_ENTER = 0; 
 	public const int OUTPUT_RIGHT = 1; 
 	public const int OUTPUT_LEFT = 2; 
+	public const int POINTS_COMMENT = 2; 
+	public const int POINTS_UNCOMMENT = 4; 
+	public const int POINTS_QUESTION = 4; 
+	public const int POINTS_CATCHER = 10; 
+	public const int POINTS_BEACON = 2; 
+	public const int POINTS_RENAMER = 4; 
+	public const int POINTS_CHECKER = 0; 
+	public const int POINTS_WARPER = 0; 
+	public const int POINTS_BREAKPOINT = 1; 
 }

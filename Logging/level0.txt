@@ -1240,3 +1240,30 @@ Commenter Tool Use:
 	Lines Used: 4 
 
 --------------------------------------------------------
+Passed Level
+8 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 2
+	Lines Used: 1 4 
+
+--------------------------------------------------------
+Passed Level
+-56 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+--------------------------------------------------------
+Passed Level
+14 Seconds
+Commenter Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 2
+	Lines Used: 4 4 
+
+--------------------------------------------------------

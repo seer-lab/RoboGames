@@ -1,15 +1,3 @@
-//**************************************************//
-// Class Name: GenericBug
-// Class Description: This is an instantiable object for the RoboBUG game. This is the controller for
-//                    <bug/> tags.
-// Methods:
-// 		void Start()
-//		void Update()
-//		void OnTriggerEnter2D(Collider2D collidingObj)
-// Author: Michael Miljanovic
-// Date Last Modified: 6/1/2016
-//**************************************************//
-
 using UnityEngine;
 using System.Collections;
 using System.IO;
@@ -61,14 +49,14 @@ public class GenericBug : Tools {
 			 }
 			//this.GetComponent<Renderer>().enabled = true;
 			Destroy(collidingObj.gameObject);
-			//anim.SetBool("Dying", true);
-			//GetComponent<AudioSource>().Play();
+			GlobalState.CurrentLevelPoints += stateLib.POINTS_CATCHER; 
 			IsDead = true;
 			lg.numberOfBugsRemaining--;
             GlobalState.level.CompletedTasks[0]++;
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
 			StartCoroutine(GlitchText()); 
+			output.Text.text = "Level Complete!"; 
 		}
 	}
 

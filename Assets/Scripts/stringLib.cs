@@ -209,5 +209,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string MOVIE_INTRO_MENU = "Menu.mp4";
     public const string MOVIE_ON = "IntroScene.mp4";
     public const string MOVIE_BUG = "RoboBugIntro_1.mp4";
+    public const string ENERGY_PREFIX = "Energy: "; 
+    public const string SCORE_PREFIX = "Score: "; 
+    public const string POINTS_PREFIX = "<color=#00ffffff>Total Points:</color> "; 
 
 }

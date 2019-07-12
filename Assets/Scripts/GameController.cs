@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger;
     bool winning = false;
+    bool finalized = false; 
 
     float leftCodescreen; 
 
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour, ITimeUser
                 winning = true;
             if (winning)
             {
+                finalized = true; 
                 StopCoroutine(Lose());
                 StartCoroutine(Win());
             }
@@ -98,7 +100,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.CurrentONLevel = "level5";
         GlobalState.GameState = stateLib.GAMESTATE_GAME_END;
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene("IntroScene");
     }
 
     /// <summary>
@@ -126,7 +128,7 @@ public class GameController : MonoBehaviour, ITimeUser
             yield return new WaitForSecondsRealtime(2.7f);
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
 
-        if (!winning)
+        if (!winning && !finalized)
         {
             if (!calledDead)
             {
@@ -137,12 +139,6 @@ public class GameController : MonoBehaviour, ITimeUser
             GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
             GameOver();
         }
-        else
-        {
-            GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, false); 
-            SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
-        }
     }
     /// <summary>
     /// Delays the Win Operation to ensure the player actually won, then 
@@ -151,17 +147,18 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
+        logger.onGameEnd(startDate, true);
+        GlobalState.timeBonus = logger.CalculateTimeBonus();
         do
         {
             yield return new WaitForSecondsRealtime(2.2f);
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
+        while(output.Text.text != "" && !GlobalState.level.IsDemo) yield return new WaitForSecondsRealtime(0.5f); 
         //if the end of the level string is empty then there is no anticipated next level. 
         //Debug.Log(GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata"))
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, true);
-            GlobalState.timeBonus = logger.CalculateTimeBonus();
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
         else
@@ -214,7 +211,7 @@ public class GameController : MonoBehaviour, ITimeUser
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 
         startDate = DateTime.Now;
-
+        GlobalState.CurrentLevelPoints = 0; 
 
         //GlobalState.level = factory.GetLevel();
         backButton = GameObject.Find("BackButton").GetComponent<BackButton>();
@@ -312,8 +309,10 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
-            CheckWin();
-            CheckLose();
+            if (!finalized){
+                CheckWin();
+                CheckLose();
+            }
             HandleInterface();
         }
         if (leftCodescreen != GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE && GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){

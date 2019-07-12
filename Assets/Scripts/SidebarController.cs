@@ -25,6 +25,7 @@ public class SidebarController : MonoBehaviour
             return true; 
         }
     }
+    
     public void NextTool()
     {
         if (!active)
@@ -98,11 +99,6 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_dark);
         transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().color = Color.black; 
         transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().color = Color.black; 
-        for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
-        {
-            // @TODO: figure out if theyre done or not and put it in the expression
-            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? new Color(0, 0.6f, 0.2f, 1) : (GlobalState.IsDark ? Color.white : Color.black); 
-        }
         ToggleArrow.color = Color.black; 
     }
     public void ToggleDark()
@@ -123,11 +119,6 @@ public class SidebarController : MonoBehaviour
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_uncomment_color_tag, stringLibrary.checklist_incomplete_uncomment_color_tag_light);
         transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().color = Color.white; 
         transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().color = Color.white; 
-        for (int i = 0; i < stateLib.NUMBER_OF_TOOLS - 1; i++)
-        {
-            // @TODO: figure out if theyre done or not and put it in the expression
-            tools[i].transform.GetChild(0).GetComponent<Text>().color = (false) ? Color.green : (GlobalState.IsDark ? Color.white : Color.black); 
-        }
         ToggleArrow.color = Color.white; 
     }
     // Update is called once per frame

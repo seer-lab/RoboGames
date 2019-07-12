@@ -328,3 +328,63 @@ Commenter Tool Use:
 	Lines Used: 2 3 
 
 --------------------------------------------------------
+Failed Level
+-33 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 18
+	Lines Used: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 0
+	Times Tool Used: 0
+	Lines Used: 
+
+--------------------------------------------------------
+Passed Level
+-54 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 3 2 
+
+--------------------------------------------------------
+Passed Level
+11 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 3 2 
+
+--------------------------------------------------------
+Passed Level
+9 Seconds
+Question Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 1
+	Times Tool Used: 1
+	Lines Used: 4 
+
+Commenter Tool Use: 
+	Required Tasks: 2
+	Completed Tasks: 2
+	Times Tool Used: 2
+	Lines Used: 2 3 
+
+--------------------------------------------------------

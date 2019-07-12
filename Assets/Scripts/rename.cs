@@ -104,7 +104,7 @@ public class rename : Tools {
 			else {
                 output.Text.text = displaytext + "  " + options[selection];
 			}
-			if (!arrowShown){
+			if (!arrowShown && !GlobalState.level.IsDemo){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
 				arrowShown = true; 
@@ -128,8 +128,9 @@ public class rename : Tools {
 			if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || entered|| selectionCode == stateLib.OUTPUT_ENTER)) {
 				answered = true;
 				answering = false;
+				GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 
                 Output.IsAnswering = false;
-				if (arrowShown){
+				if (arrowShown && !GlobalState.level.IsDemo){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
 					arrowShown = false; 

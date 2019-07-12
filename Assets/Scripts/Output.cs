@@ -63,6 +63,10 @@ public class Output : MonoBehaviour
 		anim.SetBool("Appearing", false);
 		anim.SetBool("Hiding", false);
         LoadPanels();
+        if (GlobalState.level.IsDemo) {
+            enter.GetComponent<Image>().enabled = false; 
+            enter.transform.GetChild(0).GetComponent<Text>().text =""; 
+        }
         IsAnswering = false; 
         if (GlobalState.level.IsDemo){
             narrator = 0; 
