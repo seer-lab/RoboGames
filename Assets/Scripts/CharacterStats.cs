@@ -11,7 +11,7 @@ public class CharacterStats{
             Speed = StatLib.speeds[0]; 
             ProjectileTime = StatLib.projectileDistance[0]; 
             Energy = StatLib.energyLevels[0]; 
-            Points = 200; 
+            Points = 0; 
         }
     }
     public void GrantPower(){

@@ -10,7 +10,11 @@ public class FireButton : MonoBehaviour
     public GameObject toolObject; 
     private SelectedTool tool; 
     private bool isFiring; 
-    bool mouseOver = false; 
+    public bool mouseOver = false; 
+    public void UpdateMouse(bool isHover){
+        mouseOver = isHover; 
+        Debug.Log(mouseOver); 
+    }
     public bool IsFiring{get{
         return isFiring; 
     }}
