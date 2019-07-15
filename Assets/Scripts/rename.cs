@@ -28,7 +28,7 @@ public class rename : Tools {
 	public AudioSource audioPrompt;
 	public AudioSource audioCorrect;
 	public bool answered = false;
-
+	bool failed = false; 
 	private bool answering = false;
 	private bool decolorOnce = false;
 	private bool colorOnce = false;
@@ -130,7 +130,7 @@ public class rename : Tools {
 			if ((Input.GetKeyDown(KeyCode.Return) ||  (Input.GetMouseButtonDown(0) && GlobalState.level.IsDemo)||Input.GetKeyDown(KeyCode.KeypadEnter) || entered|| selectionCode == stateLib.OUTPUT_ENTER)) {
 				answered = true;
 				answering = false;
-				GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 
+				
                 Output.IsAnswering = false;
 				if (arrowShown){
 					rightArrow.GetComponent<Image>().enabled = false; 
@@ -145,10 +145,14 @@ public class rename : Tools {
 				if (GlobalState.level.IsDemo) selection = options.IndexOf(correct); 
 				if (selection != options.IndexOf(correct)) {
 					answered = false;
+					failed = true; 
+					
 					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 					selectionCode = -1; 
 				}
 				else {
+					if (failed) GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER/2; 
+					else GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 
 					// Award 1 extra use of the tool.
 					selectedTool.bonusTools[stateLib.TOOL_WARPER_OR_RENAMER]++;
 					audioCorrect.Play();

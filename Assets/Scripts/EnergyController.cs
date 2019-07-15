@@ -11,7 +11,7 @@ public class EnergyController : MonoBehaviour
     float initialEnergy;
     public float currentEnergy, displayEnergy, originalEnergy;
     Text indicator;
-    float[] throwEnergy = new float[stateLib.NUMBER_OF_TOOLS];
+    public float[] throwEnergy = new float[stateLib.NUMBER_OF_TOOLS];
     SelectedTool tools;
     bool initial = true;
     bool hidden = false;

@@ -72,4 +72,9 @@ public static class stateLib
 	public const int POINTS_CHECKER = 0; 
 	public const int POINTS_WARPER = 0; 
 	public const int POINTS_BREAKPOINT = 1; 
+
+	public const int COST_SPEED = 20; 
+	public const int COST_PROJECTILE = 30; 
+	public const int COST_HEALTH = 50; 
+	
 }

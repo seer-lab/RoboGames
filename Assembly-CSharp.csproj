@@ -114,6 +114,7 @@
      <Compile Include="Assets\Scripts\printer.cs" />
      <Compile Include="Assets\Scripts\PrizeBug.cs" />
      <Compile Include="Assets\Scripts\ProgressionPanel.cs" />
+     <Compile Include="Assets\Scripts\ProgressionUI.cs" />
      <Compile Include="Assets\Scripts\projectile2.cs" />
      <Compile Include="Assets\Scripts\question.cs" />
      <Compile Include="Assets\Scripts\rename.cs" />
