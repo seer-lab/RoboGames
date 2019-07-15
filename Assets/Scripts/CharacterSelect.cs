@@ -53,7 +53,7 @@ public class CharacterSelect : MonoBehaviour
         }
         characters[indexOfSelected].DeselectCharacter(); 
         indexOfSelected = index; 
-        Debug.Log("Index of Selected: " + indexOfSelected); 
+        //Debug.Log("Index of Selected: " + indexOfSelected); 
         characters[indexOfSelected].SelectCharacter();
         StartCoroutine(MoveDisk()); 
     }
