@@ -4,6 +4,7 @@ using System.Diagnostics.SymbolStore;
 using System.Xml.Schema;
 using UnityEngine.EventSystems; 
 using UnityEngine;
+using UnityEngine.UI; 
 using System;
 using System.Collections;
 
@@ -299,6 +300,7 @@ public class hero2Controller : MonoBehaviour
             facingRight = true;
         else facingRight = false;
         anim.SetBool("facingRight", facingRight);
+        yield return new WaitForSeconds(0.1f); 
         if (Input.GetMouseButton(0) || GlobalState.level.IsDemo)
         {
             reachedPosition = false;
@@ -398,10 +400,11 @@ public class hero2Controller : MonoBehaviour
                     && !fire.IsFiring)
                 {
                     GameObject obj = EventSystem.current.currentSelectedGameObject;
+                    
                     if (obj == null){
-                        //Debug.Log(obj.ToString()); 
+                        
                         StartCoroutine(MoveToPosition(RoundPosition(pos)));
-                    }
+                    }else Debug.Log(obj.ToString()); 
                 }
             }
             else if (Input.GetMouseButtonUp(0) && !GlobalState.level.IsDemo)
@@ -415,7 +418,7 @@ public class hero2Controller : MonoBehaviour
                     && !fire.IsFiring)
                 {
                     GameObject obj = EventSystem.current.currentSelectedGameObject;
-                    if (obj == null){
+                    if (obj == null && !fire.mouseOver){
                         //Debug.Log(obj.ToString()); 
                         StartCoroutine(MoveToPosition(RoundPosition(pos)));
                     }

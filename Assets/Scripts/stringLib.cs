@@ -46,7 +46,7 @@ public class stringLib
     public const string PROJECTILE_HINT = "projectileHint(Clone)";
 
     public const string LOSE_TEXT = "Try Again!\n";
-    public const string RETRY_TEXT = "Press Enter to try again\nor ESC to quit";
+    public const string RETRY_TEXT = "Press Enter/Tap to try again\nor ESC to quit";
     public const string CONTINUE_TEXT = "Press Enter to continue.";
 
     public const string GAME_MODE_ON = "on";

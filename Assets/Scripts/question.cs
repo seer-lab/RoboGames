@@ -41,6 +41,7 @@ public class question : Tools {
 	bool arrowShown = false; 
 
 	public Animator anim; 
+	bool failed = false; 
 	int selectionCode = -1; 
 	//TouchScreenKeyboard keyboard;
 	public bool IsAnswerd {
@@ -116,6 +117,7 @@ public class question : Tools {
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1 && !GlobalState.level.IsDemo) {
 					// Incorrect Answer
 					answered = false;
+					failed = true; 
 					string lastInput = input;
 					input = "";
 					// Check to see if the expected answer could be a decimal
@@ -159,7 +161,8 @@ public class question : Tools {
 				}
 				else {
 					input = expected; 
-					GlobalState.CurrentLevelPoints+= stateLib.POINTS_QUESTION; 
+					if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_QUESTION/2; 
+					else GlobalState.CurrentLevelPoints+= stateLib.POINTS_QUESTION; 
 					selectedTool.outputtext.GetComponent<Text>().text = displaytext + input;
 					anim.SetTrigger("Complete");
 					// Correct Answer

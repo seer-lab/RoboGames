@@ -18,8 +18,10 @@ public class projectile2 : MonoBehaviour {
 	//.................................>8.......................................
 	// Use this for initialization
 	void Start() {
+		/*
 		if (!GlobalState.level.IsDemo && gameObject.name != stringLib.PROJECTILE_BUG)
 			StartCoroutine(DestroyTimer()); 
+			*/
 	}
 	IEnumerator DestroyTimer(){
 		yield return new WaitForSecondsRealtime(GlobalState.Stats.ProjectileTime); 
