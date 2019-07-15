@@ -41,14 +41,14 @@ public class Logger
 
         startLogging();
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        //WebHelper.i.GetWebDataFromWeb();
-        //GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
+        WebHelper.i.GetWebDataFromWeb();
+        GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
 
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        //WebHelper.i.GetWebDataFromWeb();
-        //GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
+        WebHelper.i.GetWebDataFromWeb();
+        GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
 
-        //Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
+        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
 
          
     }
@@ -89,141 +89,105 @@ public class Logger
     public void onStateChangeJson(int projectileCode, int lineNumber, Vector3 position, 
                                     float energy, float currentEnergy, 
                                     bool progress, int time){
-
-        GlobalState.jsonStates += "{\"states\":{";
-
-        GlobalState.jsonStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
-        GlobalState.jsonStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
+                                        
+        LoggerDataStates states = new LoggerDataStates();
+        states.position = new LoggerDataXY();
+        states.preEnergy = energy.ToString();
+        states.finEnergy = currentEnergy.ToString();
 
         if(GlobalState.GameMode == "on"){
-            GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesON[projectileCode] + "\",";
+            states.toolName = GlobalState.StringLib.namesON[projectileCode];
         }else{
-            GlobalState.jsonStates += "\"toolName\":\"" + GlobalState.StringLib.namesBug[projectileCode] + "\",";
+            states.toolName = GlobalState.StringLib.namesBug[projectileCode];
         }
-
-        GlobalState.jsonStates += "\"position\":{ \"line\":\"" + lineNumber.ToString() + "\",";
-        GlobalState.jsonStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
-        GlobalState.jsonStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
-        GlobalState.jsonStates += "\"progress\":\"" + progress.ToString() + "\",";
-        GlobalState.jsonStates += "\"time\":\"" + time.ToString() + "\",";
-        GlobalState.jsonStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}}";
-        
-        //sendDatatoDB(GlobalState.jsonStates, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
-        GlobalState.jsonStates = "";
+        states.position.line = lineNumber.ToString();
+        states.position.x_pos = position.x.ToString();
+        states.position.y_pos = position.y.ToString();
+        states.progress = progress.ToString();
+        states.time = time.ToString();
+        states.timestamp = DateTime.Now.ToString();
+        string statesObj = JsonUtility.ToJson(states);
+        statesObj = "{\"states\":" + statesObj + "}";
+        Debug.Log(statesObj);
+        sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
     }
 
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
-        if(GlobalState.jsonOStates == null || GlobalState.jsonOStates == ""){
-            GlobalState.jsonOStates += "{\"obstacalState\":{";
-        }else{
-            GlobalState.jsonOStates += ",{";
-        }
+        LoggerDataOStates obstacalStates = new LoggerDataOStates();
+        obstacalStates.position = new LoggerDataXY();
+        obstacalStates.name = GlobalState.StringLib.nameObstacle[obstacleCode];
+        obstacalStates.preEnergy = energy.ToString();
+        obstacalStates.finEnergy = currentEnergy.ToString();
+        obstacalStates.position.line = lineNumber.ToString();
+        obstacalStates.position.x_pos = position.x.ToString();
+        obstacalStates.position.y_pos = position.y.ToString();
+        obstacalStates.timestamp = DateTime.Now.ToString();
 
-        GlobalState.jsonOStates += "\"name\":\"" + GlobalState.StringLib.nameObstacle[obstacleCode] + "\",";
-        GlobalState.jsonOStates += "\"preEnergy\":\"" + energy.ToString() + "\",";
-        GlobalState.jsonOStates += "\"finEnergy\":\"" + currentEnergy.ToString() + "\",";
-        GlobalState.jsonOStates += "\"position\":{ \"line\":\"" + lineNumber.ToString() + "\",";
-        GlobalState.jsonOStates += "\"x_pos\":\"" + position.x.ToString() + "\",";
-        GlobalState.jsonOStates += "\"y_pos\":\"" + position.y.ToString() + "\"},";
-        GlobalState.jsonOStates += "\"timestamp\":\"" + DateTime.Now.ToString() + "\"}";
-        Debug.Log("Damage State Change: " + GlobalState.jsonOStates);
-
-        //sendDatatoDB(GlobalState.jsonOStates, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
-        GlobalState.jsonOStates = "";
+        string obstacalStateOBJ = JsonUtility.ToJson(obstacalStates);
+        obstacalStateOBJ = "{\"obstacalState\":" +  obstacalStateOBJ+ "}";
+        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
     }
     
     public void WriteLog()
     {
         #if UNITY_WEBGL
         jsonObj = "{\"timeEnded\":\"" + DateTime.Now.ToString() + "\"}";
-        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
 
         if(!failed){
             jsonObj = "{\"progress\":\"Passed\"}";
         }else{
             jsonObj = "{\"progress\":\"Failed\"}";
         }
-        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
 
         
         for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
-            jsonObj = "{\"tools\":";
+            LoggerDataTools tools = new LoggerDataTools();
             if(GlobalState.level.Tasks[i] > 0){
                 if(GlobalState.GameMode == "on"){
-                    jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesON[i] + "\",";
+                    tools.name= GlobalState.StringLib.namesON[i];
                 }else{
-                    jsonObj+= "{ \"name\": \"" + GlobalState.StringLib.namesBug[i] + "\",";
+                    tools.name= GlobalState.StringLib.namesBug[i];
                 }
-                jsonObj += "\"correctLine\": \"" + GlobalState.correctLine[i] + "\",";
-                jsonObj += "\"reqTask\": \"" + GlobalState.level.Tasks[i] + "\",";
-                jsonObj += "\"compTask\": \"" + GlobalState.level.CompletedTasks[i] + "\",";
-                jsonObj += "\"timeTool\": \"" + GlobalState.toolUse[i] + "\",";
-                jsonObj += "\"lineUsed\": \"" + linesUsed[i] + "\"}}";
+                tools.correctLine = GlobalState.correctLine[i];
+                tools.reqTask = GlobalState.level.Tasks[i].ToString();
+                tools.compTask = GlobalState.level.CompletedTasks[i].ToString();
+                tools.timeTool = GlobalState.toolUse[i].ToString();
+                tools.lineUsed = linesUsed[i];
             }
-            if(jsonObj != "" && !jsonObj.Equals( "{\"tools\":")){
-                //sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
-            }
-            jsonObj = "";
+            string toolObj = JsonUtility.ToJson(tools);
+            toolObj = "{\"tools\":" + toolObj + "}"; 
+            sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
+
         }
-        string obstacleJson = "";
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
-            obstacleJson = "{\"obstacal\":";
+            LoggerDataObstacal obstacal = new LoggerDataObstacal();
             if(GlobalState.obstacleLine[i] == null ||GlobalState.obstacleLine[i] == ""){
                 continue;
             }
-            obstacleJson+=  "{ \"name\": \"" + GlobalState.StringLib.nameObstacle[i] + "\",";
-            obstacleJson +=  "\"line\": \"" + GlobalState.obstacleLine[i] + "\"}";
-
-            if(obstacleJson != "{\"obstacal\":"){
-                //sendDatatoDB(obstacleJson, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
-            }
-            obstacleJson = "";
+            obstacal.name = GlobalState.StringLib.nameObstacle[i];
+            obstacal.line = GlobalState.obstacleLine[i];
+            string obstacalOBJ = JsonUtility.ToJson(obstacal);
+            obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
+            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
         }   
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
         #endif
-
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-        using (StreamWriter sw = File.AppendText(Application.dataPath.Replace("/Assets","") + "/Logging/" + id + GlobalState.CurrentONLevel.Replace(".xml", "") + ".txt"))
-        {
-            if (!failed) sw.WriteLine("Passed Level");
-            else sw.WriteLine("Failed Level");
-            sw.WriteLine(totalTime.ToString() + " Seconds");
-            for (int i = 0; i < GlobalState.level.Tasks.Length; i++)
-            {
-                if (GlobalState.level.Tasks[i] > 0)
-                {
-                    if (GlobalState.GameMode == "on")
-                        sw.WriteLine(GlobalState.StringLib.namesON[i] + " Tool Use: ");
-                    else
-                        sw.WriteLine(GlobalState.StringLib.namesBug[i] + " Tool Use: ");
-
-                    sw.WriteLine("\tRequired Tasks: " + GlobalState.level.Tasks[i]);
-                    sw.WriteLine("\tCompleted Tasks: " + GlobalState.level.CompletedTasks[i]);
-                    sw.WriteLine("\tTimes Tool Used: " + GlobalState.toolUse[i]);
-					sw.WriteLine("\tLines Used: " + linesUsed[i]); 
-                    sw.WriteLine();
-                }
-            }
-            sw.WriteLine("--------------------------------------------------------");
-            sw.Close();
-        }
-        #endif
     }
 
     public void startLogging(){
-        jsonObj = "{ \"levels\":[{ \"name\": \"" + GlobalState.CurrentONLevel + "\" ";
-        jsonObj += ", \"time\": \"" + totalTime.ToString() + "\" ";
-        jsonObj += ", \"progress\": \"\"";   
-
-        jsonObj += ", \"timeStarted\": \"" + DateTime.Now.ToString() + "\" ";
-        jsonObj += ", \"timeEnded\": \"" + "\" ";
-        jsonObj += ", \"tools\":[";
-        jsonObj += "], \"states\" :[], \"obstacal\" : [], \"obstacalState\" : [], \"enemy\" : []}]}"; 
-
+        LoggerDataLevel levelObj = new LoggerDataLevel();
+        levelObj.name = GlobalState.CurrentONLevel;
+        levelObj.time = "";
+        levelObj.progress = "";
+        levelObj.timeStarted = DateTime.Now.ToString();
+        levelObj.timeEnded = "";
+        string jsonOBJ = JsonUtility.ToJson(levelObj);
+        jsonOBJ = "{\"levels\" : [" + jsonOBJ + "]}";
         string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
-        Debug.Log(url);
-        //sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
+        sendDatatoDB(jsonOBJ,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
 
     }
 
@@ -238,4 +202,58 @@ public class Logger
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
     }
+}
+
+[Serializable]
+public class LoggerDataLevel{
+    public string name;
+    public string time;
+    public string progress;
+    public string timeStarted;
+    public string timeEnded;
+}
+[Serializable]
+public class LoggerDataStates{
+    public string preEnergy;
+    public string finEnergy;
+    public string toolName;
+    public LoggerDataXY position;
+    public string progress;
+    public string time;
+    public string timestamp;
+
+}
+
+[Serializable]
+public class LoggerDataOStates{
+    public string preEnergy;
+    public string finEnergy;
+    public string name;
+    public LoggerDataXY position;
+    public string timestamp;
+
+}
+[Serializable]
+public class LoggerDataTools{
+    public string name;
+    public string correctLine;
+    public string reqTask;
+    public string compTask;
+    public string timeTool;
+    public string lineUsed;
+
+}
+
+[Serializable]
+public class LoggerDataObstacal{
+    public string name;
+    public string line;
+
+}
+
+[Serializable]
+public class LoggerDataXY{
+    public string x_pos;
+    public string y_pos;
+    public string line;
 }
