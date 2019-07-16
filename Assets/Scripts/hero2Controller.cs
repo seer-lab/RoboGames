@@ -305,10 +305,7 @@ public class hero2Controller : MonoBehaviour
         {
             reachedPosition = false;
             isMovingX = true;
-<<<<<<< HEAD
-=======
             //Debug.Log("Pos :" + position.ToString());
->>>>>>> b3685827ed707c586d3948a8231c997bfaceb78e
             while (Math.Abs(GetComponent<Transform>().localPosition.x - position.x) > 0.6f)
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;
