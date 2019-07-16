@@ -110,6 +110,18 @@ public class WebHelper : MonoBehaviour
         return this.webData;
     }
 
+        public string GetWebDataFromWeb(bool useJavaScripsFunction){
+            if(useJavaScripsFunction){
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                this.webData = GetData(this.url);
+                #endif
+            }else{
+                StartCoroutine(GetXMLFromServer(this.url));
+                this.webData = this.someData;
+            }
+        return this.webData;
+    }
+
     public void SaveMovieDataFromWeb(string filename){
         //StartCoroutine(GetMovieFromServer(filename,stringLib.SERVER_URL + "StreamingAssets/" + filename ));
         //Get the URL from INDEXEDDB

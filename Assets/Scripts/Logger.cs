@@ -41,11 +41,11 @@ public class Logger
 
         startLogging();
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb();
+        WebHelper.i.GetWebDataFromWeb(false);
         GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
 
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb();
+        WebHelper.i.GetWebDataFromWeb(false);
         GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
 
         Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
