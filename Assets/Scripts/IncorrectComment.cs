@@ -10,6 +10,7 @@ public class IncorrectComment : comment
     {
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating)
         {
+            CorrectCommentObject.GetComponent<CorrectComment>().failed = true;
             Destroy(collidingObj.gameObject);
             selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
             hero.onFail(); 
@@ -22,7 +23,7 @@ public class IncorrectComment : comment
         {
             if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
             {
-                anim.SetTrigger("Complete");
+                anim.SetTrigger("Complete");         
                 doneUpdating = true;
                 if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
                 {

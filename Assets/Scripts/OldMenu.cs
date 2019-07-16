@@ -199,6 +199,7 @@ public class OldMenu : MonoBehaviour
     void Update()
     {
 
+        AudioListener.volume = (soundon) ? 1 : 0;
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
              GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 

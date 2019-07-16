@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CorrectComment : comment
 {
+    public bool failed = false; 
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented)
@@ -73,7 +74,8 @@ public class CorrectComment : comment
 
             lg.DrawInnerXmlLinesToScreen();
             GlobalState.level.CompletedTasks[3]++;
-            GlobalState.CurrentLevelPoints+= stateLib.POINTS_COMMENT; 
+            if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_COMMENT/2; 
+            else GlobalState.CurrentLevelPoints+= stateLib.POINTS_COMMENT; 
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
 			hero.onFail();

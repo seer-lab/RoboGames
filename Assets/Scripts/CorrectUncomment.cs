@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 public class CorrectUncomment : comment
 {
+    public bool failed = false; 
     public override void Initialize(){
         base.Initialize();
         anim.SetBool("IsUncomment", true);
@@ -131,7 +132,8 @@ public class CorrectUncomment : comment
                 }
 
             }
-            GlobalState.CurrentLevelPoints+= stateLib.POINTS_UNCOMMENT; 
+            if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_UNCOMMENT/2; 
+            else GlobalState.CurrentLevelPoints+= stateLib.POINTS_UNCOMMENT; 
             lg.DrawInnerXmlLinesToScreen();
             isCommented = true;
         }
