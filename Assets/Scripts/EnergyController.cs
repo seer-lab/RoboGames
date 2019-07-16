@@ -89,6 +89,15 @@ public class EnergyController : MonoBehaviour
         currentEnergy -= throwEnergy[projectileCode];
         updateBar();
     }
+    public void onEnergyGrow(int amount){
+        currentEnergy+= amount; 
+        updateBar(); 
+    }
+
+    public void onEnergyReset(){
+        currentEnergy = originalEnergy; 
+        updateBar(); 
+    }
     public void onDamange(float damage)
     {
         currentEnergy -= damage;

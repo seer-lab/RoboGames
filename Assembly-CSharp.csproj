@@ -102,6 +102,7 @@
      <Compile Include="Assets\Scripts\LevelFactory.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\LifePackage.cs" />
      <Compile Include="Assets\Scripts\LoadingController.cs" />
      <Compile Include="Assets\Scripts\Logger.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
