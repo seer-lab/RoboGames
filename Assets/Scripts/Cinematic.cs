@@ -218,11 +218,9 @@ public class Cinematic : MonoBehaviour
         #else
         string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
         filepath = stringLib.SERVER_URL +"StreamingAssets/" + GlobalState.GameMode + "leveldata/" + txtFile;
-        Debug.Log("LoadGame() filepath: " + filepath); 
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
-        filepath = WebHelper.i.webData;
-        Debug.Log("WebGl Filepath: " + filepath); 
+        filepath = WebHelper.i.webData; 
         web = true; 
         #endif       
         if (File.Exists(filepath) || (!filepath.Contains("File not found!") && web)){
@@ -271,7 +269,6 @@ public class Cinematic : MonoBehaviour
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
             filepath = Path.Combine(filepath, GlobalState.CurrentONLevel);
-            Debug.Log("Cinematics: UpdateLevel() WINDOWS");
         #endif
 
         //Want to check if the player is WebGL, and if it is, grab the xml as a string and put it in levelfactory
@@ -287,7 +284,6 @@ public class Cinematic : MonoBehaviour
         #endif
         
         updatedLevel = true; 
-        Debug.Log("Update Level: " + filepath);
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
@@ -346,9 +342,7 @@ public class Cinematic : MonoBehaviour
             prompt1.GetComponent<Text>().text = introtext;
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButton(0)) && delaytime < Time.time)
             {
-                Debug.Log(GlobalState.level.FileName); 
                 if (GlobalState.level == null){
-                    Debug.Log("Current  LEvel: " + GlobalState.CurrentONLevel); 
                     UpdateLevel(GlobalState.CurrentONLevel); 
                 }
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;

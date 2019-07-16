@@ -16,21 +16,38 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //WebHelper.i.DownloadVideoAssetBundle(stringLib.SERVER_URL + stringLib.ASSETS_BUNDLE + "menu");
-        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO);
-        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_INTRO_MENU);
-        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_BUG);
-        // WebHelper.i.SaveMovieDataFromWeb(stringLib.MOVIE_ON);
-
         //Debug.Log(SystemInfo.operatingSystem);
-        if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
 
+        //Mac has a weird issue with cached storage, such that if there is a file related to the game
+        // then the video wont play. This is here to deal with that issue
+        if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
             if(PlayerPrefs.HasKey("sessionID")){
                 String sessionID = PlayerPrefs.GetString("sessionID");
                 Debug.Log("MAC SessionID: " + sessionID);
                 if(sessionID != ""|| sessionID != null){
                     GlobalState.sessionID = Convert.ToInt64(sessionID);
-                //Debug.Log("GLOBALSTATE SessionID" + GlobalState.sessionID);
+                }
+
+                //Grab the Menu Preference
+                //First Check if it exist
+                if(PlayerPrefs.HasKey("language")){
+                    GlobalState.Language = PlayerPrefs.GetString("language", "c++");
+                }
+                if(PlayerPrefs.HasKey("textsize")){
+                    GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
+                }
+                if(PlayerPrefs.HasKey("soundon")){
+                    GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+                }
+                if(PlayerPrefs.HasKey("themes")){
+                    GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
+                }
+                if(PlayerPrefs.HasKey("tooltips")){
+                    GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
+                }
+                //TODO Create an api that returns the amount of level, then put that as the default
+                if(PlayerPrefs.HasKey("positionalID")){
+                    GlobalState.positionalID = PlayerPrefs.GetInt("positonalID");
                 }
             }
             PlayerPrefs.DeleteAll();
@@ -52,12 +69,6 @@ public class TitleController : MonoBehaviour
         girl = this.transform.GetChild(1).GetComponent<Animator>(); 
         boy = this.transform.GetChild(2).GetComponent<Animator>(); 
         text = this.transform.GetChild(3).GetComponent<Text>(); 
-
-        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO);
-        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_INTRO_MENU);
-        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_ON);
-        // WebHelper.i.RequestMovieFromIndexedDB(stringLib.MOVIE_BUG);
-
     }   
 
     IEnumerator ShowCharacters(){

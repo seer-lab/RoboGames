@@ -79,19 +79,24 @@ public class OldMenu : MonoBehaviour
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
+        GrabUserPrefs();
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 
+
+        //Checks for users previous settings such as sessionID, or any menu preferences
         String sessionID = PlayerPrefs.GetString("sessionID");
-        Debug.Log("STRING SESSIONID: " +sessionID);
+        //Checks for sessionID, if there is, grab that and the menu preferences
         if(sessionID == "" || sessionID == null){
             //Create a sessionID and store it
             if(GlobalState.sessionID == 0){
                 GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
                 Debug.Log("Making Session ID: " + GlobalState.sessionID);
                 PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
+                SetUserPrefs();
+
             }else{
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
             }
@@ -104,7 +109,7 @@ public class OldMenu : MonoBehaviour
 
         }else{
             if(GlobalState.sessionID == 0){
-                Debug.Log("STRING SESSIONID: " +sessionID);
+                //Debug.Log("STRING SESSIONID: " +sessionID);
                 GlobalState.sessionID =Convert.ToInt64(sessionID);
             }
             Debug.Log("Found Session ID: " + GlobalState.sessionID);
@@ -120,6 +125,7 @@ public class OldMenu : MonoBehaviour
                 DatabaseHelperV2.i.PostToDataBase();
             }
         }
+
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
@@ -166,6 +172,9 @@ public class OldMenu : MonoBehaviour
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
         GlobalState.Stats = new CharacterStats(true); 
+        GrabUserPrefs();
+        textOption = GlobalState.TextSize;
+        soundon = GlobalState.soundon;
 
     }
     private void ToggleTheme()
@@ -265,13 +274,11 @@ public class OldMenu : MonoBehaviour
             // When we press Return (Enter Key), take us to the sub-menus
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && delaytime < Time.time)
             {
-                Debug.Log("Option: " + option);
                 entered = false;
                 switch (option)
                 {
                     case stateLib.GAMEMENU_NEW_GAME:
                         // Select between RobotON or RoboBUG.
-                        Debug.Log("New Game");
                         GlobalState.GameState = -3;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
@@ -291,6 +298,7 @@ public class OldMenu : MonoBehaviour
                         levels.Clear();
                         passed.Clear();
                         //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                        
                         readFromFiles();
                         GlobalState.GameState = -1;
                         option = 0;
@@ -421,7 +429,6 @@ public class OldMenu : MonoBehaviour
 
         }
 
-        //
         else if (GlobalState.GameState == stateLib.GAMESTATE_MENU_SOUNDOPTIONS)
         {
             m2buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
@@ -516,6 +523,8 @@ public class OldMenu : MonoBehaviour
                             break;
                         }
                 }
+                GlobalState.soundon = soundon;
+                SetUserPrefs();
                 entered = false;
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -684,7 +693,6 @@ public class OldMenu : MonoBehaviour
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, "levels.txt");
-            Debug.Log("OldMenu: Update() WINDOWS");
 
             sr = File.OpenText(filepath);
             string line;
@@ -698,19 +706,75 @@ public class OldMenu : MonoBehaviour
         #endif
 
     #if UNITY_WEBGL
-        filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-        WebHelper.i.url = stringLib.SERVER_URL + filepath;
+
+        if(GlobalState.DebugMode){
+            filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
+        }else{
+            filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
+        }
+        WebHelper.i.url =filepath;
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
-        string[] leveldata = filepath.Split('\n');
-        for (int i = 0; i < leveldata.Length - 1; i++) {
+
+        int webHolder = 0;
+
+        string [] leveldata;
+        if(GlobalState.DebugMode){
+            leveldata = filepath.Split('\n');
+        }else{
+            filepath = filepath.Substring(1,filepath.Length - 2);
+            leveldata = filepath.Split(',');
+            webHolder = 1;
+        }
+
+
+        for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
             levels.Add(tmp[0]);
             passed.Add(tmpTwo[0]);
         }
-        Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
     #endif
 
+    }
+
+    public void SetUserPrefs(){
+        PlayerPrefs.SetString("language", GlobalState.Language);
+        PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
+        int sounds = soundon ? 1 : 0;
+        PlayerPrefs.SetInt("soundon", sounds);
+        int themes = GlobalState.IsDark ? 1 : 0;
+        PlayerPrefs.SetInt("themes", themes);
+        int toolsTips = GlobalState.HideToolTips ? 1: 0;
+        PlayerPrefs.SetInt("tooltips", toolsTips);
+        PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
+    }
+
+    public void GrabUserPrefs(){
+        //Grab the Menu Preference
+        //First Check if it exist
+        if(PlayerPrefs.HasKey("language")){
+            GlobalState.Language = PlayerPrefs.GetString("language", "c++");
+        }
+        if(PlayerPrefs.HasKey("textsize")){
+            GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
+        }
+        if(PlayerPrefs.HasKey("soundon")){
+            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+        }
+        if(PlayerPrefs.HasKey("themes")){
+            GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
+        }
+        if(PlayerPrefs.HasKey("tooltips")){
+            GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
+        }
+        //TODO Create an api that returns the amount of level, then put that as the default
+        if(PlayerPrefs.HasKey("positionalID")){
+            WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
+            WebHelper.i.GetWebDataFromWeb();
+            int posID = Convert.ToInt32(WebHelper.i.webData);
+            //Debug.Log("posID: " + posID);
+            GlobalState.positionalID = PlayerPrefs.GetInt("positonalID", posID);
+        }
     }
 }
