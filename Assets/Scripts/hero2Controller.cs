@@ -280,9 +280,9 @@ public class hero2Controller : MonoBehaviour
             nextFire = Time.time + fireRate;
             animDelay = Time.time + animTime;
             Rigidbody2D newstar = (Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
-            controller.logger.onToolUse(projectilecode, lastLineNumberactive);
+            //controller.logger.onToolUse(projectilecode, lastLineNumberactive);
             timeCurrent = DateTime.Now.Second - timeStart;
-            controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, RoundPosition(transform.position), currentEnergy, energyController.currentEnergy, true, timeCurrent);
+//            controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, RoundPosition(transform.position), currentEnergy, energyController.currentEnergy, true, timeCurrent);
             if (facingRight)
             {
                 newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
@@ -305,7 +305,6 @@ public class hero2Controller : MonoBehaviour
         {
             reachedPosition = false;
             isMovingX = true;
-            //Debug.Log("Pos :" + position.ToString());
             while (Math.Abs(GetComponent<Transform>().localPosition.x - position.x) > 0.6f)
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;

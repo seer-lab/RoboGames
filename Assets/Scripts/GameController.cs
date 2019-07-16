@@ -219,9 +219,9 @@ public class GameController : MonoBehaviour, ITimeUser
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>();
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         selectedTool = sidebar.transform.GetChild(2).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
-        logger = new Logger();
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>();
         leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE;
+        //logger = new Logger();
     }
     public void Escape()
     {
