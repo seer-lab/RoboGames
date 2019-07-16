@@ -42,11 +42,23 @@ public class Logger
         startLogging();
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
         WebHelper.i.GetWebDataFromWeb(false);
-        GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
+        try{
+            GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
+        }catch(Exception e){
+            Debug.Log("Error in Getting the Level Postions");
+            Debug.Log(WebHelper.i.webData);
+            Debug.Log(e.Message);
+        }
 
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
         WebHelper.i.GetWebDataFromWeb(false);
-        GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);
+        try{
+            GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);    
+        }catch(Exception e){
+            Debug.Log("Error in Getting the Level id");
+            Debug.Log(WebHelper.i.webData);
+            Debug.Log(e.Message);
+        }
 
         Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
 
