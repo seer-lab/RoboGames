@@ -128,7 +128,7 @@ public class OldMenu : MonoBehaviour
     }
     public void onClick(int index)
     {
-        if (GlobalState.IsResume && index == 4)
+        if (!GlobalState.IsResume && index == 4)
             return;
         if (index < -1)
         {
