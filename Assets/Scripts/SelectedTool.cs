@@ -110,14 +110,12 @@ public class SelectedTool : MonoBehaviour
                         if (energy.currentEnergy < energy.throwEnergy[i] && !(i == 0 && GlobalState.GameMode == "bug")){
                             toolIcons[i].GetComponent<Image>().enabled = false;
                             toolLabels[i].GetComponent<Text>().enabled = false; 
-                            Debug.Log("Disable"); 
                         }
                         else{
                         toolIcons[i].GetComponent<Image>().enabled = true;
                         toolLabels[i].GetComponent<Text>().enabled = true; 
                         toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
                         }
-                        //Debug.Log("Updating Icons");
                     }
                     isLosing = false;
                     noRemainingActivators = false; 

@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        logger.onGameEnd(startDate, false);
+        //logger.onGameEnd(startDate, false);
         SceneManager.LoadScene("Cinematic");
     }
     /// <summary>
@@ -126,9 +126,19 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             yield return new WaitForSecondsRealtime(2.7f);
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
-
         if (!winning && !finalized)
         {
+            if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && EnergyController.UsedBugFixer){
+                TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
+                text.font = Resources.Load<Font>("Fonts/HACKED"); 
+                yield return new WaitForSeconds(0.12f); 
+                text.font = Resources.Load<Font>("Fonts/CFGlitchCity-Regular"); 
+                yield return new WaitForSeconds(0.12f); 
+                text.font = Resources.Load<Font>("Fonts/HACKED"); 
+                yield return new WaitForSeconds(0.1f); 
+                text.text = ""; 
+                
+            }
             if (!calledDead)
             {
                 hero.GetComponent<Animator>().SetTrigger("Dead");

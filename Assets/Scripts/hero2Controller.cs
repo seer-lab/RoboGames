@@ -275,7 +275,7 @@ public class hero2Controller : MonoBehaviour
             audioSource.PlayOneShot(throwTool, 2f);
             anim.SetBool("throw", true);
             float currentEnergy = energyController.currentEnergy;
-            //energyController.onThrow(projectilecode);
+            energyController.onThrow(projectilecode);
             GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();
             nextFire = Time.time + fireRate;
             animDelay = Time.time + animTime;
