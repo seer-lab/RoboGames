@@ -15,6 +15,11 @@ using System.Collections;
 using System.IO;
 
 public class printer : Tools {
+	void Update(){
+		if (hero.projectilecode == stateLib.TOOL_PRINTER_OR_QUESTION){
+            EmphasizeTool(); 
+        }else DeEmphasizeTool(); 
+	}
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {

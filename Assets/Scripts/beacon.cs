@@ -37,6 +37,9 @@ public class beacon : Tools {
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
+		if (hero.projectilecode == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW){
+            EmphasizeTool(); 
+        }else DeEmphasizeTool(); 
 		// All beacons complete
 		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0 && !revOnce) {
 			revOnce = true;

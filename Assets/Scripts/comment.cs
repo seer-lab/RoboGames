@@ -97,6 +97,15 @@ public abstract class comment : Tools {
 
     // Update is called once per frame
     void Update() {
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON &&
+            ((entityType == stateLib.ENTITY_TYPE_CORRECT_COMMENT || entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT) 
+            && hero.projectilecode == stateLib.TOOL_COMMENTER) || 
+            ((entityType == stateLib.ENTITY_TYPE_CORRECT_UNCOMMENT || entityType == stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT) 
+            && hero.projectilecode == stateLib.TOOL_UNCOMMENTER)
+            ){
+            EmphasizeTool(); 
+        }else if (GlobalState.GameMode == stringLib.GAME_MODE_BUG &&  hero.projectilecode == stateLib.TOOL_COMMENTER)EmphasizeTool();
+        else DeEmphasizeTool();  
         UpdateProtocol(); 
 	}
     public virtual void UpdateProtocol() {}
