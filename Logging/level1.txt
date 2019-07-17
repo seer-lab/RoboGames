@@ -277,3 +277,12 @@ Bug Fixer Tool Use:
 	Lines Used: 15 
 
 --------------------------------------------------------
+Failed Level
+8 Seconds
+Bug Fixer Tool Use: 
+	Required Tasks: 1
+	Completed Tasks: 0
+	Times Tool Used: 1
+	Lines Used: 1 
+
+--------------------------------------------------------

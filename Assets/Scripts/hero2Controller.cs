@@ -154,7 +154,7 @@ public class hero2Controller : MonoBehaviour
                     fMoveVelocityVertical = 0.6f; 
                 }
             }
-            if ((Input.GetMouseButton(0) || GlobalState.level.IsDemo) && !reachedPosition)
+            if (((Input.GetMouseButton(0) && isMoving)|| GlobalState.level.IsDemo) && !reachedPosition)
             {
                 if (isMovingX)
                     fMoveVelocityHorizontal = (facingRight) ? 1f : -1f;
@@ -280,9 +280,9 @@ public class hero2Controller : MonoBehaviour
             nextFire = Time.time + fireRate;
             animDelay = Time.time + animTime;
             Rigidbody2D newstar = (Rigidbody2D)Instantiate(projectiles[projectilecode], RoundPosition(transform.position), transform.rotation);
-            controller.logger.onToolUse(projectilecode, lastLineNumberactive);
+            //controller.logger.onToolUse(projectilecode, lastLineNumberactive);
             timeCurrent = DateTime.Now.Second - timeStart;
-            controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, RoundPosition(transform.position), currentEnergy, energyController.currentEnergy, true, timeCurrent);
+//            controller.logger.onStateChangeJson(projectilecode, lastLineNumberactive, RoundPosition(transform.position), currentEnergy, energyController.currentEnergy, true, timeCurrent);
             if (facingRight)
             {
                 newstar.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 300);
@@ -300,12 +300,11 @@ public class hero2Controller : MonoBehaviour
             facingRight = true;
         else facingRight = false;
         anim.SetBool("facingRight", facingRight);
-        yield return new WaitForSeconds(0.1f); 
+        //yield return new WaitForSeconds(0.1f); 
         if (Input.GetMouseButton(0) || GlobalState.level.IsDemo)
         {
             reachedPosition = false;
             isMovingX = true;
-            //Debug.Log("Pos :" + position.ToString());
             while (Math.Abs(GetComponent<Transform>().localPosition.x - position.x) > 0.6f)
             {
                 if (this.transform.position.x - position.x < 0) facingRight = true;
@@ -325,8 +324,8 @@ public class hero2Controller : MonoBehaviour
             reachedPosition = true;
         }
         isMoving = false;
-        if (!GlobalState.level.IsDemo)
-            HandleMouseMovement(); 
+        //if (!GlobalState.level.IsDemo)
+            //HandleMouseMovement(); 
     }
     void HandleMouseMovement(){
         if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo)
@@ -335,9 +334,14 @@ public class hero2Controller : MonoBehaviour
                 Vector3 screenPos = Input.mousePosition; 
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
                 if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
-                    && !fire.IsFiring && !(Math.Abs(GetComponent<Transform>().localPosition.x - pos.x) < 0.6f) && Math.Abs(GetComponent<Transform>().localPosition.y - pos.y) < 0.6f)
+                    && !fire.IsFiring &&!(Input.mousePosition.x < 300 && Input.mousePosition.y < 300) && !(Math.Abs(GetComponent<Transform>().localPosition.x - pos.x) < 0.6f) && Math.Abs(GetComponent<Transform>().localPosition.y - pos.y) < 0.6f)
                 {
-                    StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                   GameObject obj = EventSystem.current.currentSelectedGameObject;
+                    Debug.Log(Input.mousePosition); 
+                    if (obj == null){
+                        
+                        StartCoroutine(MoveToPosition(RoundPosition(pos)));
+                    }else Debug.Log(obj.ToString()); 
                 }
             }
     }
@@ -394,35 +398,42 @@ public class hero2Controller : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) && !GlobalState.level.IsDemo)
             {
+                Debug.Log(Input.mousePosition); 
+                Vector2 finalScale = new Vector2(fire.GetComponent<RectTransform>().rect.width*((float)Screen.width/1920f), fire.GetComponent<RectTransform>().rect.height*((float)Screen.height/1080f)); 
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
-                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
-                    && !fire.IsFiring)
+
+                if ( pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2&& !fire.IsFiring && !(Input.mousePosition.x < finalScale.x && Input.mousePosition.y < finalScale.x))
                 {
                     GameObject obj = EventSystem.current.currentSelectedGameObject;
-                    
+                    Debug.Log(Input.mousePosition); 
                     if (obj == null){
                         
                         StartCoroutine(MoveToPosition(RoundPosition(pos)));
                     }else Debug.Log(obj.ToString()); 
-                }
+                }else Debug.Log("Failed"); 
             }
             else if (Input.GetMouseButtonUp(0) && !GlobalState.level.IsDemo)
             {
                 StopAllCoroutines();
+                isMoving = false; 
+                reachedPosition = true; 
             }
             else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){
+                
+                Vector2 finalScale = new Vector2(fire.GetComponent<RectTransform>().rect.width*((float)Screen.width/1920f), fire.GetComponent<RectTransform>().rect.height*((float)Screen.height/1080f)); 
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
-                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
-                    && !fire.IsFiring)
+                if ( pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2 && !fire.IsFiring && !(Input.mousePosition.x < finalScale.x && Input.mousePosition.y < finalScale.x))
                 {
                     GameObject obj = EventSystem.current.currentSelectedGameObject;
-                    if (obj == null && !fire.mouseOver){
-                        //Debug.Log(obj.ToString()); 
+                    Debug.Log(Input.mousePosition); 
+                    if (obj == null){
+                        
                         StartCoroutine(MoveToPosition(RoundPosition(pos)));
                     }
                 }
+                
             }
             if (Time.time > animDelay)
             {

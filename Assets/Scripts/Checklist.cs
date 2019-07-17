@@ -172,7 +172,7 @@ public class Checklist : MonoBehaviour {
 														stringLib.CLOSE_COLOR_TAG +
 														" the code that is correct";
 					else 
-						GetComponent<Text>().text += "\n Add a" +
+						GetComponent<Text>().text += "\n Add a " +
                                                     GlobalState.StringLib.checklist_incomplete_uncomment_color_tag +
 													"BREAKPOINT" +
 													stringLib.CLOSE_COLOR_TAG +
