@@ -300,7 +300,7 @@ public class GameController : MonoBehaviour, ITimeUser
     void Update()
     {
         if(!hasCalled){
-            logger.GetImportantLoggingData()
+            logger.GetImportantLoggingData();
             hasCalled = true;
         }
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
