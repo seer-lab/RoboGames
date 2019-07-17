@@ -22,9 +22,9 @@ VGA and HDMI, can you turn them both ON?</introtext>
 	first_output = second_output;
 	second_output = temp;
 	print(<question text="What has first_output become?
-	Select your answer: " answer="HDMI">first_output</question>)
+	Select your answer: " options="VGA,HDMI" answer="HDMI">first_output</question>)
 	print(<question text="What has second_output become?
-	Select your answer: " answer="VGA">second_output</question>)
+	Select your answer: " options="HDMI,VGA" answer="VGA">second_output</question>)
 }
 </code>
 <hint type="description">This is a hint</hint>

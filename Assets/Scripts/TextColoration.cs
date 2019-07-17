@@ -73,11 +73,13 @@ public class TextColoration {
     }
     mKeyword = rgxKeyword.Match(sText);
 	while (mKeyword.Success){
-
+		Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
+		if(tutorialKeyword.IsMatch(sText)){
+			mKeyword = mKeyword.NextMatch();
+			continue;
+		}
 		sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
-		
 		//Debug.Log("key result " + sText);
-
 		mKeyword = mKeyword.NextMatch();
 		
 	}
@@ -135,6 +137,11 @@ public class TextColoration {
 
 		//First Comments
 		while(mBlockComment.Success){
+			//Check if its a tag
+			Regex checkTags = new Regex(@"(?s)(.*)(#.{8}>)(.*)(</color>)(.*)");
+			if(checkTags.IsMatch(mBlockComment.Value)){
+				break;
+			}
 			string cleanedstring = DecolorizeText(mBlockComment.Value);
 			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			break;
