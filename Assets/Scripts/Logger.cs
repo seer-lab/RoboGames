@@ -40,29 +40,6 @@ public class Logger
 			linesUsed[i] = "";
 
         startLogging();
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level Postions");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);    
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level id");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
-
-         
     }
     public void onGameEnd(DateTime startTime, bool progress)
     {
@@ -213,6 +190,31 @@ public class Logger
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
+    }
+
+    public void GetImportantLoggingData(){
+        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
+        WebHelper.i.GetWebDataFromWeb(false);
+        try{
+            GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
+        }catch(Exception e){
+            Debug.Log("Error in Getting the Level Postions");
+            Debug.Log(WebHelper.i.webData);
+            Debug.Log(e.Message);
+        }
+
+        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
+        WebHelper.i.GetWebDataFromWeb(false);
+        try{
+            GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);    
+        }catch(Exception e){
+            Debug.Log("Error in Getting the Level id");
+            Debug.Log(WebHelper.i.webData);
+            Debug.Log(e.Message);
+        }
+
+        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
+
     }
 }
 
