@@ -43,6 +43,8 @@ public class LevelManager
     //Maintain an instance of properties for spacing. 
     CodeProperties properties; 
 
+    GameObject lifePackage; 
+
 
     public LevelManager(CodeProperties properties)
     {
@@ -162,6 +164,14 @@ public class LevelManager
         roboBugPrint = new List<GameObject>();
         roboBUGwarps = new List<GameObject>(); 
         firewalls = new List<GameObject>(); 
+    }
+    public IEnumerator CreateLife(){
+        while(true){
+            yield return new WaitForSecondsRealtime(30f);
+            if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && GameObject.Find("Energy").GetComponent<EnergyController>().IsFull){
+                GrantLife(); 
+            }
+        }
     }
     public GameObject CreateBug(XmlNode childnode, int lineNumber, int column = 0)
     {
@@ -367,6 +377,13 @@ public class LevelManager
             firewall.GetComponent<Firewall>().SetPosition(); 
         }
     
+    }
+    private void GrantLife(){
+        if (lifePackage == null){
+            lifePackage = Resources.Load<GameObject>("Prefabs/LifePackage"); 
+            lifePackage = GameObject.Instantiate(lifePackage); 
+            lifePackage.GetComponent<Transform>().position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + Random.Range(0,10), properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - Random.Range(0,GlobalState.level.Code.Length)*properties.linespacing, 1); 
+        }
     }
     //Update the Title object of the level. 
     public void SetTitle()

@@ -52,6 +52,7 @@ public class GamePicker : MonoBehaviour
             titles[indexSelcted].Select(); 
         }
         else {
+           // GlobalState.GameState = stateLib.GAMESTATE_GAME_END; 
             if (indexSelcted == 1){
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
@@ -80,6 +81,7 @@ public class GamePicker : MonoBehaviour
         if (currentIndex != indexSelcted%2){
             indexSelcted = indexSelcted %2; 
             titles[indexSelcted].Select(); 
+
             titles[currentIndex].Deselect(); 
         }
         if (Input.GetKeyDown(KeyCode.Return)){

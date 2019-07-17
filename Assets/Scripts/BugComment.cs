@@ -9,7 +9,7 @@ using UnityEngine;
 public class BugComment : comment
 {
     bool isAnswered = false;
-    
+    string resultingOutput = "";
 
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
@@ -38,9 +38,10 @@ public class BugComment : comment
 
             if (errmsg.Contains("$err$"))
             {
-                output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", "");
+                output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", ""); 
             }
             else output.Text.text = errmsg;
+            resultingOutput = output.Text.text; 
             resetTime = Time.time + timeDelay;
             resetting = true;
 
@@ -95,6 +96,9 @@ public class BugComment : comment
 
             lg.DrawInnerXmlLinesToScreen();
             isAnswered = false;
+        }
+        else if (resultingOutput != output.Text.text && isAnswered){
+            Uncomment(); 
         }
     }
 }

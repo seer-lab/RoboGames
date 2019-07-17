@@ -134,7 +134,7 @@ public class OldMenu : MonoBehaviour
     }
     public void onClick(int index)
     {
-        if (GlobalState.IsResume && index == 4)
+        if (!GlobalState.IsResume && index == 4)
             return;
         if (index < -1)
         {
@@ -208,6 +208,7 @@ public class OldMenu : MonoBehaviour
     void Update()
     {
 
+        AudioListener.volume = (soundon) ? 1 : 0;
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
              GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 
@@ -297,7 +298,6 @@ public class OldMenu : MonoBehaviour
                         levels.Clear();
                         passed.Clear();
                         //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                        
                         readFromFiles();
                         GlobalState.GameState = -1;
                         option = 0;

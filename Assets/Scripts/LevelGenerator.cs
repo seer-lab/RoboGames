@@ -77,7 +77,9 @@ public partial class LevelGenerator : MonoBehaviour
         GlobalState.obstacleLine = new string[stateLib.NUMBER_OF_OBSTACLE];
         hero = GameObject.Find("Hero");
         BuildLevel();
-
+        if (!GlobalState.level.IsDemo){
+            StartCoroutine(manager.CreateLife()); 
+        }
     }
     /// <summary>
     /// Essentially Generates the Level Visually.

@@ -74,6 +74,12 @@ public class DialogController : MonoBehaviour
             }
             else if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
                 player.clip = Resources.Load<VideoClip>("Video/RobotONEnding");
+                FlipDialog(girlDialog); 
+                FlipDialog(botDialog); 
+                FlipDialog(boyDialog); 
+                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(200,70,0); 
+                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(0,70,0); 
+                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-400,70,0); 
             }
             else{
                 FlipDialog(girlDialog); 
@@ -137,7 +143,7 @@ public class DialogController : MonoBehaviour
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
-            filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/Intro" + bug +".txt");
+            filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/"+ prefix + bug +".txt");
             
             using (StreamReader reader = new StreamReader(filepath)){
                 while(!reader.EndOfStream){
