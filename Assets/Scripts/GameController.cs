@@ -30,8 +30,7 @@ public class GameController : MonoBehaviour, ITimeUser
 
     public Logger logger;
     bool winning = false;
-    bool finalized = false; 
-
+    bool finalized = false;
     float leftCodescreen; 
 
     /// <summary>
@@ -140,6 +139,12 @@ public class GameController : MonoBehaviour, ITimeUser
             GameOver();
         }
     }
+    int CalculateTimeBonus(){
+        int value = (GlobalState.level.Code.Length*3)/(DateTime.Now.Second - startDate.Second); 
+        //Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
+        if (value > 5) value = 5; 
+        return value; 
+    }
     /// <summary>
     /// Delays the Win Operation to ensure the player actually won, then 
     /// completes win game operations. 
@@ -147,8 +152,9 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
-        logger.onGameEnd(startDate, true);
-        GlobalState.timeBonus = logger.CalculateTimeBonus();
+        //logger.onGameEnd(startDate, true);
+        //GlobalState.timeBonus = logger.CalculateTimeBonus();
+        GlobalState.timeBonus = CalculateTimeBonus();
         do
         {
             yield return new WaitForSecondsRealtime(2.2f);
@@ -240,7 +246,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, true);
+            //logger.onGameEnd(startDate, true);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }

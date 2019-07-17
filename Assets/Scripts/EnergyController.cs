@@ -93,7 +93,11 @@ public class EnergyController : MonoBehaviour
         currentEnergy+= amount; 
         updateBar(); 
     }
-
+    public bool IsFull{
+        get{
+            return currentEnergy == originalEnergy; 
+        }
+    }
     public void onEnergyReset(){
         currentEnergy = originalEnergy; 
         updateBar(); 
@@ -104,7 +108,7 @@ public class EnergyController : MonoBehaviour
         updateBar();
     }
     void SelectBar(){
-        if (currentEnergy - 100 >= 0){
+        if (currentEnergy - 100 > 0){
             energyBar = transform.GetChild(2).gameObject; 
             energyBarTrans = energyBar.GetComponent<RectTransform>(); 
             displayEnergy = currentEnergy -100; 

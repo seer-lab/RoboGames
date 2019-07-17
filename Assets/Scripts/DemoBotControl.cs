@@ -74,16 +74,14 @@ public class DemoBotControl : MonoBehaviour
                 {
                     controller.ThrowTool();
                     if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
-                        if (controller.projectilecode == 0 || controller.projectilecode == 3 || controller.projectilecode == 4){
-                            nextAction = true; 
-                        }
+                        nextAction = true; 
                     }
                     else{
                         if  (controller.projectilecode == 2 || controller.projectilecode == 4)
                             nextAction = true; 
                          
                     }
-                    nextAction = true; 
+                    
  
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)

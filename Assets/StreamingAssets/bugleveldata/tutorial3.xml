@@ -10,8 +10,8 @@ Use the BUGCATCHER tool to catch the bug when you find it.</description>
 	cin &gt;&gt; int x;
 	cin &gt;&gt; int y;
 	cin &gt;&gt; int z;
-                                                                @Let's comment out some code to see if the same error persists.@ ???
-<comment type="robobug" groupid="1" size="3" text="$err$bError in addAccessories function!
+                                        @Let's comment out some code to see the same error persists.@ ???
+<comment type="robobug" groupid="1" size="3" text="$err$Error in addAccessories function!
 (it hasn't been commented out yet)">doStuff(x);                                @My commenter tool will prevent the code from being executed.@ !!!
     buildSnowball(x);                     
     buildSnowball(y);</comment>

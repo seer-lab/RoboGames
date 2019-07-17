@@ -168,7 +168,7 @@ public class LevelManager
     public IEnumerator CreateLife(){
         while(true){
             yield return new WaitForSecondsRealtime(30f);
-            if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
+            if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME && GameObject.Find("Energy").GetComponent<EnergyController>().IsFull){
                 GrantLife(); 
             }
         }
