@@ -21,8 +21,8 @@ public class DialogController : MonoBehaviour
     // Start is called before the first frame update
 
     private void FlipDialog(GameObject dialog){
-        dialog.GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
-        dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(-1,1,1); 
+        dialog.GetComponent<RectTransform>().localScale = new Vector3(-dialog.GetComponent<RectTransform>().localScale.x,1,1); 
+        dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(- dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale.x ,1,1); 
     }
     void Start()
     {
@@ -65,18 +65,23 @@ public class DialogController : MonoBehaviour
             if (GlobalState.GameMode == "bug"){
                 if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
                     player.clip = Resources.Load<VideoClip>("Video/RoboBugEnding"); 
+                    FlipDialog(boyDialog); 
+                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(350,70,0); 
+                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(450, 70, 0); 
+                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(600,70,0); 
                 }
-                else player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro_1"); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
-                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
-                FlipDialog(girlDialog); 
-                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
+                else {
+                    player.clip = Resources.Load<VideoClip>("Video/RoboBugIntro_1"); 
+                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
+                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
+                    FlipDialog(girlDialog); 
+                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
+                }
             }
             else if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
                 player.clip = Resources.Load<VideoClip>("Video/RobotONEnding");
                 FlipDialog(girlDialog); 
                 FlipDialog(botDialog); 
-                FlipDialog(boyDialog); 
                 botDialog.GetComponent<RectTransform>().localPosition = new Vector3(200,70,0); 
                 girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(0,70,0); 
                 boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-400,70,0); 

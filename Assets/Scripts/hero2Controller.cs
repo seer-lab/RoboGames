@@ -275,7 +275,7 @@ public class hero2Controller : MonoBehaviour
             audioSource.PlayOneShot(throwTool, 2f);
             anim.SetBool("throw", true);
             float currentEnergy = energyController.currentEnergy;
-            energyController.onThrow(projectilecode);
+            //energyController.onThrow(projectilecode);
             GameObject.Find("FireTool").transform.GetChild(0).GetComponent<FireButton>().Fire();
             nextFire = Time.time + fireRate;
             animDelay = Time.time + animTime;
@@ -417,6 +417,7 @@ public class hero2Controller : MonoBehaviour
             {
                 StopAllCoroutines();
                 isMoving = false; 
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
                 reachedPosition = true; 
             }
             else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){

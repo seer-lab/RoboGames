@@ -90,5 +90,6 @@ public class beacon : Tools {
 			beacon.GetComponent<beacon>().anim.SetBool("IsActive", false); 
             GlobalState.level.CompletedTasks[0] = 0; 
 	    }
+		hero.onFail();
     }
 }

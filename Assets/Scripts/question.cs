@@ -244,7 +244,6 @@ public class question : Tools {
 
 		}
 		else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_ACTIVATOR){
-			hero.onFail();
 			audioSource.PlayOneShot(wrong); 
 		}
 	}

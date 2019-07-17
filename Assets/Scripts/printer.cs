@@ -39,7 +39,7 @@ public class printer : Tools {
 
 		}
 		else if (collidingObj.name.Contains("projectile")){
-			hero.onFail();
+
 			audioSource.PlayOneShot(wrong); 
 		}
 	}

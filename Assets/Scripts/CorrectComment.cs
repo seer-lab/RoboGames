@@ -78,7 +78,7 @@ public class CorrectComment : comment
             else GlobalState.CurrentLevelPoints+= stateLib.POINTS_COMMENT; 
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
-			hero.onFail();
+
             audioSource.PlayOneShot(wrong); 
 		}
     }

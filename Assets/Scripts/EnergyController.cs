@@ -86,7 +86,7 @@ public class EnergyController : MonoBehaviour
     }
     public void onFail(int projectileCode)
     {
-        currentEnergy -= throwEnergy[projectileCode];
+        currentEnergy -= GlobalState.Stats.DamageLevel;
         updateBar();
     }
     public void onEnergyGrow(int amount){
@@ -96,6 +96,11 @@ public class EnergyController : MonoBehaviour
     public bool IsFull{
         get{
             return currentEnergy == originalEnergy; 
+        }
+    }
+    public bool IsHalf{
+        get{
+            return currentEnergy <= originalEnergy/2; 
         }
     }
     public void onEnergyReset(){
