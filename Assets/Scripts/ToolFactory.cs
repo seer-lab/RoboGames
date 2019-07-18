@@ -342,14 +342,22 @@ public class CommentFactory: ToolFactory
         :base(node, line)
     {
         int lineS = line + 1;
+        // try{
+        //     if(node.Attributes["correct"].Value != "false"){
+        //         GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
+        //     }
+        // }catch(Exception e){
+        //     Debug.Log(e.Message);
+        // }
+
         try{
             if(node.Attributes["correct"].Value != "false"){
-                GlobalState.correctLine[stateLib.TOOL_PRINTER_OR_QUESTION] += lineS.ToString() + " ";
+                GlobalState.correctLine[stateLib.TOOL_COMMENTER ] += lineS.ToString() + " ";
             }
         }catch(Exception e){
             Debug.Log(e.Message);
         }
-        GlobalState.correctLine[stateLib.TOOL_COMMENTER ] += lineS.ToString() + " ";
+
 
     }
     public override Tools GetScript()

@@ -14,7 +14,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
 
 public class Logger
@@ -92,7 +92,12 @@ public class Logger
         states.position.line = lineNumber.ToString();
         states.position.x_pos = position.x.ToString();
         states.position.y_pos = position.y.ToString();
-        states.progress = progress.ToString();
+        Regex checkString = new Regex(@"\b" + lineNumber.ToString() + @"\b");
+        if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
+            states.progress = "true";
+        }else{
+            states.progress = "false";
+        }
         states.time = time.ToString();
         states.timestamp = DateTime.Now.ToString();
         string statesObj = JsonUtility.ToJson(states);
