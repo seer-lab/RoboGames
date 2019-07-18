@@ -417,6 +417,7 @@ public class hero2Controller : MonoBehaviour
             {
                 StopAllCoroutines();
                 isMoving = false; 
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
                 reachedPosition = true; 
             }
             else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){

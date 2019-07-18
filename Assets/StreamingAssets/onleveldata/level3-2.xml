@@ -17,9 +17,11 @@ You're doing great with the loops!</endtext>
 using namespace std;
 int main {
 	string text = "a";
+	<comment type="description" correct="true"  groupid="0">the += operator adds onto an existing variable</comment>
+	<comment type="description" correct="true"  groupid="1">text += "b" is the same as text = text + "b";</comment>
+	<comment type="description" correct="true"  groupid="2">text += "c" is the same as text = text + "c";</comment>
 	for (int i = 0;i &lt; 2; i++){
-		<comment type="description" correct="true"  groupid="0">the += operator adds onto an existing variable</comment>
-		<comment type="description" correct="true"  groupid="0">text += "b" is the same as text = text + "b";</comment>
+
 <beacon flow-order="0,1" />		text += "b";
 	}
 	//The i variable is used only inside the loop if you declare it there.

@@ -8,7 +8,6 @@ You've aced the indentations!</endtext>
 <timelimit>unlimited</timelimit>
 <tools>
 <tool name="namer" enabled="true" count="unlimited"/>
-<tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="uncommenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="c++">#include &lt;iostream&gt;

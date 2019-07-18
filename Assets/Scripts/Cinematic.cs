@@ -196,11 +196,12 @@ public class Cinematic : MonoBehaviour
         Text bonus = transform.Find("Time").transform.GetChild(0).GetComponent<Text>(); 
         string starterText = "Time Bonus: "; 
         Text field = transform.Find("void main").gameObject.GetComponent<Text>();
-        bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
+        bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + "0" + stringLib.CLOSE_COLOR_TAG;
         yield return new WaitForSecondsRealtime(1.3f + 1f/GlobalState.timeBonus); 
+        int amount = GlobalState.timeBonus; 
         while(GlobalState.timeBonus > 0){
             GlobalState.timeBonus--; 
-            bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + GlobalState.timeBonus + stringLib.CLOSE_COLOR_TAG;
+            bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + (amount -GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG;
             field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
             yield return new WaitForSecondsRealtime(0.12f); 
         } 

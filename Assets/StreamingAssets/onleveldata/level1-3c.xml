@@ -14,10 +14,11 @@ VGA and HDMI, can you turn them both ON?</introtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	<comment type="description" correct="true"  groupid="3">You may want to SWAP 2 variables so that they have the other's value.</comment>
-	//For example, when variable1 = "hello" and variable2 = "goodbye",
-	//a successful swap will have variable1 = "goodbye" and variable2 = "hello"
-	<comment type="description" correct="true"  groupid="3">You need a third temporary (temp) variable in order to make a SWAP.</comment>
+	<comment type="description" correct="false"  groupid="2">Swapping is only something that happens on reality TV.</comment>
+	<comment type="description" correct="true"  groupid="3" style="multi">You may want to swap 2 variables so that each has the other's value.
+	For example, when variable1 = "hello" and variable2 = "goodbye",
+	a successful swap will have variable1 = "goodbye" and variable2 = "hello"</comment>
+	<comment type="description" correct="true"  groupid="4">You need a third temporary (temp) variable in order to make a SWAP.</comment>
 	//Try keeping track of which variable has which value:
 	string first_output = "VGA";
 	string second_output = "HDMI";

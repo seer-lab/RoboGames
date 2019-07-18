@@ -17,6 +17,11 @@ using System.IO;
 
 public class warper : Tools
 {
+    void Update(){
+        if (hero.projectilecode == stateLib.TOOL_WARPER_OR_RENAMER){
+            EmphasizeTool(); 
+        }else DeEmphasizeTool(); 
+    }
 	public string Filename { get; set; }
 	public string WarpToLine { get; set; }
 	void OnTriggerEnter2D(Collider2D collidingObj) {

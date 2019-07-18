@@ -6,57 +6,82 @@ using UnityEngine;
 
 public class IncorrectComment : comment
 {
+
+    protected override void OnRightArrowClick()
+    {
+        onComplete();
+        HandleClick();
+    }
+    protected override void OnLeftArrowClick()
+    {
+        HandleClick();
+        selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
+        hero.onFail();
+        audioSource.PlayOneShot(wrong);
+    }
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
         if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !doneUpdating)
         {
-            CorrectCommentObject.GetComponent<CorrectComment>().failed = true;
             Destroy(collidingObj.gameObject);
-            selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
-            hero.onFail(); 
-            audioSource.PlayOneShot(wrong); 
+            isAnswering = true;
+            Output.IsAnswering = true;
+            if (GlobalState.level.IsDemo){
+                StartCoroutine(DemoPlay()); 
+                hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_COMMENTER,1); 
+            }
+            string text = blocktext.Replace("\n",""); 
+            text = blocktext.Replace("\t"," "); 
+            if (text.Length > 75){
+                output.Text.text = text.Substring(0, 72) + "..." +optionsText;  
+            }
+            else output.Text.text = text + optionsText; 
         }
     }
-    public override void UpdateProtocol(){
-        base.UpdateProtocol();
-         if (CorrectCommentObject)
+    IEnumerator DemoPlay(){
+        yield return new WaitForSecondsRealtime(1.5f); 
+        onComplete(); 
+        HandleClick(); 
+    }
+    public void onComplete()
+    {
+        anim.SetTrigger("Complete");
+        doneUpdating = true;
+        if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
         {
-            if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
+            GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
+        }
+        string sNewText = blocktext;
+        string[] sNewParts = sNewText.Split('\n');
+        if (sNewParts.Length == 1 && commentStyle == "single")
+        {
+            // Single line
+
+            //verify comment color is removed
+
+            GlobalState.level.Code[index] = textColoration.DecolorizeText(GlobalState.level.Code[index]);
+
+            GlobalState.level.Code[index] = "";
+        }
+        else
+        {
+
+            // Multi line
+            for (int i = 0; i < sNewParts.Length; i++)
             {
-                anim.SetTrigger("Complete");         
-                doneUpdating = true;
-                if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
-                {
-                    GetComponent<SpriteRenderer>().sprite = descSpriteOn;
-                }
-                else
-                {
-                    GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
-                }
-                string sNewText = blocktext;
-                string[] sNewParts = sNewText.Split('\n');
-                if (sNewParts.Length == 1 && commentStyle == "single")
-                {
-                    // Single line
-
-                    //verify comment color is removed
-
-                    GlobalState.level.Code[index] = textColoration.DecolorizeText(GlobalState.level.Code[index]);
-
-                    GlobalState.level.Code[index] = "";
-                }
-                else
-                {
-
-                    // Multi line
-                    for (int i = 0; i < sNewParts.Length; i++)
-                    {
-                        //GlobalState.level.Code[index+i] = textColoration.DecolorizeText( GlobalState.level.Code[index + i]);
-                        GlobalState.level.Code[index + i] = "";
-                    }
-                }
-                lg.DrawInnerXmlLinesToScreen();
+                //GlobalState.level.Code[index+i] = textColoration.DecolorizeText( GlobalState.level.Code[index + i]);
+                GlobalState.level.Code[index + i] = "";
             }
+        }
+        lg.DrawInnerXmlLinesToScreen();
+        GlobalState.level.CompletedTasks[3]++;
+        if (CorrectCommentObject != null && !CorrectCommentObject.GetComponent<CorrectComment>().isCommented){
+            CorrectCommentObject.GetComponent<CorrectComment>().onComment(); 
         }
     }
 }
+

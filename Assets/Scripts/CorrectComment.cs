@@ -6,15 +6,18 @@ using UnityEngine;
 public class CorrectComment : comment
 {
     public bool failed = false; 
-    protected override void OnTriggerProtocol(Collider2D collidingObj)
-    {
-        if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented)
-        {
-            //GetComponent<SpriteRenderer>().sprite = descSpriteOn;
+    public GameObject incorrectComment; 
+
+    IEnumerator DemoPlay(){
+        yield return new WaitForSecondsRealtime(1.5f); 
+        onComment(); 
+        HandleClick();
+    }
+    public void onComment(){
+        //GetComponent<SpriteRenderer>().sprite = descSpriteOn;
             isCommented = true;
             audioSource.PlayOneShot(correct); 
             anim.SetTrigger("Complete");
-            Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
             selectedTool.bonusTools[stateLib.TOOL_COMMENTER]++;
             string sNewText = blocktext;
@@ -76,9 +79,42 @@ public class CorrectComment : comment
             GlobalState.level.CompletedTasks[3]++;
             if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_COMMENT/2; 
             else GlobalState.CurrentLevelPoints+= stateLib.POINTS_COMMENT; 
+            if(incorrectComment != null && !incorrectComment.GetComponent<IncorrectComment>().doneUpdating){
+                incorrectComment.GetComponent<IncorrectComment>().onComplete(); 
+            }
+    }
+    protected override void OnLeftArrowClick(){
+        onComment(); 
+        HandleClick(); 
+    }
+    protected override void OnRightArrowClick(){
+        HandleClick(); 
+        output.Text.text = "Read the text carefully!"; 
+        failed = true; 
+        hero.onFail(); 
+    }
+    protected override void OnTriggerProtocol(Collider2D collidingObj)
+    {
+        if (collidingObj.name == stringLib.PROJECTILE_COMMENT && !isCommented)
+        {
+            audioSource.PlayOneShot(correct); 
+            Destroy(collidingObj.gameObject);
+            GetComponent<AudioSource>().Play();
+            isAnswering = true; 
+            Output.IsAnswering = true; 
+            if (GlobalState.level.IsDemo){
+                StartCoroutine(DemoPlay()); 
+                hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_COMMENTER,1); 
+            }
+            string text = blocktext.Replace("\n",""); 
+            text = blocktext.Replace("\t"," "); 
+            if (text.Length > 75){
+                output.Text.text = text.Substring(0, 72) + "..." +optionsText;  
+            }
+            else output.Text.text = text + optionsText; 
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT){
-			hero.onFail();
+
             audioSource.PlayOneShot(wrong); 
 		}
     }

@@ -16,15 +16,17 @@ If only everyone was as awesome as you!</endtext>
 using namespace std;
 int main {
 	int myvar = 0;
-	<comment type="description" correct="true"  groupid="4">you can combine boolean statements to make more complicated conditions</comment>
-	<comment type="description" correct="true"  groupid="2">remember, order of operations applies!</comment>
+	<comment type="description" correct="true"  groupid="4">You can combine boolean statements to make more complicated conditions</comment>
+	<comment type="description" correct="true"  groupid="2">Remember, order of operations applies!</comment>
+	<comment type="description" correct="false"  groupid="5" style="multi">Order of operations refers to SAMDEP:
+	Subtraction, Attraction, Math, Digital, Electricity, Pandas</comment>
 	if (5 &gt; 6 &amp;&amp; (1 &gt; 2 || 2 == 3)){
 <beacon flow-order="" />		myvar = 5;
 	}
 	else if (2 == 3 || (1 &gt; 0 &amp;&amp; 3 &lt; 4)){
 <beacon flow-order="0" />		myvar = 10;
 	}
-	<comment type="description" correct="true"  groupid="3">Can you choose the false condition and avoid the error below?</comment>
+	//Can you choose the false condition and avoid the error below?
 	<comment type="code" correct="false"  groupid="1">// if (!(myvar == 10 &amp;&amp; myvar == 5)){</comment>
 	<comment type="code" correct="false"  groupid="1">// if (myvar &lt; 5 || (myvar &gt; 9 &amp;&amp; myvar &lt; 9)){</comment>
 	<comment type="code" correct="true"  groupid="1">// if (!(5 &lt;= myvar &amp;&amp; myvar &lt; 11)){</comment>

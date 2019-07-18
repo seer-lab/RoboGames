@@ -16,6 +16,7 @@ You've mastered data types and variables!</endtext>
 using namespace std;
 int main {
 	<comment type="description" correct="true"  groupid="4">You can use CIN to read in data from the keyboard.</comment>
+	<comment type="description" correct="false"  groupid="5">The computer autocorrects all of your text when you type it in.</comment>
 	string input;
 	cin >> input;
 	//Let's suppose someone types in "button_1"

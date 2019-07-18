@@ -407,6 +407,7 @@ public partial class LevelGenerator : MonoBehaviour
                     if (incorrectComment.GetComponent<comment>().groupid == correctComment.GetComponent<comment>().groupid)
                     {
                         incorrectComment.GetComponent<comment>().CorrectCommentObject = correctComment;
+                        correctComment.GetComponent<CorrectComment>().incorrectComment = incorrectComment; 
                         break;
                     }
                 }

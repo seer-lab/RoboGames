@@ -73,6 +73,9 @@ public class question : Tools {
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
+		if (hero.projectilecode == stateLib.TOOL_PRINTER_OR_QUESTION){
+            EmphasizeTool(); 
+        }else DeEmphasizeTool(); 
 		if (answering) {
 			if (!arrowShown){
 				rightArrow.GetComponent<Image>().enabled = true; 
@@ -244,7 +247,6 @@ public class question : Tools {
 
 		}
 		else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_ACTIVATOR){
-			hero.onFail();
 			audioSource.PlayOneShot(wrong); 
 		}
 	}

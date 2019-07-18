@@ -112,7 +112,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.IsPlaying = false;
         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_LOSE;
         GlobalState.level.NextLevel = GlobalState.level.Failure_Level;
-        logger.onGameEnd(startDate, false);
+        //logger.onGameEnd(startDate, false);
         SceneManager.LoadScene("Cinematic");
     }
     /// <summary>
@@ -128,9 +128,19 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             yield return new WaitForSecondsRealtime(2.7f);
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
-
         if (!winning && !finalized)
         {
+            if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && EnergyController.UsedBugFixer){
+                TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
+                text.font = Resources.Load<Font>("Fonts/HACKED"); 
+                yield return new WaitForSeconds(0.12f); 
+                text.font = Resources.Load<Font>("Fonts/CFGlitchCity-Regular"); 
+                yield return new WaitForSeconds(0.12f); 
+                text.font = Resources.Load<Font>("Fonts/HACKED"); 
+                yield return new WaitForSeconds(0.1f); 
+                text.text = ""; 
+                
+            }
             if (!calledDead)
             {
                 hero.GetComponent<Animator>().SetTrigger("Dead");
@@ -142,7 +152,8 @@ public class GameController : MonoBehaviour, ITimeUser
         }
     }
     int CalculateTimeBonus(){
-        int value = (GlobalState.level.Code.Length*3)/(DateTime.Now.Second - startDate.Second); 
+        int time = DateTime.Now.Second - startDate.Second;
+        int value = (GlobalState.level.Code.Length*3)/(time == 0 ? 1: time); 
         //Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
         if (value > 5) value = 5; 
         return value; 
@@ -231,6 +242,7 @@ public class GameController : MonoBehaviour, ITimeUser
         leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE;
         logger = new Logger();
     }
+
     public void Escape()
     {
         if (!GlobalState.level.IsDemo)
@@ -305,7 +317,7 @@ public class GameController : MonoBehaviour, ITimeUser
             Debug.Log("All Powers Maxed Out!"); 
              Debug.Log("Freefall: " + GlobalState.Stats.FreeFall.ToString() 
             +"\n Speed: " + GlobalState.Stats.Speed.ToString()
-            + "\n ProjecTime: " + GlobalState.Stats.ProjectileTime.ToString()
+            + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
              + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
              +"\n Points: " + GlobalState.Stats.Points.ToString()); 
 
