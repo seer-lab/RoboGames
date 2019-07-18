@@ -28,6 +28,7 @@ int main {
 	cout &lt;&lt; "hello world";
 	printf("hello world");
 	<comment type="description" correct="true"  groupid="5">The above two lines of code do the same thing</comment>
+	<comment type="description" correct="false"  groupid="7">Running the above two lines of code will crash your computer.</comment>
 }
 </code>
 </level>

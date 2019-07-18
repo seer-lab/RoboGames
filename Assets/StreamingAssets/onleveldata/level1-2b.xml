@@ -13,6 +13,7 @@ We need to turn on the changing color capabilities</introtext>
 <code language="c++">int main {
 	<comment type="description" correct="true"  groupid="0">BOOLEAN variables store either TRUE or FALSE.</comment>
 	bool is_off = true;
+	<comment type="description" correct="false"  groupid="1">Variables are given random values every 72 seconds.</comment>
 	<comment type="description" correct="true"  groupid="1">You can use variables in expressions to create new variables:</comment>
 	bool <question text="What is the VALUE of [is_off]?
 	Select your answer: " options="true,false" answer="true">is_sleep = is_off;</question>

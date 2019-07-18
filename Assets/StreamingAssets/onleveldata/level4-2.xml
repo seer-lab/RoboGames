@@ -16,6 +16,7 @@ Are you ready for the final test?</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
+	<comment type="description" correct="true"  groupid="0">Long lines of code are easy to read and visibility is never a problem and also you can have no issues figuring out every word that appears on the line no matter how long it is.</comment>
 	<comment type="description" correct="true"  groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
 	<comment type="code" correct="false"  groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!";*/</comment>
 	<comment type="code" correct="true" size="3" groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today?"; 

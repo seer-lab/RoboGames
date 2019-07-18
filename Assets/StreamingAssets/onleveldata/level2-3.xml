@@ -25,7 +25,8 @@ int main {
 <beacon flow-order="" />		case 4: cout &lt;&lt; "Four fingers are raised"; break;
 <beacon flow-order="" />		case default: cout &lt;&lt; "Not a valid number of fingers"; break;
 	}
-	<comment type="description" correct="true"  groupid="3">You can have If statements inside each other.</comment>
+	<comment type="description" correct="true"  groupid="5">You can have If statements inside each other.</comment>
+	<comment type="description" correct="false"  groupid="6">These are called nested switch comments because they look like birds.</comment>
 	int var1 = 2;
 	int var2 = 0;
 	if ((var1+var2)/2 &lt; 10){

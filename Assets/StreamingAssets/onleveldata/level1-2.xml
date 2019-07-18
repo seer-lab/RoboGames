@@ -12,14 +12,17 @@
 <code language="c++">int main {
 	<comment type="description" correct="true" groupid="6">Variables are how you store information in a program.</comment>
 	<comment type="description" correct="true" groupid="4">You have to label what TYPE of variable it is before you use it.</comment>
+	<comment type="description" correct="false" groupid="2">INTEGER variables store your name and address.</comment>
 	<comment type="description" correct="true" groupid="3">INTEGER variables store positive or negative numbers.</comment>
 	int color_blue = 255;
 	<comment type="description"  correct="true" groupid="7" style="multi">int refers to the type (integer)
-	color_blue is the name of the variable; that's how we reference it later
-	255 is the value of the variable</comment>
+	color_blue is the name of the variable; that's how we reference it later.
+	255 is the value of the variable.</comment>
 	<comment type="description"  correct="true" groupid="5" style="multi">Variables stay in memory until they are changed.
 	You can reference the variables later using their names.
 	When you run the code, you can print out those variables using COUT</comment>
+	<comment type="description"  correct="false" groupid="1" style="multi">Variables are only used for mathematical formulas
+	There are no other type of variables except for integers</comment>
 	cout &lt;&lt; <question text="What is color_blue?
 	Select your answer: " options="0,255,Blue,100" answer="255">color_blue;</question>
 }

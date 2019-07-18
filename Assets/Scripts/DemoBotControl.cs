@@ -52,8 +52,8 @@ public class DemoBotControl : MonoBehaviour
         else if (action.Category == ActionType.Throw) timeDelay = 2f;
         Debug.Log(timeDelay); 
     }
-    public void InsertOptionAction(int projectilecode){
-        callstack.Insert(currentIndex+1, new Action(new CodeProperties(), ActionType.Output, controller.projectilecode,0));
+    public void InsertOptionAction(int projectilecode, int row = 0){
+        callstack.Insert(currentIndex+1, new Action(new CodeProperties(), ActionType.Output, controller.projectilecode,row));
     }
     // Update is called once per frame
     void Update()
