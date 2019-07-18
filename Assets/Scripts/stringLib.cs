@@ -22,9 +22,10 @@ public class stringLib
     public const string INTERFACE_TOOL_NAME_1_ROBOTON = "Checker";
     public const string INTERFACE_TOOL_NAME_2_ROBOBUG = "Warper";
     public const string INTERFACE_TOOL_NAME_2_ROBOTON = "Renamer";
-    public const string INTERFACE_TOOL_NAME_3 = "Commenter";
+    public const string INTERFACE_TOOL_NAME_3_ROBOTON = "Commenter";
+    public const string INTERFACE_TOOL_NAME_3_ROBOBUG = "Lock";
     public const string INTERFACE_TOOL_NAME_4_ROBOBUG = "Breakpointer";
-    public const string INTERFACE_TOOL_NAME_4_ROBOTON = "Un-Commenter";
+    public const string INTERFACE_TOOL_NAME_4_ROBOTON = "Reviewer";
     public const string INTERFACE_TOOL_NAME_5 = "Helper";
     public const string INTERFACE_TOOL_NAME_6 = "Hinter";
 
@@ -114,8 +115,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
 
     public Color[] COLORS = new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
         Color.cyan, Color.blue, Color.blue};
-    public string[] namesON = new string[] { "Activator", "Question", "Renamer", "Commenter", "Uncommenter", "Helper", "Hinter" };
-    public string[] namesBug = new string[] { "Bug Fixer", "Printer", "Warper", "Commenter", "Breakpointer", "Helper", "Hinter" };
+    public string[] namesON = new string[] { "Activator", "Question", "Renamer", "Commenter", "Reviewer", "Helper", "Hinter" };
+    public string[] namesBug = new string[] { "Bug Fixer", "Printer", "Warper", "Lock", "Breakpointer", "Helper", "Hinter" };
     public const string START_LEVEL_FILE = "level0-1.xml";
 
     public string comic_level_zero = "tut1.xml";
@@ -200,8 +201,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string DB_URL = "http://199.212.33.3:3000/logs";
     public const string CURRENT_LEVEL = "currentlevel/";
     public const int DOWNLOAD_TIME = 200;
-    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "comment", "breakpointer"}; 
-    public string[] onIcons = new string[]{"beacon", "question", "uncommenter", "comment", "renamer"}; 
+    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "lock", "breakpointer"}; 
+    public string[] onIcons = new string[]{"beacon", "question", "renamer", "comment", "uncommenter"}; 
 
     public string[] nameObstacle = new string[] { "firewall" };
     public const string STREAMING_ASSETS = "StreamingAssets/";

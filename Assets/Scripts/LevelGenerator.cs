@@ -398,7 +398,7 @@ public partial class LevelGenerator : MonoBehaviour
                 }
             }
 
-
+            /*
             // Pair Incorrect Comments to their corresponding correct comments --[
             foreach (GameObject incorrectComment in manager.robotONincorrectComments)
             {
@@ -413,7 +413,7 @@ public partial class LevelGenerator : MonoBehaviour
                 }
             }
 
-
+            */
             foreach (GameObject incorrectUncomment in manager.robotONincorrectUncomments)
             {
                 foreach (GameObject correctUncomment in manager.robotONcorrectUncomments)

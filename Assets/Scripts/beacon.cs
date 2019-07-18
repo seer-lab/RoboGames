@@ -41,7 +41,8 @@ public class beacon : Tools {
             EmphasizeTool(); 
         }else DeEmphasizeTool(); 
 		// All beacons complete
-		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0 && !revOnce) {
+		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && !revOnce) {
+			anim.SetBool("IsActive", true); 
 			revOnce = true;
 			//GetComponent<SpriteRenderer>().sprite = activebeacon;
 			anim.SetTrigger("Complete");

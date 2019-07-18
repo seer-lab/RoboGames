@@ -310,7 +310,7 @@ public class SelectedTool : MonoBehaviour
 	  }
 	  if (toolCounts[stateLib.TOOL_COMMENTER] + bonusTools[stateLib.TOOL_COMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_COMMENTER);
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = stringLib.INTERFACE_TOOL_NAME_3 ;
+	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text =(GlobalState.GameMode == stringLib.GAME_MODE_BUG)? stringLib.INTERFACE_TOOL_NAME_3_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_3_ROBOTON ;
 	  }
 	  if (toolCounts[stateLib.TOOL_UNCOMMENTER] + bonusTools[stateLib.TOOL_UNCOMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_UNCOMMENTER);

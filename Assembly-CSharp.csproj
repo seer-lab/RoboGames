@@ -183,7 +183,6 @@
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial1.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\python\L4Closer.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level1.xml" />
-     <None Include="Assets\StreamingAssets\onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-5.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\python\tutorial2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-2.xml" />

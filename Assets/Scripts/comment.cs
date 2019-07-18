@@ -39,7 +39,6 @@ public abstract class comment : Tools
     protected Animator anim;
     protected GameObject rightArrow, leftArrow;
     protected bool arrowShown = false;
-    protected string optionsText = "\n True \t False";
     protected TextColoration textColoration;
     public void CleanBlocktext()
     {
@@ -131,7 +130,9 @@ public abstract class comment : Tools
             if (!arrowShown)
             {
                 rightArrow.GetComponent<Image>().enabled = true;
+                rightArrow.transform.GetChild(0).GetComponent<Text>().enabled = true; 
                 leftArrow.GetComponent<Image>().enabled = true;
+                leftArrow.transform.GetChild(0).GetComponent<Text>().enabled = true; 
                 output.enter.GetComponent<Image>().enabled = false;
                 output.enter.transform.GetChild(0).GetComponent<Text>().enabled = false; 
                 arrowShown = true;
@@ -154,7 +155,9 @@ public abstract class comment : Tools
         else if (arrowShown)
         {
             rightArrow.GetComponent<Image>().enabled = false;
+            rightArrow.transform.GetChild(0).GetComponent<Text>().enabled = false; 
             leftArrow.GetComponent<Image>().enabled = false;
+            leftArrow.transform.GetChild(0).GetComponent<Text>().enabled = false; 
             output.enter.GetComponent<Image>().enabled = true;
             output.enter.transform.GetChild(0).GetComponent<Text>().enabled = true; 
             output.enter.transform.GetChild(0).GetComponent<Text>().text="OK!"; 
