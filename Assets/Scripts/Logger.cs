@@ -97,8 +97,9 @@ public class Logger
         states.timestamp = DateTime.Now.ToString();
         string statesObj = JsonUtility.ToJson(states);
         statesObj = "{\"states\":" + statesObj + "}";
-        Debug.Log(statesObj);
-        sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
+        //Debug.Log(statesObj);
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
+        sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/states");
     }
 
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
@@ -114,21 +115,24 @@ public class Logger
 
         string obstacalStateOBJ = JsonUtility.ToJson(obstacalStates);
         obstacalStateOBJ = "{\"obstacalState\":" +  obstacalStateOBJ+ "}";
-        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
+        //Debug.Log( stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
+        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacalState");
     }
     
     public void WriteLog()
     {
         #if UNITY_WEBGL
         jsonObj = "{\"timeEnded\":\"" + DateTime.Now.ToString() + "\"}";
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeEnded" );
 
         if(!failed){
             jsonObj = "{\"progress\":\"Passed\"}";
         }else{
             jsonObj = "{\"progress\":\"Failed\"}";
         }
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/progress");
 
         
         for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
@@ -147,7 +151,8 @@ public class Logger
             }
             string toolObj = JsonUtility.ToJson(tools);
             toolObj = "{\"tools\":" + toolObj + "}"; 
-            sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
+            //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
+            sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/tools");
 
         }
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
@@ -158,8 +163,9 @@ public class Logger
             obstacal.name = GlobalState.StringLib.nameObstacle[i];
             obstacal.line = GlobalState.obstacleLine[i];
             string obstacalOBJ = JsonUtility.ToJson(obstacal);
-            obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
-            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            //obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
+            Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacal");
         }   
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
@@ -175,7 +181,7 @@ public class Logger
         levelObj.timeEnded = "";
         string jsonOBJ = JsonUtility.ToJson(levelObj);
         jsonOBJ = "{\"levels\" : [" + jsonOBJ + "]}";
-        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
         sendDatatoDB(jsonOBJ,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
 
     }
@@ -190,31 +196,6 @@ public class Logger
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
-    }
-
-    public void GetImportantLoggingData(){
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level Postions");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);    
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level id");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
-
     }
 }
 

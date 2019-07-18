@@ -299,10 +299,7 @@ public class GameController : MonoBehaviour, ITimeUser
     // Update is called once per frame
     void Update()
     {
-        if(!hasCalled){
-            logger.GetImportantLoggingData();
-            hasCalled = true;
-        }
+
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
             GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 

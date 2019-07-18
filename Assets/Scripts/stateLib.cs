@@ -75,6 +75,6 @@ public static class stateLib
 
 	public const int COST_SPEED = 20; 
 	public const int COST_PROJECTILE = 30; 
-	public const int COST_HEALTH = 50; 
+	public const int COST_HEALTH = 50;
 	
-}
+	}

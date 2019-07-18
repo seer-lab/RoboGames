@@ -40,12 +40,15 @@ public class warper : Tools
             string filepath = "";
             #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
                 filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
+                if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
                 filepath = Path.Combine(filepath,Filename);
                 Debug.Log("warper: OnTriggerEnter2D() WINDOWS");
             #endif
 
             #if UNITY_WEBGL
-                filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/" + Filename;
+                filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
+                if (GlobalState.Language == "python") filepath =  filepath + "python/";
+                filepath = filepath + Filename;
                 Debug.Log("warper: OnTriggerEnter2D() WEBGL");
             #endif
             //factory = new LevelFactory(filepath);

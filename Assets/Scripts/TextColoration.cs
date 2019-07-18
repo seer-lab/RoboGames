@@ -73,11 +73,11 @@ public class TextColoration {
     }
     mKeyword = rgxKeyword.Match(sText);
 	while (mKeyword.Success){
-		Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
-		if(tutorialKeyword.IsMatch(sText)){
-			mKeyword = mKeyword.NextMatch();
-			continue;
-		}
+		// Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
+		// if(tutorialKeyword.IsMatch(sText)){
+		// 	mKeyword = mKeyword.NextMatch();
+		// 	continue;
+		// }
 		sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 		//Debug.Log("key result " + sText);
 		mKeyword = mKeyword.NextMatch();

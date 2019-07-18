@@ -13,14 +13,14 @@ public class HandControl : MonoBehaviour
     void Start(){
         handPos = this.GetComponent<Transform>(); 
         for (int i = 2; i < 2 + 5; i++){
-            Debug.Log(GameObject.Find("Sidebar").transform.GetChild(2).transform.GetChild(i).name + " : " + (i-2).ToString()); 
+            //Debug.Log(GameObject.Find("Sidebar").transform.GetChild(2).transform.GetChild(i).name + " : " + (i-2).ToString()); 
             sidebarPositions[i-2] = GameObject.Find("Sidebar").transform.GetChild(2).transform.GetChild(i).GetComponent<RectTransform>(); 
         }
         rightArrowPos = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>();
         enterPos = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.Find("OutputEnter").GetComponent<RectTransform>();  
     }
     IEnumerator MoveToPosition(Vector3 position){
-        Debug.Log("Mouse Position: " + position.ToString()); 
+        //Debug.Log("Mouse Position: " + position.ToString()); 
         reachedPosition = false; 
         float speed = 30f; 
         float distX = (position.x - transform.position.x)/speed; 
