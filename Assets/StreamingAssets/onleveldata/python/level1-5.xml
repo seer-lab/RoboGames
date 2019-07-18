@@ -1,5 +1,5 @@
 <level>
-<next-level>level1-5b.xml</next-level>
+<next-level>tutorial2.xml</next-level>
 <description>Put the Output</description>
 <introtext>You're almost to the end!
 We need to make sure the buttons work!</introtext>
@@ -16,7 +16,7 @@ You've mastered data types and variables!</endtext>
 	txt = input("Enter text here")
 	#Let's suppose someone types in "button_1"
 	print(<question text="What would this code output?
-	Select your answer: " options="Enter Text Here,input,button_1" answer="button_1">txt;</question>
+	Select your answer: " options="Enter Text Here,input,button_1" answer="button_1">txt</question>)
 	<comment type="description" correct="true" groupid="0">Strings can be added together; this is called CONCATENATION</comment>
 	part1 = "hello ";
 	part2 = "world";

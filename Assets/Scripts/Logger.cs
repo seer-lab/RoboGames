@@ -93,6 +93,10 @@ public class Logger
         states.position.x_pos = position.x.ToString();
         states.position.y_pos = position.y.ToString();
         Regex checkString = new Regex(@"\b" + lineNumber.ToString() + @"\b");
+        if(projectileCode == stateLib.TOOL_UNCOMMENTER){
+            projectileCode = stateLib.TOOL_COMMENTER;
+        }
+        Debug.Log(GlobalState.correctLine[projectileCode] + " : " + lineNumber);
         if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
             states.progress = "true";
         }else{

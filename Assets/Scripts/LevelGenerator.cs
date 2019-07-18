@@ -356,7 +356,7 @@ public partial class LevelGenerator : MonoBehaviour
                             {
                                 // Correct Uncomment
                                 thisObject = manager.robotONcorrectUncomments[numberOfrobotONcorrectUncomments];
-                                thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
+                                thisObject.GetComponent<comment>().blocktext = GlobalState.StringLib.syntax_color_comment + codenode.ChildNodes[i].InnerText + stringLib.CLOSE_COLOR_TAG;
                                 thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                                 // Colorize all multi-comment line numbers red
@@ -377,7 +377,7 @@ public partial class LevelGenerator : MonoBehaviour
                             {
                                 // Incorrect Uncomment
                                 thisObject = manager.robotONincorrectUncomments[numberOfrobotONincorrectUncomments];
-                                thisObject.GetComponent<comment>().blocktext = codenode.ChildNodes[i].InnerText;
+                                thisObject.GetComponent<comment>().blocktext = GlobalState.StringLib.syntax_color_comment + codenode.ChildNodes[i].InnerText + stringLib.CLOSE_COLOR_TAG;
                                 thisObject.GetComponent<comment>().CleanBlocktext(); 
                                 thisObject.GetComponent<comment>().size = thisObject.GetComponent<comment>().blocktext.Split('\n').Length;
                                 // Colorize all multi-comment line numbers red
