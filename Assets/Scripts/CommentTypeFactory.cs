@@ -100,7 +100,6 @@ public class DescriptionCommentFactory: CommentTypeFactory
             propertyHandler.entityType = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
             Entity = stateLib.ENTITY_TYPE_CORRECT_COMMENT;
             GlobalState.level.Tasks[3]++;
-            Debug.Log("Added Task"); 
             Initalize(propertyHandler); 
         }
         else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false")
@@ -108,6 +107,7 @@ public class DescriptionCommentFactory: CommentTypeFactory
             IncorrectComment propertyHandler = obj.AddComponent<IncorrectComment>() as IncorrectComment; 
             propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;         
             Entity = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
+            GlobalState.level.Tasks[3]++;
             Initalize(propertyHandler);
         }
     }
@@ -126,6 +126,7 @@ public class DescriptionCommentFactory: CommentTypeFactory
             propertyHandler = new IncorrectComment(); 
             propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
             Entity = stateLib.ENTITY_TYPE_INCORRECT_COMMENT;
+            GlobalState.level.Tasks[3]++;
         }
         else
         {
@@ -174,7 +175,7 @@ public class CodeCommentFactory: CommentTypeFactory
         }
         else if (childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value == "false")
         {
-            propertyHandler = new IncorrectComment();
+            propertyHandler = new IncorrentUncomment();
             propertyHandler.entityType = stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT;
             Entity = stateLib.ENTITY_TYPE_INCORRECT_UNCOMMENT;
         }

@@ -18,6 +18,7 @@ public class EnergyController : MonoBehaviour
     float initialScale;
     float initialX, topBar, bottomBar;
     float positionCompensation = 120f;
+    public bool UsedBugFixer = false; 
     bool toggle = false; 
     public float[] percentPerUse()
     {
@@ -74,39 +75,59 @@ public class EnergyController : MonoBehaviour
             energyBarTrans.position = new Vector3(initialX + positionCompensation * ((initialEnergy - displayEnergy) / initialEnergy), energyBarTrans.position.y, 0);
         }
     }
+    /// <summary>
+    /// Reduce Energy on tool use. Currently only needed for BUG FIXER
+    /// </summary>
+    /// <param name="projectileCode">The statelib number associated with the tool</param>
     public void onThrow(int projectileCode)
     {
 
-        currentEnergy -= throwEnergy[projectileCode];
-        if (GlobalState.GameMode == "bug" && projectileCode == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW)
-        {
-            currentEnergy = 0;
+        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && projectileCode == 0){
+            currentEnergy = 0; 
+            UsedBugFixer = true; 
+            updateBar();
         }
-        updateBar(); 
     }
+    /// <summary>
+    /// Handle Energy when player does something incorrectly.
+    /// </summary>
+    /// <param name="projectileCode"></param>
     public void onFail(int projectileCode)
     {
-        currentEnergy -= throwEnergy[projectileCode];
+        currentEnergy -= GlobalState.Stats.DamageLevel;
         updateBar();
     }
-    public void onEnergyGrow(int amount){
-        currentEnergy+= amount; 
-        updateBar(); 
-    }
+
     public bool IsFull{
         get{
             return currentEnergy == originalEnergy; 
         }
     }
+    public bool IsHalf{
+        get{
+            return currentEnergy <= originalEnergy/2; 
+        }
+    }
+    /// <summary>
+    /// Reset Energy back to original.
+    /// </summary>
     public void onEnergyReset(){
         currentEnergy = originalEnergy; 
         updateBar(); 
     }
+    /// <summary>
+    /// Used for taking a varying amount of damage from obstacles.
+    /// </summary>
+    /// <param name="damage">Amount of energy to reduce from the player.</param>
     public void onDamange(float damage)
     {
         currentEnergy -= damage;
         updateBar();
     }
+    /// <summary>
+    /// Selects the correct bar for variables based on the total amount of 
+    /// energy the player has.
+    /// </summary>
     void SelectBar(){
         if (currentEnergy - 100 > 0){
             energyBar = transform.GetChild(2).gameObject; 
@@ -123,6 +144,9 @@ public class EnergyController : MonoBehaviour
             initialX = bottomBar;
         }
     }
+    /// <summary>
+    /// Update the visual placement and size of the bar. 
+    /// </summary>
     void updateBar()
     {
         SelectBar(); 

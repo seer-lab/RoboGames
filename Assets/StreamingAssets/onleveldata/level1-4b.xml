@@ -15,7 +15,7 @@ You've made it through some tricky stuff!</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	
+	<comment type="description" correct="false"  groupid="0">Variable types don't matter and you can forget about them.</comment>	
 	<comment type="description" correct="true"  groupid="0">You have to pay attention to variable types!</comment>
 	int a = 4;
 	int b = 3;

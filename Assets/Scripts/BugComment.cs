@@ -59,7 +59,7 @@ public class BugComment : comment
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_COMMENT)
         {
-            hero.onFail();
+
             audioSource.PlayOneShot(wrong);
         }
     }

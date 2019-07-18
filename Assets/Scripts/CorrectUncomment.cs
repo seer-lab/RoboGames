@@ -138,7 +138,7 @@ public class CorrectUncomment : comment
             isCommented = true;
         }
         else if (collidingObj.name.Contains("projectile") && collidingObj.name != stringLib.PROJECTILE_DEBUG){
-			hero.onFail();
+	
             audioSource.PlayOneShot(wrong); 
 		}
     

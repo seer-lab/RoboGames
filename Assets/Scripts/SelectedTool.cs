@@ -110,14 +110,12 @@ public class SelectedTool : MonoBehaviour
                         if (energy.currentEnergy < energy.throwEnergy[i] && !(i == 0 && GlobalState.GameMode == "bug")){
                             toolIcons[i].GetComponent<Image>().enabled = false;
                             toolLabels[i].GetComponent<Text>().enabled = false; 
-                            Debug.Log("Disable"); 
                         }
                         else{
                         toolIcons[i].GetComponent<Image>().enabled = true;
                         toolLabels[i].GetComponent<Text>().enabled = true; 
                         toolLabels[i].GetComponent<Text>().color = (GlobalState.IsDark ? Color.white: Color.black); 
                         }
-                        //Debug.Log("Updating Icons");
                     }
                     isLosing = false;
                     noRemainingActivators = false; 
@@ -298,41 +296,33 @@ public class SelectedTool : MonoBehaviour
 	  if (toolCounts[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CATCHER_OR_CONTROL_FLOW);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;
-	    toolLabels[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] + 1).ToString() + "% ]";
+	    toolLabels[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW].GetComponent<Text>().text =displayString;
 	  }
 	  if (toolCounts[stateLib.TOOL_PRINTER_OR_QUESTION] + bonusTools[stateLib.TOOL_PRINTER_OR_QUESTION] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_PRINTER_OR_QUESTION);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_1_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_1_ROBOTON;
-	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text +=  ((int)percents[stateLib.TOOL_PRINTER_OR_QUESTION] + 1).ToString() + "% ]";
+	    toolLabels[stateLib.TOOL_PRINTER_OR_QUESTION].GetComponent<Text>().text =  displayString ;
 	  }
 	  if (toolCounts[stateLib.TOOL_WARPER_OR_RENAMER] + bonusTools[stateLib.TOOL_WARPER_OR_RENAMER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_WARPER_OR_RENAMER);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_2_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_2_ROBOTON;
-	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_WARPER_OR_RENAMER] + 1).ToString() + "% ]";
+	    toolLabels[stateLib.TOOL_WARPER_OR_RENAMER].GetComponent<Text>().text = displayString;
 	  }
 	  if (toolCounts[stateLib.TOOL_COMMENTER] + bonusTools[stateLib.TOOL_COMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_COMMENTER);
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_3 + " [" : "[";
-	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_COMMENTER] + 1).ToString() + "% ]";
-
+	    toolLabels[stateLib.TOOL_COMMENTER].GetComponent<Text>().text = stringLib.INTERFACE_TOOL_NAME_3 ;
 	  }
 	  if (toolCounts[stateLib.TOOL_UNCOMMENTER] + bonusTools[stateLib.TOOL_UNCOMMENTER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_UNCOMMENTER);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_4_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_4_ROBOTON;
-	    toolLabels[stateLib.TOOL_UNCOMMENTER].GetComponent<Text>().text = (sidebar.isActive) ? displayString + " [" : "[";
-	    toolLabels[stateLib.TOOL_UNCOMMENTER].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_UNCOMMENTER] + 1).ToString() + "% ]";
+	    toolLabels[stateLib.TOOL_UNCOMMENTER].GetComponent<Text>().text =  displayString;
 	  }
 	  if (toolCounts[stateLib.TOOL_HELPER] + bonusTools[stateLib.TOOL_HELPER] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_HELPER);
-	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_5 + " [" : "[";
-	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_HELPER] + 1).ToString() + "% ]";
+	    toolLabels[stateLib.TOOL_HELPER].GetComponent<Text>().text =stringLib.INTERFACE_TOOL_NAME_5; 
 	  }
       if(toolCounts[stateLib.TOOL_HINTER] + bonusTools[stateLib.TOOL_HINTER] > 0){
-          toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().text = (sidebar.isActive) ? stringLib.INTERFACE_TOOL_NAME_6 + " [" : "[";
-          toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().text += ((int)percents[stateLib.TOOL_HINTER] + 1).ToString() + "% ]";
+          toolLabels[stateLib.TOOL_HINTER].GetComponent<Text>().text = stringLib.INTERFACE_TOOL_NAME_6 ;
       }
 	}
 	//.................................>8.......................................

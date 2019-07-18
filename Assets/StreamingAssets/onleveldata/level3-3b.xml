@@ -14,14 +14,13 @@ You've aced the loops!</endtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	<comment type="description" correct="true"  groupid="10">as you saw earlier, while loops can imitate for loops</comment>
 	int i = 0;
 	string text = "1";
 	while (i &lt; 5){
 		text += "0";
 <beacon flow-order="0,1,2,3,4" />		i++;
 	}
-	<comment type="description" correct="true"  groupid="2">You have to make sure your loop stops at some point 
+	<comment type="description" correct="true"  groupid="2" style="multi">You have to make sure your loop stops at some point 
 	or your program will run forever.</comment>
 	
 	<comment type="description" correct="false"  groupid="3">The code below is correct.</comment>

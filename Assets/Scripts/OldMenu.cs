@@ -214,7 +214,7 @@ public class OldMenu : MonoBehaviour
             Debug.Log("All Powers Maxed Out!"); 
              Debug.Log("Freefall: " + GlobalState.Stats.FreeFall.ToString() 
             +"\n Speed: " + GlobalState.Stats.Speed.ToString()
-            + "\n ProjecTime: " + GlobalState.Stats.ProjectileTime.ToString()
+            + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
              + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
              +"\n Points: " + GlobalState.Stats.Points.ToString()); 
         }

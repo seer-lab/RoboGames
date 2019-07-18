@@ -20,6 +20,7 @@ public class Tools : MonoBehaviour
     protected AudioSource audioSource; 
     protected AudioClip correct, wrong; 
     protected hero2Controller hero; 
+    bool select = true; 
     public int Index
     {
         get
@@ -56,4 +57,32 @@ public class Tools : MonoBehaviour
     /// Will be called at Start, use this for correct ordering of Instantiation. 
     /// </summary>
     public virtual void Initialize() { }
+
+    protected void EmphasizeTool(){
+        if (!select){
+            StopAllCoroutines(); 
+            StartCoroutine(FadeTool(true)); 
+            select = true; 
+        }
+    }
+    protected void DeEmphasizeTool(){
+        if (select){
+            StopAllCoroutines(); 
+            StartCoroutine(FadeTool(false)); 
+            select = false; 
+        }
+    }
+    IEnumerator FadeTool(bool emphasize){
+        float speed = 30f; 
+        if (!emphasize){
+            speed = -speed; 
+        }
+        SpriteRenderer canvas = GetComponent<SpriteRenderer>(); 
+        float iter = 1f/speed; 
+        while((canvas.color.a < 1 && emphasize) || (canvas.color.a > 0.6f && !emphasize)){
+            canvas.color = new Color(canvas.color.r, canvas.color.g, canvas.color.b, canvas.color.a + iter) ; 
+            yield return null; 
+        }
+    }
+
 }

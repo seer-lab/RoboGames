@@ -93,6 +93,9 @@ public class rename : Tools {
 	//.................................>8.......................................
 	// Update is called once per frame
 	void Update() {
+		if (hero.projectilecode == stateLib.TOOL_WARPER_OR_RENAMER){
+            EmphasizeTool(); 
+        }else DeEmphasizeTool(); 
 		if (answering) {
 			// Handle left and right arrows --[
 			if (selection == 0) {
@@ -146,7 +149,7 @@ public class rename : Tools {
 				if (selection != options.IndexOf(correct)) {
 					answered = false;
 					failed = true; 
-					
+					hero.onFail(); 
 					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 					selectionCode = -1; 
 				}
@@ -234,7 +237,7 @@ public class rename : Tools {
 			  
 		}
 		else if (collidingObj.name.Contains("projectile")){
-			hero.onFail();
+
 			audioSource.PlayOneShot(wrong);
 		}
 	}

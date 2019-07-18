@@ -17,7 +17,7 @@ public class ProgressionPanel : MonoBehaviour
         if (GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true); 
         buttons = new List<GameObject>(); 
         starterText = new string[4];
-        costs = new int[]{stateLib.COST_SPEED, stateLib.COST_PROJECTILE, stateLib.COST_HEALTH}; 
+        costs = new int[]{stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH}; 
         for (int i = 0; i < 4; i++){
             buttons.Add(transform.GetChild(i).gameObject); 
             starterText[i] = buttons[i].transform.GetChild(0).GetComponent<Text>().text; 
@@ -45,11 +45,11 @@ public class ProgressionPanel : MonoBehaviour
             GlobalState.Stats.Speed = StatLib.speeds[index]; 
         UpdateValues(); 
     }
-    public void OnUpgradeProjectile(){
-        GlobalState.Stats.Points = stateLib.COST_PROJECTILE; 
-        int index = StatLib.projectileDistance.ToList().IndexOf(GlobalState.Stats.ProjectileTime) + 1; 
-        if (index < StatLib.projectileDistance.Length)
-            GlobalState.Stats.ProjectileTime = StatLib.projectileDistance[index];
+    public void OnUpgradeDamageReduce(){
+        GlobalState.Stats.Points -= stateLib.COST_DAMAGE_REDUCE; 
+        int index = StatLib.damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1; 
+        if (index < StatLib.damageLevels.Length)
+            GlobalState.Stats.DamageLevel = StatLib.damageLevels[index];
         UpdateValues(); 
     }
     public void OnUpgradeEnergy(){
@@ -65,7 +65,7 @@ public class ProgressionPanel : MonoBehaviour
     }
     void UpdateValues(){
         int counter = 0; 
-        string[] values = new string[4]{GlobalState.Stats.Speed.ToString(), GlobalState.Stats.ProjectileTime.ToString(),
+        string[] values = new string[4]{GlobalState.Stats.Speed.ToString(), GlobalState.Stats.DamageLevel.ToString(),
                             GlobalState.Stats.Energy.ToString(), GlobalState.Stats.FreeFall.ToString()};
         string[] updatedValues = new string[values.Length]; 
         string maxed = "Maxed Out!"; 
@@ -74,8 +74,8 @@ public class ProgressionPanel : MonoBehaviour
         if (index < 5) updatedValues[0] = StatLib.speeds[index].ToString();
         else updatedValues[0] = maxed; 
 
-        index = StatLib.projectileDistance.ToList().IndexOf(GlobalState.Stats.ProjectileTime) + 1;
-        if (index < 5) updatedValues[1] = StatLib.projectileDistance[index].ToString();
+        index = StatLib.damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
+        if (index < 5) updatedValues[1] = StatLib.damageLevels[index].ToString();
         else updatedValues[1] = maxed; 
         
         index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;

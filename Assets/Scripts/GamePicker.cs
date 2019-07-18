@@ -52,7 +52,6 @@ public class GamePicker : MonoBehaviour
             titles[indexSelcted].Select(); 
         }
         else {
-           // GlobalState.GameState = stateLib.GAMESTATE_GAME_END; 
             if (indexSelcted == 1){
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
