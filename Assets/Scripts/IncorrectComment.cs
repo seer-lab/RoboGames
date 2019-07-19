@@ -38,15 +38,23 @@ public class IncorrectComment : comment
             else output.Text.text = text;
         }
     }
+    /// <summary>
+    /// automatically handle the output box in demos
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DemoPlay(){
         yield return new WaitForSecondsRealtime(1.5f); 
         onComplete(); 
         HandleClick(); 
     }
+    /// <summary>
+    /// Handle animations and text upong successful completion
+    /// </summary>
     public void onComplete()
     {
         anim.SetTrigger("Complete");
         doneUpdating = true;
+        //update the image
         if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
         {
             GetComponent<SpriteRenderer>().sprite = descSpriteOn;
@@ -55,6 +63,7 @@ public class IncorrectComment : comment
         {
             GetComponent<SpriteRenderer>().sprite = codeSpriteOn;
         }
+        //replace the text to empty
         string sNewText = blocktext;
         string[] sNewParts = sNewText.Split('\n');
         if (sNewParts.Length == 1 && commentStyle == "single")

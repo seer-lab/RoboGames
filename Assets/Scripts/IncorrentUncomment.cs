@@ -14,6 +14,7 @@ public class IncorrentUncomment : comment
     public override void UpdateProtocol()
     {
         base.UpdateProtocol();
+        //update when the correct comment has been selected
         if (CorrectCommentObject)
         {
             if (CorrectCommentObject.GetComponent<comment>().isCommented && !doneUpdating)
@@ -21,6 +22,7 @@ public class IncorrentUncomment : comment
                  
                 doneUpdating = true;
                 anim.SetTrigger("Complete");
+                //update the image
                 if (entityType == stateLib.ENTITY_TYPE_INCORRECT_COMMENT)
                 {
                     GetComponent<SpriteRenderer>().sprite = descSpriteOn;

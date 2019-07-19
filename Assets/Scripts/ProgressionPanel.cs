@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement; 
 using UnityEngine.UI; 
 
-
+/// <summary>
+/// Handles logic in the Progression scene.
+/// </summary>
 public class ProgressionPanel : MonoBehaviour
 {
     List<GameObject> buttons; 
@@ -38,6 +40,9 @@ public class ProgressionPanel : MonoBehaviour
         if (GlobalState.level.FileName.Contains("tutorial")) GlobalState.level.IsDemo = true; 
         SceneManager.LoadScene("newgame"); 
     }
+    /// <summary>
+    /// Upgrades the Speed to the next tier unless maxed out.
+    /// </summary>
     public void OnUpgradeSpeed(){
         GlobalState.Stats.Points -= stateLib.COST_SPEED; 
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1; 
@@ -45,6 +50,9 @@ public class ProgressionPanel : MonoBehaviour
             GlobalState.Stats.Speed = StatLib.speeds[index]; 
         UpdateValues(); 
     }
+    /// <summary>
+    /// Upgrades the Damage taken to the next tier unless maxed out.
+    /// </summary>
     public void OnUpgradeDamageReduce(){
         GlobalState.Stats.Points -= stateLib.COST_DAMAGE_REDUCE; 
         int index = StatLib.damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1; 
@@ -52,6 +60,9 @@ public class ProgressionPanel : MonoBehaviour
             GlobalState.Stats.DamageLevel = StatLib.damageLevels[index];
         UpdateValues(); 
     }
+    /// <summary>
+    /// Upgrades the Energy to the next tier unless maxed out.
+    /// </summary>
     public void OnUpgradeEnergy(){
         GlobalState.Stats.Points = stateLib.COST_HEALTH; 
         int index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1; 
@@ -69,7 +80,7 @@ public class ProgressionPanel : MonoBehaviour
                             GlobalState.Stats.Energy.ToString(), GlobalState.Stats.FreeFall.ToString()};
         string[] updatedValues = new string[values.Length]; 
         string maxed = "Maxed Out!"; 
-
+        //Find the next tier 
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1;
         if (index < 5) updatedValues[0] = StatLib.speeds[index].ToString();
         else updatedValues[0] = maxed; 
@@ -84,6 +95,7 @@ public class ProgressionPanel : MonoBehaviour
         
         updatedValues[3] = maxed; 
 
+        //update the text, and indicate the next tier they can get.
         foreach (GameObject button in buttons){
             Text text = button.transform.GetChild(0).GetComponent<Text>(); 
             text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter];
