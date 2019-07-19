@@ -15,8 +15,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using System;
 using System.Text.RegularExpressions;
-
+[ObsoleteAttribute("Not in Use anymore")]
 public class VariableColor : Tools {
 
     public GameObject parent;

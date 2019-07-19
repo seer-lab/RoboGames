@@ -14,9 +14,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
-
+/// <summary>
+/// A class that logs the game progress
+/// </summary>
 public class Logger
 {
 
@@ -40,30 +42,13 @@ public class Logger
 			linesUsed[i] = "";
 
         startLogging();
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.positionalID = Convert.ToInt32(WebHelper.i.webData);
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level Postions");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID.ToString();
-        WebHelper.i.GetWebDataFromWeb(false);
-        try{
-            GlobalState.currentLevelID = WebHelper.i.webData.Substring(1,WebHelper.i.webData.Length - 2);    
-        }catch(Exception e){
-            Debug.Log("Error in Getting the Level id");
-            Debug.Log(WebHelper.i.webData);
-            Debug.Log(e.Message);
-        }
-
-        Debug.Log("posID: " + GlobalState.positionalID + " levelID: " + GlobalState.currentLevelID);
-
-         
     }
+
+/// <summary>
+/// A method that ends the logging for the current level and sends the log to the DB
+/// </summary>
+/// <param name="startTime">the start time of the leve</param>
+/// <param name="progress">if the level has been passed or not</param>
     public void onGameEnd(DateTime startTime, bool progress)
     {
         this.startTime = startTime;
@@ -81,6 +66,7 @@ public class Logger
 		hasWritten = true; 
         WriteLog();
     }
+    
     public int CalculateTimeBonus(){
         int value = (GlobalState.level.Code.Length*3)/SecondsToCompleteLevel(); 
         //Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
@@ -98,6 +84,9 @@ public class Logger
 		linesUsed[index] += lineNumber.ToString() + ' '; 
     }
 
+/// <summary>
+/// A method that sends and state change to the DB
+/// </summary>
     public void onStateChangeJson(int projectileCode, int lineNumber, Vector3 position, 
                                     float energy, float currentEnergy, 
                                     bool progress, int time){
@@ -115,15 +104,28 @@ public class Logger
         states.position.line = lineNumber.ToString();
         states.position.x_pos = position.x.ToString();
         states.position.y_pos = position.y.ToString();
-        states.progress = progress.ToString();
+        Regex checkString = new Regex(@"\b" + lineNumber.ToString() + @"\b");
+        if(projectileCode == stateLib.TOOL_UNCOMMENTER){
+            projectileCode = stateLib.TOOL_COMMENTER;
+        }
+        Debug.Log(GlobalState.correctLine[projectileCode] + " : " + lineNumber);
+        if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
+            states.progress = "true";
+        }else{
+            states.progress = "false";
+        }
         states.time = time.ToString();
         states.timestamp = DateTime.Now.ToString();
         string statesObj = JsonUtility.ToJson(states);
         statesObj = "{\"states\":" + statesObj + "}";
-        Debug.Log(statesObj);
-        sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
+        //Debug.Log(statesObj);
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/states");
+        sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/states");
     }
 
+/// <summary>
+/// A method that records the Damagae the player took and sends it to DB
+/// </summary>
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
         LoggerDataOStates obstacalStates = new LoggerDataOStates();
         obstacalStates.position = new LoggerDataXY();
@@ -137,21 +139,29 @@ public class Logger
 
         string obstacalStateOBJ = JsonUtility.ToJson(obstacalStates);
         obstacalStateOBJ = "{\"obstacalState\":" +  obstacalStateOBJ+ "}";
-        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
+        //Debug.Log( stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
+        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacalState");
     }
     
+    //Yes I know, bad coding, what can I say ¯\_(ツ)_/¯
+
+/// <summary>
+/// A method that writes all the logs
+/// </summary>
     public void WriteLog()
     {
         #if UNITY_WEBGL
         jsonObj = "{\"timeEnded\":\"" + DateTime.Now.ToString() + "\"}";
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded" );
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeEnded" );
 
         if(!failed){
             jsonObj = "{\"progress\":\"Passed\"}";
         }else{
             jsonObj = "{\"progress\":\"Failed\"}";
         }
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/progress");
 
         
         for(int i = 0; i < GlobalState.level.Tasks.Length; i++){
@@ -170,7 +180,10 @@ public class Logger
             }
             string toolObj = JsonUtility.ToJson(tools);
             toolObj = "{\"tools\":" + toolObj + "}"; 
-            sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
+            if(!(tools.name == "" || tools.name == null || tools.correctLine = "")){
+                sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/tools");
+            }
+            //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
 
         }
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
@@ -181,14 +194,27 @@ public class Logger
             obstacal.name = GlobalState.StringLib.nameObstacle[i];
             obstacal.line = GlobalState.obstacleLine[i];
             string obstacalOBJ = JsonUtility.ToJson(obstacal);
-            obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
-            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            //obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
+            Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
+            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacal");
         }   
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
         #endif
     }
 
+    public void sendPoints(){
+        jsonObj = "{\"points\":\"" + GlobalState.CurrentLevelPoints.ToString() + "\"}";
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/points" );
+        jsonObj = "{\"timeBonus\":\"" + GlobalState.timeBonus + "\"}";
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeBonus");
+    }
+
+/// <summary>
+/// A method that starts the logging, and sends the initial logs to the DB
+/// </summary>
     public void startLogging(){
         LoggerDataLevel levelObj = new LoggerDataLevel();
         levelObj.name = GlobalState.CurrentONLevel;
@@ -198,10 +224,14 @@ public class Logger
         levelObj.timeEnded = "";
         string jsonOBJ = JsonUtility.ToJson(levelObj);
         jsonOBJ = "{\"levels\" : [" + jsonOBJ + "]}";
-        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
         sendDatatoDB(jsonOBJ,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString());
 
     }
+
+/// <summary>
+/// A method that sends data to DB through PUT
+/// </summary>
 
     public void sendDatatoDB(string jsonObj, string url){
         DatabaseHelperV2.i.url = url;
@@ -209,12 +239,16 @@ public class Logger
         DatabaseHelperV2.i.PutToDataBase();
     }
 
+/// <summary>
+/// A method that sends data to DB through POST
+/// </summary>
     public void sendDatatoDBPOST(string jsonObj, string url){
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
     }
 }
+//--------------------------------------------------------------------------------DATA CLASS---------------------------------------------------------->
 
 [Serializable]
 public class LoggerDataLevel{

@@ -8,9 +8,21 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System;
 
+// TODO NEEDS REFACTORING PLEASE
+
+/// <summary>
+/// A class that provides text colorization
+/// </summary>
+/// <remarks> Works for C#, C++, C, Python, Java </remarks>
 public class TextColoration {
 
-
+/// <summary>
+/// A method that provides text colorization per language
+/// </summary>
+/// <remarks> Works for C#, C++, C, Python, Java </remarks>
+/// <param name="sText">Code Text</param>
+/// <param name="language">language of the code text</param>
+/// <returns>Color coded string</returns>
   public string ColorizeText(string sText, string language) {
 
 		sText = DecolorizeText(sText);
@@ -18,9 +30,10 @@ public class TextColoration {
     // Turn all comments and their following text green. Remove all color tags from following text.
     Regex rgxStringLiteral = new Regex("(\")([^\"]*)(\")");
     //string patternCommentPython = @"(\/\/|\s#|\n#|#)(.*)";
-    string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)(.*)";
+    string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)([^@|\n]+)";
+	//string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
-    string patternKeywordPython = @"(^| |\t|\()(class|in|as|range|print|not|or|and|def|bool|auto|double|int|struct|break|else|elif|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
+    string patternKeywordPython = @"(^| |\n|\r|\t|\()(class|in|as|range|print|not|or|and|def|bool|auto|double|int|struct|break|else|elif|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
     string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|not|or|and|def|bool|auto|double|struct|break|if|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|static|while|default|goto|sizeof|volatile|const|short|float|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*)";
 		string patternIncludePythonJava = @"(#include\w|import)";
@@ -64,24 +77,39 @@ public class TextColoration {
 
     Match mStringLiteral, mComment, mKeyword, mInclude, mBlockComment;
 
+
+	// Find Regex Match for include keyword and apply apporpriate colors
     mInclude = rgxInclude.Match(sText);
 	
     while (mInclude.Success) {
 
       sText = sText.Replace(mInclude.Value, GlobalState.StringLib.syntax_color_include + mInclude.Value + stringLib.CLOSE_COLOR_TAG);
 	  mInclude = mInclude.NextMatch();
+	  break;
     }
+	// Find Regex Match for include keyword and apply apporpriate colors
     mKeyword = rgxKeyword.Match(sText);
+	string alreadyDone = "";
 	while (mKeyword.Success){
-		Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
-		if(tutorialKeyword.IsMatch(sText)){
-			mKeyword = mKeyword.NextMatch();
-			continue;
+		// Since Replace will replace all string that matches the word, this would mean all of it would have the color
+		// With this check, it will check if that string has been done and moveon to the next Match
+		if(!alreadyDone.Contains(alreadyDone)){
+			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
+			alreadyDone +=mKeyword.Value + " ";
 		}
-		sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 		//Debug.Log("key result " + sText);
 		mKeyword = mKeyword.NextMatch();
 		
+	}
+
+	//Checks if the tutorial keyword has text colors in it and removes it
+	Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
+	Match mTutorial;
+	mTutorial = tutorialKeyword.Match(sText);
+	while(mTutorial.Success){
+		string cleanString = DecolorizeText(mTutorial.Value);
+		sText = sText.Replace(mTutorial.Value, cleanString);
+		mTutorial = mTutorial.NextMatch();
 	}
 
 		//find ints 
@@ -103,7 +131,11 @@ public class TextColoration {
 	rgxComment = new Regex(patternComment); 
 	//TODO: I discovered the lazy "?" after doing a lot of modification; 
 	//this probably could be used elsewhere
+
+	//Debug.Log(sText);
 	
+	// Finds the comments character and apply appropriate color to it
+	// Does not work on the first line of code
 	mComment = rgxComment.Match(sText);
 	while (mComment.Success) {
 		//Debug.Log("Value: " + mComment.Value + " t/f:" + mComment.Value.IndexOf("#"));
@@ -112,11 +144,24 @@ public class TextColoration {
 			continue;
 
 		}else{
+			if(tutorialKeyword.IsMatch(mComment.Value)){
+
+			}
 			string cleanedstring = DecolorizeText(mComment.Value);
-			sText = sText.Replace(mComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			// Regex onlyColor = new Regex(@"(</color>)");
+			// if(onlyColor.IsMatch(cleanedstring)){
+			// 	cleanedstring = cleanedstring.Replace("</color>","");
+			// }
+			if(cleanedstring.Contains("\n")){
+				sText = sText.Replace(mComment.Value, "\n" + GlobalState.StringLib.syntax_color_comment + cleanedstring.Replace("\n", "")+ stringLib.CLOSE_COLOR_TAG);
+			}else{
+				sText = sText.Replace(mComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			}
 			mComment = mComment.NextMatch();
 		}
 	}
+
+	//Debug.Log(sText);
 
 	//Block Comments/First Comment
 	if(language.Equals("python")){
@@ -124,28 +169,37 @@ public class TextColoration {
 		string keywordPassTwo = @"(^| |\t|\b|\()(range)(\W|$|\))";
 		rgxKeyword = new Regex(keywordPassTwo);
 
-    mKeyword = rgxKeyword.Match(sText);
+		//Check again for any missing keywords and apply the color
+    	mKeyword = rgxKeyword.Match(sText);
 		while (mKeyword.Success){
 			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 			//Debug.Log("key result " + sText);
 			mKeyword = mKeyword.NextMatch();
 		}
-
+		//Debug.Log(sText);
 
 		Regex rgxBlock = new Regex(@"(\/\/|\#)(.*)");
 		mBlockComment = rgxBlock.Match(sText);
 
 		//First Comments
+		//This takes care of the first comments and will apply the appropriate color to it
 		while(mBlockComment.Success){
 			//Check if its a tag
 			Regex checkTags = new Regex(@"(?s)(.*)(#.{8}>)(.*)(</color>)(.*)");
-			if(checkTags.IsMatch(mBlockComment.Value)){
+			Regex checkTagsTwo = new Regex(@"(?s)(.*)(<color=#.{8}>)(.*)(</color>)(.*)");
+			string cleanedstring = "";
+			if(checkTagsTwo.IsMatch(mBlockComment.Value) && !checkTags.IsMatch(mBlockComment.Value)){
+				cleanedstring = DecolorizeText(mBlockComment.Value);
+			}
+			else if(checkTags.IsMatch(mBlockComment.Value)){
 				break;
 			}
-			string cleanedstring = DecolorizeText(mBlockComment.Value);
+			cleanedstring = DecolorizeText(mBlockComment.Value);
 			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			break;
 		}
+
+		//Debug.Log(sText);
 
 		string block = @"(['" + "])\\1\\1(.*?)\\1{3}";
 		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
@@ -157,6 +211,7 @@ public class TextColoration {
 			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mBlockComment=mBlockComment.NextMatch();
 		}
+		//Debug.Log(sText);
 }else if(language.Equals("c++") || language.Equals("c") ||language.Equals("c#")|| language.Equals("java")){
 		string block = @"\/\*+((([^\*])+)|([\*]+(?!\/)))[*]+\/";
 		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
@@ -175,9 +230,9 @@ public class TextColoration {
 	//Debug.Log("Pre-cleaning text = " + sText);
 	*/
 	//Decolorize tags stuck inside words
-  Regex inrgx = new Regex(@"(?s)(\w)(<color=#.{8}>)([^<]*)(<\/color>)");
-	sText = inrgx.Replace(sText, "$1$3");
-	
+//   Regex inrgx = new Regex(@"(?s)(\w)(<color=#.{8}>)([^<]*)(<\/color>)");
+// 	sText = inrgx.Replace(sText, "$1$3");
+
 	//fix out of order color tags
 	Regex ordrgx = new Regex(@"(?s)(<color=#.{8}>)(<\/color>)");
 	sText = ordrgx.Replace(sText, "$2$1");
@@ -207,6 +262,7 @@ public class TextColoration {
 
 		// Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
 		// sText = colorLine.Replace(sText, '\n' + GlobalState.StringLib.syntax_color_keyword);
+
     return sText;
   }
 
@@ -221,7 +277,8 @@ public class TextColoration {
 	//Debug.Log("decolored text = " + sText);
     return sText;
   }
-	
+
+//Not in use
 
   public string ColorTaskLine(string sLine, int nLine, LevelGenerator lg)
 	{
@@ -262,6 +319,7 @@ public class TextColoration {
 		return "";
 	}
 	
+	// Not in use
 	public string NodeToColorString(XmlNode node) {
 		string language = "python";
 		string sReturn = "";

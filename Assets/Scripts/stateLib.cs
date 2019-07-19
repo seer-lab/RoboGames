@@ -77,4 +77,4 @@ public static class stateLib
 	public const int COST_DAMAGE_REDUCE = 300; 
 	public const int COST_HEALTH = 500; 
 	
-}
+	}

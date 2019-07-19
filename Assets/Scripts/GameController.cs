@@ -31,7 +31,9 @@ public class GameController : MonoBehaviour, ITimeUser
     public Logger logger;
     bool winning = false;
     bool finalized = false;
-    float leftCodescreen; 
+    float leftCodescreen;
+
+    bool hasCalled = false; 
 
     /// <summary>
     /// Checks if the game meets the win condition. 
@@ -167,9 +169,10 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
-        //logger.onGameEnd(startDate, true);
-        //GlobalState.timeBonus = logger.CalculateTimeBonus();
+        logger.onGameEnd(startDate, true);
+        GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
+        logger.sendPoints();
         do
         {
             yield return new WaitForSecondsRealtime(2.2f);
@@ -242,7 +245,7 @@ public class GameController : MonoBehaviour, ITimeUser
         selectedTool = sidebar.transform.GetChild(2).transform.Find("Sidebar Tool").GetComponent<SelectedTool>();
         EnergyController = GameObject.Find("Energy").GetComponent<EnergyController>();
         leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE;
-        //logger = new Logger();
+        logger = new Logger();
     }
     /// <summary>
     /// Brings the player back to the main menu. 
@@ -265,7 +268,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            //logger.onGameEnd(startDate, true);
+            logger.onGameEnd(startDate, true);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }
@@ -316,6 +319,7 @@ public class GameController : MonoBehaviour, ITimeUser
     // Update is called once per frame
     void Update()
     {
+
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
             GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 

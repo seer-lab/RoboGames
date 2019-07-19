@@ -23,8 +23,7 @@ def InsertFile(int files[], int numOfFiles):
 	</print>
     <print text="5" col="4">print(numOfFiles)
 	</print>
-	for(i in range(0,$bug for(i in range(0,numOfFiles-1)):$numOfFiles+1)):
-    for(int i = 0; i$bug for(int i = 0; i &lt; numOfFiles-1; i++)$ &lt;= numOfFiles; i++){
+    for(int i = 0; i $bug for(int i = 0; i &lt; numOfFiles-1; i++)$ &lt;= numOfFiles; i++){
         if (files[i]&gt;files[i+1]):
             Swap(files[i],files[i+1])
         

@@ -7,6 +7,9 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System;
 
+/// <summary>
+///  A Class the reads an XML Document
+/// </summary>
 public static class XMLReader {
 
   public static XmlDocument ReadFile(string filename) {
@@ -16,6 +19,9 @@ public static class XMLReader {
     return doc;
   }
 
+  /// <summary>
+  ///  A Method which returns the total line count in a level
+  /// </summary>
   public static int GetLineCount(XmlDocument doc) {
     //Debug.Log("Line count for this level is: " + GetOuterXML(doc).Length);
     return GetOuterXML(doc).Length;
@@ -85,6 +91,7 @@ public static class XMLReader {
     return "NotFound";
   }
 
+  [ObsoleteAttribute("We don't use the time limit")]
   public static string GetTimeLimit(XmlDocument doc) {
     foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
       if (xmlnode.Name == stringLib.NODE_NAME_TIME) {
@@ -110,7 +117,8 @@ public static class XMLReader {
 
     //Parses Through the file for hint tag
     // TODO: Handle cases within child node of code
-    public static string GetHints(XmlDocument doc) {
+      [ObsoleteAttribute("No use for hint in this game")]
+        public static string GetHints(XmlDocument doc) {
         foreach(XmlNode xmlNode in doc.DocumentElement.ChildNodes) {
             if(xmlNode.Name == stringLib.NODE_NAME_HINT) {
                 return xmlNode.InnerText;

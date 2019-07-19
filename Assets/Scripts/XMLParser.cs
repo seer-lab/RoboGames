@@ -6,6 +6,12 @@ using System.Xml.Schema;
 using UnityEngine;
 using System.IO;
 
+// TODO : Actually implement this in code
+
+/// <summary>
+/// A class that validates the XML
+/// </summary>
+
 public class XMLParser : MonoBehaviour {
     public string filedirectory;
     public bool isSucesses = false;
@@ -16,14 +22,17 @@ public class XMLParser : MonoBehaviour {
         files = Directory.GetFiles(this.filedirectory, "*.xml");
         schemafile = Directory.GetFiles(this.filedirectory, "*.xsd")[0];
 
+        //Sets the schema file
         XmlSchemaSet schemaset = new XmlSchemaSet();
         schemaset.Add(null, schemafile);
 
+        //Sets the setting
         XmlReaderSettings settings = new XmlReaderSettings();
         settings.ValidationType = ValidationType.Schema;
         settings.Schemas = schemaset;
         settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
 
+        //Read through the file and produce any error
         for(i =0 ; i < files.Length; i++){
             try{
             XmlReader reader = XmlReader.Create(files[i], settings);

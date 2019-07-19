@@ -41,6 +41,14 @@ public class rename : Tools {
 	private bool isChecked = false;
 	bool arrowShown = false; 
 	int selectionCode = -1; 
+
+/// <summary>
+/// A method that initializes the game object
+/// </summary>
+/// <remarks> 
+///Since VariableRenamer.cs is not in use
+/// We must use the object to rename the string
+/// </remarks>
     public override void Initialize()
     {
 		if (answered)GetComponent<SpriteRenderer>().sprite = renSpriteOn;

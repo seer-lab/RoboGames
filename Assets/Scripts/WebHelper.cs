@@ -6,6 +6,11 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// A class that sends request to the server
+/// * This class uses javascript browswer functionality and UnityWebRequest
+/// * This class must be attach to a gameobject in order for it to work
+/// </summary>
 public class WebHelper : MonoBehaviour
 {
     public static WebHelper i;
@@ -15,6 +20,8 @@ public class WebHelper : MonoBehaviour
     public string webData {get; set;}
     public AssetBundle assetBundle {get; set;}
 
+    //Make the gameobject that the class attach to a 
+    // DontDestroyOnLoad
     void Awake(){
         if(!i){
             i = this;
@@ -23,7 +30,7 @@ public class WebHelper : MonoBehaviour
             DestroyImmediate(gameObject);
         }
     }
-
+    //Grabs the method from the serverFunction.jslib which is located in Assets/Plugins
     #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern string GetData(string url);
@@ -33,6 +40,11 @@ public class WebHelper : MonoBehaviour
         private static extern void SaveVideoInIndexedDB(string path, string filename);
     #endif
 
+/// <summary>
+/// A method which grabs web data from a url
+/// * DOESNT HAVE TO BE XML
+/// <param name="url"></param>
+/// </summary>
     IEnumerator GetXMLFromServer(string url) {
         UnityWebRequest www = UnityWebRequest.Get(url);
         www.SendWebRequest();
@@ -47,6 +59,7 @@ public class WebHelper : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    [ObsoleteAttribute("Doesnt workin in Unity 2019.1/2019.2")]
     IEnumerator GetMovieFromServer(string filename,string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
@@ -58,23 +71,8 @@ public class WebHelper : MonoBehaviour
         }
     }
 
+    [ObsoleteAttribute("Doesnt workin in Unity 2019.1/2019.2")]
     IEnumerator GetAssetBundlesM(string url){
-        //Debug.Log("URI PORTS " + url );
-        // WWW www = WWW.LoadFromCacheOrDownload(url, 0);
-
-        // while(!www.isDone){
-        //     Debug.Log("Progress: " + www.progress);
-        //     yield return null;
-        // }
-
-        // if(www.error == null){
-        //     assetBundle = www.assetBundle;
-        //     Debug.Log("Success");
-        // }else{
-        //     Debug.Log(www.error);
-        // }
-
-
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
         yield return request.SendWebRequest();
         
@@ -90,16 +88,9 @@ public class WebHelper : MonoBehaviour
             assetBundle = DownloadHandlerAssetBundle.GetContent(request);
         }
     }
+    //Determines which platform you are on, and uses the appropriate function
     public string GetWebDataFromWeb(){
         #if UNITY_WEBGL && !UNITY_EDITOR
-            // Console.WriteLine("Download On the web");
-            // IEnumerator e = WebRequest(url);
-            // while(e.MoveNext()){
-            //     if(e.Current != null){
-            //         Debug.Log(e.Current as string);
-            //         this.webData = e.Current as string;
-            //     }
-            // }
             this.webData = GetData(this.url); //Synchronous
             // Console.WriteLine(this.webData);
         #elif UNITY_WEBGL
@@ -109,7 +100,7 @@ public class WebHelper : MonoBehaviour
 
         return this.webData;
     }
-
+    //Determines which platform you are on, and uses the appropriate function
         public string GetWebDataFromWeb(bool useJavaScripsFunction){
             if(useJavaScripsFunction){
                 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -122,6 +113,10 @@ public class WebHelper : MonoBehaviour
         return this.webData;
     }
 
+    //Save the movie data into browsers storage cache, and when needed, it will grab the url which the Video
+    // Player used to play it
+    //Unfortunatly, grabing the movie url doesnt work
+    [ObsoleteAttribute("Does not work in Unity, use the actual URL")]
     public void SaveMovieDataFromWeb(string filename){
         //StartCoroutine(GetMovieFromServer(filename,stringLib.SERVER_URL + "StreamingAssets/" + filename ));
         //Get the URL from INDEXEDDB
@@ -130,6 +125,9 @@ public class WebHelper : MonoBehaviour
         #endif
     }
 
+    //Grabs the movie data from browsers storage cache, and when needed
+    //Unfortunatly, it doesnt work in Unity
+    [ObsoleteAttribute("Does not work in Unity, use the actual URL")]
     public void RequestMovieFromIndexedDB(string filename){
         #if UNITY_WEBGL && !UNITY_EDITOR
             webData = "";
@@ -137,6 +135,7 @@ public class WebHelper : MonoBehaviour
         #endif
     }
 
+    //Debuging function, Delete it if you wish
     void SetMovieIndexedDBURL(string filename){
         String[] webdata = filename.Split(' ');
         if(webdata[1] == stringLib.MOVIE_INTRO){
@@ -154,6 +153,7 @@ public class WebHelper : MonoBehaviour
         }
     }
 
+    //Downloading Video AssetsBundle doesnt work in Unity 2019.1/2019.2
     public void DownloadVideoAssetBundle(string url){
         Caching.compressionEnabled = false;
         Caching.ClearCache();
