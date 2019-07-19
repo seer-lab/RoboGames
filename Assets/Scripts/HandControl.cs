@@ -7,8 +7,8 @@ public class HandControl : MonoBehaviour
 {
     // Start is called before the first frame update
     Transform handPos; 
-    RectTransform[] sidebarPositions = new RectTransform[5]; 
-    RectTransform rightArrowPos, leftArrowPos, enterPos; 
+    RectTransform[] sidebarPositions = new RectTransform[5]; //store the positions of the sidebar to interact with them
+    RectTransform rightArrowPos, leftArrowPos, enterPos;  //store the positions of the output buttons
     bool reachedPosition = true; 
     void Start(){
         handPos = this.GetComponent<Transform>(); 
@@ -20,6 +20,13 @@ public class HandControl : MonoBehaviour
         leftArrowPos =  GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).GetComponent<RectTransform>();
         enterPos = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.Find("OutputEnter").GetComponent<RectTransform>();  
     }
+    /// <summary>
+    /// The hand will move to the position specified. The speed of this 
+    /// movement is consistent, thus further distances will be made in the same
+    /// time as shorter ones.
+    /// </summary>
+    /// <param name="position">Position in Game/World Space</param>
+    /// <returns></returns>
     IEnumerator MoveToPosition(Vector3 position){
         //Debug.Log("Mouse Position: " + position.ToString()); 
         reachedPosition = false; 
@@ -37,6 +44,11 @@ public class HandControl : MonoBehaviour
         }
         reachedPosition = true; 
     }
+    /// <summary>
+    /// Interact with the right arrow before putting the hand over
+    /// the enter button. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ArrowClick(){
         var worldCorners = new Vector3[4]; 
         rightArrowPos.GetWorldCorners(worldCorners); 
@@ -50,6 +62,10 @@ public class HandControl : MonoBehaviour
         StartCoroutine(MoveToPosition(new Vector3(worldCorners[1].x + 0.5f, worldCorners[2].y -1f, worldCorners[0].z))); 
 
     }
+    /// <summary>
+    /// Interact with the Left Arrow only.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ClickLeftArrow(){
         var worldCorners = new Vector3[4]; 
         leftArrowPos.GetWorldCorners(worldCorners); 
@@ -57,13 +73,25 @@ public class HandControl : MonoBehaviour
       
         while (!reachedPosition) yield return null; 
     }
+    /// <summary>
+    /// Interact with the Right Arrow Only
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ClickRightArrow(){
+        //convert screenspace to world space
         var worldCorners = new Vector3[4]; 
-        leftArrowPos.GetWorldCorners(worldCorners); 
+        rightArrowPos.GetWorldCorners(worldCorners); 
+        //dispatch movement
         StartCoroutine(MoveToPosition(new Vector3(worldCorners[1].x + 0.5f, worldCorners[2].y -1f, worldCorners[0].z))); 
       
         while (!reachedPosition) yield return null; 
     }
+    /// <summary>
+    /// Takes the action sent by the demo bot from the call stack, then 
+    /// dispatches actions to coroutines.
+    /// </summary>
+    /// <param name="action">Callstack Action</param>
+    /// <param name="projectileCode">Tool currently in use.</param>
     public void HandleAction(Action action, int projectileCode = -1){
         StopAllCoroutines();  
         reachedPosition = true; 

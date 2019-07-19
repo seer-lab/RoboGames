@@ -75,22 +75,23 @@ public class hero2Controller : MonoBehaviour
         else
             maxSpeed = GlobalState.Stats.Speed; 
     }
-    bool CheckClick(){
-        return EventSystem.current.currentSelectedGameObject == null;  
-    }
-    void Flip()
-    {
-        if (facingRight && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("left"))
-        {
-            //this.GetComponent<SpriteRenderer>().flipX = true; 
-        }
-    }
+    /// <summary>
+    /// Hero actions related to messing up an action: 
+    /// a)Output box telling the player they are damaged
+    /// b) lowering the energy bar
+    /// c) Flash the character
+    /// </summary>
     public void onFail()
     {
         GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
         energyController.onFail(projectilecode);
         StartCoroutine(DamageDelay()); 
     }
+    /// <summary>
+    /// Flash the character with a red hue
+    /// --currently not in use --
+    /// </summary>
+    /// <returns></returns>
     IEnumerator RedFlinch(){
         SpriteRenderer color = this.GetComponent<SpriteRenderer>(); 
         float speed = 0.04f; 
@@ -103,6 +104,11 @@ public class hero2Controller : MonoBehaviour
             yield return null; 
         }
     }
+    /// <summary>
+    /// Delay any further damage taken by obstacles. During
+    /// this time the player will blink.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DamageDelay()
     {
         canTakeDamage = false;
@@ -118,6 +124,12 @@ public class hero2Controller : MonoBehaviour
         }
         canTakeDamage = true;
     }
+    /// <summary>
+    /// Handle how the player gets damaged by obstacles specifically.
+    /// </summary>
+    /// <param name="damage">Amount of damage that obstacle dealt</param>
+    /// <param name="obstacleCode">Which obstacle dealt the damage</param>
+    /// <returns>Whether the player was able to take damage</returns>
     public bool onTakeDamange(float damage, int obstacleCode)
     {
         if (canTakeDamage)
@@ -345,6 +357,13 @@ public class hero2Controller : MonoBehaviour
                 }
             }
     }
+
+    /// <summary>
+    /// Compares the inputed position with line objects and rounds the position to be 
+    /// set directly in between those two lines.
+    /// </summary>
+    /// <param name="position">The position to be rounded</param>
+    /// <returns></returns>
     public Vector3 RoundPosition(Vector3 position)
     {
         Transform lineAbove = null, lineBelow = null;
