@@ -45,6 +45,10 @@ public class GamePicker : MonoBehaviour
         fade = GameObject.Find("Fade").GetComponent<Fade>(); 
         fade.onFadeIn(); 
     }
+    /// <summary>
+    /// Highlights the item, and if already highlighted will select that item.
+    /// </summary>
+    /// <param name="index">index of the item</param>
     public void SelectItem(int index){
         if (index != indexSelcted){
             titles[indexSelcted].Deselect(); 

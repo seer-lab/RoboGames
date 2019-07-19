@@ -20,6 +20,13 @@ public class GenericBug : Tools {
         this.GetComponent<Renderer>().enabled = false;
         anim = GetComponent<Animator>();
     }
+	/// <summary>
+	/// Rapidly changes the font and in between the text will be updated 
+	/// to the correct text. This glitch effect works off of a bug in Unity 
+	/// when switching fonts quickly. The same effect may not be reproducable in later 
+	/// versions of Unity if they resolve this. 
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator GlitchText(){		
 		audioSource.PlayOneShot(glitch, 0.5f); 
 		TextMesh text = GetComponent<TextMesh>(); 
