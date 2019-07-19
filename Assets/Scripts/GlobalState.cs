@@ -33,6 +33,7 @@ public static class GlobalState
     public static string[] correctLine {get; set;}
     public static string[] obstacleLine {get; set;}
     public static string jsonOStates {get; set;}
+    public static string bugLine{get; set;}
     public static CharacterStats Stats{get;set;}
 
     public static string URL_MOVIE {get; set;}

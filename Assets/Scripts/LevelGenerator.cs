@@ -75,6 +75,7 @@ public partial class LevelGenerator : MonoBehaviour
         background = GameObject.Find("BackgroundCanvas").GetComponent<BackgroundController>();
         GlobalState.correctLine = new string[stateLib.NUMBER_OF_TOOLS];
         GlobalState.obstacleLine = new string[stateLib.NUMBER_OF_OBSTACLE];
+        GlobalState.bugLine = "";
         hero = GameObject.Find("Hero");
         BuildLevel();
         if (!GlobalState.level.IsDemo){
@@ -220,6 +221,7 @@ public partial class LevelGenerator : MonoBehaviour
     /// <param name="levelnode"></param>
     private void PlaceObjects(XmlNode levelnode)
     {
+        
         foreach (XmlNode codenode in levelnode.ChildNodes)
         {
             if (codenode.Name != stringLib.NODE_NAME_CODE)
@@ -227,6 +229,7 @@ public partial class LevelGenerator : MonoBehaviour
                 continue;
             }
             int indexOf = 0;
+            int lineCount = 0;
             foreach (XmlNode childNode in codenode.ChildNodes)
             {
 
@@ -239,7 +242,8 @@ public partial class LevelGenerator : MonoBehaviour
                         if (lines[i].Contains("$bug"))
                         {
                             row = indexOf + i;
-
+                            GlobalState.bugLine += (i + 1) + " ";
+                            Debug.Log("Bug Line: " + GlobalState.bugLine);
                         }
                     }
                     manager.CreateBug(childNode, row);
@@ -261,6 +265,7 @@ public partial class LevelGenerator : MonoBehaviour
                 {
                     if (c == '\n') indexOf++;
                 }
+                lineCount++;
 
             }
 
