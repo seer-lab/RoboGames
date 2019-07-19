@@ -167,6 +167,7 @@ public class QuestionFactory: ToolFactory
         Regex rgx = new Regex("(.*)(" + stringLibrary.node_color_question + ")(.*)(</color>)(.*)");
         string thisQuestionInnerText = rgx.Replace(GlobalState.level.Code[tool.Index], "$2$3$4");
         tool.innertext = thisQuestionInnerText;
+        tool.Cleaninnertext();
         return tool; 
     }
     public override GameObject GetGameObject()
