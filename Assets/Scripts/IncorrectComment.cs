@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IncorrectComment : comment
 {
-
+    bool failed = false; 
     protected override void OnRightArrowClick()
     {
         onComplete();
@@ -15,6 +15,7 @@ public class IncorrectComment : comment
     protected override void OnLeftArrowClick()
     {
         HandleClick();
+        failed = true; 
         selectedTool.outputtext.GetComponent<Text>().text = "This comment does not correctly describe \nthe code; a nearby comment better explains \nwhat is taking place.";
         hero.onFail();
         audioSource.PlayOneShot(wrong);
@@ -87,6 +88,8 @@ public class IncorrectComment : comment
             }
         }
         lg.DrawInnerXmlLinesToScreen();
+        if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_COMMENT/2; 
+        else GlobalState.CurrentLevelPoints += stateLib.POINTS_COMMENT; 
         GlobalState.level.CompletedTasks[3]++;
         if (CorrectCommentObject != null && !CorrectCommentObject.GetComponent<CorrectComment>().isCommented){
             CorrectCommentObject.GetComponent<CorrectComment>().onComment(); 
