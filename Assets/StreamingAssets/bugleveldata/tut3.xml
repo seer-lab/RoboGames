@@ -7,7 +7,7 @@ You can use TAB to switch between tools.</description>
 <failure_level>Null</failure_level>
 <introtext>There are two new tools to learn:
 &lt;color=#ff00ffff&gt;WARPERS&lt;/color&gt; help move through code
-&lt;color=#00ff00ff&gt;COMMENTERS&lt;/color&gt; identify if code is buggy.
+&lt;color=#00ff00ff&gt;LOCK&lt;/color&gt; identify if code is buggy.
 You will need both of these to succeed!</introtext>
 <endtext>You found the bug with a Divide-and-Conquer approach!
 Now two new tools are yours!

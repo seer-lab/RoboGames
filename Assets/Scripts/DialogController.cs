@@ -9,7 +9,9 @@ using UnityEngine.Networking;
 using System;
 using System.IO; 
 using System.Runtime.InteropServices;
-
+/// <summary>
+/// Controls the dialog during the Intro Scene.
+/// </summary>
 public class DialogController : MonoBehaviour
 {
     public GameObject girlDialog, boyDialog, botDialog; 
@@ -19,7 +21,10 @@ public class DialogController : MonoBehaviour
     bool started = false; 
     int index = 0; 
     // Start is called before the first frame update
-
+    /// <summary>
+    /// Flips the dialog box in its opposite direction.
+    /// </summary>
+    /// <param name="dialog">Dialog box that should be flipped</param>
     private void FlipDialog(GameObject dialog){
         dialog.GetComponent<RectTransform>().localScale = new Vector3(-dialog.GetComponent<RectTransform>().localScale.x,1,1); 
         dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(- dialog.transform.GetChild(0).GetComponent<RectTransform>().localScale.x ,1,1); 
@@ -62,6 +67,8 @@ public class DialogController : MonoBehaviour
         #endif
 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+        //select the correct video and placement of dialog for the correct game mode and 
+        //condition. This scene is used for the beginning and the ending of the game.
             if (GlobalState.GameMode == "bug"){
                 if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
                     player.clip = Resources.Load<VideoClip>("Video/RoboBugEnding"); 
@@ -96,6 +103,8 @@ public class DialogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //time delay is added to prevent the dialog from showing 
+        //while the player is loading. 
         if (!player.isPlaying && Time.timeSinceLevelLoad > 3 && !started){
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
             started = true; 
@@ -107,6 +116,9 @@ public class DialogController : MonoBehaviour
             EndScene(); 
         }
     }
+    /// <summary>
+    /// Switches and fades out the scene.
+    /// </summary>
     void EndScene(){
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         StartCoroutine(WaitForSwitchScene()); 
@@ -118,6 +130,9 @@ public class DialogController : MonoBehaviour
         else 
             SceneManager.LoadScene("MainMenu"); 
     }
+    /// <summary>
+    /// Uses the actor order to show and hide the correct dialog(s).
+    /// </summary>
     void NextDialog(){
         if (index +1 == lines.Count){
             EndScene(); 
@@ -133,20 +148,32 @@ public class DialogController : MonoBehaviour
             StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
         }
     }
+    /// <summary>
+    ///  Simplifys getting the correct Dialog
+    /// </summary>
+    /// <param name="name">Name the dialog belongs to</param>
+    /// <returns>The Dialog GameObject associated with that name</returns>
     GameObject GetDialog(string name){
         if (name == "Boy") return boyDialog; 
         else if (name == "Girl") return girlDialog; 
         else return botDialog; 
     }
-
+    /// <summary>
+    /// Reads and stores the information for the actors and lines.
+    /// </summary>
     void ReadFile(){
+        //Read the appropriate file.
         string bug = ""; 
         string prefix = "Intro"; 
         if( GlobalState.GameMode == "bug") bug = "bug"; 
         if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END) prefix = "Ending"; 
         string filepath = "StreamingAssets/onleveldata/" + prefix + bug + ".txt";
+        
         actorOrder = new List<string>(); 
         lines = new List<string>(); 
+
+        //Check each line for the name of the speaker and add it to the actor list. 
+        //Remove the name indicator and add the speech to the lines list. 
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, "onleveldata/"+ prefix + bug +".txt");
             
@@ -194,14 +221,19 @@ public class DialogController : MonoBehaviour
         #endif
     }
 
+    /// <summary>
+    /// Fades and scales the dialog box out.
+    /// </summary>
+    /// <param name="dialog">The Dialog box to animate out</param>
+    /// <returns></returns>
     IEnumerator HideDialog(GameObject dialog){
         //Initialization
         RectTransform transformm = dialog.GetComponent<RectTransform>(); 
         Image image = dialog.GetComponent<Image>(); 
         CanvasGroup canvas = dialog.GetComponent<CanvasGroup>(); 
         
+        //adjust the scale and the alpha to hide the dialog
         transform.localScale = new Vector3(1,1,1); 
-        //image.color = new Color(image.color.r, image.color.g, image.color.b, 1); 
         canvas.alpha = 1; 
         float frames = 10; 
         while(canvas.alpha > 0){
@@ -211,6 +243,11 @@ public class DialogController : MonoBehaviour
         }
         dialog.transform.GetChild(0).GetComponent<Text>().text = ""; 
     }
+    /// <summary>
+    /// Fades and Scales the dialog box in.
+    /// </summary>
+    /// <param name="dialog">The dialog box to animate in</param>
+    /// <returns></returns>
     IEnumerator ShowDialog(GameObject dialog){
         //Initialization
         RectTransform transformm = dialog.GetComponent<RectTransform>(); 

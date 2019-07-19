@@ -76,11 +76,9 @@
      <Compile Include="Assets\Scripts\CommentTypeFactory.cs" />
      <Compile Include="Assets\Scripts\CorrectComment.cs" />
      <Compile Include="Assets\Scripts\CorrectUncomment.cs" />
-     <Compile Include="Assets\Scripts\credits.cs" />
      <Compile Include="Assets\Scripts\CreditsController.cs" />
      <Compile Include="Assets\Scripts\DatabaseHelperV2.cs" />
      <Compile Include="Assets\Scripts\DemoBotControl.cs" />
-     <Compile Include="Assets\Scripts\DemoBoyControl.cs" />
      <Compile Include="Assets\Scripts\DialogController.cs" />
      <Compile Include="Assets\Scripts\EnergyController.cs" />
      <Compile Include="Assets\Scripts\Fade.cs" />
@@ -107,7 +105,6 @@
      <Compile Include="Assets\Scripts\Logger.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\MenuButton.cs" />
-     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\ObstacleFactory.cs" />
      <Compile Include="Assets\Scripts\OldMenu.cs" />
@@ -183,7 +180,6 @@
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial1.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\python\L4Closer.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\level1.xml" />
-     <None Include="Assets\StreamingAssets\onleveldata\level0.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-5.xml" />
      <None Include="Assets\StreamingAssets\bugleveldata\python\tutorial2.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level1-2.xml" />

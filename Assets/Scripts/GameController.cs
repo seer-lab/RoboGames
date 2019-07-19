@@ -46,7 +46,6 @@ public class GameController : MonoBehaviour, ITimeUser
             //Check if all the tasks have been completed. 
             for (int i = 0; i < 5; i++)
             {
-                //Debug.Log("task: " + GlobalState.level.Tasks[i] + " Completed: " + GlobalState.level.CompletedTasks[i]); 
                 if (GlobalState.level.Tasks[i] != GlobalState.level.CompletedTasks[i])
                 {
                     winning = false;
@@ -130,6 +129,8 @@ public class GameController : MonoBehaviour, ITimeUser
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
         if (!winning && !finalized)
         {
+            //Glitch all of the code wen the player loses by messig up with the 
+            // Bug Fixer. (This Solution is based on UNITY bugging out when switching fonts quickly fyi)
             if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && EnergyController.UsedBugFixer){
                 TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
                 text.font = Resources.Load<Font>("Fonts/HACKED"); 
@@ -242,7 +243,10 @@ public class GameController : MonoBehaviour, ITimeUser
         leftCodescreen = GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE;
         logger = new Logger();
     }
-
+    /// <summary>
+    /// Brings the player back to the main menu. 
+    /// The character moves 
+    /// </summary>
     public void Escape()
     {
         if (!GlobalState.level.IsDemo)

@@ -22,9 +22,10 @@ public class stringLib
     public const string INTERFACE_TOOL_NAME_1_ROBOTON = "Checker";
     public const string INTERFACE_TOOL_NAME_2_ROBOBUG = "Warper";
     public const string INTERFACE_TOOL_NAME_2_ROBOTON = "Renamer";
-    public const string INTERFACE_TOOL_NAME_3 = "Commenter";
+    public const string INTERFACE_TOOL_NAME_3_ROBOTON = "Commenter";
+    public const string INTERFACE_TOOL_NAME_3_ROBOBUG = "Lock";
     public const string INTERFACE_TOOL_NAME_4_ROBOBUG = "Breakpointer";
-    public const string INTERFACE_TOOL_NAME_4_ROBOTON = "Un-Commenter";
+    public const string INTERFACE_TOOL_NAME_4_ROBOTON = "Reviewer";
     public const string INTERFACE_TOOL_NAME_5 = "Helper";
     public const string INTERFACE_TOOL_NAME_6 = "Hinter";
 
@@ -112,10 +113,12 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_OLDNAME = "oldname";
     public const string XML_ATTRIBUTE_HINT = "hint";
 
+    public const string BUG_REGEX = @"((?<=\$bug).+(?=\$))"; // Finds Text in between "$bug" and "$ eg. $bug Hello, World!$ => Hello, World! 
+    public const string DIALOG_REGEX = @"((?<=\@).+(?=\@))"; // Finds the value in between "@" eg. @Hello, World!@ => Hello, World!
     public Color[] COLORS = new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
         Color.cyan, Color.blue, Color.blue};
-    public string[] namesON = new string[] { "Activator", "Question", "Renamer", "Commenter", "Uncommenter", "Helper", "Hinter" };
-    public string[] namesBug = new string[] { "Bug Fixer", "Printer", "Warper", "Commenter", "Breakpointer", "Helper", "Hinter" };
+    public string[] namesON = new string[] { "Activator", "Question", "Renamer", "Commenter", "Reviewer", "Helper", "Hinter" };
+    public string[] namesBug = new string[] { "Bug Fixer", "Printer", "Warper", "Lock", "Breakpointer", "Helper", "Hinter" };
     public const string START_LEVEL_FILE = "level0-1.xml";
 
     public string comic_level_zero = "tut1.xml";
@@ -201,8 +204,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     //public const string DB_URL = "http://127.0.0.1:3000/logs";
     public const string CURRENT_LEVEL = "currentlevel/";
     public const int DOWNLOAD_TIME = 200;
-    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "comment", "breakpointer"}; 
-    public string[] onIcons = new string[]{"beacon", "question", "uncommenter", "comment", "renamer"}; 
+    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "lock", "breakpointer"}; 
+    public string[] onIcons = new string[]{"beacon", "question", "renamer", "comment", "uncommenter"}; 
 
     public string[] nameObstacle = new string[] { "firewall" };
     public const string STREAMING_ASSETS = "StreamingAssets/";

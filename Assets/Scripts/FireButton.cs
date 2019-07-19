@@ -24,6 +24,8 @@ public class FireButton : MonoBehaviour
         tool = toolObject.GetComponent<SelectedTool>(); 
         code = tool.projectilecode; 
         UpdateLook();
+
+        //Set Indicators to be OS specific.
         if (GlobalState.HideToolTips || SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
             transform.parent.GetChild(1).GetComponent<Text>().text =""; 
         }
@@ -31,6 +33,9 @@ public class FireButton : MonoBehaviour
             transform.parent.GetChild(1).GetComponent<Text>().text = "Control"; 
         }
     }
+    /// <summary>
+    /// Updates the color and icon for the button.
+    /// </summary>
     void UpdateLook(){
         GetComponent<Image>().color = GlobalState.StringLib.COLORS[code];
         transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/icons/" + ((GlobalState.GameMode == stringLib.GAME_MODE_ON) ? GlobalState.StringLib.onIcons[code] : GlobalState.StringLib.bugIcons[code]));
@@ -48,11 +53,14 @@ public class FireButton : MonoBehaviour
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
             return; 
-        //GameObject.Find("Hero").GetComponent<hero2Controller>().StopCoroutine("MoveToPosition"); 
         if (!GlobalState.level.IsDemo)
             hero.ThrowTool(); 
         
     }
+    /// <summary>
+    /// Animate the button and publicly announce the button
+    /// is being used.
+    /// </summary>
     public void Fire(){
         GetComponent<Animator>().SetTrigger("Fire");
         StartCoroutine(onFire());

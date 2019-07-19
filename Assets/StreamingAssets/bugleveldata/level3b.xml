@@ -1,12 +1,12 @@
 <level>
 <description>Another color in the database is bugged.
-Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors don't affect the bug.
-Check the RGB values and use the BUGCATCHER to catch the bug.</description>
+Use the &lt;color=#00ff00ff&gt;LOCK&lt;/color&gt; tool to see which colors don't affect the bug.
+Check the RGB values and use the BUGFIXER to catch the bug.</description>
 <next-level>level3.xml</next-level>
 <failure_level>level3a.xml</failure_level>
-<introtext>Now it's time to use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
+<introtext>Now it's time to use the &lt;color=#00ff00ff&gt;LOCK&lt;/color&gt; tool.
 There are many colors to check in a short duration.
-The &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool can speed things up.
+The &lt;color=#00ff00ff&gt;LOCK&lt;/color&gt; tool can speed things up.
 Use it to Divide-and-Conquer!</introtext>
 <endtext>That bug was tricky to find.
 Well done!</endtext>

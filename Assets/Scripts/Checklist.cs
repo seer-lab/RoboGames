@@ -12,6 +12,9 @@ using UnityEngine;
 using UnityEngine.UI; 
 using System.Collections;
 
+/// <summary>
+/// Handles the tool tips at the bottom of the sidebar. 
+/// </summary>
 public class Checklist : MonoBehaviour {
 
 	public GameObject codescreen;

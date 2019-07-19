@@ -36,9 +36,8 @@ public class Cinematic : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Determine the score/points the player should recieve here. 
         continuetext = stringLib.CONTINUE_TEXT;
-        
-        
         score = -1; 
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0; 
         if (GlobalState.level != null && !GlobalState.level.IsDemo){
@@ -57,46 +56,61 @@ public class Cinematic : MonoBehaviour
             maxScore += GlobalState.level.Tasks[i] * pointArr[i]; 
         }
         }
-        
+        //Load the text for the cinematic scene, and load the next scene's data. 
         UpdateText();
+        //Fade the scene in. 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
+    
         if (!GlobalState.IsDark)
         {
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
             transform.Find("PressEnter").GetComponent<Text>().color = Color.black; 
             transform.Find("Title").GetComponent<Text>().color = Color.black; 
         }
+
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = false; 
             star.GetComponent<Animator>().enabled = false; 
         }
-
-        //Debug.Log(SceneManager.sceneCount);
     }
+    /// <summary>
+    /// Fade Character in and commence the running animation
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ShowCharacter(){
         GameObject player = transform.Find(GlobalState.Character).gameObject; 
         player.GetComponent<Animator>().SetTrigger("isRunning"); 
         player.GetComponent<Animator>().SetBool("running", true); 
         Image image = player.GetComponent<Image>(); 
+
+        //fade alpha
         while(image.color.a < 1){
             image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.05f); 
             yield return null; 
         }
     }
+    /// <summary>
+    /// Animate the 5 stars on screen, along with their place holders.
+    /// Will handle when the player fails the level as well (score = 0)
+    /// </summary>
+    /// <returns></returns>
     IEnumerator AnimateStars(){
         
         int value = (int)(((float)score/(float)maxScore)*5f); 
         if (score == 0) value =0; 
         else if (value <= 0) value = 1; 
+        //show place holder
         foreach (GameObject star in stars){
             star.GetComponent<Image>().enabled = true; 
             star.GetComponent<Animator>().enabled = true; 
             yield return new WaitForSecondsRealtime(0.2f); 
         }
+        //display the stars if the player recieves any
         for (int i = 0; i < value; i++){
             stars[i].GetComponent<Animator>().SetBool("isComplete", true); 
             yield return new WaitForSecondsRealtime(0.1f); 
         }
+        //if the player failed animate the stars falling using the speeds array. 
         if (score == 0){
             float[] speeds = new float[]{0.3f, 0.5f, 1f, 0.5f, 0.3f}; 
             while(stars[0].transform.position.y > -13){
@@ -107,6 +121,11 @@ public class Cinematic : MonoBehaviour
             }
         }
     }
+    
+    /// <summary>
+    /// Fade out the stars. The Stars should already be displayed.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FadeFailStars(){
         while(stars[score].GetComponent<Image>().color.a > 0){
             for (int i = score; i < stars.Length; i++){
@@ -116,23 +135,41 @@ public class Cinematic : MonoBehaviour
             yield return null; 
         }
     }
+    /// <summary>
+    /// Introduces the various points the player recieved upon completion 
+    /// of the level.
+    /// 
+    /// Current Order: Level Points => BonusPoints => Total Points
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FadeInResults(){
         
         CanvasGroup canvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();
         CanvasGroup energyCanvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
         energyCanvas.GetComponent<Text>().text = stringLib.POINTS_PREFIX + originalEnergy.ToString();
         canvas.GetComponent<Text>().text = "Level Points: " + score.ToString(); 
+        
+        //Fades In Level Points
         while(canvas.alpha < 1){
             canvas.alpha += 0.02f; 
             yield return null; 
         }
+
+        //Fades in Bonus Points
         StartCoroutine(ShowBonusEnergy()); 
-        yield return new WaitForSecondsRealtime(0.5f); 
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        //Fades in Total Points  
         while(energyCanvas.alpha < 1){
             energyCanvas.alpha += 0.02f; 
             yield return null; 
         }
     }
+    /// <summary>
+    /// Fades out the additional points. The total points are left
+    /// for the following step in the scene.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FadeOutResults(){
         CanvasGroup timer = transform.Find("Time").GetComponent<CanvasGroup>(); 
         CanvasGroup level = transform.Find("Energy").GetComponent<CanvasGroup>(); 
@@ -142,7 +179,13 @@ public class Cinematic : MonoBehaviour
             yield return null; 
         }
     }
+    /// <summary>
+    /// Increase the total amount of points incrementally. 
+    /// Also start any additional points that player could be getting.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ShowBonusEnergy(){
+        //if there is a time bonus animate in now. 
         if (hasTimeBonus){
             StartCoroutine(ShowTimeBonus()); 
             hasTimeBonus = false; 
@@ -161,6 +204,12 @@ public class Cinematic : MonoBehaviour
         }
         field.text = stringLib.POINTS_PREFIX + (GlobalState.Stats.Points - GlobalState.timeBonus).ToString(); 
     }
+    /// <summary>
+    /// Moves stars from the center to the bottom line. This is no longer used
+    /// however the function is still available if the stars need to be pushed out 
+    /// of the way in the future.!-- 
+    /// /// </summary>
+    /// <returns></returns>
     IEnumerator PushResults(){
         StartCoroutine(FadeInResults()); 
         if (score < stars.Length) StartCoroutine(FadeFailStars()); 
@@ -191,14 +240,24 @@ public class Cinematic : MonoBehaviour
             yield return null; 
         } 
     }
+    /// <summary>
+    /// Animates the clock and text into view and will increment the 
+    /// time if they have a good time. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ShowTimeBonus(){
+        //initialization
         transform.Find("Time").GetComponent<Animator>().SetTrigger("ShowTime"); 
         Text bonus = transform.Find("Time").transform.GetChild(0).GetComponent<Text>(); 
         string starterText = "Time Bonus: "; 
         Text field = transform.Find("void main").gameObject.GetComponent<Text>();
         bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + "0" + stringLib.CLOSE_COLOR_TAG;
+
+        //delay longer if the time bonus is lower. This keeps the time spent viewing
+        //the time bonus consistent. 
         yield return new WaitForSecondsRealtime(1.3f + 1f/GlobalState.timeBonus); 
         int amount = GlobalState.timeBonus; 
+        //increment the amount on both the total and the time section. 
         while(GlobalState.timeBonus > 0){
             GlobalState.timeBonus--; 
             bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + (amount -GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG;
@@ -207,6 +266,12 @@ public class Cinematic : MonoBehaviour
         } 
 
     }
+
+    /// <summary>
+    /// Load the next scene.
+    /// IEnumerator is required for web and to fade the scene out. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadGame()
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
@@ -223,7 +288,12 @@ public class Cinematic : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData; 
         web = true; 
-        #endif       
+        #endif
+
+        //Determine properties of the next level. 
+        //All tutorial/demo levels will have "Tutorial" in the name. 
+        //If a txt file with the same name of the following level exists the 
+        //game will load the transition scene which will continue the story.     
         if (File.Exists(filepath) || (!filepath.Contains("File not found!") && web)){
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true; 
             Debug.Log("Transition");
@@ -251,6 +321,11 @@ public class Cinematic : MonoBehaviour
         prompt2.GetComponent<Text>().color = Color.white;
     }
 
+    /// <summary>
+    /// Gets the text for the cinematic.
+    /// If this is the first game this function will also get the 
+    /// level data.
+    /// </summary>
     private void UpdateText()
     {
         if (GlobalState.level == null || GlobalState.level.FileName == GlobalState.CurrentONLevel||GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
@@ -260,10 +335,13 @@ public class Cinematic : MonoBehaviour
         introtext = GlobalState.level.IntroText;
         endtext = GlobalState.level.ExitText;
     }
+    /// <summary>
+    /// Gets the data for the next level and replaces GlobalState
+    /// params with the updated level. All information needed pretaining 
+    /// to the level should be obtained before this is called.
+    /// </summary>
     private void UpdateLevel()
     {
-        //string filepath = Application.streamingAssetsPath +"/"+ GlobalState.GameMode + "leveldata/" + GlobalState.CurrentONLevel;
-        //filepath = Path.Combine(filepath,  GlobalState.CurrentONLevel);
 
         string filepath ="";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
@@ -288,6 +366,12 @@ public class Cinematic : MonoBehaviour
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
+    /// <summary>
+    /// Gets the data for the next level and replaces GlobalState
+    /// params with the updated level. All information needed pretaining 
+    /// to the level should be obtained before this is called.
+    /// </summary>
+    /// <param name="file">Gets the passed in file and will override the default.</param>
     private void UpdateLevel(string file)
     {
         string[] temp = file.Split('\\');
@@ -316,10 +400,10 @@ public class Cinematic : MonoBehaviour
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
-    //.................................>8.......................................
-    // Update is called once per frame
+
     void Update()
     {
+        // Exit to the Main Menu 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GlobalState.GameState = stateLib.GAMESTATE_MENU;
@@ -327,6 +411,7 @@ public class Cinematic : MonoBehaviour
             if (!updatedLevel)UpdateLevel(GlobalState.level.NextLevel); 
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
+        //Handles when the upcoming level has been loaded. 
         if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_START)
         {
             if (!cinerun)
@@ -351,6 +436,7 @@ public class Cinematic : MonoBehaviour
                 StartCoroutine(LoadGame());
             }
         }
+        //Handles when the player successfully completes a level. 
         else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN)
         {
             if (!cinerun)
@@ -370,11 +456,11 @@ public class Cinematic : MonoBehaviour
                     StartCoroutine(FadeOutResults()); 
                     StartCoroutine(AnimateStars()); 
                 }
-                //GameObject.Find("Main Camera").GetComponent<GameController>().SetLevel(GlobalState.level.NextLevel);
                 cinerun = false;
 
             }
         }
+        //Handles when the player fails a level. 
         else if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_LOSE)
         {
             score = 0; 

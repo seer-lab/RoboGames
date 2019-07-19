@@ -65,6 +65,7 @@ public class Tools : MonoBehaviour
             select = true; 
         }
     }
+
     protected void DeEmphasizeTool(){
         if (select){
             StopAllCoroutines(); 
