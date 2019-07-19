@@ -180,8 +180,10 @@ public class Logger
             }
             string toolObj = JsonUtility.ToJson(tools);
             toolObj = "{\"tools\":" + toolObj + "}"; 
+            if(!(tools.name == "" || tools.name == null || tools.correctLine = "")){
+                sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/tools");
+            }
             //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
-            sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/tools");
 
         }
         for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
