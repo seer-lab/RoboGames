@@ -201,6 +201,15 @@ public class Logger
         #endif
     }
 
+    public void sendPoints(){
+        jsonObj = "{\"points\":\"" + GlobalState.CurrentLevelPoints.ToString() + "\"}";
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/points" );
+        jsonObj = "{\"timeBonus\":\"" + GlobalState.timeBonus + "\"}";
+        //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeBonus");
+    }
+
 /// <summary>
 /// A method that starts the logging, and sends the initial logs to the DB
 /// </summary>

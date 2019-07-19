@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour, ITimeUser
         logger.onGameEnd(startDate, true);
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
+        logger.sendPoints();
         do
         {
             yield return new WaitForSecondsRealtime(2.2f);
