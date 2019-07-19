@@ -28,7 +28,7 @@ public class IncorrectComment : comment
             Output.IsAnswering = true;
             if (GlobalState.level.IsDemo){
                 StartCoroutine(DemoPlay()); 
-                hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_COMMENTER,1); 
+                hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_COMMENTER,0); 
             }
             string text = blocktext.Replace("\n",""); 
             text = blocktext.Replace("\t"," "); 
