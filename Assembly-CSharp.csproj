@@ -116,7 +116,6 @@
      <Compile Include="Assets\Scripts\projectile2.cs" />
      <Compile Include="Assets\Scripts\question.cs" />
      <Compile Include="Assets\Scripts\rename.cs" />
-     <Compile Include="Assets\Scripts\ResumeState.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\SelectedTool.cs" />
      <Compile Include="Assets\Scripts\SelectTitle.cs" />

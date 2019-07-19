@@ -27,6 +27,13 @@ public class LevelFactory
     {
         return level; 
     }
+
+    /// <summary>
+    /// Build a new level from its xml document. 
+    /// This will store all the data necessary to build the level. 
+    /// </summary>
+    /// <param name="doc">Document containing the level data</param>
+    /// <param name="filename">The filename where the xml document originated from.</param>
     private void BuildFile(XmlDocument doc, string filename)
     {
         XmlNode levelnode = doc.FirstChild;
@@ -64,6 +71,11 @@ public class LevelFactory
         }
 
     }
+    /// <summary>
+    /// Maintain the details from the current level and update the code. 
+    /// Used for warping
+    /// </summary>
+    /// <param name="filename">The specified warping file</param>
     private void BuildFromCurrent(string filename)
     {
 
@@ -84,6 +96,10 @@ public class LevelFactory
 
     }
     
+    /// <summary>
+    /// build a fresh level after a cinematic
+    /// </summary>
+    /// <param name="filename">name of the level file</param>
     private void BuildLevel(string filename)
     {
         level.Tasks = new int[5];

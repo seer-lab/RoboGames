@@ -57,7 +57,10 @@ public class Tools : MonoBehaviour
     /// Will be called at Start, use this for correct ordering of Instantiation. 
     /// </summary>
     public virtual void Initialize() { }
-
+    
+    /// <summary>
+    /// Highlight the tool by giving it its full brightness/color
+    /// </summary>
     protected void EmphasizeTool(){
         if (!select){
             StopAllCoroutines(); 
@@ -65,7 +68,9 @@ public class Tools : MonoBehaviour
             select = true; 
         }
     }
-
+    /// <summary>
+    /// Mitigate the tool by giving it a lower brightness/color
+    /// </summary>
     protected void DeEmphasizeTool(){
         if (select){
             StopAllCoroutines(); 

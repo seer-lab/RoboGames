@@ -151,10 +151,13 @@ public class GameController : MonoBehaviour, ITimeUser
         }
     }
     int CalculateTimeBonus(){
-        int time = DateTime.Now.Second - startDate.Second;
-        int value = (GlobalState.level.Code.Length*3)/(time == 0 ? 1: time); 
-        //Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
-        if (value > 5) value = 5; 
+        int time = DateTime.Now.Subtract(startDate).Seconds;
+        int value = GlobalState.level.Code.Length*10; 
+        Debug.Log("Time: " +time); 
+
+        value = value - time; 
+
+        if (value < 0) value = 0; 
         return value; 
     }
     /// <summary>

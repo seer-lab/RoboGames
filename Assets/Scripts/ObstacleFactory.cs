@@ -5,11 +5,17 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Creates All Obstacles
+/// </summary>
 public abstract class ObstacleFactory
 {
     protected int lineNumber, column;
     protected XmlNode childnode;
+    /// <summary>
+    /// </summary>
+    /// <param name="node">XML Node to be parsed for obstacles</param>
+    /// <param name="nodeLine">the line where the node exists</param>
     protected ObstacleFactory(XmlNode node, int nodeLine)
     {
         childnode = node; 
@@ -27,6 +33,11 @@ public abstract class ObstacleFactory
         lineNumber = row; 
         column = col; 
     }
+    /// <summary>
+    /// Gets a list of the parameters in the specification
+    /// </summary>
+    /// <param name="type">The type of the obstacle</param>
+    /// <returns>string array of all the params</returns>
     protected string[] GetParams(string type){
         string rgx = @"((?<=\$O" + type + @").+(?=\$))"; 
         Regex paramRgx = new Regex(rgx); 

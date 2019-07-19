@@ -45,16 +45,16 @@ public class Cinematic : MonoBehaviour
             originalEnergy = GlobalState.Stats.Points; 
             GlobalState.Stats.Points += score + GlobalState.timeBonus; 
             maxScore = 0; 
-        int[] pointArr; 
-        if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
-            pointArr = new int[]{stateLib.POINTS_BEACON, stateLib.POINTS_QUESTION, stateLib.POINTS_RENAMER ,stateLib.POINTS_COMMENT, stateLib.POINTS_UNCOMMENT}; 
-        }
-        else {
-            pointArr = new int[]{stateLib.POINTS_CATCHER, stateLib.POINTS_CHECKER, stateLib.POINTS_WARPER, stateLib.POINTS_COMMENT, stateLib.POINTS_BREAKPOINT}; 
-        }
-        for (int i= 0; i < pointArr.Length; i++){
-            maxScore += GlobalState.level.Tasks[i] * pointArr[i]; 
-        }
+            int[] pointArr; 
+            if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
+                pointArr = new int[]{stateLib.POINTS_BEACON, stateLib.POINTS_QUESTION, stateLib.POINTS_RENAMER ,stateLib.POINTS_COMMENT, stateLib.POINTS_UNCOMMENT}; 
+            }
+            else {
+                pointArr = new int[]{stateLib.POINTS_CATCHER, stateLib.POINTS_CHECKER, stateLib.POINTS_WARPER, stateLib.POINTS_COMMENT, stateLib.POINTS_BREAKPOINT}; 
+            }
+            for (int i= 0; i < pointArr.Length; i++){
+                maxScore += GlobalState.level.Tasks[i] * pointArr[i]; 
+            }
         }
         //Load the text for the cinematic scene, and load the next scene's data. 
         UpdateText();
@@ -202,7 +202,7 @@ public class Cinematic : MonoBehaviour
             field.color = new Color(field.color.r, field.color.g + 0.05f, field.color.b); 
             yield return null; 
         }
-        field.text = stringLib.POINTS_PREFIX + (GlobalState.Stats.Points - GlobalState.timeBonus).ToString(); 
+        field.text = stringLib.POINTS_PREFIX + GlobalState.StringLib.node_color_print_dark + (GlobalState.Stats.Points - GlobalState.timeBonus).ToString() + stringLib.CLOSE_COLOR_TAG; 
     }
     /// <summary>
     /// Moves stars from the center to the bottom line. This is no longer used
@@ -262,7 +262,7 @@ public class Cinematic : MonoBehaviour
             GlobalState.timeBonus--; 
             bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + (amount -GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG;
             field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
-            yield return new WaitForSecondsRealtime(0.12f); 
+            yield return null; 
         } 
 
     }

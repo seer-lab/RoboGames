@@ -26,6 +26,7 @@ public class printer : Tools {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR) {
 			Destroy(collidingObj.gameObject);
 			GlobalState.CurrentLevelPoints+= stateLib.POINTS_CHECKER; 
+			//When the text has the err tag, it will provide red error text before it and remove the tag.
 			if (displaytext.Contains("$err$")){
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 
             }

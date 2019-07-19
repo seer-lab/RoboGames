@@ -61,42 +61,36 @@ public class SelectedTool : MonoBehaviour
         sidebar = GameObject.Find("Sidebar").GetComponent<SidebarController>(); 
         energy = GameObject.Find("Energy").GetComponent<EnergyController>();
 	}
+    /// <summary>
+    /// Updates the side panel tools so they aren't spaced out 
+    /// and are in order.
+    /// </summary>
     private void MoveTools(){
         int counter = 0; 
-        //Debug.Log("--------------------------------------------------------");
         for (int i = 0; i < positions.Length; i++){
             if (toolIcons[i].GetComponent<Image>().enabled){
-                //Debug.Log(toolIcons[i].name + " " + positions[counter].ToString()) ;
                 toolIcons[i].GetComponent<RectTransform>().localPosition = positions[counter]; 
                 counter++; 
-            }//else Debug.Log( positions[counter].ToString()); 
+            }
         }
-    }
-    public bool CheckAllToolsUsed(){
-        for (int i = 0; i < toolCounts.Length; i++){
-            if (toolCounts[i] > 0) return false; 
-        }
-        return true; 
     }
     private void SetDisplayText()
     {
         toolAvailableTools.GetComponent<Text>().text = stringLib.INTERFACE_SIDEBAR_AVAILABLE_TOOLS;
     }
+    /// <summary>
+    /// Handle click events from the icons/buttons of the tools
+    /// </summary>
+    /// <param name="index">index of the tool</param>
     public void onClick(int index){
         if (!GlobalState.level.IsDemo)
             NextTool(index); 
     }
-    private void CheckLosing()
-    {
-        if (isLosing || noRemainingActivators)
-        {
-            if (Time.time > losstime)
-            {
-                noRemainingActivators = false;
-                isLosing = false;
-            }
-        }
-    }
+    /// <summary>
+    /// Check which tools are available for use. 
+    /// Those that become available are shown, and those that 
+    /// are not become hidden.
+    /// </summary>
     private void CheckAvailableTools()
     {
         for (int i = 0; i < toolCounts.Length; i++)
@@ -129,7 +123,9 @@ public class SelectedTool : MonoBehaviour
         }
         MoveTools(); 
     }
-
+    /// <summary>
+    /// Check/safe after a tool has been thrown.
+    /// </summary>
     private void HandleThrows()
     {
         // A projectile has been thrown by the player in hero2Controller
@@ -190,6 +186,10 @@ public class SelectedTool : MonoBehaviour
             NextTool();
         }
     }
+    /// <summary>
+    /// RobotON and RoboBUG have different names and iocns for their tools.
+    /// This initializes them correctly. 
+    /// </summary>
     private void InitializeToolLabels()
     {
         for (int i = 0; i < toolIcons.Length; i++)
@@ -211,15 +211,16 @@ public class SelectedTool : MonoBehaviour
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME)
         {
             if (firstUpdate){
+                //update the tool icons and ensure they are in order so they can be arranged
+                //automatically by "MoveTools"
                 positions = new Vector3[toolIcons.Length]; 
-        for (int i = 0; i < positions.Length; i++){
-            positions[i] = toolIcons[i].GetComponent<RectTransform>().localPosition;  
-        }
-         positions = positions.ToList().OrderBy(e => e.y).Reverse().ToArray(); 
-        firstUpdate = false; 
+                for (int i = 0; i < positions.Length; i++){
+                    positions[i] = toolIcons[i].GetComponent<RectTransform>().localPosition;  
+                }
+                positions = positions.ToList().OrderBy(e => e.y).Reverse().ToArray(); 
+                firstUpdate = false; 
             }
             SetDisplayText();
-            CheckLosing();
             CheckAvailableTools();
             hero.GetComponent<hero2Controller>().projectilecode = projectilecode;
             // Pressing Tab cycles to the next tool

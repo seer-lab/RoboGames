@@ -29,6 +29,11 @@ public class ProgressionUI : MonoBehaviour
     public void AnimateButtons(List<GameObject> buttons){
         StartCoroutine(AnimButtons(buttons)); 
     }
+    /// <summary>
+    /// Animate buttons and their text in one at a time.
+    /// </summary>
+    /// <param name="buttons">Buttons which are expected to have an Animator and child Text component</param>
+    /// <returns></returns>
     IEnumerator AnimButtons(List<GameObject> buttons){
         yield return new WaitForSecondsRealtime(0.5f); 
         foreach(GameObject button in buttons){
@@ -40,11 +45,17 @@ public class ProgressionUI : MonoBehaviour
         }
     }
     public void UpdateText(){
-        //StopCoroutine("GlitchText"); 
         glitching = false; 
         Points.GetComponent<Text>().text = GlobalState.Stats.Points.ToString(); 
         StartCoroutine(GlitchText(Points)); 
     }
+    /// <summary>
+    /// Glitch the text with the same techniqe as in game.
+    /// Note: Canvas UI text will not bug in unity but still provides a desired effect
+    /// as the text should still be readable.
+    /// </summary>
+    /// <param name="obj">Gameobject with a text component</param>
+    /// <returns></returns>
     IEnumerator GlitchText(GameObject obj){
         glitching = true; 
         Text text = obj.GetComponent<Text>(); 
@@ -59,8 +70,5 @@ public class ProgressionUI : MonoBehaviour
         glitching = false; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+
 }
