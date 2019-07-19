@@ -39,9 +39,11 @@ public class beacon : Tools {
 	void Update() {
 		if (hero.projectilecode == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW){
             EmphasizeTool(); 
-        }else DeEmphasizeTool(); 
+        }else DeEmphasizeTool();
+
 		// All beacons complete
-		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && actcounter> 0 && !revOnce) {
+		if (GlobalState.level.Tasks[0] == GlobalState.level.CompletedTasks[0] && !revOnce) {
+			anim.SetBool("IsActive", true); 
 			revOnce = true;
 			//GetComponent<SpriteRenderer>().sprite = activebeacon;
 			anim.SetTrigger("Complete");
@@ -53,6 +55,7 @@ public class beacon : Tools {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_BUG) {
 			Destroy(collidingObj.gameObject);
+			//return useful error messages depending on where the player messed up. 
 			if (GetComponent<SpriteRenderer>().sprite == activebeacon || flowOrder.Count == 0) {
 				selectedTool.outputtext.GetComponent<Text>().text = "Beacons must be activated in the right\n order. Sometimes they are activated\n more than once, sometimes not at all.\n You will need to start over.";
 				ResetAllBeacons();

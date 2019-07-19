@@ -21,7 +21,9 @@ public class BugComment : comment
             anim.SetTrigger("Complete");
             Destroy(collidingObj.gameObject);
             GetComponent<AudioSource>().Play();
-            //blocktext = blocktext.Substring("<color=#00ff00ff>/**/</color>".Length, blocktext.Length- "<color=#00ff00ff>/**/</color>".Length);
+            
+            //Update the text in the code to comment out the code along with any additioanl lines 
+            //associated with the block text. 
             string value = "<color=#00ff00ff>/*" + blocktext + "*/</color>";
 
             string[] text = value.Split('\n');
@@ -32,10 +34,7 @@ public class BugComment : comment
 
             lg.DrawInnerXmlLinesToScreen();
 
-            // CodeObject.GetComponent<TextMesh>().text = oldtext.Replace(blocktext, stringLib.comment_block_color_tag + "\*" +
-            // 																	  blocktext.Replace("/**/","") +
-            // 																	  " */" + stringLib.CLOSE_COLOR_TAG);
-
+            //If the error is found in this block text, provide an error. 
             if (errmsg.Contains("$err$"))
             {
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", ""); 
@@ -63,6 +62,11 @@ public class BugComment : comment
             audioSource.PlayOneShot(wrong);
         }
     }
+
+    /// <summary>
+    /// produces the original text before commenting and updates the
+    /// code.
+    /// </summary>
     public void Uncomment()
     {
         if (isAnswered)

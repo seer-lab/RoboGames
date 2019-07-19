@@ -33,9 +33,9 @@ public class IncorrectComment : comment
             string text = blocktext.Replace("\n",""); 
             text = blocktext.Replace("\t"," "); 
             if (text.Length > 75){
-                output.Text.text = text.Substring(0, 72) + "..." +optionsText;  
+                output.Text.text = text.Substring(0, 72) + "...";
             }
-            else output.Text.text = text + optionsText; 
+            else output.Text.text = text;
         }
     }
     IEnumerator DemoPlay(){

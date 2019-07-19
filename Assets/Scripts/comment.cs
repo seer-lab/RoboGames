@@ -39,19 +39,22 @@ public abstract class comment : Tools
     protected Animator anim;
     protected GameObject rightArrow, leftArrow;
     protected bool arrowShown = false;
-    protected string optionsText = "\n True \t False";
     protected TextColoration textColoration;
+
+    /// <summary>
+    /// Checks the blocktext for artifacts from bugs and tutorial objects.
+    /// </summary>
     public void CleanBlocktext()
     {
         if (blocktext.Contains("$bug"))
         {
-            Regex ansRgx = new Regex(@"((?<=\$bug).+(?=\$))");
+            Regex ansRgx = new Regex(stringLib.BUG_REGEX);
             string answer = ansRgx.Match(blocktext).Value;
             blocktext = blocktext.Replace("$bug" + answer + "$", "");
         }
         if (blocktext.Contains("@"))
         {
-            Regex paramRgx = new Regex(@"((?<=\@).+(?=\@))");
+            Regex paramRgx = new Regex(stringLib.DIALOG_REGEX);
             Match match = paramRgx.Match(blocktext);
             while (match.Success)
             {
@@ -124,40 +127,56 @@ public abstract class comment : Tools
         UpdateProtocol();
 
     }
+
+    /// <summary>
+    /// Hide/show the arrows for selecting whether a comment is true or not.
+    /// </summary>
+    /// <param name="active">Should the arrows be shown</param>
+    void ToggleArrows(bool active)
+    {
+        rightArrow.GetComponent<Image>().enabled = active;
+        rightArrow.transform.GetChild(0).GetComponent<Text>().enabled = active;
+        leftArrow.GetComponent<Image>().enabled = active;
+        leftArrow.transform.GetChild(0).GetComponent<Text>().enabled = active;
+        output.enter.GetComponent<Image>().enabled = !active;
+        output.enter.transform.GetChild(0).GetComponent<Text>().enabled = !active;
+    }
+
+    /// <summary>
+    /// Handles interaction with the dialog box when the player uses 
+    /// the descriptive commenters.
+    /// </summary>
     protected virtual void HandleInput()
     {
         if (isAnswering)
         {
             if (!arrowShown)
             {
-                rightArrow.GetComponent<Image>().enabled = true;
-                leftArrow.GetComponent<Image>().enabled = true;
-                output.enter.GetComponent<Image>().enabled = false;
-                output.enter.transform.GetChild(0).GetComponent<Text>().enabled = false; 
+                ToggleArrows(true);
                 arrowShown = true;
                 if (!GlobalState.level.IsDemo)
                 {
                     rightArrow.GetComponent<Button>().onClick.AddListener(OnRightArrowClick);
                     leftArrow.GetComponent<Button>().onClick.AddListener(OnLeftArrowClick);
-                    
+
                 }
             }
-            if (!GlobalState.level.IsDemo){
-                if (Input.GetKeyDown(KeyCode.LeftArrow)){
-                    OnLeftArrowClick(); 
+            if (!GlobalState.level.IsDemo)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    OnLeftArrowClick();
                 }
-                else if (Input.GetKeyDown(KeyCode.RightArrow)){
-                    OnRightArrowClick(); 
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    OnRightArrowClick();
                 }
             }
         }
         else if (arrowShown)
         {
-            rightArrow.GetComponent<Image>().enabled = false;
-            leftArrow.GetComponent<Image>().enabled = false;
-            output.enter.GetComponent<Image>().enabled = true;
-            output.enter.transform.GetChild(0).GetComponent<Text>().enabled = true; 
-            output.enter.transform.GetChild(0).GetComponent<Text>().text="OK!"; 
+            ToggleArrows(false);
+            output.enter.transform.GetChild(0).GetComponent<Text>().text = "OK!";
             arrowShown = false;
             if (!GlobalState.level.IsDemo)
             {
@@ -166,12 +185,24 @@ public abstract class comment : Tools
             }
         }
     }
-    protected void HandleClick(){
-        isAnswering = false; 
-        Output.IsAnswering = false; 
-        output.Text.text = ""; 
+    /// <summary>
+    /// Default behaviors to be preformed after the dialog is done being used.
+    /// </summary>
+    protected void HandleClick()
+    {
+        isAnswering = false;
+        Output.IsAnswering = false;
+        output.Text.text = "";
     }
+    /// <summary>
+    /// This Function will be called when the Right arrow key is clicked or the 
+    /// button is used.
+    /// </summary>
     protected virtual void OnRightArrowClick() { }
+    /// <summary>
+    /// This Function will be called when the Left arrow key is clicked or the 
+    /// button is used.
+    /// </summary>
     protected virtual void OnLeftArrowClick() { }
     public virtual void UpdateProtocol() { }
 

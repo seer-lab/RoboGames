@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
-
+/// <summary>
+/// Handles Characters when they are being displayed in menus.
+/// </summary>
 public class Banner : MonoBehaviour
 {
    public float fadeTime = 2f; 
@@ -33,7 +35,13 @@ public class Banner : MonoBehaviour
        StopAllCoroutines();
        StartCoroutine(doFade(false)); 
    }
-   IEnumerator doFade(bool fadeIn){
+
+   /// <summary>
+   /// Fades the glow and nametag in and out.
+   /// </summary>
+   /// <param name="fadeIn">True: Fade in, False: Fade out</param>
+   /// <returns></returns>
+   IEnumerator doFade(bool fadeIn = true){
        isRunning = true; 
        float iterator = 1/((fadeTime)*20); 
        if (!fadeIn){
@@ -47,6 +55,8 @@ public class Banner : MonoBehaviour
        isRunning = false; 
    }
    void Update(){
+       //ensure the alphas of the text and glows 
+       //are appropriately if the coroutine is abruptly ended. 
        if (!isRunning && selected){
             textName.color = new Color(1,1,1,1); 
             glow.color = new Color(1,1,1,1); 
