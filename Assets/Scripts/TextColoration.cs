@@ -8,9 +8,21 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System;
 
+// TODO NEEDS REFACTORING PLEASE
+
+/// <summary>
+/// A class that provides text colorization
+/// </summary>
+/// <remarks> Works for C#, C++, C, Python, Java </remarks>
 public class TextColoration {
 
-
+/// <summary>
+/// A method that provides text colorization per language
+/// </summary>
+/// <remarks> Works for C#, C++, C, Python, Java </remarks>
+/// <param name="sText">Code Text</param>
+/// <param name="language">language of the code text</param>
+/// <returns>Color coded string</returns>
   public string ColorizeText(string sText, string language) {
 
 		sText = DecolorizeText(sText);
@@ -65,6 +77,8 @@ public class TextColoration {
 
     Match mStringLiteral, mComment, mKeyword, mInclude, mBlockComment;
 
+
+	// Find Regex Match for include keyword and apply apporpriate colors
     mInclude = rgxInclude.Match(sText);
 	
     while (mInclude.Success) {
@@ -73,9 +87,12 @@ public class TextColoration {
 	  mInclude = mInclude.NextMatch();
 	  break;
     }
+	// Find Regex Match for include keyword and apply apporpriate colors
     mKeyword = rgxKeyword.Match(sText);
 	string alreadyDone = "";
 	while (mKeyword.Success){
+		// Since Replace will replace all string that matches the word, this would mean all of it would have the color
+		// With this check, it will check if that string has been done and moveon to the next Match
 		if(!alreadyDone.Contains(alreadyDone)){
 			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 			alreadyDone +=mKeyword.Value + " ";
@@ -85,6 +102,7 @@ public class TextColoration {
 		
 	}
 
+	//Checks if the tutorial keyword has text colors in it and removes it
 	Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
 	Match mTutorial;
 	mTutorial = tutorialKeyword.Match(sText);
@@ -116,6 +134,8 @@ public class TextColoration {
 
 	//Debug.Log(sText);
 	
+	// Finds the comments character and apply appropriate color to it
+	// Does not work on the first line of code
 	mComment = rgxComment.Match(sText);
 	while (mComment.Success) {
 		//Debug.Log("Value: " + mComment.Value + " t/f:" + mComment.Value.IndexOf("#"));
@@ -149,6 +169,7 @@ public class TextColoration {
 		string keywordPassTwo = @"(^| |\t|\b|\()(range)(\W|$|\))";
 		rgxKeyword = new Regex(keywordPassTwo);
 
+		//Check again for any missing keywords and apply the color
     	mKeyword = rgxKeyword.Match(sText);
 		while (mKeyword.Success){
 			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
@@ -161,6 +182,7 @@ public class TextColoration {
 		mBlockComment = rgxBlock.Match(sText);
 
 		//First Comments
+		//This takes care of the first comments and will apply the appropriate color to it
 		while(mBlockComment.Success){
 			//Check if its a tag
 			Regex checkTags = new Regex(@"(?s)(.*)(#.{8}>)(.*)(</color>)(.*)");
@@ -255,7 +277,8 @@ public class TextColoration {
 	//Debug.Log("decolored text = " + sText);
     return sText;
   }
-	
+
+//Not in use
 
   public string ColorTaskLine(string sLine, int nLine, LevelGenerator lg)
 	{
@@ -296,6 +319,7 @@ public class TextColoration {
 		return "";
 	}
 	
+	// Not in use
 	public string NodeToColorString(XmlNode node) {
 		string language = "python";
 		string sReturn = "";

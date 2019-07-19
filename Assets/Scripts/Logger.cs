@@ -16,7 +16,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
-
+/// <summary>
+/// A class that logs the game progress
+/// </summary>
 public class Logger
 {
 
@@ -41,6 +43,12 @@ public class Logger
 
         startLogging();
     }
+
+/// <summary>
+/// A method that ends the logging for the current level and sends the log to the DB
+/// </summary>
+/// <param name="startTime">the start time of the leve</param>
+/// <param name="progress">if the level has been passed or not</param>
     public void onGameEnd(DateTime startTime, bool progress)
     {
         this.startTime = startTime;
@@ -58,6 +66,7 @@ public class Logger
 		hasWritten = true; 
         WriteLog();
     }
+    
     public int CalculateTimeBonus(){
         int value = (GlobalState.level.Code.Length*3)/SecondsToCompleteLevel(); 
         //Debug.Log("Seconds to Complete: " + SecondsToCompleteLevel() + "\nCode Length: " + GlobalState.level.Code.Length); 
@@ -75,6 +84,9 @@ public class Logger
 		linesUsed[index] += lineNumber.ToString() + ' '; 
     }
 
+/// <summary>
+/// A method that sends and state change to the DB
+/// </summary>
     public void onStateChangeJson(int projectileCode, int lineNumber, Vector3 position, 
                                     float energy, float currentEnergy, 
                                     bool progress, int time){
@@ -111,6 +123,9 @@ public class Logger
         sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/states");
     }
 
+/// <summary>
+/// A method that records the Damagae the player took and sends it to DB
+/// </summary>
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
         LoggerDataOStates obstacalStates = new LoggerDataOStates();
         obstacalStates.position = new LoggerDataXY();
@@ -128,6 +143,11 @@ public class Logger
         sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacalState");
     }
     
+    //Yes I know, bad coding, what can I say ¯\_(ツ)_/¯
+
+/// <summary>
+/// A method that writes all the logs
+/// </summary>
     public void WriteLog()
     {
         #if UNITY_WEBGL
@@ -181,6 +201,9 @@ public class Logger
         #endif
     }
 
+/// <summary>
+/// A method that starts the logging, and sends the initial logs to the DB
+/// </summary>
     public void startLogging(){
         LoggerDataLevel levelObj = new LoggerDataLevel();
         levelObj.name = GlobalState.CurrentONLevel;
@@ -195,18 +218,26 @@ public class Logger
 
     }
 
+/// <summary>
+/// A method that sends data to DB through PUT
+/// </summary>
+
     public void sendDatatoDB(string jsonObj, string url){
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PutToDataBase();
     }
 
+/// <summary>
+/// A method that sends data to DB through POST
+/// </summary>
     public void sendDatatoDBPOST(string jsonObj, string url){
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
     }
 }
+//--------------------------------------------------------------------------------DATA CLASS---------------------------------------------------------->
 
 [Serializable]
 public class LoggerDataLevel{

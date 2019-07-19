@@ -41,6 +41,14 @@ public class rename : Tools {
 	private bool isChecked = false;
 	bool arrowShown = false; 
 	int selectionCode = -1; 
+
+/// <summary>
+/// A method that initializes the game object
+/// </summary>
+/// <remarks> 
+///Since VariableRenamer.cs is not in use
+/// We must use the object to rename the string
+/// </remarks>
     public override void Initialize()
     {
 		if (answered)GetComponent<SpriteRenderer>().sprite = renSpriteOn;
@@ -51,6 +59,7 @@ public class rename : Tools {
 		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
 		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject;
 
+		//Goes through the code and will apply the appropriate color
 		foreach(string s in GlobalState.level.Code){
 			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
 			Regex rgxT = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
