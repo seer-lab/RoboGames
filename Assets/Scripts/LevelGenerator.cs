@@ -263,22 +263,7 @@ public partial class LevelGenerator : MonoBehaviour
                 }
 
             }
-            // indexOf = 0;
-            // int tmp = 0;
-            // foreach (XmlNode node in GlobalState.level.LevelNode){
-            //     indexOf = 0;
-            //     foreach(XmlNode childs in node.ChildNodes){
-            //         try{
-            //             if(childs.Attributes != null && childs.Attributes["hint"].Value != null){
-            //                 tmp = indexOf +childs.InnerText.Split('\n').Length;
-            //                 manager.CreateHint(childs,tmp);
-            //             }
-            //         }catch(Exception e){
-            //             Debug.Log(e.Message);
-            //         }
-            //         indexOf++;
-            //     }
-            // }
+
             // These are counters to update the blocktext of each object
             int numberOfroboBUGcomments = 0;
             int numberOfrobotONcorrectComments = 0;

@@ -25,7 +25,6 @@ public class Breakpoint : Tools {
 		anim = GetComponent<Animator>();
 	}
 
-	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
         if (!activated && collidingObj.name == stringLib.PROJECTILE_DEBUG) {
 			if (!activated) {
@@ -35,6 +34,7 @@ public class Breakpoint : Tools {
 			}
 			activated = true;
 			anim.SetTrigger("Complete");
+			//breakpoint boxes turn into printers upon being activated. 
 			this.GetComponent<SpriteRenderer>().sprite = Resources.LoadAll<Sprite>("Sprites/yellowbreakpoint")[0];
             Destroy(collidingObj.gameObject);
         }
@@ -43,6 +43,8 @@ public class Breakpoint : Tools {
 			GetComponent<AudioSource>().clip = correct;
 			GetComponent<AudioSource>().Play();
 			output.Text.text = values;
+
+			// give bonus tools upon successful completion of using breakpoints.
 			if (!toolgiven) {
 				toolgiven = true;
 				for (int i = 0; i < tools.Length; i++) {

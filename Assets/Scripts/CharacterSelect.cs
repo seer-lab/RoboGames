@@ -42,7 +42,11 @@ public class CharacterSelect : MonoBehaviour
         SceneManager.LoadScene("Cinematic");
 
     }
-    
+    /// <summary>
+    /// Tells the appropriate banners to glow/stop glowing, 
+    /// and will move the player disk to the appropriate place.
+    /// </summary>
+    /// <param name="index"></param>
     public void SelectCharacter(int index){
         if (index == indexOfSelected){
             GlobalState.Character = names[indexOfSelected]; 
@@ -53,10 +57,13 @@ public class CharacterSelect : MonoBehaviour
         }
         characters[indexOfSelected].DeselectCharacter(); 
         indexOfSelected = index; 
-        //Debug.Log("Index of Selected: " + indexOfSelected); 
         characters[indexOfSelected].SelectCharacter();
         StartCoroutine(MoveDisk()); 
     }
+    /// <summary>
+    /// Moves the player disk to the correct character.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MoveDisk(){
         float time = 30f; 
         float finalPos = xPositions[indexOfSelected]; 
@@ -70,6 +77,7 @@ public class CharacterSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Checks Keyboard input for adjusting the character. 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
             SelectCharacter((indexOfSelected+1 > NUM_CHARACTERS-1) ? 0: indexOfSelected+1); 
         }

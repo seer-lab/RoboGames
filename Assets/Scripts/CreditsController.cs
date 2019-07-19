@@ -14,6 +14,7 @@ public class CreditsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Reads the credits file. 
         FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata") + "/credits.txt");
         StreamReader sr = fi.OpenText();
         string text;

@@ -20,6 +20,14 @@ public class EnergyController : MonoBehaviour
     float positionCompensation = 120f;
     public bool UsedBugFixer = false; 
     bool toggle = false; 
+
+    /// <summary>
+    /// ##Deprecated: Tool counts are no longer considered for percent.##
+    /// Calculates the percent of energy to remove from the player 
+    /// based on the tool count .
+    /// </summary>
+    /// <returns>an array, where each element is the corresponding 
+    /// tool's energy consumption.</returns>
     public float[] percentPerUse()
     {
         float[] percent = new float[throwEnergy.Length];

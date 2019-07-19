@@ -291,8 +291,7 @@ public class SelectedTool : MonoBehaviour
     }
 
 	//.................................>8.......................................
-	public void refreshToolList() {
-        float[] percents = energy.percentPerUse(); 
+	public void refreshToolList() { 
 	  if (toolCounts[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] + bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW] > 0) {
 	    CheckTaskComplete(stateLib.TOOL_CATCHER_OR_CONTROL_FLOW);
 	    displayString = (GlobalState.GameMode == stringLib.GAME_MODE_BUG) ? stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG : stringLib.INTERFACE_TOOL_NAME_0_ROBOTON;

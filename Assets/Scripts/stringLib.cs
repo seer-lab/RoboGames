@@ -113,6 +113,8 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_OLDNAME = "oldname";
     public const string XML_ATTRIBUTE_HINT = "hint";
 
+    public const string BUG_REGEX = @"((?<=\$bug).+(?=\$))"; // Finds Text in between "$bug" and "$ eg. $bug Hello, World!$ => Hello, World! 
+    public const string DIALOG_REGEX = @"((?<=\@).+(?=\@))"; // Finds the value in between "@" eg. @Hello, World!@ => Hello, World!
     public Color[] COLORS = new Color[]{Color.white, Color.yellow, Color.magenta, Color.green,
         Color.cyan, Color.blue, Color.blue};
     public string[] namesON = new string[] { "Activator", "Question", "Renamer", "Commenter", "Reviewer", "Helper", "Hinter" };

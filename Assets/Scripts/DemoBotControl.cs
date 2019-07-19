@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class DemoBotControl : MonoBehaviour
 {
+    // The bot and hand movements are treated like a call stack.
     public List<Action> callstack;
     private hero2Controller controller;
     private Output output;
@@ -33,6 +34,12 @@ public class DemoBotControl : MonoBehaviour
         hand = Instantiate(Resources.Load<GameObject>("Prefabs/hand")); 
         handControl = hand.GetComponent<HandControl>(); 
     }
+
+    /// <summary>
+    /// This function will continuously tell the bots to continue actions
+    /// until autoEnabled is false.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator AutoPlay()
     {
         yield return new WaitForSecondsRealtime(timeDelay); 
@@ -45,21 +52,23 @@ public class DemoBotControl : MonoBehaviour
             yield return new WaitForSecondsRealtime(timeDelay);
         }
     }
-    void UpdateDelay(Action action)
-    {
-        if (action.Category == ActionType.Dialog) timeDelay = 0f;
-        else if (action.Category == ActionType.SwitchTool) timeDelay = 0.5f;
-        else if (action.Category == ActionType.Throw) timeDelay = 2f;
-        Debug.Log(timeDelay); 
-    }
+    /// <summary>
+    /// Used by tool boxes to add additional functions that need to be completed to meet their
+    /// requirements. These functions only affect the hand. 
+    /// </summary>
+    /// <param name="projectilecode">Which tool is trying to add a function</param>
+    /// <param name="row">treated as an ID if there are multiple types of functions</param>
     public void InsertOptionAction(int projectilecode, int row = 0){
         callstack.Insert(currentIndex+1, new Action(new CodeProperties(), ActionType.Output, controller.projectilecode,row));
     }
     // Update is called once per frame
     void Update()
     {
+        // auto enter after a certain period of time. 
         if (enterDelay < 0)
         {
+            //process the next element in the call stack when the current index is not 
+            //the same of the index of action. 
             if (callstack.Count > 0 && indexOfAction < callstack.Count && currentIndex != indexOfAction && controller.reachedPosition)
             {
                 
@@ -73,6 +82,7 @@ public class DemoBotControl : MonoBehaviour
                 else if (callstack[currentIndex].Category == ActionType.Throw)
                 {
                     controller.ThrowTool();
+                    //some tools being used require input from the player before proceeding while others do not.
                     if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
                         nextAction = true; 
                     }
@@ -81,24 +91,23 @@ public class DemoBotControl : MonoBehaviour
                             nextAction = true; 
                          
                     }
-                    
- 
                 }
                 else if (callstack[currentIndex].Category == ActionType.SwitchTool)
                 {
-                    //controller.selectedTool.GetComponent<SelectedTool>().NextTool();
                     nextAction = true; 
                 }
                 else if (callstack[currentIndex].Category == ActionType.Output){
                     handControl.HandleAction(callstack[currentIndex]); 
                     enterDelay+= 3f; 
                 }
-                
             }
+            //update the Output if the new callstack is a dialog
             if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
             {
                 output.text.GetComponent<Text>().text = callstack[currentIndex].text;
             }
+            //business logic for when the player presses enter and the game is ready to 
+            //update. Hand recieves the callstack information here.
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)|| entered) && controller.reachedPosition)
             {
                 entered = false;
