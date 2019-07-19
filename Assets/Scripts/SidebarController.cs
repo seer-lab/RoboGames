@@ -25,7 +25,9 @@ public class SidebarController : MonoBehaviour
             return true; 
         }
     }
-    
+    /// <summary>
+    /// Used by tool switcher that appears when the side pannel is minimized
+    /// </summary>
     public void NextTool()
     {
         if (!active)
@@ -66,6 +68,9 @@ public class SidebarController : MonoBehaviour
             yield return null; 
         }
     }
+    /// <summary>
+    /// Toggle the minimization and rescaling of the sidebar
+    /// </summary>
     public void ToggleSidebar()
     {
         if (!GlobalState.level.IsDemo){
@@ -124,6 +129,7 @@ public class SidebarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check if the player has exited to the main menu
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
             this.GetComponent<Canvas>().enabled = true;
         }

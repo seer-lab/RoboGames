@@ -29,6 +29,9 @@ public class Level
     public XmlNodeList CodeNodes { get; set; }
     public IList<XmlNode> NodeList { get; set; }
     public XmlNode LevelNode { get; set; }
+
+    //The code uses tags to simulate text highlighting. The following functions are
+    //used to replace the tags with ones that are friendly to the colour theme. 
     public void ToggleDark()
     {
         // Switch the text colors to correspond with the Dark Color palette (lighter colors)

@@ -59,7 +59,8 @@ public class rename : Tools {
 		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
 		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject;
 
-		//Goes through the code and will apply the appropriate color
+		//find elements in the code that have the same name as it 
+
 		foreach(string s in GlobalState.level.Code){
 			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
 			Regex rgxT = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
@@ -116,6 +117,7 @@ public class rename : Tools {
 			else {
                 output.Text.text = displaytext + "  " + options[selection];
 			}
+			//show arrow keys for answering this question
 			if (!arrowShown){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
@@ -144,6 +146,8 @@ public class rename : Tools {
 				answering = false;
 				
                 Output.IsAnswering = false;
+
+				//hide arrow keys after answering the question.
 				if (arrowShown){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
@@ -155,6 +159,7 @@ public class rename : Tools {
 					}
 				}
 				if (GlobalState.level.IsDemo) selection = options.IndexOf(correct); 
+				// completed the task incorrectly.
 				if (selection != options.IndexOf(correct)) {
 					answered = false;
 					failed = true; 
@@ -162,6 +167,7 @@ public class rename : Tools {
 					selectedTool.outputtext.GetComponent<Text>().text = "The name you chose isn't the best option for\nthis variable's purpose.\nWhat is this variable used for?";
 					selectionCode = -1; 
 				}
+				//completed the task correctly.
 				else {
 					if (failed) GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER/2; 
 					else GlobalState.CurrentLevelPoints+= stateLib.POINTS_RENAMER; 
@@ -215,6 +221,11 @@ public class rename : Tools {
 		}
 		
 	}
+	/// <summary>
+	/// Auto play interaction with output 
+	/// for the demo
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator DemoPlay(){
 		for (int i = 0; i < options.Count; i++){
 			yield return new WaitForSecondsRealtime(0.4f);

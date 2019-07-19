@@ -63,18 +63,18 @@ public static class stateLib
 	public const int OUTPUT_ENTER = 0; 
 	public const int OUTPUT_RIGHT = 1; 
 	public const int OUTPUT_LEFT = 2; 
-	public const int POINTS_COMMENT = 2; 
-	public const int POINTS_UNCOMMENT = 4; 
-	public const int POINTS_QUESTION = 4; 
-	public const int POINTS_CATCHER = 10; 
-	public const int POINTS_BEACON = 2; 
-	public const int POINTS_RENAMER = 4; 
+	public const int POINTS_COMMENT = 20; 
+	public const int POINTS_UNCOMMENT = 40; 
+	public const int POINTS_QUESTION = 40; 
+	public const int POINTS_CATCHER = 100; 
+	public const int POINTS_BEACON = 20; 
+	public const int POINTS_RENAMER = 40; 
 	public const int POINTS_CHECKER = 0; 
 	public const int POINTS_WARPER = 0; 
-	public const int POINTS_BREAKPOINT = 1; 
+	public const int POINTS_BREAKPOINT = 10; 
 
-	public const int COST_SPEED = 20; 
-	public const int COST_DAMAGE_REDUCE = 30; 
-	public const int COST_HEALTH = 50; 
+	public const int COST_SPEED = 200; 
+	public const int COST_DAMAGE_REDUCE = 300; 
+	public const int COST_HEALTH = 500; 
 	
 	}

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 using System.Text.RegularExpressions;
-
+/// <summary>
+/// Generates all tool boxes.
+/// </summary>
 public abstract class ToolFactory 
 {
     protected int lineNumber;
@@ -12,6 +14,11 @@ public abstract class ToolFactory
     protected string path;
     protected float initialLineY;
     protected float linespacing;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="node">The node associated with the tag</param>
+    /// <param name="line">The line number of the node in code.</param>
     protected ToolFactory(XmlNode node, int line)
     {
         lineNumber = line;
@@ -21,7 +28,16 @@ public abstract class ToolFactory
         linespacing = 0.825f; 
         
     }
+    /// <summary>
+    /// Returns the pure script of the resulting Tool
+    /// </summary>
+    /// <returns>A subclass of Tools that has been configured.</returns>
     public abstract Tools GetScript();
+    /// <summary>
+    /// Returns a Gameobject with the correct script attached to it that can
+    /// be placed in game.
+    /// </summary>
+    /// <returns>The gameobject to be used in-game.</returns>
     public abstract GameObject GetGameObject(); 
 
 }

@@ -70,6 +70,7 @@ public class question : Tools {
 		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
 		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject; 
     }
+
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
@@ -77,6 +78,8 @@ public class question : Tools {
             EmphasizeTool(); 
         }else DeEmphasizeTool(); 
 		if (answering) {
+
+			// Show the arrows when the output is being used for this object.
 			if (!arrowShown){
 				rightArrow.GetComponent<Image>().enabled = true; 
 				leftArrow.GetComponent<Image>().enabled = true; 
@@ -102,11 +105,14 @@ public class question : Tools {
                 // Hide the pop-up window (Output.cs)
                 output.Text.text = "";
 			}
+			//player has chosen to select their answer
 			else if (( demoCompleteAnswer|| (Input.GetMouseButtonDown(0) && GlobalState.level.IsDemo) || Input.GetKeyDown(KeyCode.Return) || selectionCode == stateLib.OUTPUT_ENTER || Input.GetKeyDown(KeyCode.KeypadEnter))) {
 				answered = true;
 				answering = false;
 				selectionCode = -1; 
                 Output.IsAnswering = false;
+
+				//Hide the arrows for the next output user.
 				if (arrowShown){
 					rightArrow.GetComponent<Image>().enabled = false; 
 					leftArrow.GetComponent<Image>().enabled = false; 
@@ -117,6 +123,7 @@ public class question : Tools {
 						output.enter.GetComponent<Button>().onClick.RemoveListener(OnEnterClick);  
 					}
 				}
+				//When the input is not the correct answer
 				if (input != expected && Array.IndexOf(expectedArray, input) == -1 && !GlobalState.level.IsDemo) {
 					// Incorrect Answer
 					answered = false;
@@ -135,7 +142,8 @@ public class question : Tools {
 					int expectedInteger = -999;
 					bool lastAnswerIsIntegerValue = Int32.TryParse(lastInput, out inputInteger);
 					bool correctAnswerIsIntegerValue = Int32.TryParse(expected, out expectedInteger);
-
+					
+					//provide tips based on their input.	
 					if (correctAnswerIsBoolean) {
 					    selectedTool.outputtext.GetComponent<Text>().text = "You should double check to make \nsure you have the right result; \nit is either 'true' or 'false', \nnothing else is possible.";
 					}
@@ -162,6 +170,7 @@ public class question : Tools {
 					}
 					hero.onFail();
 				}
+				//when the input is the correct answer
 				else {
 					input = expected; 
 					if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_QUESTION/2; 
@@ -195,12 +204,14 @@ public class question : Tools {
 					}
 				}
 			}
+			//handle right arrow click/input
 			else if (Input.GetKeyDown(KeyCode.RightArrow) || selectionCode == stateLib.OUTPUT_RIGHT){
 				selectionCode = -1; 
 				optionsIndex = (optionsIndex +1 < options.Length) ? optionsIndex+1 : optionsIndex; 
 				input = options[optionsIndex]; 
 				selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
 			}
+			//handle left arrow click /input
 			else if (Input.GetKeyDown(KeyCode.LeftArrow) || selectionCode == stateLib.OUTPUT_LEFT){
 				selectionCode = -1; 
 				optionsIndex = (optionsIndex -1 >= 0) ? optionsIndex-1 : 0; 
@@ -211,9 +222,15 @@ public class question : Tools {
 		}
 		
 	}
+	/// <summary>
+	/// Auto play interaction with output 
+	/// for the demo
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator DemoPlay(){
+		//cycle until the correct answer is reached
 		for (int i = 0; i < options.Length; i++){
-			yield return new WaitForSecondsRealtime(0.4f);
+			yield return new WaitForSecondsRealtime(0.3f);
 			if (options[i] == expected) {
 				optionsIndex = i; 
 				break; 
@@ -223,6 +240,7 @@ public class question : Tools {
 		} 
 		input = options[optionsIndex]; 
 		selectedTool.outputtext.GetComponent<Text>().text = displaytext + input; 
+		//wait until the player is ready to contine.
 		while(!Input.GetKeyDown(KeyCode.Return) || !Input.GetMouseButtonDown(0)){
 			yield return null; 
 		}

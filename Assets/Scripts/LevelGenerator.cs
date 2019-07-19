@@ -383,6 +383,8 @@ public partial class LevelGenerator : MonoBehaviour
                 }
             }
 
+            //Uncomment this if comments are to be paired with others. You will only need
+            //to comment one and the other will auto complete.
             /*
             // Pair Incorrect Comments to their corresponding correct comments --[
             foreach (GameObject incorrectComment in manager.robotONincorrectComments)

@@ -38,7 +38,7 @@ public class warper : Tools
                     {
                         lg.floatingTextOnPlayer(GlobalState.StringLib.COLORS[i]);
                     }
-                    selectedTool.toolCounts[i] += tools[i];                    Debug.Log(i + ": " + tools[i]);
+                    selectedTool.toolCounts[i] += tools[i];                    
                 }
             }
 

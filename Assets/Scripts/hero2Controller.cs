@@ -305,6 +305,12 @@ public class hero2Controller : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Move the character to the specified position.
+    /// </summary>
+    /// <param name="position">Position to move the character in Game/World space</param>
+    /// <returns></returns>
     public IEnumerator MoveToPosition(Vector3 position)
     {
         isMoving = true;
@@ -339,24 +345,6 @@ public class hero2Controller : MonoBehaviour
         //if (!GlobalState.level.IsDemo)
             //HandleMouseMovement(); 
     }
-    void HandleMouseMovement(){
-        if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo)
-            {
-                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3 screenPos = Input.mousePosition; 
-                Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
-                if (pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2
-                    && !fire.IsFiring &&!(Input.mousePosition.x < 300 && Input.mousePosition.y < 300) && !(Math.Abs(GetComponent<Transform>().localPosition.x - pos.x) < 0.6f) && Math.Abs(GetComponent<Transform>().localPosition.y - pos.y) < 0.6f)
-                {
-                   GameObject obj = EventSystem.current.currentSelectedGameObject;
-                    Debug.Log(Input.mousePosition); 
-                    if (obj == null){
-                        
-                        StartCoroutine(MoveToPosition(RoundPosition(pos)));
-                    }else Debug.Log(obj.ToString()); 
-                }
-            }
-    }
 
     /// <summary>
     /// Compares the inputed position with line objects and rounds the position to be 
@@ -368,6 +356,7 @@ public class hero2Controller : MonoBehaviour
     {
         Transform lineAbove = null, lineBelow = null;
         int lineNumber = 0;
+        //find the lines above and below
         foreach (GameObject line in lg.manager.lines)
         {
             lineNumber++;
@@ -388,11 +377,13 @@ public class hero2Controller : MonoBehaviour
     //.................................>8.......................................
     void Update()
     {
+        
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME &&
             !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Die")
             && !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Dead"))
         {
             AudioSource ad = GetComponent<AudioSource>();
+            //Handle the player climbing
             if (!walkloop && (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Mouse X") != 0f) &&
             Input.GetMouseButton(0) &&
             GetComponent<Rigidbody2D>().velocity.y == 0 &&
@@ -402,6 +393,7 @@ public class hero2Controller : MonoBehaviour
                 walkloop = true;
                 ad.loop = true;
             }
+            //handle the player falling
             if (Input.GetAxis("Horizontal") == 0f && (Input.GetAxis("Mouse X") == 0f && Input.GetMouseButton(0)) ||
             GetComponent<Rigidbody2D>().velocity.y != 0 ||
             onWall)
@@ -415,13 +407,14 @@ public class hero2Controller : MonoBehaviour
             {
                 ThrowTool();
             }
+            //handle mouse input to move
             if (Input.GetMouseButtonDown(0) && !GlobalState.level.IsDemo)
             {
                 Debug.Log(Input.mousePosition); 
                 Vector2 finalScale = new Vector2(fire.GetComponent<RectTransform>().rect.width*((float)Screen.width/1920f), fire.GetComponent<RectTransform>().rect.height*((float)Screen.height/1080f)); 
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
-
+                //check if the mouse click was in the bounds of the code screen
                 if ( pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2&& !fire.IsFiring && !(Input.mousePosition.x < finalScale.x && Input.mousePosition.y < finalScale.x))
                 {
                     GameObject obj = EventSystem.current.currentSelectedGameObject;
@@ -432,6 +425,7 @@ public class hero2Controller : MonoBehaviour
                     }else Debug.Log(obj.ToString()); 
                 }else Debug.Log("Failed"); 
             }
+            //Cancel the movement after the player stops pressing/holding
             else if (Input.GetMouseButtonUp(0) && !GlobalState.level.IsDemo)
             {
                 StopAllCoroutines();
@@ -439,6 +433,8 @@ public class hero2Controller : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
                 reachedPosition = true; 
             }
+            //if the player moves the cursor while they are already in motion, 
+            //continue the motion upon reaching the position
             else if (Input.GetMouseButton(0) && !GlobalState.level.IsDemo && reachedPosition){
                 
                 Vector2 finalScale = new Vector2(fire.GetComponent<RectTransform>().rect.width*((float)Screen.width/1920f), fire.GetComponent<RectTransform>().rect.height*((float)Screen.height/1080f)); 
