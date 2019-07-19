@@ -108,11 +108,19 @@ public class Logger
         if(projectileCode == stateLib.TOOL_UNCOMMENTER){
             projectileCode = stateLib.TOOL_COMMENTER;
         }
-        Debug.Log(GlobalState.correctLine[projectileCode] + " : " + lineNumber);
-        if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
-            states.progress = "true";
-        }else{
-            states.progress = "false";
+
+        try{
+            if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
+                states.progress = "true";
+            }else{
+                states.progress = "false";
+            }
+        }catch(Exception e){
+            if(checkString.IsMatch(GlobalState.bugLine)){
+                states.progress = "true";
+            }else{
+                states.progress = "false";
+            }
         }
         states.time = time.ToString();
         states.timestamp = DateTime.Now.ToString();
