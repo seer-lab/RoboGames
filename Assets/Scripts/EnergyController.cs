@@ -145,6 +145,8 @@ public class EnergyController : MonoBehaviour
             initialX = topBar;
         }
         else {
+            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = false;
+            transform.GetChild(2).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = false;
             energyBar = transform.GetChild(1).gameObject; 
             energyBarTrans = energyBar.GetComponent<RectTransform>(); 
             displayEnergy = currentEnergy; 
@@ -220,8 +222,10 @@ public class EnergyController : MonoBehaviour
         {
             transform.GetChild(1).gameObject.GetComponent<Image>().enabled = true;
             transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = true;
-            transform.GetChild(2).gameObject.GetComponent<Image>().enabled = true;
-            transform.GetChild(2).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            if (originalEnergy > 100){
+                transform.GetChild(2).gameObject.GetComponent<Image>().enabled = true;
+                transform.GetChild(2).gameObject.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
             
             if (currentEnergy > 0)
                 indicator.text = stringLib.ENERGY_PREFIX + ((int)(currentEnergy * GlobalState.Stats.Energy / originalEnergy)).ToString() + '%';

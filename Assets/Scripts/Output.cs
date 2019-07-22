@@ -20,6 +20,7 @@ public class Output : MonoBehaviour
 
 	private Animator anim;
     private string enterText; 
+    public bool isComment = false; 
     public int narrator = 0; 
     int original = 0; 
     public static bool IsAnswering { get; set; }
@@ -106,13 +107,13 @@ public class Output : MonoBehaviour
 			anim.SetBool("Hiding", true);
 		}
 		if ((Input.GetKeyDown(KeyCode.Return)|| entered || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
-			if (!GlobalState.level.IsDemo)
+			if (!GlobalState.level.IsDemo && !IsAnswering)
                 text.GetComponent<Text>().text = "";
             narrator = original; 
             entered = false; 
 		}
         if (GlobalState.level.IsDemo){
-            if (demoBot.currentIndex >= 0 && demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){
+            if (!isComment && demoBot.currentIndex >= 0 && demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){
                 enter.GetComponent<Image>().enabled = true; 
                 enter.transform.GetChild(0).GetComponent<Text>().text =enterText; 
             }
