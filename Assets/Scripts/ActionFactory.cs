@@ -49,7 +49,15 @@ public class DialogFactory : ActionFactory
         if (!text.Contains("@")) return false;
         Regex paramRgx = new Regex(stringLib.DIALOG_REGEX);   // Finds the value in between "@" eg. @Hello, World!@ => Hello, World!
         string values = paramRgx.Match(text).Value;
-        GlobalState.level.Code[line] = GlobalState.level.Code[line].Replace("@" + values + "@", "");
+        string[] lines = text.Split('\n'); 
+        int add = 0; 
+        foreach (string val in lines){
+            if (val.Contains("@")){
+                break; 
+            }
+            add++; 
+        }
+        GlobalState.level.Code[line + add] = GlobalState.level.Code[line + add].Replace("@" + values + "@", "");
         column = text.IndexOf("@");
         actions.Add(new Action(props, ActionType.Dialog, line, column, values));
         return true;

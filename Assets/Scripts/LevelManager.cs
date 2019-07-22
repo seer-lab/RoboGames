@@ -182,7 +182,6 @@ public class LevelManager
         GenericBug propertyHandler = levelBug.GetComponent<GenericBug>();
         propertyHandler.Index = lineNumber;
         propertyHandler.answer = answer; 
-        Debug.Log("$bug" + answer + "$");
         GlobalState.level.Code[lineNumber] =GlobalState.level.Code[lineNumber].Replace("$bug" + answer + "$", ""); 
         GlobalState.level.TaskOnLine[lineNumber, stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
         bugs.Add(levelBug);
