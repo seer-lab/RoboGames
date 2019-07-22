@@ -13,6 +13,7 @@ You've mastered data types and variables!</endtext>
 </tools>
 <code language="python">
 	<comment type="description" correct="true"  groupid="4">You can use input() to read in data from the keyboard.</comment>
+	<comment type="description" correct="false"  groupid="5">The computer autocorrects all of your text when you type it in.</comment>
 	txt = input("Enter text here")
 	#Let's suppose someone types in "button_1"
 	print(<question text="What would this code output?

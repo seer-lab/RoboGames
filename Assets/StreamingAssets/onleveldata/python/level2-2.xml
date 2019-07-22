@@ -15,7 +15,8 @@ Solving that puzzle was only logical!</endtext>
 	var2 = 0;
 	<comment type="description"  correct="true" groupid="0" style="multi">NOT (!) means to take the opposite result of the expression
 	for example, !(2 > 3) is true because 2 is NOT greater than 3</comment>
-	
+	<comment type="description" correct="false"  groupid="3">If something is NOT (!) true, that means it is definitely true and the computer is lying.</comment>
+	<comment type="description" correct="false"  groupid="4">If something is NOT (!) false, that means it is definitely false and the computer is lying.</comment>
 	if (!(9 &lt; 1)):
 <beacon flow-order="0" />		var1 = 5
 	

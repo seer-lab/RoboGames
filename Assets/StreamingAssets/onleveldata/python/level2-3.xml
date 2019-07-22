@@ -12,6 +12,7 @@ You're mastering the art of control flow!</endtext>
 </tools>
 <code language="python">
 	<comment type="description" correct="true"  groupid="3">You can have If statements inside each other.</comment>
+	<comment type="description" correct="false"  groupid="6">These are called nested switch comments because they look like birds.</comment>
 	var1 = 2
 	var2 = 0
 	if ((var1+var2)/2 &lt; 10):
