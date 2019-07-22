@@ -20,6 +20,7 @@ public class printer : Tools {
             EmphasizeTool(); 
         }else DeEmphasizeTool(); 
 	}
+	
 
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {

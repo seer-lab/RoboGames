@@ -140,6 +140,8 @@ public abstract class comment : Tools
         leftArrow.transform.GetChild(0).GetComponent<Text>().enabled = active;
         output.enter.GetComponent<Image>().enabled = !active;
         output.enter.transform.GetChild(0).GetComponent<Text>().enabled = !active;
+        if (!active) output.enter.transform.GetChild(0).GetComponent<Text>().text = "OK!";
+    
     }
 
     /// <summary>
@@ -150,6 +152,7 @@ public abstract class comment : Tools
     {
         if (isAnswering)
         {
+            output.isComment = true; 
             if (!arrowShown)
             {
                 ToggleArrows(true);
@@ -173,17 +176,7 @@ public abstract class comment : Tools
                 }
             }
         }
-        else if (arrowShown)
-        {
-            ToggleArrows(false);
-            output.enter.transform.GetChild(0).GetComponent<Text>().text = "OK!";
-            arrowShown = false;
-            if (!GlobalState.level.IsDemo)
-            {
-                rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
-                leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick);
-            }
-        }
+        
     }
     /// <summary>
     /// Default behaviors to be preformed after the dialog is done being used.
@@ -193,6 +186,17 @@ public abstract class comment : Tools
         isAnswering = false;
         Output.IsAnswering = false;
         output.Text.text = "";
+        if (arrowShown)
+        {
+            ToggleArrows(false);
+            arrowShown = false;
+            if (!GlobalState.level.IsDemo)
+            {
+                rightArrow.GetComponent<Button>().onClick.RemoveListener(OnRightArrowClick);
+                leftArrow.GetComponent<Button>().onClick.RemoveListener(OnLeftArrowClick);
+            }
+            output.isComment = false; 
+        }
     }
     /// <summary>
     /// This Function will be called when the Right arrow key is clicked or the 

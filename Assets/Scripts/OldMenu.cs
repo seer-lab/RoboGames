@@ -472,8 +472,10 @@ public class OldMenu : MonoBehaviour
                         option = 1; 
                         if (optionPage > 0)
                         {
+                            if (!GlobalState.RestrictGameMode){
                             m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "Python" : "C++";
                             GlobalState.Language = (GlobalState.Language == "c++") ? "python" : "c++";
+                            }
                             break;
                         }
                         ToggleTheme();

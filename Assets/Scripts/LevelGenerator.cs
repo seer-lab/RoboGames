@@ -186,7 +186,6 @@ public partial class LevelGenerator : MonoBehaviour
         string text = node.InnerText;
         ActionFactory factory;
         string[] lines = node.InnerText.Split('\n');
-        int row = 0, col = 0;
         List<Action> actions = new List<Action>(); 
         for (int i = 0; i < lines.Length; i++)
         {
@@ -255,7 +254,6 @@ public partial class LevelGenerator : MonoBehaviour
                 {
                     manager.CreateObstacle(childNode, indexOf);
                 }
-                //Debug.Log("Is Demo: " + GlobalState.level.IsDemo);
                 if (GlobalState.level.IsDemo)
                 {
                     HandleTutorialPrompts(childNode, indexOf);

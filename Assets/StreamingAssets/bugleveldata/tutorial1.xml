@@ -14,8 +14,8 @@ use the &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
 <tool name="printer" enabled="true" count="unlimited"/>
 <tool name="catcher" enabled="true" count="unlimited"/>
 </tools>
-<code language="c++">void FCalls(string errmsg){                        @We can use print statements to help us investigate the bug. The Printer tool will give us information.@
-    //call some functions then return
+<code language="c++">void FCalls(string errmsg){                        
+    //call some functions then return								 @We can use print statements to help us investigate the bug. The Printer tool will give us information.@
 	<print text="$err$function2: Index out of Range" col="4">cout &lt;&lt; errmsg;</print>                   @Let's see what the error message says!@ ??? !!!
 	function1();                    
 	$bug$function2();    @It looks like the error is in this function.@ ??? !!!

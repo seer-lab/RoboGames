@@ -87,7 +87,11 @@ public class TitleController : MonoBehaviour
     IEnumerator LoadGame(){
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         yield return new WaitForSecondsRealtime(1f); 
-        SceneManager.LoadScene("TitleMenu");
+        if (GlobalState.RestrictGameMode){
+            GlobalState.GameMode = stringLib.GAME_MODE_ON; 
+            SceneManager.LoadScene("MainMenu");
+        }
+        else SceneManager.LoadScene("TitleMenu");
 
     }
     // Update is called once per frame

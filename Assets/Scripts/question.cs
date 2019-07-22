@@ -70,7 +70,39 @@ public class question : Tools {
 		rightArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject; 
 		leftArrow = GameObject.Find("OutputCanvas").transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject; 
     }
-
+	public void Cleaninnertext()
+    {
+        if (innertext.Contains("$bug"))
+        {
+            Regex ansRgx = new Regex(stringLib.BUG_REGEX);
+            string answer = ansRgx.Match(innertext).Value;
+            innertext = innertext.Replace("$bug" + answer + "$", "");
+        }
+        if (innertext.Contains("@"))
+        {
+            Regex paramRgx = new Regex(stringLib.DIALOG_REGEX);
+            Match match = paramRgx.Match(innertext);
+            while (match.Success)
+            {
+                string value = match.Value;
+                innertext = innertext.Replace("@" + value + "@", "");
+                match = match.NextMatch();
+            }
+        }
+        if (innertext.Contains("!!!"))
+        {
+            innertext = innertext.Replace("!!!", "");
+        }
+        if (innertext.Contains("???"))
+        {
+            innertext = innertext.Replace("???", "");
+        }
+        string[] text = innertext.Split('\n');
+        for (int i = 0; i < text.Length; i++)
+        {
+            GlobalState.level.Code[index + i] = text[i];
+        }
+    }
     //.................................>8.......................................
     // Update is called once per frame
     void Update() {
