@@ -108,11 +108,19 @@ public class Logger
         if(projectileCode == stateLib.TOOL_UNCOMMENTER){
             projectileCode = stateLib.TOOL_COMMENTER;
         }
-        Debug.Log(GlobalState.correctLine[projectileCode] + " : " + lineNumber);
-        if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
-            states.progress = "true";
-        }else{
-            states.progress = "false";
+
+        try{
+            if(checkString.IsMatch(GlobalState.correctLine[projectileCode])){
+                states.progress = "true";
+            }else{
+                states.progress = "false";
+            }
+        }catch(Exception e){
+            if(checkString.IsMatch(GlobalState.bugLine)){
+                states.progress = "true";
+            }else{
+                states.progress = "false";
+            }
         }
         states.time = time.ToString();
         states.timestamp = DateTime.Now.ToString();
@@ -150,7 +158,6 @@ public class Logger
 /// </summary>
     public void WriteLog()
     {
-        #if UNITY_WEBGL
         jsonObj = "{\"timeEnded\":\"" + DateTime.Now.ToString() + "\"}";
         //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeEnded" );
@@ -172,7 +179,11 @@ public class Logger
                 }else{
                     tools.name= GlobalState.StringLib.namesBug[i];
                 }
-                tools.correctLine = GlobalState.correctLine[i];
+                if(tools.name == stringLib.INTERFACE_TOOL_NAME_0_ROBOBUG){
+                    tools.correctLine = GlobalState.bugLine;
+                }else{
+                    tools.correctLine = GlobalState.correctLine[i];
+                }
                 tools.reqTask = GlobalState.level.Tasks[i].ToString();
                 tools.compTask = GlobalState.level.CompletedTasks[i].ToString();
                 tools.timeTool = GlobalState.toolUse[i].ToString();
@@ -180,7 +191,7 @@ public class Logger
             }
             string toolObj = JsonUtility.ToJson(tools);
             toolObj = "{\"tools\":" + toolObj + "}"; 
-            if(!(tools.name == "" || tools.name == null || tools.correctLine = "")){
+            if(tools.name != "" && tools.name != null && tools.correctLine != ""){
                 sendDatatoDB(toolObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/tools");
             }
             //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
@@ -200,7 +211,6 @@ public class Logger
         }   
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
-        #endif
     }
 
     public void sendPoints(){

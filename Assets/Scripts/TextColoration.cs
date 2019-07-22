@@ -35,7 +35,7 @@ public class TextColoration {
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\r|\t|\()(class|in|as|range|print|not|or|and|def|bool|auto|double|int|struct|break|else|elif|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
     string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|not|or|and|def|bool|auto|double|struct|break|if|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|static|while|default|goto|sizeof|volatile|const|short|float|unsigned|string)(\W|$|\))";
-    string patternIncludeGeneric = @"(#include\s)(.*)";
+    string patternIncludeGeneric = @"(#include\s)(.*?)";
 		string patternIncludePythonJava = @"(#include\w|import)";
     string patternKeywordJava = @"(^| |\n|\t|\(|\.)(class|not|or|and|bool|double|struct|break|if|else|long|switch|case|enum|char|extern|return|int|continue|public|for|this|abstract|void|do|static|private|boolean|while|default|goto|sizeof|volatile|const|short|float|String|System|out|print|println)(|\W|$|\))";
 		string patternCommentJava = @"(\/\/|\*\/)(.*)";
@@ -93,23 +93,13 @@ public class TextColoration {
 	while (mKeyword.Success){
 		// Since Replace will replace all string that matches the word, this would mean all of it would have the color
 		// With this check, it will check if that string has been done and moveon to the next Match
-		if(!alreadyDone.Contains(alreadyDone)){
+		if(!alreadyDone.Contains(mKeyword.Value)){
 			sText = sText.Replace(mKeyword.Value, GlobalState.StringLib.syntax_color_keyword + mKeyword.Value + stringLib.CLOSE_COLOR_TAG);
 			alreadyDone +=mKeyword.Value + " ";
 		}
 		//Debug.Log("key result " + sText);
 		mKeyword = mKeyword.NextMatch();
 		
-	}
-
-	//Checks if the tutorial keyword has text colors in it and removes it
-	Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
-	Match mTutorial;
-	mTutorial = tutorialKeyword.Match(sText);
-	while(mTutorial.Success){
-		string cleanString = DecolorizeText(mTutorial.Value);
-		sText = sText.Replace(mTutorial.Value, cleanString);
-		mTutorial = mTutorial.NextMatch();
 	}
 
 		//find ints 
@@ -144,9 +134,6 @@ public class TextColoration {
 			continue;
 
 		}else{
-			if(tutorialKeyword.IsMatch(mComment.Value)){
-
-			}
 			string cleanedstring = DecolorizeText(mComment.Value);
 			// Regex onlyColor = new Regex(@"(</color>)");
 			// if(onlyColor.IsMatch(cleanedstring)){
@@ -262,6 +249,16 @@ public class TextColoration {
 
 		// Regex colorLine = new Regex(@"()(<color=.{10}\n)"); 
 		// sText = colorLine.Replace(sText, '\n' + GlobalState.StringLib.syntax_color_keyword);
+
+		//Checks if the tutorial keyword has text colors in it and removes it
+	Regex tutorialKeyword = new Regex(@"\@(.*?)\@");
+	Match mTutorial;
+	mTutorial = tutorialKeyword.Match(sText);
+	while(mTutorial.Success){
+		string cleanString = DecolorizeText(mTutorial.Value);
+		sText = sText.Replace(mTutorial.Value, cleanString);
+		mTutorial = mTutorial.NextMatch();
+	}
 
     return sText;
   }
