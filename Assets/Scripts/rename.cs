@@ -67,28 +67,54 @@ public class rename : Tools {
 			Regex rgxTh = new Regex(@"<color=#00ff00ff>[\s\S]*?<\/color>");
 			//https://stackoverflow.com/questions/171480/regex-grabbing-values-between-quotation-marks
 			Regex rgxF = new Regex("\"(.*?)\"");
+			Regex rgxFiv = new Regex(oldname+@"\b");
 
-			if(s.Contains("/*") || s.Contains("/**")){
-				startMultiComments = true;
-			}else if(s.Contains("*/") || s.Contains("**/")){
-				startMultiComments = false;
-			}
-
-
-			if(rgxF.IsMatch(s)){
+			if(GlobalState.Language.ToLower() == "python"){
+				if(rgxF.IsMatch(s) && !(rgxO.IsMatch(s) || rgxFiv.IsMatch(s))){
+					if(rgxFiv.IsMatch(s)){
+						GlobalState.level.Code[i] = rgxFiv.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+					}
+					i++;
+					continue;
+				}else if((rgxO.IsMatch(s) || rgxFiv.IsMatch(s)) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
+					&& !s.Contains("<color=#00ff00ff>") && !s.Contains(stringLib.CLOSE_COLOR_TAG) && !startMultiComments && !endMultiComments){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				}else if(rgxTh.IsMatch(s)){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				}else if(rgxO.IsMatch(s) && !s.Contains("'''")){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				}
 				i++;
-				continue;
-			}else if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
-				&& !s.Contains("<color=#00ff00ff>") && !startMultiComments && !endMultiComments){
-				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
-			}else if(rgxTh.IsMatch(s)){
-				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
-			}else if(startMultiComments){
-				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
-			}else if(rgxO.IsMatch(s)){
-				GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+
+			}else{
+				if(s.Contains("/*") || s.Contains("/**")){
+					startMultiComments = true;
+				}else if(s.Contains("*/") || s.Contains("**/")){
+					startMultiComments = false;
+				}
+
+				if(rgxF.IsMatch(s)){
+					if(rgxFiv.IsMatch(s)){
+						GlobalState.level.Code[i] = rgxFiv.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+					}
+					i++;
+					continue;
+				}else if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
+					&& !s.Contains("<color=#00ff00ff>") && !s.Contains(stringLib.CLOSE_COLOR_TAG) && !startMultiComments && !endMultiComments){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				}else if(rgxTh.IsMatch(s)){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				}else if(startMultiComments){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				}else if(rgxO.IsMatch(s) && !s.Contains("*/") && !s.Contains("**/")){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				}
+				i++;
 			}
-			i++;
 		}
     }
 	public void OnRightArrowClick(){

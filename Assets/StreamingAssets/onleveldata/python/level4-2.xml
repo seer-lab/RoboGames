@@ -26,7 +26,7 @@ Are you ready for the final test?</endtext>
 <comment type="code" correct="false"  groupid="2" style="multi">	'''while(i &lt; 5]
 	'''</comment>
 <comment type="code" correct="true"  groupid="2" style="single">	#while(i &lt; 5):</comment>
-		cout &lt;&lt; i;
+		print(i);
 		i++;
 <comment type="code" correct="true"  groupid="3" style="multi">'''		if (i % 2 == 0):
 			print(i + " is even!")'''</comment>
