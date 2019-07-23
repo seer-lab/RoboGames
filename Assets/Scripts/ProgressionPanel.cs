@@ -19,7 +19,7 @@ public class ProgressionPanel : MonoBehaviour
         if (GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true); 
         buttons = new List<GameObject>(); 
         starterText = new string[4];
-        costs = new int[]{stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH}; 
+        costs = new int[]{stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH, stateLib.COST_XPBOOST}; 
         for (int i = 0; i < 4; i++){
             buttons.Add(transform.GetChild(i).gameObject); 
             starterText[i] = buttons[i].transform.GetChild(0).GetComponent<Text>().text; 
@@ -64,20 +64,24 @@ public class ProgressionPanel : MonoBehaviour
     /// Upgrades the Energy to the next tier unless maxed out.
     /// </summary>
     public void OnUpgradeEnergy(){
-        GlobalState.Stats.Points = stateLib.COST_HEALTH; 
+        GlobalState.Stats.Points -= stateLib.COST_HEALTH; 
         int index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1; 
         if (index < StatLib.energyLevels.Length)
             GlobalState.Stats.Energy = StatLib.energyLevels[index];
         UpdateValues(); 
     }
     public void OnUpgradeFreefall(){
-        GlobalState.Stats.FreeFall = true; 
+         GlobalState.Stats.Points -= stateLib.COST_XPBOOST; 
+        int index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1; 
+        if (index < StatLib.xpboost.Length)
+            GlobalState.Stats.XPBoost = StatLib.xpboost[index];
         UpdateValues(); 
     }
     void UpdateValues(){
         int counter = 0; 
         string[] values = new string[4]{GlobalState.Stats.Speed.ToString(), GlobalState.Stats.DamageLevel.ToString(),
-                            GlobalState.Stats.Energy.ToString(), GlobalState.Stats.FreeFall.ToString()};
+                            GlobalState.Stats.Energy.ToString(), GlobalState.Stats.XPBoost.ToString()};
+        int[] costs = new int[4]{stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH, stateLib.COST_XPBOOST};
         string[] updatedValues = new string[values.Length]; 
         string maxed = "Maxed Out!"; 
         //Find the next tier 
@@ -92,13 +96,17 @@ public class ProgressionPanel : MonoBehaviour
         index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;
         if (index < 5) updatedValues[2] = StatLib.energyLevels[index].ToString();
         else updatedValues[2] = maxed; 
+
+        index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1;
+        if (index < 5) updatedValues[2] = StatLib.xpboost[index].ToString();
+        else updatedValues[2] = maxed; 
         
         updatedValues[3] = maxed; 
 
         //update the text, and indicate the next tier they can get.
         foreach (GameObject button in buttons){
             Text text = button.transform.GetChild(0).GetComponent<Text>(); 
-            text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter];
+            text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter] + " COST: " + costs[counter];
             if (counter < costs.Length && GlobalState.Stats.Points < costs[counter]){
                 button.GetComponent<Button>().interactable = false; 
             }
