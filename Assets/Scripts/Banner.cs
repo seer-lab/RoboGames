@@ -18,6 +18,7 @@ public class Banner : MonoBehaviour
        glow = GameObject.Find("Glow" + this.gameObject.name).GetComponent<Image>();
        textName = GameObject.Find("Text" + this.gameObject.name).GetComponent<Text>(); 
        textName.color = new Color(1,1,1,0); 
+       if (!GlobalState.IsDark) textName.color = Color.black; 
        glow.color = new Color(1,1,1,0);  
        select = this.transform.parent.GetComponent<CharacterSelect>(); 
        this.GetComponent<Button>().onClick.AddListener(onClick); 
@@ -58,11 +59,11 @@ public class Banner : MonoBehaviour
        //ensure the alphas of the text and glows 
        //are appropriately if the coroutine is abruptly ended. 
        if (!isRunning && selected){
-            textName.color = new Color(1,1,1,1); 
+            textName.color = new Color(textName.color.r, textName.color.g, textName.color.b, 1);  
             glow.color = new Color(1,1,1,1); 
        }
        else if (!isRunning && !selected){
-           textName.color = new Color(1,1,1,0); 
+            textName.color = new Color(textName.color.r, textName.color.g, textName.color.b, 0);  
             glow.color = new Color(1,1,1,0); 
        }
    }

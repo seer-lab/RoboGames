@@ -282,8 +282,7 @@ public class question : Tools {
 	//.................................>8.......................................
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.name == stringLib.PROJECTILE_ACTIVATOR && !answered) {
-			Destroy(collidingObj.gameObject);
-			Debug.Log(optionsIndex); 
+			Destroy(collidingObj.gameObject);; 
 			input = options[optionsIndex];
 			if (GlobalState.level.IsDemo){
 				hero.GetComponent<DemoBotControl>().InsertOptionAction(stateLib.TOOL_PRINTER_OR_QUESTION); 

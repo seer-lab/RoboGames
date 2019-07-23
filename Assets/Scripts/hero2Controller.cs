@@ -156,10 +156,9 @@ public class hero2Controller : MonoBehaviour
             && !anim.GetCurrentAnimatorStateInfo(0).IsName(GlobalState.Character.ToLower() + "Dead"))
             {
                 fMoveVelocityHorizontal = Input.GetAxis("Horizontal");
-                if (GlobalState.Stats.FreeFall){
-                    fMoveVelocityVertical = Input.GetAxis("Vertical");
-                }
-                else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
+                fMoveVelocityVertical = Input.GetAxis("Vertical");
+                
+                if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
                     fMoveVelocityVertical = -0.6f; 
                 }
                 else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)){
@@ -218,7 +217,7 @@ public class hero2Controller : MonoBehaviour
             }
             this.GetComponent<SpriteRenderer>().flipX = !facingRight;
 
-            if (Time.time > dropDelay && !GlobalState.Stats.FreeFall && !GlobalState.level.IsDemo && dropping){
+            if (Time.time > dropDelay && !GlobalState.level.IsDemo && dropping){
                 fMoveVelocityVertical = 0; 
                 reachedPosition = true; 
             }   

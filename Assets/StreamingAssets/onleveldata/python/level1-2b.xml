@@ -12,7 +12,7 @@ We need to turn on the changing color capabilities</introtext>
 </tools>
 <code language="python">
 	<comment type="description" correct="true"  groupid="0">Variables can store either TRUE or FALSE.</comment>
-	is_off = true
+	is_off = True
 	<comment type="description" correct="true"  groupid="1">You can use variables in expressions to create new variables:</comment>
 	<question text="What is the VALUE of is_off?
 	Select your answer: " options="true,false" answer="true">is_sleep = is_off</question>
@@ -20,10 +20,10 @@ We need to turn on the changing color capabilities</introtext>
 	current_color = 205
 	#How will we change the current_color for when the monitor changes color? 
 	<question text="What does current_color become?
-	Select your answer: " options ="206,305,215" answer="215">current_color = current_color + 10;</question>
+	Select your answer: " options ="206,305,215" answer="215">current_color = current_color + 10</question>
 	
 	<comment type="description" correct="false"  groupid="2">High school math is useless for programming.</comment>
-	<comment type="description" correct="true"  groupid="2">Order of operations is still true for C++ programs!</comment>
+	<comment type="description" correct="true"  groupid="2">Order of operations is still true for Python programs!</comment>
 	
 	<comment type="description" correct="true"  groupid="4">the * symbol means multiplication and / means division</comment>
 	<question text="What is the value of math?

@@ -68,6 +68,7 @@ public class stringLib
 
     public const string OBSTACLE_FIREWALL = "Firewall";
 
+    public const string BLUE_COLOR_TAG = "<color=#00BAFFFF>";
     public const string CLOSE_COLOR_TAG = "</color>";
 
     public const string NODE_NAME_CODE = "code";
@@ -217,6 +218,6 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string MOVIE_BUG = "RoboBugIntro_1.mp4";
     public const string ENERGY_PREFIX = "Energy: "; 
     public const string SCORE_PREFIX = "Score: "; 
-    public const string POINTS_PREFIX = "<color=#00ffffff>Total Points:</color> "; 
+    public const string POINTS_PREFIX = "<color=#00ffffff>Level Points:</color> "; 
 
 }

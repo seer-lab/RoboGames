@@ -21,7 +21,6 @@ public class ProgressionUI : MonoBehaviour
     IEnumerator FadeIn(GameObject obj){
         Image image = obj.GetComponent<Image>(); 
         while(image.color.a < 1){
-            Debug.Log(image.color.a); 
             image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.02f); 
             yield return null; 
         }
@@ -44,9 +43,9 @@ public class ProgressionUI : MonoBehaviour
             StartCoroutine(GlitchText(button.transform.GetChild(0).gameObject)); 
         }
     }
-    public void UpdateText(){
+    public void UpdateText(string value){
         glitching = false; 
-        Points.GetComponent<Text>().text = GlobalState.Stats.Points.ToString(); 
+        Points.GetComponent<Text>().text = value; 
         StartCoroutine(GlitchText(Points)); 
     }
     /// <summary>

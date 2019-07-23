@@ -212,7 +212,7 @@ public class OldMenu : MonoBehaviour
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
              GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 
-             Debug.Log("Freefall: " + GlobalState.Stats.FreeFall.ToString() 
+             Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString() 
             +"\n Speed: " + GlobalState.Stats.Speed.ToString()
             + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
              + "\n Energy: " + GlobalState.Stats.Energy.ToString() 

@@ -57,6 +57,7 @@ public class SidebarController : MonoBehaviour
             transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
             transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = "";  
         }
+    
     }
     IEnumerator FadeToolToggler(bool fadeIn){
         float frames = 20f; 
@@ -94,7 +95,7 @@ public class SidebarController : MonoBehaviour
         levelDescriptor.GetComponent<Text>().color = Color.black; 
         availableTools.GetComponent<Text>().color = Color.black;
         tool.GetComponent<Text>().color = Color.black;
-        //hint.GetComponent<Text>().color = Color.black;
+        transform.GetChild(2).transform.Find("Indicate Points").GetComponent<Text>().color = Color.black; 
 
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_dark);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_dark);
@@ -115,6 +116,7 @@ public class SidebarController : MonoBehaviour
         availableTools.GetComponent<Text>().color = Color.white;
         tool.GetComponent<Text>().color = Color.white;
         levelDescriptor.GetComponent<Text>().color = Color.white;
+        transform.GetChild(2).transform.Find("Indicate Points").GetComponent<Text>().color = Color.white; 
 
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_complete_color_tag, stringLibrary.checklist_complete_color_tag_light);
         checklist.GetComponent<Text>().text = checklist.GetComponent<Text>().text.Replace(stringLibrary.checklist_incomplete_activate_color_tag, stringLibrary.checklist_incomplete_activate_color_tag_light);

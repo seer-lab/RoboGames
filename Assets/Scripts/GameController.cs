@@ -154,10 +154,9 @@ public class GameController : MonoBehaviour, ITimeUser
     }
     int CalculateTimeBonus(){
         int time = DateTime.Now.Subtract(startDate).Seconds;
-        int value = GlobalState.level.Code.Length*10; 
-        Debug.Log("Time: " +time); 
+        int value = GlobalState.level.Code.Length*stateLib.POINTS_TIME; 
 
-        value = value - time; 
+        value = value - time*stateLib.TIME_DEDUCTION; 
 
         if (value < 0) value = 0; 
         return value; 
@@ -172,6 +171,7 @@ public class GameController : MonoBehaviour, ITimeUser
         logger.onGameEnd(startDate, true);
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
+        GlobalState.CurrentLevelEnergy = (int)EnergyController.currentEnergy; 
         logger.sendPoints();
         do
         {
@@ -323,7 +323,7 @@ public class GameController : MonoBehaviour, ITimeUser
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
             GlobalState.Stats.GrantPower(); 
             Debug.Log("All Powers Maxed Out!"); 
-             Debug.Log("Freefall: " + GlobalState.Stats.FreeFall.ToString() 
+             Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString() 
             +"\n Speed: " + GlobalState.Stats.Speed.ToString()
             + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
              + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
