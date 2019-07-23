@@ -43,9 +43,9 @@ public class ProgressionUI : MonoBehaviour
             StartCoroutine(GlitchText(button.transform.GetChild(0).gameObject)); 
         }
     }
-    public void UpdateText(){
+    public void UpdateText(string value){
         glitching = false; 
-        Points.GetComponent<Text>().text = GlobalState.Stats.Points.ToString(); 
+        Points.GetComponent<Text>().text = value; 
         StartCoroutine(GlitchText(Points)); 
     }
     /// <summary>
