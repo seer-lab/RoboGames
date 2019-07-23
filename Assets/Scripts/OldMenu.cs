@@ -118,7 +118,7 @@ public class OldMenu : MonoBehaviour
             WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
             WebHelper.i.GetWebDataFromWeb();
             if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
-                Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
+                //Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
                 string json = "{ \"name\": \"" + GlobalState.sessionID.ToString()+"\"," + "\"timeStarted\":\"" + DateTime.Now.ToString()+"\"}";
                 DatabaseHelperV2.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
                 DatabaseHelperV2.i.jsonData = json;

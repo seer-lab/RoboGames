@@ -99,6 +99,8 @@ public class CorrectUncomment : comment
                 sNewText = rgx.Replace(sNewText, "$2");
 
 
+                //This is for single lime comment.
+                //This will check if the word has a /v(word)/v and will color it 
                 tempDecolText = textColoration.DecolorizeText(sNewText);
                 sNewText = textColoration.ColorizeText(tempDecolText, GlobalState.level.Language);
                 Regex tmp = new Regex(@"\v(.+?)\v");
@@ -123,28 +125,48 @@ public class CorrectUncomment : comment
                     commentCloseSymbol = "*/";
                 }
 
+                //Replace the comment symbol with nothing
                 sNewParts[0] = sNewParts[0].Replace(GlobalState.StringLib.node_color_correct_comment, "");
                 sNewParts[0] = sNewParts[0].Replace(commentOpenSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(commentCloseSymbol, "");
                 sNewParts[sNewParts.Length - 1] = sNewParts[sNewParts.Length - 1].Replace(stringLib.CLOSE_COLOR_TAG, "");
 
-
+                //Colour the text
                 GlobalState.level.Code[index] = textColoration.ColorizeText(sNewParts[0], language);
                 GlobalState.level.Code[index + sNewParts.Length - 1] = textColoration.ColorizeText(sNewParts[sNewParts.Length - 1], language);
 
+                //Sorry for the naming, I suck at it
+                //Variable tmp will match if the word has a vertical tab in them
+                //Variable tmpTwo will match if the word has /v(word)/v in it
                 Regex tmp = new Regex("\v(.*?)\v");
                 Regex tmpTwo = new Regex("\\v(.*?)\\v");
                 Debug.Log(tmp.IsMatch(sNewParts[0]));
-                if(tmp.IsMatch(GlobalState.level.Code[index])){
+                
+                bool checkIfExist = false;
+                bool checkIfExistTwo = false;
+
+                //check if the string matches the regex
+                for(int i = 0; i < sNewParts.Length; i++){
+                    if(tmp.IsMatch(GlobalState.level.Code[index + 1])){
+                        checkIfExist = true;
+                        break;
+                    }else if(tmpTwo.IsMatch(sNewParts[i])){
+                        checkIfExistTwo = true;
+                        break;
+                    }
+                }
+
+                //Color the text
+                if(checkIfExist){
                     //GlobalState.level.Code[index] = tmp.Replace(GlobalState.level.Code[index],"<color=#ff00ffff>" + tmp.Match(GlobalState.level.Code[index]) + "</color>" );
                     for(int i = 0; i < sNewParts.Length; i++){
-                        sNewParts[i] = tmp.Replace(GlobalState.level.Code[index + i], "<color=#ff00ffff>" + tmp.Match(GlobalState.level.Code[index]) + "</color>" );
+                        sNewParts[i] = tmp.Replace(GlobalState.level.Code[index + i], "<color=#ff00ffff>" + tmp.Match(GlobalState.level.Code[index + i]) + "</color>" );
                         GlobalState.level.Code[index + i] = sNewParts[i];
                     }
                 //Somtime the regex wont work
-                }else if(tmpTwo.IsMatch(sNewParts[0])){
+                }else if(checkIfExistTwo){
                     for(int i = 0; i < sNewParts.Length; i++){
-                        sNewParts[i] = tmpTwo.Replace(GlobalState.level.Code[index + i], "<color=#ff00ffff>" + tmpTwo.Match(GlobalState.level.Code[index]) + "</color>" );
+                        sNewParts[i] = tmpTwo.Replace(GlobalState.level.Code[index + i], "<color=#ff00ffff>" + tmpTwo.Match(GlobalState.level.Code[index + i]) + "</color>" );
                         GlobalState.level.Code[index + i] = sNewParts[i];
                     }
                 }
@@ -152,6 +174,7 @@ public class CorrectUncomment : comment
             }
             if (failed) GlobalState.CurrentLevelPoints += stateLib.POINTS_UNCOMMENT/2; 
             else GlobalState.CurrentLevelPoints+= stateLib.POINTS_UNCOMMENT; 
+            //Redraw the level
             lg.DrawInnerXmlLinesToScreen();
             isCommented = true;
         }

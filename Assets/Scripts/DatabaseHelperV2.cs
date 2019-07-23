@@ -30,7 +30,7 @@ public class DatabaseHelperV2 : MonoBehaviour
     {
         var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        Debug.Log("POST Data: " + bodyJsonString );
+        //Debug.Log("POST Data: " + bodyJsonString );
         request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");
@@ -39,7 +39,7 @@ public class DatabaseHelperV2 : MonoBehaviour
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
 
-        Debug.Log("Status Code for POST: " + request.responseCode);
+        //Debug.Log("Status Code for POST: " + request.responseCode);
     }
 
    //TODO Change Access Control Allow Origin , *  to an actual adress
@@ -47,7 +47,7 @@ public class DatabaseHelperV2 : MonoBehaviour
     IEnumerator Put(string url, string bodyJsonString)
     {
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
-        Debug.Log("Put Data: " + bodyJsonString );
+        //Debug.Log("Put Data: " + bodyJsonString );
         UnityWebRequest request = UnityWebRequest.Put(url, myData);
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");
@@ -56,7 +56,7 @@ public class DatabaseHelperV2 : MonoBehaviour
         request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Requested-With,content-type");
         request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
-        Debug.Log("Status Code for PUT: " + request.responseCode);
+        //Debug.Log("Status Code for PUT: " + request.responseCode);
     }
 
     public void PostToDataBase(){

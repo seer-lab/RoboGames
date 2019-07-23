@@ -62,6 +62,12 @@ public class rename : Tools {
 		//find elements in the code that have the same name as it 
 
 		foreach(string s in GlobalState.level.Code){
+			//Sorry for the naming, I suck at it. (LITERALLY)
+			//Variable rgxO will match the oldname with spaces before and after the word
+			//Variable rgxT will match if there is an existing color tag
+			//Variable rgxTh does the same as rgxT
+			//Variable rgxF matches the string that is between the quotation mark
+			//Variable rgxFiv matches the string with only one space after the word
 			Regex rgxO = new Regex(@"\b" + oldname + @"\b");
 			Regex rgxT = new Regex("(?s)(.*)(<color=#ff00ffff>)(.*)(</color>)(.*)");
 			Regex rgxTh = new Regex(@"<color=#00ff00ff>[\s\S]*?<\/color>");
@@ -69,6 +75,7 @@ public class rename : Tools {
 			Regex rgxF = new Regex("\"(.*?)\"");
 			Regex rgxFiv = new Regex(oldname+@"\b");
 
+			//Check if its python or noth
 			if(GlobalState.Language.ToLower() == "python"){
 				if(rgxF.IsMatch(s) && !(rgxO.IsMatch(s) || rgxFiv.IsMatch(s))){
 					if(rgxFiv.IsMatch(s)){
@@ -89,27 +96,36 @@ public class rename : Tools {
 				i++;
 
 			}else{
+				//check if its a multiline comment
 				if(s.Contains("/*") || s.Contains("/**")){
 					startMultiComments = true;
 				}else if(s.Contains("*/") || s.Contains("**/")){
 					startMultiComments = false;
 				}
 
+				//If the string is between the quotation mark, we want to check if its outside of the quotation mark
+				//Eg with moon being the word cout << "The fox jumped over the " + moon
+				//since the first check will see if there is a quotation mark, we want to check if its outside of it
 				if(rgxF.IsMatch(s)){
 					if(rgxFiv.IsMatch(s)){
 						GlobalState.level.Code[i] = rgxFiv.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 					}
 					i++;
 					continue;
+				//check if its not in a multilime comment and doesnt have the tag attached to it
 				}else if(rgxO.IsMatch(s) && !rgxT.IsMatch(s) && !rgxTh.IsMatch(s)
 					&& !s.Contains("<color=#00ff00ff>") && !s.Contains(stringLib.CLOSE_COLOR_TAG) && !startMultiComments && !endMultiComments){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				//check if it is between the comment, and will place a placeholder for the CorrectComment to see and color it apporpriatly
 				}else if(rgxTh.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				//check if it is between the comment, and will place a placeholder for the CorrectComment to see and color it apporpriatly
 				}else if(startMultiComments){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
+				//ANother *hacky check to see if it can color it*
 				}else if(rgxO.IsMatch(s) && !s.Contains("*/") && !s.Contains("**/")){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				//ANother *hacky check to see if it can place a placeholder*
 				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				}
