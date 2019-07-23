@@ -168,7 +168,7 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
-        logger.onGameEnd(startDate, true);
+        logger.onGameEnd(startDate, true, EnergyController.currentEnergy);
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
         GlobalState.CurrentLevelEnergy = (int)EnergyController.currentEnergy; 
@@ -268,7 +268,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, true);
+            logger.onGameEnd(startDate, true, );
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }
