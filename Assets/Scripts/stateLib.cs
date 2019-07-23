@@ -79,5 +79,7 @@ public static class stateLib
 	public const int COST_DAMAGE_REDUCE = 2500; 
 	public const int COST_HEALTH = 2500; 
 	public const int COST_XPBOOST = 5000;
+
+	public const int DEFAULT_BUG_POINTS = 1000; 
 	
 	}

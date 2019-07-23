@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour, ITimeUser
         {
             //Glitch all of the code wen the player loses by messig up with the 
             // Bug Fixer. (This Solution is based on UNITY bugging out when switching fonts quickly fyi)
-            if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && EnergyController.UsedBugFixer){
+            if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
                 TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
                 text.font = Resources.Load<Font>("Fonts/HACKED"); 
                 yield return new WaitForSeconds(0.12f); 
@@ -172,6 +172,7 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
         GlobalState.CurrentLevelEnergy = (int)EnergyController.currentEnergy; 
+        GlobalState.CurrentLevelPoints = stateLib.DEFAULT_BUG_POINTS; 
         logger.sendPoints();
         do
         {
