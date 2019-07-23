@@ -20,15 +20,17 @@ public class Cinematic : MonoBehaviour
     public string endtext = "Winner!\nLevel End Placeholder!";
     public GameObject prompt1, prompt2;
     public GameObject[] stars = new GameObject[5];
-    float originalEnergy; 
+    float originalEnergy, totalEnergy; 
     private bool cinerun = false;
     private float delaytime = 0f;
     private float delay = 0.1f;
-
+    bool shownResults = false; 
     int score; 
     bool updatedLevel = false; 
+    bool showingTime = false; 
     bool shownCharacter = false; 
     bool hasTimeBonus = true; 
+    int GlobalPoints; 
     string webdata;
     int maxScore; 
 
@@ -42,8 +44,10 @@ public class Cinematic : MonoBehaviour
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0; 
         if (GlobalState.level != null && !GlobalState.level.IsDemo){
             score = GlobalState.CurrentLevelPoints; 
-            originalEnergy = GlobalState.Stats.Points; 
-            GlobalState.Stats.Points += score + GlobalState.timeBonus; 
+            originalEnergy = 0; 
+            totalEnergy = score + GlobalState.timeBonus; 
+            GlobalPoints =  GlobalState.Stats.Points + (int)((score + GlobalState.timeBonus));
+            GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus)*(1+ ((float)GlobalState.CurrentLevelEnergy / (float) GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost)); 
             maxScore = 0; 
             int[] pointArr; 
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
@@ -57,7 +61,7 @@ public class Cinematic : MonoBehaviour
             }
         }
         //Load the text for the cinematic scene, and load the next scene's data. 
-        UpdateText();
+
         //Fade the scene in. 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
     
@@ -147,7 +151,7 @@ public class Cinematic : MonoBehaviour
         CanvasGroup canvas = transform.Find("Energy").gameObject.GetComponent<CanvasGroup>();
         CanvasGroup energyCanvas = transform.Find("void main").gameObject.GetComponent<CanvasGroup>();
         energyCanvas.GetComponent<Text>().text = stringLib.POINTS_PREFIX + originalEnergy.ToString();
-        canvas.GetComponent<Text>().text = "Level Points: " + score.ToString(); 
+        canvas.GetComponent<Text>().text = "Completion Score: " + score.ToString(); 
         
         //Fades In Level Points
         while(canvas.alpha < 1){
@@ -191,7 +195,7 @@ public class Cinematic : MonoBehaviour
             hasTimeBonus = false; 
         }
         Text field = transform.Find("void main").gameObject.GetComponent<Text>(); 
-        float dif = GlobalState.Stats.Points - originalEnergy - GlobalState.timeBonus; 
+        float dif = totalEnergy - originalEnergy - GlobalState.timeBonus; 
         int frames = 30; 
         float count = originalEnergy; 
         yield return new WaitForSecondsRealtime(0.5f); 
@@ -202,8 +206,67 @@ public class Cinematic : MonoBehaviour
             field.color = new Color(field.color.r, field.color.g + 0.05f, field.color.b); 
             yield return null; 
         }
-        field.text = stringLib.POINTS_PREFIX + GlobalState.StringLib.node_color_print_light + (GlobalState.Stats.Points - GlobalState.timeBonus).ToString() + stringLib.CLOSE_COLOR_TAG; 
+        while(showingTime) yield return null; 
+        field.text = stringLib.POINTS_PREFIX + GlobalState.StringLib.node_color_print_light + totalEnergy.ToString() + stringLib.CLOSE_COLOR_TAG; 
+        StartCoroutine(ShowTotal()); 
     }
+    IEnumerator ShowTotal(){
+        GameObject totalPoints = transform.Find("final points").gameObject;
+        Text pointText = totalPoints.GetComponent<Text>(); 
+        string prefix = "<color=#00ffffff>Total Points:</color> ";
+        pointText.text = prefix+ "0" ;
+
+        CanvasGroup canvas = totalPoints.GetComponent<CanvasGroup>(); 
+        
+        float speed = 40f; 
+        int increment = (int)((GlobalPoints - totalEnergy)/speed); 
+        int total = 0; 
+        while (canvas.alpha < 1 || total < (GlobalPoints - totalEnergy)){
+            canvas.alpha += (1.0f/speed); 
+            total+= increment; 
+            pointText.text = prefix + (total).ToString(); 
+            yield return null; 
+        }
+        pointText.text = prefix + (GlobalPoints - totalEnergy).ToString(); 
+
+        yield return new WaitForSecondsRealtime(0.7f); 
+        speed = 40f; 
+        increment =(int)((totalEnergy)/speed); 
+        int temp = (int)totalEnergy; 
+        while(temp > 0){
+            temp-= increment; 
+            pointText.text = prefix + GlobalState.StringLib.node_color_print_light + (GlobalPoints - temp).ToString() + stringLib.CLOSE_COLOR_TAG;
+            yield return null; 
+        }
+
+        StartCoroutine(ShowEnergyBonus()); 
+
+
+    }
+    IEnumerator ShowEnergyBonus(){
+        Text levelText = transform.Find("void main").GetComponent<Text>(); 
+        Text totalText = transform.Find("final points").GetComponent<Text>(); 
+        yield return new WaitForSecondsRealtime(1f); 
+        GameObject energy = transform.Find("EnergyDisplay").gameObject; 
+        energy.GetComponent<Animator>().SetTrigger("Show"); 
+        float perecent = 1+ ((float)GlobalState.CurrentLevelEnergy / (float) GlobalState.Stats.Energy);
+        perecent*= GlobalState.Stats.XPBoost; 
+        Debug.Log(perecent); 
+        energy.transform.GetChild(0).GetComponent<Text>().text =( 'X' + perecent.ToString());
+        int difference = (int)(totalEnergy* perecent - totalEnergy); 
+        GlobalPoints += (int)difference; 
+        string prefix = "<color=#00ffffff>Total Points:</color> ";
+        float speed = 50f; 
+        int increment = (int) (difference/speed); 
+        while (difference >0){
+            difference-= increment; 
+            totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints - difference).ToString() + stringLib.CLOSE_COLOR_TAG;
+            yield return null; 
+        }
+        totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints).ToString() + stringLib.CLOSE_COLOR_TAG;
+        yield return null;
+    }
+
     /// <summary>
     /// Moves stars from the center to the bottom line. This is no longer used
     /// however the function is still available if the stars need to be pushed out 
@@ -246,25 +309,28 @@ public class Cinematic : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     IEnumerator ShowTimeBonus(){
+        showingTime = true; 
         //initialization
         transform.Find("Time").GetComponent<Animator>().SetTrigger("ShowTime"); 
         Text bonus = transform.Find("Time").transform.GetChild(0).GetComponent<Text>(); 
         string starterText = "Time Bonus: "; 
         Text field = transform.Find("void main").gameObject.GetComponent<Text>();
         bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + "0" + stringLib.CLOSE_COLOR_TAG;
-
         //delay longer if the time bonus is lower. This keeps the time spent viewing
         //the time bonus consistent. 
         yield return new WaitForSecondsRealtime(1.3f + 1f/GlobalState.timeBonus); 
         int amount = GlobalState.timeBonus; 
+        int subtraction = GlobalState.timeBonus/100; 
         //increment the amount on both the total and the time section. 
         while(GlobalState.timeBonus > 0){
-            GlobalState.timeBonus--; 
+            GlobalState.timeBonus-= subtraction; 
             bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + (amount -GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG;
-            field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (GlobalState.Stats.Points - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
+            field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (totalEnergy - GlobalState.timeBonus) + stringLib.CLOSE_COLOR_TAG; 
             yield return null; 
         } 
-
+        bonus.text = starterText + GlobalState.StringLib.comment_block_color_tag + (amount) + stringLib.CLOSE_COLOR_TAG;
+        field.text = stringLib.POINTS_PREFIX +  GlobalState.StringLib.comment_block_color_tag + (totalEnergy) + stringLib.CLOSE_COLOR_TAG; 
+        showingTime = false; 
     }
 
     /// <summary>
@@ -443,8 +509,10 @@ public class Cinematic : MonoBehaviour
             {
                 cinerun = true;
             }
-            if (score > 0)
+            if (score > 0 && !shownResults){
+                shownResults = true; 
                 StartCoroutine(FadeInResults()); 
+            }
             prompt1.GetComponent<Text>().text = endtext;
 
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)) && delaytime < Time.time)

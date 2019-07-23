@@ -12,6 +12,7 @@ You've made it through some tricky stuff!</endtext>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
+	<comment type="description" correct="false"  groupid="3">FLOAT variables are capable of flying like an airplane or zeppelin.</comment>
 	<comment type="description" correct="true"  groupid="0">FLOATing point numbers (floats) are any that have decimal points.</comment>
 	additional_volume = 0.5;
 	current_volume = 3.0;
