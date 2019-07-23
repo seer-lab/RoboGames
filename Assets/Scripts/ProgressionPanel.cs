@@ -79,8 +79,8 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeSpeed()
     {
-        points -= stateLib.COST_SPEED;
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1;
+        points -= stateLib.COST_SPEED*index;
         if (index < StatLib.speeds.Length)
             GlobalState.Stats.Speed = StatLib.speeds[index];
         UpdateValues();
@@ -90,16 +90,18 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeDamageReduce()
     {
-        points -= stateLib.COST_DAMAGE_REDUCE;
+        
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
         {
             int index = StatLib.on_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
+            points -= stateLib.COST_DAMAGE_REDUCE*index;
             if (index < StatLib.on_damageLevels.Length)
                 GlobalState.Stats.DamageLevel = StatLib.on_damageLevels[index];
         }
         else
         {
             int index = StatLib.bug_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
+            points -= stateLib.COST_DAMAGE_REDUCE*index;
             if (index < StatLib.bug_damageLevels.Length)
                 GlobalState.Stats.DamageLevel = StatLib.bug_damageLevels[index];
         }
@@ -110,16 +112,17 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeEnergy()
     {
-        points -= stateLib.COST_HEALTH;
         int index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;
+        points -= stateLib.COST_HEALTH*index;
         if (index < StatLib.energyLevels.Length)
             GlobalState.Stats.Energy = StatLib.energyLevels[index];
         UpdateValues();
     }
     public void OnUpgradeFreefall()
     {
-        points -= stateLib.COST_XPBOOST;
+       
         int index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1;
+        points -= stateLib.COST_XPBOOST*index;
         if (index < StatLib.xpboost.Length)
             GlobalState.Stats.XPBoost = StatLib.xpboost[index];
         UpdateValues();
@@ -134,22 +137,28 @@ public class ProgressionPanel : MonoBehaviour
         string maxed = "Maxed Out!";
         //Find the next tier 
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1;
-        if (index < 5) updatedValues[0] = StatLib.speeds[index].ToString();
+        if (index < 5){ updatedValues[0] = StatLib.speeds[index].ToString(); costs[0]*= index;} 
         else updatedValues[0] = maxed;
 
-        index = StatLib.on_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
-        if (index < 5) updatedValues[1] = StatLib.on_damageLevels[index].ToString();
-        else updatedValues[1] = maxed;
+        if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
+            index = StatLib.on_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
+            if (index < 5) {updatedValues[1] = StatLib.on_damageLevels[index].ToString();costs[1]*= index;} 
+            else updatedValues[1] = maxed;
+        }
+        else{
+            index = StatLib.bug_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
+            if (index < 5) {updatedValues[1] = StatLib.bug_damageLevels[index].ToString();costs[1]*= index;} 
+            else updatedValues[1] = maxed;
+        }
 
         index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;
-        if (index < 5) updatedValues[2] = StatLib.energyLevels[index].ToString();
+        if (index < 5) {updatedValues[2] = StatLib.energyLevels[index].ToString();costs[2]*= index;} 
         else updatedValues[2] = maxed;
 
         index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1;
-        if (index < 5) updatedValues[2] = StatLib.xpboost[index].ToString();
-        else updatedValues[2] = maxed;
+        if (index < 5) {updatedValues[3] = StatLib.xpboost[index].ToString();costs[3]*= index;} 
+        else updatedValues[3] = maxed;
 
-        updatedValues[3] = maxed;
 
         //update the text, and indicate the next tier they can get.
         foreach (GameObject button in buttons)
