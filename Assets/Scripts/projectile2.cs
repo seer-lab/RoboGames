@@ -30,6 +30,9 @@ public class projectile2 : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collidingObj) {
 		if (collidingObj.GetType() == typeof(EdgeCollider2D)) {
 			string sMessage = this.name + stringLib.LOG_TOOL_WASTED;
+			if (this.name ==stringLib.PROJECTILE_BUG && GlobalState.GameMode == stringLib.GAME_MODE_BUG){
+				GameObject.Find("Hero").GetComponent<hero2Controller>().onFail(); 
+			}
 			Destroy(gameObject);
 		}
 	}

@@ -84,17 +84,19 @@ public class EnergyController : MonoBehaviour
         }
     }
     /// <summary>
+    /// ##Deprectated the Bug Fixer is handled by its interaction with the wall.##
     /// Reduce Energy on tool use. Currently only needed for BUG FIXER
     /// </summary>
     /// <param name="projectileCode">The statelib number associated with the tool</param>
     public void onThrow(int projectileCode)
     {
-
+        /*
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG && projectileCode == 0){
             currentEnergy = 0; 
             UsedBugFixer = true; 
             updateBar();
         }
+        */
     }
     /// <summary>
     /// Handle Energy when player does something incorrectly.

@@ -61,7 +61,7 @@ public class Cinematic : MonoBehaviour
             }
         }
         //Load the text for the cinematic scene, and load the next scene's data. 
-
+        UpdateText();
         //Fade the scene in. 
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
     
@@ -252,19 +252,22 @@ public class Cinematic : MonoBehaviour
         float perecent = 1+ ((float)GlobalState.CurrentLevelEnergy / (float) GlobalState.Stats.Energy);
         perecent*= GlobalState.Stats.XPBoost; 
         Debug.Log(perecent); 
-        energy.transform.GetChild(0).GetComponent<Text>().text =( 'X' + perecent.ToString());
-        int difference = (int)(totalEnergy* perecent - totalEnergy); 
-        GlobalPoints += (int)difference; 
-        string prefix = "<color=#00ffffff>Total Points:</color> ";
-        float speed = 50f; 
-        int increment = (int) (difference/speed); 
-        while (difference >0){
-            difference-= increment; 
-            totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints - difference).ToString() + stringLib.CLOSE_COLOR_TAG;
-            yield return null; 
+        if (perecent > 1){      
+            energy.GetComponent<Animator>().SetTrigger("Show"); 
+            energy.transform.GetChild(0).GetComponent<Text>().text =( 'X' + perecent.ToString());
+            int difference = (int)(totalEnergy* perecent - totalEnergy); 
+            GlobalPoints += (int)difference; 
+            string prefix = "<color=#00ffffff>Total Points:</color> ";
+            float speed = 50f; 
+            int increment = (int) (difference/speed); 
+            while (difference >0){
+                difference-= increment; 
+                totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints - difference).ToString() + stringLib.CLOSE_COLOR_TAG;
+                yield return null; 
+            }
+            totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints).ToString() + stringLib.CLOSE_COLOR_TAG;
+            yield return null;
         }
-        totalText.text = prefix + stringLib.BLUE_COLOR_TAG + (GlobalPoints).ToString() + stringLib.CLOSE_COLOR_TAG;
-        yield return null;
     }
 
     /// <summary>

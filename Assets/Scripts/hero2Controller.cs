@@ -85,7 +85,8 @@ public class hero2Controller : MonoBehaviour
     {
         GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
         energyController.onFail(projectilecode);
-        StartCoroutine(DamageDelay()); 
+        if (!(GlobalState.GameMode == stringLib.GAME_MODE_BUG && projectilecode == stateLib.TOOL_CATCHER_OR_CONTROL_FLOW))
+            StartCoroutine(DamageDelay()); 
     }
     /// <summary>
     /// Flash the character with a red hue
