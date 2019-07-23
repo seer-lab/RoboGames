@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\CharacterStats.cs" />
      <Compile Include="Assets\Scripts\Checklist.cs" />
      <Compile Include="Assets\Scripts\Cinematic.cs" />
+     <Compile Include="Assets\Scripts\CinematicAnims.cs" />
      <Compile Include="Assets\Scripts\ClickableMenu.cs" />
      <Compile Include="Assets\Scripts\CodeFormater.cs" />
      <Compile Include="Assets\Scripts\CodeProperties.cs" />
