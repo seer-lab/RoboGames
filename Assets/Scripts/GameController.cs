@@ -269,7 +269,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, true, );
+            logger.onGameEnd(startDate, true, EnergyController.currentEnergy);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }

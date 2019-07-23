@@ -17,7 +17,7 @@ public class LifePackage : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D colldingObj){
         if (colldingObj.gameObject.name == "Hero"){
-            Logger log = new Logger();
+            Logger log = GameObject.Find("Main Camera").GetComponent<GameController>().logger;
             float preEnergy = GameObject.Find("Energy").GetComponent<EnergyController>().currentEnergy;
             GameObject.Find("Energy").GetComponent<EnergyController>().onEnergyReset(); 
             
