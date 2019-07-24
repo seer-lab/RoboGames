@@ -166,7 +166,7 @@ public class OldMenu : MonoBehaviour
         GlobalState.level = null;
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
-        GlobalState.Stats = new CharacterStats(true); 
+        if(GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true); 
         GrabUserPrefs();
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
