@@ -30,7 +30,7 @@ You're mastering the loops!</endtext>
 		i++
 	
 <beacon flow-order="5" />		#pay close attention to how the words change!
-	print<question text="What is the word now?
+	print(<question text="What is the word now?
 	Select your answer: " options="00000,hello,helloo,hellooo" answer="hello">word</question>)
 </code>
 </level>

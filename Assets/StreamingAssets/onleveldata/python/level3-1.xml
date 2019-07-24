@@ -17,7 +17,7 @@ Now you know about loops!</endtext>
 		<comment type="description" correct="true"  groupid="1">activate the beacon once for each iteration!</comment>
 <beacon flow-order="0,1,2" />		print("This loop has run " + i + " times!")
 		i+=1
-	
+<beacon flow-order="3"/>
 
 </code>
 </level>

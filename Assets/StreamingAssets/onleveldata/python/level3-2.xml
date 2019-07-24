@@ -16,6 +16,7 @@ You're doing great with the loops!</endtext>
 	for (i in range(0,2)):
 		<comment type="description" correct="true"  groupid="0">the += operator adds onto an existing variable</comment>
 		<comment type="description" correct="true"  groupid="1">text += "b" is the same as text = text + "b"</comment>
+		<comment type="description" correct="true"  groupid="2">text += "c" is the same as text = text + "c";</comment>
 <beacon flow-order="0,1" />		text += "b"
 	
 	<comment type="description" correct="true"  groupid="3">#the range function can use a third number to change how the numbers are counted.</comment>
@@ -25,6 +26,6 @@ You're doing great with the loops!</endtext>
 	
 	print(<question text="What does the text contain now?
 	Select your answer: " options="abc,aaabbbccc,abccc,abbccc" answer="abbccc">text</question>)
-
+<beacon flow-order="5"/>
 </code>
 </level>

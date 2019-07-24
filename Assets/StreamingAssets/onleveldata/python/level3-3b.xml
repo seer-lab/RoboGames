@@ -9,6 +9,7 @@ You've aced the loops!</endtext>
 <tools>
 <tool name="commenter" enabled="true" count="unlimited"/>
 <tool name="checker" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
 	<comment type="description" correct="true"  groupid="10">as you saw earlier, while loops can imitate for loops</comment>
@@ -24,9 +25,9 @@ You've aced the loops!</endtext>
 	<comment type="description" correct="false"  groupid="3">The code below is correct.</comment>
 	<comment type="description" correct="true"  groupid="3">The code below has an INFINITE LOOP!</comment>
 	
-	i = 0;
-	while (0 &lt; 5){
+<beacon flow-order="5"/>	i = 0;
+	while (0 &lt; 5):
 		i+=1
-	
+<beacon flow-order="6"/>
 </code>
 </level>

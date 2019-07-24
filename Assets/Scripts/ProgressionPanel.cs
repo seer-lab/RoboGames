@@ -299,7 +299,7 @@ public class ProgressionPanel : MonoBehaviour
         foreach (GameObject button in buttons)
         {
             Text text = button.transform.GetChild(0).GetComponent<Text>();
-            text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter] + " COST: " + costs[counter];
+            text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter] + ((updatedValues[counter] == maxed) ? "" : " COST: " + costs[counter]);
             counter++;
         }
         CheckInteractable();
