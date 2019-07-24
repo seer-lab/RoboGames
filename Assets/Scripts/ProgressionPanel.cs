@@ -78,11 +78,9 @@ public class ProgressionPanel : MonoBehaviour
             selectedObject = reset; 
             FirstSelect(); 
             return; 
-        }
-        else DeSelect(); 
-
-        if (selectedObject.name == "Reset") return; 
-        else if (selectedObject.name == "Done"){
+        } else if(selectedObject.name == "Reset") return; 
+        DeSelect();
+        if (selectedObject.name == "Done"){
             bool found = false; 
             for (int i = buttons.Count-1; i >= 0; i--){
                 if (buttons[i].GetComponent<Button>().interactable){
@@ -104,8 +102,8 @@ public class ProgressionPanel : MonoBehaviour
             FirstSelect(); 
             return; 
         }
-        else DeSelect(); 
-
+        else if (selectedObject.name == "Done") return; 
+        DeSelect(); 
         if (selectedObject.name == "Reset"){
             bool found = false; 
             for (int i = 0; i < buttons.Count; i++){
@@ -119,7 +117,6 @@ public class ProgressionPanel : MonoBehaviour
                 selectedObject = done; 
             }
         } 
-        else if (selectedObject.name == "Done") return; 
         else selectedObject = done; 
         Select(); 
     }
@@ -127,8 +124,7 @@ public class ProgressionPanel : MonoBehaviour
         if(selectedObject == null){
             selectedObject = buttons[0]; 
             FirstSelect(); 
-        }
-        else DeSelect(); 
+        } 
         if (selectedObject.name == "Reset" || selectedObject.name == "Done") return; 
         DeSelect(); 
         for (int i = buttons.IndexOf(selectedObject)-1; i >= 0; i--){
@@ -143,8 +139,7 @@ public class ProgressionPanel : MonoBehaviour
         if(selectedObject == null){
             selectedObject = buttons.Last(); 
             FirstSelect(); 
-        }
-        else DeSelect(); 
+        } 
         if (selectedObject.name == "Reset" || selectedObject.name == "Done") return; 
         DeSelect(); 
          for (int i = buttons.IndexOf(selectedObject)+1; i <buttons.Count; i++){
