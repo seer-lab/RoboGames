@@ -265,6 +265,7 @@ public partial class Cinematic : MonoBehaviour
             {
                 entered = false; 
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                delaytime = Time.time + delay; 
                 UpdateLevel(GlobalState.level.NextLevel);
                 UpdateText();
                 if (score > 0)
@@ -323,7 +324,7 @@ public partial class Cinematic : MonoBehaviour
             options[option].interactable = false; 
             SwapOption();
             options[option].interactable = true; 
-        }else if (Input.GetKeyDown(KeyCode.Return)){
+        }else if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time){
             if (option == 1) OnUpgrade(); 
             else OnContinue();
         }
