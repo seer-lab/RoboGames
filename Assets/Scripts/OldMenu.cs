@@ -730,6 +730,7 @@ public class OldMenu : MonoBehaviour
             levels.Add(tmp[0]);
             passed.Add(tmpTwo[0]);
         }
+        GlobalState.passed = passed; 
     #endif
 
     }
