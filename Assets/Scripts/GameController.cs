@@ -168,15 +168,16 @@ public class GameController : MonoBehaviour, ITimeUser
     /// <returns></returns>
     IEnumerator Win()
     {
-        logger.onGameEnd(startDate, true);
+        logger.onGameEnd(startDate, true, EnergyController.currentEnergy);
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
+        GlobalState.currentLevelTimeBonus = GlobalState.timeBonus;
         GlobalState.CurrentLevelEnergy = (int)EnergyController.currentEnergy; 
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
             GlobalState.CurrentLevelPoints = stateLib.DEFAULT_BUG_POINTS; 
         }
         GlobalState.RunningScore+= GlobalState.CurrentLevelPoints; 
-        logger.sendPoints();
+        //logger.sendPoints();
         do
         {
             yield return new WaitForSecondsRealtime(2.2f);
@@ -272,7 +273,7 @@ public class GameController : MonoBehaviour, ITimeUser
         else
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
-            logger.onGameEnd(startDate, true);
+            logger.onGameEnd(startDate, true, EnergyController.currentEnergy);
             SceneManager.LoadScene("Cinematic", LoadSceneMode.Single);
         }
     }

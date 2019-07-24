@@ -368,7 +368,7 @@ public class CommentFactory: ToolFactory
         // }
 
         try{
-            if(node.Attributes["correct"].Value != "false"){
+            if(node.Attributes["correct"].Value == "false" || node.Attributes["correct"].Value == "true"){
                 GlobalState.correctLine[stateLib.TOOL_COMMENTER ] += lineS.ToString() + " ";
             }
         }catch(Exception e){

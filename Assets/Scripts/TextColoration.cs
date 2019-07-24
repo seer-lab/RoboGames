@@ -163,7 +163,7 @@ public class TextColoration {
 			//Debug.Log("key result " + sText);
 			mKeyword = mKeyword.NextMatch();
 		}
-		//Debug.Log(sText);
+		Debug.Log(sText);
 
 		Regex rgxBlock = new Regex(@"(\/\/|\#)(.*)");
 		mBlockComment = rgxBlock.Match(sText);
@@ -174,11 +174,14 @@ public class TextColoration {
 			//Check if its a tag
 			Regex checkTags = new Regex(@"(?s)(.*)(#.{8}>)(.*)(</color>)(.*)");
 			Regex checkTagsTwo = new Regex(@"(?s)(.*)(<color=#.{8}>)(.*)(</color>)(.*)");
+			Regex checkTagThree = new Regex(@"(?s)(.*)(#.{8}>)(.*)");
 			string cleanedstring = "";
 			if(checkTagsTwo.IsMatch(mBlockComment.Value) && !checkTags.IsMatch(mBlockComment.Value)){
 				cleanedstring = DecolorizeText(mBlockComment.Value);
 			}
 			else if(checkTags.IsMatch(mBlockComment.Value)){
+				break;
+			}else if(checkTagThree.IsMatch(mBlockComment.Value)){
 				break;
 			}
 			cleanedstring = DecolorizeText(mBlockComment.Value);
@@ -186,19 +189,19 @@ public class TextColoration {
 			break;
 		}
 
-		//Debug.Log(sText);
+		// Debug.Log(sText);
 
-		string block = @"(['" + "])\\1\\1(.*?)\\1{3}";
-		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
-		rgxBlock = new Regex(block,options);
-		mBlockComment = rgxBlock.Match(sText);
-		//Block Comments
-		while(mBlockComment.Success){
-			string cleanedstring = DecolorizeText(mBlockComment.Value);
-			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
-			mBlockComment=mBlockComment.NextMatch();
-		}
-		//Debug.Log(sText);
+		// string block = @"(['" + "])\\1\\1(.*?)\\1{3}";
+		// RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
+		// rgxBlock = new Regex(block,options);
+		// mBlockComment = rgxBlock.Match(sText);
+		// //Block Comments
+		// while(mBlockComment.Success){
+		// 	string cleanedstring = DecolorizeText(mBlockComment.Value);
+		// 	sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+		// 	mBlockComment=mBlockComment.NextMatch();
+		// }
+		// Debug.Log(sText);
 }else if(language.Equals("c++") || language.Equals("c") ||language.Equals("c#")|| language.Equals("java")){
 		string block = @"\/\*+((([^\*])+)|([\*]+(?!\/)))[*]+\/";
 		RegexOptions options = RegexOptions.Multiline| RegexOptions.Singleline;
