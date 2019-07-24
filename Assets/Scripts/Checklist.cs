@@ -158,25 +158,25 @@ public class Checklist : MonoBehaviour {
 				if (GlobalState.level.Tasks[4]== GlobalState.level.CompletedTasks[4]) {
 					if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
 						GetComponent<Text>().text += "\n" +
-														GlobalState.StringLib.checklist_complete_color_tag +
-														"UN-COMMENT the code that is correct✓" +
+														stringLib.BLUE_COLOR_TAG +
+														"REVIEW the code that is correct✓" +
 														stringLib.CLOSE_COLOR_TAG;
 					else 
 						GetComponent<Text>().text += "\n" +
-                                                    GlobalState.StringLib.checklist_complete_color_tag +
+                                                    stringLib.BLUE_COLOR_TAG +
 													"Add a BREAKPOINT to monitor the code✓" +
 													stringLib.CLOSE_COLOR_TAG;
 				}
 				else {
 					if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
 						GetComponent<Text>().text += "\n" +
-														GlobalState.StringLib.checklist_incomplete_uncomment_color_tag +
-														"UN-COMMENT" +
+														stringLib.BLUE_COLOR_TAG +
+														"REVIEW" +
 														stringLib.CLOSE_COLOR_TAG +
 														" the code that is correct";
 					else 
 						GetComponent<Text>().text += "\n Add a " +
-                                                    GlobalState.StringLib.checklist_incomplete_activate_color_tag +
+                                                    stringLib.BLUE_COLOR_TAG +
 													"BREAKPOINT" +
 													stringLib.CLOSE_COLOR_TAG +
 													" to monitor the code.";
