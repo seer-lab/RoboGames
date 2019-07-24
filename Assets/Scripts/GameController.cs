@@ -172,7 +172,10 @@ public class GameController : MonoBehaviour, ITimeUser
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
         GlobalState.CurrentLevelEnergy = (int)EnergyController.currentEnergy; 
-        GlobalState.CurrentLevelPoints = stateLib.DEFAULT_BUG_POINTS; 
+        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
+            GlobalState.CurrentLevelPoints = stateLib.DEFAULT_BUG_POINTS; 
+        }
+        GlobalState.RunningScore+= GlobalState.CurrentLevelPoints; 
         logger.sendPoints();
         do
         {

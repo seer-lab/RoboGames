@@ -180,13 +180,22 @@ public partial class Cinematic : MonoBehaviour
         factory = new LevelFactory(filepath);
         GlobalState.level = factory.GetLevel();
     }
+    /// <summary>
+    /// Simulate pressing Enter
+    /// </summary>
     public void OnContinue()
     {
         entered = true; 
     }
+    /// <summary>
+    /// Load Progression Scene
+    /// </summary>
     public void OnUpgrade(){
         SceneManager.LoadScene("Progression");
     }
+    /// <summary>
+    /// Show all buttons but keep upgrade/progression disabled.
+    /// </summary>
     void ShowButtons(){
         GameObject upgrade = transform.Find("upgrade").gameObject; 
         GameObject cont = transform.Find("continue").gameObject; 
@@ -199,10 +208,16 @@ public partial class Cinematic : MonoBehaviour
         upgrade.GetComponent<Button>().interactable = false; 
         options = new Button[]{cont.GetComponent<Button>(),upgrade.GetComponent<Button>()};
     }
+    /// <summary>
+    /// Swaps between the two buttons
+    /// </summary>
     void SwapOption(){
         if (option > 0) option = 0; 
         else option = 1; 
     }
+    /// <summary>
+    /// Enable the progression button to be unlocked
+    /// </summary>
     void AllowUpgrade(){
         transform.Find("upgrade").GetComponent<Button>().interactable = true;
         enabledButtons = true;  
@@ -288,7 +303,7 @@ public partial class Cinematic : MonoBehaviour
                 cinerun = true;
             }
             prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
-            prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
+            //prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
             {
                 prompt2.GetComponent<Text>().text = "";

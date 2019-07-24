@@ -197,6 +197,7 @@ public partial class Cinematic : MonoBehaviour{
             pointText.text = prefix + GlobalState.StringLib.node_color_print_light + (GlobalPoints - temp).ToString() + stringLib.CLOSE_COLOR_TAG;
             yield return null;
         }
+        pointText.text = prefix + GlobalState.StringLib.node_color_print_light + (GlobalPoints).ToString() + stringLib.CLOSE_COLOR_TAG;
 
         StartCoroutine(ShowEnergyBonus());
 

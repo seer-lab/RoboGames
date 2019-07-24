@@ -12,6 +12,6 @@ public class ScoreText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = stringLib.SCORE_PREFIX + GlobalState.CurrentLevelPoints; 
+        text.text = stringLib.SCORE_PREFIX +  (GlobalState.CurrentLevelPoints + GlobalState.RunningScore); 
     }
 }
