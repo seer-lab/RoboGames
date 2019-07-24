@@ -10,6 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ProgressionPanel : MonoBehaviour
 {
+    Logger logger;
     List<GameObject> buttons;
     int[] costs;
     string[] starterText;
@@ -18,6 +19,7 @@ public class ProgressionPanel : MonoBehaviour
     int points;
     void Start()
     {
+        logger = new Logger(true);
         points = GlobalState.Stats.Points;
         ui = GetComponent<ProgressionUI>();
         if (GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true);
@@ -56,6 +58,7 @@ public class ProgressionPanel : MonoBehaviour
         GlobalState.Stats.DamageLevel = originalValues[1];
         GlobalState.Stats.Energy = (int)originalValues[2];
         GlobalState.Stats.XPBoost = (int)originalValues[3];
+        logger.sendUpgrades("RESET", points, GlobalState.Stats.Points);
 
         points = GlobalState.Stats.Points;
 
@@ -79,8 +82,10 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeSpeed()
     {
+        int prePoints = points;
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1;
         points -= stateLib.COST_SPEED*index;
+        logger.sendUpgrades("SPEED", prePoints, points);
         if (index < StatLib.speeds.Length)
             GlobalState.Stats.Speed = StatLib.speeds[index];
         UpdateValues();
@@ -90,7 +95,7 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeDamageReduce()
     {
-        
+        int prePoints = points;
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
         {
             int index = StatLib.on_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
@@ -105,6 +110,7 @@ public class ProgressionPanel : MonoBehaviour
             if (index < StatLib.bug_damageLevels.Length)
                 GlobalState.Stats.DamageLevel = StatLib.bug_damageLevels[index];
         }
+        logger.sendUpgrades("DAMAGE_REDUCE", prePoints, points);
         UpdateValues();
     }
     /// <summary>
@@ -112,19 +118,22 @@ public class ProgressionPanel : MonoBehaviour
     /// </summary>
     public void OnUpgradeEnergy()
     {
+        int prePoints = points;
         int index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;
         points -= stateLib.COST_HEALTH*index;
         if (index < StatLib.energyLevels.Length)
             GlobalState.Stats.Energy = StatLib.energyLevels[index];
+        logger.sendUpgrades("ENERGY_UPGRADE", prePoints, points);
         UpdateValues();
     }
     public void OnUpgradeFreefall()
     {
-       
+       int prePoints = points;
         int index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1;
         points -= stateLib.COST_XPBOOST*index;
         if (index < StatLib.xpboost.Length)
             GlobalState.Stats.XPBoost = StatLib.xpboost[index];
+        logger.sendUpgrades("XP_BOOST", prePoints, points);
         UpdateValues();
     }
     void UpdateValues()

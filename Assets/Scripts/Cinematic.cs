@@ -11,6 +11,7 @@ using UnityEngine.Networking;
 
 public class Cinematic : MonoBehaviour
 {
+    Logger logger;
     LevelFactory factory;
     // This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
     public string introtext = "Level Start Placeholder!";
@@ -39,6 +40,7 @@ public class Cinematic : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        logger = new Logger(true);
         //Determine the score/points the player should recieve here. 
         //continuetext = stringLib.CONTINUE_TEXT;
         continuetext = ""; 
@@ -50,6 +52,7 @@ public class Cinematic : MonoBehaviour
             originalEnergy = 0;
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.Stats.Points + (int)((score + GlobalState.timeBonus));
+            GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
             int[] pointArr;
@@ -614,7 +617,7 @@ public class Cinematic : MonoBehaviour
     
                 }
                 cinerun = false;
-
+                logger.sendPoints();
             }
         }
         //Handles when the player fails a level. 
