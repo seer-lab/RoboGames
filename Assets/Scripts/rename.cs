@@ -74,7 +74,11 @@ public class rename : Tools {
 			//https://stackoverflow.com/questions/171480/regex-grabbing-values-between-quotation-marks
 			Regex rgxF = new Regex("\"(.*?)\"");
 			//Regex rgxFiv = new Regex(oldname+@"\b");
-			Regex rgxFiv = new Regex(oldname + "(?=[^\"]*(?:\"[^\"]*\"[^\"]*)*$)");
+			string rgxString = oldname + "(?=[^\"]*(?:\"[^\"]*\"[^\"]*)*$)";
+		
+			Regex rgxFiv = new Regex(rgxString);
+
+			//Debug.Log(oldname + "(?=[^\"]*(?:\"[^\"]*\"[^\"]*)*$)");
 
 			//Check if its python or noth
 			if(GlobalState.Language.ToLower() == "python"){
@@ -90,6 +94,9 @@ public class rename : Tools {
 				}else if(rgxTh.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				}else if(rgxO.IsMatch(s) && !s.Contains("'''") && !rgxF.IsMatch(s)){
+					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
+				}else if(rgxO.IsMatch(s) && rgxF.IsMatch(s) && !rgxFiv.IsMatch(s) && !s.Contains("'''")){
+					Debug.Log(s);
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
