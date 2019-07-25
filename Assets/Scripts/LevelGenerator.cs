@@ -271,7 +271,7 @@ public partial class LevelGenerator : MonoBehaviour
                     if (c == '\n') indexOf++;
                 }
 
-                if (lineCount %5 == 0 && lineCount > 0){
+                if (lineCount %5 == 0 && lineCount > 0 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0")){
                     manager.CreateEnemy(lineCount); 
                 }
                 lineCount++;

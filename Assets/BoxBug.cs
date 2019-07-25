@@ -5,29 +5,45 @@ using UnityEngine;
 public class BoxBug : Enemies
 {
     private float distanceX = 10f; 
-    private float distanceY = 5f; 
+    private float distanceY = 1f; 
     float xOffset; 
-    float speed = 100f; 
+    float speedX = 200f; 
+    float speedY = 40f; 
     Vector3 originalPos; 
     protected override void InitializeEnemyMovement(){
         if (properties == null) properties = new CodeProperties(); 
         xOffset = Random.Range(0,10); 
-        Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index-2)*properties.linespacing,1); 
+        distanceY = 2*properties.linespacing;
+        Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
         originalPos = Position; 
+        Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
+        if (xOffset > 5){
+            originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 
+            distanceX*= -1; 
+            distanceY*= -1; 
+        }
         StartCoroutine(MoveEnemy()); 
     }
     protected override IEnumerator MoveEnemy(){
         while(true){
             yield return null; 
-            float addition = (originalPos.x + distanceX - Position.x)/speed; 
+            if (distanceX > 0 && !GetComponent<SpriteRenderer>().flipX){
+                GetComponent<SpriteRenderer>().flipX = true; 
+            }
+            else if (distanceX < 0 && GetComponent<SpriteRenderer>().flipX){
+                GetComponent<SpriteRenderer>().flipX = false; 
+            }
+            float addition = (distanceX)/speedX; 
             while ((originalPos.x + distanceX > Position.x && distanceX > 0 )||( originalPos.x + distanceX < Position.x && distanceX < 0)){
                 Position = new Vector3(Position.x + addition, Position.y, Position.z); 
                 yield return null; 
+                while(Output.IsAnswering) yield return null; 
             }
-            addition = (originalPos.y + distanceY - Position.y)/speed; 
-            while((originalPos.y + distanceX > Position.y && distanceY > 0)|| (originalPos.y + distanceY < Position.y && distanceY < 0)){
+            addition = (distanceY)/speedY; 
+            while((originalPos.y + distanceY > Position.y && distanceY > 0)|| (originalPos.y + distanceY < Position.y && distanceY < 0)){
                 Position = new Vector3(Position.x, Position.y + addition, Position.z); 
                 yield return null; 
+                while(Output.IsAnswering) yield return null; 
             }
             originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 
             distanceX*= -1; 
