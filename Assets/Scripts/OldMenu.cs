@@ -202,7 +202,7 @@ public class OldMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         AudioListener.volume = (soundon) ? 1 : 0;
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
              GlobalState.Stats.GrantPower(); 
@@ -223,7 +223,12 @@ public class OldMenu : MonoBehaviour
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
         }
-
+        if (GlobalState.passed == null || GlobalState.passed.Count < 1){
+            buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
+        }
+        else{
+             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white; 
+        }
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
         if (!GlobalState.IsResume)
         {
@@ -287,21 +292,22 @@ public class OldMenu : MonoBehaviour
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
-                        GlobalState.GameState = -4;
-                        buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                        option = 0;
-                        levels.Clear();
-                        passed.Clear();
-                        //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                        readFromFiles();
-                        GlobalState.GameState = -1;
-                        option = 0;
-                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                        m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
-                        m2buttontext[1].GetComponent<TextMesh>().text = "Back";
-                        GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
-                        m2switch(true);
-
+                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1)){
+                            GlobalState.GameState = -4;
+                            buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                            option = 0;
+                            levels.Clear();
+                            passed.Clear();
+                            //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                            readFromFiles();
+                            GlobalState.GameState = -1;
+                            option = 0;
+                            m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                            m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+                            m2buttontext[1].GetComponent<TextMesh>().text = "Back";
+                            GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
+                            m2switch(true);
+                         }
                         break;
                     case stateLib.GAMEMENU_SOUND_OPTIONS:
                         GlobalState.GameState = -2;
