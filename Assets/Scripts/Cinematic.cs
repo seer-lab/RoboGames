@@ -33,7 +33,7 @@ public partial class Cinematic : MonoBehaviour
     bool hasTimeBonus = true;
     bool entered = false; 
     bool enabledButtons = false;
-    int GlobalPoints;
+    int GlobalPoints; //this is purely for UI purposes
     string webdata;
     int maxScore;
     int option = 0; 
@@ -53,8 +53,15 @@ public partial class Cinematic : MonoBehaviour
         {
             score = GlobalState.CurrentLevelPoints;
             originalEnergy = 0;
+            if (GlobalState.passed.Contains(GlobalState.level.FileName)){
+                GlobalState.timeBonus /= 10; 
+                score /= 10; 
+            }
+            else {
+                GlobalState.passed.Add(GlobalState.level.FileName); 
+            }
             totalEnergy = score + GlobalState.timeBonus;
-            GlobalPoints = GlobalState.Stats.Points + (int)((score + GlobalState.timeBonus));
+            GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
@@ -204,10 +211,11 @@ public partial class Cinematic : MonoBehaviour
         GameObject cont = transform.Find("continue").gameObject; 
 
         upgrade.GetComponent<Image>().enabled = true; 
-        upgrade.transform.GetChild(0).GetComponent<Text>().enabled = true; 
+        upgrade.transform.GetChild(1).GetComponent<Text>().enabled = true; 
 
         cont.GetComponent<Image>().enabled = true; 
-        cont.transform.GetChild(0).GetComponent<Text>().enabled = true; 
+        cont.transform.GetChild(1).GetComponent<Text>().enabled = true; 
+        cont.transform.GetChild(0).GetComponent<Image>().enabled = true;
         upgrade.GetComponent<Button>().interactable = false; 
         options = new Button[]{cont.GetComponent<Button>(),upgrade.GetComponent<Button>()};
     }
@@ -310,7 +318,6 @@ public partial class Cinematic : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
             {
                 prompt2.GetComponent<Text>().text = "";
-                ShowButtons();
 
                 cinerun = false;
                 GlobalState.GameState = stateLib.GAMESTATE_MENU;
@@ -319,7 +326,6 @@ public partial class Cinematic : MonoBehaviour
             {
                 entered = false; 
                 prompt2.GetComponent<Text>().text = "";
-                ShowButtons();
                 cinerun = false;
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
@@ -339,9 +345,9 @@ public partial class Cinematic : MonoBehaviour
             delaytime = Time.time + delay;
         }
         if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && enabledButtons){
-            options[option].interactable = false; 
+            options[option].transform.GetChild(0).GetComponent<Image>().enabled = false; 
             SwapOption();
-            options[option].interactable = true; 
+            options[option].transform.GetChild(0).GetComponent<Image>().enabled = true; 
         }else if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time){
             if (option == 1) OnUpgrade(); 
             else OnContinue();

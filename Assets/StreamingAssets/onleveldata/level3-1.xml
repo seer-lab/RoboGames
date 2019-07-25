@@ -22,6 +22,7 @@ int main {
 <beacon flow-order="0,1,2" />		cout &lt;&lt; "This loop has run " &lt;&lt; i &lt;&lt; " times!" &lt;&lt; endl;
 		i++;
 	}
+<beacon flow-order="3"/>
 }
 </code>
 </level>

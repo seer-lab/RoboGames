@@ -33,6 +33,7 @@ int main {
 	} 
 	cout &lt;&lt; <question text="What is the value of sum?
 	Select your answer: " options="20,30,50,75" answer="50">sum;</question>
+<beacon flow-order="8"/>
 }
 </code>
 </level>

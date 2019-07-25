@@ -30,6 +30,7 @@ int main {
 	}
 	cout &lt;&lt; <question text="What does the text contain now?
 	Select your answer: " options="abc,aaabbbccc,abccc,abbccc" answer="abbccc">text;</question>	
+<beacon flow-order="5"/>
 }
 </code>
 </level>
