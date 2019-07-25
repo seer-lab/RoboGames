@@ -126,7 +126,6 @@ public class OldMenu : MonoBehaviour
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
         readFromFiles();
-
     }
     public void onClick(int index)
     {

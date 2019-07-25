@@ -63,7 +63,8 @@ public class GenericBug : Tools {
 			// Award 1 extra use of the tool.
 			selectedTool.bonusTools[stateLib.TOOL_CATCHER_OR_CONTROL_FLOW]++;
 			StartCoroutine(GlitchText()); 
-			output.Text.text = "Level Complete!"; 
+			output.Text.text = "Level Complete!";
+			GlobalState.foundBug = true; 
 		}
 	}
 

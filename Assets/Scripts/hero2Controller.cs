@@ -281,7 +281,8 @@ public class hero2Controller : MonoBehaviour
                GameObject.FindGameObjectsWithTag("Projectile").Length == 0 &&
                GetComponent<Rigidbody2D>().velocity == Vector2.zero &&
                projectilecode >= 0 &&
-               selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0)
+               selectedTool.GetComponent<SelectedTool>().toolCounts[projectilecode] + selectedTool.GetComponent<SelectedTool>().bonusTools[projectilecode] > 0 &&
+               !GlobalState.foundBug)
         {
             throwing = true;
             audioSource.PlayOneShot(throwTool, 2f);
