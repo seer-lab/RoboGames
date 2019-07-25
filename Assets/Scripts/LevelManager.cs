@@ -199,6 +199,13 @@ public class LevelManager
         }
         return null; 
     }
+    public GameObject CreateEnemy(int lineNumber){
+        
+        GameObject enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
+        enemy.GetComponent<BoxBug>().Index = lineNumber; 
+        Debug.Log("Creation Index " + lineNumber);
+        return enemy; 
+    }
 
     public GameObject CreateHint(XmlNode childNode, int lineNumber){
 

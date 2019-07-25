@@ -116,10 +116,10 @@ TextureImporter:
       name: alien-enemy-walk_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 4
-        width: 35
-        height: 29
+        x: 0
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,7 +127,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15d66dad1f6d43f4eb1bcea3daec30de
+      spriteID: ff1470fe0ce00704cb31ba795589e6c9
       internalID: -604080839275535826
       vertices: []
       indices: 
@@ -137,10 +137,10 @@ TextureImporter:
       name: alien-enemy-walk_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 4
-        width: 36
-        height: 30
+        x: 57
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,7 +148,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 423ac2e6bec7bc64684dd02009a3adf7
+      spriteID: 38b6a379ee5fc7d4ea3135aeb261db54
       internalID: 7453925480958451557
       vertices: []
       indices: 
@@ -158,10 +158,10 @@ TextureImporter:
       name: alien-enemy-walk_2
       rect:
         serializedVersion: 2
-        x: 126
-        y: 4
-        width: 40
-        height: 30
+        x: 114
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,7 +169,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d032a3da53cc81d40863e4044c452c37
+      spriteID: ba98033e972675145ba15ba643a1fbf6
       internalID: -7951676802617243285
       vertices: []
       indices: 
@@ -179,10 +179,10 @@ TextureImporter:
       name: alien-enemy-walk_3
       rect:
         serializedVersion: 2
-        x: 183
-        y: 5
-        width: 40
-        height: 28
+        x: 171
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,7 +190,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 451af7bdcb512cf4d81e2e9ff9d180b8
+      spriteID: 26331ea3517648743aa5f529ab63580c
       internalID: 4785581926021514275
       vertices: []
       indices: 
@@ -200,10 +200,10 @@ TextureImporter:
       name: alien-enemy-walk_4
       rect:
         serializedVersion: 2
-        x: 240
-        y: 5
-        width: 34
-        height: 27
+        x: 228
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,7 +211,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a873fb57fa226f438f6d0b9176e031c
+      spriteID: aa3e9a60ae94baf4f970ed0b830ebc6b
       internalID: -3255035399968347999
       vertices: []
       indices: 
@@ -221,10 +221,10 @@ TextureImporter:
       name: alien-enemy-walk_5
       rect:
         serializedVersion: 2
-        x: 297
-        y: 4
-        width: 30
-        height: 28
+        x: 285
+        y: 0
+        width: 57
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,7 +232,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f013440c99bc5044b19614d50dc7569
+      spriteID: 5fd51d7da09820b4a971c7ef1c391978
       internalID: 5431581593609785561
       vertices: []
       indices: 

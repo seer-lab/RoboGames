@@ -82,6 +82,13 @@ public partial class LevelGenerator : MonoBehaviour
             StartCoroutine(manager.CreateLife()); 
         }
     }
+
+    public CodeProperties Properties{
+        get {
+            return properties; 
+        }
+    }
+
     /// <summary>
     /// Essentially Generates the Level Visually.
     /// Uses data from the GlobalState Level. 
@@ -262,6 +269,10 @@ public partial class LevelGenerator : MonoBehaviour
                 foreach (char c in childNode.OuterXml)
                 {
                     if (c == '\n') indexOf++;
+                }
+
+                if (lineCount %5 == 0 && lineCount > 0){
+                    manager.CreateEnemy(lineCount); 
                 }
                 lineCount++;
 
