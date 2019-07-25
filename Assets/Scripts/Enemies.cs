@@ -30,6 +30,13 @@ public abstract class Enemies : MonoBehaviour{
     void UpdatePosition(){
         position.position = Position; 
     }
+    protected abstract float GetDamage(); 
+    protected abstract int GetCode();
+    void OnTriggerEnter2D(Collider2D collidingObj){
+        if (collidingObj.name == "Hero"){
+            hero.onTakeDamange(GetDamage(), GetCode()); 
+        }
+    }
     void Update(){
         UpdatePosition(); 
     }

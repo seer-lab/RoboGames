@@ -34,5 +34,12 @@ public class BoxBug : Enemies
             distanceY*= -1; 
         }
     }
+
+    protected override float GetDamage(){
+        return 50f; 
+    }
+    protected override int GetCode(){
+        return 4; 
+    }
     
 }
