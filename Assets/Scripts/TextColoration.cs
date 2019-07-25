@@ -156,8 +156,6 @@ public class TextColoration {
 		}
 	}
 
-	//Debug.Log(sText);
-
 	//Block Comments/First Comment
 	if(language.Equals("python")){
 
@@ -221,7 +219,6 @@ public class TextColoration {
 			sText = sText.Replace(mBlockComment.Value, GlobalState.StringLib.syntax_color_comment + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mBlockComment=mBlockComment.NextMatch();
 		}
-
 }
 /* 
 		

@@ -713,24 +713,26 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
-        int webHolder = 0;
+        if(!filepath.Equals("\"\"") && filepath != null){
+            int webHolder = 0;
 
-        string [] leveldata;
-        if(GlobalState.DebugMode){
-            leveldata = filepath.Split('\n');
-        }else{
-            filepath = filepath.Substring(1,filepath.Length - 2);
-            leveldata = filepath.Split(',');
-            webHolder = 1;
-        }
+            string [] leveldata;
+            if(GlobalState.DebugMode){
+                leveldata = filepath.Split('\n');
+            }else{
+                filepath = filepath.Substring(1,filepath.Length - 2);
+                leveldata = filepath.Split(',');
+                webHolder = 1;
+            }
 
-        GlobalState.passed = new List<string>();
-        for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
-            string[] tmp = leveldata[i].Split(' ');
-            string[] tmpTwo = tmp[1].Split('\r');
-            levels.Add(tmp[0]);
-            passed.Add(tmpTwo[0]);
-            if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+            GlobalState.passed = new List<string>();
+            for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
+                string[] tmp = leveldata[i].Split(' ');
+                string[] tmpTwo = tmp[1].Split('\r');
+                levels.Add(tmp[0]);
+                passed.Add(tmpTwo[0]);
+                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+            }
         }
     #endif
 
