@@ -1,7 +1,7 @@
-$Girl: It look's like V.I. really scared him huh?
-$Boy: Well after that I hope we won't have to deal with him anytime soon.
-$Girl: It wasn't that bad, we learned a lot!
+$Girl: It looks like V.I. really scared him, huh?
+$Boy: Well, after that, I hope we won't have to deal with him anytime soon.
+$Girl: It wasn't that bad; we learned a lot!
 $Boy: That's true!
 $Robot: We should get back to work.
-$Girl: uh.. let's get some icecream instead.
-$Boy: Agreed
+$Girl: Actually, let's get some ice cream instead!
+$Boy: For sure!

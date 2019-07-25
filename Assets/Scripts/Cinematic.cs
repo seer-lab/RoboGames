@@ -33,7 +33,7 @@ public partial class Cinematic : MonoBehaviour
     bool hasTimeBonus = true;
     bool entered = false; 
     bool enabledButtons = false;
-    int GlobalPoints;
+    int GlobalPoints; //this is purely for UI purposes
     string webdata;
     int maxScore;
     int option = 0; 
@@ -53,8 +53,15 @@ public partial class Cinematic : MonoBehaviour
         {
             score = GlobalState.CurrentLevelPoints;
             originalEnergy = 0;
+            if (GlobalState.passed.Contains(GlobalState.level.FileName)){
+                GlobalState.timeBonus /= 10; 
+                score /= 10; 
+            }
+            else {
+                GlobalState.passed.Add(GlobalState.level.FileName); 
+            }
             totalEnergy = score + GlobalState.timeBonus;
-            GlobalPoints = GlobalState.Stats.Points + (int)((score + GlobalState.timeBonus));
+            GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;

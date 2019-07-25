@@ -9,7 +9,7 @@ public static class GlobalState
 {
     public static bool RestrictGameMode = false; 
     public static bool DebugMode = true; 
-    public static string[] passed; 
+    public static List<string> passed; 
     public static string Character {get;set;}
     public static bool IsPlaying { get; set; }
     public static bool IsResume {get;set;}
