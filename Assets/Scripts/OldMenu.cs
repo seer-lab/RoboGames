@@ -686,6 +686,7 @@ public class OldMenu : MonoBehaviour
     public void readFromFiles(){
 
         string filepath = "";
+        GlobalState.passed = new List<string>();
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, "levels.txt");
@@ -723,7 +724,6 @@ public class OldMenu : MonoBehaviour
             webHolder = 1;
         }
 
-        GlobalState.passed = new List<string>();
         for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
             string[] tmp = leveldata[i].Split(' ');
             string[] tmpTwo = tmp[1].Split('\r');
