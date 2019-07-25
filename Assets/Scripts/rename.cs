@@ -95,15 +95,21 @@ public class rename : Tools {
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				}else if(rgxO.IsMatch(s) && !s.Contains("'''") && !rgxF.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
-				}else if(rgxO.IsMatch(s) && rgxF.IsMatch(s) && !rgxFiv.IsMatch(s) && !s.Contains("'''")){
+				}else if(rgxO.IsMatch(s) && rgxF.IsMatch(s) && rgxFiv.IsMatch(GlobalState.level.Code[i]) && !s.Contains("'''")){
 					Debug.Log(rgxString);
-					Debug.Log(s);
+					Debug.Log(@s);
+					if(rgxF.Match(s).Value.Contains(oldname)){
+						continue;
+					}
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				}
 				i++;
 
+
+
+//Debug.Log("HI");
 			}else{
 				//check if its a multiline comment
 				if(s.Contains("/*") || s.Contains("/**")){
