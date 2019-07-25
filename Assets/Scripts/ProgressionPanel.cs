@@ -43,6 +43,7 @@ public class ProgressionPanel : MonoBehaviour
         done = transform.Find("Done").gameObject; 
         reset = transform.Find("Reset").gameObject;
         ui.AnimateButtons(buttons);
+        savePrefs();
         UpdateValues();
 
     }
@@ -172,6 +173,7 @@ public class ProgressionPanel : MonoBehaviour
         points = GlobalState.Stats.Points;
 
         UpdateValues();
+        savePrefs();
 
     }
     public void EndScene()
@@ -198,6 +200,7 @@ public class ProgressionPanel : MonoBehaviour
         if (index < StatLib.speeds.Length)
             GlobalState.Stats.Speed = StatLib.speeds[index];
         UpdateValues();
+        savePrefs();
     }
     /// <summary>
     /// Upgrades the Damage taken to the next tier unless maxed out.
@@ -221,6 +224,7 @@ public class ProgressionPanel : MonoBehaviour
         }
         logger.sendUpgrades("DAMAGE_REDUCE", prePoints, points);
         UpdateValues();
+        savePrefs();
     }
     /// <summary>
     /// Upgrades the Energy to the next tier unless maxed out.
@@ -234,6 +238,7 @@ public class ProgressionPanel : MonoBehaviour
             GlobalState.Stats.Energy = StatLib.energyLevels[index];
         logger.sendUpgrades("ENERGY_UPGRADE", prePoints, points);
         UpdateValues();
+        savePrefs();
     }
     public void OnUpgradeFreefall()
     {
@@ -244,6 +249,7 @@ public class ProgressionPanel : MonoBehaviour
             GlobalState.Stats.XPBoost = StatLib.xpboost[index];
         logger.sendUpgrades("XP_BOOST", prePoints, points);
         UpdateValues();
+        savePrefs();
     }
     void Update(){
         if (Input.GetKeyDown(KeyCode.LeftArrow)){
@@ -305,5 +311,31 @@ public class ProgressionPanel : MonoBehaviour
         CheckInteractable();
 
         ui.UpdateText(points.ToString());
+    }
+
+    public void savePrefs(){
+        if(GlobalState.Stats == null){
+            GlobalState.Stats = new CharacterStats();
+        }
+
+        if(PlayerPrefs.HasKey("totalPoints")){
+            GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
+        }
+
+        if(PlayerPrefs.HasKey("damageUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
+        }
+
+        if(PlayerPrefs.HasKey("energyUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
+        }
+
+        if(PlayerPrefs.HasKey("pointUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
+        }
+
+        if(PlayerPrefs.HasKey("speedUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
+        }
     }
 }

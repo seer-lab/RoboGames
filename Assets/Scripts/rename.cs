@@ -96,6 +96,7 @@ public class rename : Tools {
 				}else if(rgxO.IsMatch(s) && !s.Contains("'''") && !rgxF.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				}else if(rgxO.IsMatch(s) && rgxF.IsMatch(s) && !rgxFiv.IsMatch(s) && !s.Contains("'''")){
+					Debug.Log(rgxString);
 					Debug.Log(s);
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
