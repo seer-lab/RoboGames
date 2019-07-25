@@ -25,6 +25,7 @@ They consist of three parts:</comment>
 	for (int j = 0; j &lt; 3; j++){
 		<beacon flow-order="0,1,2" />		cout &lt;&lt; "This loop has run " &lt;&lt; j &lt;&lt; " times!" &lt;&lt; endl;
 	}
+<beacon flow-order="3"/>
 }
 </code>
 </level>

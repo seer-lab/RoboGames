@@ -17,6 +17,6 @@ We can use Loops to help us!</endtext>
 <comment type="description" correct="true"  groupid="5">This loop will be identical to the last level's!</comment>
 	for (j in range(0,3)):
 		<beacon flow-order="0,1,2" />		print("This loop has run " + j + " times!")
-
+<beacon flow-order="3"/>
 </code>
 </level>

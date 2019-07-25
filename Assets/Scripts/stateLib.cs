@@ -78,7 +78,7 @@ public static class stateLib
 	public const int COST_SPEED = 2500; 
 	public const int COST_DAMAGE_REDUCE = 5000; 
 	public const int COST_HEALTH = 5000; 
-	public const int COST_XPBOOST = 40000;
+	public const int COST_XPBOOST = 20000;
 
 	public const int DEFAULT_BUG_POINTS = 1000; 
 	
