@@ -314,28 +314,15 @@ public class ProgressionPanel : MonoBehaviour
     }
 
     public void savePrefs(){
+
         if(GlobalState.Stats == null){
             GlobalState.Stats = new CharacterStats();
         }
-
-        if(PlayerPrefs.HasKey("totalPoints")){
-            GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
-        }
-
-        if(PlayerPrefs.HasKey("damageUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
-        }
-
-        if(PlayerPrefs.HasKey("energyUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
-        }
-
-        if(PlayerPrefs.HasKey("pointUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
-        }
-
-        if(PlayerPrefs.HasKey("speedUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
-        }
+        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
+        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
+        PlayerPrefs.SetFloat("damageUpgrade", GlobalState.Stats.DamageLevel);
+        PlayerPrefs.SetFloat("energyUpgrade", GlobalState.Stats.Energy);
+        PlayerPrefs.SetFloat("pointUpgrade", GlobalState.Stats.XPBoost);
+        PlayerPrefs.SetFloat("speedUpgrade", GlobalState.Stats.Speed);
     }
 }
