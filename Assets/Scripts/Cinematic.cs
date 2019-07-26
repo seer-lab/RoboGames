@@ -224,7 +224,7 @@ public partial class Cinematic : MonoBehaviour
         upgrade.GetComponent<Image>().enabled = true; 
         upgrade.transform.GetChild(1).GetComponent<Text>().enabled = true; 
 
-        cont.GetComponent<Image>().enabled = true; 
+        cont.GetComponent<Image>().enabled = false; 
         cont.transform.GetChild(1).GetComponent<Text>().enabled = true; 
         cont.transform.GetChild(0).GetComponent<Image>().enabled = true;
         upgrade.GetComponent<Button>().interactable = false; 
@@ -357,7 +357,9 @@ public partial class Cinematic : MonoBehaviour
         }
         if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && enabledButtons){
             options[option].transform.GetChild(0).GetComponent<Image>().enabled = false; 
+            options[option].GetComponent<Image>().enabled = true; 
             SwapOption();
+            options[option].GetComponent<Image>().enabled = false; 
             options[option].transform.GetChild(0).GetComponent<Image>().enabled = true; 
         }else if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time){
             if (option == 1) OnUpgrade(); 
