@@ -691,7 +691,7 @@ public class OldMenu : MonoBehaviour
     }
     public void readFromFiles(){
 
-        GlobalState.passed = new List<string>();
+        if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
