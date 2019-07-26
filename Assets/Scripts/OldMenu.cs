@@ -224,7 +224,7 @@ public class OldMenu : MonoBehaviour
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
         }
-        if (GlobalState.passed == null || GlobalState.passed.Count < 1){
+        if ((GlobalState.passed == null || GlobalState.passed.Count < 1) && !GlobalState.DebugMode){
             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
         }
         else{
@@ -293,7 +293,7 @@ public class OldMenu : MonoBehaviour
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
-                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1)){
+                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1) && GlobalState.DebugMode){
                             GlobalState.GameState = -4;
                             buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             option = 0;
@@ -694,7 +694,6 @@ public class OldMenu : MonoBehaviour
 
         if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
-        GlobalState.passed = new List<string>();
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, "levels.txt");
@@ -706,6 +705,8 @@ public class OldMenu : MonoBehaviour
                 string[] data = line.Split(' ');
                 levels.Add(data[0]);
                 passed.Add(data[1]);
+                if (GlobalState.DebugMode)
+                    passed.Add(data[0]);
             }
             sr.Close();
         #endif
