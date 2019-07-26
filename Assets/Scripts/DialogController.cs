@@ -31,36 +31,38 @@ public class DialogController : MonoBehaviour
     }
     void Start()
     {
-        // string filepathON ="";
-        // string filepathBug = "";
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         
-        #if UNITY_WEBGL && !UNITY_EDITOR                    
-            // filepathON = "StreamingAssets/IntroScene.mp4";
-            // filepathBug = "StreamingAssets/RoboBugIntro_1.mp4";
-            //Debug.Log("OldMenu: Update() WEBGL AND WINDOW");
-            
+        #if UNITY_WEBGL && !UNITY_EDITOR                                
             if (GlobalState.GameMode == "bug"){
-                SetVideo(stringLib.MOVIE_BUG);
-                // String url = WebHelper.i.GetMovieFromIndexDB(stringLib.MOVIE_BUG);
-                // Debug.Log("URL : " + url);
-                // if(!url.Contains("ERROR") || url.Contains("") && url.Length > 0){
-                //     Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
-                //     player.url = url;
-                // }else{
-                //     Debug.Log("Playing Movie from Server");
-                //     player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_BUG;
-                // } 
-                //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathBug); 
-                girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(150, 250, 0);
-                boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-300, 250, 0);  
-                FlipDialog(girlDialog); 
-                botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
+                if(GlobalState.GameState === stateLib.GAMESTATE_GAME_END){
+                    SetVideo(stringLib.MOVIE_BUG_END);
+                    FlipDialog(boyDialog); 
+                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(350,70,0); 
+                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(450, 70, 0); 
+                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(600,70,0); 
+                }else{
+                    SetVideo(stringLib.MOVIE_BUG);
+                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
+                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
+                    FlipDialog(girlDialog); 
+                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(400,250,0); 
                 
+                }
             }else{
-                SetVideo(stringLib.MOVIE_ON);
-                FlipDialog(botDialog); 
-                FlipDialog(boyDialog); 
+                if(GlobalState.GameState === stateLib.GAMESTATE_GAME_END){
+                    SetVideo(stringLib.MOVIE_ON_END);
+                    FlipDialog(girlDialog); 
+                    FlipDialog(botDialog); 
+                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(200,70,0); 
+                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(0,70,0); 
+                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-400,70,0); 
+                }else{
+                    SetVideo(stringLib.MOVIE_ON);
+                    FlipDialog(girlDialog); 
+                    FlipDialog(botDialog); 
+                }
+
                 //player.clip = Resources.Load<VideoClip>(stringLib.SERVER_URL + filepathON);
             }
             

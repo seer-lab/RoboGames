@@ -120,12 +120,16 @@ public class TextColoration {
 	//block comments (todo: Add to previous comment loop)
 	rgxComment = new Regex(patternComment); 
 	//TODO: I discovered the lazy "?" after doing a lot of modification; 
-	//this probably could be used elsewhere
 
-	//Debug.Log(sText);
 	
 	// Finds the comments character and apply appropriate color to it
 	// Does not work on the first line of code
+
+	//Checks if the # symbol is in a quotes
+	Regex rgxF = new Regex("\"(.*?)\"");
+	string rgxString = "#(?=[^\"]*(?:\"[^\"]*\"[^\"]*)*$)";
+	Regex rgxFiv = new Regex(rgxString);
+
 	mComment = rgxComment.Match(sText);
 	while (mComment.Success) {
 		//Debug.Log("Value: " + mComment.Value + " t/f:" + mComment.Value.IndexOf("#"));
@@ -133,8 +137,12 @@ public class TextColoration {
 			mComment = mComment.NextMatch();
 			continue;
 
+		}else if(mComment.Value.Contains("\"")){
+			mComment = mComment.NextMatch();
+			continue;
 		}else{
 			string cleanedstring = DecolorizeText(mComment.Value);
+			Debug.Log(cleanedstring);
 			// Regex onlyColor = new Regex(@"(</color>)");
 			// if(onlyColor.IsMatch(cleanedstring)){
 			// 	cleanedstring = cleanedstring.Replace("</color>","");
@@ -163,7 +171,7 @@ public class TextColoration {
 			//Debug.Log("key result " + sText);
 			mKeyword = mKeyword.NextMatch();
 		}
-		Debug.Log(sText);
+		//Debug.Log(sText);
 
 		Regex rgxBlock = new Regex(@"(\/\/|\#)(.*)");
 		mBlockComment = rgxBlock.Match(sText);

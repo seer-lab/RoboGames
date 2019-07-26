@@ -62,6 +62,10 @@ public partial class Cinematic : MonoBehaviour
             }
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
+            Debug.Log("tE: " + totalEnergy);
+            Debug.Log("gP: " + GlobalPoints);
+            Debug.Log("tB: " + GlobalState.timeBonus);
+            Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
@@ -80,6 +84,7 @@ public partial class Cinematic : MonoBehaviour
             }
             
         }
+        saveScore();
         ShowButtons();
         //Load the text for the cinematic scene, and load the next scene's data. 
         UpdateText();
@@ -357,4 +362,17 @@ public partial class Cinematic : MonoBehaviour
     }
 
     //.................................>8.......................................
+
+    public void saveScore(){
+
+        if(GlobalState.Stats == null){
+            GlobalState.Stats = new CharacterStats();
+        }
+        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
+        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
+        PlayerPrefs.SetFloat("damageUpgrade", GlobalState.Stats.DamageLevel);
+        PlayerPrefs.SetFloat("energyUpgrade", GlobalState.Stats.Energy);
+        PlayerPrefs.SetFloat("pointUpgrade", GlobalState.Stats.XPBoost);
+        PlayerPrefs.SetFloat("speedUpgrade", GlobalState.Stats.Speed);
+    }
 }
