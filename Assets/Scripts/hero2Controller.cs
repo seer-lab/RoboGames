@@ -138,7 +138,7 @@ public class hero2Controller : MonoBehaviour
             float preEnergy = energyController.currentEnergy;
             energyController.onDamange(damage);
             float finEnergy = energyController.currentEnergy;
-            controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
+            //controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
             GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
             StartCoroutine(DamageDelay());
             return true;
