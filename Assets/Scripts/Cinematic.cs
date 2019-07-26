@@ -62,6 +62,10 @@ public partial class Cinematic : MonoBehaviour
             }
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
+            Debug.Log("tE: " + totalEnergy);
+            Debug.Log("gP: " + GlobalPoints);
+            Debug.Log("tB: " + GlobalState.timeBonus);
+            Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
@@ -80,6 +84,7 @@ public partial class Cinematic : MonoBehaviour
             }
             
         }
+        saveScore();
         ShowButtons();
         //Load the text for the cinematic scene, and load the next scene's data. 
         UpdateText();
@@ -213,7 +218,7 @@ public partial class Cinematic : MonoBehaviour
         upgrade.GetComponent<Image>().enabled = true; 
         upgrade.transform.GetChild(1).GetComponent<Text>().enabled = true; 
 
-        cont.GetComponent<Image>().enabled = true; 
+        cont.GetComponent<Image>().enabled = false; 
         cont.transform.GetChild(1).GetComponent<Text>().enabled = true; 
         cont.transform.GetChild(0).GetComponent<Image>().enabled = true;
         upgrade.GetComponent<Button>().interactable = false; 
@@ -346,7 +351,9 @@ public partial class Cinematic : MonoBehaviour
         }
         if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && enabledButtons){
             options[option].transform.GetChild(0).GetComponent<Image>().enabled = false; 
+            options[option].GetComponent<Image>().enabled = true; 
             SwapOption();
+            options[option].GetComponent<Image>().enabled = false; 
             options[option].transform.GetChild(0).GetComponent<Image>().enabled = true; 
         }else if (Input.GetKeyDown(KeyCode.Return) && delaytime < Time.time){
             if (option == 1) OnUpgrade(); 
@@ -355,4 +362,17 @@ public partial class Cinematic : MonoBehaviour
     }
 
     //.................................>8.......................................
+
+    public void saveScore(){
+
+        if(GlobalState.Stats == null){
+            GlobalState.Stats = new CharacterStats();
+        }
+        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
+        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
+        PlayerPrefs.SetFloat("damageUpgrade", GlobalState.Stats.DamageLevel);
+        PlayerPrefs.SetFloat("energyUpgrade", GlobalState.Stats.Energy);
+        PlayerPrefs.SetFloat("pointUpgrade", GlobalState.Stats.XPBoost);
+        PlayerPrefs.SetFloat("speedUpgrade", GlobalState.Stats.Speed);
+    }
 }
