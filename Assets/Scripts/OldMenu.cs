@@ -224,10 +224,10 @@ public class OldMenu : MonoBehaviour
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
         }
-        if ((GlobalState.passed == null || GlobalState.passed.Count < 1) && !GlobalState.DebugMode){
+        if ((GlobalState.passed == null || GlobalState.passed.Count < 1)){
             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
         }
-        else{
+        else if (!menu2.GetComponent<SpriteRenderer>().enabled){
              buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white; 
         }
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
@@ -235,7 +235,7 @@ public class OldMenu : MonoBehaviour
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         }
-        else
+        else if( !menu2.GetComponent<SpriteRenderer>().enabled)
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
@@ -293,7 +293,7 @@ public class OldMenu : MonoBehaviour
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
-                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1) && GlobalState.DebugMode){
+                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1)){
                             GlobalState.GameState = -4;
                             buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             option = 0;
@@ -705,8 +705,7 @@ public class OldMenu : MonoBehaviour
                 string[] data = line.Split(' ');
                 levels.Add(data[0]);
                 passed.Add(data[1]);
-                if (GlobalState.DebugMode)
-                    passed.Add(data[0]);
+                if (GlobalState.DebugMode) GlobalState.passed.Add(data[0]); 
             }
             sr.Close();
         #endif
