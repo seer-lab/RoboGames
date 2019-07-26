@@ -300,7 +300,13 @@ public partial class Cinematic : MonoBehaviour{
         //the time bonus consistent. 
         yield return new WaitForSecondsRealtime(1.3f + 1f / GlobalState.timeBonus);
         int amount = GlobalState.timeBonus;
-        int subtraction = GlobalState.timeBonus / 100;
+        int subtraction;
+        if(GlobalState.timeBonus < 100 ){
+            subtraction = GlobalState.timeBonus/ 20;
+        }else{
+           subtraction = GlobalState.timeBonus / 100;
+        }
+
         //increment the amount on both the total and the time section. 
         while (GlobalState.timeBonus > 0)
         {

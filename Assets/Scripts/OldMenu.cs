@@ -80,6 +80,7 @@ public class OldMenu : MonoBehaviour
         textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
         GrabUserPrefs();
+        SetUserPrefs();
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
@@ -202,7 +203,7 @@ public class OldMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         AudioListener.volume = (soundon) ? 1 : 0;
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
              GlobalState.Stats.GrantPower(); 
@@ -223,7 +224,12 @@ public class OldMenu : MonoBehaviour
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
         }
-
+        if (GlobalState.passed == null || GlobalState.passed.Count < 1){
+            buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
+        }
+        else{
+             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white; 
+        }
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
         if (!GlobalState.IsResume)
         {
@@ -287,21 +293,22 @@ public class OldMenu : MonoBehaviour
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
-                        GlobalState.GameState = -4;
-                        buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                        option = 0;
-                        levels.Clear();
-                        passed.Clear();
-                        //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                        readFromFiles();
-                        GlobalState.GameState = -1;
-                        option = 0;
-                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
-                        m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
-                        m2buttontext[1].GetComponent<TextMesh>().text = "Back";
-                        GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
-                        m2switch(true);
-
+                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1)){
+                            GlobalState.GameState = -4;
+                            buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                            option = 0;
+                            levels.Clear();
+                            passed.Clear();
+                            //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                            readFromFiles();
+                            GlobalState.GameState = -1;
+                            option = 0;
+                            m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
+                            m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
+                            m2buttontext[1].GetComponent<TextMesh>().text = "Back";
+                            GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
+                            m2switch(true);
+                         }
                         break;
                     case stateLib.GAMEMENU_SOUND_OPTIONS:
                         GlobalState.GameState = -2;
@@ -685,6 +692,7 @@ public class OldMenu : MonoBehaviour
     }
     public void readFromFiles(){
 
+        if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
         GlobalState.passed = new List<string>();
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
@@ -745,6 +753,8 @@ public class OldMenu : MonoBehaviour
         int toolsTips = GlobalState.HideToolTips ? 1: 0;
         PlayerPrefs.SetInt("tooltips", toolsTips);
         PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
+        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
+        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
     }
 
     public void GrabUserPrefs(){
@@ -772,6 +782,40 @@ public class OldMenu : MonoBehaviour
             int posID = Convert.ToInt32(WebHelper.i.webData);
             //Debug.Log("posID: " + posID);
             GlobalState.positionalID = PlayerPrefs.GetInt("positonalID", posID);
+        }
+
+        if(GlobalState.Stats == null){
+            GlobalState.Stats = new CharacterStats();
+        }
+
+        if(PlayerPrefs.HasKey("totalPoints")){
+            GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
+            Debug.Log("totalPoints: " + GlobalState.totalPoints);
+        }
+
+        if(PlayerPrefs.HasKey("currentPoint")){
+            GlobalState.Stats.Points= PlayerPrefs.GetInt("currentPoints", 0);
+            Debug.Log("currentPoints: " + GlobalState.Stats.Points);
+        }
+
+        if(PlayerPrefs.HasKey("damageUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
+            Debug.Log("damageUpgrade: " + GlobalState.Stats.DamageLevel);
+        }
+
+        if(PlayerPrefs.HasKey("energyUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
+            Debug.Log("energyUpgrades: " + GlobalState.Stats.Energy);
+        }
+
+        if(PlayerPrefs.HasKey("pointUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
+            Debug.Log("pointUpgrade: " + GlobalState.Stats.XPBoost);
+        }
+
+        if(PlayerPrefs.HasKey("speedUpgrade")){
+            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
+            Debug.Log("speedUpgrade: " + GlobalState.Stats.Speed);
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
