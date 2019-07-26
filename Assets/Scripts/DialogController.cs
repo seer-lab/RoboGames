@@ -33,16 +33,17 @@ public class DialogController : MonoBehaviour
     {
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         
-        #if UNITY_WEBGL && !UNITY_EDITOR                                
+        #if UNITY_WEBGL    
+            Debug.Log("Playing on WEBGL");                        
             if (GlobalState.GameMode == "bug"){
-                if(GlobalState.GameState === stateLib.GAMESTATE_GAME_END){
-                    SetVideo(stringLib.MOVIE_BUG_END);
+                if(GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
+                    player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_BUG_END;
                     FlipDialog(boyDialog); 
                     botDialog.GetComponent<RectTransform>().localPosition = new Vector3(350,70,0); 
                     girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(450, 70, 0); 
                     boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(600,70,0); 
                 }else{
-                    SetVideo(stringLib.MOVIE_BUG);
+                    player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_BUG;
                     girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(250, 250, 0); 
                     boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-200, 250, 0); 
                     FlipDialog(girlDialog); 
@@ -50,15 +51,15 @@ public class DialogController : MonoBehaviour
                 
                 }
             }else{
-                if(GlobalState.GameState === stateLib.GAMESTATE_GAME_END){
-                    SetVideo(stringLib.MOVIE_ON_END);
+                if(GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
+                    player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_ON_END;
                     FlipDialog(girlDialog); 
                     FlipDialog(botDialog); 
                     botDialog.GetComponent<RectTransform>().localPosition = new Vector3(200,70,0); 
                     girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(0,70,0); 
                     boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(-400,70,0); 
                 }else{
-                    SetVideo(stringLib.MOVIE_ON);
+                    player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_ON;
                     FlipDialog(girlDialog); 
                     FlipDialog(botDialog); 
                 }
@@ -278,14 +279,6 @@ public class DialogController : MonoBehaviour
     void SetVideo(string filename){
         #if UNITY_WEBGL && !UNITY_EDITOR
             String url = ""; 
-            if(GlobalState.GameMode == "bug"){
-                url = GlobalState.URL_MOVIE_BUG;
-            }else{
-                url = GlobalState.URL_MOVIE_ON;
-            }            
-            Debug.Log("URL : " + url + " Movie: " + filename);
-
-        
             if(url == "" || url == null){
                 Debug.Log("Playing Movie from Server");
                 player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + filename;

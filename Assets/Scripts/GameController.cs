@@ -236,6 +236,7 @@ public class GameController : MonoBehaviour, ITimeUser
     // Start is called before the first frame update
     void Start()
     {
+        GlobalState.foundBug = false;
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 

@@ -49,23 +49,30 @@ public partial class Cinematic : MonoBehaviour
         continuetext = ""; 
         score = -1;
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0;
+
         if (GlobalState.level != null && !GlobalState.level.IsDemo)
         {
             score = GlobalState.CurrentLevelPoints;
             originalEnergy = 0;
-            if (GlobalState.passed.Contains(GlobalState.level.FileName)){
-                GlobalState.timeBonus /= 10; 
-                score /= 10; 
-            }
-            else {
+            if(GlobalState.passed != null){
+                if (GlobalState.passed.Contains(GlobalState.level.FileName)){
+                    GlobalState.timeBonus /= 10; 
+                    score /= 10; 
+                }else {
+                    GlobalState.passed.Add(GlobalState.level.FileName); 
+                }
+            
+            }else {
+                GlobalState.passed = new List<string>();
                 GlobalState.passed.Add(GlobalState.level.FileName); 
             }
+
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
-            Debug.Log("tE: " + totalEnergy);
-            Debug.Log("gP: " + GlobalPoints);
-            Debug.Log("tB: " + GlobalState.timeBonus);
-            Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
+            // Debug.Log("tE: " + totalEnergy);
+            // Debug.Log("gP: " + GlobalPoints);
+            // Debug.Log("tB: " + GlobalState.timeBonus);
+            // Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
@@ -177,7 +184,6 @@ public partial class Cinematic : MonoBehaviour
         filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
         if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
         filepath = Path.Combine(filepath, file);
-        Debug.Log("Cinematics: UpdateLevel(string file) WINDOWS");
 #endif
 
 
