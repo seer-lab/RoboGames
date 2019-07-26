@@ -19,12 +19,6 @@ public class GamePicker : MonoBehaviour
     {
 
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
-        if(!WebHelper.i.assetBundle){
-            Debug.Log("No asset bundles");
-        }else{
-            Debug.Log("Asset Bundle Exist " + WebHelper.i.assetBundle);
-            player.clip = WebHelper.i.assetBundle.LoadAsset<VideoClip>("menu.mp4");
-        }
         #if UNITY_WEBGL && !UNITY_EDITOR     
             String url = GlobalState.URL_MOVIE_MENU;          
             Debug.Log("URL : " + url + " Movie: " + stringLib.MOVIE_INTRO_MENU);

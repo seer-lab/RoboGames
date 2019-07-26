@@ -307,6 +307,9 @@ public partial class Cinematic : MonoBehaviour{
            subtraction = GlobalState.timeBonus / 100;
         }
 
+        Debug.Log("TimeBonus: " + GlobalState.timeBonus);
+        Debug.Log("Subtraction: " + subtraction);
+
         //increment the amount on both the total and the time section. 
         while (GlobalState.timeBonus > 0)
         {

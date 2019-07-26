@@ -40,6 +40,8 @@ public static class GlobalState
     public static string bugLine{get; set;}
     public static CharacterStats Stats{get;set;}
 
+    public static bool foundBug;
+
     public static int totalPoints {get; set;}
     public static int currentLevelStar {get; set;}
     public static int currentLevelTimeBonus {get; set;}
