@@ -142,7 +142,6 @@ public class TextColoration {
 			continue;
 		}else{
 			string cleanedstring = DecolorizeText(mComment.Value);
-			Debug.Log(cleanedstring);
 			// Regex onlyColor = new Regex(@"(</color>)");
 			// if(onlyColor.IsMatch(cleanedstring)){
 			// 	cleanedstring = cleanedstring.Replace("</color>","");

@@ -177,7 +177,6 @@ public partial class Cinematic : MonoBehaviour
         filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
         if (GlobalState.Language == "python") filepath = Path.Combine(filepath, "python");
         filepath = Path.Combine(filepath, file);
-        Debug.Log("Cinematics: UpdateLevel(string file) WINDOWS");
 #endif
 
 
