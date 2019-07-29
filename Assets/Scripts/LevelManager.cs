@@ -200,10 +200,14 @@ public class LevelManager
         return null; 
     }
     public GameObject CreateEnemy(int lineNumber){
-        
-        GameObject enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
-        enemy.GetComponent<BoxBug>().Index = lineNumber; 
-        Debug.Log("Creation Index " + lineNumber);
+        GameObject enemy; 
+        if (lineNumber %10 == 0){
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
+        }
+        else{
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
+        }
+        enemy.GetComponent<Enemies>().Index = lineNumber; 
         return enemy; 
     }
 

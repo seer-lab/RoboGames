@@ -13,33 +13,38 @@ public class TriBug : Enemies
         if (properties == null) properties = new CodeProperties(); 
         xOffset = Random.Range(0,10); 
         distanceY = 3*properties.linespacing;
-        Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1);
+        Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1);
         originalPos = Position; 
+        StartCoroutine(MoveEnemy()); 
     }
     protected override IEnumerator MoveEnemy(){
         bool isRight = true; 
         while(true){
+            yield return null; 
             if ((int)xOffset % 2 == 0){
                 isRight = false; 
             }
+            
             float addition = distanceX/speed; 
             while(Position.x < originalPos.x + distanceX){
                 Position = new Vector3 (Position.x + addition, Position.y, Position.z); 
                 yield return null; 
+                while(Output.IsAnswering) yield return null;
             }
-            float additionX = -distanceX/speed; 
+            float additionX = -distanceX/(2*speed); 
             float additionY = distanceY/speed; 
             while(Position.y < originalPos.y + distanceY){
                 Position = new Vector3(Position.x + additionX, Position.y + additionY, Position.z); 
                 yield return null; 
-            }
-            additionX = -distanceX/speed; 
+                while(Output.IsAnswering) yield return null;
+            } 
             additionY = -distanceY/speed; 
-            while(Position.y < originalPos.y + distanceY){
+            while(Position.y > originalPos.y){
                 Position = new Vector3(Position.x + additionX, Position.y + additionY, Position.z); 
                 yield return null; 
+                while(Output.IsAnswering) yield return null;
             }
-            
+            originalPos = Position; 
         }
     }
     protected override float GetDamage(){
