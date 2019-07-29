@@ -105,9 +105,9 @@ public class TextColoration {
 		//find ints 
 	Regex intrgx = new Regex(@"()(int)(?=[\s\[])"); 
 	sText = intrgx.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "int" + stringLib.CLOSE_COLOR_TAG);
-			Regex ifs = new Regex(@"(if(?!<\/color>)(?<!<color=#.{8}))"); 
+			Regex ifs = new Regex(@"(\bif(?!<\/color>)(?<!<color=#.{8})\b)"); 
 		sText = ifs.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "if" + stringLib.CLOSE_COLOR_TAG); 
-		Regex elsergx = new Regex(@"(else(?!<\/color>)(?<!<color=#.{8}))"); 
+		Regex elsergx = new Regex(@"(\belse(?!<\/color>)(?<!<color=#.{8})\b)"); 
 		sText = elsergx.Replace(sText, GlobalState.StringLib.syntax_color_keyword + "else" + stringLib.CLOSE_COLOR_TAG);
     mStringLiteral = rgxStringLiteral.Match(sText);
 	while (mStringLiteral.Success)
