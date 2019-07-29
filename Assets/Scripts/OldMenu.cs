@@ -764,6 +764,7 @@ public class OldMenu : MonoBehaviour
         PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
         PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
         PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
+
     }
 
     public void GrabUserPrefs(){

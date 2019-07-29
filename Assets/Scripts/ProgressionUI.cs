@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+using UnityEngine.Video;
 
 public class ProgressionUI : MonoBehaviour
 {
     GameObject character; 
     GameObject Points; 
     bool glitching; 
+    void Awake(){
+        VideoPlayer player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        if (!GlobalState.IsDark){
+            player.clip = Resources.Load<VideoClip>("Video/MenuLight"); 
+            GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
+        }
+        player.Play(); 
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -15,11 +24,16 @@ public class ProgressionUI : MonoBehaviour
         glitching = false; 
         Points = transform.Find("TotalPoints").gameObject; 
         Points.GetComponent<Text>().text = GlobalState.Stats.Points.ToString(); 
+        if (!GlobalState.IsDark){
+            Points.GetComponent<Text>().color = Color.black; 
+            GameObject.Find("PointsHeader").GetComponent<Text>().color = Color.black; 
+        }
         character = transform.Find(GlobalState.Character).gameObject; 
         StartCoroutine(FadeIn(character));     
     }
     IEnumerator FadeIn(GameObject obj){
         Image image = obj.GetComponent<Image>(); 
+    
         while(image.color.a < 1){
             image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.02f); 
             yield return null; 
@@ -39,12 +53,18 @@ public class ProgressionUI : MonoBehaviour
             button.GetComponent<Animator>().SetTrigger("Start"); 
             yield return new WaitForSecondsRealtime(0.5f); 
             Text text = button.transform.GetChild(0).gameObject.GetComponent<Text>(); 
-            text.color = new Color(text.color.r, text.color.g, text.color.b, 1); 
+            if (!GlobalState.IsDark){
+                text.color = new Color(0, 0, 0, 1); 
+                button.GetComponent<Image>().color = new Color(0,0,0,1); 
+                //button.transform.GetChild(0).GetComponent<Text>().color = Color.white; 
+            }
+            else text.color = new Color(text.color.r, text.color.g, text.color.b, 1); 
             StartCoroutine(GlitchText(button.transform.GetChild(0).gameObject)); 
         }
     }
     public void UpdateText(string value){
         glitching = false; 
+        if (Points == null) Points = transform.Find("TotalPoints").gameObject; 
         Points.GetComponent<Text>().text = value; 
         StartCoroutine(GlitchText(Points)); 
     }
