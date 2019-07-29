@@ -22,7 +22,10 @@ public abstract class Obstacle : MonoBehaviour
     }
     void Start(){
         properties = new CodeProperties(); 
+        Initialize(); 
+        SetPosition();
     }
+    protected virtual void Initialize(){}
     void Update(){
         UpdateProtocol(); 
     }

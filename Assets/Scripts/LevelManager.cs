@@ -201,13 +201,19 @@ public class LevelManager
     }
     public GameObject CreateEnemy(int lineNumber){
         GameObject enemy; 
-        if (lineNumber %10 == 0){
+        if (lineNumber % 15 == 0){
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
+            enemy.GetComponent<Obstacle>().Index = lineNumber; 
+            
+        }
+        else if (lineNumber %10 == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
+            enemy.GetComponent<Enemies>().Index = lineNumber; 
         }
         else{
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
+            enemy.GetComponent<Enemies>().Index = lineNumber; 
         }
-        enemy.GetComponent<Enemies>().Index = lineNumber; 
         return enemy; 
     }
 
