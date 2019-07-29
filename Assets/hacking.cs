@@ -64,9 +64,10 @@ public class Hacking : Obstacle
     }
     protected override void UpdateProtocol(){
         if (hacking && !finishedHacking && !hitBox.IsTouching(lastHero)){
-            StopCoroutine("LoadHack"); 
+            StopAllCoroutines(); 
             hacking = false; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[0];
+            if (glitching) StartCoroutine(GlitchText()); 
         }
         if (!glitching && !finishedHacking){
             StartCoroutine(GlitchText()); 
