@@ -177,6 +177,7 @@ public class GameController : MonoBehaviour, ITimeUser
             GlobalState.CurrentLevelPoints = stateLib.DEFAULT_BUG_POINTS; 
         }
         GlobalState.RunningScore+= GlobalState.CurrentLevelPoints; 
+        GlobalState.isPassed = true;
         //logger.sendPoints();
         do
         {
@@ -237,6 +238,7 @@ public class GameController : MonoBehaviour, ITimeUser
     void Start()
     {
         GlobalState.foundBug = false;
+        GlobalState.isPassed = false;
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn();
         lg = GameObject.Find("CodeScreen").GetComponent<LevelGenerator>();
 

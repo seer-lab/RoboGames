@@ -58,7 +58,7 @@ public partial class Cinematic : MonoBehaviour
                 if (GlobalState.passed.Contains(GlobalState.level.FileName)){
                     GlobalState.timeBonus /= 10; 
                     score /= 10; 
-                }else {
+                }else if(GlobalState.isPassed) {
                     GlobalState.passed.Add(GlobalState.level.FileName); 
                 }
             

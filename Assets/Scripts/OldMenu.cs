@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using System.Text.RegularExpressions;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -720,9 +720,7 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
-        if(GlobalState.passed == null){
-            GlobalState.passed = new List<string>();
-        }
+        GlobalState.passed = new List<string>();
 
         if(!filepath.Equals("\"\"") && filepath != null){
             int webHolder = 0;
@@ -736,9 +734,15 @@ public class OldMenu : MonoBehaviour
                 webHolder = 1;
             }
 
+            Regex rgxCheck = new Regex("([0-9][a-z])");
+
             for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
                 string[] tmp = leveldata[i].Split(' ');
                 string[] tmpTwo = tmp[1].Split('\r');
+
+                if(rgxCheck.IsMatch(tmp[0])){
+                    continue;
+                }
                 levels.Add(tmp[0]);
                 passed.Add(tmpTwo[0]);
                 if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
