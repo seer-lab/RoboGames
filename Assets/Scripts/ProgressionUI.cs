@@ -13,8 +13,9 @@ public class ProgressionUI : MonoBehaviour
         VideoPlayer player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         if (!GlobalState.IsDark){
             player.clip = Resources.Load<VideoClip>("Video/MenuLight"); 
+            GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
         }
-        player.Play();
+        player.Play(); 
     }
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,7 @@ public class ProgressionUI : MonoBehaviour
     }
     public void UpdateText(string value){
         glitching = false; 
+        if (Points == null) Points = transform.Find("TotalPoints").gameObject; 
         Points.GetComponent<Text>().text = value; 
         StartCoroutine(GlitchText(Points)); 
     }
