@@ -20,8 +20,21 @@ public class ProgressionPanel : MonoBehaviour
     ProgressionUI ui;
     GameObject selectedObject; 
     int points;
+    Color selectColor, deselectColor, invertSelect, invertDeselect; 
     void Start()
     {
+         if (GlobalState.IsDark){
+            selectColor = new Color(1,1,1,1); 
+            deselectColor = new Color(1,1,1,0.6f); 
+            invertSelect = new Color(0,0,0,1); 
+            invertDeselect = new Color(0,0,0,0.6f); 
+        }
+        else{
+            selectColor = new Color(0,0,0,1); 
+            deselectColor = new Color(0,0,0,0.6f); 
+            invertSelect = new Color(1,1,1,1); 
+            invertDeselect = new Color(1,1,1,0.6f); 
+        }
         logger = new Logger(true);
         points = GlobalState.Stats.Points;
         ui = GetComponent<ProgressionUI>();
@@ -43,35 +56,43 @@ public class ProgressionPanel : MonoBehaviour
         done = transform.Find("Done").gameObject; 
         reset = transform.Find("Reset").gameObject;
         ui.AnimateButtons(buttons);
+
+        if (!GlobalState.IsDark){
+            reset.GetComponent<Image>().color = Color.black; 
+            reset.transform.GetChild(0).GetComponent<Text>().color = Color.white; 
+
+            done.GetComponent<Image>().color = Color.black; 
+            done.transform.GetChild(0).GetComponent<Text>().color = Color.white; 
+        }
         savePrefs();
         UpdateValues();
-
+       
     }
     void SelectSelectedObject(){
-        if (selectedObject != null)
+        if (selectedObject != null && selectedObject.GetComponent<Button>().interactable)
             selectedObject.GetComponent<Button>().onClick.Invoke(); 
     }
     void DeSelect(){
-        selectedObject.GetComponent<Image>().color = new Color(1,1,1,0.6f); 
+        selectedObject.GetComponent<Image>().color = deselectColor; 
         if ((selectedObject.name == "Reset" || selectedObject.name == "Done"))
-            selectedObject.transform.GetChild(0).GetComponent<Text>().color = new Color(0,0,0,0.6f); 
-        else selectedObject.transform.GetChild(0).GetComponent<Text>().color = new Color(1,1,1,0.6f); 
+            selectedObject.transform.GetChild(0).GetComponent<Text>().color = invertDeselect; 
+        else selectedObject.transform.GetChild(0).GetComponent<Text>().color = deselectColor; 
     }
     void Select(){
-        selectedObject.GetComponent<Image>().color = new Color(1,1,1,1); 
+        selectedObject.GetComponent<Image>().color = selectColor; 
         if ((selectedObject.name == "Reset" || selectedObject.name == "Done"))
-            selectedObject.transform.GetChild(0).GetComponent<Text>().color = new Color(0,0,0,1f); 
-        else selectedObject.transform.GetChild(0).GetComponent<Text>().color = new Color(1,1,1,1); 
+            selectedObject.transform.GetChild(0).GetComponent<Text>().color = invertSelect; 
+        else selectedObject.transform.GetChild(0).GetComponent<Text>().color = selectColor; 
     }
     void FirstSelect(){
         foreach(GameObject button in buttons){
-            button.GetComponent<Image>().color = new Color(1,1,1,0.6f); 
-            button.transform.GetChild(0).GetComponent<Text>().color = new Color(1,1,1,0.6f); 
+            button.GetComponent<Image>().color = deselectColor; 
+            button.transform.GetChild(0).GetComponent<Text>().color = deselectColor; 
         }
-        done.GetComponent<Image>().color = new Color(1,1,1,0.6f); 
-        done.transform.GetChild(0).GetComponent<Text>().color = new Color(0,0,0,0.6f); 
-        reset.GetComponent<Image>().color = new Color(1,1,1,0.6f); 
-        reset.transform.GetChild(0).GetComponent<Text>().color = new Color(0,0,0,0.6f); 
+        done.GetComponent<Image>().color = deselectColor; 
+        done.transform.GetChild(0).GetComponent<Text>().color = invertDeselect; 
+        reset.GetComponent<Image>().color = deselectColor; 
+        reset.transform.GetChild(0).GetComponent<Text>().color = invertDeselect; 
         Select(); 
     }
     void OnLeftArrow(){
@@ -273,7 +294,7 @@ public class ProgressionPanel : MonoBehaviour
         int counter = 0;
         string[] values = new string[4]{GlobalState.Stats.Speed.ToString(), GlobalState.Stats.DamageLevel.ToString(),
                             GlobalState.Stats.Energy.ToString(), GlobalState.Stats.XPBoost.ToString()};
-        int[] costs = new int[4] { stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH, stateLib.COST_XPBOOST };
+        costs = new int[4] { stateLib.COST_SPEED, stateLib.COST_DAMAGE_REDUCE, stateLib.COST_HEALTH, stateLib.COST_XPBOOST };
         string[] updatedValues = new string[values.Length];
         string maxed = "Maxed Out!";
         //Find the next tier 
