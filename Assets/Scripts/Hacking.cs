@@ -17,16 +17,25 @@ public class Hacking : Obstacle
     }
     protected override void Initialize(){
         string path = "Sprites/"; 
+
+        //The panel will show different colours based on its progress.
         hackingPhases = new Sprite[]{
             Resources.Load<Sprite>(path + "hackingOff"),
             Resources.Load<Sprite>(path + "hacking"), 
             Resources.Load<Sprite>(path + "hackingCOmplete")
         };
         hitBox = GetComponent<BoxCollider2D>(); 
+
+        //Animator controls the progress indicator. 
         animator = transform.GetChild(0).GetComponent<Animator>() ;
         animator.speed/= timeToHack; 
     }
 
+    /// <summary>
+    /// Deals with if the player is returning or coming for the first time or is 
+    /// still in the box.
+    /// </summary>
+    /// <param name="hero">The players Collider</param>
     void HandleResets(Collider2D hero){
         if (lastHero != null && hitBox.IsTouching(lastHero)){
             return; 
@@ -38,6 +47,10 @@ public class Hacking : Obstacle
         }
 
     }
+    /// <summary>
+    /// Glitches the Text.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GlitchText(){
         glitching = true; 
         TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
@@ -51,6 +64,11 @@ public class Hacking : Obstacle
         yield return new WaitForSeconds(0.12f); 
         glitching = false; 
     }
+    /// <summary>
+    /// Awaits when the player has finished hacking. 
+    /// Simply acts as a timer.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadHack(){
         hacking = true; 
         GetComponent<SpriteRenderer>().sprite = hackingPhases[1]; 
@@ -58,12 +76,27 @@ public class Hacking : Obstacle
         if (hitBox.IsTouching(lastHero)){
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
+            checkRefresh();
         }
         else {
             GetComponent<SpriteRenderer>().sprite = hackingPhases[0]; 
         }
         hacking = false; 
         
+    }
+    void checkRefresh(){
+       GameObject[] hacks =  GameObject.FindGameObjectsWithTag("hacking"); 
+       bool hackComplete = true; 
+       foreach(GameObject hack in hacks){
+           if (hack.GetComponent<Hacking>().finishedHacking){
+               hackComplete = false; 
+               break; 
+           }
+       }
+       if (hackComplete) {
+           TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
+           text.font = Resources.Load<Font>("Fonts/Inconsolata"); 
+       }
     }
     protected override void UpdateProtocol(){
         if (hacking && !finishedHacking && !hitBox.IsTouching(lastHero)){
@@ -75,7 +108,7 @@ public class Hacking : Obstacle
         if (!glitching && !finishedHacking){
             StartCoroutine(GlitchText()); 
         }
-        animator.SetBool("hacking", hacking); 
+        animator.SetBool("hacking", hacking); //Let's the progress indicator know if we're hacking
     }
     
     void OnTriggerEnter2D(Collider2D collidingObj){

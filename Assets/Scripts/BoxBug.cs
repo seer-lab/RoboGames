@@ -14,9 +14,13 @@ public class BoxBug : Enemies
         if (properties == null) properties = new CodeProperties(); 
         xOffset = Random.Range(0,10); 
         distanceY = 2*properties.linespacing;
+
+        //Initialize position twice. Once for the initial area so the bug stays within the code screen. 
+        //A second time to add a sense of randomness.
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
         originalPos = Position; 
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
+        //randomly choose a direction to travel. 
         if (xOffset > 5){
             originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 
             distanceX*= -1; 
@@ -26,25 +30,29 @@ public class BoxBug : Enemies
     }
     protected override IEnumerator MoveEnemy(){
         while(true){
-            yield return null; 
+            yield return null; //allows infinite loops in coroutines. 
+            //decide facing direction
             if (distanceX > 0 && !GetComponent<SpriteRenderer>().flipX){
                 GetComponent<SpriteRenderer>().flipX = true; 
             }
             else if (distanceX < 0 && GetComponent<SpriteRenderer>().flipX){
                 GetComponent<SpriteRenderer>().flipX = false; 
             }
+            //calculate travel distance along x. 
             float addition = (distanceX)/speedX; 
             while ((originalPos.x + distanceX > Position.x && distanceX > 0 )||( originalPos.x + distanceX < Position.x && distanceX < 0)){
                 Position = new Vector3(Position.x + addition, Position.y, Position.z); 
                 yield return null; 
                 while(Output.IsAnswering) yield return null; 
             }
+            //calculate travel distance along y. 
             addition = (distanceY)/speedY; 
             while((originalPos.y + distanceY > Position.y && distanceY > 0)|| (originalPos.y + distanceY < Position.y && distanceY < 0)){
                 Position = new Vector3(Position.x, Position.y + addition, Position.z); 
                 yield return null; 
                 while(Output.IsAnswering) yield return null; 
             }
+            //flip the original position with the new position. 
             originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 
             distanceX*= -1; 
             distanceY*= -1; 

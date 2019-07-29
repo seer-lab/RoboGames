@@ -201,6 +201,7 @@ public class LevelManager
     }
     public GameObject CreateEnemy(int lineNumber){
         GameObject enemy; 
+        Debug.Log(lineNumber); 
         if (lineNumber % 15 == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
             enemy.GetComponent<Obstacle>().Index = lineNumber; 
@@ -216,7 +217,7 @@ public class LevelManager
         }
         return enemy; 
     }
-
+    
     public GameObject CreateHint(XmlNode childNode, int lineNumber){
 
         //@TODO Change the hardcoded value 

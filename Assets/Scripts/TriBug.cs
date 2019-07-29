@@ -19,18 +19,20 @@ public class TriBug : Enemies
     }
     protected override IEnumerator MoveEnemy(){
         bool isRight = true; 
-        while(true){
-            yield return null; 
-            if ((int)xOffset % 2 == 0){
+        if ((int)xOffset % 2 == 0){
                 isRight = false; 
             }
+        while(true){
+            yield return null; 
             
+            //move along x. 
             float addition = distanceX/speed; 
             while(Position.x < originalPos.x + distanceX){
                 Position = new Vector3 (Position.x + addition, Position.y, Position.z); 
                 yield return null; 
                 while(Output.IsAnswering) yield return null;
             }
+            //move up and back along x & y. 
             float additionX = -distanceX/(2*speed); 
             float additionY = distanceY/speed; 
             while(Position.y < originalPos.y + distanceY){
@@ -38,6 +40,7 @@ public class TriBug : Enemies
                 yield return null; 
                 while(Output.IsAnswering) yield return null;
             } 
+            //move down and back along x & y. Returning to original postion. 
             additionY = -distanceY/speed; 
             while(Position.y > originalPos.y){
                 Position = new Vector3(Position.x + additionX, Position.y + additionY, Position.z); 
