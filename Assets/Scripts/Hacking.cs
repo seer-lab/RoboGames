@@ -8,6 +8,7 @@ public class Hacking : Obstacle
     Sprite[] hackingPhases; 
     Collider2D lastHero; 
     BoxCollider2D hitBox; 
+    Animator animator; 
     bool hacking = false; 
     bool finishedHacking = false; 
     bool glitching = false; 
@@ -22,6 +23,8 @@ public class Hacking : Obstacle
             Resources.Load<Sprite>(path + "hackingCOmplete")
         };
         hitBox = GetComponent<BoxCollider2D>(); 
+        animator = transform.GetChild(0).GetComponent<Animator>() ;
+        animator.speed/= timeToHack; 
     }
 
     void HandleResets(Collider2D hero){
@@ -72,6 +75,7 @@ public class Hacking : Obstacle
         if (!glitching && !finishedHacking){
             StartCoroutine(GlitchText()); 
         }
+        animator.SetBool("hacking", hacking); 
     }
     
     void OnTriggerEnter2D(Collider2D collidingObj){

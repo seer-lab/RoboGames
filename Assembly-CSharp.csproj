@@ -55,14 +55,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BoxBug.cs" />
-     <Compile Include="Assets\Hacking.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
+     <Compile Include="Assets\Scripts\BoxBug.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\BugComment.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
@@ -93,6 +92,7 @@
      <Compile Include="Assets\Scripts\GamePicker.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
+     <Compile Include="Assets\Scripts\Hacking.cs" />
      <Compile Include="Assets\Scripts\HandControl.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\HintCollider.cs" />
@@ -138,13 +138,13 @@
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
      <Compile Include="Assets\Scripts\TransitionController.cs" />
+     <Compile Include="Assets\Scripts\TriBug.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\WebHelper.cs" />
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
-     <Compile Include="Assets\TriBug.cs" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />
