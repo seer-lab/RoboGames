@@ -151,8 +151,7 @@ public class TransitionController : MonoBehaviour
                     else positionLine = false; 
                 }
             }
-        #elif UNITY_EDITOR && ! UNITY_WEBGL
-            Debug.Log(filepath); 
+        #elif UNITY_EDITOR && ! UNITY_WEBGL 
             using (StreamReader reader = new StreamReader(filepath)){
                 
                 image = reader.ReadLine(); 

@@ -49,7 +49,7 @@ public class DatabaseHelperV2 : MonoBehaviour
     {
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(bodyJsonString);
         //Debug.Log("PUT URL: " + url);
-        Debug.Log("Put Data: " + bodyJsonString );
+        //Debug.Log("Put Data: " + bodyJsonString );
         UnityWebRequest request = UnityWebRequest.Put(url, myData);
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Accept", "*");

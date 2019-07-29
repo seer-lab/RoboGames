@@ -126,7 +126,6 @@ public class OldMenu : MonoBehaviour
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
         readFromFiles();
-
     }
     public void onClick(int index)
     {
@@ -224,10 +223,10 @@ public class OldMenu : MonoBehaviour
                 button.GetComponent<SpriteRenderer>().color = Color.white; 
             }
         }
-        if (GlobalState.passed == null || GlobalState.passed.Count < 1){
+        if ((GlobalState.passed == null || GlobalState.passed.Count < 1)){
             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
         }
-        else{
+        else if (!menu2.GetComponent<SpriteRenderer>().enabled){
              buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white; 
         }
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
@@ -235,7 +234,7 @@ public class OldMenu : MonoBehaviour
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         }
-        else
+        else if( !menu2.GetComponent<SpriteRenderer>().enabled)
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
@@ -706,6 +705,7 @@ public class OldMenu : MonoBehaviour
                 string[] data = line.Split(' ');
                 levels.Add(data[0]);
                 passed.Add(data[1]);
+                if (GlobalState.DebugMode) GlobalState.passed.Add(data[0]); 
             }
             sr.Close();
         #endif
@@ -721,23 +721,29 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
-        int webHolder = 0;
-
-        string [] leveldata;
-        if(GlobalState.DebugMode){
-            leveldata = filepath.Split('\n');
-        }else{
-            filepath = filepath.Substring(1,filepath.Length - 2);
-            leveldata = filepath.Split(',');
-            webHolder = 1;
+        if(GlobalState.passed == null){
+            GlobalState.passed = new List<string>();
         }
 
-        for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
-            string[] tmp = leveldata[i].Split(' ');
-            string[] tmpTwo = tmp[1].Split('\r');
-            levels.Add(tmp[0]);
-            passed.Add(tmpTwo[0]);
-            if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+        if(!filepath.Equals("\"\"") && filepath != null){
+            int webHolder = 0;
+
+            string [] leveldata;
+            if(GlobalState.DebugMode){
+                leveldata = filepath.Split('\n');
+            }else{
+                filepath = filepath.Substring(1,filepath.Length - 2);
+                leveldata = filepath.Split(',');
+                webHolder = 1;
+            }
+
+            for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
+                string[] tmp = leveldata[i].Split(' ');
+                string[] tmpTwo = tmp[1].Split('\r');
+                levels.Add(tmp[0]);
+                passed.Add(tmpTwo[0]);
+                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+            }
         }
     #endif
 
@@ -790,32 +796,32 @@ public class OldMenu : MonoBehaviour
 
         if(PlayerPrefs.HasKey("totalPoints")){
             GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
-            Debug.Log("totalPoints: " + GlobalState.totalPoints);
+            //Debug.Log("totalPoints: " + GlobalState.totalPoints);
         }
 
         if(PlayerPrefs.HasKey("currentPoint")){
             GlobalState.Stats.Points= PlayerPrefs.GetInt("currentPoints", 0);
-            Debug.Log("currentPoints: " + GlobalState.Stats.Points);
+            //Debug.Log("currentPoints: " + GlobalState.Stats.Points);
         }
 
         if(PlayerPrefs.HasKey("damageUpgrade")){
             GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
-            Debug.Log("damageUpgrade: " + GlobalState.Stats.DamageLevel);
+            //Debug.Log("damageUpgrade: " + GlobalState.Stats.DamageLevel);
         }
 
         if(PlayerPrefs.HasKey("energyUpgrade")){
             GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
-            Debug.Log("energyUpgrades: " + GlobalState.Stats.Energy);
+            //Debug.Log("energyUpgrades: " + GlobalState.Stats.Energy);
         }
 
         if(PlayerPrefs.HasKey("pointUpgrade")){
             GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
-            Debug.Log("pointUpgrade: " + GlobalState.Stats.XPBoost);
+            //Debug.Log("pointUpgrade: " + GlobalState.Stats.XPBoost);
         }
 
         if(PlayerPrefs.HasKey("speedUpgrade")){
             GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
-            Debug.Log("speedUpgrade: " + GlobalState.Stats.Speed);
+            //Debug.Log("speedUpgrade: " + GlobalState.Stats.Speed);
         }
     }
     public void sendInitialDataDB(string name, string time, string url){

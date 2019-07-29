@@ -96,8 +96,6 @@ public class rename : Tools {
 				}else if(rgxO.IsMatch(s) && !s.Contains("'''") && !rgxF.IsMatch(s)){
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				}else if(rgxO.IsMatch(s) && rgxF.IsMatch(s) && rgxFiv.IsMatch(GlobalState.level.Code[i]) && !s.Contains("'''")){
-					Debug.Log(rgxString);
-					Debug.Log(@s);
 					if(rgxF.Match(s).Value.Contains(oldname)){
 						continue;
 					}
@@ -121,8 +119,9 @@ public class rename : Tools {
 				//If the string is between the quotation mark, we want to check if its outside of the quotation mark
 				//Eg with moon being the word cout << "The fox jumped over the " + moon
 				//since the first check will see if there is a quotation mark, we want to check if its outside of it
-				if(rgxF.IsMatch(s)){
+				if(rgxF.IsMatch(s) && !(rgxO.IsMatch(s) || rgxFiv.IsMatch(s))){
 					if(rgxFiv.IsMatch(s)){
+						Debug.Log(rgxFiv.Match(s).Value);
 						GlobalState.level.Code[i] = rgxFiv.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 					}
 					i++;
@@ -139,9 +138,13 @@ public class rename : Tools {
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				//ANother *hacky check to see if it can color it*
 				}else if(rgxO.IsMatch(s) && !s.Contains("*/") && !s.Contains("**/")){
+					if(rgxF.Match(s).Value.Contains(oldname)){
+						continue;
+					}
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "<color=#ff00ffff>" + oldname +"</color>");
 				//ANother *hacky check to see if it can place a placeholder*
 				}else if(rgxO.IsMatch(s) || rgxFiv.IsMatch(s)){
+
 					GlobalState.level.Code[i] = rgxO.Replace(GlobalState.level.Code[i], "\v" + oldname + "\v");
 				}
 				i++;
