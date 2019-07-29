@@ -34,7 +34,7 @@ public class TextColoration {
 	//string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)(.*)";
     string patternCommentCpp = @"(\/\/|\*\/)(.*)";
     string patternKeywordPython = @"(^| |\n|\r|\t|\()(class|in|as|range|print|not|or|and|def|bool|auto|double|int|struct|break|else|elif|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|if|static|while|default|goto|sizeof|volatile|const|float|short|unsigned|string)(\W|$|\))";
-    string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|not|or|and|def|bool|auto|double|struct|break|if|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|static|while|default|goto|sizeof|volatile|const|short|float|unsigned|string)(\W|$|\))";
+    string patternKeywordCpp = @"(^| |\n|\t|\()(class|cout|cin|endl|not|or|and|def|bool|auto|double|struct|break|if|else|using|namespace|long|switch|case|enum|register|typedef|char|extern|return|union|continue|for|signed|void|do|static|while|default|goto|sizeof|volatile|const|short|float|unsigned|string)(\W|$|\))";
     string patternIncludeGeneric = @"(#include\s)(.*?)";
 		string patternIncludePythonJava = @"(#include\w|import)";
     string patternKeywordJava = @"(^| |\n|\t|\(|\.)(class|not|or|and|bool|double|struct|break|if|else|long|switch|case|enum|char|extern|return|int|continue|public|for|this|abstract|void|do|static|private|boolean|while|default|goto|sizeof|volatile|const|short|float|String|System|out|print|println)(|\W|$|\))";
