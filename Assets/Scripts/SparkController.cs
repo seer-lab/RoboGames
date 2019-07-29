@@ -19,6 +19,7 @@ public class SparkController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)){
             pos.position = Input.mousePosition; 
             pos.position = new Vector3(pos.position.x, pos.position.y, 5);
+            anim.ResetTrigger("Spark");
             anim.SetTrigger("Spark"); 
         }
     }
