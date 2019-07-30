@@ -93,6 +93,7 @@ public partial class Cinematic : MonoBehaviour
         }
         saveScore();
         ShowButtons();
+        UpdateLevel();
         //Load the text for the cinematic scene, and load the next scene's data. 
         UpdateText();
         //Fade the scene in. 
@@ -160,7 +161,7 @@ public partial class Cinematic : MonoBehaviour
             filepath+=GlobalState.CurrentONLevel;
 
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            WebHelper.i.GetWebDataFromWeb();
+            WebHelper.i.GetWebDataFromWeb(false);
             filepath = WebHelper.i.webData;
 #endif
 
@@ -193,7 +194,7 @@ public partial class Cinematic : MonoBehaviour
             filepath+=GlobalState.CurrentONLevel;
 
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            WebHelper.i.GetWebDataFromWeb();
+            WebHelper.i.GetWebDataFromWeb(false);
             filepath = WebHelper.i.webData;
 #endif
 
