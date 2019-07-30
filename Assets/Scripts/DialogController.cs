@@ -168,7 +168,7 @@ public class DialogController : MonoBehaviour
         //Read the appropriate file.
         string bug = ""; 
         string prefix = "Intro"; 
-        if( GlobalState.GameMode == "bug") bug = "bug"; 
+        if( GlobalState.GameMode == "bug") bug = "Bug"; 
         if (GlobalState.GameState == stateLib.GAMESTATE_GAME_END) prefix = "Ending"; 
         string filepath = "StreamingAssets/onleveldata/" + prefix + bug + ".txt";
         

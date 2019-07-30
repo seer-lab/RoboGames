@@ -785,14 +785,6 @@ public class OldMenu : MonoBehaviour
         if(PlayerPrefs.HasKey("tooltips")){
             GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
         }
-        //TODO Create an api that returns the amount of level, then put that as the default
-        if(PlayerPrefs.HasKey("positionalID")){
-            WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/totallevel/" + GlobalState.sessionID.ToString();
-            WebHelper.i.GetWebDataFromWeb();
-            int posID = Convert.ToInt32(WebHelper.i.webData);
-            //Debug.Log("posID: " + posID);
-            GlobalState.positionalID = PlayerPrefs.GetInt("positonalID", posID);
-        }
 
         if(GlobalState.Stats == null){
             GlobalState.Stats = new CharacterStats();
