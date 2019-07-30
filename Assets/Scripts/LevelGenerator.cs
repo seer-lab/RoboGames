@@ -268,12 +268,12 @@ public partial class LevelGenerator : MonoBehaviour
                 manager.CreateLevelObject(childNode, indexOf);
                 foreach (char c in childNode.OuterXml)
                 {
-                    if (c == '\n') indexOf++;
-                }
-
-                if (indexOf %5 == 0 && indexOf > 4 && indexOf < GlobalState.level.Code.Length - 7 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0")){
-                    Debug.Log("Line Count: " + indexOf); 
-                    manager.CreateEnemy(indexOf); 
+                    if (c == '\n'){
+                        indexOf++;
+                         if (indexOf %5 == 0 && indexOf > 4 && indexOf < GlobalState.level.Code.Length - 4 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0")){
+                                manager.CreateEnemy(indexOf); 
+                        }
+                    }
                 }
                 lineCount++;
 
