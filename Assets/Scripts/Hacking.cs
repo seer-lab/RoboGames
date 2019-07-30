@@ -25,7 +25,7 @@ public class Hacking : Obstacle
             Resources.Load<Sprite>(path + "hackingCOmplete")
         };
         hitBox = GetComponent<BoxCollider2D>(); 
-
+        transform.position = new Vector3(transform.position.x + Random.Range(0,4), transform.position.y, transform.position.z); 
         //Animator controls the progress indicator. 
         animator = transform.GetChild(0).GetComponent<Animator>() ;
         animator.speed/= timeToHack; 
@@ -73,7 +73,8 @@ public class Hacking : Obstacle
         hacking = true; 
         GetComponent<SpriteRenderer>().sprite = hackingPhases[1]; 
         yield return new WaitForSecondsRealtime(timeToHack); 
-        if (hitBox.IsTouching(lastHero)){
+        Debug.Log(hacking); 
+        if (hacking && hitBox.IsTouching(lastHero)){
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
             checkRefresh();
@@ -88,7 +89,7 @@ public class Hacking : Obstacle
        GameObject[] hacks =  GameObject.FindGameObjectsWithTag("hacking"); 
        bool hackComplete = true; 
        foreach(GameObject hack in hacks){
-           if (hack.GetComponent<Hacking>().finishedHacking){
+           if (!hack.GetComponent<Hacking>().finishedHacking){
                hackComplete = false; 
                break; 
            }
@@ -96,10 +97,11 @@ public class Hacking : Obstacle
        if (hackComplete) {
            TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
            text.font = Resources.Load<Font>("Fonts/Inconsolata"); 
+           GameObject.Find("CodeScreen").GetComponent<LevelGenerator>().DrawInnerXmlLinesToScreen();
        }
     }
     protected override void UpdateProtocol(){
-        if (hacking && !finishedHacking && !hitBox.IsTouching(lastHero)){
+        if (hacking && !finishedHacking && lastHero != null && !hitBox.IsTouching(lastHero)){
             StopAllCoroutines(); 
             hacking = false; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[0];

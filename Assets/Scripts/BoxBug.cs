@@ -43,14 +43,14 @@ public class BoxBug : Enemies
             while ((originalPos.x + distanceX > Position.x && distanceX > 0 )||( originalPos.x + distanceX < Position.x && distanceX < 0)){
                 Position = new Vector3(Position.x + addition, Position.y, Position.z); 
                 yield return null; 
-                while(Output.IsAnswering) yield return null; 
+                while(Output.IsAnswering || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) yield return null; 
             }
             //calculate travel distance along y. 
             addition = (distanceY)/speedY; 
             while((originalPos.y + distanceY > Position.y && distanceY > 0)|| (originalPos.y + distanceY < Position.y && distanceY < 0)){
                 Position = new Vector3(Position.x, Position.y + addition, Position.z); 
                 yield return null; 
-                while(Output.IsAnswering) yield return null; 
+                while(Output.IsAnswering || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) yield return null; 
             }
             //flip the original position with the new position. 
             originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 

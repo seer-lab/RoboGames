@@ -38,14 +38,14 @@ public class TriBug : Enemies
             while(Position.y < originalPos.y + distanceY){
                 Position = new Vector3(Position.x + additionX, Position.y + additionY, Position.z); 
                 yield return null; 
-                while(Output.IsAnswering) yield return null;
+                while(Output.IsAnswering || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) yield return null;
             } 
             //move down and back along x & y. Returning to original postion. 
             additionY = -distanceY/speed; 
             while(Position.y > originalPos.y){
                 Position = new Vector3(Position.x + additionX, Position.y + additionY, Position.z); 
                 yield return null; 
-                while(Output.IsAnswering) yield return null;
+                while(Output.IsAnswering || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) yield return null;
             }
             originalPos = Position; 
         }

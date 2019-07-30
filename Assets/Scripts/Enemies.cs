@@ -34,7 +34,7 @@ public abstract class Enemies : MonoBehaviour{
     protected abstract int GetCode();
     void OnTriggerEnter2D(Collider2D collidingObj){
         if (collidingObj.name == "Hero"){
-            hero.onTakeDamange(GetDamage(), GetCode()); 
+            hero.onTakeDamage(GetDamage(), GetCode()); 
         }
     }
     void Update(){

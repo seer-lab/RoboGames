@@ -18,7 +18,6 @@ public class EnergyController : MonoBehaviour
     float initialScale;
     float initialX, topBar, bottomBar;
     float positionCompensation = 120f;
-    public bool UsedBugFixer = false; 
     bool toggle = false; 
 
     /// <summary>
@@ -129,7 +128,7 @@ public class EnergyController : MonoBehaviour
     /// Used for taking a varying amount of damage from obstacles.
     /// </summary>
     /// <param name="damage">Amount of energy to reduce from the player.</param>
-    public void onDamange(float damage)
+    public void onDamage(float damage)
     {
         currentEnergy -= damage;
         updateBar();
