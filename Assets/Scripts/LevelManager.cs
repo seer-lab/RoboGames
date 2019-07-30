@@ -40,6 +40,8 @@ public class LevelManager
     public List<GameObject> roboBugPrint; 
     public List<GameObject> robotONbeacons;
 
+    public List<GameObject> obstacles; 
+
     //Maintain an instance of properties for spacing. 
     CodeProperties properties; 
 
@@ -70,6 +72,7 @@ public class LevelManager
         robotONcorrectComments = new List<GameObject>();
         robotONquestions = new List<GameObject>();
         firewalls = new List<GameObject>(); 
+        obstacles = new List<GameObject>();
     }
 
     /// <summary>
@@ -137,6 +140,9 @@ public class LevelManager
         foreach(GameObject firewall in firewalls){
             GameObject.Destroy(firewall); 
         }
+        foreach(GameObject enemy in obstacles){
+            GameObject.Destroy(enemy); 
+        }
         /*
         if (levelBug)
         {
@@ -163,6 +169,7 @@ public class LevelManager
         roboBugPrint = new List<GameObject>();
         roboBUGwarps = new List<GameObject>(); 
         firewalls = new List<GameObject>(); 
+        obstacles = new List<GameObject>();
     }
     public IEnumerator CreateLife(){
         while(true){
@@ -215,6 +222,7 @@ public class LevelManager
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
         }
+        obstacles.Add(enemy); 
         return enemy; 
     }
     

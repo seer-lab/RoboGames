@@ -73,7 +73,7 @@ public class Hacking : Obstacle
         hacking = true; 
         GetComponent<SpriteRenderer>().sprite = hackingPhases[1]; 
         yield return new WaitForSecondsRealtime(timeToHack); 
-        Debug.Log(hacking); 
+        Debug.Log(hacking);
         if (hacking && hitBox.IsTouching(lastHero)){
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
