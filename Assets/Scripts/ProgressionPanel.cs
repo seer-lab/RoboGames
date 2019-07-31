@@ -172,11 +172,11 @@ public class ProgressionPanel : MonoBehaviour
         }
         Select(); 
     }
-    void CheckInteractable()
+    void CheckInteractable(int[] costValue)
     {
         for (int i = 0; i < 4; i++)
         {
-            if (i < costs.Length && points < costs[i])
+            if (points < costValue[i])
             {
                 buttons[i].GetComponent<Button>().interactable = false;
             }
@@ -300,26 +300,26 @@ public class ProgressionPanel : MonoBehaviour
         //Find the next tier 
         int index = StatLib.speeds.ToList().IndexOf(GlobalState.Stats.Speed) + 1;
         if (index < 5){ updatedValues[0] = StatLib.speeds[index].ToString(); costs[0]*= (int)Math.Pow(2,index-1);} 
-        else updatedValues[0] = maxed;
+        else{ updatedValues[0] = maxed; costs[0] = 9999999;}
 
         if (GlobalState.GameMode == stringLib.GAME_MODE_ON){
             index = StatLib.on_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
             if (index < 5) {updatedValues[1] = StatLib.on_damageLevels[index].ToString();costs[1]*= (int)Math.Pow(2,index-1);} 
-            else updatedValues[1] = maxed;
+            else {updatedValues[1] = maxed; costs[1] = 9999999;}
         }
         else{
             index = StatLib.bug_damageLevels.ToList().IndexOf(GlobalState.Stats.DamageLevel) + 1;
             if (index < 5) {updatedValues[1] = StatLib.bug_damageLevels[index].ToString();costs[1]*= (int)Math.Pow(2,index-1);} 
-            else updatedValues[1] = maxed;
+            else {updatedValues[1] = maxed; costs[2] = 9999999;}
         }
 
         index = StatLib.energyLevels.ToList().IndexOf(GlobalState.Stats.Energy) + 1;
         if (index < 5) {updatedValues[2] = StatLib.energyLevels[index].ToString();costs[2]*= (int)Math.Pow(2,index-1);} 
-        else updatedValues[2] = maxed;
+        else {updatedValues[2] = maxed; costs[3] = 9999999;}
 
         index = StatLib.xpboost.ToList().IndexOf(GlobalState.Stats.XPBoost) + 1;
         if (index < 5) {updatedValues[3] = StatLib.xpboost[index].ToString();costs[3]*= (int)Math.Pow(4,index-1);} 
-        else updatedValues[3] = maxed;
+        else{ updatedValues[3] = maxed; costs[4] = 9999999;}
 
 
         //update the text, and indicate the next tier they can get.
@@ -329,7 +329,7 @@ public class ProgressionPanel : MonoBehaviour
             text.text = starterText[counter] + values[counter] + " >> " + updatedValues[counter] + ((updatedValues[counter] == maxed) ? "" : " COST: " + costs[counter]);
             counter++;
         }
-        CheckInteractable();
+        CheckInteractable(costs);
 
         ui.UpdateText(points.ToString());
     }
