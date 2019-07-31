@@ -16,6 +16,11 @@ public abstract class Enemies : MonoBehaviour{
     }
     protected LevelGenerator lg; 
     protected CodeProperties properties; 
+    public CodeProperties Properties{
+        set{
+            properties = value; 
+        }
+    }
     protected Transform position; 
     hero2Controller hero; 
     void Start(){

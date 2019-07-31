@@ -213,14 +213,17 @@ public class LevelManager
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
             enemy.GetComponent<Obstacle>().Index = lineNumber; 
             enemy.GetComponent<Obstacle>().Properties = properties; 
+            enemy.GetComponent<Obstacle>().SetPosition();
         }
         else if (lineNumber %10 == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
+            enemy.GetComponent<Enemies>().Properties = properties; 
         }
         else{
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
+            enemy.GetComponent<Enemies>().Properties = properties; 
         }
         obstacles.Add(enemy); 
         return enemy; 

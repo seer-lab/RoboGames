@@ -30,7 +30,6 @@ public class Hacking : Obstacle
         //Animator controls the progress indicator. 
         animator = transform.GetChild(0).GetComponent<Animator>() ;
         animator.speed/= timeToHack; 
-        SetPosition();
         visibility = transform.GetChild(1).GetComponent<SpriteRenderer>();
         if (!GlobalState.IsDark){
             visibility.sprite = Resources.Load<Sprite>("Sprites/transparentbox_white");
