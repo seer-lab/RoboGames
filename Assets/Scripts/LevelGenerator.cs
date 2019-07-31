@@ -637,6 +637,11 @@ public partial class LevelGenerator : MonoBehaviour
             question propertyHandler = questionObj.GetComponent<question>();
             propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_dark);
         }
+        foreach (GameObject obstacle in manager.obstacles){
+            if (obstacle.name.Contains("hacking")){
+                obstacle.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =  Resources.Load<Sprite>("Sprites/transparentbox_white");
+            }
+        }
 
     }
 
@@ -670,6 +675,12 @@ public partial class LevelGenerator : MonoBehaviour
         {
             question propertyHandler = questionObj.GetComponent<question>();
             propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_light);
+        }
+
+        foreach (GameObject obstacle in manager.obstacles){
+            if (obstacle.name.Contains("hacking")){
+                obstacle.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/transparentbox2");
+            }
         }
 
         DrawInnerXmlLinesToScreen();

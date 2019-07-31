@@ -44,7 +44,7 @@ public abstract class Obstacle : MonoBehaviour
     /// </summary>
     public virtual void SetPosition(){
         if (properties == null) properties = new CodeProperties(); 
-        this.transform.position = new Vector3(properties.initialLineX + 0.5f, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - Index * properties.linespacing, 1);
+        this.transform.position = new Vector3(properties.initialLineX + 0.5f + Random.Range(0,4), properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - Index * properties.linespacing, 1);
     } 
 
     /// <summary>

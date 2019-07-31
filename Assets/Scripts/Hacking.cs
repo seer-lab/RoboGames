@@ -12,6 +12,8 @@ public class Hacking : Obstacle
     bool hacking = false; 
     bool finishedHacking = false; 
     bool glitching = false; 
+    bool isDark = true; 
+    SpriteRenderer visibility; 
     public override string GetObstacleType(){
         return "Hacking"; 
     }
@@ -25,11 +27,15 @@ public class Hacking : Obstacle
             Resources.Load<Sprite>(path + "hackingCOmplete")
         };
         hitBox = GetComponent<BoxCollider2D>(); 
-        transform.position = new Vector3(transform.position.x + Random.Range(0,4), transform.position.y, transform.position.z); 
         //Animator controls the progress indicator. 
         animator = transform.GetChild(0).GetComponent<Animator>() ;
         animator.speed/= timeToHack; 
         SetPosition();
+        visibility = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        if (!GlobalState.IsDark){
+            visibility.sprite = Resources.Load<Sprite>("Sprites/transparentbox_white");
+            isDark = false; 
+        }
     }
 
     /// <summary>
@@ -75,7 +81,8 @@ public class Hacking : Obstacle
         if (hacking && hitBox.IsTouching(lastHero)){
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
-            checkRefresh();
+            visibility.enabled = false; 
+            //checkRefresh();
         }
         else {
             GetComponent<SpriteRenderer>().sprite = hackingPhases[0]; 
@@ -103,10 +110,10 @@ public class Hacking : Obstacle
             StopAllCoroutines(); 
             hacking = false; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[0];
-            if (glitching) StartCoroutine(GlitchText()); 
+            //if (glitching) StartCoroutine(GlitchText()); 
         }
         if (!glitching && !finishedHacking){
-            StartCoroutine(GlitchText()); 
+            //StartCoroutine(GlitchText()); 
         }
         animator.SetBool("hacking", hacking); //Let's the progress indicator know if we're hacking
     }
