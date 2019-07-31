@@ -212,7 +212,7 @@ public class LevelManager
         if (lineNumber % 15 == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
             enemy.GetComponent<Obstacle>().Index = lineNumber; 
-            
+            enemy.GetComponent<Obstacle>().Properties = properties; 
         }
         else if (lineNumber %10 == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));

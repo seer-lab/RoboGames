@@ -20,6 +20,11 @@ public abstract class Obstacle : MonoBehaviour
             index = value; 
         }
     }
+    public CodeProperties Properties{
+        set{
+            properties = value; 
+        }
+    }
     void Start(){
         properties = new CodeProperties(); 
         Initialize(); 

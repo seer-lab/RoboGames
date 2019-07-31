@@ -29,6 +29,7 @@ public class Hacking : Obstacle
         //Animator controls the progress indicator. 
         animator = transform.GetChild(0).GetComponent<Animator>() ;
         animator.speed/= timeToHack; 
+        SetPosition();
     }
 
     /// <summary>
@@ -37,12 +38,9 @@ public class Hacking : Obstacle
     /// </summary>
     /// <param name="hero">The players Collider</param>
     void HandleResets(Collider2D hero){
-        if (lastHero != null && hitBox.IsTouching(lastHero)){
-            return; 
-        }
-        if (!finishedHacking){
+        lastHero = hero; 
+        if (!hacking){
             StopAllCoroutines(); 
-            lastHero = hero; 
             StartCoroutine(LoadHack()); 
         }
 
