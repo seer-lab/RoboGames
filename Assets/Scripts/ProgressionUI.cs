@@ -19,7 +19,7 @@ public class ProgressionUI : MonoBehaviour
             }
         #endif
 
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR && !UNITY_WEBGL
         if (!GlobalState.IsDark){
             player.clip = Resources.Load<VideoClip>("Video/MenuLight"); 
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
