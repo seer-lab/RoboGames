@@ -92,7 +92,7 @@ public class Hacking : Obstacle
         
     }
     IEnumerator FadeConsole(){
-        Image image = this.GetComponent<Image>(); 
+        SpriteRenderer image = this.GetComponent<SpriteRenderer>(); 
         float step = 0.05f; 
         yield return new WaitForSecondsRealtime(2f); 
         while(image.color.a > 0){
@@ -138,6 +138,10 @@ public class Hacking : Obstacle
         if (collidingObj.name == "Hero" && !finishedHacking){
             HandleResets(collidingObj); 
         }
+    }
+    public override void SetPosition(){
+        base.SetPosition(); 
+        transform.GetChild(1).GetComponent<Transform>().localScale = new Vector3(8,(properties.linespacing*10)*0.35f, 1); 
     }
 
 }
