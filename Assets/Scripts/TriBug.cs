@@ -9,7 +9,8 @@ public class TriBug : Enemies
     float distanceX = 4; 
     Vector3 originalPos; 
     float speed = 80f; 
-    protected override void InitializeEnemyMovement(){
+    public override void InitializeEnemyMovement(){
+        StopAllCoroutines();
         if (properties == null) properties = new CodeProperties(); 
         xOffset = Random.Range(0,10); 
         distanceY = 3*properties.linespacing;

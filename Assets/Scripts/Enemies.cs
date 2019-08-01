@@ -31,7 +31,7 @@ public abstract class Enemies : MonoBehaviour{
         InitializeEnemyMovement(); 
     }
     protected abstract IEnumerator MoveEnemy(); 
-    protected abstract void InitializeEnemyMovement(); 
+    public abstract void InitializeEnemyMovement(); 
     void UpdatePosition(){
         position.position = Position; 
     }

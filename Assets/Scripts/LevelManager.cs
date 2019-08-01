@@ -408,6 +408,10 @@ public class LevelManager
                 console.GetComponent<Hacking>().Properties = properties; 
                 console.GetComponent<Hacking>().SetPosition();
             }
+            else{
+                console.GetComponent<Enemies>().Properties = properties; 
+                console.GetComponent<Enemies>().InitializeEnemyMovement();
+            }
         }
     
     }

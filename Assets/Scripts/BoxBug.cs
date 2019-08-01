@@ -10,7 +10,8 @@ public class BoxBug : Enemies
     float speedX = 200f; 
     float speedY = 40f; 
     Vector3 originalPos; 
-    protected override void InitializeEnemyMovement(){
+    public override void InitializeEnemyMovement(){
+        StopAllCoroutines();
         if (properties == null) properties = new CodeProperties(); 
         xOffset = Random.Range(0,10); 
         distanceY = 2*properties.linespacing;
