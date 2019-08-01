@@ -403,6 +403,12 @@ public class LevelManager
         foreach (GameObject firewall in firewalls){
             firewall.GetComponent<Firewall>().SetPosition(); 
         }
+        foreach(GameObject console in obstacles){
+            if (console.name.Contains("hacking")){
+                console.GetComponent<Hacking>().Properties = properties; 
+                console.GetComponent<Hacking>().SetPosition();
+            }
+        }
     
     }
     private void GrantLife(){

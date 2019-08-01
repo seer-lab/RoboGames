@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class Hacking : Obstacle
 {
@@ -81,6 +82,7 @@ public class Hacking : Obstacle
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
             visibility.enabled = false; 
+            StartCoroutine(FadeConsole());
             //checkRefresh();
         }
         else {
@@ -89,6 +91,20 @@ public class Hacking : Obstacle
         hacking = false; 
         
     }
+    IEnumerator FadeConsole(){
+        Image image = this.GetComponent<Image>(); 
+        float step = 0.05f; 
+        yield return new WaitForSecondsRealtime(2f); 
+        while(image.color.a > 0){
+            image.color = new Color(image.color.r, image.color.g, image.color.b ,image.color.a - step); 
+            yield return null;
+        }
+
+    }
+
+    /// <summary>
+    /// Used for linking ohter consoles with eachother.
+    /// </summary>
     void checkRefresh(){
        GameObject[] hacks =  GameObject.FindGameObjectsWithTag("hacking"); 
        bool hackComplete = true; 
@@ -102,6 +118,7 @@ public class Hacking : Obstacle
            TextMesh text = GameObject.Find("Code").GetComponent<TextMesh>(); 
            text.font = Resources.Load<Font>("Fonts/Inconsolata"); 
            GameObject.Find("CodeScreen").GetComponent<LevelGenerator>().DrawInnerXmlLinesToScreen();
+
        }
     }
     protected override void UpdateProtocol(){

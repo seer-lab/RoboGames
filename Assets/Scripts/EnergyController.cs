@@ -17,12 +17,8 @@ public class EnergyController : MonoBehaviour
     bool hidden = false;
     float initialScale;
     float initialX, topBar, bottomBar;
-<<<<<<< HEAD
-    float positionCompensation = 120f;
-=======
     float positionCompensation = (120f*Screen.width)/1080f;
     public bool UsedBugFixer = false; 
->>>>>>> d4eae3c11c08064877cacf8addfe3ab64b688906
     bool toggle = false; 
 
     /// <summary>

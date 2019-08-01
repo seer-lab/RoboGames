@@ -60,7 +60,7 @@ public class BoxBug : Enemies
     }
 
     protected override float GetDamage(){
-        return 50f; 
+        return GlobalState.Stats.DamageLevel; 
     }
     protected override int GetCode(){
         return 4; 
