@@ -720,7 +720,7 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
-        GlobalState.passed = new List<string>();
+
 
         if(!filepath.Equals("\"\"") && filepath != null){
             int webHolder = 0;

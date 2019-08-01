@@ -443,8 +443,7 @@ public class hero2Controller : MonoBehaviour
                 Bounds collider = GameObject.Find("CodeScreen").GetComponent<EdgeCollider2D>().bounds;
                 if ( pos.x < collider.center.x + collider.size.x / 2 && pos.y > collider.center.y - collider.size.y / 2 && !fire.IsFiring && !(Input.mousePosition.x < finalScale.x && Input.mousePosition.y < finalScale.x))
                 {
-                    GameObject obj = EventSystem.current.currentSelectedGameObject;
-                    Debug.Log(Input.mousePosition); 
+                    GameObject obj = EventSystem.current.currentSelectedGameObject; 
                     if (obj == null){
                         
                         StartCoroutine(MoveToPosition(RoundPosition(pos)));
