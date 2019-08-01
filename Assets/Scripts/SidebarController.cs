@@ -16,6 +16,7 @@ public class SidebarController : MonoBehaviour
     EnergyController EnergyController; 
     Image ToggleArrow, toggleTool; 
     Sprite downArrow, upArrow; 
+    string indicateHide, indicateShow; 
     private stringLib stringLibrary;
     bool active = true; 
     public bool isActive
@@ -53,9 +54,19 @@ public class SidebarController : MonoBehaviour
         upArrow = Resources.Load<Sprite>("Sprites/arrowUp"); 
         stringLibrary = new stringLib(); 
         levelDescriptor.GetComponent<Text>().text = GlobalState.level.Description;
-        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS") || GlobalState.HideToolTips){
+        indicateHide = transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text; 
+        indicateShow = transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text; 
+        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
+            indicateHide = ""; 
+            indicateShow = "";  
+        }
+        if (GlobalState.HideToolTips){
             transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
-            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = "";  
+            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = ""; 
+        }
+        else{
+            transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = indicateHide; 
+            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = indicateShow; 
         }
     
     }
@@ -135,6 +146,14 @@ public class SidebarController : MonoBehaviour
         if (GlobalState.GameState == stateLib.GAMESTATE_IN_GAME){
             this.GetComponent<Canvas>().enabled = true;
         }
-        else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) GetComponent<Canvas>().enabled = false; 
+        else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) GetComponent<Canvas>().enabled = false;
+        if (GlobalState.HideToolTips){
+            transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = ""; 
+            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = ""; 
+        }
+        else{
+            transform.GetChild(2).transform.Find("Indicate Hide").GetComponent<Text>().text = indicateHide; 
+            transform.GetChild(2).transform.Find("Indicate Show").GetComponent<Text>().text = indicateShow; 
+        }
     }
 }

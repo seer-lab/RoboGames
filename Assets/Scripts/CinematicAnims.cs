@@ -35,10 +35,10 @@ public partial class Cinematic : MonoBehaviour{
     IEnumerator AnimateStars()
     {
 
-        int value = (int)(((float)score / (float)maxScore) * 5f);
-        if (score == 0) value = 0;
-        else if (value <= 0) value = 1;
-        else if (value > 5 )  value = 5; 
+        int value = 3; 
+        if(originalTimeBonus > 0) value++; 
+        if (GlobalState.CurrentLevelEnergy == GlobalState.Stats.Energy) value++;
+        if (score == 0) value = 0; 
         //show place holder
         foreach (GameObject star in stars)
         {
