@@ -745,9 +745,8 @@ public class OldMenu : MonoBehaviour
                 }
                 levels.Add(tmp[0]);
                 passed.Add(tmpTwo[0]);
-                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+                if (tmpTwo[0] == "1" && !GlobalState.IsResume) GlobalState.passed.Add(tmp[0]); 
             }
-            if (GlobalState.passed.Count > 1) GlobalState.passed.RemoveAt(GlobalState.passed.Count-1);
         }
     #endif
 
