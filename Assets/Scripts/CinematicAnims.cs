@@ -47,7 +47,7 @@ public partial class Cinematic : MonoBehaviour{
             yield return new WaitForSecondsRealtime(0.2f);
         }
         //display the stars if the player recieves any
-        Debug.Log(value); 
+        //Debug.Log(value); 
         for (int i = 0; i < value; i++)
         {
             stars[i].GetComponent<Animator>().SetBool("isComplete", true);
@@ -218,7 +218,7 @@ public partial class Cinematic : MonoBehaviour{
         energy.GetComponent<Animator>().SetTrigger("Show");
         float perecent = 1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy);
         perecent *= GlobalState.Stats.XPBoost;
-        Debug.Log(perecent);
+        //Debug.Log(perecent);
         if (perecent > 1)
         {
             energy.GetComponent<Animator>().SetTrigger("Show");
@@ -307,8 +307,8 @@ public partial class Cinematic : MonoBehaviour{
            subtraction = GlobalState.timeBonus / 100;
         }
 
-        Debug.Log("TimeBonus: " + GlobalState.timeBonus);
-        Debug.Log("Subtraction: " + subtraction);
+        //Debug.Log("TimeBonus: " + GlobalState.timeBonus);
+        //Debug.Log("Subtraction: " + subtraction);
 
         //increment the amount on both the total and the time section. 
         while (GlobalState.timeBonus > 0)

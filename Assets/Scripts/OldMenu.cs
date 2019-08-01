@@ -710,7 +710,7 @@ public class OldMenu : MonoBehaviour
         #endif
     
     #if UNITY_WEBGL
-
+        Debug.Log("ReadFROMFILE:");
         if(GlobalState.DebugMode){
             filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
         }else{
@@ -740,12 +740,14 @@ public class OldMenu : MonoBehaviour
                 string[] tmp = leveldata[i].Split(' ');
                 string[] tmpTwo = tmp[1].Split('\r');
 
+                Debug.Log(tmp[0]);
+                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+
                 if(rgxCheck.IsMatch(tmp[0])){
                     continue;
                 }
                 levels.Add(tmp[0]);
                 passed.Add(tmpTwo[0]);
-                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
             }
         }
     #endif
