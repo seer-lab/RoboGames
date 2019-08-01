@@ -720,7 +720,7 @@ public class OldMenu : MonoBehaviour
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
-        GlobalState.passed = new List<string>();
+
 
         if(!filepath.Equals("\"\"") && filepath != null){
             int webHolder = 0;
@@ -747,6 +747,7 @@ public class OldMenu : MonoBehaviour
                 passed.Add(tmpTwo[0]);
                 if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
             }
+            if (GlobalState.passed.Count > 1) GlobalState.passed.RemoveAt(GlobalState.passed.Count-1);
         }
     #endif
 
