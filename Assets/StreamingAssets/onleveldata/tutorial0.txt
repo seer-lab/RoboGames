@@ -1,7 +1,7 @@
 DarkRoom
 #Boy: -400 200 0
 #Girl: 500 200 0
-#Robot: 500 400 0
+#Robot: 500 300 0
 $Boy: How do we get any of this stuff to turn on?
 $Robot: I'm equipped with the ability to bring us into the code, perhaps that will help. 
 $Girl: What! That's crazy!

@@ -288,6 +288,16 @@ public class ProgressionPanel : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Return)){
             SelectSelectedObject(); 
         }
+        if (Input.GetMouseButtonDown(0)){
+            foreach (GameObject button in buttons){
+                button.GetComponent<Image>().color = selectColor; 
+            }
+            done.GetComponent<Image>().color = selectColor; 
+            done.transform.GetChild(0).GetComponent<Text>().color = invertSelect; 
+
+            reset.GetComponent<Image>().color = selectColor; 
+            reset.transform.GetChild(0).GetComponent<Text>().color = invertSelect; 
+        }
     }
     void UpdateValues()
     {
