@@ -1,4 +1,5 @@
 
+using System.Linq;
 using System;
 using System.Transactions;
 using UnityEngine;
@@ -58,15 +59,16 @@ public partial class Cinematic : MonoBehaviour
                 if (GlobalState.passed.Contains(GlobalState.level.FileName)){
                     GlobalState.timeBonus /= 10; 
                     score /= 10; 
-                }else if(GlobalState.isPassed) {
-                    GlobalState.passed.Add(GlobalState.level.FileName); 
                 }
             
             }else {
                 GlobalState.passed = new List<string>();
                 GlobalState.passed.Add(GlobalState.level.FileName); 
             }
-
+            for (int i = 0; i < GlobalState.passed.Count; i++){
+                Debug.Log(GlobalState.passed[i]); 
+            }
+            if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) GlobalState.passed.Add(GlobalState.level.FileName); 
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
             // Debug.Log("tE: " + totalEnergy);

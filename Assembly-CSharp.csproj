@@ -92,7 +92,11 @@
      <Compile Include="Assets\Scripts\GamePicker.cs" />
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\Hacking.cs" />
+=======
+     <Compile Include="Assets\Scripts\GlowControl.cs" />
+>>>>>>> d4eae3c11c08064877cacf8addfe3ab64b688906
      <Compile Include="Assets\Scripts\HandControl.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\HintCollider.cs" />

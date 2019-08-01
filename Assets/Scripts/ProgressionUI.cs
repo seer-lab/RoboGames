@@ -11,10 +11,20 @@ public class ProgressionUI : MonoBehaviour
     bool glitching; 
     void Awake(){
         VideoPlayer player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
+        #if UNITY_WEBGL
+            if(!GlobalState.IsDark){
+                player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO_MENU_LIGHT;
+            }else{
+                player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_INTRO_MENU;
+            }
+        #endif
+
+        #if UNITY_EDITOR && !UNITY_WEBGL
         if (!GlobalState.IsDark){
             player.clip = Resources.Load<VideoClip>("Video/MenuLight"); 
             GameObject.Find("BackgroundCanvas").transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
         }
+        #endif
         player.Play(); 
     }
     // Start is called before the first frame update
@@ -52,6 +62,7 @@ public class ProgressionUI : MonoBehaviour
         foreach(GameObject button in buttons){
             button.GetComponent<Animator>().SetTrigger("Start"); 
             yield return new WaitForSecondsRealtime(0.5f); 
+            button.transform.GetChild(1).GetComponent<GlowControl>().IsReady = true; 
             Text text = button.transform.GetChild(0).gameObject.GetComponent<Text>(); 
             if (!GlobalState.IsDark){
                 text.color = new Color(0, 0, 0, 1); 
