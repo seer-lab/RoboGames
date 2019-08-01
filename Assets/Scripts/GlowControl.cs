@@ -7,6 +7,7 @@ public class GlowControl : MonoBehaviour
 {
     Button button; 
     bool show = false; 
+    public bool IsReady {get;set;} = false; 
     // Start is called before the first frame update
     void Start()
     {
@@ -38,10 +39,10 @@ public class GlowControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (button.interactable && !show){
+        if (button.interactable && !show && IsReady){
             FadeIn(); 
         }
-        else if (!button.interactable && show){
+        else if (!button.interactable && show && IsReady){
             FadeOut();
         }
     }

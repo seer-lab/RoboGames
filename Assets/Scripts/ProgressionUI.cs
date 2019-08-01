@@ -62,6 +62,7 @@ public class ProgressionUI : MonoBehaviour
         foreach(GameObject button in buttons){
             button.GetComponent<Animator>().SetTrigger("Start"); 
             yield return new WaitForSecondsRealtime(0.5f); 
+            button.transform.GetChild(1).GetComponent<GlowControl>().IsReady = true; 
             Text text = button.transform.GetChild(0).gameObject.GetComponent<Text>(); 
             if (!GlobalState.IsDark){
                 text.color = new Color(0, 0, 0, 1); 
