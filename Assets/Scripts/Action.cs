@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic; 
 using UnityEngine; 
 
-public enum ActionType{Dialog, Throw, SwitchTool, Output}
+public enum ActionType{Dialog, Throw, SwitchTool, Output, Hack}
 
 /// <summary>
 /// Represents a Call in the Demo Callstack.

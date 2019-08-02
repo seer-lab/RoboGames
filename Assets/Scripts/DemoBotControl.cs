@@ -100,9 +100,15 @@ public class DemoBotControl : MonoBehaviour
                     handControl.HandleAction(callstack[currentIndex]); 
                     enterDelay+= 3f; 
                 }
+                else if (callstack[currentIndex].Category == ActionType.Hack){
+                    controller.reachedPosition = false;
+                    StartCoroutine(controller.MoveToPosition(controller.RoundPosition(callstack[currentIndex].Position)));
+                    enterDelay = 5f; 
+
+                }
             }
             //update the Output if the new callstack is a dialog
-            if (controller.reachedPosition && indexOfAction < callstack.Count && callstack[indexOfAction].Category == ActionType.Dialog)
+            if (controller.reachedPosition && indexOfAction < callstack.Count && (callstack[indexOfAction].Category == ActionType.Dialog || callstack[indexOfAction].Category == ActionType.Dialog))
             {
                 output.text.GetComponent<Text>().text = callstack[currentIndex].text;
             }

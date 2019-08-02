@@ -206,16 +206,17 @@ public class LevelManager
         }
         return null; 
     }
-    public GameObject CreateEnemy(int lineNumber){
+    public GameObject CreateEnemy(int lineNumber, int specificEnemy = -1, int row = 0, int column = 0){
         GameObject enemy; 
         Debug.Log(lineNumber); 
-        if (lineNumber % 15 == 0){
+        if ((lineNumber % 15 == 0 && specificEnemy == -1) || specificEnemy == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
             enemy.GetComponent<Obstacle>().Index = lineNumber; 
             enemy.GetComponent<Obstacle>().Properties = properties; 
+            enemy.GetComponent<Obstacle>().Position = new Vector3(0, properties.initialLineY- properties.linespacing*lineNumber + stateLib.TOOLBOX_Y_OFFSET, 1);
             enemy.GetComponent<Obstacle>().SetPosition();
         }
-        else if (lineNumber %10 == 0){
+        else if ((specificEnemy == -1 && lineNumber %10 == 0) || specificEnemy == 1){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
             enemy.GetComponent<Enemies>().Properties = properties; 

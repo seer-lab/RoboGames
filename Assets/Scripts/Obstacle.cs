@@ -7,6 +7,7 @@ public abstract class Obstacle : MonoBehaviour
 {
     protected int index = -1;  
     protected CodeProperties properties; 
+    public Vector3 Position {get;set;}
 
     /// <summary>
     /// The line number the Obstacle originates from.
@@ -44,7 +45,14 @@ public abstract class Obstacle : MonoBehaviour
     /// </summary>
     public virtual void SetPosition(){
         if (properties == null) properties = new CodeProperties(); 
-        this.transform.position = new Vector3(properties.initialLineX + 0.5f + Random.Range(2,6), properties.initialLineY - 0.8f + stateLib.TOOLBOX_Y_OFFSET - index* properties.linespacing + properties.lineOffset, 1);
+        if (Position == null){
+            float xoffset = Random.Range(2,6); 
+            if (GlobalState.level.IsDemo) xoffset = 0; 
+            this.transform.position = new Vector3(properties.initialLineX + 0.5f + xoffset, properties.initialLineY - 0.8f + stateLib.TOOLBOX_Y_OFFSET - index* properties.linespacing + properties.lineOffset, 1);
+        }
+        else {
+            transform.position = Position; 
+        }
     } 
 
     /// <summary>

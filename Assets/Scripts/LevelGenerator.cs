@@ -214,6 +214,15 @@ public partial class LevelGenerator : MonoBehaviour
                  factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
+            if (lines[i].Contains("***")){
+                manager.CreateEnemy(line+i, 1); 
+                GlobalState.level.Code[line+i] = GlobalState.level.Code[line+i].Replace("***", ""); 
+            }
+            if (lines[i].Contains("$$$")){
+                manager.CreateEnemy(line+i, 0, line+i, lines[i].IndexOf("$$$")); 
+                actions.AddRange(new List<Action>{new Action(properties,ActionType.Hack, line+i,lines[i].IndexOf("$$$"), "Here we go!")});
+                GlobalState.level.Code[line+i] = GlobalState.level.Code[line + i].Replace("$$$", ""); 
+            }
             if (controller.callstack == null && actions.Count > 0) controller.callstack = new List<Action>(); 
             controller.callstack.AddRange(actions.OrderBy(o => o.Column).ToList()); 
             actions = new List<Action>(); 
