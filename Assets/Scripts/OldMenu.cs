@@ -853,7 +853,6 @@ public class OldMenu : MonoBehaviour
 
     public string GrabPointsFromDB(string url){
         WebHelper.i.url = url;
-        Debug.Log(url);
         WebHelper.i.GetWebDataFromWeb();
         return WebHelper.i.webData;
     }

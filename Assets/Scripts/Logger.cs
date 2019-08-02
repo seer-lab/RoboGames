@@ -394,10 +394,8 @@ public class LoggerPoints{
     public static LoggerPoints CreateFromJson(string jsonString){
         try{
             LoggerPoints lg = JsonUtility.FromJson<LoggerPoints>(jsonString);
-            Debug.Log("YAY IT WORKS");
             return lg;
         }catch(Exception e){
-            Debug.Log("NOPE");
             return null;
         }
     }
