@@ -740,10 +740,9 @@ public class OldMenu : MonoBehaviour
                 string[] tmp = leveldata[i].Split(' ');
                 string[] tmpTwo = tmp[1].Split('\r');
 
-                Debug.Log(tmp[0]);
                 if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
 
-                if(rgxCheck.IsMatch(tmp[0])){
+                if(rgxCheck.IsMatch(tmp[0]) && GlobalState.DebugMode == false){
                     continue;
                 }
                 levels.Add(tmp[0]);

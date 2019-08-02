@@ -45,9 +45,39 @@ public class TitleController : MonoBehaviour
                 if(PlayerPrefs.HasKey("tooltips")){
                     GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
                 }
-                //TODO Create an api that returns the amount of level, then put that as the default
-                if(PlayerPrefs.HasKey("positionalID")){
-                    GlobalState.positionalID = PlayerPrefs.GetInt("positonalID");
+
+                if(GlobalState.Stats == null){
+                    GlobalState.Stats = new CharacterStats();
+                }
+
+                if(PlayerPrefs.HasKey("totalPoints")){
+                    GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
+                    //Debug.Log("totalPoints: " + GlobalState.totalPoints);
+                }
+
+                if(PlayerPrefs.HasKey("currentPoint")){
+                    GlobalState.Stats.Points= PlayerPrefs.GetInt("currentPoints", 0);
+                    //Debug.Log("currentPoints: " + GlobalState.Stats.Points);
+                }
+
+                if(PlayerPrefs.HasKey("damageUpgrade")){
+                    GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
+                    //Debug.Log("damageUpgrade: " + GlobalState.Stats.DamageLevel);
+                }
+
+                if(PlayerPrefs.HasKey("energyUpgrade")){
+                    GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
+                    //Debug.Log("energyUpgrades: " + GlobalState.Stats.Energy);
+                }
+
+                if(PlayerPrefs.HasKey("pointUpgrade")){
+                    GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
+                    //Debug.Log("pointUpgrade: " + GlobalState.Stats.XPBoost);
+                }
+
+                if(PlayerPrefs.HasKey("speedUpgrade")){
+                    GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
+                    //Debug.Log("speedUpgrade: " + GlobalState.Stats.Speed);
                 }
             }
             PlayerPrefs.DeleteAll();
