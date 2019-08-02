@@ -31,7 +31,8 @@ public partial class Cinematic : MonoBehaviour
     bool updatedLevel = false;
     bool showingTime = false;
     bool shownCharacter = false;
-    bool hasTimeBonus = true;
+    float originalTimeBonus; 
+    bool hasTimeBonus = false;
     bool entered = false; 
     bool enabledButtons = false;
     int GlobalPoints; //this is purely for UI purposes
@@ -46,9 +47,10 @@ public partial class Cinematic : MonoBehaviour
         logger = new Logger(true);
         //Determine the score/points the player should recieve here. 
         //continuetext = stringLib.CONTINUE_TEXT;
-        
+        originalTimeBonus = GlobalState.timeBonus; 
         continuetext = ""; 
         score = -1;
+        if (GlobalState.timeBonus > 0 ) hasTimeBonus = true; 
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0;
 
         if (GlobalState.level != null && !GlobalState.level.IsDemo)
@@ -64,9 +66,6 @@ public partial class Cinematic : MonoBehaviour
             }else {
                 GlobalState.passed = new List<string>();
                 GlobalState.passed.Add(GlobalState.level.FileName); 
-            }
-            for (int i = 0; i < GlobalState.passed.Count; i++){
-                Debug.Log(GlobalState.passed[i]); 
             }
             if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) GlobalState.passed.Add(GlobalState.level.FileName); 
             totalEnergy = score + GlobalState.timeBonus;
@@ -343,7 +342,7 @@ public partial class Cinematic : MonoBehaviour
                 cinerun = false;
                 // One is called Bugleveldata and another OnLevel data.
                 // Levels.txt, coding in menu.cs
-
+                delaytime = Time.time + delay; 
                 string filepath = GlobalState.level.Failure_Level;
                 Debug.Log("FailureLevel: " + filepath);
                 if (filepath == "Null")

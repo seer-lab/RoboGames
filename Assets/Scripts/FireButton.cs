@@ -11,6 +11,7 @@ public class FireButton : MonoBehaviour
     private SelectedTool tool; 
     private bool isFiring; 
     public bool mouseOver = false; 
+    string indicatorText ; 
     public void UpdateMouse(bool isHover){
         mouseOver = isHover; 
         Debug.Log(mouseOver); 
@@ -25,13 +26,18 @@ public class FireButton : MonoBehaviour
         code = tool.projectilecode; 
         UpdateLook();
 
+        indicatorText = transform.parent.GetChild(1).GetComponent<Text>().text; 
         //Set Indicators to be OS specific.
-        if (GlobalState.HideToolTips || SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
-            transform.parent.GetChild(1).GetComponent<Text>().text =""; 
+        if (SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
+            indicatorText =""; 
         }
         else if (SystemInfo.operatingSystem.Contains("Mac")){
-            transform.parent.GetChild(1).GetComponent<Text>().text = "Control"; 
+            indicatorText = "Control"; 
         }
+        if (GlobalState.HideToolTips){
+            transform.parent.GetChild(1).GetComponent<Text>().text = "";
+        }
+        else transform.parent.GetChild(1).GetComponent<Text>().text = indicatorText; 
     }
     /// <summary>
     /// Updates the color and icon for the button.
@@ -49,6 +55,11 @@ public class FireButton : MonoBehaviour
             this.transform.parent.GetComponent<Canvas>().enabled = true;
         }
         else if (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) transform.parent.GetComponent<Canvas>().enabled = false; 
+
+        if (GlobalState.HideToolTips){
+            transform.parent.GetChild(1).GetComponent<Text>().text = ""; 
+        }
+        else transform.parent.GetChild(1).GetComponent<Text>().text = indicatorText; 
     }
     public void onClick(){
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
