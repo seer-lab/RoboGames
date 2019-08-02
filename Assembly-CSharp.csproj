@@ -146,6 +146,7 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
+     <None Include="Assets\StreamingAssets\onleveldata\python\tutorial1b.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />
@@ -206,6 +207,7 @@
      <None Include="Assets\StreamingAssets\old_onleveldata\credits.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial4.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial1b.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-5b.xml" />
