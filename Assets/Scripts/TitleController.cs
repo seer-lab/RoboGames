@@ -45,10 +45,6 @@ public class TitleController : MonoBehaviour
                 if(PlayerPrefs.HasKey("tooltips")){
                     GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
                 }
-                //TODO Create an api that returns the amount of level, then put that as the default
-                if(PlayerPrefs.HasKey("positionalID")){
-                    GlobalState.positionalID = PlayerPrefs.GetInt("positonalID");
-                }
             }
             PlayerPrefs.DeleteAll();
         }

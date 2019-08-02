@@ -18,9 +18,9 @@ You've mastered data types and variables!</endtext>
 	#Let's suppose someone types in "button_1"
 	print(<question text="What would this code output?
 	Select your answer: " options="Enter Text Here,input,button_1" answer="button_1">txt</question>)
-	<comment type="description" correct="true" groupid="0">Strings can be added together; this is called CONCATENATION</comment>
-	part1 = "hello ";
-	part2 = "world";
+	<comment type="description" correct="true" groupid="0">Strings can be added together this is called CONCATENATION</comment>
+	part1 = "hello "
+	part2 = "world"
 	print(<question text="What will be the output?
 	Select your answer: " options="hello world,hellowrold,hello + world" answer="hello world">part1 + part2</question>)
 }

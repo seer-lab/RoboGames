@@ -15,7 +15,7 @@ We need to turn on the changing color capabilities</introtext>
 	is_off = True
 	<comment type="description" correct="true"  groupid="1">You can use variables in expressions to create new variables:</comment>
 	<question text="What is the VALUE of is_off?
-	Select your answer: " options="true,false" answer="true">is_sleep = is_off</question>
+	Select your answer: " options="True,False" answer="True">is_sleep = is_off</question>
 	<comment type="description" correct="true"  groupid="3">You can also use a variable to redefine itself!</comment>
 	current_color = 205
 	#How will we change the current_color for when the monitor changes color? 

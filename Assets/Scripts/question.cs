@@ -98,6 +98,7 @@ public class question : Tools {
             innertext = innertext.Replace("???", "");
         }
         string[] text = innertext.Split('\n');
+
         for (int i = 0; i < text.Length; i++)
         {
             GlobalState.level.Code[index + i] = text[i];

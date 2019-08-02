@@ -17,11 +17,11 @@ VGA and HDMI, can you turn them both ON?</introtext>
 	#a successful swap will have variable1 = "goodbye" and variable2 = "hello"
 	<comment type="description" correct="true"  groupid="4">You need a third temporary (temp) variable in order to make a SWAP.</comment>
 	#Try keeping track of which variable has which value:
-	first_output = "VGA";
-	second_output = "HDMI";
-	temp = first_output;
-	first_output = second_output;
-	second_output = temp;
+	first_output = "VGA"
+	second_output = "HDMI"
+	temp = first_output
+	first_output = second_output
+	second_output = temp
 	print(<question text="What has first_output become?
 	Select your answer: " options="VGA,HDMI" answer="HDMI">first_output</question>)
 	print(<question text="What has second_output become?

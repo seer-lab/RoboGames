@@ -344,16 +344,37 @@ public class ProgressionPanel : MonoBehaviour
         ui.UpdateText(points.ToString());
     }
 
+
     public void savePrefs(){
 
         if(GlobalState.Stats == null){
             GlobalState.Stats = new CharacterStats();
         }
-        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
-        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
-        PlayerPrefs.SetFloat("damageUpgrade", GlobalState.Stats.DamageLevel);
-        PlayerPrefs.SetFloat("energyUpgrade", GlobalState.Stats.Energy);
-        PlayerPrefs.SetFloat("pointUpgrade", GlobalState.Stats.XPBoost);
-        PlayerPrefs.SetFloat("speedUpgrade", GlobalState.Stats.Speed);
+
+        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID; 
+
+        SendPointsToDB(url + "/totalPoints", 
+                        "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}");
+
+        SendPointsToDB(url + "/currentPoints", 
+                        "{ \"currentPoints\":\"" + GlobalState.Stats.Points.ToString() + "\"}");
+
+        SendPointsToDB(url + "/resistanceUpgrade", 
+                        "{ \"resistanceUpgrade\":\"" + GlobalState.Stats.DamageLevel.ToString() + "\"}");
+
+        SendPointsToDB(url + "/energyUpgrades", 
+                        "{ \"energyUpgrades\":\"" + GlobalState.Stats.Energy.ToString() + "\"}");
+
+        SendPointsToDB(url + "/xpUpgrades", 
+                        "{ \"xpUpgrades\":\"" + GlobalState.Stats.XPBoost.ToString() + "\"}");
+
+        SendPointsToDB(url + "/speedUpgrades", 
+                        "{ \"speedUpgrades\":\"" + GlobalState.Stats.Speed.ToString() + "\"}");
+    }
+
+    public void SendPointsToDB(string url, string json){
+        DatabaseHelperV2.i.url = url;
+        DatabaseHelperV2.i.jsonData = json;
+        DatabaseHelperV2.i.PutToDataBase();
     }
 }
