@@ -23,11 +23,11 @@ You've almost mastered the art of control flow!</endtext>
 <beacon flow-order="1" />		var3 = 0;
 	}
 	if (var1 == 1):
-<beacon flow-order="2" />		var4 = false
+<beacon flow-order="2" />		var4 = False
 	elif (var1 == 2):
-<beacon flow-order="" />		var4 = false
+<beacon flow-order="" />		var4 = False
 	elif (var1 == 3):
-<beacon flow-order="" />		var4 = true
+<beacon flow-order="" />		var4 = True
 	
 	if (!(var3 == 1):
 <beacon flow-order="3" />		raise Exception("The program fails!")
