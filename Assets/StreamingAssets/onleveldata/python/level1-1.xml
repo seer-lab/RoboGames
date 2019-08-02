@@ -13,7 +13,7 @@ let's get some text to output!</introtext>
 <code language="python">
 	<comment type="description" correct="true" groupid="1">Print will make a program print text to the screen.</comment>
 	print(<question text="What will get printed?
-	Select your answer: " options="hello,world,hello world" answer="hello world">"hello world")</question>
+	Select your answer: " options="hello,world,hello world" answer="hello world">"hello world"</question>)
 
 </code>
 <hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 

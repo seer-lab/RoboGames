@@ -12,7 +12,7 @@ If only everyone was as awesome as you!</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-	myvar = 0;
+	myvar = 0
 	<comment type="description" correct="true"  groupid="4">you can combine boolean statements to make more complicated conditions</comment>
 	<comment type="description" correct="true"  groupid="2">remember, order of operations applies!</comment>
 	<comment type="description" correct="false"  groupid="5" style="multi">Order of operations refers to SAMDEP:

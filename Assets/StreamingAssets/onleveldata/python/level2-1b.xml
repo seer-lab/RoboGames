@@ -14,7 +14,7 @@ Now you know how "if" statements work!</endtext>
 	i = 0;
 	#when you want multiple conditions, you can use ELIF
 	if (25 &lt; 20):
-<beacon flow-order="" />		i = 0;	
+<beacon flow-order="" />		i = 0	
 	
 	elif (25 &lt; 30):
 <beacon flow-order="0" />		i+=1

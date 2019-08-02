@@ -18,11 +18,11 @@ You've made it through some tricky stuff!</endtext>
 	current_volume = 3.0;
 	
 	<question text="What is the value of sum?
-	Select your answer: " options="3,3.5,4" answer="3.5">sum = half + three;</question>
+	Select your answer: " options="3,3.5,4" answer="3.5">sum = half + three</question>
 	<comment type="description"  correct="true" groupid="1" style="multi">If you try to CAST a float to an integer
 	the decimal and following numbers are erased</comment>
 	<question text="What is the value of int_sum?
-	Select your answer: " options="3,3.5,4" answer="3">int(int_sum) = half + three;</question>
+	Select your answer: " options="3,3.5,4" answer="3">int(int_sum) = half + three</question>
 	
 	<comment type="description"  correct="true" groupid="2" style="multi">You can also CAST an integer to a float
 	Remember, floats always have a decimal point, even if it's 0!</comment>

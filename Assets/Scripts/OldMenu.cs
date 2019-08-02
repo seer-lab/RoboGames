@@ -79,8 +79,6 @@ public class OldMenu : MonoBehaviour
         buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         textsizes = new string[] { "Small", "Text: Normal", "Large", "Large++" };
         fontSizes = new int[] { stateLib.TEXT_SIZE_SMALL, stateLib.TEXT_SIZE_NORMAL, stateLib.TEXT_SIZE_LARGE, stateLib.TEXT_SIZE_VERY_LARGE };
-        GrabUserPrefs();
-        SetUserPrefs();
         m2switch(false);
         GlobalState.IsDark = !GlobalState.IsDark;
         ToggleTheme();
@@ -125,6 +123,8 @@ public class OldMenu : MonoBehaviour
         if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
+        GrabUserPrefs();
+        SetUserPrefs();
         readFromFiles();
     }
     public void onClick(int index)
@@ -167,7 +167,6 @@ public class OldMenu : MonoBehaviour
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
         if(GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true); 
-        GrabUserPrefs();
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
 
@@ -762,10 +761,12 @@ public class OldMenu : MonoBehaviour
         PlayerPrefs.SetInt("themes", themes);
         int toolsTips = GlobalState.HideToolTips ? 1: 0;
         PlayerPrefs.SetInt("tooltips", toolsTips);
-        PlayerPrefs.SetInt("positonalID", GlobalState.positionalID);
-        PlayerPrefs.SetInt("totalPoints", GlobalState.totalPoints);
-        PlayerPrefs.SetInt("currentPoint", GlobalState.Stats.Points);
+        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID; 
+        string json = "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}"; 
+        string jsonTwo = "{ \"currentPoints\":\"" + GlobalState.Stats.Points.ToString() + "\"}"; 
 
+        SendPointsToDB(url + "/totalPoints", json);
+        SendPointsToDB(url + "/currentPoints", jsonTwo);
     }
 
     public void GrabUserPrefs(){
@@ -790,35 +791,53 @@ public class OldMenu : MonoBehaviour
         if(GlobalState.Stats == null){
             GlobalState.Stats = new CharacterStats();
         }
-
-        if(PlayerPrefs.HasKey("totalPoints")){
-            GlobalState.totalPoints = PlayerPrefs.GetInt("totalPoints", 0);
-            //Debug.Log("totalPoints: " + GlobalState.totalPoints);
+        LoggerPoints lg = new LoggerPoints();
+        string json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/totalPoints");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
+        }else{
+            GlobalState.totalPoints = 0;
         }
 
-        if(PlayerPrefs.HasKey("currentPoint")){
-            GlobalState.Stats.Points= PlayerPrefs.GetInt("currentPoints", 0);
-            //Debug.Log("currentPoints: " + GlobalState.Stats.Points);
+        json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/currentPoints");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.Stats.Points = Convert.ToInt32(lg.currentPoints);
+        }else{
+            GlobalState.Stats.Points = 0;
         }
 
-        if(PlayerPrefs.HasKey("damageUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("damageUpgrade", 0.0f);
-            //Debug.Log("damageUpgrade: " + GlobalState.Stats.DamageLevel);
+        json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/speedUpgrades");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.Stats.Speed = Convert.ToInt32(lg.speedUpgrades);
+        }else{
+            GlobalState.Stats.Speed = 0.0f;
         }
 
-        if(PlayerPrefs.HasKey("energyUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("energyUpgrade", 0.0f);
-            //Debug.Log("energyUpgrades: " + GlobalState.Stats.Energy);
+        json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/resistanceUpgrade");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.Stats.DamageLevel = Convert.ToInt32(lg.resistanceUpgrade);
+        }else{
+            GlobalState.Stats.DamageLevel = 0.0f;
         }
 
-        if(PlayerPrefs.HasKey("pointUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("pointUpgrade", 0.0f);
-            //Debug.Log("pointUpgrade: " + GlobalState.Stats.XPBoost);
+        json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/energyUpgrades");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.Stats.Energy = Convert.ToInt32(lg.energyUpgrades);
+        }else{
+            GlobalState.Stats.Energy = 0;
         }
 
-        if(PlayerPrefs.HasKey("speedUpgrade")){
-            GlobalState.Stats.Speed = PlayerPrefs.GetFloat("speedUpgrade", 0.0f);
-            //Debug.Log("speedUpgrade: " + GlobalState.Stats.Speed);
+        json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/xpUpgrades");
+        if(json != "{}" && json !=null){
+            lg = LoggerPoints.CreateFromJson(json);
+            GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades);
+        }else{
+            GlobalState.Stats.XPBoost = 0;
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
@@ -830,6 +849,19 @@ public class OldMenu : MonoBehaviour
         DatabaseHelperV2.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PostToDataBase();
+    }
+
+    public string GrabPointsFromDB(string url){
+        WebHelper.i.url = url;
+        Debug.Log(url);
+        WebHelper.i.GetWebDataFromWeb();
+        return WebHelper.i.webData;
+    }
+
+    public void SendPointsToDB(string url, string json){
+        DatabaseHelperV2.i.url = url;
+        DatabaseHelperV2.i.jsonData = json;
+        DatabaseHelperV2.i.PutToDataBase();
     }
 }
 
