@@ -812,32 +812,24 @@ public class OldMenu : MonoBehaviour
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
             GlobalState.Stats.Speed = Convert.ToInt32(lg.speedUpgrades);
-        }else{
-            GlobalState.Stats.Speed = 0.0f;
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/resistanceUpgrade");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
             GlobalState.Stats.DamageLevel = Convert.ToInt32(lg.resistanceUpgrade);
-        }else{
-            GlobalState.Stats.DamageLevel = 0.0f;
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/energyUpgrades");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
             GlobalState.Stats.Energy = Convert.ToInt32(lg.energyUpgrades);
-        }else{
-            GlobalState.Stats.Energy = 0;
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/xpUpgrades");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
             GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades);
-        }else{
-            GlobalState.Stats.XPBoost = 0;
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
