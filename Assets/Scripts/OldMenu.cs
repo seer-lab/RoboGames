@@ -332,6 +332,7 @@ public class OldMenu : MonoBehaviour
                     case stateLib.GAMEMENU_EXIT_GAME:
                         GlobalState.CurrentONLevel = null; 
                         GlobalState.IsResume = false; 
+                        GlobalState.Stats = null;
                         SceneManager.LoadScene("TitleScene");
                         break;
                     case stateLib.GAMEMENU_RESUME_GAME:
