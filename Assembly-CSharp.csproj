@@ -55,6 +55,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\EntryControl.cs" />
+     <Compile Include="Assets\LeaderboardControl.cs" />
      <Compile Include="Assets\Scripts\Action.cs" />
      <Compile Include="Assets\Scripts\ActionFactory.cs" />
      <Compile Include="Assets\Scripts\BackButton.cs" />
@@ -98,6 +100,7 @@
      <Compile Include="Assets\Scripts\IncorrectComment.cs" />
      <Compile Include="Assets\Scripts\IncorrentUncomment.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
+     <Compile Include="Assets\Scripts\LeaderboardData.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\LevelFactory.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
@@ -395,12 +398,6 @@
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
  <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>C:/Users/Ibrahim/Desktop/RobotON/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
  <HintPath>C:/Users/kashi/Documents/RobotON/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
