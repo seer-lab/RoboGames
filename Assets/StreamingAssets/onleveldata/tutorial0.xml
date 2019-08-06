@@ -12,6 +12,6 @@ of the tech around us! Let's see how exactly we can do that!</introtext>
 //You may traverse this codebase freely!         @We'll need to use some tools to fix up the code. You can see the Commenter is active on the right side of the screen; it can fix the green systems.@
 //Use tools to manipulate the code:            @You can use Arrow keys on your keyboard to move, or touch and hold a position on your mobile device to go there.@
 <comment type="description" correct="true" groupid="0">Please comment me out!</comment>  @Tapping the bottom left corner or pressing Control will use the active tool.@!!!
-<comment type="description" correct="false" groupid="1">Commenting isn't important at all, hahaha!!</comment>  @Make sure to turn ON the right comments, and turn OFF the false ones.@!!!
+<comment type="description" correct="false" groupid="1">Commenting isn't important at all, hahaha!!</comment>                                               @Make sure to turn ON the right comments, and turn OFF the false ones.@!!!
 </code>
 </level>
