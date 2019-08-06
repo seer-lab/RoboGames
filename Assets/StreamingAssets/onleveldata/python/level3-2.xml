@@ -12,7 +12,7 @@ You're doing great with the loops!</endtext>
 <tool name="checker" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-	text = "a";
+	text = "a"
 	for (i in range(0,2)):
 		<comment type="description" correct="true"  groupid="0">the += operator adds onto an existing variable</comment>
 		<comment type="description" correct="true"  groupid="1">text += "b" is the same as text = text + "b"</comment>

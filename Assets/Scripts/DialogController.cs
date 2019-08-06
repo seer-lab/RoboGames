@@ -33,8 +33,7 @@ public class DialogController : MonoBehaviour
     {
         player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
         
-        #if UNITY_WEBGL    
-            Debug.Log("Playing on WEBGL");                        
+        #if UNITY_WEBGL                        
             if (GlobalState.GameMode == "bug"){
                 if(GlobalState.GameState == stateLib.GAMESTATE_GAME_END){
                     player.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + stringLib.MOVIE_BUG_END;

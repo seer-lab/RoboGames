@@ -381,3 +381,22 @@ public class LoggerDataStart{
     public string name;
     public string timeStarted;
 }
+
+[Serializable]
+public class LoggerPoints{
+    public string totalPoints;
+    public string currentPoints;
+    public string speedUpgrades;
+    public string xpUpgrades;
+    public string resistanceUpgrade;
+    public string energyUpgrades;
+
+    public static LoggerPoints CreateFromJson(string jsonString){
+        try{
+            LoggerPoints lg = JsonUtility.FromJson<LoggerPoints>(jsonString);
+            return lg;
+        }catch(Exception e){
+            return null;
+        }
+    }
+}
