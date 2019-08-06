@@ -1,5 +1,6 @@
 <level>
 <next-level>level3-2b.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
 <description>For Goodness' Sake!</description>
 <introtext> Our System needs to be decompressed, 
 let's get our decompresser working to retrieve the real data!</introtext>

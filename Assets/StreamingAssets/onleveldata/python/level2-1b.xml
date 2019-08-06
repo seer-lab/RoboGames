@@ -1,5 +1,6 @@
 <level>
 <next-level>level2-2.xml</next-level>
+<failure_level>level2-1.xml</failure_level>
 <description>If Only...</description>
 <introtext>Sometimes you don't always want the CPU to run something.
 "IF" Statements give you the power of choice!</introtext>

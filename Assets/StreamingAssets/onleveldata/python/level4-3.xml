@@ -1,5 +1,6 @@
 <level>
 <next-level></next-level>
+<failure_level>level4-3.xml</failure_level>
 <description>Looking Good!</description>
 <failure_level>level4-1.xml</failure_level>
 <introtext>This is where we can upload our script, 

@@ -1,5 +1,6 @@
 <level>
 <next-level>level4-1.xml</next-level>
+<failure_level>level4-0.xml</failure_level>
 <description>Name It!</description>
 <introtext>Here's another tool to learn:
 Use the RENAMER to change variable names.</introtext>

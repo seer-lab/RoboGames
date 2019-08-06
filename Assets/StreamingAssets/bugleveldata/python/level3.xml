@@ -4,6 +4,7 @@ Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors 
 Then, use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel to the affected color groups.
 Check the RGB values and use the BUGCATCHER to catch the bug.</description>
 <next-level>tutorial4.xml</next-level>
+<failure_level>level3a.xml</failure_level>
 <introtext>One bug remains, but it is well hidden.
 You'll have to comment code to Divide-and-Conquer.
 Can you combine all your tools to find it?</introtext>

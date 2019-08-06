@@ -4,6 +4,7 @@ The InsertFile function has a bug that is affecting the system.
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; to learn about the bug.
 Figure out where the bug is, then use the BUGFIXER to catch it.</description>
 <next-level>level2.xml</next-level>
+<failure_level>level2a.xml</failure_level>
 <introtext>The System File Number Ordering is not working correctly.
 Can you figure out what it's doing wrong?</introtext>
 <endtext>The boundary bug has been caught!
