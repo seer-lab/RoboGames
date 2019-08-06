@@ -18,8 +18,7 @@ int AnSwEr = 9 + 10;                            @ Let's try out our Activator to
 @We'll need to change our tool to comment out the following lines; Press TAB/tap the tool you want to change tools.@ ???
 <comment type="description" correct="false" groupid="0">The answer above was two thousand.</comment>                              @This doesn't seem correct.@ !!!
 <comment type="description" correct="true" groupid="0">The answer above was nineteen.</comment>               @This line looks right.@ !!! 
-                                                            @There's only one more question!@
-                                @We need to be careful to make sure the energy at the top right doesn't reach 0.@
+                                                            @There's only one more question!@ ???
 <question text="What is the value of 'answer': " options="18,19,20,21" answer="21"> AnSwEr = AnSwEr + 2 </question>                                 @Since the [AnSwEr] has changed here, it has a different value.@               !!!
 </code>
 </level>
