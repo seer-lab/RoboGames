@@ -11,8 +11,8 @@ Solving that puzzle was only logical!</endtext>
 <tool name="commenter" enabled="true" count="unlimited"/>
 </tools>
 <code language="python">
-	var1 = 0;
-	var2 = 0;
+	var1 = 0
+	var2 = 0
 	<comment type="description"  correct="true" groupid="0" style="multi">NOT (!) means to take the opposite result of the expression
 	for example, !(2 > 3) is true because 2 is NOT greater than 3</comment>
 	<comment type="description" correct="false"  groupid="3">If something is NOT (!) true, that means it is definitely true and the computer is lying.</comment>
@@ -26,10 +26,10 @@ Solving that puzzle was only logical!</endtext>
 	
 	<comment type="description" correct="true"  groupid="2">OR means that either expression can be true</comment>
 	if (2 == 0 or 2 &lt;= 2):
-<beacon flow-order="1" />		var2 = 5;
+<beacon flow-order="1" />		var2 = 5
 	
 	elif (10 &lt; 20 and 2 &gt; 10):
-<beacon flow-order="" />		var2 = 10;
+<beacon flow-order="" />		var2 = 10
 	
 
 </code>

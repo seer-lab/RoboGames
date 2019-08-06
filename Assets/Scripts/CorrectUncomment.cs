@@ -23,7 +23,7 @@ public class CorrectUncomment : comment
             GetComponent<AudioSource>().Play();
             GlobalState.level.CompletedTasks[4]++;
             selectedTool.bonusTools[stateLib.TOOL_UNCOMMENTER]++;
-            string sNewText = textColoration.DecolorizeText(GlobalState.level.Code[index]);
+            string sNewText = TextColoration.DecolorizeText(GlobalState.level.Code[index]);
             //Debug.Log(blocktext);
             string tempDecolText = sNewText;
             //string[] sNewParts = GlobalState.level.Code[index].Split('\n');
@@ -54,7 +54,7 @@ public class CorrectUncomment : comment
                 counter++;
             }
 
-            tmpS = textColoration.DecolorizeText(tmpS);
+            tmpS = TextColoration.DecolorizeText(tmpS);
 
             string[] sNewParts = tmpS.Split('\n');
             if (sNewParts.Length == 1)
@@ -101,7 +101,7 @@ public class CorrectUncomment : comment
 
                 //This is for single lime comment.
                 //This will check if the word has a /v(word)/v and will color it 
-                tempDecolText = textColoration.DecolorizeText(sNewText);
+                tempDecolText = TextColoration.DecolorizeText(sNewText);
                 sNewText = textColoration.ColorizeText(tempDecolText, GlobalState.level.Language);
                 Regex tmp = new Regex(@"\v(.+?)\v");
                 if(tmp.IsMatch(sNewText)){

@@ -12,7 +12,7 @@ Now you know about loops!</endtext>
 </tools>
 <code language="python">
 	<comment type="description" correct="true"  groupid="0">WHILE loops run as long as the condition is true</comment>
-	i = 0;
+	i = 0
 	while (i &lt; 3):
 		<comment type="description" correct="true"  groupid="1">activate the beacon once for each iteration!</comment>
 <beacon flow-order="0,1,2" />		print("This loop has run " + i + " times!")

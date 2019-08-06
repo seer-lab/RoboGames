@@ -73,7 +73,7 @@ public class IncorrectComment : comment
 
             //verify comment color is removed
 
-            GlobalState.level.Code[index] = textColoration.DecolorizeText(GlobalState.level.Code[index]);
+            GlobalState.level.Code[index] = TextColoration.DecolorizeText(GlobalState.level.Code[index]);
 
             GlobalState.level.Code[index] = "";
         }
