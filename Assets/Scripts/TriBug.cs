@@ -6,7 +6,7 @@ public class TriBug : Enemies
 {
     float xOffset; 
     float distanceY; 
-    float distanceX = 4; 
+    float distanceX = 6; 
     Vector3 originalPos; 
     float speed = 80f; 
     public override void InitializeEnemyMovement(){
@@ -14,7 +14,7 @@ public class TriBug : Enemies
         if (properties == null) properties = new CodeProperties(); 
         if (GlobalState.level.IsDemo)xOffset = 0;
         else xOffset = Random.Range(0,10); 
-        distanceY = 3*properties.linespacing;
+        distanceY = 4*properties.linespacing;
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1);
         originalPos = Position; 
         StartCoroutine(MoveEnemy()); 

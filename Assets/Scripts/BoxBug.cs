@@ -13,20 +13,14 @@ public class BoxBug : Enemies
     public override void InitializeEnemyMovement(){
         StopAllCoroutines();
         if (properties == null) properties = new CodeProperties(); 
-        xOffset = Random.Range(0,10); 
+        xOffset = Random.Range(1,8); 
         distanceY = 2*properties.linespacing;
-
+        Debug.Log(xOffset);
         //Initialize position twice. Once for the initial area so the bug stays within the code screen. 
         //A second time to add a sense of randomness.
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
         originalPos = Position; 
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1); 
-        //randomly choose a direction to travel. 
-        if (xOffset > 5){
-            originalPos = new Vector3(originalPos.x + distanceX, originalPos.y + distanceY, originalPos.z); 
-            distanceX*= -1; 
-            distanceY*= -1; 
-        }
         StartCoroutine(MoveEnemy()); 
     }
     protected override IEnumerator MoveEnemy(){
