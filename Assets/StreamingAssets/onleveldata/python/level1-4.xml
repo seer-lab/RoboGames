@@ -1,5 +1,6 @@
 <level>
 <next-level>level1-5.xml</next-level>
+<failure_level>level1-4.xml</failure_level>
 <description>Do, or Do Not</description>
 <introtext>Our monitor is missing sound!
 We'll need to turn that ON right away!</introtext>

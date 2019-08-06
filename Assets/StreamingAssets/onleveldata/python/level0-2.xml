@@ -1,5 +1,6 @@
 <level>
     <next-level>tutorial1.xml</next-level>
+    <failure_level>level0-2.xml</failure_level>
     <description>Learning About Tools!</description>
     <introtext>The technology around us is fairly complicated.
         You need to make sure you know how it really works.</introtext>

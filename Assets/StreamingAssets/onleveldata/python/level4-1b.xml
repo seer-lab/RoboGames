@@ -1,5 +1,6 @@
 <level>
 <next-level>level4-2.xml</next-level>
+<failure_level>level4-0.xml</failure_level>
 <description>Not Your Style</description>
 <introtext>We need to get our Server to accept
 input and output, can you turn them ON?</introtext>
