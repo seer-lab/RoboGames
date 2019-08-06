@@ -22,7 +22,7 @@ int main {
     cout &lt;&lt; "Volume: 50%" &lt;&lt; endl;                          @We can hack the code and figure out what we need to turn on the comment!@
                                                                     $$$
 
-    <comment type="description" correct="true"  groupid="2">This monitor uses the SRGB Color Space</comment>        @Now we know the answer to this question!@ !!!
+    <comment type="description" correct="true"  groupid="2">This monitor uses the SRGB Color Space</comment>                            @Now we know the answer to this question!@ !!!
 }
 </code>
 <hint type="description">This is a hint</hint>
