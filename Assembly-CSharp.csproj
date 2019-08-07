@@ -84,6 +84,7 @@
      <Compile Include="Assets\Scripts\DialogController.cs" />
      <Compile Include="Assets\Scripts\Enemies.cs" />
      <Compile Include="Assets\Scripts\EnergyController.cs" />
+     <Compile Include="Assets\Scripts\EntryControl.cs" />
      <Compile Include="Assets\Scripts\Fade.cs" />
      <Compile Include="Assets\Scripts\FireButton.cs" />
      <Compile Include="Assets\Scripts\Firewall.cs" />
@@ -101,6 +102,8 @@
      <Compile Include="Assets\Scripts\IncorrectComment.cs" />
      <Compile Include="Assets\Scripts\IncorrentUncomment.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
+     <Compile Include="Assets\Scripts\LeaderboardControl.cs" />
+     <Compile Include="Assets\Scripts\LeaderboardData.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\LevelFactory.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator.cs" />
@@ -108,6 +111,7 @@
      <Compile Include="Assets\Scripts\LifePackage.cs" />
      <Compile Include="Assets\Scripts\LoadingController.cs" />
      <Compile Include="Assets\Scripts\Logger.cs" />
+     <Compile Include="Assets\Scripts\LogoSwitcher.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\MenuButton.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
