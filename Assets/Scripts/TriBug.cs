@@ -13,7 +13,7 @@ public class TriBug : Enemies
         StopAllCoroutines();
         if (properties == null) properties = new CodeProperties(); 
         if (GlobalState.level.IsDemo)xOffset = 0;
-        else xOffset = Random.Range(0,10); 
+        else xOffset = Random.Range(0,8); 
         distanceY = 4*properties.linespacing;
         Position = new Vector3(GlobalState.StringLib.LEFT_CODESCREEN_X_COORDINATE + xOffset, properties.initialLineY + stateLib.TOOLBOX_Y_OFFSET - (index+2)*properties.linespacing,1);
         originalPos = Position; 
