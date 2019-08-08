@@ -1,5 +1,6 @@
 <level>
 <next-level>level3-1.xml</next-level>
+<failure_level>level2-1.xml</failure_level>
 <description>The Ol' Switcheroo</description>
 <introtext>Just follow the control flow through the program!</introtext>
 <endtext>Great work!

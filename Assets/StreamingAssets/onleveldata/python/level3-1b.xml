@@ -1,5 +1,6 @@
 <level>
 <next-level>level3-2.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
 <description>Loop-the-loop</description>
 <introtext>Our storage recovery has a lot of data,
 we need a way to access it.</introtext>
