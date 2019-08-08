@@ -1,5 +1,6 @@
 <level>
 <next-level>level3-3.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
 <description>For Goodness' Sake!</description>
 <introtext>The decompressor needs some additional work!</introtext>
 <endtext>Nice work!

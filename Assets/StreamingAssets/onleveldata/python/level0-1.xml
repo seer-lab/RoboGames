@@ -1,5 +1,6 @@
 <level>
 <next-level>level0-2.xml</next-level>
+<failure_level>level0-1.xml</failure_level>
 <description>Welcome to Robot ON!</description>
 <introtext>You have entered the world of Robot ON! 
 Can you learn how the code works?
