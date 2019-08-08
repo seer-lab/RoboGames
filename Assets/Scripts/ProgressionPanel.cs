@@ -68,22 +68,35 @@ public class ProgressionPanel : MonoBehaviour
         UpdateValues();
        
     }
+    /// <summary>
+    /// Invokes the button of the selected object
+    /// </summary>
     void SelectSelectedObject(){
         if (selectedObject != null && selectedObject.GetComponent<Button>().interactable)
             selectedObject.GetComponent<Button>().onClick.Invoke(); 
     }
+    /// <summary>
+    /// Color the object correctly when it is no longer selected
+    /// </summary>
     void DeSelect(){
         selectedObject.GetComponent<Image>().color = deselectColor; 
         if ((selectedObject.name == "Reset" || selectedObject.name == "Done"))
             selectedObject.transform.GetChild(0).GetComponent<Text>().color = invertDeselect; 
         else selectedObject.transform.GetChild(0).GetComponent<Text>().color = deselectColor; 
     }
+    /// <summary>
+    /// color the object correctly when it is selected and point selected
+    /// object to it. 
+    /// </summary>
     void Select(){
         selectedObject.GetComponent<Image>().color = selectColor; 
         if ((selectedObject.name == "Reset" || selectedObject.name == "Done"))
             selectedObject.transform.GetChild(0).GetComponent<Text>().color = invertSelect; 
         else selectedObject.transform.GetChild(0).GetComponent<Text>().color = selectColor; 
     }
+    /// <summary>
+    /// decolour all objects and prepare for keyboard selection. 
+    /// </summary>
     void FirstSelect(){
         foreach(GameObject button in buttons){
             button.GetComponent<Image>().color = deselectColor; 
@@ -96,6 +109,7 @@ public class ProgressionPanel : MonoBehaviour
         Select(); 
     }
     void OnLeftArrow(){
+        //check if the keyboard has been in use previously
         if(selectedObject == null){
             selectedObject = reset; 
             FirstSelect(); 
@@ -104,6 +118,7 @@ public class ProgressionPanel : MonoBehaviour
         DeSelect();
         if (selectedObject.name == "Done"){
             bool found = false; 
+            //if landing on stats, pick only  a stat that is available, otherwise skip it.
             for (int i = buttons.Count-1; i >= 0; i--){
                 if (buttons[i].GetComponent<Button>().interactable){
                     selectedObject = buttons[i]; 
@@ -172,6 +187,11 @@ public class ProgressionPanel : MonoBehaviour
         }
         Select(); 
     }
+    /// <summary>
+    /// Checks and disables buttons that can not be activated because
+    /// the user doesn't have enough points. 
+    /// </summary>
+    /// <param name="costValue">the cost of each upgrade</param>
     void CheckInteractable(int[] costValue)
     {
         for (int i = 0; i < 4; i++)
@@ -183,6 +203,9 @@ public class ProgressionPanel : MonoBehaviour
             else buttons[i].GetComponent<Button>().interactable = true;
         }
     }
+    /// <summary>
+    /// Reset the values to their original before entering this scene.
+    /// </summary>
     public void OnReset()
     {
         GlobalState.Stats.Speed = originalValues[0];
