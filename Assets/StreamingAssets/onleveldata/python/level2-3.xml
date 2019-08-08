@@ -1,5 +1,6 @@
 <level>
 <next-level>level2-3b.xml</next-level>
+<failure_level>level2-1.xml</failure_level>
 <description>The Ol' Switcheroo</description>
 <introtext>We need to make sure our CPU is optimized
 at making decisions!</introtext>

@@ -3,6 +3,7 @@
 Although the code is incomplete, there is already a problem.
 Use "Code Tracing" to find it by reading the code line by line.</description>
 <next-level>level1b.xml</next-level>
+<failure_level>level1a.xml</failure_level>
 <timelimit>120</timelimit>
 <introtext>It's time to find your first real bug.
 Use CODE TRACING to find it!

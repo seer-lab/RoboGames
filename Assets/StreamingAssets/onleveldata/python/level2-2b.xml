@@ -1,5 +1,6 @@
 <level>
 <next-level>level2-3.xml</next-level>
+<failure_level>level2-1.xml</failure_level>
 <description>Ifs, Ands, Or Buts</description>
 <introtext>The CPU's logical components can be Tricky.
 You need to use your own logic to figure them out!</introtext>
@@ -15,7 +16,7 @@ If only everyone was as awesome as you!</endtext>
 	myvar = 0
 	<comment type="description" correct="true"  groupid="4">you can combine boolean statements to make more complicated conditions</comment>
 	<comment type="description" correct="true"  groupid="2">remember, order of operations applies!</comment>
-	<comment type="description" correct="false"  groupid="5" style="multi">Order of operations refers to SAMDEP:
+	<comment type="description" correct="false"  groupid="5" style="multi">Order of operations refers to SAMDEP:</comment>
 	if (5 &gt; 6 and (1 &gt; 2 or 2 == 3)):
 <beacon flow-order="" />		myvar = 5
 	

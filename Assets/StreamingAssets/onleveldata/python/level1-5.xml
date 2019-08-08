@@ -1,5 +1,6 @@
 <level>
 <next-level>tutorial2.xml</next-level>
+<failure_level>level1-5.xml</failure_level>
 <description>Put the Output</description>
 <introtext>You're almost to the end!
 We need to make sure the buttons work!</introtext>

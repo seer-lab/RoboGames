@@ -29,6 +29,7 @@ public class TextColoration {
     //Debug.Log("ColorizeText: test string: " + sText);
     // Turn all comments and their following text green. Remove all color tags from following text.
     Regex rgxStringLiteral = new Regex("(\")([^\"]*)(\")");
+	Regex rgxStringLiteralPyton = new Regex("(\')([^\']*)(\')");
     //string patternCommentPython = @"(\/\/|\s#|\n#|#)(.*)";
     string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)([^@|\n]+)";
 	//string patternCommentPython = @"(\/\/|\n#|\s#|\r#|\t#)(.*)";
@@ -125,6 +126,16 @@ public class TextColoration {
 	  mStringLiteral = mStringLiteral.NextMatch();
 	}
 
+	if(GlobalState.Language == "python"){
+		mStringLiteral = rgxStringLiteralPyton.Match(sText);
+		while (mStringLiteral.Success)
+		{
+			string cleanedstring = DecolorizeText(mStringLiteral.Value);
+			sText = sText.Replace(mStringLiteral.Value, GlobalState.StringLib.syntax_color_string + cleanedstring + stringLib.CLOSE_COLOR_TAG);
+			mStringLiteral = mStringLiteral.NextMatch();
+		}
+	}
+
 	//block comments (todo: Add to previous comment loop)
 	rgxComment = new Regex(patternComment); 
 	//TODO: I discovered the lazy "?" after doing a lot of modification; 
@@ -145,7 +156,7 @@ public class TextColoration {
 			mComment = mComment.NextMatch();
 			continue;
 
-		}else if(mComment.Value.Contains("\"") && GlobalState.level.Language != "python"){
+		}else if(mComment.Value.Contains("\"") && GlobalState.Language != "python"){
 			mComment = mComment.NextMatch();
 			continue;
 		}else{
