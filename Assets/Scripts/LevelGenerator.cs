@@ -279,7 +279,7 @@ public partial class LevelGenerator : MonoBehaviour
                 {
                     if (c == '\n'){
                         indexOf++;
-                         if (indexOf %5 == 0 && indexOf > 4 && indexOf < GlobalState.level.Code.Length - 4 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0") && (!GlobalState.level.FileName.Contains("1-") || GlobalState.level.FileName.Contains("3") ||  GlobalState.level.FileName.Contains("4"))){
+                         if (indexOf %5 == 0 && indexOf > 4 && indexOf < GlobalState.level.Code.Length - 3 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0") && (!GlobalState.level.FileName.Contains("1-") || GlobalState.level.FileName.Contains("4") ||  GlobalState.level.FileName.Contains("5"))){
                                 manager.CreateEnemy(indexOf); 
                         }
                     }
