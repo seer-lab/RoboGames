@@ -98,6 +98,7 @@
      <Compile Include="Assets\Scripts\HintDispayController.cs" />
      <Compile Include="Assets\Scripts\IncorrectComment.cs" />
      <Compile Include="Assets\Scripts\IncorrentUncomment.cs" />
+     <Compile Include="Assets\Scripts\InputButtonScript.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
      <Compile Include="Assets\Scripts\LeaderboardControl.cs" />
      <Compile Include="Assets\Scripts\LeaderboardData.cs" />

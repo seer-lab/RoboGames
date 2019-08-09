@@ -47,6 +47,8 @@ public static class GlobalState
     public static int currentLevelTimeBonus {get; set;}
 
     public static float totalPointsCurrent {get; set;}
+    public static string previousFilename {get; set;}
+    public static string username {get; set;}
     public static string URL_MOVIE {get; set;}
     public static string URL_MOVIE_MENU {get; set;}
     public static string URL_MOVIE_BUG {get; set;}

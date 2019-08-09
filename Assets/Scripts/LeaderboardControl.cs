@@ -3,9 +3,19 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeaderboardControl : MonoBehaviour
 {
+    public GameObject logoText;
+    public GameObject logoImage;
+    public GameObject ErrorText;
+    public GameObject InputField;
+    public GameObject EnterButton;
+    public GameObject Forms;
+
+    public int index;
+
     List<LeaderboardData> leaderboard; 
     LeaderboardData player; 
     bool playerInLeaderboard = false; 
@@ -14,27 +24,43 @@ public class LeaderboardControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ErrorText.GetComponent<Text>().text = "";
         leaderboard = new List<LeaderboardData>(); 
         leaderboard = createFakeLeaderboard(10); 
         player = createFakeLeaderboard(1).First(); 
         player.IsPlayer = true; 
+
+        var iField = GameObject.Find("InputField").GetComponent<InputField>();
+        var submitE = new InputField.SubmitEvent();
+        submitE.AddListener(SubmitName);
+        iField.onEndEdit = submitE;
+
+
+
         if (leaderboard.Any(e => e.PlayerName == player.PlayerName)){
             leaderboard.Where((e)=> e.PlayerName == player.PlayerName).First().IsPlayer = true; 
             playerInLeaderboard = false; 
         } 
         leaderboardObjects = new List<GameObject>(); 
-        for(int i = 0; i < leaderboard.Count; i++){
-            CreateEntry(i);            
+
+        if(GlobalState.username == null){
+            //Forms.SetActive(false);
+            // logoText.SetActive(false);
+            // logoImage.SetActive(false);
+            //this.GetComponent<Text>("Text").
         }
-        if (!playerInLeaderboard){
-            playerObject = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 
-            playerObject.GetComponent<EntryControl>().Data = player; 
-            playerObject.transform.parent = this.transform; 
-            playerObject.transform.localScale = new Vector3(1,1,1);
-            RectTransform position = playerObject.GetComponent<RectTransform>(); 
-            position.localPosition = new Vector3(position.localPosition.x, position.localPosition.y+190 - (leaderboard.Count+1)*60, position.localPosition.z); 
-        }
-        StartCoroutine(showLeaderboard());
+        // for(int i = 0; i < leaderboard.Count; i++){
+        //     CreateEntry(i);            
+        // }
+        // if (!playerInLeaderboard){
+        //     playerObject = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 
+        //     playerObject.GetComponent<EntryControl>().Data = player; 
+        //     playerObject.transform.parent = this.transform; 
+        //     playerObject.transform.localScale = new Vector3(1,1,1);
+        //     RectTransform position = playerObject.GetComponent<RectTransform>(); 
+        //     position.localPosition = new Vector3(position.localPosition.x, position.localPosition.y+190 - (leaderboard.Count+1)*60, position.localPosition.z); 
+        // }
+        //StartCoroutine(showLeaderboard());
     }
     void CreateEntry(int index){
         GameObject entry = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 
@@ -81,5 +107,14 @@ public class LeaderboardControl : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void onclickInput(){
+        Debug.Log(GameObject.Find("InputField").GetComponent<InputField>().text);
+    }
+
+   private void SubmitName(string arg0)
+    {
+        Debug.Log(arg0);
     }
 }
