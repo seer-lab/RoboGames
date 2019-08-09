@@ -69,11 +69,8 @@ public partial class Cinematic : MonoBehaviour
             }
             if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) GlobalState.passed.Add(GlobalState.level.FileName); 
             totalEnergy = score + GlobalState.timeBonus;
+            GlobalState.totalPointsCurrent = totalEnergy;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
-            // Debug.Log("tE: " + totalEnergy);
-            // Debug.Log("gP: " + GlobalPoints);
-            // Debug.Log("tB: " + GlobalState.timeBonus);
-            // Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;

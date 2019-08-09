@@ -42,10 +42,11 @@ public static class GlobalState
     public static CharacterStats Stats{get;set;}
 
     public static bool foundBug;
-
     public static int totalPoints {get; set;}
     public static int currentLevelStar {get; set;}
     public static int currentLevelTimeBonus {get; set;}
+
+    public static float totalPointsCurrent {get; set;}
     public static string URL_MOVIE {get; set;}
     public static string URL_MOVIE_MENU {get; set;}
     public static string URL_MOVIE_BUG {get; set;}
