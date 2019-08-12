@@ -54,8 +54,10 @@ public class GamePicker : MonoBehaviour
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
             else GlobalState.GameMode = stringLib.GAME_MODE_ON;
+            String sessionID = PlayerPrefs.GetString("sessionID");
+            Debug.Log("SessionID in GamePicker: " + sessionID);
 
-            if(PlayerPrefs.HasKey("SessionID") || GlobalState.sessionID != 0){
+            if(sessionID != "" || sessionID != null || GlobalState.sessionID != 0){
                 Debug.Log("Intro");
                 StartCoroutine(LoadIntroScene());  
             }else{
@@ -99,7 +101,10 @@ public class GamePicker : MonoBehaviour
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
             else GlobalState.GameMode = stringLib.GAME_MODE_ON; 
-            if(PlayerPrefs.HasKey("SessionID") || GlobalState.sessionID != 0){
+
+            String sessionID = PlayerPrefs.GetString("sessionID");
+            Debug.Log("SessionID in GamePicker: " + sessionID);
+            if(sessionID != "" || sessionID != null || GlobalState.sessionID != 0){
                 Debug.Log("Intro");
                 StartCoroutine(LoadIntroScene());  
             }else{
