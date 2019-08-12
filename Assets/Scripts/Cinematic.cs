@@ -50,6 +50,7 @@ public partial class Cinematic : MonoBehaviour
         originalTimeBonus = GlobalState.timeBonus; 
         continuetext = ""; 
         score = -1;
+
         if (GlobalState.timeBonus > 0 ) hasTimeBonus = true; 
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0;
 
@@ -143,7 +144,6 @@ public partial class Cinematic : MonoBehaviour
     /// </summary>
     private void UpdateLevel()
     {
-
         string filepath = "";
 #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
         filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
