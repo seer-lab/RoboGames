@@ -31,9 +31,9 @@ public class UsernameController : MonoBehaviour
         }
 
         if(inputField.isFocused){
-            if(SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
+            // if(SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
                 TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default,false,false,false,false);
-            }
+            //}
         }
         
     }
