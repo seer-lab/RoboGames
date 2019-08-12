@@ -248,6 +248,10 @@ public class OldMenu : MonoBehaviour
                 // If we are on the first option (New Game), don't allow the up arrow to wrap-around.
                 buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 option = (option == stateLib.GAMEMENU_NEW_GAME) ? stateLib.GAMEMENU_NEW_GAME : option - 1;
+
+                if(option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey){
+                    option-=1;
+                }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -261,6 +265,10 @@ public class OldMenu : MonoBehaviour
                 else
                 {
                     option = (option == stateLib.GAMEMENU_EXIT_GAME) ? stateLib.GAMEMENU_EXIT_GAME : option + 1;
+                }
+
+                if(option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey){
+                    option+=1;
                 }
             }
 
@@ -836,6 +844,7 @@ public class OldMenu : MonoBehaviour
     public void sendInitialDataDB(string name, string time, string url){
         LoggerDataStart start = new LoggerDataStart();
         start.name = GlobalState.sessionID.ToString();
+        start.username = GlobalState.username;
         start.timeStarted = DateTime.Now.ToString();
 
         String json = JsonUtility.ToJson(start);

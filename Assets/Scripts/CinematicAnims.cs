@@ -352,6 +352,7 @@ public partial class Cinematic : MonoBehaviour{
         //game will load the transition scene which will continue the story.     
         if (File.Exists(filepath) || (!filepath.Contains("File not found!") && web))
         {
+            Debug.Log("FileP: " + filepath);
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true;
             Debug.Log("Transition");
             SceneManager.LoadScene("Transition");
@@ -366,7 +367,12 @@ public partial class Cinematic : MonoBehaviour{
         {
             GlobalState.level.IsDemo = false;
             Debug.Log("NewGame");
-            SceneManager.LoadScene("newgame");
+            Debug.Log(GlobalState.previousFilename);
+            if(GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
+                SceneManager.LoadScene("newgame");
+            }else{
+                SceneManager.LoadScene("Leaderboard");
+            }
         }
     }
 }

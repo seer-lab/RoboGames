@@ -98,6 +98,7 @@
      <Compile Include="Assets\Scripts\HintDispayController.cs" />
      <Compile Include="Assets\Scripts\IncorrectComment.cs" />
      <Compile Include="Assets\Scripts\IncorrentUncomment.cs" />
+     <Compile Include="Assets\Scripts\InputButtonScript.cs" />
      <Compile Include="Assets\Scripts\ITimeUser.cs" />
      <Compile Include="Assets\Scripts\LeaderboardControl.cs" />
      <Compile Include="Assets\Scripts\LeaderboardData.cs" />
@@ -140,6 +141,7 @@
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
      <Compile Include="Assets\Scripts\TransitionController.cs" />
+     <Compile Include="Assets\Scripts\UsernameController.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
      <Compile Include="Assets\Scripts\WebHelper.cs" />

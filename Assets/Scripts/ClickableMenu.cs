@@ -9,4 +9,9 @@ public class ClickableMenu : MonoBehaviour
        OldMenu menu = GameObject.Find("Menu").GetComponent<OldMenu>(); 
        menu.onClick(index); 
    }
+
+    public void onclickInput(){
+        UsernameController uc = GameObject.Find("Canvas").GetComponent<UsernameController>(); 
+        uc.onclickInput();
+    }
 }
