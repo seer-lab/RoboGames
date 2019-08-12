@@ -19,6 +19,8 @@ public class UsernameController : MonoBehaviour
         fade = GameObject.Find("Fade").GetComponent<Fade>();
         fade.onFadeIn();
         GameObject.Find("Fade").GetComponent<Canvas>().sortingOrder = 0;
+
+
         
     }
 
@@ -26,6 +28,12 @@ public class UsernameController : MonoBehaviour
     void Update(){
         if(Input.GetKeyDown(KeyCode.Return)){
             onclickInput();
+        }
+
+        if(inputField.isFocused){
+            if(SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
+                TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default,false,false,false,false);
+            }
         }
         
     }
