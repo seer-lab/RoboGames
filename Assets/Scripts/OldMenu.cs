@@ -836,6 +836,7 @@ public class OldMenu : MonoBehaviour
     public void sendInitialDataDB(string name, string time, string url){
         LoggerDataStart start = new LoggerDataStart();
         start.name = GlobalState.sessionID.ToString();
+        start.username = GlobalState.username;
         start.timeStarted = DateTime.Now.ToString();
 
         String json = JsonUtility.ToJson(start);

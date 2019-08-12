@@ -53,8 +53,15 @@ public class GamePicker : MonoBehaviour
             if (indexSelcted == 1){
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
-            else GlobalState.GameMode = stringLib.GAME_MODE_ON; 
-            StartCoroutine(LoadIntroScene());            
+            else GlobalState.GameMode = stringLib.GAME_MODE_ON;
+
+            if(PlayerPrefs.HasKey("SessionID") || GlobalState.sessionID != 0){
+                Debug.Log("Intro");
+                StartCoroutine(LoadIntroScene());  
+            }else{
+                Debug.Log("StartScene");
+                StartCoroutine(LoadStartScene());  
+            }           
         }
 
     }
@@ -62,6 +69,12 @@ public class GamePicker : MonoBehaviour
         fade.onFadeOut(); 
         yield return new WaitForSecondsRealtime(0.5f); 
         SceneManager.LoadScene("IntroScene");
+    }
+
+    IEnumerator LoadStartScene(){
+        fade.onFadeOut(); 
+        yield return new WaitForSecondsRealtime(0.5f); 
+        SceneManager.LoadScene("StartScene");
     }
     // Update is called once per frame
     void Update()
@@ -86,7 +99,13 @@ public class GamePicker : MonoBehaviour
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG; 
             }
             else GlobalState.GameMode = stringLib.GAME_MODE_ON; 
-            StartCoroutine(LoadIntroScene()); 
+            if(PlayerPrefs.HasKey("SessionID") || GlobalState.sessionID != 0){
+                Debug.Log("Intro");
+                StartCoroutine(LoadIntroScene());  
+            }else{
+                Debug.Log("StartScene");
+                StartCoroutine(LoadStartScene());  
+            } 
         }
     }
 }

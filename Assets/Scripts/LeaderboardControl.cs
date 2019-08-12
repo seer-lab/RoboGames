@@ -7,14 +7,7 @@ using UnityEngine.UI;
 
 public class LeaderboardControl : MonoBehaviour
 {
-    public GameObject logoText;
-    public GameObject logoImage;
-    public GameObject ErrorText;
-    public GameObject InputField;
-    public GameObject EnterButton;
-    public GameObject Forms;
 
-    public int index;
 
     List<LeaderboardData> leaderboard; 
     LeaderboardData player; 
@@ -24,7 +17,6 @@ public class LeaderboardControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ErrorText.GetComponent<Text>().text = "";
         leaderboard = new List<LeaderboardData>(); 
         leaderboard = createFakeLeaderboard(10); 
         player = createFakeLeaderboard(1).First(); 
@@ -43,24 +35,18 @@ public class LeaderboardControl : MonoBehaviour
         } 
         leaderboardObjects = new List<GameObject>(); 
 
-        if(GlobalState.username == null){
-            //Forms.SetActive(false);
-            // logoText.SetActive(false);
-            // logoImage.SetActive(false);
-            //this.GetComponent<Text>("Text").
+        for(int i = 0; i < leaderboard.Count; i++){
+            CreateEntry(i);            
         }
-        // for(int i = 0; i < leaderboard.Count; i++){
-        //     CreateEntry(i);            
-        // }
-        // if (!playerInLeaderboard){
-        //     playerObject = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 
-        //     playerObject.GetComponent<EntryControl>().Data = player; 
-        //     playerObject.transform.parent = this.transform; 
-        //     playerObject.transform.localScale = new Vector3(1,1,1);
-        //     RectTransform position = playerObject.GetComponent<RectTransform>(); 
-        //     position.localPosition = new Vector3(position.localPosition.x, position.localPosition.y+190 - (leaderboard.Count+1)*60, position.localPosition.z); 
-        // }
-        //StartCoroutine(showLeaderboard());
+        if (!playerInLeaderboard){
+            playerObject = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 
+            playerObject.GetComponent<EntryControl>().Data = player; 
+            playerObject.transform.parent = this.transform; 
+            playerObject.transform.localScale = new Vector3(1,1,1);
+            RectTransform position = playerObject.GetComponent<RectTransform>(); 
+            position.localPosition = new Vector3(position.localPosition.x, position.localPosition.y+190 - (leaderboard.Count+1)*60, position.localPosition.z); 
+        }
+        StartCoroutine(showLeaderboard());
     }
     void CreateEntry(int index){
         GameObject entry = Instantiate(Resources.Load<GameObject>("Prefabs/Entry")); 

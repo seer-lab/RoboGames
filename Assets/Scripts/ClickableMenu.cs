@@ -11,7 +11,7 @@ public class ClickableMenu : MonoBehaviour
    }
 
     public void onclickInput(){
-        LeaderboardControl ld = GameObject.Find("Canvas").GetComponent<LeaderboardControl>(); 
-        ld.onclickInput();
+        UsernameController uc = GameObject.Find("Canvas").GetComponent<UsernameController>(); 
+        uc.onclickInput();
     }
 }

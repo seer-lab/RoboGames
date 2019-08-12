@@ -379,6 +379,7 @@ public class LoggerDataUpgrades{
 [Serializable]
 public class LoggerDataStart{
     public string name;
+    public string username;
     public string timeStarted;
 }
 
