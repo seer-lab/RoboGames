@@ -108,11 +108,12 @@ public class OldMenu : MonoBehaviour
                 //Debug.Log("STRING SESSIONID: " +sessionID);
                 GlobalState.sessionID =Convert.ToInt64(sessionID);
             }
+
             Debug.Log("Found Session ID: " + GlobalState.sessionID);
 
             //Check if it does exits in the DB
             WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
-            WebHelper.i.GetWebDataFromWeb();
+            WebHelper.i.GetWebDataFromWeb(false);
             if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
                 //Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
                 sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
@@ -303,10 +304,10 @@ public class OldMenu : MonoBehaviour
                             GlobalState.GameState = -4;
                             buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             option = 0;
-                            levels.Clear();
-                            passed.Clear();
-                            //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                            readFromFiles();
+                            // levels.Clear();
+                            // passed.Clear();
+                            // //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                            // readFromFiles();
                             GlobalState.GameState = -1;
                             option = 0;
                             m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
@@ -698,7 +699,8 @@ public class OldMenu : MonoBehaviour
         buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
     }
     public void readFromFiles(){
-
+        levels.Clear();
+        passed.Clear();
         if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
@@ -718,14 +720,13 @@ public class OldMenu : MonoBehaviour
         #endif
     
     #if UNITY_WEBGL
-        Debug.Log("ReadFROMFILE:");
         if(GlobalState.DebugMode){
             filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
         }else{
             filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
         WebHelper.i.url =filepath;
-        WebHelper.i.GetWebDataFromWeb();
+        WebHelper.i.GetWebDataFromWeb(false);
         filepath = WebHelper.i.webData;
 
 
@@ -762,6 +763,9 @@ public class OldMenu : MonoBehaviour
     }
 
     public void SetUserPrefs(){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         PlayerPrefs.SetString("language", GlobalState.Language);
         PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
         int sounds = soundon ? 1 : 0;
@@ -779,6 +783,10 @@ public class OldMenu : MonoBehaviour
     }
 
     public void GrabUserPrefs(){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
+
         //Grab the Menu Preference
         //First Check if it exist
         if(PlayerPrefs.HasKey("language")){
@@ -788,7 +796,7 @@ public class OldMenu : MonoBehaviour
             GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
         }
         if(PlayerPrefs.HasKey("soundon")){
-            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 0));
         }
         if(PlayerPrefs.HasKey("themes")){
             GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
@@ -842,6 +850,9 @@ public class OldMenu : MonoBehaviour
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         LoggerDataStart start = new LoggerDataStart();
         start.name = GlobalState.sessionID.ToString();
         start.username = GlobalState.username;
@@ -860,6 +871,9 @@ public class OldMenu : MonoBehaviour
     }
 
     public void SendPointsToDB(string url, string json){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PutToDataBase();

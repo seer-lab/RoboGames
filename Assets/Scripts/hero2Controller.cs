@@ -131,15 +131,15 @@ public class hero2Controller : MonoBehaviour
     /// <param name="damage">Amount of damage that obstacle dealt</param>
     /// <param name="obstacleCode">Which obstacle dealt the damage</param>
     /// <returns>Whether the player was able to take damage</returns>
-    public bool onTakeDamange(float damage, int obstacleCode)
+    public bool onTakeDamage(float damage, int obstacleCode)
     {
         if (canTakeDamage)
         {
             float preEnergy = energyController.currentEnergy;
-            energyController.onDamange(damage);
+            energyController.onDamage(damage);
             float finEnergy = energyController.currentEnergy;
-            controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
-            GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, that didn't work!");
+            //controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
+            GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, be careful!");
             StartCoroutine(DamageDelay());
             return true;
         }

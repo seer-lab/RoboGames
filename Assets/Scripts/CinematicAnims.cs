@@ -28,7 +28,7 @@ public partial class Cinematic : MonoBehaviour{
         }
     }
     /// <summary>
-    /// Animate the 5 stars on screen, along with their place holders.
+    /// Animate the 5 isstars on screen, along with their place holders.
     /// Will handle when the player fails the level as well (score = 0)
     /// </summary>
     /// <returns></returns>
@@ -47,7 +47,7 @@ public partial class Cinematic : MonoBehaviour{
             yield return new WaitForSecondsRealtime(0.2f);
         }
         //display the stars if the player recieves any
-        //Debug.Log(value); 
+         
         for (int i = 0; i < value; i++)
         {
             stars[i].GetComponent<Animator>().SetBool("isComplete", true);
@@ -354,25 +354,22 @@ public partial class Cinematic : MonoBehaviour{
         {
             Debug.Log("FileP: " + filepath);
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true;
-            Debug.Log("Transition");
             SceneManager.LoadScene("Transition");
         }
         else if (GlobalState.CurrentONLevel.Contains("tutorial"))
         {
             GlobalState.level.IsDemo = true;
-            Debug.Log("Tutorial");
             SceneManager.LoadScene("newgame");
         }
         else
         {
             GlobalState.level.IsDemo = false;
-            Debug.Log("NewGame");
-            Debug.Log(GlobalState.previousFilename);
-            if(GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
+            // Debug.Log(GlobalState.previousFilename);
+            // if(GlobalState.LeaderBoardMode && !GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
+            //     SceneManager.LoadScene("Leaderboard");
+            // }else{
                 SceneManager.LoadScene("newgame");
-            }else{
-                SceneManager.LoadScene("Leaderboard");
-            }
+            //}
         }
     }
 }
