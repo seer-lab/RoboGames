@@ -10,6 +10,8 @@ public class UsernameController : MonoBehaviour
 
     Text errorText;
     InputField inputField;
+
+    TouchScreenKeyboard keyboard;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +21,7 @@ public class UsernameController : MonoBehaviour
         fade = GameObject.Find("Fade").GetComponent<Fade>();
         fade.onFadeIn();
         GameObject.Find("Fade").GetComponent<Canvas>().sortingOrder = 0;
-
-
-        
+        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
     }
 
     // Update is called once per frame
@@ -31,9 +31,9 @@ public class UsernameController : MonoBehaviour
         }
 
         if(inputField.isFocused){
-            // if(SystemInfo.operatingSystem.Contains("Android") || SystemInfo.operatingSystem.Contains("iOS")){
-                TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default,false,false,false,false);
-            //}
+            keyboard.active = true;
+        }else{
+            keyboard.active = false;
         }
         
     }
