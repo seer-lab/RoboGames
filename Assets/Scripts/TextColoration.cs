@@ -130,6 +130,10 @@ public class TextColoration {
 		mStringLiteral = rgxStringLiteralPyton.Match(sText);
 		while (mStringLiteral.Success)
 		{
+			if(mStringLiteral.Value.Contains("@")){
+				mStringLiteral = mStringLiteral.NextMatch();
+				continue;
+			}
 			string cleanedstring = DecolorizeText(mStringLiteral.Value);
 			sText = sText.Replace(mStringLiteral.Value, GlobalState.StringLib.syntax_color_string + cleanedstring + stringLib.CLOSE_COLOR_TAG);
 			mStringLiteral = mStringLiteral.NextMatch();
