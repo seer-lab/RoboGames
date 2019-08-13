@@ -9,6 +9,8 @@ public static class GlobalState
 {
     public static bool RestrictGameMode = false; 
     public static bool DebugMode = false; 
+    public static bool LeaderBoardMode = false;
+    public static bool LoggingMode = false;
     public static List<string> passed; 
     public static string Character {get;set;}
     public static bool IsPlaying { get; set; }

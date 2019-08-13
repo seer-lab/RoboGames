@@ -368,10 +368,10 @@ public partial class Cinematic : MonoBehaviour{
             GlobalState.level.IsDemo = false;
             Debug.Log("NewGame");
             Debug.Log(GlobalState.previousFilename);
-            if(GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
-                SceneManager.LoadScene("newgame");
-            }else{
+            if(GlobalState.LeaderBoardMode && !GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
                 SceneManager.LoadScene("Leaderboard");
+            }else{
+                SceneManager.LoadScene("newgame");
             }
         }
     }
