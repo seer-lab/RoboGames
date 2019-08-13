@@ -8,7 +8,9 @@ using UnityEngine;
 public static class GlobalState 
 {
     public static bool RestrictGameMode = false; 
-    public static bool DebugMode = true; 
+    public static bool DebugMode = false; 
+    public static bool LeaderBoardMode = false;
+    public static bool LoggingMode = false;
     public static List<string> passed; 
     public static string Character {get;set;}
     public static bool IsPlaying { get; set; }
@@ -42,10 +44,13 @@ public static class GlobalState
     public static CharacterStats Stats{get;set;}
 
     public static bool foundBug;
-
     public static int totalPoints {get; set;}
     public static int currentLevelStar {get; set;}
     public static int currentLevelTimeBonus {get; set;}
+
+    public static float totalPointsCurrent {get; set;}
+    public static string previousFilename {get; set;}
+    public static string username {get; set;}
     public static string URL_MOVIE {get; set;}
     public static string URL_MOVIE_MENU {get; set;}
     public static string URL_MOVIE_BUG {get; set;}

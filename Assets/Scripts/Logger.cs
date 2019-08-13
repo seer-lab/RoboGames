@@ -257,8 +257,8 @@ public class Logger
         //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/progress");
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/star");
 
-        jsonObj = "{\"totalPoint\":\"" + GlobalState.totalPoints.ToString() + "\"}";
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/totalPoints" );
+        jsonObj = "{\"totalPoint\":\"" + GlobalState.totalPointsCurrent.ToString() + "\"}";
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/totalPoint" );
     }
 
     public void sendUpgrades(string name, int points, int curPoints){
@@ -379,6 +379,7 @@ public class LoggerDataUpgrades{
 [Serializable]
 public class LoggerDataStart{
     public string name;
+    public string username;
     public string timeStarted;
 }
 

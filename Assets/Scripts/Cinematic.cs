@@ -50,6 +50,7 @@ public partial class Cinematic : MonoBehaviour
         originalTimeBonus = GlobalState.timeBonus; 
         continuetext = ""; 
         score = -1;
+
         if (GlobalState.timeBonus > 0 ) hasTimeBonus = true; 
         if (GlobalState.timeBonus < 0) GlobalState.timeBonus = 0;
 
@@ -70,12 +71,9 @@ public partial class Cinematic : MonoBehaviour
             if (GlobalState.GameState == stateLib.GAMESTATE_LEVEL_WIN) GlobalState.passed.Add(GlobalState.level.FileName); 
             totalEnergy = score + GlobalState.timeBonus;
             GlobalPoints = GlobalState.totalPoints + (int)((score + GlobalState.timeBonus));
-            // Debug.Log("tE: " + totalEnergy);
-            // Debug.Log("gP: " + GlobalPoints);
-            // Debug.Log("tB: " + GlobalState.timeBonus);
-            // Debug.Log("cP: " + GlobalState.CurrentLevelPoints);
             GlobalState.totalPoints +=(int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             GlobalState.Stats.Points += (int)((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
+            GlobalState.totalPointsCurrent = ((score + GlobalState.timeBonus) * (1 + ((float)GlobalState.CurrentLevelEnergy / (float)GlobalState.Stats.Energy) * GlobalState.Stats.XPBoost));
             maxScore = 0;
             int[] pointArr;
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
@@ -146,7 +144,6 @@ public partial class Cinematic : MonoBehaviour
     /// </summary>
     private void UpdateLevel()
     {
-
         string filepath = "";
 #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
         filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
