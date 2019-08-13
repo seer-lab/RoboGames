@@ -113,7 +113,7 @@ public class OldMenu : MonoBehaviour
 
             //Check if it does exits in the DB
             WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
-            WebHelper.i.GetWebDataFromWeb();
+            WebHelper.i.GetWebDataFromWeb(false);
             if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
                 //Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
                 sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
@@ -304,10 +304,10 @@ public class OldMenu : MonoBehaviour
                             GlobalState.GameState = -4;
                             buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             option = 0;
-                            levels.Clear();
-                            passed.Clear();
-                            //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
-                            readFromFiles();
+                            // levels.Clear();
+                            // passed.Clear();
+                            // //lfile = Application.streamingAssetsPath +"/" + GlobalState.GameMode + "leveldata" + filepath + "levels.txt";
+                            // readFromFiles();
                             GlobalState.GameState = -1;
                             option = 0;
                             m2buttons[1].GetComponent<SpriteRenderer>().sprite = bluebutton;
@@ -699,7 +699,8 @@ public class OldMenu : MonoBehaviour
         buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
     }
     public void readFromFiles(){
-
+        levels.Clear();
+        passed.Clear();
         if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
         #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
@@ -719,14 +720,13 @@ public class OldMenu : MonoBehaviour
         #endif
     
     #if UNITY_WEBGL
-        Debug.Log("ReadFROMFILE:");
         if(GlobalState.DebugMode){
             filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
         }else{
             filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
         WebHelper.i.url =filepath;
-        WebHelper.i.GetWebDataFromWeb();
+        WebHelper.i.GetWebDataFromWeb(false);
         filepath = WebHelper.i.webData;
 
 
@@ -812,7 +812,6 @@ public class OldMenu : MonoBehaviour
         string json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/totalPoints");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            Debug.Log("levelPoints: " + lg.totalPoints + " JSON: " + json);
             GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
         }else{
             GlobalState.totalPoints = 0;
