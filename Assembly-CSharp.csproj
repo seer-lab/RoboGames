@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\BackgroundController.cs" />
      <Compile Include="Assets\Scripts\Banner.cs" />
      <Compile Include="Assets\Scripts\beacon.cs" />
+     <Compile Include="Assets\Scripts\BoxBug.cs" />
      <Compile Include="Assets\Scripts\Breakpoint.cs" />
      <Compile Include="Assets\Scripts\BugComment.cs" />
      <Compile Include="Assets\Scripts\Camera2.cs" />
@@ -81,6 +82,7 @@
      <Compile Include="Assets\Scripts\DatabaseHelperV2.cs" />
      <Compile Include="Assets\Scripts\DemoBotControl.cs" />
      <Compile Include="Assets\Scripts\DialogController.cs" />
+     <Compile Include="Assets\Scripts\Enemies.cs" />
      <Compile Include="Assets\Scripts\EnergyController.cs" />
      <Compile Include="Assets\Scripts\EntryControl.cs" />
      <Compile Include="Assets\Scripts\Fade.cs" />
@@ -92,6 +94,7 @@
      <Compile Include="Assets\Scripts\GenericBug.cs" />
      <Compile Include="Assets\Scripts\GlobalState.cs" />
      <Compile Include="Assets\Scripts\GlowControl.cs" />
+     <Compile Include="Assets\Scripts\Hacking.cs" />
      <Compile Include="Assets\Scripts\HandControl.cs" />
      <Compile Include="Assets\Scripts\hero2Controller.cs" />
      <Compile Include="Assets\Scripts\HintCollider.cs" />
@@ -141,6 +144,7 @@
      <Compile Include="Assets\Scripts\ToolManager.cs" />
      <Compile Include="Assets\Scripts\Tools.cs" />
      <Compile Include="Assets\Scripts\TransitionController.cs" />
+     <Compile Include="Assets\Scripts\TriBug.cs" />
      <Compile Include="Assets\Scripts\UsernameController.cs" />
      <Compile Include="Assets\Scripts\VariableColor.cs" />
      <Compile Include="Assets\Scripts\warper.cs" />
@@ -148,6 +152,7 @@
      <Compile Include="Assets\Scripts\XMLChecker.cs" />
      <Compile Include="Assets\Scripts\XMLParser.cs" />
      <Compile Include="Assets\Scripts\XMLReader.cs" />
+     <None Include="Assets\StreamingAssets\onleveldata\python\tutorial1b.xml" />
      <None Include="Assets\StreamingAssets\old_onleveldata\levels.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level4-2.xml" />
@@ -208,6 +213,7 @@
      <None Include="Assets\StreamingAssets\old_onleveldata\credits.txt" />
      <None Include="Assets\StreamingAssets\bugleveldata\tutorial4.txt" />
      <None Include="Assets\StreamingAssets\old_onleveldata\level0.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial1b.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-2b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level3-3.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\level1-5b.xml" />
@@ -344,6 +350,7 @@
      <None Include="Assets\StreamingAssets\onleveldata\level4-1b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\tutorial3.txt" />
      <None Include="Assets\StreamingAssets\onleveldata\python\tutorial3.xml" />
+     <None Include="Assets\StreamingAssets\onleveldata\tutorial1b.xml" />
      <None Include="Assets\StreamingAssets\onleveldata\python\level2-0b.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

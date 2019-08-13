@@ -32,6 +32,7 @@ public class printer : Tools {
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + displaytext.Replace("$err$", ""); 
             }
 			else output.Text.text = displaytext;
+			//Output.IsAnswering = true; 
 			audioSource.PlayOneShot(correct); 
             GlobalState.level.CompletedTasks[1]++;
 			if (!toolgiven) {

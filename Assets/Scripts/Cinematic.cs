@@ -245,6 +245,7 @@ public partial class Cinematic : MonoBehaviour
     }
     void Update()
     {
+        
         // Exit to the Main Menu 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
