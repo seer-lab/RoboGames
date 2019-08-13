@@ -354,25 +354,22 @@ public partial class Cinematic : MonoBehaviour{
         {
             Debug.Log("FileP: " + filepath);
             if (filepath.Contains("tutorial")) GlobalState.level.IsDemo = true;
-            Debug.Log("Transition");
             SceneManager.LoadScene("Transition");
         }
         else if (GlobalState.CurrentONLevel.Contains("tutorial"))
         {
             GlobalState.level.IsDemo = true;
-            Debug.Log("Tutorial");
             SceneManager.LoadScene("newgame");
         }
         else
         {
             GlobalState.level.IsDemo = false;
-            Debug.Log("NewGame");
-            Debug.Log(GlobalState.previousFilename);
-            if(GlobalState.LeaderBoardMode && !GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
-                SceneManager.LoadScene("Leaderboard");
-            }else{
+            // Debug.Log(GlobalState.previousFilename);
+            // if(GlobalState.LeaderBoardMode && !GlobalState.previousFilename.Contains("tutorial") && GlobalState.GameState != stateLib.GAMESTATE_LEVEL_LOSE){
+            //     SceneManager.LoadScene("Leaderboard");
+            // }else{
                 SceneManager.LoadScene("newgame");
-            }
+            //}
         }
     }
 }

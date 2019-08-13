@@ -186,7 +186,7 @@ public class GameController : MonoBehaviour, ITimeUser
         } while (GlobalState.GameState != stateLib.GAMESTATE_IN_GAME);
         while(output.Text.text != "" && !GlobalState.level.IsDemo) yield return new WaitForSecondsRealtime(0.5f); 
         //if the end of the level string is empty then there is no anticipated next level. 
-        Debug.Log(GlobalState.level.NextLevel);
+        Debug.Log("Next Level: " + GlobalState.level.NextLevel);
         if (GlobalState.level.NextLevel != "")
         {
             GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
@@ -332,12 +332,12 @@ public class GameController : MonoBehaviour, ITimeUser
 
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
             GlobalState.Stats.GrantPower(); 
-            Debug.Log("All Powers Maxed Out!"); 
-             Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString() 
-            +"\n Speed: " + GlobalState.Stats.Speed.ToString()
-            + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
-             + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
-             +"\n Points: " + GlobalState.Stats.Points.ToString()); 
+            // Debug.Log("All Powers Maxed Out!"); 
+            //  Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString() 
+            // +"\n Speed: " + GlobalState.Stats.Speed.ToString()
+            // + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
+            //  + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
+            //  +"\n Points: " + GlobalState.Stats.Points.ToString()); 
 
         }
         if (firstUpdate && !GlobalState.IsResume)

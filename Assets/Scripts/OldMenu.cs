@@ -108,6 +108,7 @@ public class OldMenu : MonoBehaviour
                 //Debug.Log("STRING SESSIONID: " +sessionID);
                 GlobalState.sessionID =Convert.ToInt64(sessionID);
             }
+
             Debug.Log("Found Session ID: " + GlobalState.sessionID);
 
             //Check if it does exits in the DB
