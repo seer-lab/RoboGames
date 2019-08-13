@@ -762,6 +762,9 @@ public class OldMenu : MonoBehaviour
     }
 
     public void SetUserPrefs(){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         PlayerPrefs.SetString("language", GlobalState.Language);
         PlayerPrefs.SetInt("textsize", GlobalState.TextSize);
         int sounds = soundon ? 1 : 0;
@@ -779,6 +782,10 @@ public class OldMenu : MonoBehaviour
     }
 
     public void GrabUserPrefs(){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
+
         //Grab the Menu Preference
         //First Check if it exist
         if(PlayerPrefs.HasKey("language")){
@@ -788,7 +795,7 @@ public class OldMenu : MonoBehaviour
             GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
         }
         if(PlayerPrefs.HasKey("soundon")){
-            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 0));
         }
         if(PlayerPrefs.HasKey("themes")){
             GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
@@ -804,6 +811,7 @@ public class OldMenu : MonoBehaviour
         string json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/totalPoints");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
+            Debug.Log("levelPoints: " + lg.totalPoints + " JSON: " + json);
             GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
         }else{
             GlobalState.totalPoints = 0;
@@ -842,6 +850,9 @@ public class OldMenu : MonoBehaviour
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         LoggerDataStart start = new LoggerDataStart();
         start.name = GlobalState.sessionID.ToString();
         start.username = GlobalState.username;
@@ -860,6 +871,9 @@ public class OldMenu : MonoBehaviour
     }
 
     public void SendPointsToDB(string url, string json){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PutToDataBase();

@@ -296,6 +296,9 @@ public class Logger
 /// </summary>
 
     public void sendDatatoDB(string jsonObj, string url){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PutToDataBase();
@@ -305,6 +308,9 @@ public class Logger
 /// A method that sends data to DB through POST
 /// </summary>
     public void sendDatatoDBPOST(string jsonObj, string url){
+        if(GlobalState.LoggingMode == false){
+            return;
+        }
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = jsonObj;
         DatabaseHelperV2.i.PostToDataBase();
