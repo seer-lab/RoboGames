@@ -82,6 +82,13 @@ public partial class LevelGenerator : MonoBehaviour
             StartCoroutine(manager.CreateLife()); 
         }
     }
+
+    public CodeProperties Properties{
+        get {
+            return properties; 
+        }
+    }
+
     /// <summary>
     /// Essentially Generates the Level Visually.
     /// Uses data from the GlobalState Level. 
@@ -207,6 +214,15 @@ public partial class LevelGenerator : MonoBehaviour
                  factory.HandleParams(lines[i], line + i); 
                 actions.AddRange(factory.GetActions()); 
             }
+            if (lines[i].Contains("***")){
+                manager.CreateEnemy(line+i, 1); 
+                GlobalState.level.Code[line+i] = GlobalState.level.Code[line+i].Replace("***", ""); 
+            }
+            if (lines[i].Contains("$$$")){
+                manager.CreateEnemy(line+i, 0, line+i, lines[i].IndexOf("$$$")); 
+                actions.AddRange(new List<Action>{new Action(properties,ActionType.Hack, line+i,lines[i].IndexOf("$$$"), "Here we go!")});
+                GlobalState.level.Code[line+i] = GlobalState.level.Code[line + i].Replace("$$$", ""); 
+            }
             if (controller.callstack == null && actions.Count > 0) controller.callstack = new List<Action>(); 
             controller.callstack.AddRange(actions.OrderBy(o => o.Column).ToList()); 
             actions = new List<Action>(); 
@@ -261,7 +277,12 @@ public partial class LevelGenerator : MonoBehaviour
                 manager.CreateLevelObject(childNode, indexOf);
                 foreach (char c in childNode.OuterXml)
                 {
-                    if (c == '\n') indexOf++;
+                    if (c == '\n'){
+                        indexOf++;
+                         if ((indexOf %5 == 0 && indexOf > 4 && indexOf < GlobalState.level.Code.Length - 3 && !GlobalState.level.IsDemo && !GlobalState.level.FileName.Contains("-0") && (!GlobalState.level.FileName.Contains("1-") || GlobalState.level.FileName.Contains("4") ||  GlobalState.level.FileName.Contains("5")))&& GlobalState.ObstacalMode){
+                                manager.CreateEnemy(indexOf); 
+                        }
+                    }
                 }
                 lineCount++;
 
@@ -625,6 +646,11 @@ public partial class LevelGenerator : MonoBehaviour
             question propertyHandler = questionObj.GetComponent<question>();
             propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_dark);
         }
+        foreach (GameObject obstacle in manager.obstacles){
+            if (obstacle.name.Contains("hacking")){
+                obstacle.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite =  Resources.Load<Sprite>("Sprites/transparentbox_white");
+            }
+        }
 
     }
 
@@ -658,6 +684,12 @@ public partial class LevelGenerator : MonoBehaviour
         {
             question propertyHandler = questionObj.GetComponent<question>();
             propertyHandler.innertext = propertyHandler.innertext.Replace(GlobalState.StringLib.node_color_question, GlobalState.StringLib.node_color_question_light);
+        }
+
+        foreach (GameObject obstacle in manager.obstacles){
+            if (obstacle.name.Contains("hacking")){
+                obstacle.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/transparentbox2");
+            }
         }
 
         DrawInnerXmlLinesToScreen();

@@ -95,7 +95,7 @@ public class HandControl : MonoBehaviour
     public void HandleAction(Action action, int projectileCode = -1){
         StopAllCoroutines();  
         reachedPosition = true; 
-        if (action.Category == ActionType.Dialog){
+        if (action.Category == ActionType.Dialog || action.Category == ActionType.Hack){
             StartCoroutine(MoveToPosition(new Vector3(action.Position.x, action.Position.y - 0.5f, 1))); 
         }
         else if (action.Category == ActionType.Throw){

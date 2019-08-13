@@ -29,7 +29,7 @@ public class Fade : MonoBehaviour
         if (!fadeIn) StartCoroutine(Loading()); 
     }
     IEnumerator Loading(){
-        yield return new WaitForSecondsRealtime(2f); 
+        yield return new WaitForSecondsRealtime(1f); 
         Text text = transform.GetChild(1).GetComponent<Text>(); 
         float step = 0.05f; 
         while(text.color.a < 1){

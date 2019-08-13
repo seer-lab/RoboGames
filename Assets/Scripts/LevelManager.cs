@@ -40,6 +40,8 @@ public class LevelManager
     public List<GameObject> roboBugPrint; 
     public List<GameObject> robotONbeacons;
 
+    public List<GameObject> obstacles; 
+
     //Maintain an instance of properties for spacing. 
     CodeProperties properties; 
 
@@ -70,6 +72,7 @@ public class LevelManager
         robotONcorrectComments = new List<GameObject>();
         robotONquestions = new List<GameObject>();
         firewalls = new List<GameObject>(); 
+        obstacles = new List<GameObject>();
     }
 
     /// <summary>
@@ -137,6 +140,9 @@ public class LevelManager
         foreach(GameObject firewall in firewalls){
             GameObject.Destroy(firewall); 
         }
+        foreach(GameObject enemy in obstacles){
+            GameObject.Destroy(enemy); 
+        }
         /*
         if (levelBug)
         {
@@ -163,6 +169,7 @@ public class LevelManager
         roboBugPrint = new List<GameObject>();
         roboBUGwarps = new List<GameObject>(); 
         firewalls = new List<GameObject>(); 
+        obstacles = new List<GameObject>();
     }
     public IEnumerator CreateLife(){
         while(true){
@@ -199,7 +206,30 @@ public class LevelManager
         }
         return null; 
     }
-
+    public GameObject CreateEnemy(int lineNumber, int specificEnemy = -1, int row = 0, int column = 0){
+        GameObject enemy; 
+        Debug.Log(lineNumber); 
+        if ((lineNumber % 15 == 0 && specificEnemy == -1) || specificEnemy == 0){
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
+            enemy.GetComponent<Obstacle>().Index = lineNumber; 
+            enemy.GetComponent<Obstacle>().Properties = properties; 
+            enemy.GetComponent<Obstacle>().Position = new Vector3(0, properties.initialLineY- properties.linespacing*lineNumber + stateLib.TOOLBOX_Y_OFFSET, 1);
+            enemy.GetComponent<Obstacle>().SetPosition();
+        }
+        else if ((specificEnemy == -1 && lineNumber %10 == 0) || specificEnemy == 1){
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
+            enemy.GetComponent<Enemies>().Index = lineNumber; 
+            enemy.GetComponent<Enemies>().Properties = properties; 
+        }
+        else{
+            enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
+            enemy.GetComponent<Enemies>().Index = lineNumber; 
+            enemy.GetComponent<Enemies>().Properties = properties; 
+        }
+        obstacles.Add(enemy); 
+        return enemy; 
+    }
+    
     public GameObject CreateHint(XmlNode childNode, int lineNumber){
 
         //@TODO Change the hardcoded value 
@@ -373,6 +403,16 @@ public class LevelManager
         }
         foreach (GameObject firewall in firewalls){
             firewall.GetComponent<Firewall>().SetPosition(); 
+        }
+        foreach(GameObject console in obstacles){
+            if (console.name.Contains("hacking")){
+                console.GetComponent<Hacking>().Properties = properties; 
+                console.GetComponent<Hacking>().SetPosition();
+            }
+            else{
+                console.GetComponent<Enemies>().Properties = properties; 
+                console.GetComponent<Enemies>().InitializeEnemyMovement();
+            }
         }
     
     }

@@ -1,5 +1,5 @@
 <level>
-<next-level>level1-4.xml</next-level>
+<next-level>tutorial1b.xml</next-level>
 <failure_level>level1-1.xml</failure_level>
 <description>String Theory</description>
 <introtext>We need our menu to switch between both
