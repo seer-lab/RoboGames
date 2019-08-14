@@ -726,7 +726,7 @@ public class OldMenu : MonoBehaviour
             filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
         WebHelper.i.url =filepath;
-        WebHelper.i.GetWebDataFromWeb(false);
+        WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
 
 
