@@ -18,23 +18,6 @@ public class TransitionController : MonoBehaviour
     bool started = false; 
     string image; 
     int index = 0; 
-    #if UNITY_WEBGL && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern string GetData(string url);
-    #endif
-    string webdata;
-    IEnumerator GetXMLFromServer(string url){
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
-        if(www.isNetworkError || www.isHttpError){
-            Debug.Log(www.error);
-        }else{
-            Debug.Log(www.downloadHandler.text);
-            webdata = www.downloadHandler.text;
-        }
-        yield return new WaitForSeconds(0.5f);
-    }
     // Start is called before the first frame update
     void Start()   
     {
@@ -108,8 +91,6 @@ public class TransitionController : MonoBehaviour
 
         #if UNITY_WEBGL
             filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            WebHelper.i.GetWebDataFromWeb();
             filepath = WebHelper.i.webData;
 
             byte[] byteArr = Encoding.ASCII.GetBytes(filepath);
