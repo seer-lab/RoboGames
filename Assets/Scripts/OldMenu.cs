@@ -815,7 +815,7 @@ public class OldMenu : MonoBehaviour
             try{
                 GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
             }catch(Exception e){
-                
+                Debug.Log("Error on gettting points, will try again later!");
             }
         }else{
             GlobalState.totalPoints = 0;
@@ -824,7 +824,11 @@ public class OldMenu : MonoBehaviour
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/currentPoints");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.Stats.Points = Convert.ToInt32(lg.currentPoints);
+            try{
+                GlobalState.Stats.Points = Convert.ToInt32(lg.currentPoints);
+            }catch(Exception e){
+                Debug.Log("Error on gettting upgrades, will try again later!");
+            }
         }else{
             GlobalState.Stats.Points = 0;
         }
@@ -832,25 +836,41 @@ public class OldMenu : MonoBehaviour
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/speedUpgrades");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.Stats.Speed = Convert.ToInt32(lg.speedUpgrades);
+            try{
+                GlobalState.Stats.Speed = Convert.ToInt32(lg.speedUpgrades);
+            }catch(Exception e){
+                Debug.Log("Error on gettting upgrades, will try again later!");
+            }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/resistanceUpgrade");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.Stats.DamageLevel = Convert.ToInt32(lg.resistanceUpgrade);
+            try{
+                GlobalState.Stats.DamageLevel = Convert.ToInt32(lg.resistanceUpgrade);
+            }catch(Exception e){
+                Debug.Log("Error on gettting upgrades, will try again later!");
+            }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/energyUpgrades");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.Stats.Energy = Convert.ToInt32(lg.energyUpgrades);
+            try{
+                GlobalState.Stats.Energy = Convert.ToInt32(lg.energyUpgrades);
+            }catch(Exception e){
+                Debug.Log("Error on gettting upgrades, will try again later!");
+            }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/xpUpgrades");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades);
+            try{
+                GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades)
+            }catch(Exception e){
+                Debug.Log("Error on gettting upgrades, will try again later!");
+            }
         }
     }
     public void sendInitialDataDB(string name, string time, string url){
