@@ -47,8 +47,7 @@ public class WebHelper : MonoBehaviour
 /// </summary>
     IEnumerator GetXMLFromServer(string url) {
         UnityWebRequest www = UnityWebRequest.Get(url);
-        www.SendWebRequest();
-        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        yield return www.SendWebRequest();      
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
             someData = "File not found!";
@@ -56,9 +55,22 @@ public class WebHelper : MonoBehaviour
             //Debug.Log(www.downloadHandler.text);
             someData = www.downloadHandler.text;
         }
-        yield return new WaitForSeconds(0.5f);
     }
 
+    IEnumerator GetXMLFromServerEditor(string url) {
+    UnityWebRequest www = UnityWebRequest.Get(url);
+    www.SendWebRequest();
+    System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+    if (www.isNetworkError || www.isHttpError) {
+        Debug.Log(www.error);
+        someData = "File not found!";
+    }else {
+        //Debug.Log(www.downloadHandler.text);
+        someData = www.downloadHandler.text;
+    }
+    yield return new WaitForSeconds(0.5f);
+}
+    
     [ObsoleteAttribute("Doesnt workin in Unity 2019.1/2019.2")]
     IEnumerator GetMovieFromServer(string filename,string url){
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -94,7 +106,7 @@ public class WebHelper : MonoBehaviour
             this.webData = GetData(this.url); //Synchronous
             // Console.WriteLine(this.webData);
         #elif UNITY_WEBGL
-            StartCoroutine(GetXMLFromServer(this.url));
+            StartCoroutine(GetXMLFromServerEditor(this.url));
             this.webData = this.someData;
         #endif
 

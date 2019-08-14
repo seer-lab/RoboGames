@@ -81,5 +81,10 @@ public static class stateLib
 	public const int COST_XPBOOST = 20000;
 
 	public const int DEFAULT_BUG_POINTS = 1000; 
+
+	public const int DOWNLOAD_STATE = 1;
+	public const int DOWNLOAD_FINISH_STATE = 2;
+	public const int DOWNLOAD_NOT_STARTED_STATE = -1;
+	public const int WEBGL_STATE = 0;
 	
 	}
