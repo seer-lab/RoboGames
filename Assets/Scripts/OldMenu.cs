@@ -812,7 +812,11 @@ public class OldMenu : MonoBehaviour
         string json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/totalPoints");
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
-            GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
+            try{
+                GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
+            }catch(Exception e){
+                
+            }
         }else{
             GlobalState.totalPoints = 0;
         }
