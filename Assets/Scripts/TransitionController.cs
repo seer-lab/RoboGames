@@ -18,9 +18,23 @@ public class TransitionController : MonoBehaviour
     bool started = false; 
     string image; 
     int index = 0; 
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern string GetData(string url);
+    #endif
     string webdata;
-
-    int state = -1;
+    IEnumerator GetXMLFromServer(string url){
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest();
+        System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
+        if(www.isNetworkError || www.isHttpError){
+            Debug.Log(www.error);
+        }else{
+            Debug.Log(www.downloadHandler.text);
+            webdata = www.downloadHandler.text;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
     // Start is called before the first frame update
     void Start()   
     {
@@ -31,19 +45,15 @@ public class TransitionController : MonoBehaviour
             botDialog.GetComponent<RectTransform>().localPosition = new Vector3(500,250,0); 
         }
         ReadFile(); 
+        transform.Find("RawImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/TransitionImages/" + image); 
+        StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
+        started = true; 
     }
     // Update is called once per frame
     void Update()
     {
-        if(state != stateLib.DOWNLOAD_STATE && state == stateLib.DOWNLOAD_FINISH_STATE){
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
-                NextDialog(); 
-            }
-        }else if(state == stateLib.DOWNLOAD_STATE && WebHelper.i.webData != ""){
-            ReadFileFromWeb();
-            transform.Find("RawImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/TransitionImages/" + image); 
-            StartCoroutine(ShowDialog(GetDialog(actorOrder[index]))); 
-            started = true; 
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)){
+            NextDialog(); 
         }
     }
     void EndScene(){
@@ -89,7 +99,6 @@ public class TransitionController : MonoBehaviour
         return pos; 
     }
     void ReadFile(){
-        state = stateLib.DOWNLOAD_STATE;
         string bug = "on"; 
         if( GlobalState.GameMode == "bug") bug = "bug";
         string filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt");
@@ -99,9 +108,49 @@ public class TransitionController : MonoBehaviour
 
         #if UNITY_WEBGL
             filepath ="StreamingAssets/" + bug + "leveldata/" +  GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-            WebHelper.i.webData = "";
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            WebHelper.i.GetWebDataFromWeb(false);
+            WebHelper.i.GetWebDataFromWeb();
+            filepath = WebHelper.i.webData;
+
+            byte[] byteArr = Encoding.ASCII.GetBytes(filepath);
+            MemoryStream stream = new MemoryStream(byteArr);
+
+            using (StreamReader reader = new StreamReader(stream)){
+                image = reader.ReadLine(); 
+                while(!reader.EndOfStream){
+                    string line = reader.ReadLine(); 
+                    if (line.Contains("$Boy")){
+                        actorOrder.Add("Boy"); 
+                        line = line.Remove(0,line.IndexOf(':')); 
+                    }
+                    else if (line.Contains("$Girl")){
+                        actorOrder.Add("Girl"); 
+                    }
+                    else if (line.Contains("$Robot")){
+                        actorOrder.Add("Robot"); 
+                    }
+                    else if (line.Contains("#Boy:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Girl:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    else if (line.Contains("#Robot:")){
+                        positionLine = true; 
+                        float[] pos = GetLinePosition(line); 
+                        botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
+                    }
+                    if (!positionLine){
+                        line = line.Remove(0,line.IndexOf(':')+1); 
+                        lines.Add(line);
+                    }
+                    else positionLine = false; 
+                }
+            }
         #elif UNITY_EDITOR && ! UNITY_WEBGL 
             using (StreamReader reader = new StreamReader(filepath)){
                 
@@ -140,7 +189,6 @@ public class TransitionController : MonoBehaviour
                     else positionLine = false; 
                 }
             }
-            state = state.DOWNLOAD_FINISH_STATE;
         #endif
     }
 
@@ -189,52 +237,5 @@ public class TransitionController : MonoBehaviour
             yield return null; 
         }
 
-    }
-
-    void ReadFileFromWeb(){
-        actorOrder = new List<string>(); 
-        lines = new List<string>(); 
-        bool positionLine = false;
-        string filepath = WebHelper.i.webData;
-        byte[] byteArr = Encoding.ASCII.GetBytes(filepath);
-        MemoryStream stream = new MemoryStream(byteArr);
-
-        using (StreamReader reader = new StreamReader(stream)){
-            image = reader.ReadLine(); 
-            while(!reader.EndOfStream){
-                string line = reader.ReadLine(); 
-                if (line.Contains("$Boy")){
-                    actorOrder.Add("Boy"); 
-                    line = line.Remove(0,line.IndexOf(':')); 
-                }
-                else if (line.Contains("$Girl")){
-                    actorOrder.Add("Girl"); 
-                }
-                else if (line.Contains("$Robot")){
-                    actorOrder.Add("Robot"); 
-                }
-                else if (line.Contains("#Boy:")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    boyDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                else if (line.Contains("#Girl:")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    girlDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                else if (line.Contains("#Robot:")){
-                    positionLine = true; 
-                    float[] pos = GetLinePosition(line); 
-                    botDialog.GetComponent<RectTransform>().localPosition = new Vector3(pos[0], pos[1], pos[2]); 
-                }
-                if (!positionLine){
-                    line = line.Remove(0,line.IndexOf(':')+1); 
-                    lines.Add(line);
-                }
-                else positionLine = false; 
-            }
-        }
-        state = stateLib.DOWNLOAD_FINISH_STATE;
     }
 }
