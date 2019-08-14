@@ -208,23 +208,26 @@ public class LevelManager
     }
     public GameObject CreateEnemy(int lineNumber, int specificEnemy = -1, int row = 0, int column = 0){
         GameObject enemy; 
-        Debug.Log(lineNumber); 
+        Debug.Log("Enemy line: " + lineNumber); 
         if ((lineNumber % 15 == 0 && specificEnemy == -1) || specificEnemy == 0){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/hacking")); 
             enemy.GetComponent<Obstacle>().Index = lineNumber; 
             enemy.GetComponent<Obstacle>().Properties = properties; 
             enemy.GetComponent<Obstacle>().Position = new Vector3(0, properties.initialLineY- properties.linespacing*lineNumber + stateLib.TOOLBOX_Y_OFFSET, 1);
             enemy.GetComponent<Obstacle>().SetPosition();
+            GlobalState.jsonStates += "Hacking," + lineNumber + "\n";
         }
         else if ((specificEnemy == -1 && lineNumber %10 == 0) || specificEnemy == 1){
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/TriBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
             enemy.GetComponent<Enemies>().Properties = properties; 
+            GlobalState.jsonStates += "Bug(Tri)," + lineNumber + "\n";
         }
         else{
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
-            enemy.GetComponent<Enemies>().Properties = properties; 
+            enemy.GetComponent<Enemies>().Properties = properties;
+            GlobalState.jsonStates += "Bug(Box)," + lineNumber + "\n"; 
         }
         obstacles.Add(enemy); 
         return enemy; 

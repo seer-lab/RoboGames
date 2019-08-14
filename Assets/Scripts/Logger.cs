@@ -160,7 +160,11 @@ public class Logger
     public void onDamageStateJson(int obstacleCode, int lineNumber, Vector3 position,float energy, float currentEnergy){
         LoggerDataOStates obstacalStates = new LoggerDataOStates();
         obstacalStates.position = new LoggerDataXY();
-        obstacalStates.name = GlobalState.StringLib.nameObstacle[obstacleCode];
+        if(obstacleCode == 4){
+            obstacalStates.name = "Bug(Box)";
+        }else if(obstacleCode == 3){
+            obstacalStates.name = "Bug(Tri)";
+        }
         obstacalStates.preEnergy = energy.ToString();
         obstacalStates.finEnergy = currentEnergy.ToString();
         obstacalStates.position.line = lineNumber.ToString();
@@ -169,9 +173,9 @@ public class Logger
         obstacalStates.timestamp = DateTime.Now.ToString();
 
         string obstacalStateOBJ = JsonUtility.ToJson(obstacalStates);
-        obstacalStateOBJ = "{\"obstacalState\":" +  obstacalStateOBJ+ "}";
+        obstacalStateOBJ = "{\"enemy\":" +  obstacalStateOBJ+ "}";
         //Debug.Log( stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacalState");
-        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacalState");
+        sendDatatoDB(obstacalStateOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/enemy");
     }
     
     //Yes I know, bad coding, what can I say ¯\_(ツ)_/¯
@@ -227,18 +231,22 @@ public class Logger
             //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/tools");
 
         }
-        for(int i = 0; i < GlobalState.StringLib.nameObstacle.Length; i++){
-            LoggerDataObstacal obstacal = new LoggerDataObstacal();
-            if(GlobalState.obstacleLine[i] == null ||GlobalState.obstacleLine[i] == ""){
-                continue;
+
+        if(GlobalState.jsonStates != null){
+            string[] obs_enem = GlobalState.jsonStates.Split('\n');
+            for(int i = 0; i < obs_enem.Length - 1; i++){
+                string[] tmpObs_enem = obs_enem[i].Split(',');
+                LoggerDataObstacal obstacal = new LoggerDataObstacal();
+                obstacal.name = tmpObs_enem[0];
+                obstacal.line = tmpObs_enem[1];
+
+                string obstacalOBJ = JsonUtility.ToJson(obstacal);
+                obstacalOBJ = "{\"obstacle\":" + obstacalOBJ + "}";
+                sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacle");
             }
-            obstacal.name = GlobalState.StringLib.nameObstacle[i];
-            obstacal.line = GlobalState.obstacleLine[i];
-            string obstacalOBJ = JsonUtility.ToJson(obstacal);
-            obstacalOBJ = "{\"obstacal\":" + obstacalOBJ + "}";
-            Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/obstacal");
-            sendDatatoDB(obstacalOBJ, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/obstacal");
-        }   
+
+        }
+
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
     }

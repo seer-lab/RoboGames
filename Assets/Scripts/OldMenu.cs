@@ -867,7 +867,7 @@ public class OldMenu : MonoBehaviour
         if(json != "{}" && json !=null){
             lg = LoggerPoints.CreateFromJson(json);
             try{
-                GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades)
+                GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades);
             }catch(Exception e){
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
