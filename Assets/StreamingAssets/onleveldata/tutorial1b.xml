@@ -1,8 +1,8 @@
 <level>
 <next-level>level1-4.xml</next-level>
 <failure_level>level1-4.xml</failure_level>
-<description>String Theory</description>
-<introtext>It looks like blackhat isn't going to make this 
+<description>Incoming Bugs</description>
+<introtext>It looks like Black Hat isn't going to make this 
 easy for us. Let's figure out how to get past his tricks!</introtext>
 <endtext>Keep these tactics in mind for the future!</endtext>
 <timelimit>unlimited</timelimit>
@@ -13,16 +13,14 @@ easy for us. Let's figure out how to get past his tricks!</introtext>
 #include &lt;cstdlib&gt;
 using namespace std;
 int main {
-	 //Print the state of the monitor @Oh boy it looks like we have some obstacles to face here@
-                                                                    @Be sure to stay away from the bugs, they'll absorb your energy!@
-
-    ***
-    cout &lt;&lt; "Signal Available" &lt;&lt; endl; 
-    cout &lt;&lt; "Color Space: SRGB" &lt;&lt; endl;                    @We can't see the code it looks like blackhat has blocked it@
-    cout &lt;&lt; "Volume: 50%" &lt;&lt; endl;                          @We can hack the code and figure out what we need to turn on the comment!@
-                                                                    $$$
-
-    <comment type="description" correct="true"  groupid="2">This monitor uses the SRGB Color Space</comment>                            @Now we know the answer to this question!@ !!!
+     //Print the state of the monitor @Oh boy, it looks like we have some obstacles to face here! Watch out!@
+                                                                   @Be sure to stay away from the bugs, they'll absorb your energy!@
+   ***
+   cout &lt;&lt; "Signal Available" &lt;&lt; endl; 
+   cout &lt;&lt; "Color Space: SRGB" &lt;&lt; endl;                    @We can't see the code. It looks like Black Hat has blocked it.@
+   cout &lt;&lt; "Volume: 50%" &lt;&lt; endl;                          @We can hack these terminals and reveal the hidden code!@
+                                                                   $$$
+   <comment type="description" correct="true"  groupid="2">This monitor uses the SRGB Color Space</comment>                            @Now we know the answer to this question!@ !!!
 }
 </code>
 <hint type="description">This is a hint</hint>
