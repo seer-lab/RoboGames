@@ -84,7 +84,11 @@ public class TitleController : MonoBehaviour
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         yield return new WaitForSecondsRealtime(1f); 
         if (GlobalState.RestrictGameMode){
-            GlobalState.GameMode = stringLib.GAME_MODE_ON; 
+            if(GlobalState.GamemodeON_BUG){
+                GlobalState.GameMode = stringLib.GAME_MODE_ON;
+            }else{
+                GlobalState.GameMode = stringLib.GAME_MODE_BUG;
+            }
             SceneManager.LoadScene("MainMenu");
         }
         else SceneManager.LoadScene("TitleMenu");

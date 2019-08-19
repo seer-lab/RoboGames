@@ -138,7 +138,8 @@ public class hero2Controller : MonoBehaviour
             float preEnergy = energyController.currentEnergy;
             energyController.onDamage(damage);
             float finEnergy = energyController.currentEnergy;
-            //controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(transform.position), preEnergy, finEnergy);
+            RoundPosition(this.transform.position);
+            controller.logger.onDamageStateJson(obstacleCode, lastLineNumberactive, RoundPosition(this.transform.position), preEnergy, finEnergy);
             GameObject.Find("OutputCanvas").transform.GetChild(0).GetComponent<Output>().PlayCharacterOutput("Ow, be careful!");
             StartCoroutine(DamageDelay());
             return true;
