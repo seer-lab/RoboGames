@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 using System.IO;
 using UnityEngine.Networking;
 
@@ -189,7 +190,7 @@ public partial class Cinematic : MonoBehaviour
 #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
-            filepath+=GlobalState.CurrentONLevel;
+            filepath+=file;
 
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
             WebHelper.i.GetWebDataFromWeb(true);
@@ -304,6 +305,12 @@ public partial class Cinematic : MonoBehaviour
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                 delaytime = Time.time + delay; 
                 UpdateLevel(GlobalState.level.NextLevel);
+                Regex rgxCheck = new Regex("([0-9][a-z])");
+
+                if(GlobalState.ObstacalMode == false && GlobalState.level.FileName.Contains("tutorial") && rgxCheck.IsMatch(GlobalState.level.FileName)){
+                    if(GlobalState.GameMode == "on") UpdateLevel("level1-4.xml");
+                }
+
                 UpdateText();
                 if (score > 0)
                 {

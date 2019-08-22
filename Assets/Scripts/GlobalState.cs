@@ -11,8 +11,8 @@ public static class GlobalState
     public static bool GamemodeON_BUG = false;
     public static bool LeaderBoardMode = false;
     public static bool LoggingMode = true;
-    public static bool DebugMode = false; 
-    public static bool ObstacalMode = true;
+    public static bool DebugMode = true; 
+    public static bool ObstacalMode = false;
     public static List<string> passed; 
     public static string Character {get;set;}
     public static bool IsPlaying { get; set; }
@@ -31,7 +31,7 @@ public static class GlobalState
     public static bool IsDark = true; 
     public static int[] toolUse; 
     public static int TextSize = 1; 
-    public static bool soundon;
+    public static bool soundon = true;
     public static string FilePath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? @"\" : @"/";
     public static Level level; 
     public static int timeBonus = 0; 

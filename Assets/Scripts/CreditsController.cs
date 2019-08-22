@@ -14,16 +14,26 @@ public class CreditsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Reads the credits file. 
-        FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata") + "/credits.txt");
-        StreamReader sr = fi.OpenText();
-        string text;
-        string credtext = ""; 
-        do
-        {
-            text = sr.ReadLine();
-            credtext += text + "\n";
-        } while (text != null);
+        string credtext = "";
+        //Reads the credits file. 
+        #if UNITY_EDITOR || UNITY_STANDALONE && !UNITY_WEBGL
+            FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata") + "/credits.txt");
+            StreamReader sr = fi.OpenText();
+            string text;
+ 
+            do
+            {
+                text = sr.ReadLine();
+                credtext += text + "\n";
+            } while (text != null);
+        #endif
+
+        #if UNITY_WEBGL
+            WebHelper.i.url = stringLib.SERVER_URL + stringLib.STREAMING_ASSETS + GlobalState.GameMode.ToLower() + "leveldata/credits.txt";
+            WebHelper.i.GetWebDataFromWeb();
+            credtext = WebHelper.i.webData;
+        #endif
+
         this.GetComponent<TextMesh>().text = credtext;
         this.GetComponent<Animator>().SetBool("Ended", true);
         if (!GlobalState.IsDark){
