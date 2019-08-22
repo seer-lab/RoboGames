@@ -15,7 +15,7 @@ public class CreditsController : MonoBehaviour
     void Start()
     {
         string credtext = "";
-        Reads the credits file. 
+        //Reads the credits file. 
         #if UNITY_EDITOR || UNITY_STANDALONE && !UNITY_WEBGL
             FileInfo fi = new FileInfo(Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata") + "/credits.txt");
             StreamReader sr = fi.OpenText();
@@ -33,7 +33,7 @@ public class CreditsController : MonoBehaviour
             WebHelper.i.GetWebDataFromWeb();
             credtext = WebHelper.i.webData;
         #endif
-        
+
         this.GetComponent<TextMesh>().text = credtext;
         this.GetComponent<Animator>().SetBool("Ended", true);
         if (!GlobalState.IsDark){
