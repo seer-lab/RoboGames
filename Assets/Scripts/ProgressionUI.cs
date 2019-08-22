@@ -32,8 +32,9 @@ public class ProgressionUI : MonoBehaviour
     {
         GameObject.Find("Fade").GetComponent<Fade>().onFadeIn(); 
         glitching = false; 
-        Points = transform.Find("TotalPoints").gameObject; 
-        Points.GetComponent<Text>().text = GlobalState.Stats.Points.ToString(); 
+        Points = transform.Find("TotalPoints").gameObject;
+        int points = GlobalState.Stats.Points; 
+        Points.GetComponent<Text>().text = points.ToString(); 
         if (!GlobalState.IsDark){
             Points.GetComponent<Text>().color = Color.black; 
             GameObject.Find("PointsHeader").GetComponent<Text>().color = Color.black; 
