@@ -82,6 +82,7 @@ public class Hacking : Obstacle
             finishedHacking = true; 
             GetComponent<SpriteRenderer>().sprite = hackingPhases[2]; 
             visibility.enabled = false; 
+            GlobalState.CurrentLevelPoints += stateLib.POINTS_HACKING;
             StartCoroutine(FadeConsole());
             //checkRefresh();
         }

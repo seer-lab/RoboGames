@@ -74,6 +74,7 @@ public static class stateLib
 	public const int POINTS_CHECKER = 0; 
 	public const int POINTS_WARPER = 0; 
 	public const int POINTS_BREAKPOINT = 10; 
+	public const int POINTS_HACKING = 10;
 
 	public const int COST_SPEED = 2500; 
 	public const int COST_DAMAGE_REDUCE = 5000; 
