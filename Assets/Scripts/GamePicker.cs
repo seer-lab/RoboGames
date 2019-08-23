@@ -55,8 +55,6 @@ public class GamePicker : MonoBehaviour
             }
             else GlobalState.GameMode = stringLib.GAME_MODE_ON;
             String sessionID = PlayerPrefs.GetString("sessionID");
-            Debug.Log("SessionID in GamePicker: " + sessionID);
-            Debug.Log("SessionID in GamePicker2: " + GlobalState.sessionID);
             if((sessionID == "" && sessionID == null || GlobalState.sessionID == 0)&& GlobalState.LeaderBoardMode){
                 StartCoroutine(LoadStartScene());  
             }else{

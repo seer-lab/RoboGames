@@ -89,7 +89,7 @@ public class TitleController : MonoBehaviour
             }else{
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG;
             }
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("IntroScene");
         }
         else SceneManager.LoadScene("TitleMenu");
 
