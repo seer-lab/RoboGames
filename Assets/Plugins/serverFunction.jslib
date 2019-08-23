@@ -6,6 +6,9 @@ mergeInto(LibraryManager.library, {
       xmlHttp.open( "GET", Pointer_stringify(url), false ); // false for synchronous request
       xmlHttp.send( null );
       var text = xmlHttp.responseText;
+      if(xmlHttp.status == 404 ){
+        text = "File not found!";
+      }
       var bufferSize = lengthBytesUTF8(text) + 1;
       var buffer = _malloc(bufferSize);
       stringToUTF8(text, buffer, bufferSize);
