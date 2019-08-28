@@ -55,11 +55,19 @@ public class GamePicker : MonoBehaviour
             }
             else GlobalState.GameMode = stringLib.GAME_MODE_ON;
             String sessionID = PlayerPrefs.GetString("sessionID");
-            if((sessionID == "" && sessionID == null || GlobalState.sessionID == 0)&& GlobalState.LeaderBoardMode){
-                StartCoroutine(LoadStartScene());  
+            Debug.Log("SESSISONIOHFKJS: " + sessionID);
+            if((sessionID == "" && sessionID == null)&& GlobalState.LeaderBoardMode){
+                StartCoroutine(LoadStartScene());
+            }else if(sessionID == "" && sessionID == null){
+                StartCoroutine(LoadStartScene());
             }else{
-                StartCoroutine(LoadIntroScene());  
-            }           
+                StartCoroutine(LoadIntroScene());
+            }
+            // if((sessionID == "" && sessionID == null || GlobalState.sessionID == 0)&& GlobalState.LeaderBoardMode){
+            //     StartCoroutine(LoadStartScene());  
+            // }else{
+            //     StartCoroutine(LoadIntroScene());  
+            // }           
         }
 
     }
@@ -99,11 +107,20 @@ public class GamePicker : MonoBehaviour
             else GlobalState.GameMode = stringLib.GAME_MODE_ON; 
 
             String sessionID = PlayerPrefs.GetString("sessionID");
-            if((sessionID == "" && sessionID == null || GlobalState.sessionID == 0) && GlobalState.LeaderBoardMode){
-                StartCoroutine(LoadStartScene());  
+            Debug.Log("SESSISONIOHFKJS: " + sessionID);
+
+            if((sessionID == "" && sessionID == null )&& GlobalState.LeaderBoardMode){
+                StartCoroutine(LoadStartScene());
+            }else if(sessionID == "" && sessionID == null){
+                StartCoroutine(LoadStartScene());
             }else{
-                StartCoroutine(LoadIntroScene());  
-            } 
+                StartCoroutine(LoadIntroScene());
+            }
+            // if((sessionID == "" && sessionID == null || GlobalState.sessionID == 0) && GlobalState.LeaderBoardMode){
+            //     StartCoroutine(LoadStartScene());  
+            // }else{
+            //     StartCoroutine(LoadIntroScene());  
+            // } 
         }
     }
 }
