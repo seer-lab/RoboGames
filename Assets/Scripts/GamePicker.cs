@@ -58,7 +58,7 @@ public class GamePicker : MonoBehaviour
             Debug.Log("SESSISONIOHFKJS: " + sessionID);
             if((sessionID == "" && sessionID == null)&& GlobalState.LeaderBoardMode){
                 StartCoroutine(LoadStartScene());
-            }else if(sessionID == "" || sessionID == null){
+            }else if((sessionID == "" || sessionID == null )&& GlobalState.RestrictGameMode){
                 StartCoroutine(LoadStartScene());
             }else{
                 StartCoroutine(LoadIntroScene());
@@ -111,7 +111,7 @@ public class GamePicker : MonoBehaviour
 
             if((sessionID == "" && sessionID == null )&& GlobalState.LeaderBoardMode){
                 StartCoroutine(LoadStartScene());
-            }else if(sessionID == "" || sessionID == null){
+            }else if((sessionID == "" || sessionID == null )&& GlobalState.RestrictGameMode){
                 StartCoroutine(LoadStartScene());
             }else{
                 StartCoroutine(LoadIntroScene());
