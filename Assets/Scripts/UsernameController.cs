@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -39,27 +41,34 @@ public class UsernameController : MonoBehaviour
     }
 
     public void onclickInput(){
-        Debug.Log("ButtonClick Test");
+        Regex rgxCheck = new Regex("^[0-9]*$");
         if(inputField.text == ""){
-            errorText.text = "Username cannot be empty!";
+            errorText.text = "PID cannot be empty!";
             inputField.text = "";
             return;
         }else if(inputField.text.Contains(" ")){
-            errorText.text = "Username cannot contain spaces!";
+            errorText.text = "PID cannot contain spaces!";
             inputField.text = "";
-        }
+        }else if(!rgxCheck.IsMatch(inputField.text)){
+            errorText.text = "PID must only contain numbers!";
+            inputField.text = "";
+            return;
+        }   
 
         WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/check/" + inputField.text;
         WebHelper.i.GetWebDataFromWeb();
         string reply = WebHelper.i.webData;
 
         if(reply == "true"){
-            errorText.text = "Cannot Use this name!";
+            errorText.text = "Cannot Use this PID!";
             inputField.text = "";
             return;
         }
 
         GlobalState.username = inputField.text;
+        GlobalState.sessionID = Convert.ToInt64( inputField.text);
+
+        PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
         GameObject.Find("InputPanel").SetActive(false);
         StartCoroutine(LoadIntroScene());
     }

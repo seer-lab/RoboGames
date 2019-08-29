@@ -816,7 +816,7 @@ public class OldMenu : MonoBehaviour
             try{
                 GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
             }catch(Exception e){
-                Debug.Log("Error on gettting points, will try again later!");
+                Debug.Log("Error on getting points, will try again later!");
             }
         }else{
             GlobalState.totalPoints = 0;
