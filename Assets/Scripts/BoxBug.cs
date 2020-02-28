@@ -7,8 +7,8 @@ public class BoxBug : Enemies
     private float distanceX = 10f; 
     private float distanceY = 1f; 
     float xOffset; 
-    float speedX = 200f; 
-    float speedY = 40f; 
+    float speedX = 200f+(GlobalState.AdaptiveMode*(-100f)*(GlobalState.HintMode-1)); 
+    float speedY = 40f+(GlobalState.AdaptiveMode*(-20f)*(GlobalState.HintMode-1)); 
     Vector3 originalPos; 
     public override void InitializeEnemyMovement(){
         StopAllCoroutines();

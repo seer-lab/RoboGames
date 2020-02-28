@@ -8,7 +8,7 @@ public class TriBug : Enemies
     float distanceY; 
     float distanceX = 6; 
     Vector3 originalPos; 
-    float speed = 80f; 
+    float speed = 80f+(GlobalState.AdaptiveMode*(-20f)*(GlobalState.HintMode-1));
     public override void InitializeEnemyMovement(){
         StopAllCoroutines();
         if (properties == null) properties = new CodeProperties(); 

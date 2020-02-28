@@ -62,6 +62,17 @@ public class PrinterFactory : ToolFactory
     {
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         tool.Index = lineNumber;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+			Debug.Log("Caught hinttext");
+		}
+		else{
+			Debug.Log("No hinttext here");
+		}
+		
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
@@ -100,7 +111,14 @@ public class WarperFactory: ToolFactory
     {
         tool.Filename = childnode.Attributes[stringLib.XML_ATTRIBUTE_FILE].Value;
         tool.Index = lineNumber;
-        if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
+		
+        //ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
             string[] toolcounts = toolatt.Split(',');
@@ -162,6 +180,13 @@ public class QuestionFactory: ToolFactory
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
         tool.expected = childnode.Attributes[stringLib.XML_ATTRIBUTE_ANSWER].Value;
         tool.Index = lineNumber;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
         tool.options = childnode.Attributes[stringLib.XML_ATTRIBUTE_OPTIONS].Value.Split(','); 
         GlobalState.level.Tasks[1]++;
         Regex rgx = new Regex("(.*)(" + stringLibrary.node_color_question + ")(.*)(</color>)(.*)");
@@ -195,6 +220,14 @@ public class RenamerFactory : ToolFactory
         stringLib stringLibrary = new stringLib(); 
         tool.DisplayText = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value + "\n";
         tool.correct = childnode.Attributes[stringLib.XML_ATTRIBUTE_CORRECT].Value;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
+		
         //tool.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
         try
         {
@@ -244,6 +277,13 @@ public class BreakpointFactory: ToolFactory
         tool.values = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
         Debug.Log(childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value);
         tool.Index = lineNumber;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;
@@ -275,7 +315,13 @@ public class PrizeBugFactory: ToolFactory
     }
     public override Tools GetScript()
     {
-        string[] bonuses = childnode.Attributes[stringLib.XML_ATTRIBUTE_BONUSES].Value.Split(',');
+        //ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
+		string[] bonuses = childnode.Attributes[stringLib.XML_ATTRIBUTE_BONUSES].Value.Split(',');
         for (int i = 0; i < stateLib.NUMBER_OF_TOOLS; i++)
         {
             tool.bonus[i] += int.Parse(bonuses[i]);
@@ -302,6 +348,13 @@ public class BeaconFactory: ToolFactory
     public override Tools GetScript()
     {
         tool.Index = lineNumber;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value != "")
         {
             string[] flowOrder = childnode.Attributes[stringLib.XML_ATTRIBUTE_FLOWORDER].Value.Split(',');
@@ -335,6 +388,13 @@ public class VariableColorFactory: ToolFactory
         stringLib stringLibrary = new stringLib(); 
         tool.groupid = int.Parse(childnode.Attributes[stringLib.XML_ATTRIBUTE_GROUPID].Value);
         tool.Index = lineNumber;
+		
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			tool.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
+		
         tool.oldname = childnode.InnerText;
         //Debug.Log("oldname for new variable object = " + tool.oldname);
         Regex varrgx = new Regex(@"(^| |\t|\>)(" + tool.oldname + ")(;| )");
@@ -380,6 +440,7 @@ public class CommentFactory: ToolFactory
     public override Tools GetScript()
     {
         CommentTypeFactory factory;
+		
         switch (childnode.Attributes[stringLib.XML_ATTRIBUTE_TYPE].Value)
         {
             case "robobug":

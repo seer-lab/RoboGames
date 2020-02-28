@@ -7,12 +7,20 @@ using UnityEngine;
 /// </summary>
 public static class GlobalState 
 {
-    public static bool RestrictGameMode = false; 
-    public static bool GamemodeON_BUG = true;
+	public static int AdaptiveMode = 2; //0 = default, 1 = easier, 2 = easiest
+	public static int HintMode = 2; //0 = no hints, 1 = hints
+	public static int failures = 0; //number of failures since a level was passed
+	public static int tooluses = 0; //number of tool uses
+	public static int elapsedTime = 0; //time elapsed since a level was passed
+	public static string Tech {get;set;} //description of technique
+	public static string Hint1 {get;set;} //first hint for failure
+	public static string Hint2 {get;set;} //second hint for failure
+    public static bool RestrictGameMode = true; 
+    public static bool GamemodeON_BUG = false;
     public static bool LeaderBoardMode = false;
     public static bool LoggingMode = true;
-    public static bool DebugMode = false; 
-    public static bool ObstacalMode = false;
+    public static bool DebugMode = true; 
+    public static bool ObstacalMode = true;
     public static List<string> passed; 
     public static string Character {get;set;}
     public static bool IsPlaying { get; set; }
@@ -23,7 +31,7 @@ public static class GlobalState
     public static int CurrentLevelPoints {get;set;}
     public static int CurrentLevelEnergy {get;set;}
     public static int RunningScore  = 0; 
-    public static string Language ="c++"; 
+    public static string Language ="python"; 
     public static string CurrentBUGLevel { get; set; }
     public static string GameMode { get; set; }
     public static int GameState { get; set; }

@@ -90,6 +90,38 @@ public static class XMLReader {
     }
     return "NotFound";
   }
+  
+  //ADAPTIVE 
+  public static string GetTechText(XmlDocument doc) {
+    foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
+      if (xmlnode.Name == stringLib.XML_ATTRIBUTE_TECHTEXT) {
+        return xmlnode.InnerText;
+      }
+    }
+    return "NotFound";
+  }
+  
+  //ADAPTIVE 
+  public static string GetHint1Text(XmlDocument doc) {
+    foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
+      if (xmlnode.Name == stringLib.XML_ATTRIBUTE_HINT1TEXT) {
+        return xmlnode.InnerText;
+      }
+    }
+    return "NotFound";
+  }
+  
+  //ADAPTIVE 
+  public static string GetHint2Text(XmlDocument doc) {
+    foreach(XmlNode xmlnode in doc.DocumentElement.ChildNodes) {
+      if (xmlnode.Name == stringLib.XML_ATTRIBUTE_HINT2TEXT) {
+        return xmlnode.InnerText;
+      }
+    }
+    return "NotFound";
+  }
+  
+  
 
   [ObsoleteAttribute("We don't use the time limit")]
   public static string GetTimeLimit(XmlDocument doc) {

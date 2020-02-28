@@ -3,7 +3,7 @@
 Use the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool to check the priorities array.
 Figure out where the bug is and use the BUGFIXER to catch it.</description>
 <next-level>tutorial2.xml</next-level>
-<failure_level>level2a.xml</failure_level>
+<failure_level>level2b.xml</failure_level>
 <introtext>The final version of the Ordering sorts all numbers.
 Can you figure out what is wrong this time?</introtext>
 <endtext>All the bugs have been found.

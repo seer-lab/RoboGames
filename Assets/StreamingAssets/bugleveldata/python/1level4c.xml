@@ -1,0 +1,48 @@
+<level>
+<description>The Wireless Priority Signal System has a new bug.
+Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the variables.
+&lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; data to observe behavior.
+Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
+Use the BUGCATCHER to identify the incorrect calculation.</description>
+<next-level>level4.xml</next-level>
+<failure_level>level4c.xml</failure_level>
+<introtext>A bug has found its way into the Closer() function.
+Time to put that &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool to use.</introtext>
+<endtext>You found it! There's only a single bug left!</endtext>
+<timelimit>180</timelimit>
+<tools>
+<tool name="printer" count="9" enabled="true"/>
+<tool name="breakpointer" count ="2" enabled="true"/>
+<tool name="warper" count="3" enabled="true"/>
+</tools>
+<code language="python">class signal:
+    def __init__(name,x,y):
+		self.name = name
+		self.x = x
+		self.y = y
+
+#Wireless Signal System Prioritizer
+#Uses Closer function to calculate Closest signal
+#ts contains a list of 3 signals
+#returns the closest signal
+def FirstPriority(ts):
+
+    t1 = ts[0]
+    t2 = ts[1]
+    t3 = ts[2]
+    <breakpoint text="t1.x = 10, t1.y = 60
+t2.x = 75, t2.y = 50
+t3.x = 255, t3.y = 5"></breakpoint>closest = Closer(t1,t2)
+    <breakpoint text="t1.x = 50, t1.y = 60
+t2.x = 75, t2.y = 50
+t3.x = 255, t3.y = 5
+closest = t2"></breakpoint>closest = Closer(closest,t3)
+    <breakpoint text="t1.x = 75, t1.y = 60
+t2.x = 5, t2.y = 50
+t3.x = 255, t3.y = 5
+closest = t3" tool="0,0,1,0,0,0"></breakpoint>return closest
+}
+<warp file="L4cCloser.xml" tool="1,0,0,0,0,0">def Closer(signal t1, target t2):
+</warp>
+</code>
+</level>

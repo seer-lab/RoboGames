@@ -60,9 +60,12 @@ public partial class Cinematic : MonoBehaviour
             score = GlobalState.CurrentLevelPoints;
             originalEnergy = 0;
             if(GlobalState.passed != null){
+				
+				
                 if (GlobalState.passed.Contains(GlobalState.level.FileName)){
-                    GlobalState.timeBonus /= 10; 
-                    score /= 10; 
+                    /*GlobalState.timeBonus /= 10; 
+                    score /= 10;
+					CODE TEMPORARILY REMOVED*/ 
                 }
             
             }else {
@@ -331,8 +334,29 @@ public partial class Cinematic : MonoBehaviour
             {
                 cinerun = true;
             }
-            prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
-            //prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
+            
+			//MODIFIED CODE FOR ADAPTATION
+			//prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
+			if (GlobalState.HintMode == 0){
+				prompt1.GetComponent<Text>().text = stringLib.LOSE_TEXT;
+			}
+            else if (GlobalState.AdaptiveMode == 2 || (GlobalState.AdaptiveMode == 1 && GlobalState.failures % 2 == 1)){
+				if (GlobalState.failures == 1){
+					prompt1.GetComponent<Text>().text = GlobalState.Tech;
+				}
+				else if (GlobalState.failures == 2 || (GlobalState.AdaptiveMode == 1 && GlobalState.failures == 3)){
+					prompt1.GetComponent<Text>().text = GlobalState.Hint1;
+				}
+				else{
+					prompt1.GetComponent<Text>().text = GlobalState.Hint2;
+				}
+			}
+			else{
+				prompt1.GetComponent<Text>().text = GlobalState.Tech;
+			}
+			Debug.Log("Failures = "+GlobalState.failures.ToString());
+			
+			//prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
             {
                 prompt2.GetComponent<Text>().text = "";

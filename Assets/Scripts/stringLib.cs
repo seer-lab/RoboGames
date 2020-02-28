@@ -112,7 +112,11 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_ENABLED = "enabled";
     public const string XML_ATTRIBUTE_COMMENT_STYLE = "style";
     public const string XML_ATTRIBUTE_OLDNAME = "oldname";
-    public const string XML_ATTRIBUTE_HINT = "hint";
+    public const string XML_ATTRIBUTE_HINT = "hint"; //NOTE: DEPRECATED HINT SYSTEM
+	public const string XML_ATTRIBUTE_HINTTEXT = "hinttext";
+	public const string XML_ATTRIBUTE_TECHTEXT = "tech";
+	public const string XML_ATTRIBUTE_HINT1TEXT = "hint1";
+	public const string XML_ATTRIBUTE_HINT2TEXT = "hint2";
 
     public const string BUG_REGEX = @"((?<=\$bug).+(?=\$))"; // Finds Text in between "$bug" and "$ eg. $bug Hello, World!$ => Hello, World! 
     public const string DIALOG_REGEX = @"((?<=\@).+(?=\@))"; // Finds the value in between "@" eg. @Hello, World!@ => Hello, World!

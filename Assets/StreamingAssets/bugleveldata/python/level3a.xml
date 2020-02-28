@@ -5,6 +5,9 @@ Use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel to the affect
 Check the RGB values and use the BUGCATCHER to catch the bug.</description>
 <next-level>level3b.xml</next-level>
 <failure_level>level3a.xml</failure_level>
+<tech>The bug is somewhere in this code, but it could take a long time to do code tracing. Use your tools to check different sections of code. If the bug persists when you comment something out, it must be somewhere else.</tech>
+<hint1>It looks like one of the color values is wrong; maybe it's negative or above 255!</hint1>
+<hint2>The wrong color must be stored in one of the two color groups; check to make sure they’re all in the right range!</hint2>
 <introtext>The Color Database needs to be fixed.
 You'll have to find which values are invalid.
 The &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool will help!</introtext>

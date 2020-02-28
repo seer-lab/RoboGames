@@ -222,12 +222,27 @@ public class LevelManager
             enemy.GetComponent<Enemies>().Index = lineNumber; 
             enemy.GetComponent<Enemies>().Properties = properties; 
             GlobalState.jsonStates += "Bug(Tri)," + lineNumber + "\n";
+			
+			if (GlobalState.AdaptiveMode == 0){
+				enemy.GetComponent<SpriteRenderer>().color = Color.magenta;				
+			}
+			else if (GlobalState.AdaptiveMode == 1){
+				enemy.GetComponent<SpriteRenderer>().color = Color.cyan;				
+			}
         }
         else{
             enemy = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BoxBug"));
             enemy.GetComponent<Enemies>().Index = lineNumber; 
             enemy.GetComponent<Enemies>().Properties = properties;
             GlobalState.jsonStates += "Bug(Box)," + lineNumber + "\n"; 
+						
+			if (GlobalState.AdaptiveMode == 0){
+				enemy.GetComponent<SpriteRenderer>().color = Color.red;				
+			}
+			else if (GlobalState.AdaptiveMode == 1){
+				enemy.GetComponent<SpriteRenderer>().color = Color.yellow;				
+			}
+
         }
         obstacles.Add(enemy); 
         return enemy; 

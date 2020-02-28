@@ -3,7 +3,10 @@
 Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors don't affect the bug.
 Check the RGB values and use the BUGCATCHER to catch the bug.</description>
 <next-level>level3.xml</next-level>
-<failure_level>level3a.xml</failure_level>
+<failure_level>level3b.xml</failure_level>
+<tech>The bug is somewhere in this code, but it could take a long time to do code tracing. Use your tools to check different sections of code. If the bug persists when you comment something out, it must be somewhere else.</tech>
+<hint1>Only one of the numbers here is wrong, but it would take forever to read through everything; use your commenter tool!</hint1>
+<hint2>If a blue color value is out of bounds, then it must be the third number in one of the colors that is incorrect!</hint2>
 <introtext>Now it's time to use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
 There are many colors to check in a short duration.
 The &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool can speed things up.
@@ -23,7 +26,7 @@ out of bounds." tool="0,0,0,8,0,0">print(db.checkColors())
 </print>
 
 <comment size="30" type="robobug" groupid="1" text="$err$Blue color value 
-out of bounds.">["antiquewhite",250,235,215],
+out of bounds." hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">["antiquewhite",250,235,215],
 ["azure",240,255,255],
 ["bisque",255,228,196],
 ["blanchedalmond",255,235,205],
@@ -55,7 +58,7 @@ out of bounds.">["antiquewhite",250,235,215],
 ["zincwhite",253,248,255]</comment>
 
 <comment size="27" type="robobug" groupid="2" text="$err$Blue color value 
-out of bounds">["aliceblue",240,248,255],
+out of bounds" hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">["aliceblue",240,248,255],
 ["blue",0,0,255],
 ["bluelight",173,216,230],
 ["bluemedium",0,0,205],
@@ -84,7 +87,7 @@ out of bounds">["aliceblue",240,248,255],
 ["ultramarine",18,10,143]</comment>
 
 <comment size="23" type="robobug" groupid="3" text="$err$Blue color value 
-out of bounds.">["alizarincrimson",227,38,54],
+out of bounds." hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">["alizarincrimson",227,38,54],
 ["brick",156,102,31],
 ["cadmiumreddeep",227,23,13],
 ["coral",255,127,80],
@@ -107,12 +110,12 @@ out of bounds.">["alizarincrimson",227,38,54],
 ["tomato",255,99,71],
 ["venetianred",212,26,31]</comment>
 
-<comment size="3" type="robobug" groupid="4" text="No errors found" tool="1,0,0,0,0,0">["black",0,0,0],
+<comment size="3" type="robobug" groupid="4" text="No errors found" tool="1,0,0,0,0,0" hinttext="Hmm, the bug seems to have gone away! The bug must be here somewhere!">["black",0,0,0],
 ["ivoryblack",41,36,33],
 ["lampblack",46,71,- $bug ["lampblack",46,71,59]$59]</comment>
 
 <comment size="28" type="robobug" groupid="5" text="$err$Blue color value 
-out of bounds">["chartreuse",127,255,0],
+out of bounds" hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">["chartreuse",127,255,0],
 ["chromeoxidegreen",102,128,20],
 ["cinnabargreen",97,179,41],
 ["cobaltgreen",61,145,64],
@@ -141,7 +144,7 @@ out of bounds">["chartreuse",127,255,0],
 ["yellowgreen",154,205,50]</comment>
 
 <comment size="16" type="robobug" groupid="6" text="$err$Blue color value 
-out of bounds">["aureolineyellow",255,168,36],
+out of bounds" hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">["aureolineyellow",255,168,36],
 ["banana",227,207,87],
 ["cadmiumlemon",255,227,3],
 ["cadmiumyellow",255,153,18],

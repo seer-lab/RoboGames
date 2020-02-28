@@ -3,7 +3,10 @@
 Use "Code Tracing" to find it by reading the code line by line.
 Find a bug and throw the BUGFIXER (CTRL) to catch it!</description>
 <next-level>level1.xml</next-level>
-<failure_level>level1a.xml</failure_level>
+<failure_level>level1b.xml</failure_level>
+<tech>To find the bug, just read through the code one line at a time and figure out which line of code is the wrong one. Fix that line with your Bug Fixer!</tech>
+<hint1>This code would run, but it looks like the algorithm isn’t correct.</hint1>
+<hint2>What do you need the loop to do?</hint2>
 <introtext>The calculator has a bit more code now.
 Can you find the next bug?</introtext>
 <endtext>Another bug found.

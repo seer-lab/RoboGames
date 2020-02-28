@@ -1,0 +1,16 @@
+<level>
+<code language="python">
+<warp line="33" file="level3.xml">exit()</warp>
+
+["cadmiumorange",255,97,3],
+["cadmiumred_light",255,3,13],
+["carrot",237,145,33],
+["darkorange",255,140,0],
+["marsorange",150,69,20],
+["marsyellow",227,112,26],
+["orange",255,128,0],
+["orangered",255,69,0],
+["yellowochre",227,130,23]
+
+</code>
+</level>

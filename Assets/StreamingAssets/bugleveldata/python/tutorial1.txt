@@ -1,0 +1,8 @@
+ThermostatNormal
+#Girl: 500 200 0
+#Boy: -500 200 0
+$Girl: That's a lot more comfortable. I was sweating buckets!
+$Boy: Oh no! All my files have gotten mixed up! They're supposed to be sorted, but the computer isn't ordering them correctly.
+$Girl: It's a good thing that V.I added a Bug Fixer tool to its repertoire; we're going to need it to repair that bug.
+$Boy: But we also need a tool to help us know where to look for the bugs.
+$Girl: Maybe V.I. has a tool for that!

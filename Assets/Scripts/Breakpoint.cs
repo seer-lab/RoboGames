@@ -43,7 +43,12 @@ public class Breakpoint : Tools {
 			GetComponent<AudioSource>().clip = correct;
 			GetComponent<AudioSource>().Play();
 			output.Text.text = values;
-
+			if (GlobalState.HintMode==1) { //ADAPTIVE code for hints
+				if (GlobalState.AdaptiveMode==2 || (GlobalState.AdaptiveMode==1 && GlobalState.tooluses % 2 == 1)){
+					output.hint = hinttext;
+				}
+				GlobalState.tooluses++;
+			}
 			// give bonus tools upon successful completion of using breakpoints.
 			if (!toolgiven) {
 				toolgiven = true;
