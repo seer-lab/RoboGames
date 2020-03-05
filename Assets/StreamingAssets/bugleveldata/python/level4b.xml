@@ -4,7 +4,10 @@ Use the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool to learn about the b
 Check the output before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
 Use the BUGCATCHER to identify the incorrect calculation.</description>
 <next-level>level4c.xml</next-level>
-<failure_level>level4a.xml</failure_level>
+<failure_level>level4b.xml</failure_level>
+<tech>You can use breakpoints to help find the bug. Use the BREAKPOINTER tool to activate the breakpoints, then use the PRINTER to look at the numbers and see if they make sense.</tech>
+<hint1>The code doesn’t give the right answer about which signal is closest;  the math in the Closer() function must be wrong!</hint1>
+<hint2>Use your breakpointer tool in the closer function to figure out why the math doesn’t add up, and point out which formula is wrong.</hint2>
 <introtext>There is a new bug in the Closer function.
 Before searching for it, look at the Prioritizer code
 and observe the behavior of the variables.</introtext>
@@ -23,19 +26,19 @@ and observe the behavior of the variables.</introtext>
 #Uses Closer function to calculate Closest signal
 #ts is a list of 2 signals
 #returns the closest signal
-def FirstPriority(ts){
+def FirstPriority(ts):
 
     t1 = ts[0]
 	t2 = ts[1]
     closest = Closer(t1,t2)
 
 	<print text="t1.x = 75
-t1.y = 100">print(t1)
+t1.y = 100" hinttext="These are the coordinates of the t1 signal.">print(t1)
 </print>
 <print text="t2.x = 100
-t2.y = 0">    print(t2)
+t2.y = 0" hinttext="These are the coordinates of the t2 signal.">    print(t2)
 </print>
-<print text="closest = t1" tool="0,0,1,0,0,0">    print(closest)
+<print text="closest = t1" tool="0,0,1,0,0,0" hinttext="The function seems to suggest that t1 is the closer of the two signals to 0,0...but that's wrong!">    print(closest)
 	</print>
 
 	return closest

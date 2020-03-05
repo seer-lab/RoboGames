@@ -18,6 +18,17 @@ public class LevelFactory
     public LevelFactory(string filename, bool warp = false)
     {
         level = new Level(); 
+		if (GlobalState.HintMode == 2){
+			System.Random rnd = new System.Random();
+			GlobalState.HintMode = rnd.Next(2);
+			Debug.Log("Hint Mode initialized to " + GlobalState.HintMode.ToString());
+		}
+		//WARNING: THIS CODE MUST BE FIXED FOR NON ROBOBUG/PYTHON CONTENT
+		if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0){
+			string[] tempname = filename.Split('\\');
+			tempname[tempname.Length-1] = GlobalState.AdaptiveMode+tempname[tempname.Length-1];
+			filename = string.Join("\\",tempname);
+		}
         if (warp)
             BuildFromCurrent(filename); 
         else
@@ -69,6 +80,11 @@ public class LevelFactory
         }else{ 
             level.IsDemo = false;
         }
+		
+		//ADAPTIVE
+        GlobalState.Tech = XMLReader.GetTechText(doc); 
+        GlobalState.Hint1 = XMLReader.GetHint1Text(doc); 
+        GlobalState.Hint2 = XMLReader.GetHint2Text(doc); 
 
     }
     /// <summary>

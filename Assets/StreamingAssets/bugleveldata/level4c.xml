@@ -5,7 +5,7 @@ Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the v
 Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
 Use the BUGCATCHER to identify the incorrect calculation.</description>
 <next-level>level4.xml</next-level>
-<failure_level>level4a.xml</failure_level>
+<failure_level>level4b.xml</failure_level>
 <introtext>A bug has found its way into the Closer() function.
 Time to put that &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool to use.</introtext>
 <endtext>You found it! There's only a single bug left!</endtext>

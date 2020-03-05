@@ -7,6 +7,9 @@ Use the BUGCATCHER when you have found the bug.</description>
 		self.name = name
 		self.x = x
 		self.y = y
+		
+<warp file="level4c.xml" tool="1,3,0,0,1,0">import FirstPriority
+</warp>
 
 #Wireless Signal System Closeness Calculator
 #Identifies the Closer of two signals based on coordinates

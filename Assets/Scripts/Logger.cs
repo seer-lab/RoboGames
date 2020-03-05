@@ -189,9 +189,18 @@ public class Logger
         //Debug.Log(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.positionalID.ToString() + "/" + GlobalState.currentLevelID + "/timeEnded");
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/timeEnded" );
 
+		jsonObj = "{\"AdaptiveMode\":\"" + GlobalState.AdaptiveMode.ToString() + "\"}";
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/AdaptiveMode" );
+		
+		jsonObj = "{\"HintMode\":\"" + GlobalState.HintMode.ToString() + "\"}";
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/HintMode" );
+
         string totalT = endTime.Subtract(startTime).Seconds.ToString();
         jsonObj = "{\"time\" : \"" + totalT + "\"}"; 
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/time");
+
+		jsonObj = "{\"AdaptiveMode\":\"" + GlobalState.AdaptiveMode.ToString() + "\"}";
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/AdaptiveMode" );
 
         jsonObj = "{\"finalEnergy\" : \"" + this.currentEnergy.ToString() + "\"}"; 
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/finalEnergy");

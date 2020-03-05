@@ -4,6 +4,9 @@ Although the code is incomplete, there is already a problem.
 Use "Code Tracing" to find it by reading the code line by line.</description>
 <next-level>level1b.xml</next-level>
 <failure_level>level1a.xml</failure_level>
+<tech>To find the bug, just read through the code one line at a time and figure out which line of code is the wrong one. Fix that line with your Bug Fixer!</tech>
+<hint1>This bug probably would lead to a problem when you wanted to calculate the average.</hint1>
+<hint2>I wonder if one of the variables isn’t initialized correctly?</hint2>
 <timelimit>120</timelimit>
 <introtext>It's time to find your first real bug.
 Use CODE TRACING to find it!

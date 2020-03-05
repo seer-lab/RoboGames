@@ -5,7 +5,10 @@ Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the v
 Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
 Use the BUGCATCHER to identify the incorrect calculation.</description>
 <next-level>level4.xml</next-level>
-<failure_level>level4a.xml</failure_level>
+<failure_level>level4c.xml</failure_level>
+<tech>You can use breakpoints to help find the bug. Use the BREAKPOINTER tool to activate the breakpoints, then use the PRINTER to look at the numbers and see if they make sense.</tech>
+<hint1>The code doesn’t give the right answer about which signal is closest;  the math in the Closer() function must be wrong!</hint1>
+<hint2>If a variable is being changed by the closer function, what operation must be happening?</hint2>
 <introtext>A bug has found its way into the Closer() function.
 Time to put that &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool to use.</introtext>
 <endtext>You found it! There's only a single bug left!</endtext>
@@ -25,22 +28,22 @@ Time to put that &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool to use.<
 #Uses Closer function to calculate Closest signal
 #ts contains a list of 3 signals
 #returns the closest signal
-def FirstPriority(ts){
+def FirstPriority(ts):
 
     t1 = ts[0]
     t2 = ts[1]
     t3 = ts[2]
     <breakpoint text="t1.x = 10, t1.y = 40
 t2.x = 75, t2.y = 50
-t3.x = 255, t3.y = 75"></breakpoint>closest = Closer(t1,t2)
+t3.x = 255, t3.y = 75" hinttext="These are the x and y coordinates of the signals."></breakpoint>closest = Closer(t1,t2)
     <breakpoint text="t1.x = 75, t1.y = 40
 t2.x = 75, t2.y = 50
 t3.x = 255, t3.y = 75
-closest = t2"></breakpoint>closest = Closer(closest,t3)
+closest = t2" hinttext="That’s strange: The closer function seems to have changed some of the coordinates!"></breakpoint>closest = Closer(closest,t3)
     <breakpoint text="t1.x = 75, t1.y = 40
 t2.x = 255, t2.y = 50
 t3.x = 255, t3.y = 75
-closest = t3" tool="0,0,1,0,0,0"></breakpoint>return closest
+closest = t3" tool="0,0,1,0,0,0" hinttext="That’s strange: The closer function seems to have changed some of the coordinates!"></breakpoint>return closest
 }
 <warp file="L4cCloser.xml" tool="1,0,0,0,0,0">def Closer(signal t1, target t2):
 </warp>

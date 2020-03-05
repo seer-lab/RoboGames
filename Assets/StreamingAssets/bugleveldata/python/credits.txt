@@ -1,0 +1,166 @@
+﻿CREDITS: 
+
+Created by: Michael Miljanovic
+
+under supervision of Dr. Jeremy Bradbury
+
+in SQRLab, Ontario Tech University
+http://www.sqrlab.ca
+
+Playtesters
+Rhys Agombar
+Richard Deighton
+Joseph Heron
+Stephen McIntyre
+
+Developers 
+
+Kashif Hussain 
+
+Ibrahim Mushtaq
+ 
+Websites 
+ 
+ 
+http://www.amon.co 
+http://www.opengameart.org  
+http://opsound.org/    
+http://freemusicarchive.org/
+
+
+Graphics Credits  
+
+
+http://www.opengameart.org  
+https://openclipart.org 
+
+Gui-Set 
+by Rawdanitsu 
+Stephen \Redshrike\ Challener  
+- graphic artist  
+William.Thompsonj  
+- contributor.  
+
+A robot 
+by Anton Yu. 
+From 0.18 OCAL database. 
+
+Robot, Boy & Girl 
+by pzUH
+
+
+Space ship collection
+by clayster2012
+
+glyph.png 
+by Jinn (Submitted by Andrettin) 
+
+FREE Keyboard and controllers prompts pack
+by xelu 
+
+Space Gui in various colors
+by Rawdanitsu 
+
+Icons 
+by phaelax
+by www.crownjoseph.com 
+
+angled metal tracks on an electronic
+circuit board from creative103.com  
+
+sci fi level and sci fi level assets 
+by jeremygooch
+
+fantasy background 
+by titi_son
+
+2d game board borders 
+by dialectric
+  
+  
+Music Credits
+
+
+"(IT) ANTI-MATTER(S)"
+by LDX#40 
+
+"THIRTY"
+by _AA_  
+
+"ACD8"
+by PERAMIDES 
+
+"NIGHTTIME"
+by Kid Cholera's VASCULOID 
+
+"ON THE DOWNLOAD"
+by Kid Cholera's VASCULOID 
+ 
+"SciFi"
+"Different Recursive Loops - 
+Crazy Omar Remix"
+“Meteorite - Matrix remix” 
+“Circuit Breakdown” 
+by Robodub
+
+"Supaunlimita Revisited" 
+by SJ Mellia
+
+"Juno Love Faction"
+by Dr Nol
+
+"SPIDERTWO"
+by DAVE HOWES 
+
+"1=1"
+by Struct Seven
+
+"Boom" 
+by Jason Shaw
+
+"1x game over"
+"1x level win"
+"1x short interlude"
+"13 the end"
+"00 intro_0"
+by Metaruka
+ 
+
+Audio Credits  
+Sounds from Freesound: 
+ 
+alien_screecn_1.wav 
+by CosmicD 
+
+concrete_step_3.wav 
+by movingplaid  
+
+zoom up 1 (quicker delay).wav 
+by Chriddof 
+
+Various Alerts
+by dklon 
+
+Side Blaster sound effects
+by Master484
+
+Whoosh_Swish_03.wav 
+by mich3d  
+
+Error.wav 
+by Autistic Lucario 
+
+Electric Sound Effects Library
+by Little Robot Sound Factory
+ 
+These works are licensed under a  
+Creative Commons   
+Attribution-ShareAlike3.0  
+Unported License. 
+
+
+
+
+
+Thank you for playing!
+Press any key to return to the menu.

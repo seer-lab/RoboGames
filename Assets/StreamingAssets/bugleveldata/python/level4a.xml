@@ -5,6 +5,9 @@ Use Code Tracing to see how the Closer calculation works.
 Use the BUGCATCHER to identify the bug.</description>
 <next-level>level4b.xml</next-level>
 <failure_level>level4a.xml</failure_level>
+<tech>To find the bug, just read through the code one line at a time and figure out which line of code is the wrong one. Fix that line with your Bug Fixer!</tech>
+<hint1>Use Code Tracing to figure out where the math doesn’t add up.</hint1>
+<hint2>This one is a tricky one; make sure that all the symbols in the code are the correct ones!</hint2>
 <introtext>The Closeness Calculator has a bug inside.
 Use CODE TRACING to find the bug, but pay attention!
 You will see this code again in the future!</introtext>
@@ -33,7 +36,7 @@ def Closer(t1, t2):
     if (xdif + ydif &lt; 0):
         return t1
     
-    elif (xdif + ydif $bug   elif (xdif + ydif == 0){$= 0):
+    elif (xdif + ydif $bug   else$= 0):
         return t2
     
 

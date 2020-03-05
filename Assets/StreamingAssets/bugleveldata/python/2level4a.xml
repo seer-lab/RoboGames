@@ -1,0 +1,41 @@
+<level>
+<description>The Wireless Signal System is malfunctioning.
+It calculates the closest of two signals using coordinates.
+Use Code Tracing to see how the Closer calculation works.
+Use the BUGCATCHER to identify the bug.</description>
+<next-level>level4b.xml</next-level>
+<failure_level>level4a.xml</failure_level>
+<introtext>The Closeness Calculator has a bug inside.
+Use CODE TRACING to find the bug, but pay attention!
+You will see this code again in the future!</introtext>
+<endtext>You've found the first bug!
+Don't forget how that function worked.</endtext>
+<timelimit>180</timelimit>
+<tools>
+<tool name="catcher" count="1" enabled="true"/>
+</tools>
+<code language="python">#Wireless Signal System Closeness Calculator
+#Identifies the Closer of two signals based on coordinates
+#Uses (X,Y) 2 dimensional coordinates and calculates the difference
+#NOTE: Origin is located at (0,0)
+#E.g. (50,25) is closer to the origin than (25,75)
+
+class signal:
+    def __init__(name,x,y):
+		self.name = name
+		self.x = x
+		self.y = y
+
+def Closer(t1, t2):
+
+    xdif = t1.x - t2.x;
+    ydif = t1.y - t2.y;
+    if (xdif + ydif &lt; 0):
+        return t1
+    
+    elif (xdif and ydif $bug   else$&gt; 0):
+        return t2
+    
+
+</code>
+</level>

@@ -4,7 +4,10 @@ Use the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool to see which colors 
 Then, use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel to the affected color groups.
 Check the RGB values and use the BUGCATCHER to catch the bug.</description>
 <next-level>tutorial4.xml</next-level>
-<failure_level>level3a.xml</failure_level>
+<failure_level>level3.xml</failure_level>
+<tech>The bug is somewhere in this code, but it could take a long time to do code tracing. Use your tools to check different sections of code. If the bug persists when you comment something out, it must be somewhere else.</tech>
+<hint1>Before warping to a color group, use your commenter to see if the bug is there in the first place!</hint1>
+<hint2>If a red color value is out of bounds, then it must be the first number in one of the colors that is incorrect!</hint2>
 <introtext>One bug remains, but it is well hidden.
 You'll have to comment code to Divide-and-Conquer.
 Can you combine all your tools to find it?</introtext>
@@ -37,7 +40,7 @@ is out of bounds" tool="0,0,0,6,0,0">db.checkColors()
 	
     <comment type="robobug" groupid="1" size="3" text="$err$A red color value
 in the database
-is out of bounds">cm.Whites = db.getWhites()
+is out of bounds" hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">cm.Whites = db.getWhites()
     cm.Greys = db.getGreys()
     cm.Blacks = db.getBlacks()</comment>
     <warp file="L3Whites.xml">cm.Whites</warp>
@@ -48,7 +51,7 @@ is out of bounds">cm.Whites = db.getWhites()
 	
     <comment size="2" type="robobug" groupid="2" text="$err$A red color value
 in the database
-is out of bounds.">cm.Reds = db.getReds()
+is out of bounds." hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">cm.Reds = db.getReds()
     cm.Browns = db.getBrowns()</comment>
 	 
     <warp file="L3Reds.xml">cm.Reds</warp>
@@ -57,13 +60,13 @@ is out of bounds.">cm.Reds = db.getReds()
 	
     <comment size="2" type="robobug" groupid="3" text="$err$A red color value
 in the database
-is out of bounds.">cm.Oranges = db.getOranges()
+is out of bounds." hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">cm.Oranges = db.getOranges()
     cm.Yellows = db.getYellows()</comment>
 	 
     <warp file="L3Oranges.xml">cm.Oranges</warp>
     <warp file="L3Yellows.xml">cm.Yellows</warp>
 	
-    <comment size="2" type="robobug" groupid="4" text="Database contains no errors" tool="1,0,4,0,0,0">cm.Greens = db.getGreens()
+    <comment size="2" type="robobug" groupid="4" text="Database contains no errors" tool="1,0,4,0,0,0" hinttext="Hmm, the bug seems to have gone away! The bug must be here somewhere!">cm.Greens = db.getGreens()
     cm.Cyans = db.getCyans()</comment>
 	 
     <warp file="L3Greens.xml">cm.Greens</warp>
@@ -72,7 +75,7 @@ is out of bounds.">cm.Oranges = db.getOranges()
 	
     <comment size="2" type="robobug" groupid="5" text="$err$A red color value
 in the database
-is out of bounds">cm.Blues = db.getBlues()
+is out of bounds" hinttext="If the bug is still visible when this is commented out, then the bug can’t be here!">cm.Blues = db.getBlues()
     cm.Magentas = db.getMagentas()
 	</comment>
 	 

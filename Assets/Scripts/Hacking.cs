@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Hacking : Obstacle
 {
-    float timeToHack = 3f; 
+    float timeToHack = 1.5f; 
     Sprite[] hackingPhases; 
     Collider2D lastHero; 
     BoxCollider2D hitBox; 

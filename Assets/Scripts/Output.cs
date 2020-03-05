@@ -17,7 +17,7 @@ public class Output : MonoBehaviour
 	public GameObject codescreen;
 
 	public GameObject text, panel , enter;
-
+	public string hint = "";
 	private Animator anim;
     private string enterText; 
     public bool isComment = false; 
@@ -107,10 +107,16 @@ public class Output : MonoBehaviour
 			anim.SetBool("Hiding", true);
 		}
 		if ((Input.GetKeyDown(KeyCode.Return)|| entered || Input.GetKeyDown(KeyCode.KeypadEnter)) || GlobalState.GameState != stateLib.GAMESTATE_IN_GAME) {
-			if (!GlobalState.level.IsDemo && !IsAnswering)
-                text.GetComponent<Text>().text = "";
-            narrator = original; 
-            entered = false; 
+			if (hint != "" && !IsAnswering){ //Some sloppy code for adding a second 'page' for the hint text
+				text.GetComponent<Text>().text = hint;
+				hint = "";
+			}
+			else{
+				if (!GlobalState.level.IsDemo && !IsAnswering)
+					text.GetComponent<Text>().text = "";
+				narrator = original; 
+				entered = false; 
+			}
 		}
         if (GlobalState.level.IsDemo){
             if (!isComment && demoBot.currentIndex >= 0 && demoBot.callstack[demoBot.currentIndex].Category == ActionType.Output){

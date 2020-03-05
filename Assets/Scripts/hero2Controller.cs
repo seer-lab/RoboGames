@@ -135,6 +135,12 @@ public class hero2Controller : MonoBehaviour
     {
         if (canTakeDamage)
         {
+			if (GlobalState.AdaptiveMode == 1){
+				damage=damage*0.75f;				
+			}
+			else if (GlobalState.AdaptiveMode == 2){
+				damage=damage*0.5f;				
+			}
             float preEnergy = energyController.currentEnergy;
             energyController.onDamage(damage);
             float finEnergy = energyController.currentEnergy;

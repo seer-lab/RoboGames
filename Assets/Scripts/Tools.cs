@@ -10,6 +10,7 @@ public class Tools : MonoBehaviour
     protected int index = -1;
     protected string language = "";
     protected string displaytext = "";
+	public string hinttext; //text for adaptation
     protected SidebarController sidebar;
     protected SelectedTool selectedTool;
     protected Output output;
