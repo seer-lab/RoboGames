@@ -862,6 +862,9 @@ rawData[645] = new double[] {70.0,0.0};
 		string[] intermediateNames = GlobalState.level.FileName.Split('\\');
 		int lenOfInter = intermediateNames.Length;
 		string levelname = intermediateNames[lenOfInter-1];
+		if (GlobalState.HintMode == 0 && GlobalState.AdaptiveMode > 0){
+			levelname = levelname.Substring(1);
+		}
 		Debug.Log("Levelname = " + levelname);
 		Debug.Log("Old Adaptive Mode = " + GlobalState.AdaptiveMode.ToString());
 		if (!(levelname.Contains("tut"))){
