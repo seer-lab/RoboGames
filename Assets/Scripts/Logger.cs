@@ -199,8 +199,8 @@ public class Logger
         jsonObj = "{\"time\" : \"" + totalT + "\"}"; 
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/time");
 
-		jsonObj = "{\"AdaptiveMode\":\"" + GlobalState.AdaptiveMode.ToString() + "\"}";
-        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/AdaptiveMode" );
+		jsonObj = "{\"failures\":\"" + GlobalState.failures.ToString() + "\"}";
+        sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/failures" );
 
         jsonObj = "{\"finalEnergy\" : \"" + this.currentEnergy.ToString() + "\"}"; 
         sendDatatoDB(jsonObj,stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.sessionID + "/finalEnergy");
