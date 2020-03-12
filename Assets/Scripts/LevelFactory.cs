@@ -21,7 +21,7 @@ public class LevelFactory
 		if (GlobalState.HintMode == 2){
 			System.Random rnd = new System.Random();
 			//GlobalState.HintMode = rnd.Next()%2;
-			GlobalState.HintMode = System.DateTime.now.Second%2;
+			GlobalState.HintMode = System.DateTime.Now.Second%2;
 			Debug.Log("Hint Mode initialized to " + GlobalState.HintMode.ToString());
 		}
 		//WARNING: THIS CODE MUST BE FIXED FOR NON ROBOBUG/PYTHON CONTENT
