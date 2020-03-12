@@ -16,7 +16,8 @@ public partial class Cinematic : MonoBehaviour
     Logger logger;
     LevelFactory factory;
     // This is the text that is displayed at the start of the level (during the "loading screen") prior to playing the level.
-    public string introtext = "Level Start Placeholder!";
+    public string introtext = "Loading error; try refreshing your browser!";
+	//public string introtext = "Level Start Placeholder!";
     // This text basically says "Press Enter to Continue" and is displayed at the bottom of the "Loading Screen" prior to playing the level.
     public string continuetext = "Continue Text Placeholder";
     // This is the text that is displayed at the end of the level (in the "Victory Screen") after playing the level.
