@@ -8,6 +8,9 @@ Use a BUGCATCHER once you know where the bug is.</description>
 the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
 It can give more detailed feedback about variables.
 Combine it with the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool!</introtext>
+<tech>You can use breakpoints to help find the bug. Use the BREAKPOINTER tool to activate the breakpoints, then use the PRINTER to look at the numbers and see if they make sense.</tech>
+<hint1>You can use breakpoints to help find the bug. Use the BREAKPOINTER tool to activate the breakpoints, then use the PRINTER to look at the numbers and see if they make sense.</hint1>
+<hint2>When you use the PRINTER on the activated BREAKPOINTS, you should see the results of the functions. Indicate which function is calculated incorrectly using the BUG FIXER. </hint2>
 <endtext>Now you have all the tools you need.
 Time to find the final bugs!</endtext>
 <timelimit>1000</timelimit>

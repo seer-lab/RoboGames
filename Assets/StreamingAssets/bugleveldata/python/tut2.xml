@@ -9,6 +9,9 @@ You can use TAB to switch between tools.</description>
 They can show you output from the code.</introtext>
 <endtext>That's right!
 You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
+<tech>If you want to find the bug, try using the PRINTER tool to look at the variable values during execution. If a number doesn’t match what you think it should be, that’s an important clue!</tech>
+<hint1>Use the PRINTER to find the bug, then the Bug Fixer on the appropriate code.</hint1>
+<hint2>Try using the Bug Fixer on the same code that was mentioned in the printed statement.</hint2>
 <timelimit>1000</timelimit>
 <tools>
 <tool name="printer" enabled="true" count="unlimited"/>

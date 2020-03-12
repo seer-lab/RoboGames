@@ -8,6 +8,9 @@ This requires you to manually read the code
 and try to understand it to find the bug.</introtext>
 <endtext>You got it!
 You can now use BUGCATCHERS!</endtext>
+<tech>To find the bug, just read through the code one line at a time and figure out which line of code is the wrong one. Fix that line with your Bug Fixer!</tech>
+<hint1>To find the bug, just read through the code one line at a time and figure out which line of code is the wrong one. Fix that line with your Bug Fixer! </hint1>
+<hint2>Go to the line with the wrong number in it and press CTRL or click to use the Bug Fixer on that code.</hint2>
 <timelimit>1000</timelimit>
 <tools>
 <tool name="catcher" enabled="true" count="unlimited"/>

@@ -11,6 +11,9 @@ You will need both of these to succeed!</introtext>
 <endtext>You found the bug with a Divide-and-Conquer approach!
 Now two new tools are yours!
 Can you put them both to good use?</endtext>
+<tech>The bug is somewhere in this code, but it could take a long time to do code tracing. Use your tools to check different sections of code. If the bug persists when you comment something out, it must be somewhere else.</tech>
+<hint1>When you use the LOCK tool, it tells you what type of error you have, and where the bug is NOT located.</hint1>
+<hint2>If the error is in the DoMoreStuff function, then look for the block of code that makes the bug disappear when you comment it out.</hint2>
 <timelimit>1000</timelimit>
 <tools>
 <tool name="warper" enabled="true" count="unlimited"/>
