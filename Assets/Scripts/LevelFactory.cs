@@ -19,9 +19,14 @@ public class LevelFactory
     {
         level = new Level(); 
 		if (GlobalState.HintMode == 2){
-			System.Random rnd = new System.Random();
-			//GlobalState.HintMode = rnd.Next()%2;
-			GlobalState.HintMode = System.DateTime.Now.Second%2;
+			if (GlobalState.username != null){
+				GlobalState.HintMode = System.Convert.ToInt32(GlobalState.username)%2;
+			}
+			else{
+				System.Random rnd = new System.Random();
+				GlobalState.HintMode = rnd.Next()%2;
+			}
+			//GlobalState.HintMode = System.DateTime.Now.Second%2;
 			Debug.Log("Hint Mode initialized to " + GlobalState.HintMode.ToString());
 		}
 		//WARNING: THIS CODE MUST BE FIXED FOR NON ROBOBUG/PYTHON CONTENT
