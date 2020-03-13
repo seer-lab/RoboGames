@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>%UNITY_WEB_NAME%</title>
+        <link rel="shortcut icon" href="TemplateData/favicon.ico">
+        <link rel="stylesheet" href="TemplateData/style.css">
+        <script src="TemplateData/UnityProgress.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+        <script>
+            var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%", {
+            onProgress: UnityProgress,
+            Module: {
+                onRuntimeInitialized: function() {
+                    UnityProgress(gameInstance, "complete");
+                },
+            },
+            popup: function(message, callbacks) {
+                if (!callbacks || !callbacks.length) {
+                    return;
+                } else if (callbacks.length > 1) {
+                    return UnityLoader.Error.popup(this, message, callbacks);
+                } else if (callbacks[0].callback) {
+                    callbacks[0].callback();
+                }
+            },
+        });
+        </script>
+    </head>
+    <body>
+        <div class="webgl-content">
+            <div id="gameContainer" style="width: 1280px; height: 720px"></div>
+            <div class="footer">
+                <div class="webgl-logo"></div>
+                <div class="OnTechU-Logo"></div>
+                <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+                <div class="title">%UNITY_WEB_NAME%</div>
+            </div>
+            <div class="LogWarning" style="padding-top: 20px">
+                <div class="warn-message">This game logs anonymous data. By playing this game, you give consent to the logging of the data</div>
+                <div class="OtherLinks">If you wish to play a version of this game without logging, please visit (Link)
+                </div>
+            </div>
+            <div id="overlay" class="overlay"></div>
+            <div class="counter">
+                <p id="loadingInfo">loading</p>
+                <h1 id="progressC">0%</h1>
+                <div id="ProgressLineB" class="ProgressLineB"> </div>
+                <div id="ProgressLine" class="ProgressLine"> </div>
+            </div>
+        </div>
+    
+    
+        <div id="loadingBox">
+            <div class="vertical-centered-box">
+                <div class="content">
+                    <div class="loader-circle"></div>
+                    <div class="loader-line-mask">
+                        <div class="loader-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
