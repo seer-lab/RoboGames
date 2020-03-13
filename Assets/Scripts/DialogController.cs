@@ -201,6 +201,7 @@ public class DialogController : MonoBehaviour
 
         #if UNITY_WEBGL
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb();
             filepath = WebHelper.i.webData;
 

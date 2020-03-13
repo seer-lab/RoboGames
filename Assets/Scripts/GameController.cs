@@ -1008,6 +1008,7 @@ rawData[645] = new double[] {70.0,0.0};
 
 #if UNITY_WEBGL
             WebHelper.i.url = stringLib.SERVER_URL + file;
+            Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb();
             file = WebHelper.i.webData;
 #endif

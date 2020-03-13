@@ -164,6 +164,7 @@ public partial class Cinematic : MonoBehaviour
             filepath+=GlobalState.CurrentONLevel;
 
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb();
             filepath = WebHelper.i.webData;
 #endif
@@ -197,6 +198,7 @@ public partial class Cinematic : MonoBehaviour
             filepath+=file;
 
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
+            Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb(true);
             filepath = WebHelper.i.webData;
 #endif
