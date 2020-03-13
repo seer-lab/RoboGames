@@ -55,7 +55,7 @@ public class UsernameController : MonoBehaviour
             return;
         }   
 
-        WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/check/" + inputField.text;
+     /*   WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/check/" + inputField.text;
         WebHelper.i.GetWebDataFromWeb();
         string reply = WebHelper.i.webData;
 
@@ -63,7 +63,7 @@ public class UsernameController : MonoBehaviour
             errorText.text = "Cannot Use this PID!";
             inputField.text = "";
             return;
-        }
+        }*/
 
         GlobalState.username = inputField.text;
         GlobalState.sessionID = Convert.ToInt64( inputField.text);

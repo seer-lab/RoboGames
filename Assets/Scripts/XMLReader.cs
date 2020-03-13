@@ -15,7 +15,12 @@ public static class XMLReader {
   public static XmlDocument ReadFile(string filename) {
     XmlDocument doc = new XmlDocument();
     doc.PreserveWhitespace = true;
-    doc.Load(filename);
+    try{
+		doc.Load(filename);
+	}
+	catch(XmlException x){
+		doc.LoadXml(filename);
+	}
     return doc;
   }
 
