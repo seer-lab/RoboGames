@@ -297,6 +297,8 @@ public class OldMenu : MonoBehaviour
                             SceneManager.UnloadSceneAsync("newgame");
                             GlobalState.CurrentONLevel = "tutorial0.xml"; 
                         }
+						Debug.Log("OldMenu.cs 300 - FilePath = " + GlobalState.FilePath);
+						Debug.Log("OldMenu.cs 300 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
                         SceneManager.LoadScene("CharacterSelect");
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
@@ -422,7 +424,9 @@ public class OldMenu : MonoBehaviour
                             SceneManager.UnloadSceneAsync("newgame");
                         GlobalState.level = null;
                         GlobalState.CurrentONLevel = levels[levoption];
-                        SceneManager.LoadScene("CharacterSelect");
+						Debug.Log("OldMenu.cs 425 - FilePath = " + GlobalState.FilePath);
+                        Debug.Log("OldMenu.cs 425 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
+						SceneManager.LoadScene("CharacterSelect");
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;
                         m2switch(false);

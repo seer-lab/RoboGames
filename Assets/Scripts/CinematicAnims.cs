@@ -346,10 +346,10 @@ public partial class Cinematic : MonoBehaviour{
 		filepath.Replace("bugleveldata/bugleveldata","bugleveldata"); //this is super hacky and needs a proper fix
 		filepath.Replace("\\","/");
 		
-        Debug.Log(filepath);
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData; 
+        Debug.Log("WebGL Cinematic Anims 352 Filepath = " + filepath);
         web = true; 
 #endif
 

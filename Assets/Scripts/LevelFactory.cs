@@ -35,6 +35,8 @@ public class LevelFactory
 			tempname[tempname.Length-1] = GlobalState.AdaptiveMode+tempname[tempname.Length-1];
 			filename = string.Join("\\",tempname);
 		}
+		Debug.Log("LevelFactory.cs 38 - FilePath = " + GlobalState.FilePath);
+		Debug.Log("LevelFactory.cs 38 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
         if (warp)
             BuildFromCurrent(filename); 
         else

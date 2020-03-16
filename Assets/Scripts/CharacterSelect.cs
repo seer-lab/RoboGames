@@ -39,6 +39,8 @@ public class CharacterSelect : MonoBehaviour
      IEnumerator LoadGame(){
         GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
         yield return new WaitForSecondsRealtime(1f); 
+		Debug.Log("CharacterSelect.cs 42 - FilePath = " + GlobalState.FilePath);
+		Debug.Log("CharacterSelect.cs 42 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
         SceneManager.LoadScene("Cinematic");
 
     }
