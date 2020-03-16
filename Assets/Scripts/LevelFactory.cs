@@ -30,7 +30,7 @@ public class LevelFactory
 			Debug.Log("Hint Mode initialized to " + GlobalState.HintMode.ToString());
 		}
 		//WARNING: THIS CODE MUST BE FIXED FOR NON ROBOBUG/PYTHON CONTENT
-		if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0){
+		if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(filename.Contains("tut"))){
 			string[] tempname = filename.Split('\\');
 			tempname[tempname.Length-1] = GlobalState.AdaptiveMode+tempname[tempname.Length-1];
 			filename = string.Join("\\",tempname);

@@ -340,6 +340,10 @@ public partial class Cinematic : MonoBehaviour{
 #else
         string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
         filepath = stringLib.SERVER_URL +"StreamingAssets/" + GlobalState.GameMode + "leveldata/" + txtFile;
+		
+		filepath.Replace("bugleveldata/bugleveldata\\","bugleveldata/");
+		filepath.Replace("python\\","python/");
+		
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData; 
