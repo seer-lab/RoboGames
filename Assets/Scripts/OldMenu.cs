@@ -113,6 +113,7 @@ public class OldMenu : MonoBehaviour
 
             //Check if it does exits in the DB
             WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
+            Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb(false);
             if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
                 //Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
@@ -725,9 +726,12 @@ public class OldMenu : MonoBehaviour
         }else{
             filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
+        Debug.Log(filepath);
         WebHelper.i.url =filepath;
+        Debug.Log(WebHelper.i.url);
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
+        Debug.Log(filepath);
 
 
 
@@ -891,6 +895,7 @@ public class OldMenu : MonoBehaviour
 
     public string GrabPointsFromDB(string url){
         WebHelper.i.url = url;
+        Debug.Log(WebHelper.i.url);
         WebHelper.i.GetWebDataFromWeb();
         return WebHelper.i.webData;
     }

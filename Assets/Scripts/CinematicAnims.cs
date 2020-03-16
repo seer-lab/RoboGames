@@ -1,4 +1,3 @@
-
 using System;
 using System.Transactions;
 using UnityEngine;
@@ -339,11 +338,15 @@ public partial class Cinematic : MonoBehaviour{
         filepath = Path.Combine(Application.streamingAssetsPath, txtFile);
 #else
         string txtFile = GlobalState.level.FileName.Remove(GlobalState.level.FileName.IndexOf('.')) + ".txt";
-        filepath = stringLib.SERVER_URL +"StreamingAssets/" + GlobalState.GameMode + "leveldata/" + txtFile;
+        Debug.Log(txtFile);
+        //txtFile = txtFile.Replace("\\", "/");
 		
-		filepath.Replace("bugleveldata/bugleveldata\\","bugleveldata/");
-		filepath.Replace("python\\","python/");
+        filepath = stringLib.SERVER_URL +"StreamingAssets/" + txtFile;
 		
+		filepath.Replace("bugleveldata/bugleveldata","bugleveldata/"); //this is super hacky and needs a proper fix
+		filepath.Replace("\\","/");
+		
+        Debug.Log(filepath);
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData; 

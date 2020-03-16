@@ -46,6 +46,7 @@ public class WebHelper : MonoBehaviour
 /// <param name="url"></param>
 /// </summary>
     IEnumerator GetXMLFromServer(string url) {
+        Debug.Log("XML URL: " + url);
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();      
         if (www.isNetworkError || www.isHttpError) {
@@ -58,6 +59,7 @@ public class WebHelper : MonoBehaviour
     }
 
     IEnumerator GetXMLFromServerEditor(string url) {
+         Debug.Log("XML URL: " + url);
     UnityWebRequest www = UnityWebRequest.Get(url);
     www.SendWebRequest();
     System.Threading.Thread.Sleep(stringLib.DOWNLOAD_TIME);        
