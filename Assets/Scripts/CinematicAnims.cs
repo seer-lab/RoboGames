@@ -343,7 +343,7 @@ public partial class Cinematic : MonoBehaviour{
 		
         filepath = stringLib.SERVER_URL +"StreamingAssets/" + txtFile;
 		
-		filepath.Replace("bugleveldata/bugleveldata","bugleveldata/"); //this is super hacky and needs a proper fix
+		filepath.Replace("bugleveldata/bugleveldata","bugleveldata"); //this is super hacky and needs a proper fix
 		filepath.Replace("\\","/");
 		
         Debug.Log(filepath);
