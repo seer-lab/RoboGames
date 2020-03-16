@@ -55,6 +55,7 @@ public class LevelFactory
     /// <param name="filename">The filename where the xml document originated from.</param>
     private void BuildFile(XmlDocument doc, string filename)
     {
+		Debug.Log("LevelFactory.cs 58 - filename = " + filename);
         XmlNode levelnode = doc.FirstChild;
         level.Tags = XMLReader.GetOuterXML(doc);
         //@TODO: This is a bug. InnerXML should not be OuterXML. Need to convert all outerXML to InnerXML.
@@ -76,7 +77,8 @@ public class LevelFactory
         #else
             level.FileName = filename.Substring(filename.IndexOf(GlobalState.FilePath) + 1);
         #endif
-        level.Failure_Level = XMLReader.GetFailureLevel(doc);
+        Debug.Log("LevelFactory.cs 58 - level.Filename = " + level.FileName);
+		level.Failure_Level = XMLReader.GetFailureLevel(doc);
         if (level.Failure_Level == null || level.Failure_Level == ""){
             level.Failure_Level = filename.Split('/').ToList().Last(); 
         }
@@ -113,7 +115,8 @@ public class LevelFactory
         #if UNITY_WEBGL
             doc = new XmlDocument();
             doc.PreserveWhitespace = true;
-            doc.LoadXml(filename);
+            Debug.Log("LevelFactory.cs 118 - filename = " + filename);
+			doc.LoadXml(filename);
             Debug.Log("LevelFactory: BuildFromCurrent() WEBGL");
         #endif
         BuildFile(doc, filename); 
@@ -139,8 +142,9 @@ public class LevelFactory
             doc = new XmlDocument();
             //Debug.Log("Build Level "+ filename);
             doc.PreserveWhitespace = true;
-            doc.LoadXml(filename);
-            //Debug.Log("LevelFactory: BuildLevel() WEBGL");
+            Debug.Log("LevelFactory.cs 145 - filename = " + filename);
+			doc.LoadXml(filename);
+            Debug.Log("LevelFactory: BuildLevel() WEBGL");
         #endif
 
         BuildFile(doc, filename); 
