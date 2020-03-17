@@ -161,8 +161,14 @@ public partial class Cinematic : MonoBehaviour
 #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
-            filepath+=GlobalState.CurrentONLevel;
-
+			//ADAPTIVE CHANGE
+            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(filename.Contains("tut"))){
+				filepath+=GlobalState.AdaptiveMode.ToString() + GlobalState.CurrentONLevel;
+			}
+			else{
+				filepath+=GlobalState.CurrentONLevel;
+			}
+			
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
             Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb();
@@ -195,8 +201,14 @@ public partial class Cinematic : MonoBehaviour
 #if UNITY_WEBGL
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
-            filepath+=file;
-
+            //ADAPTIVE CHANGE
+            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(filename.Contains("tut"))){
+				filepath+=GlobalState.AdaptiveMode.ToString() + file;
+			}
+			else{
+				filepath+=file;
+			}
+			
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
             Debug.Log(WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb(true);

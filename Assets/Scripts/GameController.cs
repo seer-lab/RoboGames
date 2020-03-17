@@ -1126,7 +1126,7 @@ rawData[645] = new double[] {70.0,0.0};
     // Update is called once per frame
     void Update()
     {
-
+		/*
         if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
             GlobalState.Stats.GrantPower(); 
             // Debug.Log("All Powers Maxed Out!"); 
@@ -1156,7 +1156,7 @@ rawData[645] = new double[] {70.0,0.0};
 		if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.Alpha3) && GlobalState.HintMode == 1){
 			GlobalState.HintMode = 0;
 			Debug.Log("Hint Mode OFF");
-		}
+		}*/
         if (firstUpdate && !GlobalState.IsResume)
         {
             firstUpdate = false;
