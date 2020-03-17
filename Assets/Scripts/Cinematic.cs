@@ -162,7 +162,7 @@ public partial class Cinematic : MonoBehaviour
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
 			//ADAPTIVE CHANGE
-            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(filename.Contains("tut"))){
+            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(GlobalState.CurrentONLevel.Contains("tut"))){
 				filepath+=GlobalState.AdaptiveMode.ToString() + GlobalState.CurrentONLevel;
 			}
 			else{
@@ -202,7 +202,7 @@ public partial class Cinematic : MonoBehaviour
             filepath = "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata/";
             if (GlobalState.Language == "python") filepath += "python/";
             //ADAPTIVE CHANGE
-            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(filename.Contains("tut"))){
+            if (GlobalState.AdaptiveMode > 0 && GlobalState.HintMode == 0 && !(file.Contains("tut"))){
 				filepath+=GlobalState.AdaptiveMode.ToString() + file;
 			}
 			else{
