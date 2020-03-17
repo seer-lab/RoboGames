@@ -185,7 +185,7 @@ public abstract class comment : Tools
     {
         isAnswering = false;
         Output.IsAnswering = false;
-        output.Text.text = "";
+        //output.Text.text = "";
         if (arrowShown)
         {
             ToggleArrows(false);

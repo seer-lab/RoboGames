@@ -9,6 +9,7 @@ http://www.sqrlab.ca
 
 Playtesters
 Rhys Agombar
+Jude Arokiam
 Richard Deighton
 Joseph Heron
 Stephen McIntyre
@@ -163,4 +164,4 @@ Unported License.
 
 
 Thank you for playing!
-Press any key to return to the menu.
+Press Escape to exit.

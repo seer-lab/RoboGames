@@ -110,6 +110,7 @@ public class Output : MonoBehaviour
 			if (hint != "" && !IsAnswering){ //Some sloppy code for adding a second 'page' for the hint text
 				text.GetComponent<Text>().text = hint;
 				hint = "";
+				entered = false;
 			}
 			else{
 				if (!GlobalState.level.IsDemo && !IsAnswering)
