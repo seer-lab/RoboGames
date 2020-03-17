@@ -70,6 +70,11 @@ public class BugCommentFactory : CommentTypeFactory
         propertyHandler.entityType = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
         Entity = stateLib.ENTITY_TYPE_ROBOBUG_COMMENT;
         propertyHandler.errmsg = childnode.Attributes[stringLib.XML_ATTRIBUTE_TEXT].Value;
+		//ADAPTIVE Hint Content
+		if (childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT] != null)
+        {
+			propertyHandler.hinttext = childnode.Attributes[stringLib.XML_ATTRIBUTE_HINTTEXT].Value;
+		}
         if (childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL] != null)
         {           
             string toolatt = childnode.Attributes[stringLib.XML_ATTRIBUTE_TOOL].Value;

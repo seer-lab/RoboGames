@@ -170,7 +170,7 @@ public partial class Cinematic : MonoBehaviour
 			}
 			
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            Debug.Log(WebHelper.i.url);
+            Debug.Log("Cinematic.cs 173 Webhelper URL "+WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb();
             filepath = WebHelper.i.webData;
 #endif
@@ -210,7 +210,7 @@ public partial class Cinematic : MonoBehaviour
 			}
 			
             WebHelper.i.url = stringLib.SERVER_URL + filepath;
-            Debug.Log(WebHelper.i.url);
+            Debug.Log("Cinematic.cs 213 Webhelper URL "+WebHelper.i.url);
             WebHelper.i.GetWebDataFromWeb(true);
             filepath = WebHelper.i.webData;
 #endif

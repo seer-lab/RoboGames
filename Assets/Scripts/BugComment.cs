@@ -40,6 +40,12 @@ public class BugComment : comment
                 output.Text.text = "<color=#B30730FF>ERROR: </color>" + errmsg.Replace("$err$", ""); 
             }
             else output.Text.text = errmsg;
+			if (GlobalState.HintMode==1) { //ADAPTIVE code for hints
+				if (GlobalState.AdaptiveMode==2 || (GlobalState.AdaptiveMode==1 && GlobalState.tooluses % 2 == 1)){
+					output.hint = hinttext;
+				}
+				GlobalState.tooluses++;
+			}
             resultingOutput = output.Text.text; 
             resetTime = Time.time + timeDelay;
             resetting = true;
@@ -72,7 +78,7 @@ public class BugComment : comment
         if (isAnswered)
         {
             anim.SetTrigger("isBug");
-            output.Text.text = "";
+            //output.Text.text = output.hint;
             string value = textColoration.ColorizeText(blocktext, GlobalState.level.Language);
             value = "<color=#00ff00ff>/**/</color>" + value;
             string[] text = value.Split('\n');
