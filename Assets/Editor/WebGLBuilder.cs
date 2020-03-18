@@ -23,7 +23,7 @@ using UnityEditor.Build.Reporting;
 public class WebGLBuilder
 {
     const string TEMPLATE_NAME = "OnTechU Template";
-    const string BUILD_PATH = @"/home/ibrahim/Desktop/WebGLBuildServer/RoboTestBUG";
+    const string BUILD_PATH = @"/home/ibrahim/Desktop/WebGLBuildServer/RoboBUG";
     static void build() {
         string template_path = Path.Combine(Application.dataPath, "WebGLTemplates", TEMPLATE_NAME);
 
