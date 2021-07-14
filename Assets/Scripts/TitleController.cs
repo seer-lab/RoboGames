@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using System.IO;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Video; 
-using UnityEngine.UI; 
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TitleController : MonoBehaviour
 {
-    VideoPlayer player; 
-    Animator robot, boy, girl; 
-    Text text; 
-    bool isCharacterUp = false; 
+    VideoPlayer player;
+    Animator robot, boy, girl;
+    Text text;
+    bool isCharacterUp = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,37 +18,45 @@ public class TitleController : MonoBehaviour
 
         //Mac has a weird issue with cached storage, such that if there is a file related to the game
         // then the video wont play. This is here to deal with that issue
-        if(SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS")){
-            if(PlayerPrefs.HasKey("sessionID")){
+        if (SystemInfo.operatingSystem.Contains("Mac") || SystemInfo.operatingSystem.Contains("iOS"))
+        {
+            if (PlayerPrefs.HasKey("sessionID"))
+            {
                 String sessionID = PlayerPrefs.GetString("sessionID");
                 Debug.Log("MAC SessionID: " + sessionID);
-                if(sessionID != ""|| sessionID != null){
+                if (sessionID != "" || sessionID != null)
+                {
                     GlobalState.sessionID = Convert.ToInt64(sessionID);
                 }
 
                 //Grab the Menu Preference
                 //First Check if it exist
-                if(PlayerPrefs.HasKey("language")){
+                if (PlayerPrefs.HasKey("language"))
+                {
                     GlobalState.Language = PlayerPrefs.GetString("language", "c++");
                 }
-                if(PlayerPrefs.HasKey("textsize")){
+                if (PlayerPrefs.HasKey("textsize"))
+                {
                     GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
                 }
-                if(PlayerPrefs.HasKey("soundon")){
+                if (PlayerPrefs.HasKey("soundon"))
+                {
                     GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
                 }
-                if(PlayerPrefs.HasKey("themes")){
+                if (PlayerPrefs.HasKey("themes"))
+                {
                     GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
                 }
-                if(PlayerPrefs.HasKey("tooltips")){
+                if (PlayerPrefs.HasKey("tooltips"))
+                {
                     GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
                 }
             }
             PlayerPrefs.DeleteAll();
         }
-        
-        player = GameObject.Find("Video Player").GetComponent<VideoPlayer>(); 
-        #if UNITY_WEBGL && !UNITY_EDITOR     
+
+        player = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
+#if UNITY_WEBGL && !UNITY_EDITOR
             String url = GlobalState.URL_MOVIE;          
             Debug.Log("URL : " + url + " Movie: " + stringLib.MOVIE_INTRO);
             if(url == "" || url == null){
@@ -60,40 +66,50 @@ public class TitleController : MonoBehaviour
                 Debug.Log("Playing Movie from cache, url: " + url + ", length: " + url.Length);
                 player.url = url;
             }
-        #endif
-        robot = this.transform.GetChild(0).GetComponent<Animator>(); 
-        girl = this.transform.GetChild(1).GetComponent<Animator>(); 
-        boy = this.transform.GetChild(2).GetComponent<Animator>(); 
-        text = this.transform.GetChild(3).GetComponent<Text>(); 
-    }   
+#endif
+        robot = this.transform.GetChild(0).GetComponent<Animator>();
+        girl = this.transform.GetChild(1).GetComponent<Animator>();
+        boy = this.transform.GetChild(2).GetComponent<Animator>();
+        text = this.transform.GetChild(3).GetComponent<Text>();
+    }
 
-    IEnumerator ShowCharacters(){
-        isCharacterUp = true; 
-        robot.SetTrigger("Jump"); 
+    IEnumerator ShowCharacters()
+    {
+        isCharacterUp = true;
+        robot.SetTrigger("Jump");
         yield return new WaitForSecondsRealtime(0.3f);
-        girl.SetTrigger("Jump"); 
+        girl.SetTrigger("Jump");
         yield return new WaitForSecondsRealtime(0.3f);
         boy.SetTrigger("Jump");
-        yield return new WaitForSecondsRealtime(0.4f); 
-        while(text.color.a < 0.95f){
-            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + 0.05f); 
-            yield return null; 
+        yield return new WaitForSecondsRealtime(0.4f);
+        while (text.color.a < 0.95f)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + 0.05f);
+            yield return null;
         }
     }
-    IEnumerator LoadGame(){
-        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut(); 
-        yield return new WaitForSecondsRealtime(1f); 
-        if (GlobalState.RestrictGameMode){
-            if(GlobalState.GamemodeON_BUG){
+    IEnumerator LoadGame()
+    {
+        GameObject.Find("Fade").GetComponent<Fade>().onFadeOut();
+        yield return new WaitForSecondsRealtime(1f);
+        if (GlobalState.RestrictGameMode)
+        {
+            if (GlobalState.GamemodeON_BUG)
+            {
                 GlobalState.GameMode = stringLib.GAME_MODE_ON;
-            }else{
+            }
+            else
+            {
                 GlobalState.GameMode = stringLib.GAME_MODE_BUG;
             }
 
-            if(GlobalState.RestrictGameMode && PlayerPrefs.HasKey("sessionID")){
-                SceneManager.LoadScene("IntroScene");
-            }else{
-                SceneManager.LoadScene("StartScene");
+            if (GlobalState.RestrictGameMode && PlayerPrefs.HasKey("sessionID"))
+            {
+                SceneManager.LoadScene("CourseCode");
+            }
+            else
+            {
+                SceneManager.LoadScene("CourseCode");
             }
         }
         else SceneManager.LoadScene("TitleMenu");
@@ -102,11 +118,13 @@ public class TitleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.isPlaying && !isCharacterUp && Time.timeSinceLevelLoad > 2){
-            StartCoroutine(ShowCharacters()); 
+        if (!player.isPlaying && !isCharacterUp && Time.timeSinceLevelLoad > 2)
+        {
+            StartCoroutine(ShowCharacters());
         }
-        if (Input.anyKey || Input.GetMouseButton(0)){
-            StartCoroutine(LoadGame()); 
+        if (Input.anyKey || Input.GetMouseButton(0))
+        {
+            StartCoroutine(LoadGame());
         }
     }
 }

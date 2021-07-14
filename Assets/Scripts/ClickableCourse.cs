@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ClickableMenu : MonoBehaviour
+public class ClickableCourse : MonoBehaviour
 {
     public int index = -1;
     void OnMouseDown()
@@ -11,7 +11,8 @@ public class ClickableMenu : MonoBehaviour
 
     public void onclickInput()
     {
-        UsernameController cu = GameObject.Find("Canvas").GetComponent<UsernameController>();
-        cu.onclickInput();
+        CourseCodeController cc = GameObject.Find("Canvas").GetComponent<CourseCodeController>();
+        cc.onclickInput();
     }
 }
+

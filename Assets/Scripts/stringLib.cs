@@ -104,7 +104,7 @@ public class stringLib
     public const string XML_ATTRIBUTE_TYPE = "type";
     public const string XML_ATTRIBUTE_CORRECT = "correct";
     public const string XML_ATTRIBUTE_ANSWER = "answer";
-public const string XML_ATTRIBUTE_OPTIONS = "options";
+    public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_BONUSES = "bonuses";
     public const string XML_ATTRIBUTE_FLOWORDER = "flow-order";
     public const string XML_ATTRIBUTE_NAME = "name";
@@ -113,10 +113,10 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
     public const string XML_ATTRIBUTE_COMMENT_STYLE = "style";
     public const string XML_ATTRIBUTE_OLDNAME = "oldname";
     public const string XML_ATTRIBUTE_HINT = "hint"; //NOTE: DEPRECATED HINT SYSTEM
-	public const string XML_ATTRIBUTE_HINTTEXT = "hinttext";
-	public const string XML_ATTRIBUTE_TECHTEXT = "tech";
-	public const string XML_ATTRIBUTE_HINT1TEXT = "hint1";
-	public const string XML_ATTRIBUTE_HINT2TEXT = "hint2";
+    public const string XML_ATTRIBUTE_HINTTEXT = "hinttext";
+    public const string XML_ATTRIBUTE_TECHTEXT = "tech";
+    public const string XML_ATTRIBUTE_HINT1TEXT = "hint1";
+    public const string XML_ATTRIBUTE_HINT2TEXT = "hint2";
 
     public const string BUG_REGEX = @"((?<=\$bug).+(?=\$))"; // Finds Text in between "$bug" and "$ eg. $bug Hello, World!$ => Hello, World! 
     public const string DIALOG_REGEX = @"((?<=\@).+(?=\@))"; // Finds the value in between "@" eg. @Hello, World!@ => Hello, World!
@@ -206,12 +206,12 @@ public const string XML_ATTRIBUTE_OPTIONS = "options";
 
     //public const string SERVER_URL = "http://sqrlab2.science.uoit.ca:8081/";
     //public const string DB_URL = "http://sqrlab2.science.uoit.ca:3000/logs";
-    public const string SERVER_URL = "https://robogames.science.uoit.ca/";
-    public const string DB_URL = "https://robogames.science.uoit.ca/logs";    
-public const string CURRENT_LEVEL = "currentlevel/";
+    public const string SERVER_URL = "http://10.0.0.52:8080/";
+    public const string DB_URL = "http://10.0.0.52:3000/logs";
+    public const string CURRENT_LEVEL = "currentlevel/";
     public const int DOWNLOAD_TIME = 200;
-    public string[] bugIcons = new string[]{"bugfixer", "printer", "warper", "lock", "breakpointer"}; 
-    public string[] onIcons = new string[]{"beacon", "question", "renamer", "comment", "uncommenter"}; 
+    public string[] bugIcons = new string[] { "bugfixer", "printer", "warper", "lock", "breakpointer" };
+    public string[] onIcons = new string[] { "beacon", "question", "renamer", "comment", "uncommenter" };
 
     public string[] nameObstacle = new string[] { "firewall" };
     public const string STREAMING_ASSETS = "StreamingAssets/";
@@ -225,8 +225,8 @@ public const string CURRENT_LEVEL = "currentlevel/";
 
     public const string MOVIE_BUG_END = "RoboBugEnding.mp4";
     public const string MOVIE_ON_END = "RobotONEnding.mp4";
-    public const string ENERGY_PREFIX = "Energy: "; 
-    public const string SCORE_PREFIX = "Score: "; 
-    public const string POINTS_PREFIX = "<color=#00ffffff>Level Points:</color> "; 
+    public const string ENERGY_PREFIX = "Energy: ";
+    public const string SCORE_PREFIX = "Score: ";
+    public const string POINTS_PREFIX = "<color=#00ffffff>Level Points:</color> ";
 
 }

@@ -10,17 +10,14 @@
 // Date Last Modified: 6/1/2016
 //**************************************************//
 
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using System.Text.RegularExpressions;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OldMenu : MonoBehaviour
 {
@@ -32,7 +29,7 @@ public class OldMenu : MonoBehaviour
     public GameObject cinematic;
     public GameObject[] buttons = new GameObject[5];
     public GameObject[] buttontext = new GameObject[5];
-    public GameObject[] m2buttons = new GameObject[3];    
+    public GameObject[] m2buttons = new GameObject[3];
     public GameObject[] m2buttontext = new GameObject[3];
     public GameObject[] m2arrows = new GameObject[2];
     public GameObject menu2;
@@ -87,42 +84,61 @@ public class OldMenu : MonoBehaviour
 
         //Checks for users previous settings such as sessionID, or any menu preferences
         String sessionID = PlayerPrefs.GetString("sessionID");
+        String courseCode = PlayerPrefs.GetString("courseCode");
+
+        Debug.Log("Resume OM: " + GlobalState.IsResume);
+        Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
+
+
         //Checks for sessionID, if there is, grab that and the menu preferences
-        if(sessionID == "" || sessionID == null){
+        if (sessionID == "" || sessionID == null)
+        {
             //Create a sessionID and store it
-            if(GlobalState.sessionID == 0){
+            if (GlobalState.sessionID == 0)
+            {
                 GlobalState.sessionID = AnalyticsSessionInfo.sessionId;
                 Debug.Log("Making Session ID: " + GlobalState.sessionID);
                 PlayerPrefs.SetString("sessionID", GlobalState.sessionID.ToString());
                 SetUserPrefs();
 
-            }else{
+            }
+            else
+            {
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
             }
 
+            /*Hard Coded course code for now, Removed for new one
             sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
-                               stringLib.DB_URL + GlobalState.GameMode.ToUpper() );
+                               stringLib.DB_URL + GlobalState.GameMode.ToUpper(), GlobalState.sessionID.ToString());
+            */
+            Debug.Log(GlobalState.courseCode);
+            sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.UtcNow.ToString(), stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.courseCode);
 
-        }else{
-            if(GlobalState.sessionID == 0){
+        }
+        else
+        {
+            if (GlobalState.sessionID == 0)
+            {
                 //Debug.Log("STRING SESSIONID: " +sessionID);
-                GlobalState.sessionID =Convert.ToInt64(sessionID);
+                GlobalState.sessionID = Convert.ToInt64(sessionID);
             }
 
             Debug.Log("Found Session ID: " + GlobalState.sessionID);
 
             //Check if it does exits in the DB
             WebHelper.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.sessionID.ToString();
-            Debug.Log(WebHelper.i.url);
+            Debug.Log(WebHelper.i.url + "Getting Data from Database");
             WebHelper.i.GetWebDataFromWeb(false);
-            if(WebHelper.i.webData == "null" ||WebHelper.i.webData == null){
-                //Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper() +" DB");
-                sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
-                               stringLib.DB_URL + GlobalState.GameMode.ToUpper() );
+            if (WebHelper.i.webData == "null" || WebHelper.i.webData == null)
+            {
+                Debug.Log("Does Not exits in " + GlobalState.GameMode.ToUpper());
+                Debug.Log(GlobalState.courseCode);
+                sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.UtcNow.ToString(), stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.courseCode);
             }
         }
 
-        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG){
+        if (GlobalState.GameMode == stringLib.GAME_MODE_BUG)
+        {
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
         GrabUserPrefs();
@@ -163,12 +179,12 @@ public class OldMenu : MonoBehaviour
             GlobalState.CurrentONLevel = "tutorial0.xml";
         }
         else GlobalState.IsPlaying = true;
-        GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel; 
+        GlobalState.CurrentBUGLevel = GlobalState.CurrentONLevel;
         GlobalState.GameState = stateLib.GAMEMENU_NEW_GAME;
         GlobalState.level = null;
         GlobalState.Character = "Robot";
         GlobalState.StringLib = new stringLib();
-        if(GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true); 
+        if (GlobalState.Stats == null) GlobalState.Stats = new CharacterStats(true);
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
 
@@ -183,9 +199,9 @@ public class OldMenu : MonoBehaviour
             menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-4");
             background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_dark");
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoDark"); 
-            else 
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark"); 
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoDark");
+            else
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugDark");
         }
         else
         {
@@ -193,9 +209,9 @@ public class OldMenu : MonoBehaviour
             menu2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/panel-8");
             background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/circuit_board_light");
             if (GlobalState.GameMode == stringLib.GAME_MODE_ON)
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoLight"); 
-            else 
-                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugLight"); 
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoLight");
+            else
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("MenuPrefabs/LogoBugLight");
         }
 
     }
@@ -203,39 +219,46 @@ public class OldMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         AudioListener.volume = (soundon) ? 1 : 0;
-        if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G)){
-             GlobalState.Stats.GrantPower(); 
-            Debug.Log("All Powers Maxed Out!"); 
-             Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString() 
-            +"\n Speed: " + GlobalState.Stats.Speed.ToString()
-            + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
-             + "\n Energy: " + GlobalState.Stats.Energy.ToString() 
-             +"\n Points: " + GlobalState.Stats.Points.ToString()); 
+        if (GlobalState.DebugMode && Input.GetKeyDown(KeyCode.G))
+        {
+            GlobalState.Stats.GrantPower();
+            Debug.Log("All Powers Maxed Out!");
+            Debug.Log("XP Boost: " + GlobalState.Stats.XPBoost.ToString()
+           + "\n Speed: " + GlobalState.Stats.Speed.ToString()
+           + "\n DamageLevel: " + GlobalState.Stats.DamageLevel.ToString()
+            + "\n Energy: " + GlobalState.Stats.Energy.ToString()
+            + "\n Points: " + GlobalState.Stats.Points.ToString());
         }
-        if (GlobalState.GameState != stateLib.GAMESTATE_MENU){
-            foreach (GameObject button in buttons){
-                button.GetComponent<SpriteRenderer>().color = Color.grey; 
+        if (GlobalState.GameState != stateLib.GAMESTATE_MENU)
+        {
+            foreach (GameObject button in buttons)
+            {
+                button.GetComponent<SpriteRenderer>().color = Color.grey;
             }
         }
-        else {
-            foreach (GameObject button in buttons){
-                button.GetComponent<SpriteRenderer>().color = Color.white; 
+        else
+        {
+            foreach (GameObject button in buttons)
+            {
+                button.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
-        if ((GlobalState.passed == null || GlobalState.passed.Count < 1)){
-            buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey; 
+        if ((GlobalState.passed == null || GlobalState.passed.Count < 1))
+        {
+            buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         }
-        else if (!menu2.GetComponent<SpriteRenderer>().enabled){
-             buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white; 
+        else if (!menu2.GetComponent<SpriteRenderer>().enabled)
+        {
+            buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
         // Handle "Resume Game" button behavior. If we have a game session we can click it, otherwise grey it out. --[
         if (!GlobalState.IsResume)
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.grey;
         }
-        else if( !menu2.GetComponent<SpriteRenderer>().enabled)
+        else if (!menu2.GetComponent<SpriteRenderer>().enabled)
         {
             buttons[stateLib.GAMEMENU_RESUME_GAME].GetComponent<SpriteRenderer>().color = Color.white;
         }
@@ -251,8 +274,9 @@ public class OldMenu : MonoBehaviour
                 buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                 option = (option == stateLib.GAMEMENU_NEW_GAME) ? stateLib.GAMEMENU_NEW_GAME : option - 1;
 
-                if(option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey){
-                    option-=1;
+                if (option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey)
+                {
+                    option -= 1;
                 }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -269,8 +293,9 @@ public class OldMenu : MonoBehaviour
                     option = (option == stateLib.GAMEMENU_EXIT_GAME) ? stateLib.GAMEMENU_EXIT_GAME : option + 1;
                 }
 
-                if(option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey){
-                    option+=1;
+                if (option == stateLib.GAMEMENU_LOAD_GAME && buttons[stateLib.GAMEMENU_LOAD_GAME].GetComponent<SpriteRenderer>().color == Color.grey)
+                {
+                    option += 1;
                 }
             }
 
@@ -293,17 +318,19 @@ public class OldMenu : MonoBehaviour
                         option = 0;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
 
-                        if (SceneManager.sceneCount > 1){
+                        if (SceneManager.sceneCount > 1)
+                        {
                             SceneManager.UnloadSceneAsync("newgame");
-                            GlobalState.CurrentONLevel = "tutorial0.xml"; 
+                            GlobalState.CurrentONLevel = "tutorial0.xml";
                         }
-						Debug.Log("OldMenu.cs 300 - FilePath = " + GlobalState.FilePath);
-						Debug.Log("OldMenu.cs 300 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
+                        Debug.Log("OldMenu.cs 300 - FilePath = " + GlobalState.FilePath);
+                        Debug.Log("OldMenu.cs 300 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
                         SceneManager.LoadScene("CharacterSelect");
                         break;
                     case stateLib.GAMEMENU_LOAD_GAME:
                         // Load a level from RobotON or RoboBUG.
-                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1)){
+                        if (!(GlobalState.passed == null || GlobalState.passed.Count < 1))
+                        {
                             GlobalState.GameState = -4;
                             buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             option = 0;
@@ -318,7 +345,7 @@ public class OldMenu : MonoBehaviour
                             m2buttontext[1].GetComponent<TextMesh>().text = "Back";
                             GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
                             m2switch(true);
-                         }
+                        }
                         break;
                     case stateLib.GAMEMENU_SOUND_OPTIONS:
                         GlobalState.GameState = -2;
@@ -342,8 +369,8 @@ public class OldMenu : MonoBehaviour
                         }
                         break;
                     case stateLib.GAMEMENU_EXIT_GAME:
-                        GlobalState.CurrentONLevel = null; 
-                        GlobalState.IsResume = false; 
+                        GlobalState.CurrentONLevel = null;
+                        GlobalState.IsResume = false;
                         GlobalState.Stats = null;
                         SceneManager.LoadScene("TitleScene");
                         break;
@@ -351,6 +378,12 @@ public class OldMenu : MonoBehaviour
                         GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         GlobalState.IsResume = false;
+
+                        Debug.Log("Resume Button Pressed");
+                        Debug.Log("Resume OM: " + GlobalState.IsResume);
+                        Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
+                        Debug.Log("Fail: " + GlobalState.failures);
+
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("MainMenu");
                         else
@@ -419,14 +452,14 @@ public class OldMenu : MonoBehaviour
                     case 0:
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
                         GlobalState.IsResume = false;
-                       
+
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("newgame");
                         GlobalState.level = null;
                         GlobalState.CurrentONLevel = levels[levoption];
-						Debug.Log("OldMenu.cs 425 - FilePath = " + GlobalState.FilePath);
+                        Debug.Log("OldMenu.cs 425 - FilePath = " + GlobalState.FilePath);
                         Debug.Log("OldMenu.cs 425 - CurrentBUGLevel = " + GlobalState.CurrentBUGLevel);
-						SceneManager.LoadScene("CharacterSelect");
+                        SceneManager.LoadScene("CharacterSelect");
 
                         buttons[4].GetComponent<SpriteRenderer>().color = Color.white;
                         m2switch(false);
@@ -458,15 +491,16 @@ public class OldMenu : MonoBehaviour
             }
             if ((entered || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
             {
-                
+
                 switch (option)
                 {
                     case 0:
-                        foreach (GameObject btn in m2buttons){
-                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        foreach (GameObject btn in m2buttons)
+                        {
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton;
                         }
-                        m2buttons[0].GetComponent<SpriteRenderer>().sprite = greenbutton; 
-                        option = 0; 
+                        m2buttons[0].GetComponent<SpriteRenderer>().sprite = greenbutton;
+                        option = 0;
                         if (optionPage > 0)
                         {
                             textOption = (textOption + 1) % textsizes.Length;
@@ -480,16 +514,18 @@ public class OldMenu : MonoBehaviour
                         AudioListener.volume = (soundon) ? 1 : 0;
                         break;
                     case 1:
-                        foreach (GameObject btn in m2buttons){
-                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        foreach (GameObject btn in m2buttons)
+                        {
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton;
                         }
-                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = greenbutton; 
-                        option = 1; 
+                        m2buttons[1].GetComponent<SpriteRenderer>().sprite = greenbutton;
+                        option = 1;
                         if (optionPage > 0)
                         {
-                            if (!GlobalState.RestrictGameMode){
-                            m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "Python" : "C++";
-                            GlobalState.Language = (GlobalState.Language == "c++") ? "python" : "c++";
+                            if (!GlobalState.RestrictGameMode)
+                            {
+                                m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "Python" : "C++";
+                                GlobalState.Language = (GlobalState.Language == "c++") ? "python" : "c++";
                             }
                             break;
                         }
@@ -497,45 +533,50 @@ public class OldMenu : MonoBehaviour
                         m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                         break;
                     case 2:
-                        if (optionPage == 1){
-                            GlobalState.HideToolTips = !GlobalState.HideToolTips; 
-                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips)? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG: GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
+                        if (optionPage == 1)
+                        {
+                            GlobalState.HideToolTips = !GlobalState.HideToolTips;
+                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips) ? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
                         }
-                        else 
+                        else
                         {
                             optionPage = 1;
                             m2buttontext[0].GetComponent<TextMesh>().text = textsizes[textOption];
                             m2buttontext[0].GetComponent<TextMesh>().fontSize = fontSizes[textOption];
                             m2buttontext[1].GetComponent<TextMesh>().text = (GlobalState.Language == "c++") ? "C++" : "Python";
-                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips)? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG: GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
+                            m2buttontext[2].GetComponent<TextMesh>().text = ("HUD: " + ((GlobalState.HideToolTips) ? GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG));
                             m2buttontext[3].GetComponent<TextMesh>().text = "Back";
                         }
-                        foreach (GameObject btn in m2buttons){
-                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                        foreach (GameObject btn in m2buttons)
+                        {
+                            btn.GetComponent<SpriteRenderer>().sprite = bluebutton;
                         }
-                        m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton; 
-                        option = 2; 
+                        m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton;
+                        option = 2;
                         break;
                     case 3:
-                        if (optionPage == 0){
+                        if (optionPage == 0)
+                        {
                             GlobalState.GameState = stateLib.GAMESTATE_MENU;
                             m2buttons[3].GetComponent<SpriteRenderer>().sprite = bluebutton;
                             m2switch(false);
                             option = 2;
                             break;
                         }
-                        else {
-                            optionPage = 0; 
+                        else
+                        {
+                            optionPage = 0;
                             m2buttontext[0].GetComponent<TextMesh>().fontSize = m2buttontext[1].GetComponent<TextMesh>().fontSize;
                             m2buttontext[0].GetComponent<TextMesh>().text = "Sound: " + (soundon ? GlobalState.StringLib.menu_sound_on_color_tag + "ON" + stringLib.CLOSE_COLOR_TAG : GlobalState.StringLib.menu_sound_off_color_tag + "OFF" + stringLib.CLOSE_COLOR_TAG);
                             m2buttontext[1].GetComponent<TextMesh>().text = (!GlobalState.IsDark) ? "Light Mode" : "Dark Mode";
                             m2buttontext[2].GetComponent<TextMesh>().text = "Next";
                             m2buttontext[3].GetComponent<TextMesh>().text = "Back";
-                            foreach (GameObject btn in m2buttons){
-                                btn.GetComponent<SpriteRenderer>().sprite = bluebutton; 
+                            foreach (GameObject btn in m2buttons)
+                            {
+                                btn.GetComponent<SpriteRenderer>().sprite = bluebutton;
                             }
-                            m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton; 
-                            option = 2; 
+                            m2buttons[2].GetComponent<SpriteRenderer>().sprite = greenbutton;
+                            option = 2;
                             break;
                         }
                 }
@@ -703,12 +744,13 @@ public class OldMenu : MonoBehaviour
         option = 0;
         buttons[option].GetComponent<SpriteRenderer>().sprite = greenbutton;
     }
-    public void readFromFiles(){
+    public void readFromFiles()
+    {
         levels.Clear();
         passed.Clear();
         if (GlobalState.passed == null) GlobalState.passed = new List<string>();
         string filepath = "";
-        #if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
+#if (UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             filepath = Path.Combine(Application.streamingAssetsPath, GlobalState.GameMode + "leveldata");
             filepath = Path.Combine(filepath, "levels.txt");
 
@@ -722,16 +764,19 @@ public class OldMenu : MonoBehaviour
                 if (GlobalState.DebugMode) GlobalState.passed.Add(data[0]); 
             }
             sr.Close();
-        #endif
-    
-    #if UNITY_WEBGL
-        if(GlobalState.DebugMode){
+#endif
+
+#if UNITY_WEBGL
+        if (GlobalState.DebugMode)
+        {
             filepath = stringLib.SERVER_URL + "StreamingAssets" + "/" + GlobalState.GameMode + "leveldata" + "/levels.txt";
-        }else{
-            filepath = stringLib.DB_URL +  GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
+        }
+        else
+        {
+            filepath = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/completedlevels/" + GlobalState.sessionID.ToString();
         }
         Debug.Log(filepath);
-        WebHelper.i.url =filepath;
+        WebHelper.i.url = filepath;
         Debug.Log(WebHelper.i.url);
         WebHelper.i.GetWebDataFromWeb();
         filepath = WebHelper.i.webData;
@@ -739,39 +784,47 @@ public class OldMenu : MonoBehaviour
 
 
 
-        if(!filepath.Equals("\"\"") && filepath != null){
+        if (!filepath.Equals("\"\"") && filepath != null)
+        {
             int webHolder = 0;
 
-            string [] leveldata;
-            if(GlobalState.DebugMode){
+            string[] leveldata;
+            if (GlobalState.DebugMode)
+            {
                 leveldata = filepath.Split('\n');
-            }else{
-                filepath = filepath.Substring(1,filepath.Length - 2);
+            }
+            else
+            {
+                filepath = filepath.Substring(1, filepath.Length - 2);
                 leveldata = filepath.Split(',');
                 webHolder = 1;
             }
 
             Regex rgxCheck = new Regex("([0-9][a-z])");
 
-            for (int i = 0; i < leveldata.Length + webHolder - 1; i++) {
+            for (int i = 0; i < leveldata.Length + webHolder - 1; i++)
+            {
                 string[] tmp = leveldata[i].Split(' ');
                 string[] tmpTwo = tmp[1].Split('\r');
 
-                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]); 
+                if (tmpTwo[0] == "1") GlobalState.passed.Add(tmp[0]);
 
-                if(rgxCheck.IsMatch(tmp[0]) && GlobalState.DebugMode == false){
+                if (rgxCheck.IsMatch(tmp[0]) && GlobalState.DebugMode == false)
+                {
                     continue;
                 }
                 levels.Add(tmp[0]);
                 passed.Add(tmpTwo[0]);
             }
         }
-    #endif
+#endif
 
     }
 
-    public void SetUserPrefs(){
-        if(GlobalState.LoggingMode == false){
+    public void SetUserPrefs()
+    {
+        if (GlobalState.LoggingMode == false)
+        {
             return;
         }
         PlayerPrefs.SetString("language", GlobalState.Language);
@@ -780,132 +833,185 @@ public class OldMenu : MonoBehaviour
         PlayerPrefs.SetInt("soundon", sounds);
         int themes = GlobalState.IsDark ? 1 : 0;
         PlayerPrefs.SetInt("themes", themes);
-        int toolsTips = GlobalState.HideToolTips ? 1: 0;
+        int toolsTips = GlobalState.HideToolTips ? 1 : 0;
         PlayerPrefs.SetInt("tooltips", toolsTips);
-        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID; 
-        string json = "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}"; 
-        string jsonTwo = "{ \"currentPoints\":\"" + GlobalState.Stats.Points.ToString() + "\"}"; 
+        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID;
+        string json = "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}";
+        string jsonTwo = "{ \"currentPoints\":\"" + GlobalState.Stats.Points.ToString() + "\"}";
 
         SendPointsToDB(url + "/totalPoints", json);
         SendPointsToDB(url + "/currentPoints", jsonTwo);
     }
 
-    public void GrabUserPrefs(){
-        if(GlobalState.LoggingMode == false){
+    public void GrabUserPrefs()
+    {
+        if (GlobalState.LoggingMode == false)
+        {
             return;
         }
 
         //Grab the Menu Preference
         //First Check if it exist
-        if(PlayerPrefs.HasKey("language")){
+        if (PlayerPrefs.HasKey("language"))
+        {
             GlobalState.Language = PlayerPrefs.GetString("language", "c++");
         }
-        if(PlayerPrefs.HasKey("textsize")){
+        if (PlayerPrefs.HasKey("textsize"))
+        {
             GlobalState.TextSize = PlayerPrefs.GetInt("textsize", 1);
         }
         //if(PlayerPrefs.HasKey("soundon")){
-            GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
-            soundon = GlobalState.soundon;
+        GlobalState.soundon = Convert.ToBoolean(PlayerPrefs.GetInt("soundon", 1));
+        soundon = GlobalState.soundon;
         //}
-        if(PlayerPrefs.HasKey("themes")){
+        if (PlayerPrefs.HasKey("themes"))
+        {
             GlobalState.IsDark = Convert.ToBoolean(PlayerPrefs.GetInt("themes", 1));
         }
-        if(PlayerPrefs.HasKey("tooltips")){
+        if (PlayerPrefs.HasKey("tooltips"))
+        {
             GlobalState.HideToolTips = Convert.ToBoolean(PlayerPrefs.GetInt("tooltips", 1));
         }
 
-        if(GlobalState.Stats == null){
+        if (GlobalState.Stats == null)
+        {
             GlobalState.Stats = new CharacterStats();
         }
         LoggerPoints lg = new LoggerPoints();
         string json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/totalPoints");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.totalPoints = Convert.ToInt32(lg.totalPoints);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on getting points, will try again later!");
             }
-        }else{
+        }
+        else
+        {
             GlobalState.totalPoints = 0;
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/currentPoints");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.Stats.Points = Convert.ToInt32(lg.currentPoints);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
-        }else{
+        }
+        else
+        {
             GlobalState.Stats.Points = 0;
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/speedUpgrades");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.Stats.Speed = Convert.ToInt32(lg.speedUpgrades);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/resistanceUpgrade");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.Stats.DamageLevel = Convert.ToInt32(lg.resistanceUpgrade);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/energyUpgrades");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.Stats.Energy = Convert.ToInt32(lg.energyUpgrades);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
         }
 
         json = GrabPointsFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID.ToString() + "/xpUpgrades");
-        if(json != "{}" && json !=null){
+        if (json != "{}" && json != null)
+        {
             lg = LoggerPoints.CreateFromJson(json);
-            try{
+            try
+            {
                 GlobalState.Stats.XPBoost = Convert.ToInt32(lg.xpUpgrades);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 Debug.Log("Error on gettting upgrades, will try again later!");
             }
         }
     }
-    public void sendInitialDataDB(string name, string time, string url){
-        if(GlobalState.LoggingMode == false){
+    public void sendInitialDataDB(string name, string time, string url)
+    {
+        if (GlobalState.LoggingMode == false)
+        {
             return;
         }
+        /*
         LoggerDataStart start = new LoggerDataStart();
         start.name = GlobalState.sessionID.ToString();
         start.username = GlobalState.username;
         start.timeStarted = DateTime.Now.ToString();
+        */
+
+        LoggerCourseCodeStart start = new LoggerCourseCodeStart();
+        start.courseCode = GlobalState.courseCode;
+
+        LoggerDataStart sub = new LoggerDataStart();
+        sub.name = name;
+        sub.username = GlobalState.username;
+        sub.timeStarted = time;
+
+        start.studentStart = sub;
 
         String json = JsonUtility.ToJson(start);
-        DatabaseHelperV2.i.url = stringLib.DB_URL + GlobalState.GameMode.ToUpper();
+        DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PostToDataBase();
+
     }
 
-    public string GrabPointsFromDB(string url){
+    public string GrabPointsFromDB(string url)
+    {
         WebHelper.i.url = url;
         Debug.Log(WebHelper.i.url);
         WebHelper.i.GetWebDataFromWeb();
         return WebHelper.i.webData;
     }
 
-    public void SendPointsToDB(string url, string json){
-        if(GlobalState.LoggingMode == false){
+    public void SendPointsToDB(string url, string json)
+    {
+        if (GlobalState.LoggingMode == false)
+        {
             return;
         }
         DatabaseHelperV2.i.url = url;
