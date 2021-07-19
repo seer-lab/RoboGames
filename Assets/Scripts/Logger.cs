@@ -347,7 +347,7 @@ public class Logger
         */
 
 
-        //This is used to log the enemy location and name.
+        /* This is used to log the enemy location and name. No Longer in use.
         if (GlobalState.jsonStates != null)
         {
             string[] obs_enem = GlobalState.jsonStates.Split('\n');
@@ -370,7 +370,7 @@ public class Logger
             }
 
         }
-
+        */
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
     }
