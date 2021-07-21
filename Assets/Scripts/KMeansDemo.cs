@@ -112,6 +112,8 @@ namespace ClusteringKMeans
 
       // make a copy of input data
       double[][] result = new double[rawData.Length][];
+
+      
       for (int i = 0; i < rawData.Length; ++i)
       {
         result[i] = new double[rawData[i].Length];
@@ -123,6 +125,7 @@ namespace ClusteringKMeans
         double colSum = 0.0;
         for (int i = 0; i < result.Length; ++i)
           colSum += result[i][j];
+
         double mean = colSum / result.Length;
         double sum = 0.0;
         for (int i = 0; i < result.Length; ++i)

@@ -11,7 +11,7 @@ public static class GlobalState
     public static int failures = 0; //number of failures since a level was passed
     public static int tooluses = 0; //number of tool uses
     public static int elapsedTime = 0; //time elapsed since a level was passed
-    public static int AdaptiveOffON = 0; //0 = no ML adaptive, 1= ML adaptive on
+    public static int AdaptiveOffON = 1; //0 = no ML adaptive, 1= ML adaptive on
     public static int VerboseLoggingMode = 0; //0 = no verbose variables are logged, 1=verbose variables logged
     public static string Tech { get; set; } //description of technique
     public static string Hint1 { get; set; } //first hint for failure
