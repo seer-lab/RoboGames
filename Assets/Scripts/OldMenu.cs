@@ -10,6 +10,7 @@
 // Date Last Modified: 6/1/2016
 //**************************************************//
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,7 +90,6 @@ public class OldMenu : MonoBehaviour
         Debug.Log("Resume OM: " + GlobalState.IsResume);
         Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
 
-
         //Checks for sessionID, if there is, grab that and the menu preferences
         if (sessionID == "" || sessionID == null)
         {
@@ -107,10 +107,6 @@ public class OldMenu : MonoBehaviour
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
             }
 
-            /*Hard Coded course code for now, Removed for new one
-            sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
-                               stringLib.DB_URL + GlobalState.GameMode.ToUpper(), GlobalState.sessionID.ToString());
-            */
             Debug.Log(GlobalState.courseCode);
             sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.UtcNow.ToString(), stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.courseCode);
 
@@ -188,6 +184,18 @@ public class OldMenu : MonoBehaviour
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
 
+        //New Code For ML Auto
+        string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/mlAuto/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
+        json = "{\"Items\":" + json + "}";
+        Debug.Log("ML Auto Data" + json);
+        Root rt = JsonConvert.DeserializeObject<Root>(json);
+
+        Debug.Log("Rt:" + rt.Items[0].amountOfMLOn);
+
+        if (rt.Items[0].amountOfMLOn > 3)
+        {
+            GlobalState.AdaptiveOffON = 1;
+        }
     }
     private void ToggleTheme()
     {
@@ -1017,6 +1025,26 @@ public class OldMenu : MonoBehaviour
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PutToDataBase();
+    }
+
+    public string GrabMLDataFromDB(string url)
+    {
+        WebHelper.i.url = url;
+        Debug.Log("ML Auto Data url " + WebHelper.i.url);
+        WebHelper.i.GetWebDataFromWeb();
+        Debug.Log(WebHelper.i.webData);
+        return WebHelper.i.webData;
+    }
+
+    //Classes Used to read in amount of ML users
+    public class Item
+    {
+        public int amountOfMLOn;
+    }
+
+    public class Root
+    {
+        public List<Item> Items;
     }
 }
 
