@@ -369,7 +369,6 @@ public partial class Cinematic : MonoBehaviour
 			else{
 				prompt1.GetComponent<Text>().text = GlobalState.Tech;
 			}
-			Debug.Log("Failures = "+GlobalState.failures.ToString());
 			
 			//prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)

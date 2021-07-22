@@ -418,7 +418,7 @@ public class Logger
         levelObj.time = "";
         levelObj.progress = "";
         levelObj.timeStarted = DateTime.UtcNow.ToString();
-        levelObj.timeEnded = "";
+        levelObj.timeEnded = "N/A";
         levelObj.totalPoint = "0";
         string jsonOBJ = JsonUtility.ToJson(levelObj);
         jsonOBJ = "{\"levels\" : [" + jsonOBJ + "]}";

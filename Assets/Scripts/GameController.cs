@@ -172,7 +172,10 @@ public class GameController : MonoBehaviour, ITimeUser
     IEnumerator Win()
     {
         Debug.Log("Win function");
-        logger.onGameEnd(startDate, "Passed", EnergyController.currentEnergy);
+
+        int time = DateTime.UtcNow.Subtract(startDate).Seconds;
+        GlobalState.elapsedTime += time;
+
         GlobalState.previousFilename = GlobalState.CurrentONLevel;
         GlobalState.timeBonus = logger.CalculateTimeBonus();
         GlobalState.timeBonus = CalculateTimeBonus();
@@ -214,15 +217,14 @@ public class GameController : MonoBehaviour, ITimeUser
                 Root rt = JsonConvert.DeserializeObject<Root>(json);
 
                 List<string> dataNames = new List<string>();
-                int counter = 0;
+                
+                //Start at 1 because we add in this run later
+                int counter = 1;
 
                 for (int i = 0; i < rt.Items.Count; i++)
                 {
-                    for (int j = 0; j < rt.Items[i].students.levels.Count; j++)
-                    {
-                        dataNames.Add(rt.Items[i].students.levels[j].name);
-                        counter++;
-                    }
+                    dataNames.Add(rt.Items[i].students.levels.name);
+                    counter++;
                 }
 
                 double[][] rawData = new double[counter][];
@@ -230,17 +232,24 @@ public class GameController : MonoBehaviour, ITimeUser
 
                 for (int i = 0; i < rt.Items.Count; i++)
                 {
-                    for (int j = 0; j < rt.Items[i].students.levels.Count; j++)
-                    {
-                        DateTime ts = Convert.ToDateTime(rt.Items[i].students.levels[j].timeStarted);
-                        DateTime te = Convert.ToDateTime(rt.Items[i].students.levels[j].timeEnded);
+                    DateTime ts = Convert.ToDateTime(rt.Items[i].students.levels.timeStarted);
+                    DateTime te = Convert.ToDateTime(rt.Items[i].students.levels.timeEnded);
 
-                        string et = te.Subtract(ts).TotalSeconds.ToString();
+                    string et = te.Subtract(ts).TotalSeconds.ToString();
 
-                        rawData[counter2] = new double[] {Convert.ToDouble(et) , Convert.ToDouble(rt.Items[i].students.levels[j].failedToolUse)};
-                        counter2++;
-                    }
+                    rawData[counter2] = new double[] {Convert.ToDouble(et) , Convert.ToDouble(rt.Items[i].students.levels.failedToolUse)};
+                    counter2++;
+
                 }
+
+                dataNames.Add(GlobalState.level.FileName);
+                rawData[counter2] = new double[] { GlobalState.elapsedTime, GlobalState.failedTool };
+                Console.WriteLine(counter);
+                Console.WriteLine(counter2);
+                Console.WriteLine(dataNames[dataNames.Count-1]);
+                Console.WriteLine(rawData[counter2][0]);
+                Console.WriteLine(rawData[counter2][1]);
+                Console.WriteLine(GlobalState.elapsedTime);
 
                 Debug.Log(dataNames.Count);
                 Debug.Log(rawData.Length);
@@ -294,26 +303,6 @@ public class GameController : MonoBehaviour, ITimeUser
                             }
                         }
                     }
-                    /*
-                    if (clustering[646] == 0)
-                    {
-                        count0++;
-                        time0 += rawData[646][0];
-                        fail0 += rawData[646][1];
-                    }
-                    else if (clustering[646] == 1)
-                    {
-                        count1++;
-                        time1 += rawData[646][0];
-                        fail1 += rawData[646][1];
-                    }
-                    else
-                    {
-                        count2++;
-                        time2 += rawData[646][0];
-                        fail2 += rawData[646][1];
-                    }
-                    */
 
                     double avgT0 = time0 / count0;
                     double avgT1 = time1 / count1;
@@ -330,6 +319,9 @@ public class GameController : MonoBehaviour, ITimeUser
                     Debug.Log("Fail Averages: " + avgF0.ToString() + " " + avgF1.ToString() + " " + avgF2.ToString());
                     Debug.Log("This Player's Group: " + clustering[counter-1].ToString());
                     Debug.Log("This Player's Elapsed Time: " + rawData[counter-1][0].ToString());
+                    Debug.Log("This Player's Tool Failures: " + rawData[counter-1][1].ToString());
+                    Debug.Log("This Player's Elapsed Time: " + GlobalState.elapsedTime);
+                    Debug.Log("This Player's Tool Failures: " + GlobalState.failedTool);
 
                     int max = 0;
                     int mid = 0;
@@ -378,6 +370,8 @@ public class GameController : MonoBehaviour, ITimeUser
                         low = 0;
                     }
 
+                    //Logging Done Before Reassigning the Adaptive Mode 
+                    logger.onGameEnd(startDate, "Passed", EnergyController.currentEnergy);
                     if (clustering[counter-1] == max)
                     {
                         GlobalState.AdaptiveMode = 0;
@@ -397,6 +391,7 @@ public class GameController : MonoBehaviour, ITimeUser
                 {
                     Debug.Log("Tutorial level; no ML done");
                 }
+                
                 GlobalState.elapsedTime = 0;
                 GlobalState.failures = 0;
                 GlobalState.hitByEnemy = 0;
@@ -405,6 +400,7 @@ public class GameController : MonoBehaviour, ITimeUser
             }
             else
             {
+                logger.onGameEnd(startDate, "Passed", EnergyController.currentEnergy);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
                 Debug.Log("ML has been turned off");
                 GlobalState.elapsedTime = 0;
@@ -416,25 +412,13 @@ public class GameController : MonoBehaviour, ITimeUser
         }
         else
         {
+            logger.onGameEnd(startDate, "Passed", EnergyController.currentEnergy);
             Victory();
         }
     }
 
     [Serializable]
-    public class MLStr
-    {
-        public string _id;
-        public string name;
-        public string timeStarted;
-        public string timeEnded;
-        public string failedToolUse;
-        public string courseCode;
-        public string students;
-        public string levels;
-    }
-
-    [Serializable]
-    public class Level
+    public class Levels
     {
         public string name;
         public string timeStarted;
@@ -445,7 +429,7 @@ public class GameController : MonoBehaviour, ITimeUser
     [Serializable]
     public class Students
     {
-        public List<Level> levels;
+        public Levels levels;
     }
 
     [Serializable]
