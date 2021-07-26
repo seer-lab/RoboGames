@@ -40,7 +40,10 @@ public partial class Cinematic : MonoBehaviour
     int GlobalPoints; //this is purely for UI purposes
     string webdata;
     int maxScore;
-    int option = 0; 
+    int option = 0;
+    string savedHint = "";
+    int hintType = 0;
+    bool hintShown = false;
     Button[] options; 
     //.................................>8.......................................
     // Use this for initialization
@@ -361,14 +364,20 @@ public partial class Cinematic : MonoBehaviour
 				}
 				else if (GlobalState.failures == 2 || (GlobalState.AdaptiveMode == 1 && GlobalState.failures == 3)){
 					prompt1.GetComponent<Text>().text = GlobalState.Hint1;
-				}
+                    savedHint = GlobalState.Hint1;
+                    hintShown = true;
+                    hintType = 1;
+                }
 				else{
 					prompt1.GetComponent<Text>().text = GlobalState.Hint2;
-				}
+                    savedHint = GlobalState.Hint2;
+                    hintShown = true;
+                    hintType = 2;
+                }
 			}
 			else{
 				prompt1.GetComponent<Text>().text = GlobalState.Tech;
-			}
+            }
 			
 			//prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
@@ -393,7 +402,15 @@ public partial class Cinematic : MonoBehaviour
                 else
                     UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                //Debug.Log("LoadingScreen");
+                Debug.Log("LoadingScreen");
+
+                if (hintShown)
+                {
+                    logger.onHintShown(savedHint,hintType);
+                }
+                savedHint = "";
+                hintShown = false;
+                hintType = 0;
             }
         }
         else

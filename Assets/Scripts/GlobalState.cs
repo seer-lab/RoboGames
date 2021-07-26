@@ -6,8 +6,8 @@ using UnityEngine;
 /// </summary>
 public static class GlobalState
 {
-    public static int AdaptiveMode = 0; //0 = default, 1 = easier, 2 = easiest <-- Categorization of the player in ML
-    public static int HintMode = 2; //0 = no hints, 1 = hints
+    public static int AdaptiveMode = 2; //0 = default, 1 = easier, 2 = easiest <-- Categorization of the player in ML
+    public static int HintMode = 1; //0 = no hints, 1 = hints
     public static int failures = 0; //number of failures since a level was passed
     public static int tooluses = 0; //number of tool uses
     public static int elapsedTime = 0; //time elapsed since a level was passed

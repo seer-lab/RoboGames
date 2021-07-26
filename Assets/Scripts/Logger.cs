@@ -109,6 +109,19 @@ public class Logger
         linesUsed[index] += lineNumber.ToString() + ' ';
     }
 
+    public void onHintShown(string hint, int hintType)
+    {
+        LoggerHint hintData = new LoggerHint();
+        hintData.eventType = "Hint"+ hintType;
+        hintData.realTime = DateTime.UtcNow.ToString();
+        hintData.eventName = hint;
+
+        string hintObj = JsonUtility.ToJson(hintData);
+        hintObj = "{\"hint\":" + hintObj + "}";
+
+        sendDatatoDB(hintObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/hint");
+    }
+
     /// <summary>
     /// A method that sends and state change to the DB
     /// </summary>
@@ -579,4 +592,15 @@ public class LoggerCourseCodeStart
 {
     public string courseCode;
     public LoggerDataStart studentStart;
+}
+
+[Serializable]
+public class LoggerHint
+{
+    public string eventType;
+    public string eventName;
+    public string realTime;
+
+    //Verbose Variables
+    public string comment;
 }
