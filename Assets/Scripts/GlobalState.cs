@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,7 @@ public static class GlobalState
     public static int elapsedTime = 0; //time elapsed since a level was passed
     public static int AdaptiveOffON = 0; //0 = no ML adaptive, 1= ML adaptive on
     public static int VerboseLoggingMode = 0; //0 = no verbose variables are logged, 1=verbose variables logged
+    public static DateTime AdaptiveChangeTime = new DateTime(2021, 07, 27, 21, 35, 00); // Defines the time to change from Non-Adaptive to Adaptive Gameplay
     public static string Tech { get; set; } //description of technique
     public static string Hint1 { get; set; } //first hint for failure
     public static string Hint2 { get; set; } //second hint for failure

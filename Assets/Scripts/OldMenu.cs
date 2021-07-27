@@ -184,18 +184,24 @@ public class OldMenu : MonoBehaviour
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
 
-        //New Code For ML Auto
+        /*Comment Out if wanting to change adaptive gameplay basaed on # of students
         string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/mlAuto/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
         json = "{\"Items\":" + json + "}";
         Debug.Log("ML Auto Data" + json);
         Root rt = JsonConvert.DeserializeObject<Root>(json);
 
         Debug.Log("Rt:" + rt.Items[0].amountOfMLOn);
-
         if (rt.Items[0].amountOfMLOn > 3)
         {
             GlobalState.AdaptiveOffON = 1;
         }
+        */
+
+        if (DateTime.Compare(DateTime.UtcNow, GlobalState.AdaptiveChangeTime)>0)
+        {
+            GlobalState.AdaptiveOffON = 1;
+        }
+        Debug.Log("DateTime Comparison: " + DateTime.Compare(DateTime.UtcNow, GlobalState.AdaptiveChangeTime));
     }
     private void ToggleTheme()
     {
