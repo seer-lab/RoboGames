@@ -403,6 +403,13 @@ public class Logger
         sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/totalPoint");
     }
 
+    public void loseIdleTime(DateTime timeNow)
+    {
+        string totalT = DateTime.UtcNow.Subtract(timeNow).TotalSeconds.ToString();
+        jsonObj = "{\"idleTime\":\"" + totalT + "\"}";
+        sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/idleTime");
+    }
+
     public void sendUpgrades(string name, int points, int curPoints)
     {
         LoggerDataUpgrades upgrades = new LoggerDataUpgrades();

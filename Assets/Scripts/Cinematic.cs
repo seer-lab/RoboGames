@@ -44,12 +44,17 @@ public partial class Cinematic : MonoBehaviour
     string savedHint = "";
     int hintType = 0;
     bool hintShown = false;
+    DateTime timeNow;
     Button[] options; 
     //.................................>8.......................................
     // Use this for initialization
     void Start()
     {
         logger = new Logger(true);
+
+        //Used to calculate idle time if they lost
+        timeNow = DateTime.UtcNow;
+
         //Determine the score/points the player should recieve here. 
         //continuetext = stringLib.CONTINUE_TEXT;
         originalTimeBonus = GlobalState.timeBonus; 
@@ -301,6 +306,8 @@ public partial class Cinematic : MonoBehaviour
                 }
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 cinerun = false;
+                Debug.Log("Starting Level???");
+                logger.loseIdleTime(timeNow);
                 StartCoroutine(LoadGame());
             }
             

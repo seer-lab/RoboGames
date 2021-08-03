@@ -15,6 +15,7 @@ using System.Collections;
 using System.IO;
 
 public class printer : Tools {
+	private Logger logger = new Logger(true);
 	void Update(){
 		if (hero.projectilecode == stateLib.TOOL_PRINTER_OR_QUESTION){
             EmphasizeTool(); 
@@ -35,6 +36,7 @@ public class printer : Tools {
 			if (GlobalState.HintMode==1) { //ADAPTIVE code for hints
 				if (GlobalState.AdaptiveMode==2 || (GlobalState.AdaptiveMode==1 && GlobalState.tooluses % 2 == 1)){
 					output.hint = hinttext;
+					logger.onHintShown(hinttext, 3);
 				}
 				GlobalState.tooluses++;
 			}
