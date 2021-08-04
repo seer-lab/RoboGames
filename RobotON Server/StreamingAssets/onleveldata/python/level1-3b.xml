@@ -1,0 +1,21 @@
+<level>
+<next-level>level1-3c.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>String Theory</description>
+<introtext>The menu of our monitor is important for being able
+to adjust our settings! We need to turn on the varrying text.</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
+</tools>
+<code language="python">
+	hd_on = True
+	print(<question text="What does this code output?
+	Select your answer: " options="True, False" answer="True">hd_on</question>)
+	<comment type="description" correct="false"  groupid="2">The computer psychically determines what variable type was entered.</comment>
+    <comment type="description" correct="true"  groupid="2">Keyboard input is a string; You may need to convert it to other types!</comment>
+</code>
+<hint type="description">This is a hint</hint>
+</level>

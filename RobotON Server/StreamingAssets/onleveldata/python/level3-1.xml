@@ -1,0 +1,24 @@
+<level>
+<next-level>level3-1b.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
+<description>Loop-the-loop</description>
+<introtext>Our Computer is finally back up and running, 
+we need to get our system back up to put an end to this!</introtext>
+<endtext>Sweet!
+Now you know about loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+	<comment type="description" correct="true"  groupid="0">WHILE loops run as long as the condition is true</comment>
+	i = 0
+	while (i &lt; 3):
+		<comment type="description" correct="true"  groupid="1">activate the beacon once for each iteration!</comment>
+<beacon flow-order="0,1,2" />		print("This loop has run " + i + " times!")
+		i+=1
+<beacon flow-order="3"/>
+
+</code>
+</level>

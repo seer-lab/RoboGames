@@ -1,0 +1,19 @@
+<level>
+<next-level>tutorial1.xml</next-level>
+<description>Welcome to Robot ON!</description>
+<introtext>You have entered the world of Robot ON! 
+Can you learn how the code works?
+Your adventure has just begun!</introtext>
+<failure_level>Null</failure_level>
+<endtext>You've got it!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">//These lines are COMMENTS; they describe how things work
+//Press WASD/Arrow keys to move, or tap and hold on the screen
+//Press Control to use the active tool (shown on the right), or tap the circle in 
+//the bottom left
+<comment type="description" correct="true" groupid="0">Use the COMMENTER tool on lines like this one that describe the code.</comment>
+</code>
+</level>

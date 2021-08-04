@@ -1,0 +1,29 @@
+<level>
+<description>You also have access to the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
+You can use it on white text to see if that code affects the bug.
+Check the functions below using the &lt;color=#00ff00ff&gt;COMMENTER&lt;/color&gt; tool.
+The error will remain if you comment out non-buggy code.
+Use the BUGCATCHER tool to catch the bug when you find it.</description>
+<code language="python">def function1():              @The bug is somewhere here, but we don't have time to check every function one by one.@
+    #do some stuff
+	x = input()
+	y = input()
+	z = input()
+                                                                @Let's comment out some code to see if the same error persists.@ ???
+<comment type="robobug" groupid="1" size="3" text="$err$bError in addAccessories function!
+(it hasn't been commented out yet)">doStuff(x)                                @My commenter tool will prevent the code from being executed.@ !!!
+    buildSnowball(x)                     
+    buildSnowball(y)</comment>
+    	
+    <comment type="robobug" groupid="2" size="3" text="$err$Error in addAccessories function!
+(it hasn't been commented out yet)">doStuff(y)                                @The error didn't go away, so the bug must be elsewhere.@ !!!
+    addAccessories(y)
+    addLimbs(y)</comment>
+    	
+    <comment type="robobug" size="3" groupid="3" tool="999,0,0,0,0,0" text="No Errors Found!">doStuff(z)                   @The message said addAccessories() has an error is it here?@ !!!
+    $bug $addAcessories(z) @There were no errors when we commented this block. By process of elimination, the bug must be here.@ ??? !!!
+    buildSnowball(z)</comment>
+    return x,y,z
+
+</code>
+</level>

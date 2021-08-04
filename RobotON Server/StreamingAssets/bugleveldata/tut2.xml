@@ -1,0 +1,29 @@
+<level>
+<description>You now have access to the &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; tool.
+The &lt;color=#ffff00ff&gt;PRINTER&lt;/color&gt; will print output if you use it on &lt;color=#ffff00ff&gt;yellow&lt;/color&gt; text.
+Use the BUGCATCHER to catch the bug once you know where it is.
+You can use TAB to switch between tools.</description>
+<next-level>level2a.xml</next-level>
+<failure_level>Null</failure_level>
+<introtext>Time to learn a new tool: 
+&lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;.
+They can show you output from the code.</introtext>
+<endtext>That's right!
+You can now use &lt;color=#ffff00ff&gt;PRINTERS&lt;/color&gt;!</endtext>
+<timelimit>1000</timelimit>
+<tools>
+<tool name="printer" enabled="true" count="unlimited"/>
+<tool name="catcher" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">void FCalls(string errmsg){
+    //call some functions then return
+	<print text="function4 has a bug!" col="4">cout &lt;&lt; errmsg;</print> //try the PRINTER here!!
+	function1();
+	function2();
+	function3();
+    $bug$function4();
+	function5();
+    return;
+}
+</code>
+</level>

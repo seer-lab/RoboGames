@@ -1,0 +1,6 @@
+start CMD /c "taskkill /f /im node.exe"
+start CMD /c "cd C:\Users\Ibrahim Mushtaq\Desktop\RobotON\RobotON Server && npm start "
+start CMD /c "cd C:\Users\Ibrahim Mushtaq\Desktop\RobotON\RobotON DB && npm start"
+start CMD /c "mongod"
+start CMD /k "cd C:\Users\Ibrahim Mushtaq\Desktop\WebGLBuilds && http-server -p8081"
+start CMD /c "cd C:\Users\Ibrahim Mushtaq\Desktop\RobotON\Bat-Term Script && CopyFileToServerWindow.bat"

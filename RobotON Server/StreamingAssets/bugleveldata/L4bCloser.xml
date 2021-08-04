@@ -1,0 +1,34 @@
+<level>
+<description>Now is the time to use a breakpoint.
+Set the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; to check the state of the variables.
+&lt;color=#ffff00ff&gt;ACTIVATE&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; to observe behavior.
+Use the BUGCATCHER to identify the bug.</description>
+<code language="c++">struct signal{
+    string name[30];
+    int x, y;
+};
+
+//Wireless Signal System Closeness Calculator
+//Identifies the Closer of two signals based on coordinates
+//Uses (X,Y) 2 dimensional coordinates and calculates the difference
+//NOTE: Origin is located at (0,0)
+//E.g. (50,25) is closer to the origin than (25,75)
+signal Closer(signal t1, signal t2){
+
+    <breakpoint text="t1.x = 75, t1.y = 100
+t2.x = 100, t2.y = 0"></breakpoint>int xdif = t1.x - t2.x;
+    <breakpoint text="t1.x = 75, t1.y = 100
+t2.x = 100, t2.y = 0
+xdif = -25"></breakpoint>    int ydif =$bug  int ydif = t1.y - t2.y$ t1.y - t2.x;
+    <breakpoint text="t1.x = 75, t1.y = 100
+t2.x = 100, t2.y = 0
+xdif = -25
+ydif = 0"></breakpoint>if (xdif + ydif &lt; 0){
+        return t1;
+    }
+    else if (xdif + ydif &gt;= 0){
+        return t2;
+    }
+}
+</code>
+</level>

@@ -1,0 +1,23 @@
+<level>
+<next-level>level4-0.xml</next-level>
+<description>Name It!</description>
+<introtext>Here's another tool to learn:
+Use the RENAMER to change variable names.</introtext>
+<endtext>Great!
+You've acquired a new tool!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+                                                                                @We're back with a new tool!@
+	//Use the Renamer tool on purple variable names to change them.            @We can change the name of variables to accurately describe data.@
+	int <variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter">i</variable-rename> = 0;                     @A single letter doesn't tell us much, but maybe we can use it to count and call it counter.@ !!!
+	//Look at the code to get context clues about the variable's purpose.					 @Context is important! Otherwise, who knows what the variable should be named?@
+	float <variable-rename text="Choose a name for this variable: " options="Epsilon,Googolplex,Delta,Pi" correct="Pi">x</variable-rename>;         @The line below says the value is 3.14... I know what that number is!@ !!!
+	x = 3.14;
+</code>
+</level>

@@ -1,0 +1,101 @@
+<level>
+<next-level></next-level>
+<description>Analyze the Triangle Systems
+and make appropriate corrections</description>
+<introtext>Can you decipher the
+Triangle Systems?</introtext>
+<endtext>You've deciphered the Triangle
+Systems!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="checker" enabled="true" count="unlimited"/>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+</tools>
+<code>#triangle class definition
+class Triangle:
+    def __init__(self,s1,s2,s3):
+        self.s1 = s1
+	    self.s2 = s2
+	    self.s3 = s3
+
+	#solve with triangle inequality vs Pythagorean theorem
+<comment type="description" correct="true" size="1" groupid="0">This method uses the Pythagorean theorem.</comment>
+<comment type="description" correct="false" size="1" groupid="0">This method uses the Pythagorean theorem.</comment>
+<comment type="description" correct="false" size="1" groupid="1">This method uses the Pythagorean theorem.</comment>
+<comment type="description" correct="true"  size="1" groupid="1">This method uses the Triangle Inequality.</comment>
+	def isTriangle(self):
+	    largest_side = max(self.s1,self.s2,self.s3)
+		other_sides = sum(self.s1,self.s2,self.s3)-largest_side
+		return other_sides > largest_side
+
+<comment type="code" correct="true" size="1" groupid="1">def isEquilateral(self):</comment>
+<comment type="code" correct="false" size="1" groupid="1">def isEquilateral(self.s1,self.s2,self.s3):</comment>
+<comment type="code" correct="false" size="1" groupid="1">def somethingsomething(self.s1,self.s2,self.s3):</comment>
+
+<comment type="code" correct="true" size="1" groupid="2">def someth(self.s1,self.s2,self.s3):</comment>
+<comment type="code" correct="false" size="1" groupid="2">def asd(self.s1,self.s2,self.s3):</comment>
+	    return self.s1 == self.s2 and self.s2 == self.s3
+
+
+	def isRight(self):
+	    if self.s1 > self.s2:
+		    if self.s1 > self.s3:
+			    return self.s1**2 == self.s2**2 + self.s3**2
+			return self.s3**2 == self.s1**2 + self.s2**2
+		if self.s2 > self.s3:
+		    return self.s2 **2 == self.s1**2 + self.s3**2
+		return self.s3**2 == self.s1**2 + self.s2**2
+
+	def isIsosceles(self):
+	    return self.s1 == self.s2 or self.s1 == self.s2 or self.s1 == self.s3
+
+	def getType(self):
+	    if self.isTriangle():
+		    return "Not a triangle"
+	    if self.isEquilateral():
+		    return "Equilateral"
+		if self.isRight():
+		    return "Right"
+		if self.isIsosceles():
+		    return "Isosceles"
+		return "Scalene"
+
+
+#define triangle instances
+tri_0 = Triangle(2,2,7)
+tri_1 = Triangle(3,4,5)
+tri_2 = Triangle(2,2,2)
+tri_3 = Triangle(10,20,10)
+tri_4 = Triangle(5,12,13)
+<variable-rename text="Choose a name for this variable:	" options="angles,triangles,squares,cubes" correct="triangles" groupid="0">X</variable-rename> = [tri_0, tri_1, tri_2, tri_3, tri_4]
+<variable-rename text="Choose a name for this variable: " options="counter,angle,size,type" correct="counter" groupid="1">i</variable-rename> = 0
+largest_triangle = Triangle(0,0,0)
+perimeter = 0
+for tri in <variable-color groupid="1">X</variable-color>:
+    if not tri.isTriangle():
+<beacon flow-order="0,3" /> print "triangle" + <variable-color groupid="2">i</variable-color> + " is not a triangle"
+	else:
+        if (tri.getType == "Right"):
+<beacon flow-order="1,4" />    	    print "triangle" + <variable-color groupid="2">i</variable-color> + "is a right triangle"
+	    else if (tri.getType == "Equilateral"):
+<beacon flow-order="2" />    	    print "triangle" + <variable-color groupid="2">i</variable-color> + "is an equilateral triangle"
+    	else if (tri.getType == "Isosceles"):
+<beacon flow-order="" />	        print "triangle" + <variable-color groupid="2">i</variable-color> + "is an isosceles triangle"
+	    else:
+<beacon flow-order="" />	        print "triangle" + <variable-color groupid="2">i</variable-color> + "is an scalene triangle"
+		trisum = sum(tri.s1,tri.s2,tri.s3)
+		if tri.isTriangle() and trisum >= perimeter:
+		    perimeter = trisum
+			largest_triangle = tri
+	<variable-color groupid="2">i</variable-color>++
+
+print <question text="What is the largest triangle
+(e.g. tri_1)? Type your answer: " answer="tri_4">largest_triangle</question>
+print <question text="What is the perimeter?
+Type your answer:
+	" answer="30">perimeter</question>
+</code>
+</level>

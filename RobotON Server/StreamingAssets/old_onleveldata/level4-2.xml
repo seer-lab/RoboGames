@@ -1,0 +1,63 @@
+<level>
+<next-level>level4-3.xml</next-level>
+<description>Syntax Rox</description>
+<introtext>Style conventions define clean written code.
+Follow the instructions to fix the style.</introtext>
+<endtext>Well done!
+Are you ready for the final test?</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="true" size="1" groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
+	<comment type="code" correct="false" size="1" groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!";*/</comment>
+	<comment type="code" correct="true" size="3" groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today?"; 
+	cout &lt;&lt; "I hope you are having a most fantastic day!";*/</comment>	
+	<comment type="description" correct="true" size="1" groupid="1">Do not put multiple statements on a single line.</comment>
+	string <variable-rename text="Choose a name for this variable: " options="author,company,greeting,month" correct="greeting" groupid="0">x</variable-rename>;
+	<comment type="code" correct="false" size="1" groupid="1" style="multi">/* 	x = "Good day!"; cout &lt;&lt; greeting;*/ </comment>
+	<comment type="code" correct="true" size="3" groupid="1" style="multi">/*	x = "Good day!"; 
+	cout &lt;&lt; greeting;*/</comment>
+	<comment type="description" correct="true" size="1" groupid="2">Brackets and Braces should be placed in a consistent manner.</comment>
+	int <variable-rename text="Choose a name for this variable: " options="time,counter,salary,temperature" correct="counter" groupid="1">i</variable-rename> = 0;
+<comment type="code" correct="false" size="1" groupid="2" style="multi">	/*while(i &lt; 5
+	){*/</comment>
+<comment type="code" correct="true" size="1" groupid="2" style="single">	// while(i &lt; 5){</comment>
+		cout &lt;&lt; i;
+		i++;
+<comment type="code" correct="false" size="1" groupid="3" style="multi">/*		if (i % 2 == 0){
+			cout &lt;&lt; i &lt;&lt; " is even!";
+		}}*/</comment>
+<comment type="code" correct="true" size="1" groupid="3" style="multi">/*		if (i % 2 == 0){
+			cout &lt;&lt; i &lt;&lt; " is even!";
+		}
+	}*/</comment>
+	//test your skills on the following code:
+	string <variable-rename text="Choose a name for this variable: " options="string,user_input,program,document" correct="user_input" groupid="2">z</variable-rename>;
+	string <variable-rename text="Choose a name for this variable: " options="items,string,integers,title" correct="items" groupid="3">array</variable-rename> [3];
+	int i = 0;
+<comment type="code" correct="false" size="1" groupid="4" style="multi">/* while(i &lt; 3
+	){*/ </comment>
+<comment type="code" correct="false" size="1" groupid="4" style="single">		//while(i &lt; 3){</comment>
+<comment type="code" correct="true" size="1" groupid="4" style="single">	// while(i &lt; 3){</comment>
+<comment type="code" correct="false" size="1" groupid="5" style="single">//		cout &lt;&lt; "Enter item number " &lt;&lt; i &lt;&lt; " then press enter on the keyboard.";</comment>
+<comment type="code" correct="true" size="1" groupid="5" style="multi">/*		cout &lt;&lt; "Enter item number " &lt;&lt; i;
+		cout &lt;&lt; " then press enter on the keyboard."*/</comment>
+		cin &gt;&gt; <variable-color groupid="2">z</variable-color>;
+		<variable-color groupid="3">array</variable-color>[i] = <variable-color groupid="2">z</variable-color>;
+	}
+	<comment type="code" correct="false" size="1" groupid="6" style="single">// 		for (int j = 0; j &lt; 3; j++){</comment>
+<comment type="code" correct="true" size="1" groupid="6" style="single">//	for (int j = 0; j &lt; 3; j++){</comment>
+<comment type="code" correct="false" size="1" groupid="7" style="single">//		cout &lt;&lt; "Item number " &lt;&lt; i &lt;&lt; " was saved as " &lt;&lt; array[i] &lt;&lt; " in the database.";</comment>
+<comment type="code" correct="true" size="1" groupid="7" style="multi">/*		cout &lt;&lt; "Item number " &lt;&lt; i &lt;&lt; " was saved as ";
+		cout &lt;&lt; array[i] &lt;&lt; " in the database.";*/</comment>	
+	}
+}
+</code>
+</level>

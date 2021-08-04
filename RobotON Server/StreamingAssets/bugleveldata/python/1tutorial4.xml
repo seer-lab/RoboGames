@@ -1,0 +1,29 @@
+<level>
+<description>You now have access to the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
+It can enable &lt;color=#ff0000ff&gt;breakpoints&lt;/color&gt; that can check the program state.
+Set a &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; where you notice the faded "B", then &lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; it.
+Use a BUGCATCHER once you know where the bug is.</description>
+<next-level>tut5.xml</next-level>
+<introtext>One last tool to learn: 
+the &lt;color=#ff0000ff&gt;BREAKPOINTER&lt;/color&gt; tool.
+It can give more detailed feedback about variables.
+Combine it with the &lt;color=#ffff00ff&gt;ACTIVATOR&lt;/color&gt; tool!</introtext>
+<endtext>Now you should try to use Breakpoints!</endtext>
+<timelimit>1000</timelimit>
+<tools>
+<tool name="printer" enabled="true" count="unlimited"/>
+<tool name="breakpointer" enabled="true" count="1"/>
+</tools>
+<code language="python">def main():                              @We can check the values of variables using breakpoints!@ ???
+    checkforBugs()
+    #sum() returns the sum of two numbers (e.g. sum(1,1) == 1+1 == 2)
+    <breakpoint tool="999,0,0,0,0,0" text="Variables not defined yet!"></breakpoint>  		 @Let's use the breakpoint tool FIRST, followed by the printer tool.@ !!! ??? !!!
+    x = $bug$sum(a,b) @If variables a and b aren't defined yet, then this code wouldn't work.@ ??? ??? !!!
+    a = 3
+    b = 4
+    #multiply() returns the product of two numbers (e.g. multiply(2,3) == 2x3 == 6)
+    <breakpoint text="x = 4"></breakpoint>  y = multiply(a,b)
+    return 0
+
+</code>
+</level>

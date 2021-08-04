@@ -1,0 +1,30 @@
+<level>
+<description>Now you can use Code Tracing in the Closer function.
+Use what you have learned from the breakpoints to identify the bug.
+Use the BUGCATCHER when you have found the bug.</description>
+<code language="python">class signal:
+    def __init__(name,x,y):
+		self.name = name
+		self.x = x
+		self.y = y
+		
+<warp file="level4c.xml" tool="1,3,0,0,1,0">import FirstPriority
+</warp>
+
+#Wireless Signal System Closeness Calculator
+#Identifies the Closer of two signals based on coordinates
+#Uses (X,Y) 2 dimensional coordinates and calculates the difference
+#NOTE: Origin is located at (0,0)
+#E.g. (50,25) is closer to the origin than (25,75)
+def Closer(t1, t2):
+
+    xdif $bug   xdif = t1.x - t2.x$= t1.x = t2.y
+    ydif = t1.y - t2.y
+    if (xdif + ydif &lt; 0):
+        return t1
+    
+    else if (xdif + ydif &gt;= 0):
+        return t2
+    
+</code>
+</level>

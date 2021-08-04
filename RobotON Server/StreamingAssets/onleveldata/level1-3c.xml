@@ -1,0 +1,35 @@
+<level>
+<next-level>tutorial1b.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>String Theory</description>
+<introtext>We need our menu to switch between both
+VGA and HDMI, can you turn them both ON?</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="false"  groupid="2">Swapping is only something that happens on reality TV.</comment>
+	<comment type="description" correct="true"  groupid="3" style="multi">You may want to swap 2 variables so that each has the other's value.
+	For example, when variable1 = "hello" and variable2 = "goodbye",
+	a successful swap will have variable1 = "goodbye" and variable2 = "hello"</comment>
+	<comment type="description" correct="true"  groupid="4">You need a third temporary (temp) variable in order to make a SWAP.</comment>
+	//Try keeping track of which variable has which value:
+	string first_output = "VGA";
+	string second_output = "HDMI";
+	string temp = first_output;
+	first_output = second_output;
+	second_output = temp;
+	cout &lt;&lt; <question text="What has first_output become?
+	Select your answer: " options="VGA,HDMI" answer="HDMI">first_output;</question>
+	cout &lt;&lt; <question text="What has second_output become?
+	Select your answer: " options="HDMI,VGA" answer="VGA">second_output;</question>
+}
+</code>
+<hint type="description">This is a hint</hint>
+</level>

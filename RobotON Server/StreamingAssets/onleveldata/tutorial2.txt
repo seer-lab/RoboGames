@@ -1,0 +1,7 @@
+ComputerOn
+#Girl: 400 200 0
+#Boy: -400 200 0
+$Girl: Hey, the screen is working!
+$Boy: That's incredible, it really works!
+$Girl: We'll be able to undo Black Hat's attack in no time!
+$Boy: Let's get V.I. to help us turn on the main CPU.

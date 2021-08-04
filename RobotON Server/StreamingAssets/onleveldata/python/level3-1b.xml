@@ -1,0 +1,23 @@
+<level>
+<next-level>level3-2.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
+<description>Loop-the-loop</description>
+<introtext>Our storage recovery has a lot of data,
+we need a way to access it.</introtext>
+<endtext>Sweet!
+We can use Loops to help us!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+<comment type="description"  correct="true" groupid="1" style="single">FOR loops run for a fixed number of iterations.</comment>
+<comment type="description"  correct="true" groupid="2" style="single">The RANGE function counts from the first number to the second.</comment>
+
+<comment type="description" correct="true"  groupid="5">This loop will be identical to the last level's!</comment>
+	for (j in range(0,3)):
+		<beacon flow-order="0,1,2" />		print("This loop has run " + j + " times!")
+<beacon flow-order="3"/>
+</code>
+</level>

@@ -1,0 +1,36 @@
+<level>
+<next-level>level3-2.xml</next-level>
+<description>Loop-the-loop</description>
+<introtext>Sometimes you want to run code many times.
+Introducing the use of loops!</introtext>
+<endtext>Sweet!
+Now you know about loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="activator" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="true" size="1" groupid="0">WHILE loops run as long as the condition is true</comment>
+	int i = 0;
+	while (i &lt; 3){
+		//activate the beacon once for each iteration!
+<beacon flow-order="0,1,2" />		cout &lt;&lt; "This loop has run " &lt;&lt; i &lt;&lt; " times!" &lt;&lt; endl;
+		i++;
+	}
+<comment type="description" correct="true" size="1" groupid="1">	FOR loops run for a fixed number of iterations.</comment>
+	//They consist of three parts:
+<comment type="description" correct="true" size="1" groupid="2">	Initialization,</comment>
+<comment type="description" correct="true" size="1" groupid="3">	Condition, </comment>
+<comment type="description" correct="true" size="1" groupid="4">	and the Change per iteration</comment>
+	<newline/>
+	//This loop will be identical to the previous one!
+	for (int j = 0; j &lt; 3; j++){
+		<beacon flow-order="3,4,5" />		cout &lt;&lt; "This loop has run " &lt;&lt; j &lt;&lt; " times!" &lt;&lt; endl;
+	}
+}
+</code>
+</level>

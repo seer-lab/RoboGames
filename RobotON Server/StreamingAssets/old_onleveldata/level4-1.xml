@@ -1,0 +1,49 @@
+<level>
+<next-level>level4-2.xml</next-level>
+<description>Not Your Style</description>
+<introtext>Good code style is very helpful.
+Clean code by RENAMING and UNCOMMENTING.</introtext>
+<endtext>Stylish!
+You've aced the indentations!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+<comment type="description" correct="true" size="1" groupid="0">	Proper indentation helps you to see where the code fits.</comment>
+<comment type="code" correct="true" size="1" groupid="1" style="single">	//int year = 2016;</comment>
+<comment type="description" correct="true" size="1" groupid="2">	You should have an indent inside each new if statement, loop, or function.</comment>
+	if (year &gt;= 2000){
+<comment type="code" correct="true" size="1" groupid="3">		//cout &lt;&lt; "It's the 21st century!";</comment>
+	}
+	//Read the code below, then choose the right names and correctly styled code.
+<comment type="code" correct="true" size="1" groupid="4" style="single">	//int birthyear;</comment>
+<comment type="code" correct="false" size="1" groupid="4" style="single">		//int birthyear;</comment>
+	bool <variable-rename text="Choose a name for this variable: " options="century_21st,afternoon,valid_input,time_of_birth" correct="valid_input" groupid="0">y</variable-rename> = false;
+	cout &lt;&lt; "Enter your birth year:";
+	while( <variable-color groupid="0">y</variable-color> == false){
+<comment type="code" correct="true" size="1" groupid="8" style="single">//		cin &gt;&gt; birthyear;</comment>
+<comment type="code" correct="false" size="1" groupid="8" style="multi">//	cin &gt;&gt; birthyear;</comment>
+	}
+	if (birthyear &lt;= year){
+<comment type="code" correct="false" size="1" groupid="5" style="single">// y = true;</comment>
+<comment type="code" correct="false" size="1" groupid="5" style="single">	// y = true;</comment>
+<comment type="code" correct="true" size="1" groupid="5" style="single">		// <variable-color groupid="0">y</variable-color> = true;</comment>
+	}
+	else{
+<comment type="code" correct="false" size="1" groupid="9" style="single">//cout &lt;&lt; "Enter a valid year:"</comment>
+<comment type="code" correct="false" size="1" groupid="9" style="single">	  //cout &lt;&lt; "Enter a valid year:"</comment>
+<comment type="code" correct="true" size="1" groupid="9" style="single">		 //cout &lt;&lt; "Enter a valid year:"</comment>		
+	}
+}
+	int <variable-rename text="Choose a name for this variable: " options="temperature,time,age,date" correct="age" groupid="1">x</variable-rename> = year - birthyear;
+<comment type="code" correct="false" size="1" groupid="7" style="single">//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
+<comment type="code" correct="true" size="1" groupid="7" style="single">	//cout &lt;&lt; "You are " &lt;&lt; x &lt;&lt; " years old.";</comment>
+}
+</code>
+</level>

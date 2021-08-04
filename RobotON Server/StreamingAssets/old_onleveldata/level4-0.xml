@@ -1,0 +1,23 @@
+<level>
+<next-level>level4-1.xml</next-level>
+<description>Name It!</description>
+<introtext>Here's another tool to learn:
+Use the RENAMER to change variable names.</introtext>
+<endtext>Great!
+You've acquired a new tool!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="true" size="1" groupid="0">Use the Renamer tool on purple variable names to change them.</comment>
+	int <variable-rename text="Choose a name for this variable: " options="wronganswer1,counter,wronganswer2" correct="counter" groupid="0" oldname = "i">i</variable-rename> = 0;
+	<comment type="description" correct="true" size="1" groupid="3">Look at the code to get context clues about the variable's purpose.</comment>
+	int <variable-rename text="Choose a name for this variable: " options="temperature,age,number_of_presidents,year" correct="year" groupid="1" oldname = "x">x</variable-rename>;
+	<variable-color groupid="1">x</variable-color> = 2016;
+</code>
+</level>

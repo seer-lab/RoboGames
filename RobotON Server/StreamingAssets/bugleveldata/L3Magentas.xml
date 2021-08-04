@@ -1,0 +1,22 @@
+<level>
+<code language="c++">
+<warp line="45" file="level3.xml">Return;</warp>
+
+{"blueviolet",138,43,226},
+{"cobaltvioletdeep",145,33,158},
+{"magenta",255,0,255},
+{"orchid",218,112,214},
+{"orchiddark",153,50,204},
+{"orchidmedium",186,85,211},
+{"permanentredviolet",219,38,69},
+{"plum",221,160,221},
+{"purple",160,32,240},
+{"purplemedium",147,112,219},
+{"ultramarineviolet",92,36,110},
+{"violet",143,94,153},
+{"violetdark",148,0,211},
+{"violetred",208,32,144},
+{"violetredmedium",199,21,133},
+{"violetredpale",219,112,147}
+</code>
+</level>
