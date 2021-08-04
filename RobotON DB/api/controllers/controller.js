@@ -752,11 +752,27 @@ exports.put_current_level_course_BUG = function (req,res){
       }
 
   }
-  else if (req.body["bugLine"]||req.body["AdaptiveMode"]||req.body["hitByEnemy"]||req.body["failedToolUse"]||req.body["failures"]||req.body["AdaptiveCategorization"]||req.body["AdaptiveMode"]||req.body["HintMode"]||req.body["totalPoint"] ||req.body["timeEnded"] || req.body["finalEnergy"] || req.body["progress"] || req.body["time"] || req.body["progress"] || req.body["points"] || req.body["timeBonus"] || req.body["star"] || req.body["idleTime"]){
+  else if (req.body["bugLine"]||req.body["AdaptiveMode"]||req.body["hitByEnemy"]||req.body["failedToolUse"]||req.body["failures"]||req.body["AdaptiveCategorization"]||req.body["AdaptiveMode"]||req.body["HintMode"]||req.body["totalPoint"] ||req.body["timeEnded"] || req.body["finalEnergy"] || req.body["progress"] || req.body["time"] || req.body["progress"] || req.body["points"] || req.body["timeBonus"] || req.body["star"]){
     
     TaskC.findOneAndUpdate(
       {'courseCode': req.params.courseCode},
       {$set: query1},
+      {
+        "arrayFilters" : [{"outer.name": req.params.sessionID}]
+      },
+      function(err,obj){
+        if(err){
+          res.send("ERR " + err);
+        }else{
+          res.json(obj);
+        }
+      }
+    )
+  } else if (req.body["idleTime"]) {
+
+    TaskC.findOneAndUpdate(
+      {'courseCode': req.params.courseCode},
+      {$inc: query1},
       {
         "arrayFilters" : [{"outer.name": req.params.sessionID}]
       },
