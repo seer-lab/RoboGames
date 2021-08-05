@@ -306,7 +306,7 @@ public partial class Cinematic : MonoBehaviour
                 }
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 cinerun = false;
-                Debug.Log("Starting Level???");
+                
                 if (GlobalState.failures!=0)
                 {
                     logger.loseIdleTime(timeNow);

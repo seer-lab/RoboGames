@@ -54,6 +54,8 @@ public class OldMenu : MonoBehaviour
     int[] fontSizes;
     bool entered = false;
 
+    Logger logger = new Logger(true);
+    DateTime timeNow;
     //.................................>8.......................................
     // Use this for initialization
     void Start()
@@ -82,7 +84,7 @@ public class OldMenu : MonoBehaviour
         ToggleTheme();
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 
-
+        timeNow = DateTime.UtcNow;
         //Checks for users previous settings such as sessionID, or any menu preferences
         String sessionID = PlayerPrefs.GetString("sessionID");
         String courseCode = PlayerPrefs.GetString("courseCode");
@@ -397,6 +399,9 @@ public class OldMenu : MonoBehaviour
                         Debug.Log("Resume OM: " + GlobalState.IsResume);
                         Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
                         Debug.Log("Fail: " + GlobalState.failures);
+
+                        Debug.Log(timeNow + "Pressed???");
+                        logger.loseIdleTime(timeNow);
 
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("MainMenu");
