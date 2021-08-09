@@ -7,14 +7,14 @@ using UnityEngine;
 /// </summary>
 public static class GlobalState
 {
-    public static int AdaptiveMode = 2; //0 = default, 1 = easier, 2 = easiest <-- Categorization of the player in ML
-    public static int HintMode = 1; //0 = no hints, 1 = hints
+    public static int AdaptiveMode = 0; //0 = default, 1 = easier, 2 = easiest <-- Categorization of the player in ML
+    public static int HintMode = 2; //0 = no hints, 1 = hints, 2= hints randomized
     public static int failures = 0; //number of failures since a level was passed
     public static int tooluses = 0; //number of tool uses
     public static int elapsedTime = 0; //time elapsed since a level was passed
     public static int AdaptiveOffON = 0; //0 = no ML adaptive, 1= ML adaptive on
     public static int VerboseLoggingMode = 0; //0 = no verbose variables are logged, 1=verbose variables logged
-    public static DateTime AdaptiveChangeTime = new DateTime(2021, 07, 27, 21, 35, 00); // Defines the time to change from Non-Adaptive to Adaptive Gameplay
+    public static DateTime AdaptiveChangeTime = new DateTime(2021, 08, 13, 12, 00, 00); // Defines the time to change from Non-Adaptive to Adaptive Gameplay
     public static string Tech { get; set; } //description of technique
     public static string Hint1 { get; set; } //first hint for failure
     public static string Hint2 { get; set; } //second hint for failure
