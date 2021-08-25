@@ -299,7 +299,7 @@ exports.check_word_ON = function(req,res){
 exports.list_all_logs_BUG = function(req,res){
   console.log("List all Logs bug");
 
-  TaskT.find({}, function(err, task) {
+  TaskC.find({}, function(err, task) {
       if (err)
         res.send(err);
       res.json(task);
@@ -640,35 +640,6 @@ exports.list_all_course_BUG = function(req,res){
 //Called when you start the level only
 exports.update_a_course_BUG = function(req, res) {
   console.log("New Level Called")
-
-  /*
-  var myobj = JSON.parse(JSON.stringify({
-    progress: "Testing"
-  }));
-  
-  var query3 = {};
-  var criteria3 = "students.$[outer].levels.0.progress"; 
-  query3[criteria3] = myobj.progress;
-
-
-  //Having a lot of trouble with the level names matching, would it be fine to not look at the level name and instead if they press the resume button, or store last level name as a global variable and compare locally which then calls a different create api route.
-  //Send levelName as parameter?? "students.levels.0.name": req.body['levels'][0]['name'] For some reason the "Students,levels.0.name" detects the other students names but not the ongoing query
-  TaskC.updateOne(
-    {"students.levels.0.progress": "Ongoing", "students.levels.0.name": req.body['levels'][0]['name']},
-    {$set: query3},
-    {
-      "arrayFilters" : [{"outer.name": req.params.sessionID}]
-    },
-    function(err,obj){
-      if(err){
-        console.log(err)
-      }else{
-        console.log(obj)
-        console.log(obj["nModified"])
-      }
-    }
-  )
-  */
 
   TaskC.findOneAndUpdate({'courseCode': req.params.courseCode, 'students.name': req.params.sessionID}, 
   {

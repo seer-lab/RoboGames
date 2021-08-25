@@ -204,6 +204,8 @@ public class OldMenu : MonoBehaviour
             GlobalState.AdaptiveOffON = 1;
         }
         Debug.Log("DateTime Comparison: " + DateTime.Compare(DateTime.UtcNow, GlobalState.AdaptiveChangeTime));
+        TimeSpan duration = DateTime.UtcNow - GlobalState.AdaptiveChangeTime;
+        Debug.Log(duration);
     }
     private void ToggleTheme()
     {
@@ -333,6 +335,9 @@ public class OldMenu : MonoBehaviour
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
+                        GlobalState.failedTool = 0;
+                        GlobalState.failures = 0;
+                        GlobalState.hitByEnemy = 0;
 
                         if (SceneManager.sceneCount > 1)
                         {
@@ -360,6 +365,9 @@ public class OldMenu : MonoBehaviour
                             m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
                             m2buttontext[1].GetComponent<TextMesh>().text = "Back";
                             GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
+                            GlobalState.failedTool = 0;
+                            GlobalState.failures = 0;
+                            GlobalState.hitByEnemy = 0;
                             m2switch(true);
                         }
                         break;

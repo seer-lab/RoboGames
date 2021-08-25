@@ -206,54 +206,49 @@ public class GameController : MonoBehaviour, ITimeUser
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
 
 
-                //ADAPTIVE CODE: In desperate need of refactoring :( 
+                //ADAPTIVE CODE:
 
-                string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/ml/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
 
-                json = "{\"Items\":" + json + "}";
-
-                Debug.Log("ML Data" + json);
-                
-                Root rt = JsonConvert.DeserializeObject<Root>(json);
-
-                List<string> dataNames = new List<string>();
-                
-                //Start at 1 because we add in this run later
-                int counter = 1;
-
-                for (int i = 0; i < rt.Items.Count; i++)
+                if (GlobalState.levelsDone == 0)
                 {
-                    dataNames.Add(rt.Items[i].students.levels.name);
-                    counter++;
+                    string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/ml/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
+
+                    json = "{\"Items\":" + json + "}";
+                    Root rt = JsonConvert.DeserializeObject<Root>(json);
+                    GlobalState.dataNames = new List<string>();
+
+                    //Start at 1 because we add in this run later
+                    GlobalState.dataSize = 1;
+
+                    for (int i = 0; i < rt.Items.Count; i++)
+                    {
+                        GlobalState.dataNames.Add(rt.Items[i].students.levels.name);
+                        GlobalState.dataSize++;
+                    }
+
+                    GlobalState.rawData = new double[GlobalState.dataSize][];
+                    GlobalState.rawSize = 0;
+
+                    for (int i = 0; i < rt.Items.Count; i++)
+                    {
+                        DateTime ts = Convert.ToDateTime(rt.Items[i].students.levels.timeStarted);
+                        DateTime te = Convert.ToDateTime(rt.Items[i].students.levels.timeEnded);
+
+                        string et = te.Subtract(ts).TotalSeconds.ToString();
+
+                        GlobalState.rawData[GlobalState.rawSize] = new double[] { Convert.ToDouble(et), Convert.ToDouble(rt.Items[i].students.levels.failedToolUse) };
+                        GlobalState.rawSize++;
+
+                    }
+
+                    GlobalState.dataNames.Add(GlobalState.level.FileName);
                 }
 
-                double[][] rawData = new double[counter][];
-                int counter2 = 0;
+                GlobalState.dataNames[GlobalState.rawSize] = GlobalState.level.FileName;
+                GlobalState.rawData[GlobalState.rawSize] = new double[] { GlobalState.elapsedTime, GlobalState.failedTool };
 
-                for (int i = 0; i < rt.Items.Count; i++)
-                {
-                    DateTime ts = Convert.ToDateTime(rt.Items[i].students.levels.timeStarted);
-                    DateTime te = Convert.ToDateTime(rt.Items[i].students.levels.timeEnded);
-
-                    string et = te.Subtract(ts).TotalSeconds.ToString();
-
-                    rawData[counter2] = new double[] {Convert.ToDouble(et) , Convert.ToDouble(rt.Items[i].students.levels.failedToolUse)};
-                    counter2++;
-
-                }
-
-                dataNames.Add(GlobalState.level.FileName);
-                rawData[counter2] = new double[] { GlobalState.elapsedTime, GlobalState.failedTool };
-                Console.WriteLine(counter);
-                Console.WriteLine(counter2);
-                Console.WriteLine(dataNames[dataNames.Count-1]);
-                Console.WriteLine(rawData[counter2][0]);
-                Console.WriteLine(rawData[counter2][1]);
-                Console.WriteLine(GlobalState.elapsedTime);
-
-                Debug.Log(dataNames.Count);
-                Debug.Log(rawData.Length);
-                Debug.Log(counter);
+                Debug.Log(GlobalState.dataNames[GlobalState.dataSize - 1]);
+                Debug.Log(GlobalState.rawData[GlobalState.dataSize - 1]);
 
                 Debug.Log("This Level = " + GlobalState.level.FileName);
                 string[] intermediateNames = GlobalState.level.FileName.Split('\\');
@@ -267,7 +262,7 @@ public class GameController : MonoBehaviour, ITimeUser
                 Debug.Log("Old Adaptive Mode = " + GlobalState.AdaptiveMode.ToString());
                 if (!(levelname.Contains("tut")))
                 {
-                    int[] clustering = ClusteringKMeans.KMeansDemo.Cluster(rawData, 3);
+                    int[] clustering = ClusteringKMeans.KMeansDemo.Cluster(GlobalState.rawData, 3);
 
                     int count0 = 0;
                     int count1 = 0;
@@ -279,27 +274,27 @@ public class GameController : MonoBehaviour, ITimeUser
                     double time1 = 0;
                     double time2 = 0;
 
-                    for (int i = 0; i < counter; i++)
+                    for (int i = 0; i < GlobalState.dataSize; i++)
                     {
-                        if (levelname == dataNames[i])
+                        if (levelname == GlobalState.dataNames[i])
                         {
                             if (clustering[i] == 0)
                             {
                                 count0++;
-                                time0 += rawData[i][0];
-                                fail0 += rawData[i][1];
+                                time0 += GlobalState.rawData[i][0];
+                                fail0 += GlobalState.rawData[i][1];
                             }
                             else if (clustering[i] == 1)
                             {
                                 count1++;
-                                time1 += rawData[i][0];
-                                fail1 += rawData[i][1];
+                                time1 += GlobalState.rawData[i][0];
+                                fail1 += GlobalState.rawData[i][1];
                             }
                             else
                             {
                                 count2++;
-                                time2 += rawData[i][0];
-                                fail2 += rawData[i][1];
+                                time2 += GlobalState.rawData[i][0];
+                                fail2 += GlobalState.rawData[i][1];
                             }
                         }
                     }
@@ -317,9 +312,9 @@ public class GameController : MonoBehaviour, ITimeUser
                     Debug.Log("Group Counts: " + count0.ToString() + " " + count1.ToString() + " " + count2.ToString());
                     Debug.Log("Fail Counts: " + fail0.ToString() + " " + fail1.ToString() + " " + fail2.ToString());
                     Debug.Log("Fail Averages: " + avgF0.ToString() + " " + avgF1.ToString() + " " + avgF2.ToString());
-                    Debug.Log("This Player's Group: " + clustering[counter-1].ToString());
-                    Debug.Log("This Player's Elapsed Time: " + rawData[counter-1][0].ToString());
-                    Debug.Log("This Player's Tool Failures: " + rawData[counter-1][1].ToString());
+                    Debug.Log("This Player's Group: " + clustering[GlobalState.dataSize-1].ToString());
+                    Debug.Log("This Player's Elapsed Time: " + GlobalState.rawData[GlobalState.dataSize-1][0].ToString());
+                    Debug.Log("This Player's Tool Failures: " + GlobalState.rawData[GlobalState.dataSize-1][1].ToString());
                     Debug.Log("This Player's Elapsed Time: " + GlobalState.elapsedTime);
                     Debug.Log("This Player's Tool Failures: " + GlobalState.failedTool);
 
@@ -372,11 +367,11 @@ public class GameController : MonoBehaviour, ITimeUser
 
                     //Logging Done Before Reassigning the Adaptive Mode 
                     logger.onGameEnd(startDate, "Passed", EnergyController.currentEnergy);
-                    if (clustering[counter-1] == max)
+                    if (clustering[GlobalState.dataSize-1] == max)
                     {
                         GlobalState.AdaptiveMode = 0;
                     }
-                    else if (clustering[counter-1] == mid)
+                    else if (clustering[GlobalState.dataSize-1] == mid)
                     {
                         GlobalState.AdaptiveMode = 1;
                     }

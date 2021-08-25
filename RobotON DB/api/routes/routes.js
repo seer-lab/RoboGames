@@ -33,25 +33,8 @@ module.exports = function(app){
     app.route('/logsON/check/:word')
     .get(logControl.check_word_ON);
 
-    /*
     app.route('/logsBUG')
     .get(logControl.list_all_logs_BUG)
-    .post(logControl.create_a_log_BUG);
-
-    app.route('/logsBUG/:sessionID')
-    .get(logControl.read_a_log_BUG)
-    .put(logControl.update_a_log_BUG);
-
-    app.route('/logsBUG/completedlevels/:sessionID')
-    .get(logControl.retrieve_comp_level_BUG);
-
-    app.route('/logsBUG/currentlevel/:sessionID/:name')
-    .put(logControl.put_current_level_BUG);
-    
-    app.route('/logsBUG/points/:sessionID/:name')
-    .get(logControl.retrieve_upgrade_points_BUG)
-    .put(logControl.put_upgrade_points_BUG);
-    */
 
     app.route('/logsBUG/leaderboard/:levelName')
     .get(logControl.list_all_leaderboard_BUG);

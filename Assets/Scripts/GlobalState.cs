@@ -14,7 +14,7 @@ public static class GlobalState
     public static int elapsedTime = 0; //time elapsed since a level was passed
     public static int AdaptiveOffON = 0; //0 = no ML adaptive, 1= ML adaptive on
     public static int VerboseLoggingMode = 0; //0 = no verbose variables are logged, 1=verbose variables logged
-    public static DateTime AdaptiveChangeTime = new DateTime(2021, 08, 13, 12, 00, 00); // Defines the time to change from Non-Adaptive to Adaptive Gameplay
+    public static DateTime AdaptiveChangeTime = new DateTime(2021, 08, 13, 16, 00, 00, DateTimeKind.Utc); // Defines the time to change from Non-Adaptive to Adaptive Gameplay
     public static string Tech { get; set; } //description of technique
     public static string Hint1 { get; set; } //first hint for failure
     public static string Hint2 { get; set; } //second hint for failure
@@ -72,4 +72,10 @@ public static class GlobalState
 
     public static int hitByEnemy = 0;
     public static int failedTool = 0;
+
+    public static int levelsDone = 0;
+    public static List<string> dataNames;
+    public static double[][] rawData;
+    public static int dataSize;
+    public static int rawSize;
 }

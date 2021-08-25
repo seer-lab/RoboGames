@@ -192,7 +192,8 @@ public class Logger
 
         sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/states");
 
-        if (String.Equals(states.success, "false"))
+        Debug.Log(String.Equals(states.eventName, GlobalState.StringLib.namesBug[0]));
+        if (String.Equals(states.success, "false")&& String.Equals(states.eventName, GlobalState.StringLib.namesBug[0]))
         {
             GlobalState.failedTool++;
         }
@@ -384,6 +385,8 @@ public class Logger
 
         }
         */
+        GlobalState.levelsDone += 1;
+        Debug.Log("LevelsDone=" + GlobalState.levelsDone);
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
     }

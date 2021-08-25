@@ -448,7 +448,7 @@ public partial class Cinematic : MonoBehaviour
             GlobalState.Stats = new CharacterStats();
         }
 
-        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID; 
+        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.courseCode + "/" + GlobalState.sessionID; 
 
         SendPointsToDB(url + "/totalPoints", 
                         "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}");
