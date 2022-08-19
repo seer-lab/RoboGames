@@ -206,8 +206,8 @@ public class stringLib
 
     //public const string SERVER_URL = "https://robogames.science.ontariotechu.ca/";
     //public const string DB_URL = "https://robogames.science.ontariotechu.ca/logs";
-    public const string SERVER_URL = "http://10.0.0.52:8080/";
-    public const string DB_URL = "http://10.0.0.52:3000/logs";
+    public const string SERVER_URL = "http://10.0.0.45:8080/";
+    public const string DB_URL = "http://10.0.0.45:3000/logs";
     public const string CURRENT_LEVEL = "currentlevel/";
     public const int DOWNLOAD_TIME = 200;
     public string[] bugIcons = new string[] { "bugfixer", "printer", "warper", "lock", "breakpointer" };

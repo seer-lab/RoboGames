@@ -67,9 +67,18 @@ module.exports = function(app){
 
     //Called for the machine learning algo
     app.route('/logsBUG/ml/:courseCode/:sessionID')
-    .get(logControl.retrieve_ml_BUG)
+    .get(logControl.get_ml_BUG)
 
     //Called for auto ML ON/OFF
     app.route('/logsBUG/mlAuto/:courseCode/:sessionID')
     .get(logControl.change_ml_adaptive_BUG)
+
+    app.route('/logs/tryingJS')
+    .get(logControl.js_Stuff)
+
+    app.route('/logs/ml')
+    .get(logControl.get_ml_BUG)
+
+    app.route('/logsBUG/ml/:levelName/:timeElapsed/:failures')
+    .get(logControl.do_K_Means)
 };

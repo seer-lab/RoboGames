@@ -205,24 +205,34 @@ public class GameController : MonoBehaviour, ITimeUser
 
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_WIN;
 
-
                 //ADAPTIVE CODE:
 
-
+                //We only get the data when the number of levelsDone are 0
                 if (GlobalState.levelsDone == 0)
                 {
+                    /*
+                    //This gets data from the DB for ML
+                    Debug.Log("Before getting the ML Data" + DateTime.Now);
                     string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/ml/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
+                    Debug.Log("ML Data: " +json);
+                    Debug.Log("After getting ML Data: " + DateTime.Now);
 
+                    //This is where we parse the raw data to be used in the ML
+                    Debug.Log("Before Parsing: " + DateTime.Now);
                     json = "{\"Items\":" + json + "}";
+
                     Root rt = JsonConvert.DeserializeObject<Root>(json);
                     GlobalState.dataNames = new List<string>();
+                    Debug.Log("After Parsing: " + DateTime.Now);
 
                     //Start at 1 because we add in this run later
                     GlobalState.dataSize = 1;
 
+                    Debug.Log("Before For Loops: " + DateTime.Now);
+                    //Change the processed data to actual data that we can use for the ML
                     for (int i = 0; i < rt.Items.Count; i++)
                     {
-                        GlobalState.dataNames.Add(rt.Items[i].students.levels.name);
+                        GlobalState.dataNames.Add(rt.Items[i].levelName);
                         GlobalState.dataSize++;
                     }
 
@@ -231,24 +241,29 @@ public class GameController : MonoBehaviour, ITimeUser
 
                     for (int i = 0; i < rt.Items.Count; i++)
                     {
-                        DateTime ts = Convert.ToDateTime(rt.Items[i].students.levels.timeStarted);
-                        DateTime te = Convert.ToDateTime(rt.Items[i].students.levels.timeEnded);
+                        DateTime ts = Convert.ToDateTime(rt.Items[i].timeStarted);
+                        DateTime te = Convert.ToDateTime(rt.Items[i].timeEnded);
 
                         string et = te.Subtract(ts).TotalSeconds.ToString();
 
-                        GlobalState.rawData[GlobalState.rawSize] = new double[] { Convert.ToDouble(et), Convert.ToDouble(rt.Items[i].students.levels.failedToolUse) };
+                        GlobalState.rawData[GlobalState.rawSize] = new double[] { Convert.ToDouble(et), Convert.ToDouble(rt.Items[i].failedToolUse) };
                         GlobalState.rawSize++;
 
                     }
+                    Debug.Log("After For Loops: " + DateTime.Now);
 
                     GlobalState.dataNames.Add(GlobalState.level.FileName);
+                    
+                    */
                 }
 
+                /*
                 GlobalState.dataNames[GlobalState.rawSize] = GlobalState.level.FileName;
                 GlobalState.rawData[GlobalState.rawSize] = new double[] { GlobalState.elapsedTime, GlobalState.failedTool };
 
                 Debug.Log(GlobalState.dataNames[GlobalState.dataSize - 1]);
                 Debug.Log(GlobalState.rawData[GlobalState.dataSize - 1]);
+                */
 
                 Debug.Log("This Level = " + GlobalState.level.FileName);
                 string[] intermediateNames = GlobalState.level.FileName.Split('\\');
@@ -262,6 +277,7 @@ public class GameController : MonoBehaviour, ITimeUser
                 Debug.Log("Old Adaptive Mode = " + GlobalState.AdaptiveMode.ToString());
                 if (!(levelname.Contains("tut")))
                 {
+                    /*
                     int[] clustering = ClusteringKMeans.KMeansDemo.Cluster(GlobalState.rawData, 3);
 
                     int count0 = 0;
@@ -276,8 +292,11 @@ public class GameController : MonoBehaviour, ITimeUser
 
                     for (int i = 0; i < GlobalState.dataSize; i++)
                     {
+                        Debug.Log("Level Name Paresed:" + GlobalState.dataNames[i]);
                         if (levelname == GlobalState.dataNames[i])
                         {
+                            Debug.Log("Time Parsed:" + GlobalState.rawData[i][0]);
+                            Debug.Log("Fail Parsed:" + GlobalState.rawData[i][1]);
                             if (clustering[i] == 0)
                             {
                                 count0++;
@@ -381,12 +400,19 @@ public class GameController : MonoBehaviour, ITimeUser
                     }
 
                     Debug.Log("New Adaptive Mode = " + GlobalState.AdaptiveMode.ToString());
+                    */
+
+
+                    string newML = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/ml/" + levelname + "/" + GlobalState.elapsedTime + "/" + GlobalState.failures);
+                    Debug.Log("New ML = " + newML);
+                    GlobalState.AdaptiveMode = int.Parse(newML);
+
                 }
                 else
                 {
                     Debug.Log("Tutorial level; no ML done");
                 }
-                
+
                 GlobalState.elapsedTime = 0;
                 GlobalState.failures = 0;
                 GlobalState.hitByEnemy = 0;
@@ -413,26 +439,13 @@ public class GameController : MonoBehaviour, ITimeUser
     }
 
     [Serializable]
-    public class Levels
-    {
-        public string name;
-        public string timeStarted;
-        public string timeEnded;
-        public string failedToolUse;
-    }
-
-    [Serializable]
-    public class Students
-    {
-        public Levels levels;
-    }
-
-    [Serializable]
     public class Item
     {
         public string _id;
-        public string courseCode;
-        public Students students;
+        public string levelName;
+        public string timeStarted;
+        public string timeEnded;
+        public string failedToolUse;
     }
 
     [Serializable]

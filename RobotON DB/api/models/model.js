@@ -68,8 +68,29 @@ var courseSchema = new mongoose.Schema({
     },
     students: [roboSchema],
 })
- 
+
+/*
+var mlSchema = new Schema({
+    courseCode: String,
+    students: [{
+        levels:[{
+            name: String,
+            timeStarted: String,
+            timeEnded: String,
+            failedToolUse: String
+        }],
+    }],
+}) */
+
+var mlSchema = new Schema({
+   levelName: String,
+   timeStarted: String,
+   timeEnded: String,
+   failedToolUse: String
+})
+
 module.exports = mongoose.model('RobotON_Logs', roboSchema);
 module.exports = mongoose.model('RobotBug_Logs', roboSchema);
 module.exports = mongoose.model('RobotON_Course', courseSchema);
 module.exports = mongoose.model('RobotBug_Course', courseSchema);
+module.exports = mongoose.model('RobotBug_ML', mlSchema);

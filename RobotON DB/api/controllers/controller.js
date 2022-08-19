@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
     Task = mongoose.model('RobotON_Logs'),
     TaskT = mongoose.model('RobotBug_Logs'),
-    TaskC = mongoose.model('RobotBug_Course');
+    TaskC = mongoose.model('RobotBug_Course'),
+    TaskM = mongoose.model('RobotBug_ML');
 
 //-------------------------------EXTERNAL FUNCTIONS------------------------------------------->
 function onlyUnique(value, index, self){
@@ -804,6 +805,7 @@ exports.put_upgrade_points_course_BUG = function(req,res){
   })
 }
 
+/*
 exports.retrieve_ml_BUG = function(req,res){
   console.log("ML Called")
 
@@ -819,6 +821,7 @@ exports.retrieve_ml_BUG = function(req,res){
     }
   )
 }
+*/
 
 exports.change_ml_adaptive_BUG = function(req,res){
   console.log("ML auto change called")
@@ -833,4 +836,458 @@ exports.change_ml_adaptive_BUG = function(req,res){
       }
     }
   )
+}
+
+//Function that will update the MLData stored in the TaskM Model
+exports.js_Stuff = function(req,res){
+
+  //Does not include levels that quit a level right away not to menu, and levels that are ongoing levels.
+  TaskC.aggregate(
+    [{$unwind:'$students'},{$unwind:'$students.levels'},{ $match: {'students.levels.timeEnded': {$ne:"N/A"}} },{ $match : { 'students.levels.progress' : "Passed", } },{ $project:{'courseCode':1,'students.levels.name':1, 'students.levels.timeStarted':1, 'students.levels.timeEnded':1, 'students.levels.failedToolUse':1,}}],
+    function(err,obj){
+      if(err){
+        res.send(err);
+      }else{
+
+        //This will clear the MLSchema Model
+        TaskM.deleteMany(
+          function(err){
+            if(err){
+              res.send(err);
+            }
+        });
+
+        //Loops through the levels and adds each one to the Model, need to do like this due to _ids
+        for (const key in obj) {
+          var new_task = new TaskM({
+            /*
+            courseCode: obj[key].courseCode,
+            students: obj[key].students 
+            */
+            levelName: obj[key].students.levels.name,
+            timeStarted: obj[key].students.levels.timeStarted,
+            timeEnded: obj[key].students.levels.timeEnded,
+            failedToolUse: obj[key].students.levels.failedToolUse
+          });
+          new_task.save(function(err){
+            if(err){
+              res.send(err);
+            }});
+        }
+      }
+    }
+  )
+}
+
+
+//This will return the MLData when called.
+exports.get_ml_BUG = function(req,res){
+  console.log("Machine Learning Data Gotten");
+  TaskM.find({},function(err,obj){
+    if(err){
+      res.send(err);
+    }else {
+      res.json(obj);
+    }
+  });
+}
+
+const MAX_ITERATIONS = 500;
+exports.do_K_Means = function(req,res){
+
+
+  //Number of groups/clusters
+  var k = 3
+  
+  TaskM.find({},function(err,obj){
+    if(err){
+      console.log("Error getting ml data from database");
+    }else {
+      console.log(obj);
+      const dataset = new Array();
+
+      //Parse the result to use in ML
+      console.log(obj.length);
+
+      for (let i = 0; i < obj.length; i++) {
+        
+        console.log(obj[i].levelName);
+        //Check for the level to be the same
+        if (obj[i].levelName == req.params.levelName){
+          var timeElapsed = Date.parse(obj[i].timeEnded) - Date.parse(obj[i].timeStarted); 
+          console.log(timeElapsed);
+          dataset.push([timeElapsed,parseFloat(obj[i].failedToolUse)]);
+        }
+      }
+
+      console.log(dataset);
+      
+      //console.log(obj);
+
+      //Run the KMeans with dataset and clusters
+      var result = kmeans(dataset, k)
+      console.log(result);
+
+      //Get the levelData and centroids
+      var point = [req.params.timeElapsed*1000,req.params.failures];
+      var centroids = result.centroids;
+
+      console.log(point);
+
+      //Find the group for the level
+      var currentLowestDistance;
+      var currentLowestDistanceGroup;
+      var euclidianDistance;
+
+      //Sort based on amount of failures
+      centroids.sort((a, b) => {
+          return a[1] - b[1];
+      });
+      console.log(centroids);
+      
+        
+      for (let i = 0; i < centroids.length; i++) {
+          euclidianDistance = Math.sqrt(Math.pow(centroids[i][0]-point[0],2) + Math.pow(centroids[i][1]-point[1],2));
+
+          if (i==0){
+              currentLowestDistance = euclidianDistance;
+              currentLowestDistanceGroup = i;
+          } else if(currentLowestDistance>euclidianDistance){
+              currentLowestDistance = euclidianDistance;
+              currentLowestDistanceGroup = i;
+          }
+
+          console.log(euclidianDistance);
+      }
+
+      console.log("Lowest Distance:" + currentLowestDistance);
+      console.log("Group for this person: " + currentLowestDistanceGroup);
+
+      res.json(currentLowestDistanceGroup);
+    }
+  });
+}
+
+function get_ml(){
+  TaskM.find({},function(err,obj){
+    if(err){
+      console.log("Error getting ml data from database");
+    }else {
+      //console.log(obj);
+      return obj;
+    }
+  });
+}
+
+
+
+//These functions actually compute the ML Model using K-Means Clusters
+//These will return the clusters and centroids
+//Taken partially from: https://medium.com/geekculture/implementing-k-means-clustering-from-scratch-in-javascript-13d71fbcb31e
+
+function getRandomCentroids(dataset, k) {
+    // selects random points as centroids from the dataset
+    const numSamples = dataset.length;
+    const centroidsIndex = [];
+    let index;
+    while (centroidsIndex.length < k) {
+      index = randomBetween(0, numSamples);
+      if (centroidsIndex.indexOf(index) === -1) {
+        centroidsIndex.push(index);
+      }
+    }
+    const centroids = [];
+    for (let i = 0; i < centroidsIndex.length; i++) {
+      const centroid = [...dataset[centroidsIndex[i]]];
+      centroids.push(centroid);
+    }
+    return centroids;
+}
+
+// Calculate Squared Euclidean Distance
+function getDistanceSQ(a, b) {
+  const diffs = [];
+  for (let i = 0; i < a.length; i++) {
+    diffs.push(a[i] - b[i]);
+  }
+  return diffs.reduce((r, e) => (r + (e * e)), 0);
+}
+
+// Returns a label for each piece of data in the dataset. 
+function getLabels(dataSet, centroids) {
+  // prep data structure:
+  const labels = {};
+  for (let c = 0; c < centroids.length; c++) {
+    labels[c] = {
+      points: [],
+      centroid: centroids[c],
+    };
+  }
+  // For each element in the dataset, choose the closest centroid. 
+  // Make that centroid the element's label.
+  for (let i = 0; i < dataSet.length; i++) {
+    const a = dataSet[i];
+    let closestCentroid, closestCentroidIndex, prevDistance;
+    for (let j = 0; j < centroids.length; j++) {
+      let centroid = centroids[j];
+      if (j === 0) {
+        closestCentroid = centroid;
+        closestCentroidIndex = j;
+        prevDistance = getDistanceSQ(a, closestCentroid);
+      } else {
+        // get distance:
+        const distance = getDistanceSQ(a, centroid);
+        if (distance < prevDistance) {
+          prevDistance = distance;
+          closestCentroid = centroid;
+          closestCentroidIndex = j;
+        }
+      }
+    }
+    // add point to centroid labels:
+    labels[closestCentroidIndex].points.push(a);
+  }
+  return labels;
+}
+
+function getPointsMean(pointList) {
+    const totalPoints = pointList.length;
+    const means = [];
+    for (let j = 0; j < pointList[0].length; j++) {
+      means.push(0);
+    }
+    for (let i = 0; i < pointList.length; i++) {
+      const point = pointList[i];
+      for (let j = 0; j < point.length; j++) {
+        const val = point[j];
+        means[j] = means[j] + val / totalPoints;
+      }
+    }
+    return means;
+  }
+  
+  function recalculateCentroids(dataSet, labels, k) {
+    // Each centroid is the geometric mean of the points that
+    // have that centroid's label. Important: If a centroid is empty (no points have
+    // that centroid's label) you should randomly re-initialize it.
+    let newCentroid;
+    const newCentroidList = [];
+    for (const k in labels) {
+      const centroidGroup = labels[k];
+      if (centroidGroup.points.length > 0) {
+        // find mean:
+        newCentroid = getPointsMean(centroidGroup.points);
+      } else {
+        // get new random centroid
+        newCentroid = getRandomCentroids(dataSet, 1)[0];
+      }
+      newCentroidList.push(newCentroid);
+    }
+    return newCentroidList;
+  }
+
+function randomBetween(min, max) {
+  return Math.floor(
+    Math.random() * (max - min) + min
+  );
+}
+
+function calcMeanCentroid(dataSet, start, end) {
+  const features = dataSet[0].length;
+  const n = end - start;
+  let mean = [];
+  for (let i = 0; i < features; i++) {
+    mean.push(0);
+  }
+  for (let i = start; i < end; i++) {
+    for (let j = 0; j < features; j++) {
+      mean[j] = mean[j] + dataSet[i][j] / n;
+    }
+  }
+  return mean;
+}
+
+function getRandomCentroidsNaiveSharding(dataset, k) {
+  // implementation of a variation of naive sharding centroid initialization method
+  // (not using sums or sorting, just dividing into k shards and calc mean)
+  // https://www.kdnuggets.com/2017/03/naive-sharding-centroid-initialization-method.html
+  const numSamples = dataset.length;
+  // Divide dataset into k shards:
+  const step = Math.floor(numSamples / k);
+  const centroids = [];
+  for (let i = 0; i < k; i++) {
+    const start = step * i;
+    let end = step * (i + 1);
+    if (i + 1 === k) {
+      end = numSamples;
+    }
+    centroids.push(calcMeanCentroid(dataset, start, end));
+  }
+  return centroids;
+}
+
+function getRandomCentroids(dataset, k) {
+  // selects random points as centroids from the dataset
+  const numSamples = dataset.length;
+  const centroidsIndex = [];
+  let index;
+  while (centroidsIndex.length < k) {
+    index = randomBetween(0, numSamples);
+    if (centroidsIndex.indexOf(index) === -1) {
+      centroidsIndex.push(index);
+    }
+  }
+  const centroids = [];
+  for (let i = 0; i < centroidsIndex.length; i++) {
+    const centroid = [...dataset[centroidsIndex[i]]];
+    centroids.push(centroid);
+  }
+  return centroids;
+}
+
+function compareCentroids(a, b) {
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function shouldStop(oldCentroids, centroids, iterations) {
+  if (iterations > MAX_ITERATIONS) {
+    return true;
+  }
+  if (!oldCentroids || !oldCentroids.length) {
+    return false;
+  }
+  let sameCount = true;
+  for (let i = 0; i < centroids.length; i++) {
+    if (!compareCentroids(centroids[i], oldCentroids[i])) {
+      sameCount = false;
+    }
+  }
+  return sameCount;
+}
+
+// Calculate Squared Euclidean Distance
+function getDistanceSQ(a, b) {
+  const diffs = [];
+  for (let i = 0; i < a.length; i++) {
+    diffs.push(a[i] - b[i]);
+  }
+  return diffs.reduce((r, e) => (r + (e * e)), 0);
+}
+
+// Returns a label for each piece of data in the dataset. 
+function getLabels(dataSet, centroids) {
+  // prep data structure:
+  const labels = {};
+  for (let c = 0; c < centroids.length; c++) {
+    labels[c] = {
+      points: [],
+      centroid: centroids[c],
+    };
+  }
+  // For each element in the dataset, choose the closest centroid. 
+  // Make that centroid the element's label.
+  for (let i = 0; i < dataSet.length; i++) {
+    const a = dataSet[i];
+    let closestCentroid, closestCentroidIndex, prevDistance;
+    for (let j = 0; j < centroids.length; j++) {
+      let centroid = centroids[j];
+      if (j === 0) {
+        closestCentroid = centroid;
+        closestCentroidIndex = j;
+        prevDistance = getDistanceSQ(a, closestCentroid);
+      } else {
+        // get distance:
+        const distance = getDistanceSQ(a, centroid);
+        if (distance < prevDistance) {
+          prevDistance = distance;
+          closestCentroid = centroid;
+          closestCentroidIndex = j;
+        }
+      }
+    }
+    // add point to centroid labels:
+    labels[closestCentroidIndex].points.push(a);
+  }
+  return labels;
+}
+
+function getPointsMean(pointList) {
+  const totalPoints = pointList.length;
+  const means = [];
+  for (let j = 0; j < pointList[0].length; j++) {
+    means.push(0);
+  }
+  for (let i = 0; i < pointList.length; i++) {
+    const point = pointList[i];
+    for (let j = 0; j < point.length; j++) {
+      const val = point[j];
+      means[j] = means[j] + val / totalPoints;
+    }
+  }
+  return means;
+}
+
+function recalculateCentroids(dataSet, labels, k) {
+  // Each centroid is the geometric mean of the points that
+  // have that centroid's label. Important: If a centroid is empty (no points have
+  // that centroid's label) you should randomly re-initialize it.
+  let newCentroid;
+  const newCentroidList = [];
+  for (const k in labels) {
+    const centroidGroup = labels[k];
+    if (centroidGroup.points.length > 0) {
+      // find mean:
+      newCentroid = getPointsMean(centroidGroup.points);
+    } else {
+      // get new random centroid
+      newCentroid = getRandomCentroids(dataSet, 1)[0];
+    }
+    newCentroidList.push(newCentroid);
+  }
+  return newCentroidList;
+}
+
+function kmeans(dataset, k, useNaiveSharding = true) {
+  if (dataset.length && dataset[0].length && dataset.length > k) {
+    // Initialize book keeping variables
+    let iterations = 0;
+    let oldCentroids, labels, centroids;
+
+    // Initialize centroids randomly
+    if (useNaiveSharding) {
+      centroids = getRandomCentroidsNaiveSharding(dataset, k);
+    } else {
+      centroids = getRandomCentroids(dataset, k);
+    }
+
+    // Run the main k-means algorithm
+    while (!shouldStop(oldCentroids, centroids, iterations)) {
+      // Save old centroids for convergence test.
+      oldCentroids = [...centroids];
+      iterations++;
+
+      // Assign labels to each datapoint based on centroids
+      labels = getLabels(dataset, centroids);
+      centroids = recalculateCentroids(dataset, labels, k);
+    }
+
+    const clusters = [];
+    for (let i = 0; i < k; i++) {
+      clusters.push(labels[i]);
+    }
+    const results = {
+      clusters: clusters,
+      centroids: centroids,
+      iterations: iterations,
+      converged: iterations <= MAX_ITERATIONS,
+    };
+    return results;
+  } else {
+    throw new Error('Invalid dataset');
+  }
 }
