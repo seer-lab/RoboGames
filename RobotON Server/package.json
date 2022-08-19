@@ -16,7 +16,7 @@
     "fs": "0.0.1-security",
     "http": "^0.0.0",
     "mongodb": "^3.2.6",
-    "mongoose": "^5.0.10",
+    "mongoose": "^5.13.14",
     "nodemailer": "^6.2.1",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
