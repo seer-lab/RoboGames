@@ -905,31 +905,65 @@ exports.do_K_Means = function(req,res){
     }else {
       console.log(obj);
       const dataset = new Array();
+      var maxTime = Number.MIN_VALUE;
+      var minTime = Number.MAX_VALUE;
+      var maxFail = Number.MIN_VALUE;
+      var minFail = Number.MAX_VALUE;
 
       //Parse the result to use in ML
       console.log(obj.length);
 
-      for (let i = 0; i < obj.length; i++) {
-        
+      for (let i = 0; i < obj.length; i++) {  
+
         console.log(obj[i].levelName);
         //Check for the level to be the same
+        //Also get the Min and Max values for the normalization of the data
         if (obj[i].levelName == req.params.levelName){
           var timeElapsed = Date.parse(obj[i].timeEnded) - Date.parse(obj[i].timeStarted); 
           console.log(timeElapsed);
-          dataset.push([timeElapsed,parseFloat(obj[i].failedToolUse)]);
+
+          var failedToolUse = parseFloat(obj[i].failedToolUse)
+
+          if (timeElapsed > maxTime){
+            maxTime = timeElapsed;
+          } else if (timeElapsed < minTime){
+            minTime = timeElapsed;
+          }
+
+          if (failedToolUse > maxFail){
+            maxFail = failedToolUse;
+          } else if (failedToolUse < minFail){
+            minFail = failedToolUse;
+          }          
+
+          console.log(maxTime);
+          console.log(minTime);
+          console.log(maxFail);
+          console.log(minFail);
+
+          dataset.push([timeElapsed,failedToolUse]);
         }
       }
 
       console.log(dataset);
       
+      for (let j = 0; j < dataset.length; j++) {  
+        dataset[j][0] = ((dataset[j][0] - minTime) / (maxTime - minTime)) *100 //(xi – min(x)) / (max(x) – min(x)) * 100 I normalize the data between 0 and 100
+        dataset[j][1] = ((dataset[j][1] - minFail) / (maxFail - minFail)) *100
+      }
+      console.log(dataset);
       //console.log(obj);
 
       //Run the KMeans with dataset and clusters
       var result = kmeans(dataset, k)
       console.log(result);
 
-      //Get the levelData and centroids
+      //Get the levelData and normalize and centroids
       var point = [req.params.timeElapsed*1000,req.params.failures];
+      console.log(point);
+      point[0] = ((point[0] - minTime) / (maxTime - minTime)) *100 //(xi – min(x)) / (max(x) – min(x)) * 100 I normalize the data between 0 and 100
+      point[1] = ((point[1] - minFail) / (maxFail - minFail)) *100
+
       var centroids = result.centroids;
 
       console.log(point);
