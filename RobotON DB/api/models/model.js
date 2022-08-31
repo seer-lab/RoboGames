@@ -89,8 +89,17 @@ var mlSchema = new Schema({
    failedToolUse: String
 })
 
+var centroidSchema = new Schema({
+    levelName: String,
+    centroids: [{
+        timeElapsed: String,
+        failedToolUse: String
+    }],
+ })
+
 module.exports = mongoose.model('RobotON_Logs', roboSchema);
 module.exports = mongoose.model('RobotBug_Logs', roboSchema);
 module.exports = mongoose.model('RobotON_Course', courseSchema);
 module.exports = mongoose.model('RobotBug_Course', courseSchema);
 module.exports = mongoose.model('RobotBug_ML', mlSchema);
+module.exports = mongoose.model('RobotBug_Centroids', centroidSchema);

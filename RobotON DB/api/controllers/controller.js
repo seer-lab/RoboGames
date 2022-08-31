@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
     Task = mongoose.model('RobotON_Logs'),
     TaskT = mongoose.model('RobotBug_Logs'),
     TaskC = mongoose.model('RobotBug_Course'),
-    TaskM = mongoose.model('RobotBug_ML');
+    TaskM = mongoose.model('RobotBug_ML'),
+    TaskCT = mongoose.model('RobotBug_Centroids');
 
 //-------------------------------EXTERNAL FUNCTIONS------------------------------------------->
 function onlyUnique(value, index, self){
@@ -959,6 +960,7 @@ exports.do_K_Means = function(req,res){
       console.log(result);
 
       //Get the levelData and normalize and centroids
+      //Note the 1000x for going from seconds to milliseconds
       var point = [req.params.timeElapsed*1000,req.params.failures];
       console.log(point);
       point[0] = ((point[0] - minTime) / (maxTime - minTime)) *100 //(xi – min(x)) / (max(x) – min(x)) * 100 I normalize the data between 0 and 100
@@ -996,6 +998,30 @@ exports.do_K_Means = function(req,res){
 
       console.log("Lowest Distance:" + currentLowestDistance);
       console.log("Group for this person: " + currentLowestDistanceGroup);
+      const centroids2 = new Array();
+
+      for (let j = 0; j < centroids.length; j++) {
+          centroids2.push({timeElapsed: centroids[j][0], failedToolUse: centroids[j][1]}); 
+      }
+
+      //Add to new Schema
+      //Loops through the centroids and adds each one to the Model
+      var new_task = new TaskCT({
+        levelName: req.params.levelName,
+        centroids: centroids2
+      });
+      
+      TaskCT.findOneAndRemove({'levelName': req.params.levelName},function(err){
+        if(err){
+          res.send(err);
+        }
+      });
+
+      new_task.save(function(err){
+        if(err){
+          res.send(err);
+        }
+      });
 
       res.json(currentLowestDistanceGroup);
     }
