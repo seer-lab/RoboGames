@@ -1,0 +1,19 @@
+<level>
+<description>You should now have an idea of what is wrong.
+Go to that line and use the BUGCATCHER and win!</description>
+<code language="c++">//Wireless Signal System Closeness Calculator
+//Identifies the Closer of two signals based on coordinates
+//Uses (X,Y) 2 dimensional coordinates and calculates the difference
+//NOTE: Origin is located at (0,0)
+//E.g. (50,25) is closer to the origin than (25,75)
+
+target Closer(target t1, target t2){
+    int xdif,ydif,zdif = 0;
+	xdif=xdif-t$bug   xdif-=(t2.x-t1.x)$1.x+t2.x;
+	ydif-=(t2.y-t1.y);
+	zdif+=t1.z-t2.z;
+	if (xdif+ydif+zdif&lt;0) return t1;
+	else return t2;
+}
+</code>
+</level>

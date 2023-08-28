@@ -1,0 +1,32 @@
+<level>
+<next-level>level3-2b.xml</next-level>
+<failure_level>level3-1.xml</failure_level>
+<description>For Goodness' Sake!</description>
+<introtext> Our System needs to be decompressed, 
+let's get our decompresser working to retrieve the real data!</introtext>
+<endtext>Nice work!
+You're doing great with the loops!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+	text = "a"
+	for (i in range(0,2)):
+		<comment type="description" correct="true"  groupid="0">the += operator adds onto an existing variable</comment>
+		<comment type="description" correct="true"  groupid="1">text += "b" is the same as text = text + "b"</comment>
+		<comment type="description" correct="true"  groupid="2">text += "c" is the same as text = text + "c";</comment>
+<beacon flow-order="0,1" />		text += "b"
+	
+	<comment type="description" correct="true"  groupid="3">#the range function can use a third number to change how the numbers are counted.</comment>
+	<comment type="description" correct="true"  groupid="4">#for example, range(5,0,-1) counts from 5 down to 0, going down by 1 every time.</comment>
+	for (i in range (4,0,-2)):
+<beacon flow-order="2,3,4" />		text += "c"
+	
+	print(<question text="What does the text contain now?
+	Select your answer: " options="abc,aaabbbccc,abccc,abbccc" answer="abbccc">text</question>)
+<beacon flow-order="5"/>
+</code>
+</level>

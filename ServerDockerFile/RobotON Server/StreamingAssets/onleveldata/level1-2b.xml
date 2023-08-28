@@ -1,0 +1,34 @@
+<level>
+<next-level>level1-3.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>What's Your Type?</description>
+<introtext>It's important to check whether the monitor is asleep.
+We need to turn on the changing color capabilities</introtext>
+<endtext>Now you know all about variables!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="3"/>
+</tools>
+<code language="c++">int main {
+	<comment type="description" correct="true"  groupid="0">BOOLEAN variables store either TRUE or FALSE.</comment>
+	bool is_off = true;
+	<comment type="description" correct="false"  groupid="1">Variables are given random values every 72 seconds.</comment>
+	<comment type="description" correct="true"  groupid="1">You can use variables in expressions to create new variables:</comment>
+	bool <question text="What is the VALUE of [is_off]?
+	Select your answer: " options="true,false" answer="true">is_sleep = is_off;</question>
+	<comment type="description" correct="true"  groupid="3">You can also use a variable to redefine itself!</comment>
+	int current_color = 205;
+	//How will we change the current_color for when the monitor changes color? 
+	<question text="What does current_color become?
+	Select your answer: " options ="206,305,215" answer="215">current_color = current_color + 10;</question>
+	
+	<comment type="description" correct="false"  groupid="2">High school math is useless for programming.</comment>
+	<comment type="description" correct="true"  groupid="2">Order of operations is still true for C++ programs!</comment>
+	
+	<comment type="description" correct="true"  groupid="4">the * symbol means multiplication and / means division</comment>
+	int <question text="What is the value of math?
+	Select your answer: " options="0,1.3333,2,Undefined" answer="2">math = 1+3/(4-1);</question>
+}
+</code>
+</level>

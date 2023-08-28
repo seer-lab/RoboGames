@@ -1,0 +1,46 @@
+<level>
+<next-level>level2-3c.xml</next-level>
+<description>The Ol' Switcheroo</description>
+<introtext>Switches are another way to make decisions.
+Just follow the control flow through the program!</introtext>
+<endtext>Great work!
+You've almost mastered the art of control flow!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	int var1, var2, var3;
+	bool var4;
+	var1 = 1;
+	var2 = 2;
+	
+	//Follow the code using the variable values to see what happens!
+	if ((var1+var2)/2 &lt; 10){
+<beacon flow-order="0" />		if (var1 / 2 == 1){
+<beacon flow-order="" />			var3 = 1;
+		}
+	}
+	else{
+<beacon flow-order="1" />		var3 = 0;
+	}
+	switch(var1){
+<beacon flow-order="2" />		case 1: var4 = false; break;
+<beacon flow-order="" />		case 2: var4 = false; break;
+<beacon flow-order="" />		case 3: var4 = true; break;
+	}
+	if (!(var3 == 1){
+<beacon flow-order="3" />		throw "The program fails!";
+	}
+	else if (var4){
+<beacon flow-order="" />		return 0;
+	}
+	else{
+<beacon flow-order="" />		throw "The program fails!";
+	}
+}
+</code>
+</level>

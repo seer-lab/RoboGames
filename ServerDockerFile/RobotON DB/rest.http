@@ -1,0 +1,67 @@
+### Gets a list of all BUG Logs
+GET http://localhost:3000/logsBUG
+
+### Create a lvl log at the start of the lvl
+PUT http://localhost:3000/logsBUG/1000U/1
+Content-Type: application/json
+
+{
+  "levels" :[
+    {
+      "name": "level1a.xml",
+      "time": "",
+      "progress": "",
+      "timestarted": "",
+      "timeEnded": "N/A",
+      "totalpoint": "0"
+    }
+  ]
+}
+
+### Create/Check if course/student exists in the database
+POST http://localhost:3000/logsBUG/1000U
+Content-Type: application/json
+
+{
+  "studentStart": {
+      "name": "1",
+      "username": "1",
+      "timestarted": "0"
+  }
+}
+
+### Send the log data at end of lvl, change ending depending on the variable
+PUT http://localhost:3000/logsBUG/currentlevel/1000U/1/timeEnded
+Content-Type: application/json
+
+{
+  "timeEnded": "4"
+}
+
+### Send the log data at end of lvl, change ending depending on the variable
+PUT http://localhost:3000/logsBUG/currentlevel/1000U/1/progress
+Content-Type: application/json
+
+{
+  "progress": "Passed"
+}
+
+### Send student points to log(outside the level array), I think this needs to be fixed currently does not work
+PUT http://localhost:3000/logsBUG/points/1000U/1/points
+Content-Type: application/json
+
+{
+  "points": "5000"
+}
+
+### Function that will update the MLData stored in the TaskM Model, using the data in the other Model - We want to set this on an interval
+GET http://localhost:3000/logsBUG/tryingJS
+
+### This will get the machine learning data in the database, this is used for debugging purposes
+GET http://localhost:3000/logsBUG/ml
+
+### This will run the machine learning algo, we want to place this on an interval or to run at a certain time
+GET http://localhost:3000/logsBUG/ml/callAlgo/level1a.xml
+
+### Compare the centroids to the given lvl
+GET http://localhost:3000/logsBUG/ml/centroids/level1a.xml/1000/1

@@ -1,0 +1,24 @@
+<level>
+<next-level>level1-1.xml</next-level>
+<description>Learning About Tools!</description>
+<introtext>There are more tools we can use to help us
+    understand the code.</introtext>
+<endtext>How about you try?</endtext>
+<timelimit>unlimited</timelimit>
+<failure_level>Null</failure_level>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">#There are multiple tools available. 
+#Use the appropriate tool with its corresponding box to activate it!
+AnSwEr = 9 + 10                            @ Let's try out our Activator tool to fix the yellow systems.@
+<question text="What is the value of 'answer': " options="18,19,20,21" answer="19">print(AnSwEr) </question>          @We'll need to do some thinking to figure out the answers.@ !!! 
+#Be careful! Some commenter lines are false! Be careful not to activate them!  @It Looks like we got it right!@
+@We'll need to change our tool to comment out the following lines; Press TAB/tap the tool you want to change tools.@ ???
+<comment type="description" correct="false" groupid="0">The answer above was two thousand.</comment>                              @This doesn't seem correct.@ !!!
+<comment type="description" correct="true" groupid="0">The answer above was nineteen.</comment>               @This line looks right.@ !!! 
+                                                            @There's only one more question!@ ???
+<question text="What is the value of 'answer': " options="18,19,20,21" answer="21"> AnSwEr = AnSwEr + 2 </question>                                 @Since the [AnSwEr] has changed here, it has a different value.@               !!!
+</code>
+</level>

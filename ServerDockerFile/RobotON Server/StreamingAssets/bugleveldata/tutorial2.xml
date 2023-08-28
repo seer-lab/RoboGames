@@ -1,0 +1,23 @@
+<level>
+<description>You now have access to the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool.
+You can use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool to travel from function to function.
+Use the &lt;color=#ff00ffff&gt;WARPER&lt;/color&gt; tool on any line of &lt;color=#ff00ffff&gt;purple&lt;/color&gt; text.
+You can use TAB to switch between tools.</description>
+<next-level>tut3.xml</next-level>
+<introtext>There are two new tools to learn:
+&lt;color=#ff00ffff&gt;WARPERS&lt;/color&gt; help move through code
+&lt;color=#00ff00ff&gt;LOCKS&lt;/color&gt; identify if code is buggy.
+You will need both of these to succeed!</introtext>
+<endtext>Get Ready to Divide and Conquer!</endtext>
+<timelimit>1000</timelimit>
+<tools>
+<tool name="warper" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="catcher" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">void main(){                                               @Warping into functions is useful to see issues within them!@
+    <warp file="tutorial3.xml" col="4">snowmanBuilder();</warp>          @We haven't found any bugs yet, but maybe there's one inside here.@  ??? !!!
+	return;
+}
+</code>
+</level>

@@ -1,0 +1,21 @@
+<level>
+<code language="python">
+<warp line="34" file="level3.xml">exit()</warp>
+
+["aureolineyellow",255,168,36],
+["banana",227,207,87],
+["cadmiumlemon",255,227,3],
+["cadmiumyellow",255,153,18],
+["cadmiumyellowlight",255,176,15],
+["gold",255,215,0],
+["goldenrod",218,165,32],
+["goldenroddark",184,134,11],
+["goldenrodlight",250,250,210],
+["goldenrodpale",238,232,170],
+["lightgoldenrod",238,221,130],
+["melon",227,168,105],
+["naplesyellowdeep",255,168,18],
+["yellow",255,255,0],
+["yellowlight",255,255,224]
+</code>
+</level>

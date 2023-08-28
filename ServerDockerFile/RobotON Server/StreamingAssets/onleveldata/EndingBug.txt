@@ -1,0 +1,6 @@
+$Robot: The fire has been neutralized.
+$Girl: I didn't know you could do that!
+$Robot: I am a little thirsty though.
+$Boy: It looks like Black Hat escaped.
+$Girl: It's ok, his little office caught on fire. He must be going through a rough time.
+$Boy: Poor guy, he should have gotten insurance!

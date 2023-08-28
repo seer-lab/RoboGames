@@ -1,0 +1,771 @@
+/*
+	FONT DEFINITIONS
+	
+	Interface: Arial
+	Speech/Communications: Verdana 
+	Code/Control_Communication: Courier New
+		*(#gidgetSpeech overridden in ui.js)
+
+	COLOR DEFINITIONS
+
+	Color 0: Page Background
+	Color 1: TitleBar
+	Color 2: Main Content Background
+	Color 3: Non-Code Windows (goals & memory)
+	Color 4: Code Window (focusOut - *&initialize.js)
+	Color 5: Code Window (focusIn - initialize.js)
+	Color 6: Communication Bubble Background
+	Color 7: Text Highlight
+	Color 8: QUIT & DEBUG Box
+
+*/
+
+/*********************************************************
+****** M A I N - T A G S *********************************
+*********************************************************/
+
+body {
+	background: 	#42424a; /* Color 0 */
+	color: 			black;
+	font-family:	Arial, Helvetica, sans-serif;
+	padding:		1em;
+	margin:			0em;
+}
+
+p {
+	color: 			white;
+	font-family:	Arial, Helvetica, sans-serif;
+}
+
+a {
+	color:			 gray;
+	font-weight: 	 bold;
+	text-decoration: none;
+}
+
+table {
+	padding: 0em;
+	margin: 0em;
+}
+
+h1 {
+	font-family: 	Arial, Helvetica, sans-serif;
+	text-transform: lowercase;
+	font-size: 		x-large;
+	margin:			0em;
+	margin-bottom:	.5em;
+	margin-top:		1em;
+}
+
+h2 {
+	font-family: 	Arial, Helvetica, sans-serif;
+	text-transform: lowercase;
+	font-size: 		large;
+	margin:			0em;
+	margin-bottom:	.5em;
+	margin-top:		1em;
+}
+
+h3 {
+	font-family: 	Verdana, Arial, Helvetica, sans-serif;
+	text-transform: lowercase;
+	font-size: 		small;
+	margin:			0em;
+}
+
+textarea {
+	font-family: 	"Courier New", Courier, monospace;
+	font-size: 		medium;
+	padding:		1em;
+	margin: 		0em;
+}
+
+/*********************************************************
+****** C O N T A I N E R *********************************
+*********************************************************/
+
+#titleBar {
+	background:		#8999ae; /* Color 1 */
+	color: 			white;
+
+	font-size:		medium;
+	font-weight: 	bold;
+	margin-left:	auto;
+	margin-right:	auto;
+	width:			60em;
+	height:			1.5em;
+	vertical-align: middle;
+	
+	padding:		1em;
+	border:			1px solid gray;
+	border-top-right-radius:	.5em;
+	border-top-left-radius:		.5em;
+	-moz-border-radius-topleft: .5em;
+	-moz-border-radius-topright: .5em;
+}
+
+#titleRight {
+	float: right;
+	font-size:	small;
+}
+
+#content {
+	background-color: #eff7ff;
+	color:			black;
+	margin-left:	auto;
+	margin-right:	auto;
+	margin-bottom:	0em;
+	width:			60em;
+	padding:		1em;
+	padding-top:	0em;
+	border:			1px solid gray;
+	vertical-align: top;
+	text-align: 	left;
+
+	border-bottom-right-radius:		1em;
+	border-bottom-left-radius:		1em;
+	-moz-border-radius-bottomleft:	1em;
+	-moz-border-radius-bottomright: 1em;
+}
+
+
+/*********************************************************
+****** L E F T - P A N E L *******************************
+*********************************************************/
+
+#leftPanel {
+	width:			20em;
+	float: 			left;
+}
+
+/** C O D E - B O X *************************************/
+
+.codeContainer {
+	font-family: 	"Courier New", Courier, monospace;
+	font-size: 		small;
+}
+
+#code {
+	background-color: #f0f5f0; /* Color 4*/
+	color: 			black;
+	font-family: 	"Courier New", Courier, monospace;
+	font-weight: 	bold;
+	font-size: 		small;
+	width:			20em;
+	height:			15.5em; /* originally 18.5em*/
+	border:			2px solid #a9a9a9;
+	padding: 		1em;
+	white-space: 	pre-wrap;
+
+	z-index:		1;
+
+	border-radius: 		1em .5em 1em .5em;
+	-moz-border-radius: 1em .5em 1em .5em;
+}
+
+#code.runtimeReference {
+	border:			solid 4px red;
+}
+
+#code[contentEditable="false"] {
+	overflow-x: 		auto;
+	background-color: 	lightGray;
+}
+
+#code[contentEditable="true"] {
+	color:				black;
+	overflow-x: 		auto;
+	background-color: 	white;
+}
+
+#commandReset {
+	float: right;
+	margin-top: 1em;
+	margin-right: 2em;	
+}
+
+/** C H E A T - S H E E T *******************************/
+
+#cheatsheet {
+
+	position: 		fixed;
+	display:		hidden;
+
+	font-family: 	Verdana, Arial, Helvetica, sans-serif;
+	background:		#ccd3d9; /* Color 3 */
+
+	margin-right:	1em;
+	margin-top:		-.8em;
+	padding: 		1em;
+	font-size:		small;
+	width:			30em;
+	max-height:		19em;
+	overflow-y: 	auto;
+
+	border:	solid 1px gray;	
+	z-index:		4;
+}
+
+#cheatsheet.runtimeReference {
+	border: 3px solid red;
+}
+
+#cheatsheet .cheatsheetItem.runtimeReference {
+	border: 3px solid red;
+}
+
+#toggleCheatsheet {
+	position:		relative;
+	float:			right;
+	right: 			2em;
+	top: 			-.5em;
+	z-index:		2;
+}
+
+
+.cheatsheetExplanation {
+	margin-left:	1em;
+	margin-bottom:	.5em;
+}
+
+/** M I S S I O N **************************************/
+
+#mission {
+	width:			18em;
+	height:			17em;
+	top: 			4.5em;
+	display:		none;
+	position:		absolute;
+	background:		rgb(42,33,28);
+	border:			2px solid rgb(200,200,200);
+	border-radius: 	.25em;
+	-moz-border-radius: .25em;
+	text-align:		right;
+	z-index:		1;
+	padding: 		1em;
+}
+
+#missionText {
+	font-family: 	Verdana, Arial, Helvetica, sans-serif;
+	padding-bottom:	1em;
+	text-align: 	left;
+}
+
+/** G O A L - B O X ************************************/
+
+#goals {
+	background-color: 	#ccd3d9; /* Color 7*/
+	color:				black;
+	font-family:		"Courier New", Courier, monospace;
+	font-weight:		bold;
+	font-size:			small;
+	width:				20em;
+	height:				3.3em;
+	padding:			1em;
+
+	border:				2px solid #a9a9a9;
+	border-top:			0;
+	
+	z-index:			1;
+	
+	overflow-y: 		auto;
+}
+
+#goals.runtimeReference {
+	border: 		4px solid red;
+}
+
+#goals table {
+	word-wrap: 			break-word;
+}
+
+#goals table td {
+	margin: 0em;
+	padding: 0em;
+}
+
+.goal {
+	font-family:		"Courier New", Courier, monospace;
+	font-size:			small;
+	color:				black;
+	font-weight:		bold;
+}
+
+#goalBox {
+	background-color: #fcc; /* Color 7 */
+	width:		100%;
+	padding:	.2em;
+	padding-left:0em;
+}
+
+#goalLine {
+	background-color: #fcc; /* Color 7 */
+	color:rgb(201,170,55);
+	padding-left:	.3em;
+	padding-top:	.25em;
+	padding-bottom:	.25em;
+	padding-right:	.25em;
+}
+
+.success {
+	font-family:	Arial, Helvetica, sans-serif;
+	font-size:		10pt;
+	margin-left:	1em;
+	color:			green;
+}
+
+.failure {
+	font-family:	Arial, Helvetica, sans-serif;
+	font-size:		10pt;
+	margin-left:	1em;
+	color:			red;
+}
+
+
+
+/*********************************************************
+****** C E N T E R - P A N E L ***************************
+*********************************************************/
+
+#centerPanel {
+	width:			19em;
+	float: 			left;
+}
+
+/** W O R L D - G R I D *********************************/
+
+#grid {
+	margin:				 0em; 
+	border-radius:		.25em;
+	-moz-border-radius: .25em;
+}
+
+.infoPanel {
+	background:		#ccd3d9; /* Color 3 */
+	border:			2px solid #a9a9a9;
+	border-radius: 	.5em;
+	
+	border-bottom-right-radius: 1em;
+	border-top-left-radius: 	1em;
+	-moz-border-radius: 1em .5em 1em .5em;
+}
+
+
+/** C O M M U N I C A T I O N - B U B B L E S ***********/
+
+/** SHARED ***********/
+
+.thoughtBubbleCommunication {
+	background-color:	white;
+	padding:			1em 1.5em 1em 1.5em;
+	border:				2px solid #a9a9a9;
+	border-radius: 		1em;
+	-moz-border-radius: 1em;
+	width: 				100%;
+}
+
+
+.thoughtBubbleCommunication.runtimeReference {
+	border:				solid 4px red;
+}
+
+.thoughtBubbleCommunication button {
+	margin-top:	1em;
+}
+
+/** LEARNER **********/
+
+#learnerSpeech {
+	color:				black;
+	font-size:			small;
+}
+
+.thoughtBubbleControl {
+	background-color: 	#ccd3d9; /* Color 6b */
+	padding:			.5em .25em .5em .25em;
+	margin-right:		1.9em;
+	min-height:			2em;
+	font-family: 		"Courier New", Courier, monospace;
+	border:				2px solid #a9a9a9;
+	border-radius: 		.25em;
+	-moz-border-radius: .25em;
+}
+
+.thoughtBubbleControl.runtimereference{
+	border: solid 4px red;
+}
+
+
+.thoughtTable {
+	margin:		0em;
+	padding:	0 0 .5em 0;
+}
+
+.thoughtTableLearner {
+	margin-top:	.75em;
+	margin-right: 1.8em;
+}
+
+.thoughtTableGidget {
+	margin-top:	.35em;
+}
+
+.thoughtTable td {
+	text-align: 	left;
+	vertical-align: top;
+	margin:			0em;
+}
+
+.thoughtTableLearner img {
+	padding-right:  1em; 
+	padding-top:	1em;
+}
+
+.thoughtTableGidget img {
+	padding-left:  1.15em; 
+	padding-top:	1em;
+}
+
+
+
+
+/** GIDGET ***********/
+
+#GidgetThought {
+	padding-top:	1em;
+}
+
+#gidgetSpeech {
+	color:				black;
+	font-size:			10.5pt;
+}
+
+#gidgetSpeech .runtimeReference {
+	border-bottom:		4px solid red;
+}
+
+/** THING ************/
+
+.thoughtBubbleThing {
+	background-color: white; /* Color 6 */
+	color:			black;
+	text-align: 	left;
+	vertical-align:	middle;
+	padding:		.75em .75em .2em .75em;
+	margin-top:		.5em;
+	min-height:		2em;
+	font-family: 	Verdana, Arial, Helvetica, sans-serif;
+	border:			2px solid #a9a9a9;
+	border-radius: 	.75em;
+	-moz-border-radius: .75em;
+}
+
+.thoughtBubbleThing p {
+	color:				black;
+	font-family: 		Verdana, Arial, Helvetica, sans-serif;
+	font-size:			10pt;
+}
+
+#thingThought {
+	position:		absolute;
+	visibility: 	hidden;
+	width:			15em;
+	z-index: 		3;
+	padding:		.75em;
+}
+
+
+/*********************************************************
+****** R I G H T - P A N E L *****************************
+*********************************************************/
+
+#rightPanel {
+	width:			19.25em;
+	float: 			right;
+}
+
+/** M E M O R Y - B O X *********************************/
+
+#memory {
+	color:			black;
+	padding: 		0em 1em .5em 1em;
+}
+
+#memory.runtimeReference {
+	border:			solid 4px red;
+}
+
+.runtimeInfoContainer {
+	font-family: 	Arial, Helvetica, sans-serif;
+	text-transform: lowercase;
+	font-size:		small;
+	width:			20em;
+	min-height:		4em;
+	text-align: 	left;
+}
+
+#energy {
+	font-size:		x-large;
+	color:			black;
+}
+
+.thing {
+	width:			2em;
+	height:			2em;
+	border:			none;
+}
+
+.thingBox {
+	font-family:	Arial, Helvetica, sans-serif;
+	font-size:		9pt;
+	float:			left;
+	text-align:		center;
+	border:			4px solid rgba(255,255,255,0.0);
+	cursor: 		help;
+}
+
+.bracket {
+	font-family:	Arial, Helvetica, sans-serif;
+	font-size:		2.75em;
+	color:			black;
+	float:			left;
+}
+
+.thingList {
+	text-align:		left;
+	width:			100%;
+	min-height:		1em;
+	margin: 		0em;
+	padding: 		0em;
+}
+
+.selection {
+	border:			4px solid rgb(0,255,0);
+	border-radius:	5px;
+	-moz-border-radius: 5px;
+}
+
+.runtimeInfoContainer .runtimeReference {
+	border:			4px solid rgb(255,0,0);
+	border-radius:	5px;
+	-moz-border-radius: 5px;
+}
+
+#thought .runtimeReference {
+	border-bottom:	4px solid rgb(255,0,0);
+}
+
+.sourceToken.runtimeReference {
+	border-bottom:	4px solid rgb(255,0,0);
+}
+
+.sourceLine.runtimeReference {
+	background-color: #fcc;
+}
+
+.sourceLine {
+	font-family: 	"Courier New", Courier, monospace;
+	font-size: 		small;
+	font-weight:	bold;
+	word-wrap: 		normal;
+	min-height:		1em;
+}
+
+.sourceLine.indent {
+	/* This results in a hanging indent for multi-line commands */
+	text-indent:	-1em;
+	padding-left:	1em;
+}
+
+.sourceToken.keyword {
+	color:			green;
+}
+
+.sourceToken.identifier {
+	font-style: italic;
+}
+
+.sourceToken.optional {
+	color: 		gray;
+}
+
+
+
+/*********************************************************
+****** T R I G G E R E D - B O X E S *********************
+*********************************************************/
+
+/** L O A D / I N T R O - B O X *************************/
+
+.progress {
+	margin-top: 		1em;
+	padding:			1em;
+	background-color: 	rgb(200,200,200);
+	height: 			1em;
+	overflow-x: 		visible;
+	white-space: 		nowrap;
+}
+
+/*
+.introBox {
+	background-color: white;
+	
+	border:			solid 1px black;
+	border-radius: 	2px;
+	-moz-border-radius: 2px;
+	
+	padding:		10px;
+	position: 		fixed;
+	top:			1em;
+
+	width:			480px;
+	margin-left:	-240px;
+	left:			50%;
+}
+*/
+
+.introBox {
+	background:		#f0f0f0; /* Color 8 */
+	font-family: 	Arial, Helvetica, sans-serif;
+	border:			solid 2px black;
+	border-radius: 	.75em;
+	-moz-border-radius: .75em;
+	color: black;
+
+	padding:		1em;
+	padding-top:	0em;
+	position: 		fixed;
+	width:			25em;
+	margin-left:	-15em;
+	top:			4em;
+	left:			50%;
+}
+
+.introBox p {
+	color: black;
+}
+
+/** P O P U P - W I N D O W S ***************************/
+
+.popup {
+	background:		#f0f0f0; /* Color 8 */
+	font-family: 	Arial, Helvetica, sans-serif;
+	border:			solid 2px black;
+	border-radius: 	.75em;
+	-moz-border-radius: .75em;
+
+	padding:		1em;
+	padding-top:	0em;
+	position: 		fixed;
+	width:			20em;
+	margin-left:	-10em;
+	top:			4em;
+	left:			50%;
+}
+
+.popup p {
+	color: black;
+}
+
+/** Q U I T - C O N F I R M - B O X **********************/
+
+/*
+#quit {
+	background:		#fcc;
+	color:			#333;
+	text-align:		left;
+	border-radius:	1em;
+	-moz-border-radius: 1em;
+}
+*/
+
+/** S U R V E Y - B O X *********************************/
+
+#postSurvey {
+	border-radius: 	.75em 0 0 0;
+	-moz-border-radius: .75em 0 0 0;
+
+	width: 			40em;
+	height:			30em;
+	padding:		1em;
+	padding-top:	0em;
+	position: 		fixed;
+	margin-left:	-20em;
+	top:			2em;
+	left:			50%;
+	overflow: 		scroll;
+	z-index:		999;
+}
+
+#postSurvey p,td {
+	font-size: small;
+}
+
+#postSurvey td {
+	padding-bottom: 1em;
+}
+
+/** T O O L T I P S *************************************/
+
+.tooltip {
+	background-color: white;
+    position:	absolute;
+    z-index:	979;
+    left: 		-9999px;
+    padding:	1em;
+    border:		1px solid #fff;
+    width:		14em;
+    border:			2px solid rgb(200,200,200);
+	border-radius: 	.5em;
+	-moz-border-radius: .5em;
+    
+}
+
+.tooltip p {
+    background-color:	white;
+    color:		black;
+    font-family:Arial, Helvetica, sans-serif;
+    margin:		0;
+    padding:	0;
+   
+}
+
+
+
+/*********************************************************
+****** M I S C E L L A N E O U S - M O D I F I E R S *****
+*********************************************************/
+
+
+.align-right {
+	float:right;
+}
+
+.align-left {
+	float:left;
+}
+
+.black {
+	color: black;
+}
+
+.white {
+	color: white;
+}
+
+.smallfont{
+	font-size: small;
+}
+
+
+
+/** D E P R E C A T E D *******************************/
+
+/*
+#controls {
+	padding:		.25em;
+	margin-top:		.5em;
+	text-align: 	center;
+}
+
+*/

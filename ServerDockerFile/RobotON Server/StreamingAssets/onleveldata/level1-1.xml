@@ -1,0 +1,26 @@
+<level>
+<next-level>level1-2.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>Hello World!</description>
+<introtext>We need to get our monitors to turn on, 
+let's get some text to output!</introtext>
+<endtext>Hello World! You're a programmer now!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">int main {
+	<comment type="description" correct="true" groupid="0">Code begins to run in the MAIN function.</comment>
+	<comment type="description" correct="true" groupid="1">The COUT command will make a program print text to the screen.</comment>
+	cout &lt;&lt; <question text="What will get printed?
+	Select your answer: " options="hello,world,hello world" answer="hello world">"hello world";</question>
+	
+	return 0;
+	<comment type="description" correct="false" groupid="2">Return 0 tells the computer to send the number 9001.</comment>
+	<comment type="description" correct="true" groupid="3">Return 0 tells the computer to send the number 0.</comment>
+}
+</code>
+<hint type="description"> Remember commenter should be used on code that describes a program, while checker is used for 
+testing the output of the program</hint>
+</level>

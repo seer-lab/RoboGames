@@ -1,0 +1,37 @@
+<level>
+<next-level>level1-5.xml</next-level>
+<description>Do, or Do Not</description>
+<introtext>There are a few more parts of sound that
+needs to be turned on!</introtext>
+<endtext>Good show! 
+You've made it through some tricky stuff!</endtext>
+<failure_level>level1-1.xml</failure_level>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="checker" enabled="true" count="unlimited"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="false"  groupid="0">Variable types don't matter and you can forget about them.</comment>	
+	<comment type="description" correct="true"  groupid="0">You have to pay attention to variable types!</comment>
+	int a = 4;
+	int b = 3;
+	int <question text="What is the value of c?
+	Select your answer: " options="0,1,1.3333" answer="1">c = a/b;</question>
+	<comment type="description" correct="true"  groupid="3" style="multi">TYPECASTING is a way to change one variable type into another
+	You can use typecasting to change integers into float numbers.</comment>
+	<comment type="description" correct="true"  groupid="4">For instance, (float)a will change 4 into 4.0</comment>
+	
+	<comment type="description" correct="false"  groupid="2">float(c) would change c into 1.3 because it's 4/3</comment>
+    <comment type="description" correct="true"  groupid="2">float(c) would change c into 1.0, because the division isn't recalculated</comment>
+	
+	int d = 5;
+	int e = 2;
+	float <question text="What is the value of f?
+	Select your answer: " options="2,2.5,3" answer="2.5">f = (float)d/(float)e;</question>
+}
+</code>
+</level>

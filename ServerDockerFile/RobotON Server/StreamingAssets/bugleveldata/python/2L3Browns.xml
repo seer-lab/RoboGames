@@ -1,0 +1,32 @@
+<level>
+<code language="python">
+<warp line="28" file="level3.xml">exit()</warp>
+
+["beige",163,148,128],
+["brown",128,42,42],
+["brownmadder",219,41,41],
+["brownochre",135,66,31],
+["burlywood",222,184,135],
+["burntsienna",138,54,15],
+["burntumber",138,51,36],
+["chocolate",210,105,30],
+["deepochre",115,61,26],
+["flesh",255,125,64],
+["fleshochre",255,87,33],
+["goldochre",199,120,38],
+["greenishumber",255,61,13],
+["khaki",240,230,140],
+["khakidark",189,183,107],
+["lightbeige",245,245,220],
+["peru",205,133,63],
+["rosybrown",188,143,143],
+["rawsienna",199,97,20],
+["rawumber",115,74,18],
+["sepia",94,38,18],
+["sienna",160,82,45],
+["saddlebrown",139,69,19],
+["sandybrown",244,164,96],
+["tan",210,180,140],
+["vandykebrown",94,38,5]
+</code>
+</level>

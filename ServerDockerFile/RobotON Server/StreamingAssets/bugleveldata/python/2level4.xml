@@ -1,0 +1,58 @@
+<level>
+<description>The Wireless Priority Signal System is almost repaired.
+It needs to use coordinates in 3 dimensions to be operational.
+Set &lt;color=#ff0000ff&gt;BREAKPOINTS&lt;/color&gt; to check the state of the variables.
+&lt;color=#ffff00ff&gt;PRINT&lt;/color&gt; the &lt;color=#ff0000ff&gt;BREAKPOINT&lt;/color&gt; &lt;color=#ffff00ff&gt;output&lt;/color&gt;.
+Identify the bug before you &lt;color=#ff00ffff&gt;WARP&lt;/color&gt; to the calculation function.
+Use the BUGCATCHER to identify the incorrect calculation.</description>
+<next-level></next-level>
+<failure_level>level4.xml</failure_level>
+<introtext>This is the last level!
+Can you figure out where the last bug is?</introtext>
+<endtext>You did it! You've won!</endtext>
+<timelimit>300</timelimit>
+<tools>
+<tool name="printer" count="20" enabled="true"/>
+<tool name="warper" count="1" enabled="true"/>
+<tool name="breakpointer" count="3" enabled="true"/>
+</tools>
+<code language="python">class signal:
+    def __init__(name,x,y):
+		self.name = name
+		self.x = x
+		self.y = y
+
+#Wireless Signal System Prioritizer
+#Uses Closer function to calculate Closest signal
+#id is a list data structure containing multiple coordinates
+#returns the closest signal
+def FirstPriority(id):
+    #id.getCoords(i) returns the coordinates of signal i
+    <breakpoint text="id = [t1,t2,t3]"></breakpoint>num_of_signals = id.Count;
+    <breakpoint text="id = [t1,t2,t3]
+num_of_signals = 3"></breakpoint>
+    <breakpoint text="id = [t1,t2,t3]
+num_of_signals = 3"></breakpoint>t1 = id.getCoords(1)
+
+    <breakpoint text="t1.x,y,z = 100,50,50"></breakpoint>t2 = id.getCoords(2)
+
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50"></breakpoint>t3 = id.getCoords(3)
+
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75"></breakpoint>closest = Closer(t1, t2)
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75
+closest = t1"></breakpoint>closest = Closer(closest, t3)
+    <breakpoint text="t1.x,y,z = 100,50,50
+t2.x,y,z = 50,51,50
+t3.x,y,z = 255,0,75
+closest = t3"></breakpoint>return closest
+    
+
+<warp tool="1,0,0,0,0,0" file="L4Closer.xml">def Closer(t1, t2):
+</warp>
+</code>
+</level>

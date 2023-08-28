@@ -1,0 +1,45 @@
+<level>
+<next-level>level4-2b.xml</next-level>
+<description>Syntax Rox</description>
+<failure_level>level4-1.xml</failure_level>
+<introtext>I can't even tell where we are in this mess, 
+do you think you can clean this up?</introtext>
+<endtext>Well done!
+Are you ready for the final test?</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="namer" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+<tool name="uncommenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+int main {
+	<comment type="description" correct="false"  groupid="0">Long lines of code are easy to read and visibility is never a problem and also you can have no issues figuring out every word that appears on the line no matter how long it is.</comment>
+	<comment type="description" correct="true"  groupid="0">Code lines over 80 characters should be split into separate lines.</comment>
+	<comment type="code" correct="false"  groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today? I hope you are having a most fantastic day!";*/</comment>
+	<comment type="code" correct="true" size="3" groupid="0" style="multi">/*	cout &lt;&lt; "Hello, how are you today?"; 
+	cout &lt;&lt; "I hope you are having a most fantastic day!";*/</comment>	
+	<comment type="description" correct="true"  groupid="1">Do not put multiple statements on a single line.</comment>
+	string <variable-rename text="Choose a name for this variable: " options="author,company,greeting,month" correct="greeting">x</variable-rename>;
+	<comment type="code" correct="false"  groupid="1" style="multi">/* 	x = "Good day!"; cout &lt;&lt; greeting;*/ </comment>
+	<comment type="code" correct="true" size="3" groupid="1" style="multi">/*	x = "Good day!"; 
+	cout &lt;&lt; x;*/</comment>
+	<comment type="description" correct="true"  groupid="2">Brackets and Braces should be placed in a consistent manner.</comment>
+	int <variable-rename text="Choose a name for this variable: " options="time,counter,salary,temperature" correct="counter">i</variable-rename> = 0;
+<comment type="code" correct="false"  groupid="2" style="multi">	/*while(i &lt; 5
+	){*/</comment>
+<comment type="code" correct="true"  groupid="2" style="single">	// while(i &lt; 5){</comment>
+		cout &lt;&lt; i;
+		i++;
+<comment type="code" correct="false"  groupid="3" style="multi">/*		if (i % 2 == 0){
+			cout &lt;&lt; i &lt;&lt; " is even!";
+		}}*/</comment>
+<comment type="code" correct="true"  groupid="3" style="multi">/*		if (i % 2 == 0){
+			cout &lt;&lt; i &lt;&lt; " is even!";
+		}
+	}*/</comment>
+}
+</code>
+</level>

@@ -1,0 +1,35 @@
+<level>
+<next-level>level1-3b.xml</next-level>
+<failure_level>level1-1.xml</failure_level>
+<description>String Theory</description>
+<introtext>The menu of our monitor is important for being able
+to adjust our settings! We need to turn on the varrying text.</introtext>
+<endtext>Your skills are cOUT of this world!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="commenter" enabled="true" count="8"/>
+<tool name="checker" enabled="true" count="5"/>
+</tools>
+<code language="c++">#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+<comment type="description" correct="true"  groupid="0">Don't forget to put these at the start of your programs!</comment>
+<comment type="description" correct="true"  groupid="2">Input and output operations come from LIBRARIES that you add to your code.</comment>
+<comment type="description" correct="false"  groupid="3">The WriteMyTextPrettyPlease command is used to print out variables.</comment>
+<comment type="description" correct="true"  groupid="10">The COUT command is used to print out variables.</comment>
+
+int main {
+	<comment type="description" correct="true"  groupid="4" hint="This is a hint">STRING variables store any amount of text.</comment>
+	string menu_title = "Select the Source Type";
+	
+	<comment type="description" correct="false"  groupid="1" hint="This is also a hint">The computer magically knows every value that every variable has ever had.</comment>
+	<comment type="description" correct="true"  groupid="1" hint="Woah this is a hint as well">If you reassign a value to a variable, its old value disappears!</comment>
+	
+	string mystring = "Using VGA";
+	mystring = "Using HDMI";
+	cout &lt;&lt; <question text="What is the value of mystring?
+	Select your answer: " options="Undefined,Using VGA,Using HDMI" answer="Using HDMI">mystring;</question>
+}
+</code>
+<hint type="description">This is a hint</hint>
+</level>

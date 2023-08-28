@@ -1,0 +1,44 @@
+<level>
+<next-level>level2-3c.xml</next-level>
+<failure_level>level2-1.xml</failure_level>
+<description>The Ol' Switcheroo</description>
+<introtext>Just follow the control flow through the program!</introtext>
+<endtext>Great work!
+You've almost mastered the art of control flow!</endtext>
+<timelimit>unlimited</timelimit>
+<tools>
+<tool name="controlflow" enabled="true" count="unlimited"/>
+<tool name="commenter" enabled="true" count="unlimited"/>
+</tools>
+<code language="python">
+	var1 = 1
+	var2 = 2
+	
+	<comment type="description" correct="true"  groupid="3">Follow the code using the variable values to see what happens!</comment>	
+	if ((var1+var2)/2 &lt; 10):
+<beacon flow-order="0" />		if (var1 / 2 == 1):
+<beacon flow-order="" />			var3 = 1
+		}
+	}
+	else{
+<beacon flow-order="1" />		var3 = 0
+	}
+	if (var1 == 1):
+<beacon flow-order="2" />		var4 = False
+	elif (var1 == 2):
+<beacon flow-order="" />		var4 = False
+	elif (var1 == 3):
+<beacon flow-order="" />		var4 = True
+	
+	if (!(var3 == 1):
+<beacon flow-order="3" />		raise Exception("The program fails!")
+	
+	elif(var4):
+<beacon flow-order="" />		return 0
+	
+	else:
+<beacon flow-order="" />		raise Exception("The program fails!")
+	
+
+</code>
+</level>
