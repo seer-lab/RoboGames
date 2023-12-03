@@ -1,8 +1,0 @@
-BWComputer
-#Girl: 500 200 0
-#Boy: -500 200 0
-$Girl: I'm glad we were able to find that bug!
-$Boy: That was really frustrating, but we finally sorted things out!
-$Girl: There seems to be another problem already though: look!
-$Boy: Our screens are all black and white!
-$Boy: I guess we better look into our colour systems...

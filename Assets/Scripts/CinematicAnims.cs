@@ -342,17 +342,10 @@ public partial class Cinematic : MonoBehaviour{
         //txtFile = txtFile.Replace("\\", "/");
 		
         filepath = stringLib.SERVER_URL +"StreamingAssets/" + txtFile;
-
-        Debug.Log("WebGL Cinematic Anims 352 Filepath = " + filepath);
-
-        filepath.Replace("bugleveldata/bugleveldata","bugleveldata"); //this is super hacky and needs a proper fix
+		
+		filepath.Replace("bugleveldata/bugleveldata","bugleveldata"); //this is super hacky and needs a proper fix
 		filepath.Replace("\\","/");
-
-        Debug.Log("WebGL Cinematic Anims 352 Filepath = " + filepath);
-
-        //QuickFix to textFile not being found
-        filepath = stringLib.SERVER_URL + "StreamingAssets/" + "bugleveldata/" + txtFile;
-
+		
         WebHelper.i.url = filepath; 
         WebHelper.i.GetWebDataFromWeb(); 
         filepath = WebHelper.i.webData; 

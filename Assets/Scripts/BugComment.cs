@@ -10,7 +10,6 @@ public class BugComment : comment
 {
     bool isAnswered = false;
     string resultingOutput = "";
-    private Logger logger = new Logger(true);
 
     protected override void OnTriggerProtocol(Collider2D collidingObj)
     {
@@ -44,8 +43,7 @@ public class BugComment : comment
 			if (GlobalState.HintMode==1) { //ADAPTIVE code for hints
 				if (GlobalState.AdaptiveMode==2 || (GlobalState.AdaptiveMode==1 && GlobalState.tooluses % 2 == 1)){
 					output.hint = hinttext;
-                    logger.onHintShown(hinttext, 3);
-                }
+				}
 				GlobalState.tooluses++;
 			}
             resultingOutput = output.Text.text; 

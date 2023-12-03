@@ -41,7 +41,15 @@ public class CourseCodeController : MonoBehaviour
         }
         else if (dropDown.value == 1)
         {
-            dropDownValue = "CSC148H5";
+            dropDownValue = "CSCI 3060U";
+        }
+        else if (dropDown.value == 2)
+        {
+            dropDownValue = "CSCI 4020U";
+        }
+        else if (dropDown.value == 3)
+        {
+            dropDownValue = "CSCI 4080U";
         }
 
         GlobalState.courseCode = dropDownValue;

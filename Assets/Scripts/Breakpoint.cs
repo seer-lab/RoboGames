@@ -21,9 +21,7 @@ public class Breakpoint : Tools {
 
 	Animator anim; 
 	private bool activated = false;
-    private Logger logger = new Logger(true);
-
-    public override void Initialize(){
+	public override void Initialize(){
 		anim = GetComponent<Animator>();
 	}
 
@@ -48,7 +46,6 @@ public class Breakpoint : Tools {
 			if (GlobalState.HintMode==1) { //ADAPTIVE code for hints
 				if (GlobalState.AdaptiveMode==2 || (GlobalState.AdaptiveMode==1 && GlobalState.tooluses % 2 == 1)){
 					output.hint = hinttext;
-                    logger.onHintShown(hinttext, 3);
 				}
 				GlobalState.tooluses++;
 			}

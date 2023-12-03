@@ -18,7 +18,7 @@ public class LevelFactory
     public LevelFactory(string filename, bool warp = false)
     {
         level = new Level(); 
-		if (GlobalState.HintMode == 2 && GlobalState.AdaptiveOffON == 1){
+		if (GlobalState.HintMode == 2){
 			if (GlobalState.username != null){
 				GlobalState.HintMode = System.Convert.ToInt32(GlobalState.username)%2;
 			}

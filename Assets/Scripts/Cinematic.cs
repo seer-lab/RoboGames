@@ -40,21 +40,13 @@ public partial class Cinematic : MonoBehaviour
     int GlobalPoints; //this is purely for UI purposes
     string webdata;
     int maxScore;
-    int option = 0;
-    string savedHint = "";
-    int hintType = 0;
-    bool hintShown = false;
-    DateTime timeNow;
+    int option = 0; 
     Button[] options; 
     //.................................>8.......................................
     // Use this for initialization
     void Start()
     {
         logger = new Logger(true);
-
-        //Used to calculate idle time if they lost
-        timeNow = DateTime.UtcNow;
-
         //Determine the score/points the player should recieve here. 
         //continuetext = stringLib.CONTINUE_TEXT;
         originalTimeBonus = GlobalState.timeBonus; 
@@ -306,12 +298,6 @@ public partial class Cinematic : MonoBehaviour
                 }
                 GlobalState.GameState = stateLib.GAMESTATE_IN_GAME;
                 cinerun = false;
-                
-                if (GlobalState.failures!=0)
-                {
-                    logger.loseIdleTime(timeNow);
-                }
-                
                 StartCoroutine(LoadGame());
             }
             
@@ -375,20 +361,15 @@ public partial class Cinematic : MonoBehaviour
 				}
 				else if (GlobalState.failures == 2 || (GlobalState.AdaptiveMode == 1 && GlobalState.failures == 3)){
 					prompt1.GetComponent<Text>().text = GlobalState.Hint1;
-                    savedHint = GlobalState.Hint1;
-                    hintShown = true;
-                    hintType = 1;
-                }
+				}
 				else{
 					prompt1.GetComponent<Text>().text = GlobalState.Hint2;
-                    savedHint = GlobalState.Hint2;
-                    hintShown = true;
-                    hintType = 2;
-                }
+				}
 			}
 			else{
 				prompt1.GetComponent<Text>().text = GlobalState.Tech;
-            }
+			}
+			Debug.Log("Failures = "+GlobalState.failures.ToString());
 			
 			//prompt2.GetComponent<Text>().text = stringLib.RETRY_TEXT;
             if (Input.GetKeyDown(KeyCode.Escape) && delaytime < Time.time)
@@ -413,15 +394,7 @@ public partial class Cinematic : MonoBehaviour
                 else
                     UpdateLevel(filepath);
                 GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                Debug.Log("LoadingScreen");
-
-                if (hintShown)
-                {
-                    logger.onHintShown(savedHint,hintType);
-                }
-                savedHint = "";
-                hintShown = false;
-                hintType = 0;
+                //Debug.Log("LoadingScreen");
             }
         }
         else
@@ -448,7 +421,7 @@ public partial class Cinematic : MonoBehaviour
             GlobalState.Stats = new CharacterStats();
         }
 
-        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.courseCode + "/" + GlobalState.sessionID; 
+        string url = stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/points/" + GlobalState.sessionID; 
 
         SendPointsToDB(url + "/totalPoints", 
                         "{ \"totalPoints\":\"" + GlobalState.totalPoints.ToString() + "\"}");

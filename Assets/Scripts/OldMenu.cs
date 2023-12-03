@@ -10,7 +10,6 @@
 // Date Last Modified: 6/1/2016
 //**************************************************//
 
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,8 +53,6 @@ public class OldMenu : MonoBehaviour
     int[] fontSizes;
     bool entered = false;
 
-    Logger logger = new Logger(true);
-    DateTime timeNow;
     //.................................>8.......................................
     // Use this for initialization
     void Start()
@@ -84,13 +81,14 @@ public class OldMenu : MonoBehaviour
         ToggleTheme();
         filepath = (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) ? windowsFilepath : unixFilepath;
 
-        timeNow = DateTime.UtcNow;
+
         //Checks for users previous settings such as sessionID, or any menu preferences
         String sessionID = PlayerPrefs.GetString("sessionID");
         String courseCode = PlayerPrefs.GetString("courseCode");
 
         Debug.Log("Resume OM: " + GlobalState.IsResume);
         Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
+
 
         //Checks for sessionID, if there is, grab that and the menu preferences
         if (sessionID == "" || sessionID == null)
@@ -109,6 +107,10 @@ public class OldMenu : MonoBehaviour
                 Debug.Log("Found Session ID: " + GlobalState.sessionID);
             }
 
+            /*Hard Coded course code for now, Removed for new one
+            sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.Now.ToString(),
+                               stringLib.DB_URL + GlobalState.GameMode.ToUpper(), GlobalState.sessionID.ToString());
+            */
             Debug.Log(GlobalState.courseCode);
             sendInitialDataDB(GlobalState.sessionID.ToString(), DateTime.UtcNow.ToString(), stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/" + GlobalState.courseCode);
 
@@ -186,26 +188,6 @@ public class OldMenu : MonoBehaviour
         textOption = GlobalState.TextSize;
         soundon = GlobalState.soundon;
 
-        /*Comment Out if wanting to change adaptive gameplay basaed on # of students
-        string json = GrabMLDataFromDB(stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/mlAuto/" + GlobalState.courseCode.ToString() + "/" + GlobalState.sessionID.ToString());
-        json = "{\"Items\":" + json + "}";
-        Debug.Log("ML Auto Data" + json);
-        Root rt = JsonConvert.DeserializeObject<Root>(json);
-
-        Debug.Log("Rt:" + rt.Items[0].amountOfMLOn);
-        if (rt.Items[0].amountOfMLOn > 3)
-        {
-            GlobalState.AdaptiveOffON = 1;
-        }
-        */
-
-        if (DateTime.Compare(DateTime.UtcNow, GlobalState.AdaptiveChangeTime)>0)
-        {
-            GlobalState.AdaptiveOffON = 1;
-        }
-        Debug.Log("DateTime Comparison: " + DateTime.Compare(DateTime.UtcNow, GlobalState.AdaptiveChangeTime));
-        TimeSpan duration = DateTime.UtcNow - GlobalState.AdaptiveChangeTime;
-        Debug.Log(duration);
     }
     private void ToggleTheme()
     {
@@ -335,9 +317,6 @@ public class OldMenu : MonoBehaviour
                         buttons[option].GetComponent<SpriteRenderer>().sprite = bluebutton;
                         option = 0;
                         GlobalState.GameState = stateLib.GAMESTATE_LEVEL_START;
-                        GlobalState.failedTool = 0;
-                        GlobalState.failures = 0;
-                        GlobalState.hitByEnemy = 0;
 
                         if (SceneManager.sceneCount > 1)
                         {
@@ -365,9 +344,6 @@ public class OldMenu : MonoBehaviour
                             m2buttontext[0].GetComponent<TextMesh>().text = levels[levoption];
                             m2buttontext[1].GetComponent<TextMesh>().text = "Back";
                             GlobalState.GameState = stateLib.GAMESTATE_MENU_LOADGAME_SUBMENU;
-                            GlobalState.failedTool = 0;
-                            GlobalState.failures = 0;
-                            GlobalState.hitByEnemy = 0;
                             m2switch(true);
                         }
                         break;
@@ -407,9 +383,6 @@ public class OldMenu : MonoBehaviour
                         Debug.Log("Resume OM: " + GlobalState.IsResume);
                         Debug.Log("Level OM: " + GlobalState.CurrentBUGLevel);
                         Debug.Log("Fail: " + GlobalState.failures);
-
-                        Debug.Log(timeNow + "Pressed???");
-                        logger.loseIdleTime(timeNow);
 
                         if (SceneManager.sceneCount > 1)
                             SceneManager.UnloadSceneAsync("MainMenu");
@@ -1044,26 +1017,6 @@ public class OldMenu : MonoBehaviour
         DatabaseHelperV2.i.url = url;
         DatabaseHelperV2.i.jsonData = json;
         DatabaseHelperV2.i.PutToDataBase();
-    }
-
-    public string GrabMLDataFromDB(string url)
-    {
-        WebHelper.i.url = url;
-        Debug.Log("ML Auto Data url " + WebHelper.i.url);
-        WebHelper.i.GetWebDataFromWeb();
-        Debug.Log(WebHelper.i.webData);
-        return WebHelper.i.webData;
-    }
-
-    //Classes Used to read in amount of ML users
-    public class Item
-    {
-        public int amountOfMLOn;
-    }
-
-    public class Root
-    {
-        public List<Item> Items;
     }
 }
 

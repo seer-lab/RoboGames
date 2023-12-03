@@ -109,19 +109,6 @@ public class Logger
         linesUsed[index] += lineNumber.ToString() + ' ';
     }
 
-    public void onHintShown(string hint, int hintType)
-    {
-        LoggerHint hintData = new LoggerHint();
-        hintData.eventType = "Hint"+ hintType;
-        hintData.realTime = DateTime.UtcNow.ToString();
-        hintData.eventName = hint;
-
-        string hintObj = JsonUtility.ToJson(hintData);
-        hintObj = "{\"hint\":" + hintObj + "}";
-
-        sendDatatoDB(hintObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/hint");
-    }
-
     /// <summary>
     /// A method that sends and state change to the DB
     /// </summary>
@@ -192,8 +179,7 @@ public class Logger
 
         sendDatatoDB(statesObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/states");
 
-        Debug.Log(String.Equals(states.eventName, GlobalState.StringLib.namesBug[0]));
-        if (String.Equals(states.success, "false")&& String.Equals(states.eventName, GlobalState.StringLib.namesBug[0]))
+        if (String.Equals(states.success, "false"))
         {
             GlobalState.failedTool++;
         }
@@ -385,8 +371,6 @@ public class Logger
 
         }
         */
-        GlobalState.levelsDone += 1;
-        Debug.Log("LevelsDone=" + GlobalState.levelsDone);
         GlobalState.jsonStates = null;
         GlobalState.jsonOStates = null;
     }
@@ -404,13 +388,6 @@ public class Logger
 
         jsonObj = "{\"totalPoint\":\"" + GlobalState.totalPointsCurrent.ToString() + "\"}";
         sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/totalPoint");
-    }
-
-    public void loseIdleTime(DateTime timeNow)
-    {
-        string totalT = DateTime.UtcNow.Subtract(timeNow).TotalSeconds.ToString();
-        jsonObj = "{\"idleTime\":\"" + totalT + "\"}";
-        sendDatatoDB(jsonObj, stringLib.DB_URL + GlobalState.GameMode.ToUpper() + "/currentlevel/" + GlobalState.courseCode + "/" + GlobalState.sessionID + "/idleTime");
     }
 
     public void sendUpgrades(string name, int points, int curPoints)
@@ -441,7 +418,7 @@ public class Logger
         levelObj.time = "";
         levelObj.progress = "";
         levelObj.timeStarted = DateTime.UtcNow.ToString();
-        levelObj.timeEnded = "N/A";
+        levelObj.timeEnded = "";
         levelObj.totalPoint = "0";
         string jsonOBJ = JsonUtility.ToJson(levelObj);
         jsonOBJ = "{\"levels\" : [" + jsonOBJ + "]}";
@@ -602,15 +579,4 @@ public class LoggerCourseCodeStart
 {
     public string courseCode;
     public LoggerDataStart studentStart;
-}
-
-[Serializable]
-public class LoggerHint
-{
-    public string eventType;
-    public string eventName;
-    public string realTime;
-
-    //Verbose Variables
-    public string comment;
 }
